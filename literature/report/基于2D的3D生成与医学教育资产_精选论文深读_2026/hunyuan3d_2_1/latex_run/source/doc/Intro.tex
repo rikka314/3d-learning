@@ -1,0 +1,21 @@
+\section{Introduction}
+
+While recent breakthroughs in 2D image and video generation—powered by diffusion models~\cite{ho2020denoising,rombach2022high,esser2024scaling,li2024hunyuandit,kong2024hunyuanvideo,wan2025}—have revolutionized content creation, the field of 3D generative modeling lags behind. Current methods for 3D asset synthesis remain fragmented, with incremental progress in foundational techniques such as latent representation learning~\cite{zhang20233dshape2vecset}, geometric refinement~\cite{zhao2023michelangelo,li2025triposg,weng2024scaling}, and texture synthesis~\cite{zhang2024clay,jiang2024flexitex,liu2024text}. Among these, CLAY~\cite{zhang2024clay} marks a milestone as the first framework to demonstrate the viability of diffusion models for high-quality 3D generation. Yet, unlike the thriving open-source ecosystems in image (~\eg, Stable Diffusion~\cite{rombach2022high}), language (~\eg, LLaMA~\cite{touvron2023llama}), and video (~\eg, HunyuanVideo~\cite{kong2024hunyuanvideo}, and Wan 2.1~\cite{wan2025}), the 3D domain lacks a robust, scalable foundation model to drive widespread innovation.  
+
+
+
+
+To bridge this gap, we introduce \emph{\methodName}, a comprehensive 3D asset creation system to generate a textured mesh from a single image input. It is mainly built on two fully open-source foundation models: 1) Hunyuan3D-DiT: A shape-generation model combining a flow-based diffusion architecture with a high-fidelity mesh autoencoder (Hunyuan3D-ShapeVAE); 2) Hunyuan3D-Paint: a mesh-conditioned multi-view diffusion model for PBR material generation, producing high-quality, multi-channel-aligned, and view-consistent textures.
+
+% Technical Innovations  
+For shape generation, we leverage Hunyuan3D-ShapeVAE and Hunyuan3D-DiT to achieve high-quality and high-fidelity shape generation. Specifically, Hunyuan3D-ShapeVAE employs mesh surface importance sampling to enhance sharp edges and variational token length to improve intricate geometric details. Hunyuan3D-DiT inherits the recent advanced flow matching models~\cite{lipman2022flow,esser2024scaling} to construct a scalable and flexible diffusion model.
+
+For texture synthesis, Hunyuan3D-Paint introduces a multi-view PBR diffusion that generates albedo, metallic, and roughness maps for meshes. Notably, Hunyuan3D-Paint incorporates a spatial-aligned multi-attention module to align albedo and MR maps, 3D-aware RoPE to enhance cross-view consistency, and an illumination-invariant training strategy to produce light-free albedo maps robust to varying lighting conditions.
+
+%  Decoupled Pipeline  
+\emph{\methodName} separates shape and texture generation into distinct stages, an more advanced strategy proven effective upon previous large reconstruction models ~\cite{hong2023lrm,yang2024hunyuan3d,xu2024instantmesh,yang2024viewfusion,weng2023consistent123,liu2023syncdreamer,shi2023zero123++,liu2023zero}. This modularity allows users to generate untextured meshes only or apply textures to custom assets, enhancing flexibility for industrial applications.  
+
+%  Performance & Validation  
+We rigorously evaluate \emph{\methodName} against leading commercial and recent open-source models, ~\eg, Michelangelo~\cite{zhao2023michelangelo}, Craftsman 1.5~\cite{li2024craftsman}, Trellis~\cite{xiang2024structured}, TripoSG~\cite{li2025triposg}, Step1X-3D~\cite{li2025step1x} and Direct3D-S2~\cite{wu2025direct3ds2gigascale3dgeneration}. Quantitative metrics and visual comparisons confirm its superiority in geometric detail preservation, texture-photo consistency, and human preference.  
+
+This tutorial unpacks the architecture, data processing, training, and evaluation of \emph{\methodName}, providing practitioners with the tools to harness its capabilities for diverse 3D generation tasks.  

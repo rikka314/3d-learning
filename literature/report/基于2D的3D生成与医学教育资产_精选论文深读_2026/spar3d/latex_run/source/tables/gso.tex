@@ -1,0 +1,22 @@
+\begin{table*}[h]
+\begin{center}
+\scriptsize
+\resizebox{1.0\linewidth}{!}{\begin{tabular}{ l c c c c c c c c}
+\hline
+Method & CD$\downarrow$ & FS@0.1$\uparrow$ & FS@0.2$\uparrow$ & FS@0.5$\uparrow$ & PSNR$\uparrow$ & SSIM$\uparrow$ & LPIPS$\downarrow$ & Time (s)$\downarrow$ \\
+\hline
+Shap-E~\cite{jun2023shap}               & 0.204 & 0.359 & 0.638 & 0.922 & 15.3 & 0.802 & 0.205 & 3.1    \\
+LN3Diff~\cite{lan2024ln3diff}              & 0.174 & 0.422 & 0.703 & 0.949 & 17.1 & 0.819 & 0.169 & 5.1    \\
+LGM~\cite{tang2024lgm}                  & 0.196 & 0.356 & 0.635 & 0.936 & 17.0 & 0.818 & 0.184 & 41.0    \\
+CRM~\cite{wang2024crm}                  & 0.161 & 0.437 & 0.735 & 0.961 & 17.5 & 0.830 & 0.169 & 7.4    \\
+TripoSR~\cite{TripoSR2024}              & 0.145 & 0.501 & 0.784 & 0.968 & \underline{18.5} & \underline{0.837} & 0.151 & \textbf{0.2}    \\
+InstantMesh~\cite{xu2024instantmesh}    & \underline{0.135} & \underline{0.545} & \underline{0.812} & \underline{0.971} & 18.1 & \underline{0.838} & \underline{0.146} & 36.1    \\
+SF3D~\cite{sf3d2024}                    & \underline{0.137} & \underline{0.540} & \underline{0.806} & \underline{0.970} & 18.0 & \textbf{0.839} & \underline{0.145} & \underline{0.3}    \\
+\method (ours)                          & \textbf{0.120} & \textbf{0.584} & \textbf{0.850} & \textbf{0.983} & \textbf{18.6} & \underline{0.836} & \textbf{0.139} & \underline{0.7}    \\
+\hline
+\end{tabular}}
+\caption{\textbf{Quantitative Comparisons on GSO~\cite{downs2022google}.} \method performs favorably to other state-of-the-art methods.}
+\label{tab:gso}
+\vspace{-3mm}
+\end{center}
+\end{table*}

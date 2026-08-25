@@ -1,0 +1,80 @@
+
+
+\section{Data Processing}
+In this section, we aim to describe the data processing for training the shape generation model and texture model. We start to introduce the dataset preparation, and then present how to obtain the relevant training and testing data for the shape generation model and texture model.
+
+\subsection{Dataset collection}
+For shape generation, we collect 100K+ textured and untextured 3D data from public datasets and custom datasets. The public dataset comes mainly from ShapeNet~\cite{chang2015shapenet}, ModelNet40~\cite{wu20153d}, Thingi10K~\cite{zhou2016thingi10k}, and Objaverse~\cite{deitke2023objaverse,deitke2023objaversexl}. For texture synthesis, we filter 70K+ human-annotated high-quality data following strict curation protocols from Objaverse-XL~\cite{deitke2023objaversexl}.
+
+\subsection{Data preprocessing for shape generation}
+
+\subsubsection{Normalization}
+The normalization process begins by calculating the axis-aligned bounding box for each 3D object, ensuring all subsequent operations work in a standardized coordinate space. We apply uniform scaling to fit the object within a unit cube centered at the origin, preserving aspect ratios while maintaining consistent scale across the entire dataset. This spatial normalization is particularly crucial for neural networks to learn consistent geometric patterns, as it eliminates size variations that could otherwise dominate the learned features. For point cloud data, the implementation involves centering the cloud by subtracting its centroid, then scaling all points by the maximum Euclidean distance from the center, as shown in the provided Python snippet. This approach guarantees that all objects occupy approximately the same volume in the normalized space while preserving their original geometric relationships.
+
+
+\subsubsection{Watertight}
+The \textit{IGL} library generates watertight surfaces by constructing a signed distance field (SDF) from defective geometry. We initialize a uniform 3D query grid encompassing the input mesh. For each query point $\mathbf{q} \in Q_g$, IGL computes:  
+$$\text{SDF}(\mathbf{q}) = \underbrace{\text{distance\_to\_mesh}(\mathbf{q}, V, F)}_{\text{nearest surface distance}} \cdot \underbrace{\text{sign}(\omega(\mathbf{q}))}_{\text{inside/outside sign}}$$
+where $V$ and $F$ represent input vertices and faces. The sign is determined by the generalized winding number $\omega(\mathbf{q})$ where $\omega \approx 1$ indicates interior points and $\omega \approx 0$ exterior points.  
+
+Sign consistency is enforced using IGL's winding number calculation. This resolves ambiguous signs near self-intersections by thresholding $\omega > 0.5$ for interior classification. The watertight mesh is extracted at the zero-level isosurface via marching cubes. The output $(V_\text{iso}, F_\text{iso})$ forms a topologically closed surface without boundary discontinuities.
+
+\subsubsection{SDF Sampling}
+In our approach, the creation of signed distance fields (SDF) serves as the core mathematical framework for representing 3D shapes. To achieve this, we employ a strategy of randomly selecting query points in two distinct ways: either close to the surface of the shape or evenly distributed throughout the entire $[-1,1]^3$ space. We then compute the SDF values for these points using the IGL computing library. The SDF values obtained from points near the surface are crucial for capturing the intricate details of the shape's surface. This allows the model to accurately represent fine features and subtle variations in the geometry. The SDF values from uniformly sampled points provide the model with a broader understanding of the overall structure and form of the 3D shapes. This dual sampling approach ensures that the model gains a comprehensive understanding of both detailed and general aspects of the shapes.
+
+\subsubsection{Surface Sampling} Our hybrid sampling strategy combines the strengths of both uniform and feature-aware approaches to capture complete geometric information. Uniform sampling guarantees even coverage across the surface, forming approximately $50\%$ of the final point set. The remaining $50\%$ of points are strategically placed near high-curvature features through importance sampling based on local surface derivatives. The sampling density automatically adapts to geometric complexity, increasing point concentration in regions with intricate details while maintaining sparser sampling in simpler areas. This balanced approach ensures that sharp edges, corners, and other defining features receive adequate representation without unnecessarily dense sampling of planar regions, optimizing both the quality and efficiency of the resulting point set.
+
+\subsubsection{Condition Render}
+To render condition images for shape generation training, we sample 150 cameras uniformly distributed on a sphere centered at the origin using the Hammersley sequence algorithm with a randomized offset $\delta \in [0,1)^2$. An augmented dataset is generated with randomized FoVs $\theta_{\text{aug}} \sim \mathcal{U}(10^\circ, 70^\circ)$. in the meanwhile camera's  radius is adjusted between $r_{\text{aug}} \in [1.51, 9.94]$ to ensure consistent object framing.  % and curvature values $k=1/r^2\sim \mathcal{U}(0.01,1.32)$ for numerical stability.
+
+\begin{algorithm}
+\caption{3D Data Preprocessing Pipeline}\label{alg:preprocess}
+\begin{algorithmic}[1]
+\Require Raw 3D mesh $X = (V,F)$ (vertices and faces)
+% \Ensure Processed data ready for shape generation
+
+\State \textbf{1. Normalization:}
+\State $V_{norm} \gets Normalize(V)$
+
+\State \textbf{2. Watertight Processing:}
+\State Initialize empty SDF grid $\mathcal{G}$
+\State $SDF \gets \text{IGL}(\mathcal{G}, V_{norm}, F)$
+\State ($V_{iso}, F_{iso}) \gets \text{MarchingCube}(SDF, \text{level}=0)$
+% \Else
+    % \State $X_{proc} \gets X_{norm}$
+% \EndIf
+
+\State \textbf{3. SDF Sampling:}
+\State $P_{surface} \gets \text{sample\_surface}(V_{iso}, F_{iso}, N_{near})$ \Comment{$N_{near}=249,856$ total points}
+\State $P_{near} \gets \text{sample\_near\_surface}(V_{iso}, F_{iso}, N_{uniform})$ \Comment{$N_{uniform}=249,856$ total points}
+% \State $P_{sharp} \gets \text{sample\_uniform}(V_{iso}, F_{iso}, N_{uniform})$ \Comment{$N_{uniform}=200,000$ total points}
+\State Query points $P_{query} \gets P_{near} \cup P_{uniform}$ 
+\State $ SDF_{query} \gets igl.signed\_distance(P_{query}, V_{iso}, F_{iso})$
+
+\State \textbf{4. Surface Sampling:}
+\State $P_{random} \gets \text{RandomSample}(V_{iso}, F_{iso}, N)$
+\State $P_{sharp} \gets \text{SharpSample}(V_{iso}, F_{iso}, N)$ \Comment{$N=124928$ total points}
+
+\State \textbf{5. Hammersley Condition Rendering:}
+\State Generate Hammersley sequence $H_{150}$ on unit sphere
+\State Apply random offset $\delta \sim \mathcal{U}([0,1)^2)$ to $H_{150}$
+\For{each camera position $\mathbf{c}_i \in H_{150}$}
+    \State Sample FoV $\theta_i \sim \mathcal{U}(10^\circ,70^\circ)$
+    \State Compute radius $r_i \sim \mathcal{U}(\theta_{min},\theta_{max})$
+    \State $Img_i \gets \text{render\_image}(X, \mathbf{c}_i, r_i)$
+    % \State $D_i \gets \text{render\_depth}(X, \mathbf{c}_i)$
+    % \State $N_i \gets \text{render\_normal}(X, \mathbf{c}_i)$
+\EndFor
+
+\State \Return $P_{query}, SDF_{query}, P_{random}, P_{sharp}, \{Img_i\}_{i=1}^{150}$
+\end{algorithmic}
+\end{algorithm}
+
+
+\subsection{Data preprocessing for texture synthesis}
+
+% To generate light- and shadow-free albedo map and accurate MR map, we posit an intuitive insight: while rendering results of the same object differ under diverse lighting, its intrinsic material properties should remain consistent. Consequently, we design an illumination-invariant training strategy to enforce this property. Specifically, consistency loss is computed by adopting two sets of training samples containing reference images of the same object rendered by different lighting conditions.
+
+The texture synthesis heavily relies on 3D assets with rich texture details. Our training dataset consists of 70k+ human-annotated high quality data following strict curation protocols, which is filtered from Objaverse~\cite{deitke2023objaverse} and Objaverse-XL \cite{deitke2023objaversexl}. For each 3D object, we rendered data from four elevation angles: $-20^{\circ}$, $0^{\circ}$, $20^{\circ}$, and a random angle. At each elevation angle, we select 24 views that are uniformly distributed across azimuth dimension, generating corresponding albedo, metallic, roughness maps, and HDR/Point-light images of 512 $\times$ 512 resolution. We probabilistically render reference images using:
+(1) Randomly sampled viewpoints (elevation: [-30°, 70°])
+(2) Stochastic illumination: point lights (p=0.3) or HDR maps (p=0.7).

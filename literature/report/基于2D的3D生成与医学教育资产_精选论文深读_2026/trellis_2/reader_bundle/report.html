@@ -1,0 +1,169 @@
+<h1>TRELLIS.2 / O-Voxel：论文精读与医学教育资产复现判断</h1>
+<blockquote>
+<p>正式题名：Native and Compact Structured Latents for 3D Generation (TRELLIS.2)<br>
+发表/状态：CVPR 2026<br>
+阅读模式：LaTeX-primary；以官方 PDF 作图表与分页核查。<br>
+证据标签：<code>evidence-backed interpretation</code> 为原文直接支持的总结；<code>plausible inference</code> 为基于原文的研究/迁移判断。</p>
+</blockquote>
+<h2>1. 论文身份与来源包</h2>
+<h3>Anchored Points</h3>
+<ul>
+<li>[C1.4] Native and Compact Structured Latents for 3D Generation 是 CVPR 2026 论文；其 arXiv 版本先于正式 proceedings。</li>
+</ul>
+<p>本报告的结构化主证据是匹配版本的 arXiv LaTeX source，PDF 仅用于交叉检查标题页、图表、页码与视觉布局。TRELLIS.2 官方 arXiv source、CVPR 2026 PDF；原路线报告。 本地 <code>latex_run/</code> 保留源文件、编译 PDF、SyncTeX 与 paragraph index，因此报告中的每个主张可回到具体源段落。</p>
+<h2>2. 一句话论点与研究方程</h2>
+<h3>Anchored Points</h3>
+<ul>
+<li>[C2.4] iso-surface latent 难表达开放、non-manifold、内部封闭结构且常丢 PBR；TRELLIS.2 用原生 O-Voxel 与 sparse compression latent 替代。</li>
+</ul>
+<p><strong>研究方程：</strong>field-based latent 为网络规则性牺牲任意拓扑与材质；O-Voxel 以能直接进出 mesh 的稀疏原生单元加 SC-VAE 压缩，既保留结构又允许大模型生成。</p>
+<p>以 field-free O-Voxel 同时表示 geometry 与 PBR material，经 Sparse Compression VAE 压缩并由 4B flow models 生成；目标是原生处理复杂拓扑、内封闭表面与可 relight 的资产。</p>
+<h2>3. 标题解读</h2>
+<h3>Anchored Points</h3>
+<ul>
+<li>[C3.4] 标题把论文的对象、条件或关键 representation 准确地压缩成一个技术承诺；此处的逐词解读是基于论文摘要与方法的推断。</li>
+</ul>
+<p><code>Native</code> 指 latent 从原始 3D asset 而非多视图 2D 特征中学习；<code>Compact</code> 指高 spatial compression；<code>Structured</code> 指仍保留 sparse voxel 的空间规则；<code>3D Generation</code> 目标是携带 geometry 与 PBR material 的完整资产。TRELLIS.2 是项目/模型名，O-Voxel 是论文的核心 representation。</p>
+<h2>4. 论文真正解决的问题</h2>
+<h3>Anchored Points</h3>
+<ul>
+<li>[C4.4] 论文追求既能被神经网络压缩又能保留任意拓扑和完整 material 的 3D-native representation，而不是只提高单一 render 分数。</li>
+</ul>
+<p>论文的问题是 under-constrained 3D inference：输入只观察部分外观，模型必须依赖训练 prior 推断不可见区域。通用论文的贡献是选择何种 prior、latent 或控制接口；医学教育的额外问题是区分“候选合理”与“结构已经被证实”。因此任何后续结论都要区分原文直接证据、合理推断和本项目的安全性要求。</p>
+<h2>5. 科学问题阶梯</h2>
+<h3>Anchored Points</h3>
+<ul>
+<li>[C5.4] 直接任务只是单图或条件 3D 生成；更上层的问题是如何在不完整观测下表达不确定性，同时把可发布资产的几何事实与视觉呈现分开。</li>
+</ul>
+<p><strong>方向原生问题：</strong>从有限 2D 条件产出可用 3D。<strong>父领域问题：</strong>在速度、几何、外观、可控性和拓扑之间选择合适的表示。<strong>更广泛问题：</strong>如何让生成系统在证据不足时显示不确定性、接受外部事实约束，而不是把合理先验伪装成真值。</p>
+<h2>6. 作者可能如何找到方向</h2>
+<h3>Anchored Points</h3>
+<ul>
+<li>[C6.4] 一种合理的作者侧路径是先发现已有范式的隐藏假设，再保留其强项并把失败环节替换为新的中间表示、模块或条件机制。</li>
+</ul>
+<p>作者从两个冲突出发：unstructured latent 压缩强却容易丢 reconstruction fidelity；field/iso-surface structured latent 几何精度高却难处理 open/non-manifold/interior，且常不含 material。于是用能与 mesh 直接双向转换的 O-Voxel 保留事实，再由 SC-VAE 解决 token 数。</p>
+<h2>7. 作者如何搭建论证故事</h2>
+<h3>Anchored Points</h3>
+<ul>
+<li>[C7.4] 论文的叙事闭环是“明确失败模式 → 给出设计原则 → 放入模块 → 用主表、图或消融检验”；这是证据支持的结构性解读。</li>
+</ul>
+<p>挑战是任意 topology + PBR + compact latent；原则是 native mesh representation、field-free dual grid、稀疏压缩和直接 latent generation；模块是 O-Voxel、Flexible Dual Grid、material attributes、SC-VAE、flow model、FlexGEMM。主叙事通过 reconstruction、generation、texture、ablation、resolution scaling 和限制段形成闭环。</p>
+<h2>8. 相关工作、关键引用与缺口</h2>
+<h3>Anchored Points</h3>
+<ul>
+<li>[C8.4] 相关工作在本文中承担方法祖先、对照压力或局限性证据的角色，而不是可直接横向排名的列表。</li>
+</ul>
+<p>SDF/FlexiCubes 是被指出的 field-based 对照，point/mesh/Gaussian 是不规则但难压缩的显式表示，TRELLIS SLAT 是 material-aware 但依赖 multiview image feature 的近邻，Clay/3DShape2VecSet 等是 unstructured latent 脉络。论文的定位是换 representation，而不仅是扩 model size。</p>
+<h2>9. 主思想</h2>
+<h3>Anchored Points</h3>
+<ul>
+<li>[C9.4] O-Voxel 是 active voxel 上的 <code>(shape feature, material feature, coordinate)</code> 集合；Flexible Dual Grid 负责 mesh topology，volumetric attributes 负责 PBR。</li>
+</ul>
+<p>以 field-free O-Voxel 同时表示 geometry 与 PBR material，经 Sparse Compression VAE 压缩并由 4B flow models 生成；目标是原生处理复杂拓扑、内封闭表面与可 relight 的资产。</p>
+<p>核心不是把所有组件背下来，而是识别论文替代了哪个不可用机制：Flexible Dual Grid 处理 topology；volumetric PBR attributes 保留 appearance；SC-VAE 解决 resolution/token bottleneck；flow model 将 image 条件映射到 latent。</p>
+<h2>10. 符号、概念与记号</h2>
+<h3>Anchored Points</h3>
+<ul>
+<li>[C10.4] 本报告只将符号解释为算法中实际使用的对象；任何符号都不应被误读为输入图像已提供的医学事实。</li>
+</ul>
+<p><span class="math-rendered math-rendered--inline" data-latex="F=\{(f_i^{shape},f_i^{mat},p_i)\}_{i=1}^{L}"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>F</mi><mo>&#x0003D;</mo><mo stretchy="false">&#x0007B;</mo><mo stretchy="false">&#x00028;</mo><msubsup><mi>f</mi><mi>i</mi><mrow><mi>s</mi><mi>h</mi><mi>a</mi><mi>p</mi><mi>e</mi></mrow></msubsup><mo>&#x0002C;</mo><msubsup><mi>f</mi><mi>i</mi><mrow><mi>m</mi><mi>a</mi><mi>t</mi></mrow></msubsup><mo>&#x0002C;</mo><msub><mi>p</mi><mi>i</mi></msub><mo stretchy="false">&#x00029;</mo><msubsup><mo stretchy="false">&#x0007D;</mo><mrow><mi>i</mi><mo>&#x0003D;</mo><mn>1</mn></mrow><mrow><mi>L</mi></mrow></msubsup></mrow></math></span> 是 O-Voxel；<span class="math-rendered math-rendered--inline" data-latex="p_i"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>p</mi><mi>i</mi></msub></mrow></math></span> 是 active voxel coordinate；<span class="math-rendered math-rendered--inline" data-latex="v_i"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>v</mi><mi>i</mi></msub></mrow></math></span> 是 dual vertex；<span class="math-rendered math-rendered--inline" data-latex="\delta_i"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>&#x003B4;</mi><mi>i</mi></msub></mrow></math></span> 是 edge intersection flags；<span class="math-rendered math-rendered--inline" data-latex="\gamma_i"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>&#x003B3;</mi><mi>i</mi></msub></mrow></math></span> 是 quad split weight；<span class="math-rendered math-rendered--inline" data-latex="f_{mat}=(c,m,r,alpha)"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>f</mi><mrow><mi>m</mi><mi>a</mi><mi>t</mi></mrow></msub><mo>&#x0003D;</mo><mo stretchy="false">&#x00028;</mo><mi>c</mi><mo>&#x0002C;</mo><mi>m</mi><mo>&#x0002C;</mo><mi>r</mi><mo>&#x0002C;</mo><mi>a</mi><mi>l</mi><mi>p</mi><mi>h</mi><mi>a</mi><mo stretchy="false">&#x00029;</mo></mrow></math></span> 是 base color、metallic、roughness、opacity。SC-VAE 将这些 sparse feature 压到 latent，flow model 学习从 noise 回到该 latent。</p>
+<h2>11. 关键公式与逐式解释</h2>
+<h3>Anchored Points</h3>
+<ul>
+<li>[C11.4] Flexible Dual Grid 以 QEF 定位 dual vertex，并加入 boundary-edge 与位置正则项；PBR material feature 是 base color、metallic、roughness、opacity。</li>
+</ul>
+<p>Flexible Dual Grid 的 QEF 最小化 plane distance、boundary-line distance 与交点均值正则：<span class="math-rendered math-rendered--inline" data-latex="min_v e(v)=sum_i d_{Pi},i^2 + \lambda_{bound} sum_j d_L,j^2 + \lambda_{reg} d_{qbar}^2"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>m</mi><mi>i</mi><msub><mi>n</mi><mi>v</mi></msub><mi>e</mi><mo stretchy="false">&#x00028;</mo><mi>v</mi><mo stretchy="false">&#x00029;</mo><mo>&#x0003D;</mo><mi>s</mi><mi>u</mi><msub><mi>m</mi><mi>i</mi></msub><msub><mi>d</mi><mrow><mi>P</mi><mi>i</mi></mrow></msub><mo>&#x0002C;</mo><msup><mi>i</mi><mn>2</mn></msup><mo>&#x0002B;</mo><msub><mi>&#x003BB;</mi><mrow><mi>b</mi><mi>o</mi><mi>u</mi><mi>n</mi><mi>d</mi></mrow></msub><mi>s</mi><mi>u</mi><msub><mi>m</mi><mi>j</mi></msub><msub><mi>d</mi><mi>L</mi></msub><mo>&#x0002C;</mo><msup><mi>j</mi><mn>2</mn></msup><mo>&#x0002B;</mo><msub><mi>&#x003BB;</mi><mrow><mi>r</mi><mi>e</mi><mi>g</mi></mrow></msub><msubsup><mi>d</mi><mrow><mi>q</mi><mi>b</mi><mi>a</mi><mi>r</mi></mrow><mn>2</mn></msubsup></mrow></math></span>。这使 open boundary 对 dual vertex 有显式约束。flow matching 写作 <span class="math-rendered math-rendered--inline" data-latex="\<span class="math-rendered math-rendered--inline" data-latex="x(t)=(1-t)x_0+t \epsilon">\<math xmlns="http://www.w3.org/1998/Math/MathML" display="inline">\<mrow>\<mi>x\</mi>\<mo stretchy="false">&#x00028;\</mo>\<mi>t\</mi>\<mo stretchy="false">&#x00029;\</mo>\<mo>&#x0003D;\</mo>\<mo stretchy="false">&#x00028;\</mo>\<mn>1\</mn>\<mo>&#x02212;\</mo>\<mi>t\</mi>\<mo stretchy="false">&#x00029;\</mo>\<msub>\<mi>x\</mi>\<mn>0\</mn>\</msub>\<mo>&#x0002B;\</mo>\<mi>t\</mi>\<mi>&#x003F5;\</mi>\</mrow>\</math>\</span>"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi><span class="math-rendered math-rendered--inline" data-latex="&lt;/mi&gt;&lt;mi&gt;x&lt;/mi&gt;&lt;mo stretchy=&quot;false&quot;&gt;&amp;#x00028;&lt;/mo&gt;&lt;mi&gt;t&lt;/mi&gt;&lt;mo stretchy=&quot;false&quot;&gt;&amp;#x00029;&lt;/mo&gt;&lt;mo&gt;&amp;#x0003D;&lt;/mo&gt;&lt;mo stretchy=&quot;false&quot;&gt;&amp;#x00028;&lt;/mo&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;mo&gt;&amp;#x02212;&lt;/mo&gt;&lt;mi&gt;t&lt;/mi&gt;&lt;mo stretchy=&quot;false&quot;&gt;&amp;#x00029;&lt;/mo&gt;&lt;msub&gt;&lt;mi&gt;x&lt;/mi&gt;&lt;mn&gt;0&lt;/mn&gt;&lt;/msub&gt;&lt;mo&gt;&amp;#x0002B;&lt;/mo&gt;&lt;mi&gt;t&lt;/mi&gt;&lt;mi&gt;e&lt;/mi&gt;&lt;mi&gt;p&lt;/mi&gt;&lt;mi&gt;s&lt;/mi&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;mi&gt;l&lt;/mi&gt;&lt;mi&gt;o&lt;/mi&gt;&lt;mi&gt;n&lt;/mi&gt;&lt;mi&gt;"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mo>&#x0003C;</mo><mo>&#x0002F;</mo><mi>m</mi><mi>i</mi><mo>&#x0003E;</mo><mo>&#x0003C;</mo><mi>m</mi><mi>i</mi><mo>&#x0003E;</mo><mi>x</mi><mo>&#x0003C;</mo><mo>&#x0002F;</mo><mi>m</mi><mi>i</mi><mo>&#x0003E;</mo><mo>&#x0003C;</mo><mi>m</mi><mi>o</mi><mi>s</mi><mi>t</mi><mi>r</mi><mi>e</mi><mi>t</mi><mi>c</mi><mi>h</mi><mi>y</mi><mo>&#x0003D;</mo><mi>"</mi><mi>f</mi><mi>a</mi><mi>l</mi><mi>s</mi><mi>e</mi><mi>"</mi><mo>&#x0003E;</mo><mi>&amp;</mi><mi>#</mi><mi>x</mi><mn>00028</mn><mi>;</mi><mo>&#x0003C;</mo><mo>&#x0002F;</mo><mi>m</mi><mi>o</mi><mo>&#x0003E;</mo><mo>&#x0003C;</mo><mi>m</mi><mi>i</mi><mo>&#x0003E;</mo><mi>t</mi><mo>&#x0003C;</mo><mo>&#x0002F;</mo><mi>m</mi><mi>i</mi><mo>&#x0003E;</mo><mo>&#x0003C;</mo><mi>m</mi><mi>o</mi><mi>s</mi><mi>t</mi><mi>r</mi><mi>e</mi><mi>t</mi><mi>c</mi><mi>h</mi><mi>y</mi><mo>&#x0003D;</mo><mi>"</mi><mi>f</mi><mi>a</mi><mi>l</mi><mi>s</mi><mi>e</mi><mi>"</mi><mo>&#x0003E;</mo><mi>&amp;</mi><mi>#</mi><mi>x</mi><mn>00029</mn><mi>;</mi><mo>&#x0003C;</mo><mo>&#x0002F;</mo><mi>m</mi><mi>o</mi><mo>&#x0003E;</mo><mo>&#x0003C;</mo><mi>m</mi><mi>o</mi><mo>&#x0003E;</mo><mi>&amp;</mi><mi>#</mi><mi>x</mi><mn>0003</mn><mi>D</mi><mi>;</mi><mo>&#x0003C;</mo><mo>&#x0002F;</mo><mi>m</mi><mi>o</mi><mo>&#x0003E;</mo><mo>&#x0003C;</mo><mi>m</mi><mi>o</mi><mi>s</mi><mi>t</mi><mi>r</mi><mi>e</mi><mi>t</mi><mi>c</mi><mi>h</mi><mi>y</mi><mo>&#x0003D;</mo><mi>"</mi><mi>f</mi><mi>a</mi><mi>l</mi><mi>s</mi><mi>e</mi><mi>"</mi><mo>&#x0003E;</mo><mi>&amp;</mi><mi>#</mi><mi>x</mi><mn>00028</mn><mi>;</mi><mo>&#x0003C;</mo><mo>&#x0002F;</mo><mi>m</mi><mi>o</mi><mo>&#x0003E;</mo><mo>&#x0003C;</mo><mi>m</mi><mi>n</mi><mo>&#x0003E;</mo><mn>1</mn><mo>&#x0003C;</mo><mo>&#x0002F;</mo><mi>m</mi><mi>n</mi><mo>&#x0003E;</mo><mo>&#x0003C;</mo><mi>m</mi><mi>o</mi><mo>&#x0003E;</mo><mi>&amp;</mi><mi>#</mi><mi>x</mi><mn>02212</mn><mi>;</mi><mo>&#x0003C;</mo><mo>&#x0002F;</mo><mi>m</mi><mi>o</mi><mo>&#x0003E;</mo><mo>&#x0003C;</mo><mi>m</mi><mi>i</mi><mo>&#x0003E;</mo><mi>t</mi><mo>&#x0003C;</mo><mo>&#x0002F;</mo><mi>m</mi><mi>i</mi><mo>&#x0003E;</mo><mo>&#x0003C;</mo><mi>m</mi><mi>o</mi><mi>s</mi><mi>t</mi><mi>r</mi><mi>e</mi><mi>t</mi><mi>c</mi><mi>h</mi><mi>y</mi><mo>&#x0003D;</mo><mi>"</mi><mi>f</mi><mi>a</mi><mi>l</mi><mi>s</mi><mi>e</mi><mi>"</mi><mo>&#x0003E;</mo><mi>&amp;</mi><mi>#</mi><mi>x</mi><mn>00029</mn><mi>;</mi><mo>&#x0003C;</mo><mo>&#x0002F;</mo><mi>m</mi><mi>o</mi><mo>&#x0003E;</mo><mo>&#x0003C;</mo><mi>m</mi><mi>s</mi><mi>u</mi><mi>b</mi><mo>&#x0003E;</mo><mo>&#x0003C;</mo><mi>m</mi><mi>i</mi><mo>&#x0003E;</mo><mi>x</mi><mo>&#x0003C;</mo><mo>&#x0002F;</mo><mi>m</mi><mi>i</mi><mo>&#x0003E;</mo><mo>&#x0003C;</mo><mi>m</mi><mi>n</mi><mo>&#x0003E;</mo><mn>0</mn><mo>&#x0003C;</mo><mo>&#x0002F;</mo><mi>m</mi><mi>n</mi><mo>&#x0003E;</mo><mo>&#x0003C;</mo><mo>&#x0002F;</mo><mi>m</mi><mi>s</mi><mi>u</mi><mi>b</mi><mo>&#x0003E;</mo><mo>&#x0003C;</mo><mi>m</mi><mi>o</mi><mo>&#x0003E;</mo><mi>&amp;</mi><mi>#</mi><mi>x</mi><mn>0002</mn><mi>B</mi><mi>;</mi><mo>&#x0003C;</mo><mo>&#x0002F;</mo><mi>m</mi><mi>o</mi><mo>&#x0003E;</mo><mo>&#x0003C;</mo><mi>m</mi><mi>i</mi><mo>&#x0003E;</mo><mi>t</mi><mo>&#x0003C;</mo><mo>&#x0002F;</mo><mi>m</mi><mi>i</mi><mo>&#x0003E;</mo><mo>&#x0003C;</mo><mi>m</mi><mi>i</mi><mo>&#x0003E;</mo><mi>e</mi><mo>&#x0003C;</mo><mo>&#x0002F;</mo><mi>m</mi><mi>i</mi><mo>&#x0003E;</mo><mo>&#x0003C;</mo><mi>m</mi><mi>i</mi><mo>&#x0003E;</mo><mi>p</mi><mo>&#x0003C;</mo><mo>&#x0002F;</mo><mi>m</mi><mi>i</mi><mo>&#x0003E;</mo><mo>&#x0003C;</mo><mi>m</mi><mi>i</mi><mo>&#x0003E;</mo><mi>s</mi><mo>&#x0003C;</mo><mo>&#x0002F;</mo><mi>m</mi><mi>i</mi><mo>&#x0003E;</mo><mo>&#x0003C;</mo><mi>m</mi><mi>i</mi><mo>&#x0003E;</mo><mi>i</mi><mo>&#x0003C;</mo><mo>&#x0002F;</mo><mi>m</mi><mi>i</mi><mo>&#x0003E;</mo><mo>&#x0003C;</mo><mi>m</mi><mi>i</mi><mo>&#x0003E;</mo><mi>l</mi><mo>&#x0003C;</mo><mo>&#x0002F;</mo><mi>m</mi><mi>i</mi><mo>&#x0003E;</mo><mo>&#x0003C;</mo><mi>m</mi><mi>i</mi><mo>&#x0003E;</mo><mi>o</mi><mo>&#x0003C;</mo><mo>&#x0002F;</mo><mi>m</mi><mi>i</mi><mo>&#x0003E;</mo><mo>&#x0003C;</mo><mi>m</mi><mi>i</mi><mo>&#x0003E;</mo><mi>n</mi><mo>&#x0003C;</mo><mo>&#x0002F;</mo><mi>m</mi><mi>i</mi><mo>&#x0003E;</mo><mo>&#x0003C;</mo><mi>m</mi><mi>i</mi><mo>&#x0003E;</mo></mrow></math></span></mi></mrow></math></span>，并最小化网络 velocity 与 <code>(epsilon-x_0)</code> 的 L2。PBR feature 不只是 RGB，而是 <span class="math-rendered math-rendered--inline" data-latex="\<span class="math-rendered math-rendered--inline" data-latex="f_{mat}=(c,m,r,alpha)">\<math xmlns="http://www.w3.org/1998/Math/MathML" display="inline">\<mrow>\<msub>\<mi>f\</mi>\<mrow>\<mi>m\</mi>\<mi>a\</mi>\<mi>t\</mi>\</mrow>\</msub>\<mo>&#x0003D;\</mo>\<mo stretchy="false">&#x00028;\</mo>\<mi>c\</mi>\<mo>&#x0002C;\</mo>\<mi>m\</mi>\<mo>&#x0002C;\</mo>\<mi>r\</mi>\<mo>&#x0002C;\</mo>\<mi>a\</mi>\<mi>l\</mi>\<mi>p\</mi>\<mi>h\</mi>\<mi>a\</mi>\<mo stretchy="false">&#x00029;\</mo>\</mrow>\</math>\</span>"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi><span class="math-rendered math-rendered--inline" data-latex="&lt;/mi&gt;&lt;msub&gt;&lt;mi&gt;f&lt;/mi&gt;&lt;mrow&gt;&lt;mi&gt;m&lt;/mi&gt;&lt;mi&gt;a&lt;/mi&gt;&lt;mi&gt;t&lt;/mi&gt;&lt;/mrow&gt;&lt;/msub&gt;&lt;mo&gt;&amp;#x0003D;&lt;/mo&gt;&lt;mo stretchy=&quot;false&quot;&gt;&amp;#x00028;&lt;/mo&gt;&lt;mi&gt;c&lt;/mi&gt;&lt;mo&gt;&amp;#x0002C;&lt;/mo&gt;&lt;mi&gt;m&lt;/mi&gt;&lt;mo&gt;&amp;#x0002C;&lt;/mo&gt;&lt;mi&gt;r&lt;/mi&gt;&lt;mo&gt;&amp;#x0002C;&lt;/mo&gt;&lt;mi&gt;a&lt;/mi&gt;&lt;mi&gt;l&lt;/mi&gt;&lt;mi&gt;p&lt;/mi&gt;&lt;mi&gt;h&lt;/mi&gt;&lt;mi&gt;a&lt;/mi&gt;&lt;mo stretchy=&quot;false&quot;&gt;&amp;#x00029;&lt;/mo&gt;&lt;mi&gt;"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mo>&#x0003C;</mo><mo>&#x0002F;</mo><mi>m</mi><mi>i</mi><mo>&#x0003E;</mo><mo>&#x0003C;</mo><mi>m</mi><mi>s</mi><mi>u</mi><mi>b</mi><mo>&#x0003E;</mo><mo>&#x0003C;</mo><mi>m</mi><mi>i</mi><mo>&#x0003E;</mo><mi>f</mi><mo>&#x0003C;</mo><mo>&#x0002F;</mo><mi>m</mi><mi>i</mi><mo>&#x0003E;</mo><mo>&#x0003C;</mo><mi>m</mi><mi>r</mi><mi>o</mi><mi>w</mi><mo>&#x0003E;</mo><mo>&#x0003C;</mo><mi>m</mi><mi>i</mi><mo>&#x0003E;</mo><mi>m</mi><mo>&#x0003C;</mo><mo>&#x0002F;</mo><mi>m</mi><mi>i</mi><mo>&#x0003E;</mo><mo>&#x0003C;</mo><mi>m</mi><mi>i</mi><mo>&#x0003E;</mo><mi>a</mi><mo>&#x0003C;</mo><mo>&#x0002F;</mo><mi>m</mi><mi>i</mi><mo>&#x0003E;</mo><mo>&#x0003C;</mo><mi>m</mi><mi>i</mi><mo>&#x0003E;</mo><mi>t</mi><mo>&#x0003C;</mo><mo>&#x0002F;</mo><mi>m</mi><mi>i</mi><mo>&#x0003E;</mo><mo>&#x0003C;</mo><mo>&#x0002F;</mo><mi>m</mi><mi>r</mi><mi>o</mi><mi>w</mi><mo>&#x0003E;</mo><mo>&#x0003C;</mo><mo>&#x0002F;</mo><mi>m</mi><mi>s</mi><mi>u</mi><mi>b</mi><mo>&#x0003E;</mo><mo>&#x0003C;</mo><mi>m</mi><mi>o</mi><mo>&#x0003E;</mo><mi>&amp;</mi><mi>#</mi><mi>x</mi><mn>0003</mn><mi>D</mi><mi>;</mi><mo>&#x0003C;</mo><mo>&#x0002F;</mo><mi>m</mi><mi>o</mi><mo>&#x0003E;</mo><mo>&#x0003C;</mo><mi>m</mi><mi>o</mi><mi>s</mi><mi>t</mi><mi>r</mi><mi>e</mi><mi>t</mi><mi>c</mi><mi>h</mi><mi>y</mi><mo>&#x0003D;</mo><mi>"</mi><mi>f</mi><mi>a</mi><mi>l</mi><mi>s</mi><mi>e</mi><mi>"</mi><mo>&#x0003E;</mo><mi>&amp;</mi><mi>#</mi><mi>x</mi><mn>00028</mn><mi>;</mi><mo>&#x0003C;</mo><mo>&#x0002F;</mo><mi>m</mi><mi>o</mi><mo>&#x0003E;</mo><mo>&#x0003C;</mo><mi>m</mi><mi>i</mi><mo>&#x0003E;</mo><mi>c</mi><mo>&#x0003C;</mo><mo>&#x0002F;</mo><mi>m</mi><mi>i</mi><mo>&#x0003E;</mo><mo>&#x0003C;</mo><mi>m</mi><mi>o</mi><mo>&#x0003E;</mo><mi>&amp;</mi><mi>#</mi><mi>x</mi><mn>0002</mn><mi>C</mi><mi>;</mi><mo>&#x0003C;</mo><mo>&#x0002F;</mo><mi>m</mi><mi>o</mi><mo>&#x0003E;</mo><mo>&#x0003C;</mo><mi>m</mi><mi>i</mi><mo>&#x0003E;</mo><mi>m</mi><mo>&#x0003C;</mo><mo>&#x0002F;</mo><mi>m</mi><mi>i</mi><mo>&#x0003E;</mo><mo>&#x0003C;</mo><mi>m</mi><mi>o</mi><mo>&#x0003E;</mo><mi>&amp;</mi><mi>#</mi><mi>x</mi><mn>0002</mn><mi>C</mi><mi>;</mi><mo>&#x0003C;</mo><mo>&#x0002F;</mo><mi>m</mi><mi>o</mi><mo>&#x0003E;</mo><mo>&#x0003C;</mo><mi>m</mi><mi>i</mi><mo>&#x0003E;</mo><mi>r</mi><mo>&#x0003C;</mo><mo>&#x0002F;</mo><mi>m</mi><mi>i</mi><mo>&#x0003E;</mo><mo>&#x0003C;</mo><mi>m</mi><mi>o</mi><mo>&#x0003E;</mo><mi>&amp;</mi><mi>#</mi><mi>x</mi><mn>0002</mn><mi>C</mi><mi>;</mi><mo>&#x0003C;</mo><mo>&#x0002F;</mo><mi>m</mi><mi>o</mi><mo>&#x0003E;</mo><mo>&#x0003C;</mo><mi>m</mi><mi>i</mi><mo>&#x0003E;</mo><mi>a</mi><mo>&#x0003C;</mo><mo>&#x0002F;</mo><mi>m</mi><mi>i</mi><mo>&#x0003E;</mo><mo>&#x0003C;</mo><mi>m</mi><mi>i</mi><mo>&#x0003E;</mo><mi>l</mi><mo>&#x0003C;</mo><mo>&#x0002F;</mo><mi>m</mi><mi>i</mi><mo>&#x0003E;</mo><mo>&#x0003C;</mo><mi>m</mi><mi>i</mi><mo>&#x0003E;</mo><mi>p</mi><mo>&#x0003C;</mo><mo>&#x0002F;</mo><mi>m</mi><mi>i</mi><mo>&#x0003E;</mo><mo>&#x0003C;</mo><mi>m</mi><mi>i</mi><mo>&#x0003E;</mo><mi>h</mi><mo>&#x0003C;</mo><mo>&#x0002F;</mo><mi>m</mi><mi>i</mi><mo>&#x0003E;</mo><mo>&#x0003C;</mo><mi>m</mi><mi>i</mi><mo>&#x0003E;</mo><mi>a</mi><mo>&#x0003C;</mo><mo>&#x0002F;</mo><mi>m</mi><mi>i</mi><mo>&#x0003E;</mo><mo>&#x0003C;</mo><mi>m</mi><mi>o</mi><mi>s</mi><mi>t</mi><mi>r</mi><mi>e</mi><mi>t</mi><mi>c</mi><mi>h</mi><mi>y</mi><mo>&#x0003D;</mo><mi>"</mi><mi>f</mi><mi>a</mi><mi>l</mi><mi>s</mi><mi>e</mi><mi>"</mi><mo>&#x0003E;</mo><mi>&amp;</mi><mi>#</mi><mi>x</mi><mn>00029</mn><mi>;</mi><mo>&#x0003C;</mo><mo>&#x0002F;</mo><mi>m</mi><mi>o</mi><mo>&#x0003E;</mo><mo>&#x0003C;</mo><mi>m</mi><mi>i</mi><mo>&#x0003E;</mo></mrow></math></span></mi></mrow></math></span>。</p>
+<h2>12. 理论、证明与实践映射</h2>
+<h3>Anchored Points</h3>
+<ul>
+<li>[C12.4] 论文的训练目标或表示公式说明优化对象与实现步骤，但通常不是医学拓扑正确性的证明。</li>
+</ul>
+<p>QEF/dual-grid 给出 representation-to-mesh 的确定性构造，而非泛化保证；SC-VAE/CFM 说明学习目标，但 voxel resolution、sparse decoder 和 training data 仍决定实际失败模式。对于医学，这一层最大的好处是能把“能否表达 open/inner surface”和“是否语义正确”明确拆开。</p>
+<h2>13. 算法/模块 walkthrough</h2>
+<h3>Anchored Points</h3>
+<ul>
+<li>[C13.4] 把论文实现成可复现实验时，应按输入条件、latent/中间状态、decoder、输出 artifact 与 QC 依次展开，而不能只复刻最终截图。</li>
+</ul>
+<ol>
+<li>把 raw mesh 与 PBR texture 转成 active O-Voxel。2. 对每个 cell 以 Hermite data/QEF 求 dual vertex，记录 edge flags、split weights 和 material features。3. SC-VAE 编码/解码，先看 reconstruction。4. image condition 的 flow model 从 noise 生成 shape/material latent。5. O-Voxel 转回 mesh/texture map/GLB。6. 对开放面、孔、内腔、薄片、opacity/PBR 单独 QC。</li>
+</ol>
+<h2>14. 模块背后的作者思考</h2>
+<h3>Anchored Points</h3>
+<ul>
+<li>[C14.4] SC-VAE 的代理作用是把高分辨率 O-Voxel 变成可被大型 flow model 处理的 compact structured latent，同时避免旧方法靠多视图 bake 合成外观。</li>
+</ul>
+<p><strong>Flexible Dual Grid：</strong>理想是任意 mesh 可无损进入规则 tensor，代理是每 active voxel 的局部 dual representation。<strong>Volumetric attributes：</strong>理想是完整 texture graph，代理是 geometry-aligned local PBR attributes。<strong>SC-VAE：</strong>理想是高分辨率又少 token，代理是 sparse residual compression。<strong>Flow model：</strong>理想是 image 中拥有全 3D 事实，代理是训练数据 prior。医学的隐患是 representation 没有 part/semantic graph。</p>
+<h2>15. 图表解读</h2>
+<h3>Anchored Points</h3>
+<ul>
+<li>[C15.4] 论文中的 pipeline、主表与消融图支持其具体通用资产主张；图中可见的质量不自动扩展为看不见的结构真实性。</li>
+</ul>
+<p>overview 图应读成 representation→VAE→flow 的依赖链；O-Voxel conversion 图应读成 mesh↔sparse feature 的可审计转换；normal/PBR/relighting 的 qualitative 图验证的是可表达性与外观，而不是内腔、神经/血管连接或器官名称。限制图/段落比漂亮样例更重要：它指出 alias 和 hole 的具体机制。</p>
+<h2>16. 实验设计</h2>
+<h3>Anchored Points</h3>
+<ul>
+<li>[C16.4] 论文分别评估 reconstruction、image-to-3D、shape-conditioned texture、ablation 与 resolution scaling，并以 normal/PBR/用户研究补充数值指标。</li>
+</ul>
+<p>论文覆盖 3D asset reconstruction、image-to-3D、shape-conditioned texture、ablation、test-time compute/resolution scaling。它报告约 4B parameters、16× spatial downsampling、1024^3 约 9.6K token，以及 H100 上 512^3/1024^3/1536^3 的速度。不同表/用户研究使用 normal/PBR/render 等多信号，适合建立“表示能力”上界而不是统一医学分数。</p>
+<h2>17. 实验作为故事证据</h2>
+<h3>Anchored Points</h3>
+<ul>
+<li>[C17.4] 论文报告 4B models 在 H100 上约 3s/17s/60s 生成 512^3/1024^3/1536^3 资产；这是上界参照，不能直接外推消费卡。</li>
+</ul>
+<p>强证据：O-Voxel 对 topology/material 的明确定义、转换算法、SC-VAE reconstruction、分层实验和 limitation discussion。中等证据：作者的通用资产质量/速度比较，尤其取决于 H100 与数据协议。未覆盖：医学 semantic part、laterality、containment/connection、测量尺度和专家教学效用。</p>
+<h2>18. Reviewer-lens audit</h2>
+<h3>Anchored Points</h3>
+<ul>
+<li>[C18.4] 从审稿视角，应把作者协议内的优越性、训练/依赖门槛、数据/许可不确定性以及医学迁移缺口分开评价。</li>
+</ul>
+<p><strong>Novelty：</strong>应相对于论文自己定义的瓶颈判断，而不是仅看模型规模。<strong>Soundness：</strong>检查每个模块是否有相应实验或可解释的训练目标。<strong>Reproducibility：</strong>推理可复现不等于训练可复现；模型权重、数据、许可证、GPU 依赖与随机种子都要单独记录。<strong>医学迁移：</strong>所有通用 embedding/render metric 只能当辅助信号，不能替代 anatomy reviewer。</p>
+<h2>19. 创新点与主张支持审计</h2>
+<h3>Anchored Points</h3>
+<ul>
+<li>[C19.4] 贡献应逐条绑定其对应的表示、模块、消融或 benchmark，而不能把系统总结果一概归因给单一新意。</li>
+</ul>
+<p>把论文的贡献拆为 representation/condition、generation 或 reconstruction、appearance/asset delivery、evaluation 四层；每一层仅在原论文提供的实验协议里获得支持。医学适配的新增贡献必须另建证据集，而不能从通用基准分数推演。</p>
+<h2>20. 值得学习的论文构造模式</h2>
+<h3>Anchored Points</h3>
+<ul>
+<li>[C20.1] TRELLIS.2 的可复用模式是先设计能无损承载目标事实的 native representation，再以 sparse VAE 压缩到大模型可生成的 latent。</li>
+</ul>
+<p>模式是 <code>先选择能表达目标对象的原生事实表征 → 再压缩 → 再生成</code>。这反转了“先找一个易生成 latent，再接受它表达不了的 topology”的做法；对医学特别重要，因为解剖关系是先验契约，不是视觉纹理。</p>
+<h2>21. 弱点、限制与改进空间</h2>
+<h3>Anchored Points</h3>
+<ul>
+<li>[C21.4] O-Voxel 仍受 voxel resolution 限制，近距离平行面会 alias；稀疏 decoder 也可能产生小孔，并且表示未显式编码 part/semantic graph。</li>
+</ul>
+<p>论文明确指出 voxel resolution 下近距离平行面会 alias，sparse decode 可能出现 hole，表示也没有显式 part/semantic graph。还应加上 Linux/NVIDIA/sparse CUDA 高门槛、H100 时间不能外推、通用数据集与解剖域差异。</p>
+<h2>22. 创新类型与边界判断</h2>
+<h3>Anchored Points</h3>
+<ul>
+<li>[C22.1] O-Voxel 是表示层面的显著推进，但未显式建模 part-level semantic graph；因此对解剖教育仍是高端候选生成器而不是发布证明。</li>
+</ul>
+<p>O-Voxel 是 representation 层很强的跨越：可同时容纳复杂 topology 与 PBR；但缺 semantic ontology，故仍是生成上界，不是医学知识 representation。</p>
+<h2>23. 未来方向与医学教育迁移</h2>
+<h3>Anchored Points</h3>
+<ul>
+<li>[C23.4] TRELLIS.2 是复杂拓扑/PBR 上界，但医学价值取决于后置 landmark、part graph、topology QC 与人工审核，而非 O-Voxel 自身。</li>
+</ul>
+<p>扩展为 anatomy-aware O-Voxel：把 organ/part ID、laterality、containment/connection graph、landmark distance 和 uncertainty 作为输入/latent/QC 字段。对每个输出要求 topology contract；若合同不满足，系统必须降级为 approximate asset 或拒绝发布。</p>
+<h3>建议的统一医学验收协议</h3>
+<p>复现时把输入、seed、checkpoint、原始中间产物、GLB、六视图 RGB/normal/depth、triangle count、PBR maps、耗时、peak VRAM 和失败标签全量保存。发布前依次检查 canonical alignment、landmark、part count、laterality、containment/connection、孔洞/自交/non-manifold、GLB/Three.js；最后由医学 reviewer 判为可教学使用、仅概念展示或不可使用。</p>
+<h2>24. 简单而准确的故事</h2>
+<h3>Anchored Points</h3>
+<ul>
+<li>[C24.4] 把论文记成“用一个被约束的代理机制处理 2D 中缺失的 3D 信息”，比把它记成模型名或单一分数更接近其可复用洞见。</li>
+</ul>
+<p>TRELLIS.2 / O-Voxel 像一名手艺很好的 3D 工匠：它会根据已有的二维线索和积累的常识补全一个物体，但不会自动知道医学上哪一条连接、哪一侧、哪一个腔室绝对不能猜。正确的课堂资产流程是让它先做候选，再让 verified anatomy 和专家把关。</p>
+<h2>25. 使用的来源</h2>
+<h3>Anchored Points</h3>
+<ul>
+<li>
+<p>[C25.4] 本报告使用与目标版本匹配的官方 LaTeX source 作为结构化证据，并用官方 PDF 检查页码、表格和图形。</p>
+</li>
+<li>
+<p>TRELLIS.2 官方 arXiv source、CVPR 2026 PDF；原路线报告。</p>
+</li>
+<li>官方代码、模型卡和 license 页面用于复现/发布风险判断；它们不是论文实验结果的替代证据。</li>
+<li>本地生成的 source、PDF extraction、traceability、research lens、storyboard prompts 与 reader bundle 均保留在同一 run 目录。</li>
+</ul>

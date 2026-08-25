@@ -1,0 +1,402 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces We present SPAR3D\xspace  , a state-of-the-art 3D reconstructor that reconstructs high-quality 3D meshes from single-view images. SPAR3D\xspace  enjoys a fast reconstruction speed at 0.7\xspace  seconds and supports interactive user edits. }}{1}{figure.caption.1}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{fig:teaser}{{1}{1}{We present \method , a state-of-the-art 3D reconstructor that reconstructs high-quality 3D meshes from single-view images. \method enjoys a fast reconstruction speed at \gentime seconds and supports interactive user edits}{figure.caption.1}{}}
+\newlabel{fig:teaser@cref}{{[figure][1][]1}{[1][1][]1}{}{}{}}
+\citation{choy20163d,wang2018pixel2mesh,mescheder2019occupancy,xu2019disn,groueix2018,wu2017marrnet,huang2023shapeclipper,wu2023multiview,huang2024zeroshape,hong2023lrm,TripoSR2024,tang2024lgm,zhang2024gs,xu2024instantmesh,wang2024crm,sf3d2024}
+\citation{nichol2022point,jun2023shap,liu2023one2345++,shue20233d,chou2023diffusion,shim2023diffusion,cheng2023sdfusion,li2023diffusion,liu2023zero,shi2023mvdream,liu2023syncdreamer,huang2024pointinfinity,yariv2024mosaic,chen2023single,zhao2023michelangelo,lan2024ln3diff}
+\citation{huang2024zeroshape}
+\citation{choy20163d,wang2018pixel2mesh,mescheder2019occupancy,xu2019disn,groueix2018,wu2017marrnet,huang2023shapeclipper}
+\citation{chang2015shapenet,sun2018pix3d}
+\citation{reizenstein2021co3d,deitke2022objaverse}
+\citation{wu2023multiview,huang2024zeroshape,hong2023lrm}
+\citation{hong2023lrm}
+\citation{TripoSR2024,tang2024lgm,zhang2024gs,xu2024instantmesh,wang2024crm,sf3d2024}
+\citation{liu2023zero,shi2023mvdream,liu2023syncdreamer,shi2023zero123plus}
+\citation{tang2024lgm,wang2024crm,xu2024instantmesh}
+\citation{valsesia2018learning,hui2020progressive,cai2020learning,gao2022get3d}
+\citation{yang2019pointflow,klokov2020discrete}
+\citation{wu2019sagnet,mittal2022autosdf,gao2021tm}
+\citation{dhariwal2021diffusion,rombach2022high}
+\citation{nichol2022point,jun2023shap,liu2023one2345++,shue20233d,chou2023diffusion,shim2023diffusion,cheng2023sdfusion,li2023diffusion,liu2023zero,shi2023mvdream,liu2023syncdreamer,huang2024pointinfinity,yariv2024mosaic,chen2023single,zhao2023michelangelo,lan2024ln3diff}
+\@writefile{toc}{\contentsline {section}{\numberline {1}\hskip -1em.~Introduction}{2}{section.1}\protected@file@percent }
+\newlabel{sec:intro}{{1}{2}{\hskip -1em.~Introduction}{section.1}{}}
+\newlabel{sec:intro@cref}{{[section][1][]1}{[1][2][]2}{}{}{}}
+\@writefile{brf}{\backcite{sf3d2024}{{2}{1}{section.1}}}
+\@writefile{brf}{\backcite{choy20163d}{{2}{1}{section.1}}}
+\@writefile{brf}{\backcite{groueix2018}{{2}{1}{section.1}}}
+\@writefile{brf}{\backcite{hong2023lrm}{{2}{1}{section.1}}}
+\@writefile{brf}{\backcite{huang2023shapeclipper}{{2}{1}{section.1}}}
+\@writefile{brf}{\backcite{huang2024zeroshape}{{2}{1}{section.1}}}
+\@writefile{brf}{\backcite{mescheder2019occupancy}{{2}{1}{section.1}}}
+\@writefile{brf}{\backcite{tang2024lgm}{{2}{1}{section.1}}}
+\@writefile{brf}{\backcite{TripoSR2024}{{2}{1}{section.1}}}
+\@writefile{brf}{\backcite{wang2018pixel2mesh}{{2}{1}{section.1}}}
+\@writefile{brf}{\backcite{wu2017marrnet}{{2}{1}{section.1}}}
+\@writefile{brf}{\backcite{xu2024instantmesh}{{2}{1}{section.1}}}
+\@writefile{brf}{\backcite{xu2019disn}{{2}{1}{section.1}}}
+\@writefile{brf}{\backcite{zhang2024gs}{{2}{1}{section.1}}}
+\@writefile{brf}{\backcite{chen2023single}{{2}{1}{section.1}}}
+\@writefile{brf}{\backcite{cheng2023sdfusion}{{2}{1}{section.1}}}
+\@writefile{brf}{\backcite{chou2023diffusion}{{2}{1}{section.1}}}
+\@writefile{brf}{\backcite{huang2024pointinfinity}{{2}{1}{section.1}}}
+\@writefile{brf}{\backcite{jun2023shap}{{2}{1}{section.1}}}
+\@writefile{brf}{\backcite{lan2024ln3diff}{{2}{1}{section.1}}}
+\@writefile{brf}{\backcite{liu2023syncdreamer}{{2}{1}{section.1}}}
+\@writefile{brf}{\backcite{nichol2022point}{{2}{1}{section.1}}}
+\@writefile{brf}{\backcite{shi2023mvdream}{{2}{1}{section.1}}}
+\@writefile{brf}{\backcite{shue20233d}{{2}{1}{section.1}}}
+\@writefile{brf}{\backcite{yariv2024mosaic}{{2}{1}{section.1}}}
+\@writefile{brf}{\backcite{zhao2023michelangelo}{{2}{1}{section.1}}}
+\@writefile{brf}{\backcite{huang2024zeroshape}{{2}{1}{section.1}}}
+\@writefile{toc}{\contentsline {section}{\numberline {2}\hskip -1em.~Related Work}{2}{section.2}\protected@file@percent }
+\newlabel{sec:related}{{2}{2}{\hskip -1em.~Related Work}{section.2}{}}
+\newlabel{sec:related@cref}{{[section][2][]2}{[1][2][]2}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{Feedforward 3D reconstruction}{2}{section*.2}\protected@file@percent }
+\@writefile{brf}{\backcite{choy20163d}{{2}{2}{section*.2}}}
+\@writefile{brf}{\backcite{groueix2018}{{2}{2}{section*.2}}}
+\@writefile{brf}{\backcite{huang2023shapeclipper}{{2}{2}{section*.2}}}
+\@writefile{brf}{\backcite{mescheder2019occupancy}{{2}{2}{section*.2}}}
+\@writefile{brf}{\backcite{wang2018pixel2mesh}{{2}{2}{section*.2}}}
+\@writefile{brf}{\backcite{wu2017marrnet}{{2}{2}{section*.2}}}
+\@writefile{brf}{\backcite{xu2019disn}{{2}{2}{section*.2}}}
+\@writefile{brf}{\backcite{chang2015shapenet}{{2}{2}{section*.2}}}
+\@writefile{brf}{\backcite{sun2018pix3d}{{2}{2}{section*.2}}}
+\@writefile{brf}{\backcite{deitke2022objaverse}{{2}{2}{section*.2}}}
+\@writefile{brf}{\backcite{reizenstein2021co3d}{{2}{2}{section*.2}}}
+\@writefile{brf}{\backcite{hong2023lrm}{{2}{2}{section*.2}}}
+\@writefile{brf}{\backcite{huang2024zeroshape}{{2}{2}{section*.2}}}
+\@writefile{brf}{\backcite{wu2023multiview}{{2}{2}{section*.2}}}
+\@writefile{brf}{\backcite{hong2023lrm}{{2}{2}{section*.2}}}
+\@writefile{brf}{\backcite{sf3d2024}{{2}{2}{section*.2}}}
+\@writefile{brf}{\backcite{tang2024lgm}{{2}{2}{section*.2}}}
+\@writefile{brf}{\backcite{TripoSR2024}{{2}{2}{section*.2}}}
+\@writefile{brf}{\backcite{wang2024crm}{{2}{2}{section*.2}}}
+\@writefile{brf}{\backcite{xu2024instantmesh}{{2}{2}{section*.2}}}
+\@writefile{brf}{\backcite{zhang2024gs}{{2}{2}{section*.2}}}
+\@writefile{brf}{\backcite{liu2023zero}{{2}{2}{section*.2}}}
+\@writefile{brf}{\backcite{liu2023syncdreamer}{{2}{2}{section*.2}}}
+\@writefile{brf}{\backcite{shi2023zero123plus}{{2}{2}{section*.2}}}
+\@writefile{brf}{\backcite{shi2023mvdream}{{2}{2}{section*.2}}}
+\@writefile{brf}{\backcite{tang2024lgm}{{2}{2}{section*.2}}}
+\@writefile{brf}{\backcite{wang2024crm}{{2}{2}{section*.2}}}
+\@writefile{brf}{\backcite{xu2024instantmesh}{{2}{2}{section*.2}}}
+\citation{melas2023realfusion,deng2023nerdi,tang2023make,gu2023nerfdiff}
+\citation{pooledreamfusion,wang2023score}
+\citation{ho2020denoising}
+\citation{chen2023importance}
+\citation{songdenoising}
+\citation{ho2022classifier}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces \textbf  {SPAR3D\xspace  Overview.} Conditioned on the input image, SPAR3D\xspace  first leverages a point diffusion model to generate a sparse point cloud. The triplane transformer then uses the sampled point cloud and image features to produce high-resolution triplane features. The triplane features are then queried to reconstruct the geometry, texture, and illumination of the object in the image.}}{3}{figure.caption.3}\protected@file@percent }
+\newlabel{fig:overview}{{2}{3}{\textbf {\method Overview.} Conditioned on the input image, \method first leverages a point diffusion model to generate a sparse point cloud. The triplane transformer then uses the sampled point cloud and image features to produce high-resolution triplane features. The triplane features are then queried to reconstruct the geometry, texture, and illumination of the object in the image}{figure.caption.3}{}}
+\newlabel{fig:overview@cref}{{[figure][2][]2}{[1][2][]3}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{Generative 3D modeling}{3}{section*.4}\protected@file@percent }
+\@writefile{brf}{\backcite{cai2020learning}{{3}{2}{section*.4}}}
+\@writefile{brf}{\backcite{gao2022get3d}{{3}{2}{section*.4}}}
+\@writefile{brf}{\backcite{hui2020progressive}{{3}{2}{section*.4}}}
+\@writefile{brf}{\backcite{valsesia2018learning}{{3}{2}{section*.4}}}
+\@writefile{brf}{\backcite{klokov2020discrete}{{3}{2}{section*.4}}}
+\@writefile{brf}{\backcite{yang2019pointflow}{{3}{2}{section*.4}}}
+\@writefile{brf}{\backcite{gao2021tm}{{3}{2}{section*.4}}}
+\@writefile{brf}{\backcite{mittal2022autosdf}{{3}{2}{section*.4}}}
+\@writefile{brf}{\backcite{wu2019sagnet}{{3}{2}{section*.4}}}
+\@writefile{brf}{\backcite{dhariwal2021diffusion}{{3}{2}{section*.4}}}
+\@writefile{brf}{\backcite{rombach2022high}{{3}{2}{section*.4}}}
+\@writefile{brf}{\backcite{chen2023single}{{3}{2}{section*.4}}}
+\@writefile{brf}{\backcite{cheng2023sdfusion}{{3}{2}{section*.4}}}
+\@writefile{brf}{\backcite{chou2023diffusion}{{3}{2}{section*.4}}}
+\@writefile{brf}{\backcite{huang2024pointinfinity}{{3}{2}{section*.4}}}
+\@writefile{brf}{\backcite{jun2023shap}{{3}{2}{section*.4}}}
+\@writefile{brf}{\backcite{lan2024ln3diff}{{3}{2}{section*.4}}}
+\@writefile{brf}{\backcite{liu2023syncdreamer}{{3}{2}{section*.4}}}
+\@writefile{brf}{\backcite{nichol2022point}{{3}{2}{section*.4}}}
+\@writefile{brf}{\backcite{shi2023mvdream}{{3}{2}{section*.4}}}
+\@writefile{brf}{\backcite{shue20233d}{{3}{2}{section*.4}}}
+\@writefile{brf}{\backcite{yariv2024mosaic}{{3}{2}{section*.4}}}
+\@writefile{brf}{\backcite{zhao2023michelangelo}{{3}{2}{section*.4}}}
+\@writefile{toc}{\contentsline {paragraph}{Optimization-based single-view 3D}{3}{section*.5}\protected@file@percent }
+\@writefile{brf}{\backcite{deng2023nerdi}{{3}{2}{section*.5}}}
+\@writefile{brf}{\backcite{gu2023nerfdiff}{{3}{2}{section*.5}}}
+\@writefile{brf}{\backcite{melas2023realfusion}{{3}{2}{section*.5}}}
+\@writefile{brf}{\backcite{tang2023make}{{3}{2}{section*.5}}}
+\@writefile{brf}{\backcite{pooledreamfusion}{{3}{2}{section*.5}}}
+\@writefile{brf}{\backcite{wang2023score}{{3}{2}{section*.5}}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}\hskip -1em.~Method}{3}{section.3}\protected@file@percent }
+\newlabel{sec:method}{{3}{3}{\hskip -1em.~Method}{section.3}{}}
+\newlabel{sec:method@cref}{{[section][3][]3}{[1][3][]3}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{SPAR3D\xspace  Overview.}{3}{section*.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}\hskip -1em.~Point Sampling Stage}{3}{subsection.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Overview.}{3}{section*.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Point Diffusion Framework.}{3}{section*.8}\protected@file@percent }
+\@writefile{brf}{\backcite{ho2020denoising}{{3}{3.1}{section*.8}}}
+\@writefile{brf}{\backcite{chen2023importance}{{3}{3.1}{equation.1}}}
+\@writefile{brf}{\backcite{songdenoising}{{3}{3.1}{equation.2}}}
+\citation{nichol2022point}
+\citation{oquab2023dinov2}
+\citation{Burley2012}
+\citation{Burley2012}
+\citation{oquab2023dinov2}
+\citation{huang2024pointinfinity}
+\citation{sf3d2024}
+\citation{sf3d2024,wang2024crm,xu2024instantmesh}
+\citation{shen2021deep}
+\citation{Boss2021neuralPIL}
+\citation{gardner2023reni++}
+\citation{sf3d2024}
+\citation{sun2023alphaclip}
+\citation{Burley2012}
+\citation{VeachPhD}
+\citation{zhang2018perceptual}
+\@writefile{brf}{\backcite{ho2022classifier}{{4}{3.1}{equation.2}}}
+\@writefile{toc}{\contentsline {paragraph}{Denoiser Design.}{4}{section*.9}\protected@file@percent }
+\@writefile{brf}{\backcite{nichol2022point}{{4}{3.1}{section*.9}}}
+\@writefile{brf}{\backcite{oquab2023dinov2}{{4}{3.1}{section*.9}}}
+\@writefile{toc}{\contentsline {paragraph}{Albedo Point clouds.}{4}{section*.10}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}\hskip -1em.~Meshing Stage}{4}{subsection.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Overview.}{4}{section*.12}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Triplane Transformer.}{4}{section*.13}\protected@file@percent }
+\@writefile{brf}{\backcite{oquab2023dinov2}{{4}{3.2}{section*.13}}}
+\@writefile{brf}{\backcite{huang2024pointinfinity}{{4}{3.2}{section*.13}}}
+\@writefile{brf}{\backcite{sf3d2024}{{4}{3.2}{section*.13}}}
+\@writefile{toc}{\contentsline {paragraph}{Surface Estimation.}{4}{section*.14}\protected@file@percent }
+\@writefile{brf}{\backcite{sf3d2024}{{4}{3.2}{section*.14}}}
+\@writefile{brf}{\backcite{wang2024crm}{{4}{3.2}{section*.14}}}
+\@writefile{brf}{\backcite{xu2024instantmesh}{{4}{3.2}{section*.14}}}
+\@writefile{brf}{\backcite{shen2021deep}{{4}{3.2}{section*.14}}}
+\@writefile{toc}{\contentsline {paragraph}{Material and Illumination Estimation.}{4}{section*.15}\protected@file@percent }
+\@writefile{brf}{\backcite{Boss2021neuralPIL}{{4}{3.2}{section*.15}}}
+\@writefile{brf}{\backcite{gardner2023reni++}{{4}{3.2}{section*.15}}}
+\@writefile{brf}{\backcite{sf3d2024}{{4}{3.2}{section*.15}}}
+\@writefile{brf}{\backcite{sun2023alphaclip}{{4}{3.2}{section*.15}}}
+\@writefile{toc}{\contentsline {paragraph}{Differentiable Rendering.}{4}{section*.16}\protected@file@percent }
+\@writefile{brf}{\backcite{Burley2012}{{4}{3.2}{section*.16}}}
+\@writefile{brf}{\backcite{VeachPhD}{{4}{3.2}{section*.16}}}
+\@writefile{toc}{\contentsline {paragraph}{Loss Function.}{4}{section*.17}\protected@file@percent }
+\@writefile{brf}{\backcite{zhang2018perceptual}{{4}{3.2}{section*.17}}}
+\citation{huang2024pointinfinity}
+\citation{hasselgren2022nvdiffrecmc}
+\citation{Walter2007}
+\citation{TripoSR2024}
+\citation{jun2023shap}
+\citation{lan2024ln3diff}
+\citation{tang2024lgm}
+\citation{wang2024crm}
+\citation{TripoSR2024}
+\citation{xu2024instantmesh}
+\citation{sf3d2024}
+\citation{downs2022google}
+\citation{downs2022google}
+\citation{jun2023shap}
+\citation{lan2024ln3diff}
+\citation{tang2024lgm}
+\citation{wang2024crm}
+\citation{TripoSR2024}
+\citation{xu2024instantmesh}
+\citation{sf3d2024}
+\citation{wu2023omniobject3d}
+\citation{wu2023omniobject3d}
+\citation{downs2022google}
+\citation{wu2023omniobject3d}
+\citation{TripoSR2024}
+\citation{TripoSR2024,xu2024instantmesh}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces \textbf  {Our Differentiable Renderer.} We estimate geometry, albedo, lighting, and normal maps from the triplane and metallic/roughness values from the image. We rasterize and interpolate these values as input to our shader (omitted here for simplicity). Our shader uses the Disney BRDF~\cite  {Burley2012} and performs Monte Carlo integration. We further perform visibility testing to improve shadow modeling. Finally, we compare the rendered image with the GT image and minimize the rendering loss.}}{5}{figure.caption.11}\protected@file@percent }
+\@writefile{brf}{\backcite{Burley2012}{{5}{3}{figure.caption.11}}}
+\newlabel{fig:rendering}{{3}{5}{\textbf {Our Differentiable Renderer.} We estimate geometry, albedo, lighting, and normal maps from the triplane and metallic/roughness values from the image. We rasterize and interpolate these values as input to our shader (omitted here for simplicity). Our shader uses the Disney BRDF~\cite {Burley2012} and performs Monte Carlo integration. We further perform visibility testing to improve shadow modeling. Finally, we compare the rendered image with the GT image and minimize the rendering loss}{figure.caption.11}{}}
+\newlabel{fig:rendering@cref}{{[figure][3][]3}{[1][4][]5}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces \textbf  {Shadow Modeling.} We perform visibility testing in screen-space by marching along sampled rays. If any point along the ray has a ray depth which is farther away than the depth map, we consider the entire ray as shadowed.}}{5}{figure.caption.11}\protected@file@percent }
+\newlabel{fig:shadow_test}{{4}{5}{\textbf {Shadow Modeling.} We perform visibility testing in screen-space by marching along sampled rays. If any point along the ray has a ray depth which is farther away than the depth map, we consider the entire ray as shadowed}{figure.caption.11}{}}
+\newlabel{fig:shadow_test@cref}{{[figure][4][]4}{[1][4][]5}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}\hskip -1em.~Interactive Editing}{5}{subsection.3.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4}\hskip -1em.~Implementation Details}{5}{subsection.3.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Point Sampling Stage.}{5}{section*.18}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Meshing Stage.}{5}{section*.19}\protected@file@percent }
+\@writefile{brf}{\backcite{huang2024pointinfinity}{{5}{3.4}{section*.19}}}
+\@writefile{brf}{\backcite{hasselgren2022nvdiffrecmc}{{5}{3.4}{section*.19}}}
+\@writefile{brf}{\backcite{Walter2007}{{5}{3.4}{section*.19}}}
+\@writefile{brf}{\backcite{TripoSR2024}{{5}{3.4}{section*.19}}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}\hskip -1em.~Experiments}{5}{section.4}\protected@file@percent }
+\newlabel{sec:experiments}{{4}{5}{\hskip -1em.~Experiments}{section.4}{}}
+\newlabel{sec:experiments@cref}{{[section][4][]4}{[1][5][]5}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}\hskip -1em.~Evaluation}{5}{subsection.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Datasets.}{5}{section*.22}\protected@file@percent }
+\@writefile{brf}{\backcite{downs2022google}{{5}{4.1}{section*.22}}}
+\@writefile{brf}{\backcite{wu2023omniobject3d}{{5}{4.1}{section*.22}}}
+\@writefile{brf}{\backcite{TripoSR2024}{{5}{4.1}{section*.22}}}
+\citation{TripoSR2024,tang2024lgm,xu2024instantmesh,wang2024crm,sf3d2024}
+\citation{TripoSR2024}
+\citation{tang2024lgm}
+\citation{wang2024crm}
+\citation{xu2024instantmesh}
+\citation{lan2024ln3diff}
+\citation{jun2023shap}
+\citation{sf3d2024}
+\citation{deng2009imagenet}
+\@writefile{brf}{\backcite{jun2023shap}{{6}{\caption@xref {??}{ on input line 17}}{table.caption.20}}}
+\@writefile{brf}{\backcite{lan2024ln3diff}{{6}{\caption@xref {??}{ on input line 17}}{table.caption.20}}}
+\@writefile{brf}{\backcite{tang2024lgm}{{6}{\caption@xref {??}{ on input line 17}}{table.caption.20}}}
+\@writefile{brf}{\backcite{wang2024crm}{{6}{\caption@xref {??}{ on input line 17}}{table.caption.20}}}
+\@writefile{brf}{\backcite{TripoSR2024}{{6}{\caption@xref {??}{ on input line 17}}{table.caption.20}}}
+\@writefile{brf}{\backcite{xu2024instantmesh}{{6}{\caption@xref {??}{ on input line 17}}{table.caption.20}}}
+\@writefile{brf}{\backcite{sf3d2024}{{6}{\caption@xref {??}{ on input line 17}}{table.caption.20}}}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces \textbf  {Quantitative Comparisons on GSO~\cite  {downs2022google}.} SPAR3D\xspace  performs favorably to other state-of-the-art methods.}}{6}{table.caption.20}\protected@file@percent }
+\@writefile{brf}{\backcite{downs2022google}{{6}{1}{table.caption.20}}}
+\newlabel{tab:gso}{{1}{6}{\textbf {Quantitative Comparisons on GSO~\cite {downs2022google}.} \method performs favorably to other state-of-the-art methods}{table.caption.20}{}}
+\newlabel{tab:gso@cref}{{[table][1][]1}{[1][5][]6}{}{}{}}
+\@writefile{brf}{\backcite{jun2023shap}{{6}{\caption@xref {??}{ on input line 17}}{table.caption.21}}}
+\@writefile{brf}{\backcite{lan2024ln3diff}{{6}{\caption@xref {??}{ on input line 17}}{table.caption.21}}}
+\@writefile{brf}{\backcite{tang2024lgm}{{6}{\caption@xref {??}{ on input line 17}}{table.caption.21}}}
+\@writefile{brf}{\backcite{wang2024crm}{{6}{\caption@xref {??}{ on input line 17}}{table.caption.21}}}
+\@writefile{brf}{\backcite{TripoSR2024}{{6}{\caption@xref {??}{ on input line 17}}{table.caption.21}}}
+\@writefile{brf}{\backcite{xu2024instantmesh}{{6}{\caption@xref {??}{ on input line 17}}{table.caption.21}}}
+\@writefile{brf}{\backcite{sf3d2024}{{6}{\caption@xref {??}{ on input line 17}}{table.caption.21}}}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces \textbf  {Quantitative Comparisons on OmniObject3D~\cite  {wu2023omniobject3d}.} SPAR3D\xspace  performs favorably to other state-of-the-art methods.}}{6}{table.caption.21}\protected@file@percent }
+\@writefile{brf}{\backcite{wu2023omniobject3d}{{6}{2}{table.caption.21}}}
+\newlabel{tab:omni}{{2}{6}{\textbf {Quantitative Comparisons on OmniObject3D~\cite {wu2023omniobject3d}.} \method performs favorably to other state-of-the-art methods}{table.caption.21}{}}
+\newlabel{tab:omni@cref}{{[table][2][]2}{[1][5][]6}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{Metrics.}{6}{section*.23}\protected@file@percent }
+\@writefile{brf}{\backcite{TripoSR2024}{{6}{4.1}{section*.23}}}
+\@writefile{brf}{\backcite{xu2024instantmesh}{{6}{4.1}{section*.23}}}
+\newlabel{eq:chamfer}{{3}{6}{Metrics}{equation.3}{}}
+\newlabel{eq:chamfer@cref}{{[equation][3][]3}{[1][6][]6}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{Protocol.}{6}{section*.25}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Baselines.}{6}{section*.26}\protected@file@percent }
+\@writefile{brf}{\backcite{sf3d2024}{{6}{4.1}{section*.26}}}
+\@writefile{brf}{\backcite{tang2024lgm}{{6}{4.1}{section*.26}}}
+\@writefile{brf}{\backcite{TripoSR2024}{{6}{4.1}{section*.26}}}
+\@writefile{brf}{\backcite{wang2024crm}{{6}{4.1}{section*.26}}}
+\@writefile{brf}{\backcite{xu2024instantmesh}{{6}{4.1}{section*.26}}}
+\@writefile{brf}{\backcite{TripoSR2024}{{6}{4.1}{section*.26}}}
+\@writefile{brf}{\backcite{tang2024lgm}{{6}{4.1}{section*.26}}}
+\@writefile{brf}{\backcite{wang2024crm}{{6}{4.1}{section*.26}}}
+\@writefile{brf}{\backcite{xu2024instantmesh}{{6}{4.1}{section*.26}}}
+\@writefile{brf}{\backcite{lan2024ln3diff}{{6}{4.1}{section*.26}}}
+\@writefile{brf}{\backcite{jun2023shap}{{6}{4.1}{section*.26}}}
+\@writefile{brf}{\backcite{sf3d2024}{{6}{4.1}{section*.26}}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}\hskip -1em.~Main Results}{6}{subsection.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Quantitative Comparison.}{6}{section*.29}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Qualitative Results.}{6}{section*.30}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces \textbf  {Qualitative Comparison.} We compare SPAR3D\xspace  to other state-of-the-art methods visually. SPAR3D\xspace  not only aligns better with the visible surfaces from images, but also generates higher-quality geometries and textures for the occluded surfaces.}}{7}{figure.caption.24}\protected@file@percent }
+\newlabel{fig:qualitative}{{5}{7}{\textbf {Qualitative Comparison.} We compare \method to other state-of-the-art methods visually. \method not only aligns better with the visible surfaces from images, but also generates higher-quality geometries and textures for the occluded surfaces}{figure.caption.24}{}}
+\newlabel{fig:qualitative@cref}{{[figure][5][]5}{[1][6][]7}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces \textbf  {Generalization Results.} We show qualitative results of SPAR3D\xspace  on in-the-wild images from 2D generative models (top 2 rows) and ImageNet (bottom 2 rows). The reconstructed meshes exhibit accurate geometric structures with great textures, demonstrating a strong generalization performance of SPAR3D\xspace  .}}{7}{figure.caption.27}\protected@file@percent }
+\newlabel{fig:wild}{{6}{7}{\textbf {Generalization Results.} We show qualitative results of \method on in-the-wild images from 2D generative models (top 2 rows) and ImageNet (bottom 2 rows). The reconstructed meshes exhibit accurate geometric structures with great textures, demonstrating a strong generalization performance of \method }{figure.caption.27}{}}
+\newlabel{fig:wild@cref}{{[figure][6][]6}{[1][6][]7}{}{}{}}
+\@writefile{brf}{\backcite{deng2009imagenet}{{7}{4.2}{section*.30}}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}\hskip -1em.~Editing Results}{7}{subsection.4.3}\protected@file@percent }
+\bibstyle{ieeenat_fullname}
+\bibdata{main}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces \textbf  {Editing Results.} We show qualitative examples of interactive editing with SPAR3D\xspace  . On the left two examples, we add a handle to the mug and a tail to the elephant doll by duplicating existing points. On the right two examples, we move or delete points to fix imperfections and to improve local details on the mesh. All the edits are performed in Blender within a minute.}}{8}{figure.caption.28}\protected@file@percent }
+\newlabel{fig:edit}{{7}{8}{\textbf {Editing Results.} We show qualitative examples of interactive editing with \method . On the left two examples, we add a handle to the mug and a tail to the elephant doll by duplicating existing points. On the right two examples, we move or delete points to fix imperfections and to improve local details on the mesh. All the edits are performed in Blender within a minute}{figure.caption.28}{}}
+\newlabel{fig:edit@cref}{{[figure][7][]7}{[1][6][]8}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}\hskip -1em.~Ablation}{8}{subsection.4.4}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces \textbf  {Ablation Study on GSO (top 2 rows) and Omniobject3D (bottom 2 rows).} Removing the point sampling stage leads to significant performance drop.}}{8}{table.caption.31}\protected@file@percent }
+\newlabel{tab:ablation}{{3}{8}{\textbf {Ablation Study on GSO (top 2 rows) and Omniobject3D (bottom 2 rows).} Removing the point sampling stage leads to significant performance drop}{table.caption.31}{}}
+\newlabel{tab:ablation@cref}{{[table][3][]3}{[1][8][]8}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5}\hskip -1em.~Analysis}{8}{subsection.4.5}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces \textbf  {Generated Mesh with Conflicting Cues.} Under conflicting cues from images and point clouds, our model reconstructs the visible surface based on the image, while generating the backside surface based on the point cloud.}}{8}{figure.caption.32}\protected@file@percent }
+\newlabel{fig:analysis}{{8}{8}{\textbf {Generated Mesh with Conflicting Cues.} Under conflicting cues from images and point clouds, our model reconstructs the visible surface based on the image, while generating the backside surface based on the point cloud}{figure.caption.32}{}}
+\newlabel{fig:analysis@cref}{{[figure][8][]8}{[1][8][]8}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}\hskip -1em.~Conclusion}{8}{section.5}\protected@file@percent }
+\newlabel{sec:conclusion}{{5}{8}{\hskip -1em.~Conclusion}{section.5}{}}
+\newlabel{sec:conclusion@cref}{{[section][5][]5}{[1][8][]8}{}{}{}}
+\bibcite{Boss2021neuralPIL}{{1}{2021}{{Boss et~al.}}{{Boss, Jampani, Braun, Liu, Barron, and Lensch}}}
+\bibcite{sf3d2024}{{2}{2024}{{Boss et~al.}}{{Boss, Huang, Vasishta, and Jampani}}}
+\bibcite{Burley2012}{{3}{2012}{{Burley}}{{}}}
+\bibcite{cai2020learning}{{4}{2020}{{Cai et~al.}}{{Cai, Yang, Averbuch-Elor, Hao, Belongie, Snavely, and Hariharan}}}
+\bibcite{chang2015shapenet}{{5}{2015}{{Chang et~al.}}{{Chang, Funkhouser, Guibas, Hanrahan, Huang, Li, Savarese, Savva, Song, Su, et~al.}}}
+\bibcite{chen2023single}{{6}{2023}{{Chen et~al.}}{{Chen, Gu, Chen, Tian, Tu, Liu, and Su}}}
+\bibcite{chen2023importance}{{7}{2023}{{Chen}}{{}}}
+\bibcite{cheng2023sdfusion}{{8}{2023}{{Cheng et~al.}}{{Cheng, Lee, Tulyakov, Schwing, and Gui}}}
+\bibcite{chou2023diffusion}{{9}{2023}{{Chou et~al.}}{{Chou, Bahat, and Heide}}}
+\bibcite{choy20163d}{{10}{2016}{{Choy et~al.}}{{Choy, Xu, Gwak, Chen, and Savarese}}}
+\bibcite{deitke2022objaverse}{{11}{2022}{{Deitke et~al.}}{{Deitke, Schwenk, Salvador, Weihs, Michel, VanderBilt, Schmidt, Ehsani, Kembhavi, and Farhadi}}}
+\bibcite{deng2023nerdi}{{12}{2023}{{Deng et~al.}}{{Deng, Jiang, Qi, Yan, Zhou, Guibas, Anguelov, et~al.}}}
+\bibcite{deng2009imagenet}{{13}{2009}{{Deng et~al.}}{{Deng, Dong, Socher, Li, Li, and Fei-Fei}}}
+\bibcite{dhariwal2021diffusion}{{14}{2021}{{Dhariwal and Nichol}}{{}}}
+\bibcite{downs2022google}{{15}{2022}{{Downs et~al.}}{{Downs, Francis, Koenig, Kinman, Hickman, Reymann, McHugh, and Vanhoucke}}}
+\bibcite{gao2022get3d}{{16}{2022}{{Gao et~al.}}{{Gao, Shen, Wang, Chen, Yin, Li, Litany, Gojcic, and Fidler}}}
+\bibcite{gao2021tm}{{17}{2021}{{Gao et~al.}}{{Gao, Wu, Yuan, Lin, Lai, and Zhang}}}
+\bibcite{gardner2023reni++}{{18}{2023}{{Gardner et~al.}}{{Gardner, Egger, and Smith}}}
+\bibcite{groueix2018}{{19}{2018}{{Groueix et~al.}}{{Groueix, Fisher, Kim, Russell, and Aubry}}}
+\bibcite{gu2023nerfdiff}{{20}{2023}{{Gu et~al.}}{{Gu, Trevithick, Lin, Susskind, Theobalt, Liu, and Ramamoorthi}}}
+\bibcite{hasselgren2022nvdiffrecmc}{{21}{2022}{{Hasselgren et~al.}}{{Hasselgren, Hofmann, and Munkberg}}}
+\bibcite{ho2022classifier}{{22}{2022}{{Ho and Salimans}}{{}}}
+\bibcite{ho2020denoising}{{23}{2020}{{Ho et~al.}}{{Ho, Jain, and Abbeel}}}
+\bibcite{hong2023lrm}{{24}{2023}{{Hong et~al.}}{{Hong, Zhang, Gu, Bi, Zhou, Liu, Liu, Sunkavalli, Bui, and Tan}}}
+\bibcite{huang2023shapeclipper}{{25}{2023}{{Huang et~al.}}{{Huang, Jampani, Thai, Li, Stojanov, and Rehg}}}
+\bibcite{huang2024pointinfinity}{{26}{2024{}}{{Huang et~al.}}{{Huang, Johnson, Debnath, Rehg, and Wu}}}
+\bibcite{huang2024zeroshape}{{27}{2024{}}{{Huang et~al.}}{{Huang, Stojanov, Thai, Jampani, and Rehg}}}
+\bibcite{hui2020progressive}{{28}{2020}{{Hui et~al.}}{{Hui, Xu, Xie, Qian, and Yang}}}
+\bibcite{jun2023shap}{{29}{2023}{{Jun and Nichol}}{{}}}
+\bibcite{klokov2020discrete}{{30}{2020}{{Klokov et~al.}}{{Klokov, Boyer, and Verbeek}}}
+\bibcite{lan2024ln3diff}{{31}{2024}{{Lan et~al.}}{{Lan, Hong, Yang, Zhou, Meng, Dai, Pan, and Loy}}}
+\bibcite{li2023diffusion}{{32}{2023}{{Li et~al.}}{{Li, Duan, Zhou, and Lu}}}
+\bibcite{liu2023one2345++}{{33}{2023{}}{{Liu et~al.}}{{Liu, Shi, Chen, Zhang, Xu, Wei, Chen, Zeng, Gu, and Su}}}
+\bibcite{liu2023zero}{{34}{2023{}}{{Liu et~al.}}{{Liu, Wu, Van~Hoorick, Tokmakov, Zakharov, and Vondrick}}}
+\bibcite{liu2023syncdreamer}{{35}{2023{}}{{Liu et~al.}}{{Liu, Lin, Zeng, Long, Liu, Komura, and Wang}}}
+\bibcite{melas2023realfusion}{{36}{2023}{{Melas-Kyriazi et~al.}}{{Melas-Kyriazi, Laina, Rupprecht, and Vedaldi}}}
+\bibcite{mescheder2019occupancy}{{37}{2019}{{Mescheder et~al.}}{{Mescheder, Oechsle, Niemeyer, Nowozin, and Geiger}}}
+\bibcite{mittal2022autosdf}{{38}{2022}{{Mittal et~al.}}{{Mittal, Cheng, Singh, and Tulsiani}}}
+\bibcite{nichol2022point}{{39}{2022}{{Nichol et~al.}}{{Nichol, Jun, Dhariwal, Mishkin, and Chen}}}
+\bibcite{oquab2023dinov2}{{40}{2023}{{Oquab et~al.}}{{Oquab, Darcet, Moutakanni, Vo, Szafraniec, Khalidov, Fernandez, Haziza, Massa, El-Nouby, et~al.}}}
+\bibcite{pooledreamfusion}{{41}{2023}{{Poole et~al.}}{{Poole, Jain, Barron, and Mildenhall}}}
+\bibcite{reizenstein2021co3d}{{42}{2021}{{Reizenstein et~al.}}{{Reizenstein, Shapovalov, Henzler, Sbordone, Labatut, and Novotny}}}
+\bibcite{rombach2022high}{{43}{2022}{{Rombach et~al.}}{{Rombach, Blattmann, Lorenz, Esser, and Ommer}}}
+\bibcite{shen2021deep}{{44}{2021}{{Shen et~al.}}{{Shen, Gao, Yin, Liu, and Fidler}}}
+\bibcite{shi2023zero123plus}{{45}{2023{}}{{Shi et~al.}}{{Shi, Chen, Zhang, Liu, Xu, Wei, Chen, Zeng, and Su}}}
+\bibcite{shi2023mvdream}{{46}{2023{}}{{Shi et~al.}}{{Shi, Wang, Ye, Long, Li, and Yang}}}
+\bibcite{shim2023diffusion}{{47}{2023}{{Shim et~al.}}{{Shim, Kang, and Joo}}}
+\bibcite{shue20233d}{{48}{2023}{{Shue et~al.}}{{Shue, Chan, Po, Ankner, Wu, and Wetzstein}}}
+\bibcite{songdenoising}{{49}{2021}{{Song et~al.}}{{Song, Meng, and Ermon}}}
+\bibcite{sun2018pix3d}{{50}{2018}{{Sun et~al.}}{{Sun, Wu, Zhang, Zhang, Zhang, Xue, Tenenbaum, and Freeman}}}
+\bibcite{sun2023alphaclip}{{51}{2023}{{Sun et~al.}}{{Sun, Fang, Wu, Zhang, Zang, Kong, Xiong, Lin, and Wang}}}
+\bibcite{tang2023make}{{52}{2023}{{Tang et~al.}}{{Tang, Wang, Zhang, Zhang, Yi, Ma, and Chen}}}
+\bibcite{tang2024lgm}{{53}{2024}{{Tang et~al.}}{{Tang, Chen, Chen, Wang, Zeng, and Liu}}}
+\bibcite{TripoSR2024}{{54}{2024}{{Tochilkin et~al.}}{{Tochilkin, Pankratz, Liu, Huang, , Letts, Li, Liang, Laforte, Jampani, and Cao}}}
+\bibcite{valsesia2018learning}{{55}{2018}{{Valsesia et~al.}}{{Valsesia, Fracastoro, and Magli}}}
+\bibcite{VeachPhD}{{56}{1997}{{Veach}}{{}}}
+\bibcite{Walter2007}{{57}{2007}{{Walter et~al.}}{{Walter, Marschner, Li, and Torrance}}}
+\bibcite{wang2023score}{{58}{2023}{{Wang et~al.}}{{Wang, Du, Li, Yeh, and Shakhnarovich}}}
+\bibcite{wang2018pixel2mesh}{{59}{2018}{{Wang et~al.}}{{Wang, Zhang, Li, Fu, Liu, and Jiang}}}
+\bibcite{wang2024crm}{{60}{2024}{{Wang et~al.}}{{Wang, Wang, Chen, Xiang, Chen, Yu, Li, Su, and Zhu}}}
+\bibcite{wu2023multiview}{{61}{2023{}}{{Wu et~al.}}{{Wu, Johnson, Malik, Feichtenhofer, and Gkioxari}}}
+\bibcite{wu2017marrnet}{{62}{2017}{{Wu et~al.}}{{Wu, Wang, Xue, Sun, Freeman, and Tenenbaum}}}
+\bibcite{wu2023omniobject3d}{{63}{2023{}}{{Wu et~al.}}{{Wu, Zhang, Fu, Wang, Ren, Pan, Wu, Yang, Wang, Qian, et~al.}}}
+\bibcite{wu2019sagnet}{{64}{2019}{{Wu et~al.}}{{Wu, Wang, Lin, Lischinski, Cohen-Or, and Huang}}}
+\bibcite{xu2024instantmesh}{{65}{2024}{{Xu et~al.}}{{Xu, Cheng, Gao, Wang, Gao, and Shan}}}
+\bibcite{xu2019disn}{{66}{2019}{{Xu et~al.}}{{Xu, Wang, Ceylan, Mech, and Neumann}}}
+\bibcite{yang2019pointflow}{{67}{2019}{{Yang et~al.}}{{Yang, Huang, Hao, Liu, Belongie, and Hariharan}}}
+\bibcite{yariv2024mosaic}{{68}{2024}{{Yariv et~al.}}{{Yariv, Puny, Gafni, and Lipman}}}
+\bibcite{zhang2024gs}{{69}{2024}{{Zhang et~al.}}{{Zhang, Bi, Tan, Xiangli, Zhao, Sunkavalli, and Xu}}}
+\bibcite{zhang2018perceptual}{{70}{2018}{{Zhang et~al.}}{{Zhang, Isola, Efros, Shechtman, and Wang}}}
+\bibcite{zhao2023michelangelo}{{71}{2023}{{Zhao et~al.}}{{Zhao, Liu, Chen, Zeng, Wang, Cheng, FU, Chen, YU, and Gao}}}
+\citation{sf3d2024}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces \textbf  {Decomposition and Relighting Results.} We show decomposed albedo and relighting results of SPAR3D\xspace  in comparison with SF3D. The albedo estimated by SPAR3D\xspace  has less baked-in lighting compared with SF3D and results in better relighting outcomes.}}{1}{figure.caption.34}\protected@file@percent }
+\newlabel{fig:supp-decomp}{{9}{1}{\textbf {Decomposition and Relighting Results.} We show decomposed albedo and relighting results of \method in comparison with SF3D. The albedo estimated by \method has less baked-in lighting compared with SF3D and results in better relighting outcomes}{figure.caption.34}{}}
+\newlabel{fig:supp-decomp@cref}{{[figure][9][]9}{[1][1][]1}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces \textbf  {Additional In-the-wild Results.} We show additional results of SPAR3D\xspace  on in-the-wild images. The reconstructed meshes achieve high fidelity and exhibit great surface details.}}{1}{figure.caption.34}\protected@file@percent }
+\newlabel{fig:supp-wild}{{10}{1}{\textbf {Additional In-the-wild Results.} We show additional results of \method on in-the-wild images. The reconstructed meshes achieve high fidelity and exhibit great surface details}{figure.caption.34}{}}
+\newlabel{fig:supp-wild@cref}{{[figure][10][]10}{[1][1][]1}{}{}{}}
+\@writefile{brf}{\backcite{sf3d2024}{{1}{5}{figure.caption.34}}}
+\@writefile{toc}{\contentsline {section}{\numberline {A}\hskip -1em.~Limitations}{1}{appendix.A}\protected@file@percent }
+\newlabel{sec:limitation}{{A}{1}{\hskip -1em.~Limitations}{appendix.A}{}}
+\newlabel{sec:limitation@cref}{{[section][1][]A}{[1][1][]1}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {B}\hskip -1em.~Additional Illustrations of our Architecture}{1}{appendix.B}\protected@file@percent }
+\newlabel{sec:illustration}{{B}{1}{\hskip -1em.~Additional Illustrations of our Architecture}{appendix.B}{}}
+\newlabel{sec:illustration@cref}{{[section][2][]B}{[1][1][]1}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces \textbf  {Point Cloud Denoiser Architecture.} We illustrate the architecture of our point cloud denoiser. The point cloud denoiser takes the noisy point cloud and the image as input, and produces a denoised point cloud. The image and the noisy point cloud are encoded as latent vectors and concatenated together. The concatenated latent vectors are processed by a set of transformer blocks and decoded as the denoised point cloud.}}{2}{figure.caption.35}\protected@file@percent }
+\newlabel{fig:supp-denoiser}{{11}{2}{\textbf {Point Cloud Denoiser Architecture.} We illustrate the architecture of our point cloud denoiser. The point cloud denoiser takes the noisy point cloud and the image as input, and produces a denoised point cloud. The image and the noisy point cloud are encoded as latent vectors and concatenated together. The concatenated latent vectors are processed by a set of transformer blocks and decoded as the denoised point cloud}{figure.caption.35}{}}
+\newlabel{fig:supp-denoiser@cref}{{[figure][11][]11}{[1][1][]2}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces \textbf  {Meshing Model Architecture.} We illustrate the architecture of our meshing model, which takes the point cloud and the image as input, and produces a textured mesh and an environment map as output. Specifically, the meshing model first encodes the image and the point cloud as latent vectors. The learnable triplane tokens are then processed by the triplane transformer conditioned on the latent vectors. We query the triplane with MLPs to obtain albedo, density, vertex deformation and surface normal, which are converted to a textured mesh using DMTet. The triplane also produces an environment map using the illumination prior from RENI++. The metallic and roughness values are estimated from the image directly and are omitted here for simplicity.}}{2}{figure.caption.36}\protected@file@percent }
+\newlabel{fig:supp-meshing}{{12}{2}{\textbf {Meshing Model Architecture.} We illustrate the architecture of our meshing model, which takes the point cloud and the image as input, and produces a textured mesh and an environment map as output. Specifically, the meshing model first encodes the image and the point cloud as latent vectors. The learnable triplane tokens are then processed by the triplane transformer conditioned on the latent vectors. We query the triplane with MLPs to obtain albedo, density, vertex deformation and surface normal, which are converted to a textured mesh using DMTet. The triplane also produces an environment map using the illumination prior from RENI++. The metallic and roughness values are estimated from the image directly and are omitted here for simplicity}{figure.caption.36}{}}
+\newlabel{fig:supp-meshing@cref}{{[figure][12][]12}{[1][1][]2}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {C}\hskip -1em.~Decomposition Results}{2}{appendix.C}\protected@file@percent }
+\newlabel{sec:decomposition}{{C}{2}{\hskip -1em.~Decomposition Results}{appendix.C}{}}
+\newlabel{sec:decomposition@cref}{{[section][3][]C}{[1][1][]2}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {D}\hskip -1em.~Additional In-the-wild Results}{2}{appendix.D}\protected@file@percent }
+\newlabel{sec:wild}{{D}{2}{\hskip -1em.~Additional In-the-wild Results}{appendix.D}{}}
+\newlabel{sec:wild@cref}{{[section][4][]D}{[1][2][]2}{}{}{}}
+\gdef \@abspage@last{13}

@@ -1,0 +1,157 @@
+% CVPR 2026 Paper Template; see https://github.com/cvpr-org/author-kit
+
+\documentclass[10pt,twocolumn,letterpaper]{article}
+
+%%%%%%%%% PAPER TYPE  - PLEASE UPDATE FOR FINAL VERSION
+\usepackage{cvpr}              % To produce the CAMERA-READY version
+% \usepackage[review]{cvpr}      % To produce the REVIEW version
+\usepackage{multirow}
+\usepackage[accsupp]{axessibility} 
+\usepackage[table]{xcolor}   % 放在导言区
+\definecolor{rowgray}{RGB}{242,242,242} % 浅灰，可按需调整
+% \usepackage[pagenumbers]{cvpr} % To force page numbers, e.g. for an arXiv version
+
+% Import additional packages in the preamble file, before hyperref
+\input{preamble}
+
+% It is strongly recommended to use hyperref, especially for the review version.
+% hyperref with option pagebackref eases the reviewers' job.
+% Please disable hyperref *only* if you encounter grave issues, 
+% e.g. with the file validation for the camera-ready version.
+%
+% If you comment hyperref and then uncomment it, you should delete *.aux before re-running LaTeX.
+% (Or just hit 'q' on the first LaTeX run, let it finish, and you should be clear).
+\definecolor{cvprblue}{rgb}{0.21,0.49,0.74}
+\usepackage[pagebackref,breaklinks,colorlinks,allcolors=cvprblue]{hyperref}
+\usepackage{marvosym}
+%%%%%%%%% PAPER ID  - PLEASE UPDATE
+\def\paperID{***} % *** Enter the Paper ID here
+\def\confName{CVPR}
+\def\confYear{2026}
+
+%%%%%%%%% TITLE - PLEASE UPDATE
+\title{Text–Image Conditioned 3D Generation}
+
+%%%%%%%%% AUTHORS - PLEASE UPDATE
+% \author{Jiazhong Cen\\
+% MoE Key Lab of Artificial Intelligence, AI Institute, \\
+% School of Computer Science, Shanghai Jiao Tong University \\
+% {\tt\small jiazhongcen@sjtu.edu.cn}
+% % For a paper whose authors are all at the same institution,
+% % omit the following lines up until the closing ``}''.
+% % Additional authors and addresses can be added with ``\and'',
+% % just like the second author.
+% % To save space, use either the email address or home page, not both
+% \and
+% Jiemin Fang\\
+% Huawei Inc.\\
+% First line of institution2 address\\
+% {\tt\small secondauthor@i2.org}
+
+% \and
+% Sikuang Li\\
+% Institution2\\
+% First line of institution2 address\\
+% {\tt\small secondauthor@i2.org}
+
+% \and
+% Guanjun Wu\\
+% Huazhong University of Science and Technology \\
+% First line of institution2 address\\
+% {\tt\small secondauthor@i2.org}
+
+% \and
+% Chen Yang\\
+% Institution2\\
+% First line of institution2 address\\
+% {\tt\small secondauthor@i2.org}
+
+% \and
+% Taoran Yi\\
+% Institution2\\
+% First line of institution2 address\\
+% {\tt\small secondauthor@i2.org}
+
+% \and
+% Zanwei Zhou\\
+% Institution2\\
+% First line of institution2 address\\
+% {\tt\small secondauthor@i2.org}
+
+% \and
+% Zhikuan Bao\\
+% Institution2\\
+% First line of institution2 address\\
+% {\tt\small secondauthor@i2.org}
+
+% \and
+% Lingxi Xie\\
+% Institution2\\
+% First line of institution2 address\\
+% {\tt\small secondauthor@i2.org}
+
+% \and
+% Wei Shen\\
+% Institution2\\
+% First line of institution2 address\\
+% {\tt\small secondauthor@i2.org}
+
+% \and
+% Qi Tian\\
+% Institution2\\
+% First line of institution2 address\\
+% {\tt\small secondauthor@i2.org}
+% }
+
+%%%%%%%%% AUTHORS - PLEASE UPDATE
+\author{
+Jiazhong Cen\textsuperscript{\rm 1}\footnotemark[2] \quad
+Jiemin Fang\textsuperscript{\rm 2 \Letter} \quad
+Sikuang Li\textsuperscript{\rm 1}\footnotemark[2] \quad
+Guanjun Wu\textsuperscript{\rm 3}\footnotemark[2] \quad
+Chen Yang\textsuperscript{\rm 2} \quad
+Taoran Yi\textsuperscript{\rm 3}\footnotemark[2] \\
+Zanwei Zhou\textsuperscript{\rm 1}\footnotemark[2] \quad
+Zhikuan Bao\textsuperscript{\rm 2} \quad
+Lingxi Xie\textsuperscript{\rm 2} \quad
+Wei Shen\textsuperscript{\rm 1 \Letter} \quad
+Qi Tian\textsuperscript{\rm 2} \\
+$^{1}$MoE Key Lab of Artificial Intelligence, AI Institute, \\
+School of Computer Science, Shanghai Jiao Tong University \\
+$^{2}$Huawei Inc. \\
+$^{3}$Huazhong University of Science and Technology \\
+{\tt\small jaminfong@gmail.com, wei.shen@sjtu.edu.cn}
+}
+
+\begin{document}
+\maketitle
+
+{
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+\footnotetext[2]{Work done during internship at Huawei.}
+\footnotetext[0]{\hspace{-4pt}$^\text{\Letter}$Corresponding authors.}
+}
+
+\input{0_abstract}
+\input{1_intro}
+\input{2_related}
+\input{3_method}
+\input{4_experiments}
+\input{5_conclusion}
+
+\section*{Acknowledgements}
+This work was supported by the NSFC under Grant 62322604 and 62576207. We thank the anonymous reviewers for their valuable feedback and suggestions.
+{
+    \small
+    \bibliographystyle{ieeenat_fullname}
+    \bibliography{main}
+}
+
+\input{X_suppl}
+% {
+%      \small
+%      \bibliographystyle{ieeenat_fullname}
+%      \bibliography{main}
+%  }
+
+\end{document}

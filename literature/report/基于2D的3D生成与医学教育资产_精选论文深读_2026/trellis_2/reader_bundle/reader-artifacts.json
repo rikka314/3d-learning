@@ -1,0 +1,24 @@
+{
+  "schema_version": "paper-reader-artifacts/1.0",
+  "paper": {
+    "title": "Native and Compact Structured Latents for 3D Generation (TRELLIS.2)",
+    "source_mode": "latex-primary",
+    "report_path": "report.md"
+  },
+  "report": {
+    "markdown": "report.md"
+  },
+  "traceability_manifest": "traceability.json",
+  "documents": [
+    {
+      "doc": "trellis_2",
+      "label": "Trellis_2",
+      "pdf": "./docs/trellis_2.pdf"
+    }
+  ],
+  "reader_output": ".",
+  "paragraph_index": "latex-paragraphs.json",
+  "latex_paragraphs": "latex-paragraphs.json",
+  "research_lens": "research-lens.json",
+  "source_artifact_manifest": "source-reader-artifacts.json"
+}

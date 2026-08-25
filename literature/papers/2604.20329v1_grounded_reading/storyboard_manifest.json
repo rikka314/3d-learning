@@ -1,0 +1,47 @@
+{
+  "schema_version": "paper-storyboard/1.0",
+  "source_report": "report.md",
+  "style": "connected scientific-educational cartoon storyboard",
+  "panels": [
+    {
+      "panel_id": "S1",
+      "title": "会画但不会按答题卡作答",
+      "report_claim_ids": ["C4.1", "C6.1"],
+      "visual_metaphor": "A capable painter whose free-form answers cannot be benchmarked",
+      "prompt": "Recurring yellow banana-shaped painter robot produces beautiful but format-inconsistent task-like images that a benchmark examiner cannot score.",
+      "image_path": "storyboard/S1-unmeasurable-generation.png"
+    },
+    {
+      "panel_id": "S2",
+      "title": "教会可逆 RGB 答题协议",
+      "report_claim_ids": ["C2.1", "C11.2", "C14.2"],
+      "visual_metaphor": "A small set of protocol lessons mixed into a large art curriculum",
+      "prompt": "Same robot learns mask colors, an invertible RGB depth rail, and an RGB normal compass from a small stack of lessons.",
+      "image_path": "storyboard/S2-invertible-rgb-protocol.png"
+    },
+    {
+      "panel_id": "S3",
+      "title": "一个模型、多个任务",
+      "report_claim_ids": ["C7.1", "C9.1", "C13.1"],
+      "visual_metaphor": "One shared hub generates five decodable answer cards",
+      "prompt": "Same robot turns one image and interchangeable prompts into five technically plausible RGB task outputs and decoder results.",
+      "image_path": "storyboard/S3-one-model-many-tasks.png"
+    },
+    {
+      "panel_id": "S4",
+      "title": "强结果与边界同时出现",
+      "report_claim_ids": ["C17.1", "C17.2", "C17.3", "C17.4"],
+      "visual_metaphor": "A multi-lane benchmark race with both wins and visible weak spots",
+      "prompt": "Same robot competes with task specialists, performs strongly overall, but does not win every lane.",
+      "image_path": "storyboard/S4-results-and-boundaries.png"
+    },
+    {
+      "panel_id": "S5",
+      "title": "下一篇论文的问题",
+      "report_claim_ids": ["C18.2", "C23.2", "C23.3", "C23.4"],
+      "visual_metaphor": "Entangled pretraining and instruction layers under a magnifying glass",
+      "prompt": "Same robot is audited through controlled comparisons, uncertainty analysis, video consistency, and efficient distillation.",
+      "image_path": "storyboard/S5-causal-next-step.png"
+    }
+  ]
+}

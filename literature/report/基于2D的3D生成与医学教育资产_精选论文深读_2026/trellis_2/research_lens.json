@@ -1,0 +1,153 @@
+{
+  "schema_version": "paper-research-lens/1.0",
+  "paper": {
+    "title": "Native and Compact Structured Latents for 3D Generation (TRELLIS.2)",
+    "source_mode": "latex-primary"
+  },
+  "research_equation": {
+    "one_sentence_thesis": "field-based latent 为网络规则性牺牲任意拓扑与材质；O-Voxel 以能直接进出 mesh 的稀疏原生单元加 SC-VAE 压缩，既保留结构又允许大模型生成。",
+    "valuable_paradigm": "image-conditioned 3D generation",
+    "broken_assumption": "partial 2D evidence uniquely determines 3D structure",
+    "hard_setting": "single-view and medical-education asset creation",
+    "borrowed_tool": "diffusion / flow / structured latent generation",
+    "unavailable_mechanism": "hidden anatomy ground truth in the input",
+    "surrogate_mechanism": "Flexible Dual Grid 处理 topology；volumetric PBR attributes 保留 appearance；SC-VAE 解决 resolution/token bottleneck；flow model 将 image 条件映射到 latent。",
+    "claim_ids": [
+      "C1.4",
+      "C2.4",
+      "C4.4",
+      "C9.4"
+    ]
+  },
+  "direction_reconstruction": {
+    "starting_dissatisfaction": "通用 3D 生成的输出可视觉可信，但没有把隐藏结构的证据边界显式交给审核。",
+    "almost_worked_transfer": "通用 image-to-3D 可快速形成候选。",
+    "blocking_constraint": "医学教育中结构数目、左右侧和连接关系不可由单图/文字任意补全。",
+    "replacement_logic": "把模型置于 verified geometry + generative presentation 架构中。",
+    "claim_ids": [
+      "C4.4",
+      "C9.4",
+      "C11.4"
+    ]
+  },
+  "challenge_module_map": [
+    {
+      "challenge": "部分证据下的 3D 不确定性",
+      "failure_mode": "隐藏面或语义关系 hallucination",
+      "design_principle": "把不确定性放入可检查的中间表示或条件融合",
+      "module": "Flexible Dual Grid 处理 topology；volumetric PBR attributes 保留 appearance；SC-VAE 解决 resolution/token bottleneck；flow model 将 image 条件映射到 latent。",
+      "ablation_or_evidence": "论文的主实验与消融；医学迁移需另建 topology QC。",
+      "claim_ids": [
+        "C9.4",
+        "C11.4",
+        "C14.4",
+        "C16.4"
+      ]
+    }
+  ],
+  "module_lenses": [
+    {
+      "module": "TRELLIS.2 / O-Voxel",
+      "failure_fixed": "论文所针对的生成/表示瓶颈",
+      "ideal_unavailable_solution": "输入中拥有完整、可信的三维事实",
+      "available_proxy": "图像、文本、通用 3D prior 与中间表示",
+      "hidden_assumption": "代理信号与真实隐藏结构兼容",
+      "future_direction": "把 O-Voxel 扩成 anatomy-aware O-Voxel：part ID、左右侧、containment/connection graph 与 landmark uncertainty 要成为 latent/QC 的一等字段。",
+      "claim_ids": [
+        "C9.4",
+        "C11.4",
+        "C14.4",
+        "C16.4",
+        "C17.4",
+        "C21.4",
+        "C20.1",
+        "C22.1",
+        "C23.4",
+        "C3.4",
+        "C5.4",
+        "C6.4",
+        "C7.4",
+        "C8.4",
+        "C10.4",
+        "C12.4",
+        "C13.4",
+        "C15.4",
+        "C18.4",
+        "C19.4",
+        "C24.4",
+        "C25.4"
+      ]
+    }
+  ],
+  "citation_logic": [
+    {
+      "citation_cluster": "TRELLIS/LRM/单图前馈与扩散基线",
+      "narrative_function": "方法祖先与对照压力",
+      "assumption_inherited": "通用资产数据的图像-3D 对齐可迁移",
+      "paper_move": "按各自论文改进表示、效率或条件控制",
+      "claim_ids": [
+        "C1.4",
+        "C2.4",
+        "C4.4",
+        "C9.4",
+        "C11.4"
+      ]
+    }
+  ],
+  "experiment_story_map": [
+    {
+      "experiment": "论文主表与消融",
+      "claim_supported": "对应方法组件在作者协议中的收益",
+      "counterfactual": "没有该中间表示/融合组件的系统",
+      "stress_condition": "通用资产 benchmark，不是医学 anatomy benchmark",
+      "claim_ids": [
+        "C16.4",
+        "C17.4"
+      ]
+    }
+  ],
+  "story_patterns": [
+    {
+      "pattern_name": "hidden-assumption break",
+      "formula": "partial 2D evidence + prior -> candidate; verified anatomy + QC -> publishable educational asset",
+      "lesson": "下一篇医疗 3D 论文应把未验证的 hidden structure 变成可测量、可拒绝、可修订的对象。",
+      "claim_ids": [
+        "C4.4",
+        "C9.4",
+        "C11.4",
+        "C14.4",
+        "C16.4",
+        "C17.4",
+        "C21.4",
+        "C20.1",
+        "C22.1",
+        "C23.4",
+        "C3.4",
+        "C5.4",
+        "C6.4",
+        "C7.4",
+        "C8.4",
+        "C10.4",
+        "C12.4",
+        "C13.4",
+        "C15.4",
+        "C18.4",
+        "C19.4",
+        "C24.4",
+        "C25.4"
+      ]
+    }
+  ],
+  "boundary_directions": [
+    {
+      "title": "Anatomy-aware generation QC",
+      "hidden_assumption": "通用 3D metrics 足以保证教学正确",
+      "what_breaks": "左右侧、连接、内部腔室和部件数量可能错误",
+      "new_direction": "把 O-Voxel 扩成 anatomy-aware O-Voxel：part ID、左右侧、containment/connection graph 与 landmark uncertainty 要成为 latent/QC 的一等字段。",
+      "claim_ids": [
+        "C24.4",
+        "C25.4"
+      ]
+    }
+  ]
+}

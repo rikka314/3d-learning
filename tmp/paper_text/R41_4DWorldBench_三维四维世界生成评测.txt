@@ -1,0 +1,672 @@
+                     This CVPR paper is the Open Access version, provided by the Computer Vision Foundation.
+                                  Except for this watermark, it is identical to the accepted version;
+                            the final published version of the proceedings is available on IEEE Xplore.
+
+
+
+
+   4DWorldBench: A Comprehensive Evaluation Framework for 3D/4D World
+                          Generation Models
+
+              Yiting Lu1,* , Wei Luo1,* , Peiyan Tu2,3,* , Haoran Li1,* , Hanxin Zhu1,3,*,‡ , Zihao Yu1 ,
+                     Xingrui Wang1 , Xinyi Chen1 , Xinge Peng1 , Xin Li1 , Zhibo Chen1,3,†
+                                      1
+                                       University of Science and Technology of China
+                              2
+                                  Zhejiang University 3 Beijing Zhongguancun Academy
+                  {luyt31415, lw21, lihr, hanxinzhu}@mail.ustc.edu.cn, pytu@zju.edu.cn
+                                                {xin.li, chenzhibo}@ustc.edu.cn
+
+
+
+                           Abstract                                       https://yeppp27.github.io/4DWorldBench.
+                                                                          github.io/.
+World Generation Models are emerging as a cornerstone
+                                                                          1. Introduction
+of next-generation multimodal intelligence systems. Un-
+like traditional 2D visual generation, World Models aim                   World Generation Models are rapidly emerging as a
+to construct realistic, dynamic, and physically consistent                new paradigm for multimodal intelligence. In contrast to
+3D/4D worlds from images, videos, or text. These mod-                     conventional visual generation, which typically optimizes
+els not only need to produce high-fidelity visual content but             frame fidelity or short-horizon temporal coherence, World
+also maintain coherence across space, time, physics, and                  Models aim to construct realistic, dynamic, and physically
+instruction control, enabling applications in virtual real-               consistent 3D/4D worlds from text, image, or video condi-
+ity, autonomous driving, embodied intelligence, and con-                  tions. Beyond high perceptual quality, World Models are
+tent creation. However, prior benchmarks emphasize differ-                expected to maintain spatial–temporal coherence, physical
+ent evaluation dimensions and lack a unified assessment of                realism, and interactive controllability, enabling applica-
+world-realism capability. To systematically evaluate World                tions across virtual reality and embodied AI.
+Models, we introduce the 4DWorldBench, which measures                         Existing benchmarks for generative models can be
+models across four key dimensions: Perceptual Quality,                    broadly categorized into three categories: video-centric,
+Condition–4D Alignment, Physical Realism, and 4D Con-                     world generation-focused, and physics-aware. Video-based
+sistency. The benchmark covers tasks such as Image-to-                    benchmarks (e.g., VBench2.0 [42]) emphasize high-level
+3D/4D, Video-to-4D, Text-to-3D/4D. Beyond these, we in-                   properties such as fidelity, creativity, commonsense, physics
+novatively introduce adaptive conditioning across multiple                and controllability by leveraging broad prompt suites and
+modalities, which not only integrates but also extends tra-               hierarchical-level evaluations. However, they rely heav-
+ditional evaluation paradigms. To accommodate different                   ily on manually predefined question templates and of-
+modality-conditioned inputs, we map all modality condi-                   fer only coarse evaluation of physical realism and 4D
+tions into a unified textual space during evaluation, and                 consistency. World generation benchmarks (e.g., World-
+further integrate LLM-as-judge, MLLM-as-judge, and tra-                   Score [10]) go beyond video generation to evaluate control-
+ditional network-based methods. This unified and adaptive                 lable 3D/4D generation across modalities, offering struc-
+design enables more comprehensive and consistent evalua-                  tured scene specifications and standardized metrics. While
+tion of alignment, physical realism, and cross-modal coher-               effective in assessing 3D/4D scene generation ability, they
+ence. Preliminary human studies further demonstrate that                  still exhibit limitations in fine-grained condition-4D align-
+our adaptive tool selection achieves closer agreement with                ment and provide insufficient coverage of physical realism.
+subjective human judgments. We hope this benchmark will                   WorldSimBench [26] further extend evaluation to embod-
+serve as a foundation for objective comparisons and im-                   ied world tasks by introducing a dual framework with ex-
+provements, accelerating the transition from ”visual gener-               plicit perceptual evaluation and implicit manipulative eval-
+ation” to ”world generation.” Our project can be found at                 uation, Lastly, physics-aware benchmarks (e.g., PhyGen-
+                                                                          Bench [24]) explicitly focus on testing adherence to physi-
+   * Equal contribution   ‡Project leader   † Corresponding author        cal laws through curated prompts and rule-based evaluation
+
+
+
+                                                                     34322
+pipelines. Meanwhile, Phywolrd [17] investigates physical-         Table 1. Comparison with representative benchmarks. “Modal-
+law generalization in video generation models under con-           ities” refer to supported condition types. “Eval. dims” mark
+trolled simulation settings. Although valuable for physi-          whether the benchmark covers Perceptual Quality (Q), Condition
+                                                                   Alignment (A), Physical Realism (P), and 4D Consistency (C).
+cal reasoning, these benchmarks often lack modality diver-
+                                                                   “✓” indicates full support for the dimension, “partial” denotes
+sity, semantic richness, and scalability due to handcrafted        limited or partially covered evaluation, and “–” indicates that the
+logic. These gaps underscore the need for a more com-              dimension is not supported.
+prehensive, adaptive, and semantically grounded bench-
+mark—such as our proposed 4DWorldBench—capable of                      Benchmark             Condition Modalities   Q      A          P       C
+evaluating 3D/4D world generation across diverse modali-               WorldScore [10]               Text           ✓   partrial      –       ✓
+                                                                       VBench [16]                   Text           ✓     ✓        partrial   –
+ties and dimensions.                                                   VBench2.0 [42]            Text / Image       ✓     ✓        partrial   –
+                                                                       PhyGenBench [24]              Text           –      –         ✓        –
+    In short, the community lacks a general-purpose, mul-              4DWorldBench (ours)   Text / Image / Video   ✓     ✓          ✓        ✓
+timodal, and physics-aware benchmark that measures per-
+ceptual quality, condition–4D alignment, physical realism,         tionally incorporate an MLLM-based QA to guard against
+and 4D consistency in a single, extensible framework. In           such deceptive cases. Our work offers three contributions:
+this work, we propose a more unified benchmark for world           • Comprehensive, multimodal benchmark for world
+generation, named 4DWorldBench. Our goal is to pro-                   generation. 4DWordBench evaluates four main di-
+vide a comprehensive evaluation of world generation mod-              mensions and multiple sub-dimensions, with balanced
+els that go beyond traditional visual synthesis, targeting the        text/image/video condition sets for both non-physical and
+generation of coherent 3D and 4D worlds. Specifically,                physical categories.
+4DWorldBench supports models conditioned on multiple               • Adaptive hybrid evaluation methodology. We inte-
+modalities, including text, image, and video, thereby en-             grate traditional metrics with LLM/MLLM-driven ques-
+abling fair comparison across diverse input settings. More-           tion decomposition and answering, enabling fine-grained,
+over, recognizing that world generation inherently involves           condition-aware assessment of alignment and physics
+not only perceptual fidelity but also compliance with the             while improving scalability.
+laws of nature, we explicitly introduce evaluation along the       • Unified, extensible framework and leaderboard.
+physical realism dimension, in addition to perceptual qual-           4DWorldBench supports Image-to-3D/4D, Video-to-4D,
+ity, condition–4D alignment, and 4D consistency. By com-              Text-to-3D/4D, providing transparent, reproducible com-
+bining these perspectives, 4DWorldBench aims to establish             parisons across models.
+a more complete and challenging standard for assessing the
+next generation of world generation systems.                       2. Related Work
+    To support fine-grained evaluation across key dimen-           2.1. Video-Based Evaluation Benchmarks
+sions—particularly condition–4D alignment and physi-               A large body of work focuses on evaluating video gener-
+cal realism—we combine two complementary evaluation                ation models in terms of fidelity, coherence, and seman-
+tracks. First, we employ an Multimodal Large Language              tic correctness. VBench [16] introduced a comprehensive
+Models (MLLM)-based Question Answer (QA) evaluator                 benchmark that decomposes video quality into fine-grained
+that inspects the generated video and answers a set of             dimensions such as identity consistency, motion smooth-
+dimension-specific questions derived from the input condi-         ness, and temporal flicker, with scores aligned to human
+tion (converted into text). Second, to handle more abstract        preferences. Its successor, VBench-2.0 [42], extends cov-
+reasoning—especially for assessing high-level physical re-         erage to five key aspects: human fidelity, controllability,
+alism—we introduce an LLM-based QA evaluator. This                 creativity, physics, and commonsense, leveraging vision–
+dual-track design is motivated by the observation that cur-        language models for deeper evaluation. Other works tar-
+rent MLLMs, while proficient at surface-level video ques-          get specific challenges: DEVIL [21] evaluates visual vivid-
+tion answering, often struggle with complex physical rea-          ness and the honesty of video content under dynamic set-
+soning (e.g., fluid dynamics, force interactions). In contrast,    tings; and T2V-CompBench [28] and TC-Bench [12] exam-
+LLMs excel at abstract reasoning and compositional under-          ine compositionality in multi-object, multi-attribute videos.
+standing when provided with high-quality textual descrip-          Perceptual quality has also been tackled via large-scale
+tions. By leveraging the strengths of both model types, our        frameworks such as EvalCrafter [23], which integrates ob-
+framework enables a more robust and semantically aware             jective metrics and human ratings into a unified leader-
+evaluation across a broad spectrum of world generation sce-        board. Other benchmarks also highlight narrative or scene-
+narios. Moreover, some dimensions need hybrid methods              level evaluation: StoryEval [32] measures story comple-
+for evaluation: feature-based similarity metrics can be eas-       tion in multi-event prompts using VLM-based evaluators,
+ily misled by videos containing only subtle object motions,        showing that models struggle beyond a few coherent events.
+resulting in inflated alignment scores; therefore, we addi-        These efforts provide complementary views, but each fo-
+
+
+
+                                                              34323
+cuses on a subset of evaluation dimensions.                        several categories based on the structure and semantics of
+2.2. 3D/4D World Generation Benchmarks                             the text prompts: Scene, Event, and Attribute, which is
+                                                                   shown in Fig. 7 For physical modality, to evaluate phys-
+Evaluating 3D/4D generation requires capturing long-
+                                                                   ical reasoning and control, we incorporate physics-driven
+horizon spatial and temporal consistency. Benchmarks
+                                                                   prompts and exemplars following a structured taxonomy
+for text-to-3D scene generation: GT23D-Bench [5]) intro-
+                                                                   (see Fig. 7), which includes four major classes: Material,
+duces a large-scale, well-organized 3D dataset with mul-
+                                                                   Mechanics, Optics, and Thermal phenomena. Each class
+timodal annotations and comprehensive 3D-aware metrics
+                                                                   is further divided into representative subclasses—for ex-
+for evaluating text–3D alignment and visual quality, but
+                                                                   ample, Optics includes refraction, reflection, and the Tyn-
+are limited to static snapshots. And Eval3D [11] provides
+                                                                   dall effect; Mechanics includes gravity, buoyancy, and pres-
+a fine-grained and interpretable evaluation framework that
+                                                                   sure; Material covers color, hardness, combustibility, and
+assesses 3D generation quality across semantic and geo-
+                                                                   redox reactions; and Thermal involves heating and phase
+metric dimensions using consistency among diverse foun-
+                                                                   transitions. These Text prompts are revised from PhyGen-
+dation models and tools.WorldScore [10] frames the task
+                                                                   Bench [24]. We further utilize GPT-5 to produce data
+as sequential world generation with explicit instructions
+                                                                   augmentations for thermal physics. In total, the evalua-
+(e.g., camera trajectories), evaluating controllability, qual-
+                                                                   tion set includes 50 physical text conditions and 76 non-
+ity, and dynamics across multi-scene sequences. Overall,
+                                                                   physical conditions in text form. Image Condition Collec-
+these benchmarks focus on measuring whether models can
+                                                                   tion. For non-physical condition, we sampled image con-
+generate persistent, controllable, and temporally consistent
+                                                                   ditions from Vbench2.0 [42]. We sample the image con-
+3D/4D worlds.
+                                                                   ditions from Vbench2.0 across several categories based on
+2.3. Physics-Focused Video Benchmarks                              the structure and semantics of the captions: Scene, Event,
+Recent advancements in video generation have led to the            Object. Specifically, captions involving interactive enti-
+development of several benchmarks aimed at evaluating              ties or motion are classified as Event, those describing a
+models’ understanding of physical dynamics. PhyGen-                single interacting entity are labeled as Object, and cap-
+Bench [24] designs diservse prompts across multiple fun-           tions without explicit entities are assigned to the Scene
+damental physical laws, including mechanics, optics, ma-           category. For object-level 3D generation model only, we
+terial science, and thermal properties. It provides a Phy-         sample 25 object-centric images (without background) from
+GenEval pipeline that combines vision-language models              Objaverse-XL dataset [9]. For physical condition, We first
+and rule-based QA to assess physical plausibility. Video-          collect videos from WISA [30], after which the first frame of
+Phy [3] and VideoPhy-2 [4] construct the dataset with ex-          each selected video is extracted to serve as the correspond-
+plicit physical rules, testing models’ ability to understand       ing image conditioning input. The distribution of physical
+physical interactions. PisaBench [18] focuses on real-world        and non-physical image conditioning samples is shown in
+free-fall tasks to evaluate the ability of generative models       Fig. 3. Among them, 48 samples correspond to physical
+to reproduce physical phenomena like gravity and dynamic           conditions, while 63 belong to non-physical scene condi-
+collisions. LLMPhy [8] integrates large language models            tions. Video Condition Collection. For non-physical con-
+with physics engines for advanced physical reasoning, us-          dition, we source captioned video clips from VUDG [34].
+ing datasets for predicting stable poses in complex object in-     These datasets provide diverse annotations, including scene
+teractions. Physics-IQ [25] evaluates generative video mod-        type, weather condition, and crowd density. Our sampling
+els by giving them the initial frames of a real physical scene,    strategy proceeds in two stages. First, we ensure cover-
+having them predict the next few seconds, and then com-            age across stylistic and domain categories—such as car-
+paring the generated video against ground-truth recordings         toon, game, night, foggy, egocentric, shaky, and surveil-
+across multiple physics-based metrics.                             lance views. Second, within each category, we further
+3. Benchmark Dataset                                               stratify the samples by temporal motion amplitude, mea-
+                                                                   sured using inter-frame optical flow statistics. Accordingly,
+To ensure comprehensive and controllable evaluation, we            the videos are categorized into low-motion and high-motion
+curate a benchmark dataset that spans both physics and non-        types. This two-stage sampling process promotes domain
+physics domains, across text, image, and video modalities.         diversity while ensuring comprehensive coverage of motion
+The data collection process emphasizes category diversity,         control capabilities.
+and physical plausibility.
+Text Condition Collection. For non-physical modality,                  For physical condition, we collect videos from
+text prompts are sampled from WorldScore [10], a bench-            WISA [30],        which covers three physical do-
+mark that decomposes world generation into next-scene              mains—Dynamic, Optic, and Thermodynamic. We
+prediction tasks and explicitly distinguishes between static       first uniformly sample videos from these three categories
+and dynamic scenes. We sample the text condition across            to ensure balanced domain coverage. Within each cat-
+
+
+
+                                                              34324
+                        Evaluation Dimensions                                                         Hybrid Evaluation Metrics
+
+                                                                                                                  Model-Based Score
+
+                                                                                                                  Feature-Based Similarity
+
+                                                                                                                  LLM-Based QA
+
+                                                                                                                  MLLM-Based QA
+
+
+         Diverse Generation Models
+                                                                                                                  Condition & Dimension Adaptive
+                 Text-to-3D/4D
+                                                                                                                          MLLM-based QA
+                                                                         Human Study for reliability
+                 Image-to-3D/4D                                                                                      Visual-textual grounding for
+                                                                                                                     concrete alignment aspects
+
+                   Video-to-4D                                                                                             LLM-based QA
+
+                                                                                                                     Abstract reasoning for physical
+              Autonomous driving Scenario                                                                                plausibility assessment
+                                                                   Benchmark       Human-supervised    Reliable
+                                                                 Evaluation Tool     Experiment       Benchmark
+
+
+Figure 1. Overview of the 4DWorldBench framework. The benchmark evaluates generation quality across four key dimensions: 4D
+consistency, condition alignment, perceptual quality, and physical realism. It supports diverse generative settings, including text-, image-,
+and video-to-3D/4D generation. The framework integrates hybrid evaluation metrics—model-based scores, feature-based similarity, LLM-
+based QA, and MLLM-based QA—together with human studies for reliability. Condition- and dimension-adaptive QA modules leverage
+MLLMs for concrete visual grounding and LLMs for higher-level physical reasoning.
+
+
+
+
+              Figure 2. Text Condition Distribution.                                       Figure 4. Video Condition Distribution.
+
+                                                                           tioning samples is shown in Fig. 4. Each subset contains 48
+                                                                           samples respectively.
+
+                                                                           4. Benchmark Metric
+                                                                           Our proposed 4DWorldBench includes four key dimen-
+                                                                           sions: Physical Realism, Condition-4D Alignment, and 4D
+                                                                           Consistency, Perceptual Quality.
+                                                                           4.1. Physical Realism
+                                                                           Our physical realism evaluation framework is built upon
+             Figure 3. Image Condition Distribution.                       two core principles: (1) converting both the input conditions
+                                                                           (except for text conditions) and the generated videos into
+                                                                           captions, leveraging LLMs to assess physical consistency
+egory, we further stratify the data into high-motion and                   through caption-based reasoning instead of direct video ob-
+low-motion subsets based on temporal motion amplitude.                     servation; and (2) adaptively selecting evaluation dimen-
+The distribution of physical and non-physical video condi-                 sions based on the semantics of each input caption to ensure
+
+
+
+                                                                   34325
+                               Step1:                                                    Step2:                                                        Step3:
+                           Video Captioning                                        Question Generation                                           Question Answering
+                           Condition To Text                                           Dimension Selection                                        Question Answer Process
+                    Prompt               Image                Video            Condition Prompt: A timelapse of air being
+                                                                               gradually and forcefully removed from a                    Generated Caption:
+                                                                               sealed, empty soda can.                                    The video begins with a close-up shot of a
+                                                                                                                  Adaptive                silver aluminum can…
+                                                                               Dimensions (8):                     Select
+                                                                               D1: Fundamental Physics                                    Input Questions:
+                   Condition Prompt For Groudtruth:                            D2: Physical Event Reasoning                               Q1: Is there a single soda can visible
+                   A timelapse of air being gradually and                      D3: Force & Motion                                         throughout the time lapse?
+                   forcefully removed from a sealed,                           D4:Thermal & Phase Transition …                            Q2: After the process starts, do the can's
+                   empty soda can.                                                                                                        sidewalls collapse inward compared to the
+                                                                                                                                          start?
+                                                                                                                                          Q3: By the end of the sequence, is the can
+                                                                           Questions by Chosen Dimensions (10):                           visibly more crumpled than at the
+                 Generated 3D/4D Videos To Text                                                                                           beginning?
+                                                                            Q1: Is there a single soda can visible
+                                 Generated Video                           throughout the time lapse?
+                                                                            A1 : Yes                                                                         Answers:
+                                                                            Q2: After the process starts, do the can's                         A1: yes, A2: yes,A3: no, A4: no, A5: no,
+                                                                           sidewalls collapse inward compared to the start?                    A6: no, A7: no, A8: no, A9: no, A10: no,
+                                                                            Q2: Yes
+                Generated Caption:The video begins with a                   Q3: By the end of the sequence, is the can
+                close-up shot of a silver aluminum can placed              visibly more crumpled than at the beginning?
+                on a wooden surface. The can has a                          A3: Yes
+                textured design with horizontal ridges and a               Q4: Do the can's surfaces buckle or fold as                                 Phy Evaluation Score
+                pull-tab at the top…                                       they move? ……                                                                    (0~1): 0.2
+
+Figure 5. Pipeline of the Physical Realism Evaluation. The framework first unifies text, image, and video conditions into a common textual
+form, then uses an LLM to adaptively select relevant physical dimensions and generate diagnostic questions. An LLM-based QA module
+compares predicted and reference answers to yield a continuous physical realism score.
+                                                    Table 2. Leaderboard for different categories of 4D generation models.
+                                         Perceptual Quality                        Condition-4D Alignment                        Physical Realism                       4D Consistency
+  Model                                                                                                                                                                                          Overall
+                               Spatial        Temporal    3D Texture   Event   Scene   Attribute   relationship   Motion   Dynamics   Optics      Thermal   Viewpoint        Motion      Style
+  Image-to-4D
+  CamI2V [43]                0.419+0.524        0.668         0.700    0.397   0.954    0.922         0.845       0.756     0.650      0.738        0.629     0.701        0.553+0.816   0.887    0.697
+  DiffusionAsShader [14]     0.509+0.522        0.790         0.715    0.400   0.965    0.963         0.804       0.781     0.688      0.850        0.763     0.908        0.874+0.750   0.918    0.763
+  Video-to-4D
+  EX-4D [15]                 0.305+0.409        0.356         0.616    0.615   0.805    0.792         0.879       0.869     0.421      0.627        0.600     0.266        0.384+0.811   0.827    0.599
+  ReCamMaster [2]            0.215+0.401        0.394         0.636    0.573   0.757    0.673         0.811       0.796     0.680      0.714        0.773     0.862        0.859+0.834   0.985    0.685
+  TrajectoryCrafter [39]     0.492+0.434        0.560         0.646    0.639   0.862    0.766         0.913       0.856     0.671      0.667        0.636     0.362        0.454+0.883   0.878    0.670
+  Vista [13]                 0.216+0.402        0.397         0.657    0.405   0.686    0.516         0.698       0.607     0.607      0.613        0.593     0.921        0.942+0.622   0.986    0.617
+  Text-to-4D
+  4Dfy [1]                   0.336+0.469        0.442         0.569    0.566   0.505    0.326         0.553       0.545     0.265      0.417        0.200     0.741        0.934+0.705   0.993    0.535
+  dreamin4D [44]             0.234+0.396        0.181         0.655    0.409   0.576    0.390         0.558       0.416     0.235      0.238        0.150     0.612        0.761+0.360   0.850    0.439
+
+
+
+
+scenario-relevant physical assessment. Specially, to evalu-                                                   soda can collapse inward once air is removed. Such ques-
+ate the degree of physical realism in generated videos, we                                                    tions target observable outcomes that must hold if the gener-
+design a three-step framework that combines video caption-                                                    ated video is physically plausible. 3) Scoring through QA.
+ing and condition captioning, physics-aware question gen-                                                     In the third step, we input the generated caption T̂ along
+eration, and question answering for quantitative scoring.                                                     with the question set {Qi } into a large language model,
+                                                                                                              which produces predicted answers {Âi }. These predic-
+    1) Video Captioning for Condition and Generated                                                           tions are then compared with the expected physical out-
+Video. The input condition C, originating from any modal-                                                     comes {A∗i }. For each question, we assign a binary correct-
+ity other than text (e.g., image, video), is first transformed                                                ness score defined as si = ⊮(Âi = A∗i ). And the overall
+into a textual description of the underlying physical pro-                                                    physical realism score is computed
+cess through Keye-VL 1.5 [36]. The generated 4D video V                                                                                        PN as the mean accuracy
+                                                                                                              across all questions: Sphy = N1 i=1 si , Sphy ∈ [0, 1]. A
+is subsequently captioned using Keye-VL 1.5 to obtain T̂ ,                                                    higher value of Sphy indicates that the generated video ad-
+providing a unified textual representation for downstream                                                     heres more closely to physical reality, while a lower score
+physical reasoning. 2) Question Answer Generation. In                                                         reflects violations of basic physical constraints, such as the
+the second step, we construct a set of diagnostic ques-                                                       absence of expected deformations, incorrect motion dynam-
+tions {Qi }Ni=1 derived from both the condition prompt C                                                      ics, or conservation law inconsistencies. More details about
+and canonical physical laws. These questions are designed                                                     prompt and questions can be seen in supplementary.
+to cover different dimensions of physical understanding,
+including fundamental physics, physical event reasoning,
+                                                                                                              4.2. 4D Condition Alignment
+force and motion, and thermal or phase transitions. For ex-                                                   The Condition Alignment evaluation framework measures
+ample, one question might ask whether the sidewalls of a                                                      how well a generated video conforms to its specified con-
+
+
+
+                                                                                                   34326
+dition, ensuring consistency with the intended storyline            average the results as the final style consistency score. More
+(event), character motion (motion), attribute and scene.            details about prompt and questions can be seen in supple-
+It follows a systematic three-step process— condition in-           mentary materials.
+put captioning, question generation, and question answer-           4.4. Perceptual Quality
+ing—to quantitatively evaluate alignment quality. 1) Con-
+dition Captioning. The input condition is first con-                To further evaluate the perceptual realism of generated
+verted into a textual description. 2) Question Genera-              videos, we measure four complementary aspects of per-
+tion. We then construct a set of diagnostic questions prob-         ceptual quality. 1) Spatial Quality. We assess the spa-
+ing key alignment aspects, including object/character at-           tial fidelity and technical quality of individual frames using
+tributes, spatial relations, scene details, motion patterns, and    CLIPIQA+ [31]. The overall aesthetic appeal of generated
+plot elements. All questions are formulated so their an-            frames is evaluated using CLIP-Aesthetic [27], which esti-
+swers can be directly inferred from the video. 3) QA-based          mates human aesthetic preferences based on CLIP embed-
+Scoring. Given the generated caption T̂ and question set            dings. We combine the outputs of these two models to ob-
+{Qi }N                                                              tain the overall spatial quality score. 2) Temporal Quality.
+      i=1 , an LLM produces predicted answers {Âi }. These
+are compared with ground-truth answers {A∗i } derived from          To evaluate temporal coherence and visual stability across
+the condition. Each question receives a binary correctness          frames, we employ FastVQA [35], a video quality assess-
+score si = ⊮(Âi = A∗i ), and the final alignment score             ment model designed for efficient temporal perceptual eval-
+                PN                                                  uation. 3) 3D Texture Quality. We further measure 3D tex-
+is Salign = N1 i=1 si ∈ [0, 1]. A higher score indicates
+                                                                    ture realism by prompting mPLUG-Owl3 [37] to provide
+stronger consistency between the generated video and the
+                                                                    ratings on 3D texture fidelity. More details about prompt
+input condition. More details about prompt and questions
+                                                                    and questions can be seen in supplementary materials.
+can be seen in supplementary materials.
+
+4.3. 4D Consistency                                                 5. Experiment
+To comprehensively evaluate the spatial-temporal stability          5.1. Experiment Details
+of generated videos, we assess the 4D Consistency from              Evaluated Metrics: Most of the metrics correspond to
+three complementary perspectives: 3D Consistency, Mo-               standalone methodologies. For perceptual quality, our eval-
+tion Consistency, and Style Consistency. These three met-           uation integrates technical quality and aesthetic quality (as
+rics jointly quantify the geometric, dynamic, and perceptual        reflected by the a + b components in the table). For
+coherence of the generated scene sequences.                         motion consistency, we employ a combination of feature-
+3D Consistency. We measure geometric consistency as the             based similarity and MLLM-based QA (corresponding to
+reprojection error of 3D points reconstructed by a dense,           the a + b components in the table). Evaluated Models:
+differentiable SLAM method [10, 29]. To reduce sensitivity          For Image-to-3D, we select SyncDreamer [22], V3D [7],
+to FPS and camera motion, we compute this error on short            MotionCtrl [33], ViewCrafter [40], FlexWorld [6]. For
+temporal clips and average over all clips to obtain the final       Image-to-4D, we select CamI2V [43] and Diffusion-as-
+consistency score for both 3D and 4D videos.                        Shader [14]. For Text-to-3D, we select Director3D [20],
+Motion Consistency. We evaluate motion consistency with             Text2NeRF [41], Step1X-3D [19], WonderJourney [38].
+two complementary components: a feature-based optical-              For Text-to-4D, we select 4Dfy [1] and dreamin4D [44]
+flow similarity metric and an MLLM-based judge. For each            For Video-to-4D, we select ReCamMaster [2], Trajector-
+consecutive frame pair, we estimate optical flow and com-           Crafter [39], EX-4D [15], and Vista [13]. Because the 3D
+pare it with the flow induced by the generated motion field.        model contains no object motion, we omit evaluations of
+In parallel, to prevent certain videos from exhibiting mi-          event control, motion control, physical realism, and motion
+nor unintended motions, we apply MLLM-as-Judge as de-               consistency, but since object rotation is presented as a video,
+scribed in Sec. 4.2 to perform yes/no question–answering            we still assess perceptual temporal quality.
+over each video. It evaluates object-level motion rationality       Multi-dimensional comparison of 3D/4D generators.
+(e.g., continuity, interactions, speed and trajectory plausibil-    Across the five radar plots in Fig. 7, we observe several
+ity), and we use the mean correctness as the motion rational-       consistent strengths and weaknesses shared by current 3D
+ity score. Together, this hybrid evaluation method jointly          and 4D world generative models. On the positive side, most
+assesses low-level temporal coherence and high-level se-            methods already achieve relatively strong scores on style
+mantic consistency of motion.                                       consistency, scene control and attribute control: both text-
+Style Consistency. We assess style consistency [10] by              and image-conditioned 3D models form near-saturated con-
+comparing the Gram matrices of deep features between                tours on these axes, and the best 4D models largely preserve
+frames. To reduce sensitivity to video length and FPS, we           object identity and global scene composition when moving
+further compute this metric over short temporal clips and           from static frames to video. Viewpoint consisrency is also
+
+
+
+                                                               34327
+                                                 Table 3. Leaderboard for different categories of 3D generation models.
+                                                                Perceptual Quality                        Condition-3D Alignment               3D Consistency
+                    Model                                                                                                                                             Overall
+                                                      Spatial         Temporal      3D Texture        Scene    Attribute    Relationship     Viewpoint       Style
+                    Image-to-3D
+                    SyncDreamer [22] (Obj)         0.498+0.480         0.460           0.622          0.772     0.864           0.895           0.117       0.943         0.628
+                    V3D [7] (Obj)                  0.496+0.439         0.669           0.670          0.788     0.920           0.872           0.470       0.904         0.692
+                    MotionCtrl [33] (Sce)          0.424+0.508         0.738           0.710          0.927     0.926           0.837           0.970       0.888         0.770
+                    Viewcrafter [40] (Sce)         0.497+0.552         0.797           0.715          0.972     0.954           0.863           0.801       0.698         0.761
+                    FlexWorld [6] (Sce)            0.437+0.508         0.745           0.701          0.944     0.953           0.813           0.931       0.780         0.757
+                    Text-to-3D
+                    Director3D [20]                0.180+0.511         0.601           0.677          0.737     0.813           0.541           0.991       0.992         0.671
+                    Text2NeRF [41]                 0.271+0.514         0.754           0.677          0.798     0.805           0.605           0.988       0.878         0.699
+                    Step1x-to-3D [19]              0.455+0.387         0.828           0.596          0.423     0.605           0.490           0.806       0.971         0.618
+                    WonderJourney [38]             0.284+0.449         0.657           0.703          0.821     0.855           0.683           0.774       0.602         0.619
+
+                                                     Input Image                                        Caption for Input Image
+                                                                                                        The Image depicts a backyard scene with a two-story house in
+                                                                                                        the background, surrounded by trees and a red fence. In the
+                                                                                                        foreground, there is a stone fire pit with a burning fire,
+                                                                                                        emitting smoke. A person wearing a dark shirt, light shorts,
+                                                                                                        black socks, and dark shoes locates at the left of this image.
+
+
+
+
+                                        Rating for Physical Realism : 0.5                                         Rating for Physical Realism: 0.9
+
+                                                    Input Video                                        Caption for input video:
+                                                                                                       A light blue rubber glove is cut with black scissors on a
+                                                                                                       granite countertop, then used to gently handle a small white
+                                                                                                       dog’s paw on a couch. Later, the glove sits on a red cushion
+                                                                                                       with the dog nearby, as pliers manipulate a small object     it.
+                                                                                                       It ends with the person holding the relaxed dog in a sunlit
+                                                                                               time    room, petting it.
+
+
+
+
+                                     Alignment Rating for motion control : 0.5                                Alignment Rating for motion control : 0.8
+
+
+               Figure 6. Visualization of some rating examples for physical realism and motion control (4D-Condition Alignment).
+
+Table 4. Performance on Videophy2-test. PC means physical com-                                           changes. Finally, event control and relationship control un-
+monsens, SA means semantic adherence, ranging from 0 to 5. The                                           derstanding are weak for text-to-4D, highlighting an open
+Min(PC,SA) returns the smaller of PC and SA, the Joint is binary                                         problem of grounding rich textual descriptions into coher-
+(0 or 1), assigned 1 only when both PC and SA larger than 4.
+                                                                                                         ent interactions over time. Overall, while style and scene-
+ Method        Min(PC,SA) ACC/F1   Joint ACC/F1    Min(PC,SA) PLCC/SRCC    Joint PLCC/SRCC               level semantics are largely conquered, temporal reasoning,
+ Ours             0.469/0.439      0.677/0.631          0.408/0.409            0.369/0.376               motion control, and physically realism emerge as common
+ Videophy2        0.450/0.452      0.770/0.656          0.394/0.385            0.308/0.308
+ PhygenBench      0.220/0.181      0.360/0.359          0.050/0.066            0.009/0.029               directions for improving future 3D/4D world models.
+ Vbench2          0.220/0.123      0.223/0.187          0.240/0.243            0.225/0.235
+                                                                                                             For detail information in Table 2 and Table 3: i) Physical
+                                                                                                         Realism: The rating visualization for physical realism can
+reasonably well handled for 3D generation and video-to-                                                  be seen in Fig. 6. Within each condition, video-based mod-
+4D, suggesting that multi-view geometry priors are effec-                                                els (e.g., ReCamMaster, TrajectoryCrafter) excel in dynam-
+tively exploited by many recent approaches.                                                              ics and optics, while DiffusionAsShader dominates image-
+   In contrast, several dimensions remain challenging                                                    conditioned methods. Text-conditioned models consistently
+across modalities and conditioning types. Motion-related                                                 underperform. This suggests that visual inputs, especially
+metrics—including motion alignment, dynamics and motion                                                  image and video, provide much stronger physical ground-
+consistency—show a clear gap between the best-performing                                                 ing than language alone. ii) 4D Consistency: Within con-
+models and the ideal score, revealing difficulties in gen-                                               ditions, DiffusionAsShader outperforms other image-to-4D
+erating trajectories that are both semantically correct and                                              models, and ReCamMaster achieves the strongest overall
+physically plausible. For physical realism, such as optics                                               consistency among video-based methods. Text-based mod-
+and thermal cues, remain moderate for 4D generation, sug-                                                els remain weaker, with 4Dfy outperforming dreamin4D.
+gesting that current architectures struggle to understand-                                               This indicates that temporal information is especially bene-
+ing physical law under complex viewpoint and illumination                                                ficial for preserving coherent motion and viewpoint changes
+
+
+
+                                                                                                34328
+                              Figure 7. Performance comparison for multiple world generative models.
+
+
+in 4D generation. iii) Condition Alignment: Within con-            Table 5. Comparison of judge types, dimension settings, and ques-
+ditions, DiffusionAsShader (image) and TrajectoryCrafter           tion counts on Physical Realism Evaluation. “FixDimen” uses pre-
+(video) achieve the best alignment, while text-based mod-          defined dimensions; “AdaDimen” applies adaptive dimension.
+els remain limited. Their results suggest that stronger vi-           Setting           Judge (Model)        Dim Type   #Ques    PLCC / SRCC
+sual conditioning leads to better control over scene, motion,         VBench2        MLLM (Llava-Video)      FixDimen      2      0.341 / 0.379
+                                                                      Ours-v1        LLM(GPT-5→GPT-5)        FixDimen     10      0.351 / 0.402
+and attribute preservation. iv) Perceptual Quality: Within            Ours-v2        LLM (GPT-5→GPT-5)       AdaDimen     10      0.452 / 0.461
+conditions, DiffusionAsShader achieves the best perceptual            Ours        Hybrid(GPT-5→Qwen2.5-VL)   AdaDimen     10      0.247 / 0.237
+
+quality, followed by TrajectoryCrafter in motion coherence,        Table 6. Human correlation (PLCC/SRCC) of different metric de-
+while text-based models lag behind.                                signs across alignment and consistency dimensions.
+                                                                      Dimension         Baseline Type       Baseline               Ours
+5.2. Ablation for Metric Design                                                                          PLCC     SRCC         PLCC   SRCC
+                                                                      Attribute Ctrl.     VBench2.0      0.167    0.236        0.483    0.443
+Key-points on Physical Consistency Evaluation. We con-                Scene Ctrl.         VBench2.0      0.298    0.316        0.502    0.600
+ducted a subjective evaluation involving around 15 partici-           Event Ctrl.         VBench2.0      0.320    0.347        0.555    0.580
+                                                                      Motion Ctrl.        VBench2.0      0.250    0.209        0.546    0.564
+pants on 100 videos to construct a physical-assessment test           Rel. Ctrl.          VBench2.0      0.169    0.187        0.458    0.426
+set, on which we further performed ablation experiments to
+                                                                      Style               WorldScore     0.383    0.457        0.545    0.457
+analyze the metric improvements. The performance com-                 Viewpoint           WorldScore     0.213    0.205        0.543    0.596
+parison of different methods on this subjective test set is           Motion              WorldScore     0.332    0.298        0.497    0.450
+presented in Table 5. The results in Table 5 highlight
+three key findings. First, our LLM-as-judge design con-            with human judgments across both 4D-condition alignment
+sistently outperforms MLLM-based judging, demonstrating            and consistency dimensions, yielding more reliable evalua-
+the advantage of text-driven reasoning for physical assess-        tion under different input conditions.
+ment. Second, using more diagnostic questions leads to
+stronger alignment with human judgment, indicating that            6. Conclusion
+richer questioning improves evaluation reliability. Third,         In this work, we introduced 4DWorldBench, a unified,
+adaptive dimension selection (AdaDimen) yields clear gains         multimodal, and physics-aware benchmark for evaluating
+over fixed dimension settings, showing that LLMs are more          next-generation world generation models. Unlike prior
+effective when allowed to identify semantically relevant           video-centric or physics-specific evaluations, 4DWorld-
+physical dimensions rather than relying on predefined ones.        Bench jointly measures perceptual quality, condition–4D
+Comparison on Physical Consistency Evaluation. In Ta-              alignment, physical realism, and 4D consistency within a
+ble 4, we evaluate our method on the physical-consistency          single, extensible framework. By integrating both MLLM-
+benchmarks covering Physical Commonsense (PC), Se-                 and LLM-based Question Answering (QA) evaluators, our
+mantic Adherence (SA), their conservative minimum of PC            adaptive methodology enables fine-grained, semantically
+& SA, and a binary joint score. Across all evaluation set-         grounded assessment across diverse text, image, and video
+tings, our training-free method achieves performance com-          conditions. And we also apply hybrid evaluation methods
+parable to—or in some cases exceeding—the trained Video-           for some dimensions. We hope 4DWorldBench can serve
+Phy2 [4] model, while substantially outperforming other            as a standardized platform for benchmarking world gen-
+training-free baselines. This demonstrates that our approach       eration, promoting fair comparison, deeper understanding,
+provides robust and reliable physical reasoning without re-        and future innovation toward more coherent, controllable,
+quiring task-specific training. For more metric ablation           and physically consistent virtual worlds. In future work,
+studies, please see the supplementary materials.                   we plan to extend the benchmark to broader real-world sce-
+Human Alignment of Other Metrics Design. Table 6                   narios and investigate lightweight evaluation paradigms to
+shows that our redesigned metrics achieve better agreement         further improve scalability and accessibility.
+
+
+
+                                                              34329
+Acknowledgments                                                          Vikram Voleti, Samir Yitzhak Gadre, et al. Objaverse-xl: A
+                                                                         universe of 10m+ 3d objects. Advances in Neural Informa-
+This work was supported in part by NSFC under Grant                      tion Processing Systems, 36:35799–35813, 2023. 3
+62371434 and U25B2010, the Postdoctoral Fellowship                  [10] Haoyi Duan, Hong-Xing Yu, Sirui Chen, Li Fei-Fei, and Ji-
+Program of CPSF under Grant Number GZC20252293,                          ajun Wu. Worldscore: A unified evaluation benchmark for
+the China Postdoctoral Science Foundation-Anhui Joint                    world generation. In Proceedings of the IEEE/CVF Interna-
+Support Program under Grant Number 2024T017AH,                           tional Conference on Computer Vision, pages 27713–27724,
+China Postdoctoral Science Foundation under Grant                        2025. 1, 2, 3, 6
+Number 2025M783529, Anhui Postdoctoral Scientific                   [11] Shivam Duggal, Yushi Hu, Oscar Michel, Aniruddha Kem-
+Research Program Foundation (No.2025A1015), the                          bhavi, William T Freeman, Noah A Smith, Ranjay Krishna,
+Fundamental Research Funds for the Central Universities                  Antonio Torralba, Ali Farhadi, and Wei-Chiu Ma. Eval3d:
+(No. WK2100250064, and ZGCA Project-C20250302).                          Interpretable and fine-grained evaluation for 3d generation.
+                                                                         In Proceedings of the Computer Vision and Pattern Recogni-
+                                                                         tion Conference, pages 13326–13336, 2025. 3
+References                                                          [12] Weixi Feng, Jiachen Li, Michael Saxon, Tsu-Jui Fu, Wenhu
+ [1] Sherwin Bahmani, Ivan Skorokhodov, Victor Rong, Gordon              Chen, and William Yang Wang. Tc-bench: Benchmarking
+     Wetzstein, Leonidas Guibas, Peter Wonka, Sergey Tulyakov,           temporal compositionality in conditional video generation.
+     Jeong Joon Park, Andrea Tagliasacchi, and David B Lin-              In Findings of the Association for Computational Linguis-
+     dell. 4d-fy: Text-to-4d generation using hybrid score dis-          tics: ACL 2025, pages 4638–4662, 2025. 2
+     tillation sampling. In Proceedings of the IEEE/CVF Con-        [13] Shenyuan Gao, Jiazhi Yang, Li Chen, Kashyap Chitta, Yi-
+     ference on Computer Vision and Pattern Recognition, pages           hang Qiu, Andreas Geiger, Jun Zhang, and Hongyang Li.
+     7996–8006, 2024. 5, 6                                               Vista: A generalizable driving world model with high fidelity
+ [2] Jianhong Bai, Menghan Xia, Xiao Fu, Xintao Wang, Lianrui            and versatile controllability. Advances in Neural Information
+     Mu, Jinwen Cao, Zuozhu Liu, Haoji Hu, Xiang Bai, Pengfei            Processing Systems, 37:91560–91596, 2024. 5, 6
+     Wan, et al. Recammaster: Camera-controlled generative ren-     [14] Zekai Gu, Rui Yan, Jiahao Lu, Peng Li, Zhiyang Dou,
+     dering from a single video. In Proceedings of the IEEE/CVF          Chenyang Si, Zhen Dong, Qifeng Liu, Cheng Lin, Ziwei Liu,
+     International Conference on Computer Vision, pages 14834–           et al. Diffusion as shader: 3d-aware video diffusion for ver-
+     14844, 2025. 5, 6                                                   satile video generation control. In Proceedings of the Special
+ [3] Hritik Bansal, Zongyu Lin, Tianyi Xie, Zeshun Zong, Michal          Interest Group on Computer Graphics and Interactive Tech-
+     Yarom, Yonatan Bitton, Chenfanfu Jiang, Yizhou Sun, Kai-            niques Conference Conference Papers, pages 1–12, 2025. 5,
+     Wei Chang, and Aditya Grover. Videophy: Evaluating phys-            6
+     ical commonsense for video generation. In The Thirteenth       [15] Tao Hu, Haoyang Peng, Xiao Liu, and Yuewen Ma. Ex-4d:
+     International Conference on Learning Representations. 3             Extreme viewpoint 4d video synthesis via depth watertight
+ [4] Hritik Bansal, Clark Peng, Yonatan Bitton, Roman Golden-            mesh. arXiv preprint arXiv:2506.05554, 2025. 5, 6
+     berg, Aditya Grover, and Kai-Wei Chang. Videophy-2: A          [16] Ziqi Huang, Yinan He, Jiashuo Yu, Fan Zhang, Chenyang Si,
+     challenging action-centric physical commonsense evaluation          Yuming Jiang, Yuanhan Zhang, Tianxing Wu, Qingyang Jin,
+     in video generation. arXiv preprint arXiv:2503.06800, 2025.         Nattapol Chanpaisit, et al. Vbench: Comprehensive bench-
+     3, 8                                                                mark suite for video generative models. In Proceedings of
+ [5] Xiao Cai, Sitong Su, Jingkuan Song, Pengpeng Zeng, Ji               the IEEE/CVF Conference on Computer Vision and Pattern
+     Zhang, Qinhong Du, Mengqi Li, Heng Tao Shen, and Lianli             Recognition, pages 21807–21818, 2024. 2
+     Gao. Gt23d-bench: A comprehensive general text-to-3d gen-      [17] Bingyi Kang, Yang Yue, Rui Lu, Zhijie Lin, Yang Zhao,
+     eration benchmark. arXiv preprint arXiv:2412.09997, 2024.           Kaixin Wang, Gao Huang, and Jiashi Feng. How far is
+     3                                                                   video generation from world model: A physical law per-
+ [6] Luxi Chen, Zihan Zhou, Min Zhao, Yikai Wang, Ge Zhang,              spective. In International Conference on Machine Learning,
+     Wenhao Huang, Hao Sun, Ji-Rong Wen, and Chongxuan Li.               pages 28991–29017. PMLR, 2025. 2
+     Flexworld: Progressively expanding 3d scenes for flexiable-    [18] Chenyu Li, Oscar Michel, Xichen Pan, Sainan Liu, Mike
+     view synthesis. arXiv preprint arXiv:2503.13265, 2025. 6,           Roberts, and Saining Xie. Pisa experiments: Exploring
+     7                                                                   physics post-training for video diffusion models by watching
+ [7] Zilong Chen, Yikai Wang, Feng Wang, Zhengyi Wang,                   stuff drop. In International Conference on Machine Learn-
+     Fuchun Sun, and Huaping Liu. V3d: Video diffusion models            ing, pages 35685–35709. PMLR, 2025. 3
+     are effective 3d generators. IEEE Transactions on Pattern      [19] Weiyu Li, Xuanyang Zhang, Zheng Sun, Di Qi, Hao Li,
+     Analysis and Machine Intelligence, 2025. 6, 7                       Wei Cheng, Weiwei Cai, Shihao Wu, Jiarui Liu, Zihao
+ [8] Anoop Cherian, Radu Corcodel, Siddarth Jain, and Diego              Wang, et al. Step1x-3d: Towards high-fidelity and con-
+     Romeres. Llmphy: Complex physical reasoning using                   trollable generation of textured 3d assets. arXiv preprint
+     large language models and world models. arXiv preprint              arXiv:2505.07747, 2025. 6, 7
+     arXiv:2411.08027, 2024. 3                                      [20] Xinyang Li, Zhangyu Lai, Linning Xu, Yansong Qu, Liujuan
+ [9] Matt Deitke, Ruoshi Liu, Matthew Wallingford, Huong Ngo,            Cao, Shengchuan Zhang, Bo Dai, and Rongrong Ji. Direc-
+     Oscar Michel, Aditya Kusupati, Alan Fan, Christian Laforte,         tor3d: Real-world camera trajectory and 3d scene generation
+
+
+
+
+                                                               34330
+     from text. Advances in neural information processing sys-          [32] Yiping Wang, Xuehai He, Kuan Wang, Luyao Ma, Jianwei
+     tems, 37:75125–75151, 2024. 6, 7                                        Yang, Shuohang Wang, Simon Shaolei Du, and Yelong Shen.
+[21] Mingxiang Liao, Hannan Lu, Xinyu Zhang, Fang Wan,                       Is your world simulator a good story presenter? a consecu-
+     Tianyu Wang, Yuzhong Zhao, Wangmeng Zuo, Qixiang Ye,                    tive events-based benchmark for future long video genera-
+     and Jingdong Wang. Evaluation of text-to-video generation               tion. In Proceedings of the Computer Vision and Pattern
+     models: A dynamics perspective. Advances in Neural Infor-               Recognition Conference, pages 13629–13638, 2025. 2
+     mation Processing Systems, 37:109790–109816, 2024. 2               [33] Zhouxia Wang, Ziyang Yuan, Xintao Wang, Yaowei Li,
+[22] Yuan Liu, Cheng Lin, Zijiao Zeng, Xiaoxiao Long, Lingjie                Tianshui Chen, Menghan Xia, Ping Luo, and Ying Shan.
+     Liu, Taku Komura, and Wenping Wang. Syncdreamer: Gen-                   Motionctrl: A unified and flexible motion controller for
+     erating multiview-consistent images from a single-view im-              video generation. In ACM SIGGRAPH 2024 Conference Pa-
+     age. In The Twelfth International Conference on Learning                pers, pages 1–11, 2024. 6, 7
+     Representations. 6, 7                                              [34] Ziyi Wang, Zhi Gao, Boxuan Yu, Zirui Dai, Yuxiang
+[23] Yaofang Liu, Xiaodong Cun, Xuebo Liu, Xintao Wang, Yong                 Song, Qingyuan Lu, Jin Chen, and Xinxiao Wu. Vudg:
+     Zhang, Haoxin Chen, Yang Liu, Tieyong Zeng, Raymond                     A dataset for video understanding domain generalization.
+     Chan, and Ying Shan. Evalcrafter: Benchmarking and eval-                arXiv preprint arXiv:2505.24346, 2025. 3
+     uating large video generation models. In Proceedings of            [35] Haoning Wu, Chaofeng Chen, Jingwen Hou, Liang Liao,
+     the IEEE/CVF Conference on Computer Vision and Pattern                  Annan Wang, Wenxiu Sun, Qiong Yan, and Weisi Lin. Fast-
+     Recognition, pages 22139–22149, 2024. 2                                 vqa: Efficient end-to-end video quality assessment with frag-
+[24] Fanqing Meng, Jiaqi Liao, Xinyu Tan, Quanfeng Lu, Wenqi                 ment sampling. In European conference on computer vision,
+     Shao, Kaipeng Zhang, Yu Cheng, Dianqi Li, and Ping Luo.                 pages 538–554. Springer, 2022. 6
+     Towards world simulator: Crafting physical commonsense-            [36] Biao Yang, Bin Wen, Boyang Ding, Changyi Liu, Cheng-
+     based benchmark for video generation. In International Con-             long Chu, Chengru Song, Chongling Rao, Chuan Yi, Da Li,
+     ference on Machine Learning, pages 43781–43806. PMLR,                   Dunju Zang, et al. Kwai keye-vl 1.5 technical report. arXiv
+     2025. 1, 2, 3                                                           preprint arXiv:2509.01563, 2025. 5
+[25] Saman Motamed, Laura Culp, Kevin Swersky, Priyank Jaini,
+                                                                        [37] Jiabo Ye, Haiyang Xu, Haowei Liu, Anwen Hu, Ming Yan,
+     and Robert Geirhos. Do generative video models understand
+                                                                             Qi Qian, Ji Zhang, Fei Huang, and Jingren Zhou. mplug-
+     physical principles? In Proceedings of the IEEE/CVF Winter
+                                                                             owl3: Towards long image-sequence understanding in multi-
+     Conference on Applications of Computer Vision, pages 948–
+                                                                             modal large language models. In The Thirteenth Interna-
+     958, 2026. 3
+                                                                             tional Conference on Learning Representations, 2024. 6
+[26] Yiran Qin, Zhelun Shi, Jiwen Yu, Xijun Wang, Enshen Zhou,
+                                                                        [38] Hong-Xing Yu, Haoyi Duan, Junhwa Hur, Kyle Sargent,
+     Lijun Li, Zhenfei Yin, Xihui Liu, Lu Sheng, Jing Shao, et al.
+                                                                             Michael Rubinstein, William T Freeman, Forrester Cole, De-
+     Worldsimbench: Towards video generation models as world
+                                                                             qing Sun, Noah Snavely, Jiajun Wu, et al. Wonderjourney:
+     simulators. In International Conference on Machine Learn-
+                                                                             Going from anywhere to everywhere. In Proceedings of
+     ing, pages 50338–50362. PMLR, 2025. 1
+                                                                             the IEEE/CVF Conference on Computer Vision and Pattern
+[27] Christoph Schuhmann, Romain Beaumont, Richard Vencu,
+                                                                             Recognition, pages 6658–6667, 2024. 6, 7
+     Cade Gordon, Ross Wightman, Mehdi Cherti, Theo
+     Coombes, Aarush Katta, Clayton Mullis, Mitchell Worts-             [39] Mark Yu, Wenbo Hu, Jinbo Xing, and Ying Shan. Tra-
+     man, et al. Laion-5b: An open large-scale dataset for training          jectorycrafter: Redirecting camera trajectory for monocu-
+     next generation image-text models. Advances in neural in-               lar videos via diffusion models. In Proceedings of the
+     formation processing systems, 35:25278–25294, 2022. 6                   IEEE/CVF international conference on computer vision,
+[28] Kaiyue Sun, Kaiyi Huang, Xian Liu, Yue Wu, Zihan Xu,                    pages 100–111, 2025. 5, 6
+     Zhenguo Li, and Xihui Liu. T2v-compbench: A comprehen-             [40] Wangbo Yu, Jinbo Xing, Li Yuan, Wenbo Hu, Xiaoyu Li,
+     sive benchmark for compositional text-to-video generation.              Zhipeng Huang, Xiangjun Gao, Tien-Tsin Wong, Ying Shan,
+     In Proceedings of the Computer Vision and Pattern Recogni-              and Yonghong Tian. Viewcrafter: Taming video diffusion
+     tion Conference, pages 8406–8416, 2025. 2                               models for high-fidelity novel view synthesis. IEEE Trans-
+[29] Zachary Teed and Jia Deng. Droid-slam: Deep visual slam                 actions on Pattern Analysis and Machine Intelligence, 2025.
+     for monocular, stereo, and rgb-d cameras. Advances in neu-              6, 7
+     ral information processing systems, 34:16558–16569, 2021.          [41] Jingbo Zhang, Xiaoyu Li, Ziyu Wan, Can Wang, and Jing
+     6                                                                       Liao. Text2nerf: Text-driven 3d scene generation with neu-
+[30] Jing Wang, Ao Ma, Ke Cao, Jun Zheng, Jiasong Feng, Zhan-                ral radiance fields. IEEE Transactions on Visualization and
+     jie Zhang, Wanyuan Pang, and Xiaodan Liang. Wisa: World                 Computer Graphics, 30(12):7749–7762, 2024. 6, 7
+     simulator assistant for physics-aware text-to-video genera-        [42] Dian Zheng, Ziqi Huang, Hongbo Liu, Kai Zou, Yinan He,
+     tion. In The Thirty-ninth Annual Conference on Neural In-               Fan Zhang, Lulu Gu, Yuanhan Zhang, Jingwen He, Wei-
+     formation Processing Systems. 3                                         Shi Zheng, et al. Vbench-2.0: Advancing video generation
+[31] Jianyi Wang, Kelvin CK Chan, and Chen Change Loy. Ex-                   benchmark suite for intrinsic faithfulness. arXiv preprint
+     ploring clip for assessing the look and feel of images. In Pro-         arXiv:2503.21755, 2025. 1, 2, 3
+     ceedings of the AAAI conference on artificial intelligence,        [43] Guangcong Zheng, Teng Li, Rui Jiang, Yehao Lu, Tao Wu,
+     pages 2555–2563, 2023. 6                                                and Xi Li. Cami2v: Camera-controlled image-to-video dif-
+
+
+
+
+                                                                   34331
+     fusion model. arXiv preprint arXiv:2410.15957, 2024. 5,
+     6
+[44] Yufeng Zheng, Xueting Li, Koki Nagano, Sifei Liu, Otmar
+     Hilliges, and Shalini De Mello. A unified approach for text-
+     and image-guided 4d scene generation. In Proceedings of
+     the IEEE/CVF Conference on Computer Vision and Pattern
+     Recognition, pages 7300–7309, 2024. 5, 6
+
+
+
+
+                                                                34332
+

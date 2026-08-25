@@ -1,0 +1,153 @@
+{
+  "schema_version": "paper-research-lens/1.0",
+  "paper": {
+    "title": "SPAR3D: Stable Point-Aware Reconstruction of 3D Objects from Single Images",
+    "source_mode": "latex-primary"
+  },
+  "research_equation": {
+    "one_sentence_thesis": "高保真前馈重建在遮挡面上假定图像—3D 单值映射；完整扩散可建模多解却太慢；SPAR3D 用轻量 point diffusion 代替高分辨率生成，再用条件 meshing 恢复细节。",
+    "valuable_paradigm": "image-conditioned 3D generation",
+    "broken_assumption": "partial 2D evidence uniquely determines 3D structure",
+    "hard_setting": "single-view and medical-education asset creation",
+    "borrowed_tool": "diffusion / flow / structured latent generation",
+    "unavailable_mechanism": "hidden anatomy ground truth in the input",
+    "surrogate_mechanism": "point cloud：低成本承载遮挡面不确定性；triplane mesher：用输入图像锁定可见细节；编辑接口：把不可信背面显式交给人。",
+    "claim_ids": [
+      "C1.1",
+      "C2.1",
+      "C4.1",
+      "C9.1"
+    ]
+  },
+  "direction_reconstruction": {
+    "starting_dissatisfaction": "通用 3D 生成的输出可视觉可信，但没有把隐藏结构的证据边界显式交给审核。",
+    "almost_worked_transfer": "通用 image-to-3D 可快速形成候选。",
+    "blocking_constraint": "医学教育中结构数目、左右侧和连接关系不可由单图/文字任意补全。",
+    "replacement_logic": "把模型置于 verified geometry + generative presentation 架构中。",
+    "claim_ids": [
+      "C4.1",
+      "C9.1",
+      "C11.1"
+    ]
+  },
+  "challenge_module_map": [
+    {
+      "challenge": "部分证据下的 3D 不确定性",
+      "failure_mode": "隐藏面或语义关系 hallucination",
+      "design_principle": "把不确定性放入可检查的中间表示或条件融合",
+      "module": "point cloud：低成本承载遮挡面不确定性；triplane mesher：用输入图像锁定可见细节；编辑接口：把不可信背面显式交给人。",
+      "ablation_or_evidence": "论文的主实验与消融；医学迁移需另建 topology QC。",
+      "claim_ids": [
+        "C9.1",
+        "C11.1",
+        "C14.1",
+        "C16.1"
+      ]
+    }
+  ],
+  "module_lenses": [
+    {
+      "module": "SPAR3D",
+      "failure_fixed": "论文所针对的生成/表示瓶颈",
+      "ideal_unavailable_solution": "输入中拥有完整、可信的三维事实",
+      "available_proxy": "图像、文本、通用 3D prior 与中间表示",
+      "hidden_assumption": "代理信号与真实隐藏结构兼容",
+      "future_direction": "将 point-cloud uncertainty 转成器官地标/部件图置信度，并在发现 canonical mesh 冲突时拒绝发布。",
+      "claim_ids": [
+        "C9.1",
+        "C11.1",
+        "C14.1",
+        "C16.1",
+        "C17.1",
+        "C21.1",
+        "C20.1",
+        "C22.1",
+        "C23.1",
+        "C3.1",
+        "C5.1",
+        "C6.1",
+        "C7.1",
+        "C8.1",
+        "C10.1",
+        "C12.1",
+        "C13.1",
+        "C15.1",
+        "C18.1",
+        "C19.1",
+        "C24.1",
+        "C25.1"
+      ]
+    }
+  ],
+  "citation_logic": [
+    {
+      "citation_cluster": "TRELLIS/LRM/单图前馈与扩散基线",
+      "narrative_function": "方法祖先与对照压力",
+      "assumption_inherited": "通用资产数据的图像-3D 对齐可迁移",
+      "paper_move": "按各自论文改进表示、效率或条件控制",
+      "claim_ids": [
+        "C1.1",
+        "C2.1",
+        "C4.1",
+        "C9.1",
+        "C11.1"
+      ]
+    }
+  ],
+  "experiment_story_map": [
+    {
+      "experiment": "论文主表与消融",
+      "claim_supported": "对应方法组件在作者协议中的收益",
+      "counterfactual": "没有该中间表示/融合组件的系统",
+      "stress_condition": "通用资产 benchmark，不是医学 anatomy benchmark",
+      "claim_ids": [
+        "C16.1",
+        "C17.1"
+      ]
+    }
+  ],
+  "story_patterns": [
+    {
+      "pattern_name": "hidden-assumption break",
+      "formula": "partial 2D evidence + prior -> candidate; verified anatomy + QC -> publishable educational asset",
+      "lesson": "下一篇医疗 3D 论文应把未验证的 hidden structure 变成可测量、可拒绝、可修订的对象。",
+      "claim_ids": [
+        "C4.1",
+        "C9.1",
+        "C11.1",
+        "C14.1",
+        "C16.1",
+        "C17.1",
+        "C21.1",
+        "C20.1",
+        "C22.1",
+        "C23.1",
+        "C3.1",
+        "C5.1",
+        "C6.1",
+        "C7.1",
+        "C8.1",
+        "C10.1",
+        "C12.1",
+        "C13.1",
+        "C15.1",
+        "C18.1",
+        "C19.1",
+        "C24.1",
+        "C25.1"
+      ]
+    }
+  ],
+  "boundary_directions": [
+    {
+      "title": "Anatomy-aware generation QC",
+      "hidden_assumption": "通用 3D metrics 足以保证教学正确",
+      "what_breaks": "左右侧、连接、内部腔室和部件数量可能错误",
+      "new_direction": "将 point-cloud uncertainty 转成器官地标/部件图置信度，并在发现 canonical mesh 冲突时拒绝发布。",
+      "claim_ids": [
+        "C24.1",
+        "C25.1"
+      ]
+    }
+  ]
+}

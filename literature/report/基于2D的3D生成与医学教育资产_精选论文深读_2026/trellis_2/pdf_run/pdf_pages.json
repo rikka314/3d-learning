@@ -1,0 +1,2330 @@
+{
+  "schema_version": "paper-pdf-source/1.0",
+  "doc": "trellis_2",
+  "source_pdf": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\trellis_2\\paper.pdf",
+  "page_count": 11,
+  "extracted_pages": 11,
+  "text_output": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\trellis_2\\pdf_run\\paper_pdf_text.txt",
+  "pages": [
+    {
+      "doc": "trellis_2",
+      "page": 1,
+      "width": 612.0,
+      "height": 792.0,
+      "text": "Native and Compact Structured Latents for 3D Generation∗\nJianfeng Xiang1,2⋆\nXiaoxue Chen1⋆\nSicheng Xu2\nRuicheng Wang3,2⋆\nZelong Lv3,2⋆\nYu Deng2\nHongyuan Zhu4\nYue Dong2\nHao Zhao1\nNicholas Jing Yuan4\nJiaolong Yang2†\n1Tsinghua University\n2Microsoft Research\n3USTC\n4Microsoft AI\n1K\n10K\n100K\n104\n105\n106\n107\n108\n1 / Mesh Distance\n1K\n10K\n100K\nNumber of Tokens\n25\n30\n35\n40\n45\nNormal PSNR\nOurs\nSparseFlex\nTrellis\nDirect3D-S2\nDora\nGeneration\nBase Color\nMetallic\nRoughness\nAlpha\n~25s\n~35s\nReconstruction\n16×\n~ 2.2K\n16×\n~ 9.6K\n16×\n~ 20K\n~7s\n~10s\n~1s\n~2s\nFigure 1. Left: A 1536³ asset reconstruction by our method. Despite the high compactness of the latents (see token counts below), it\nfaithfully recovers extremely fine geometric and material details, supports arbitrary topology, and preserves enclosed structures (shown in\nthe second row). Middle: A 1536³ 3D asset generated in about one minute (∼35s for shape and ∼25s for texture; see more runtime in\nbottom row). Building on our latents, the generator efficiently produces high-quality PBR-textured assets, delivering intricate geometric\ndetail and realistic materials across open-domain inputs. Right: Latent representation comparison on shape reconstruction. Our method\nachieves much higher fidelity with modest token number, pushing the frontier of both quality and compactness. (Best viewed with zoom.)\nAbstract\nRecent advancements in 3D generative modeling have sig-\nnificantly improved the generation realism, yet the field is\nstill hampered by existing representations, which struggle\nto capture assets with complex topologies and detailed ap-\npearance. This paper presents an approach for learning a\nstructured latent representation from native 3D data to ad-\ndress this challenge. At its core is a new sparse voxel struc-\nture called O-Voxel, an omni-voxel representation that en-\ncodes both geometry and appearance. O-Voxel can robustly\nmodel arbitrary topology, including open, non-manifold,\nand fully-enclosed surfaces, while capturing comprehensive\nsurface attributes beyond texture color, such as physically-\nbased rendering parameters.\nBased on O-Voxel, we de-\nsign a Sparse Compression VAE which provides a high\n∗Open-source project; see our project page for code, model, and data.\n⋆Work done during internship at Microsoft Research\n†Corresponding author\nspatial compression rate and a compact latent space. We\ntrain large-scale flow-matching models comprising 4B pa-\nrameters for 3D generation using diverse public 3D asset\ndatasets. Despite their scale, inference remains highly effi-\ncient. Meanwhile, the geometry and material quality of our\ngenerated assets far exceed those of existing models. We be-\nlieve our approach offers a significant advancement in 3D\ngenerative modeling.\n1. Introduction\n3D generative modeling has progressed at an unprecedented\nrate recently, spurred by innovations in latent 3D represen-\ntation design and the integration of large latent learning and\ngenerative models [68, 58, 3, 17, 57]. These advancements\nhave dramatically enhanced both reconstruction fidelity and\ngeneration realism, bringing 3D content creation closer to\nreal-world deployment and industrial applications.\nDespite the progress, the field still lacks fundamental\nThis CVPR paper is the Open Access version, provided by the Computer Vision Foundation.\nExcept for this watermark, it is identical to the accepted version;\nthe final published version of the proceedings is available on IEEE Xplore.\n14419\n",
+      "blocks": [
+        {
+          "bbox": [
+            125.35,
+            103.81,
+            491.63,
+            120.27
+          ],
+          "type": 0,
+          "text": "Native and Compact Structured Latents for 3D Generation∗"
+        },
+        {
+          "bbox": [
+            86.0,
+            144.22,
+            525.5,
+            157.68
+          ],
+          "type": 0,
+          "text": "Jianfeng Xiang1,2⋆\nXiaoxue Chen1⋆\nSicheng Xu2\nRuicheng Wang3,2⋆\nZelong Lv3,2⋆"
+        },
+        {
+          "bbox": [
+            70.43,
+            158.18,
+            545.33,
+            171.74
+          ],
+          "type": 0,
+          "text": "Yu Deng2\nHongyuan Zhu4\nYue Dong2\nHao Zhao1\nNicholas Jing Yuan4\nJiaolong Yang2†"
+        },
+        {
+          "bbox": [
+            130.25,
+            172.23,
+            478.76,
+            185.68
+          ],
+          "type": 0,
+          "text": "1Tsinghua University\n2Microsoft Research\n3USTC\n4Microsoft AI"
+        },
+        {
+          "bbox": [
+            486.24,
+            273.19,
+            546.05,
+            279.62
+          ],
+          "type": 0,
+          "text": "1K\n10K\n100K"
+        },
+        {
+          "bbox": [
+            466.73,
+            256.75,
+            475.21,
+            263.39
+          ],
+          "type": 0,
+          "text": "104"
+        },
+        {
+          "bbox": [
+            466.73,
+            244.18,
+            475.21,
+            250.83
+          ],
+          "type": 0,
+          "text": "105"
+        },
+        {
+          "bbox": [
+            466.73,
+            231.62,
+            475.21,
+            238.26
+          ],
+          "type": 0,
+          "text": "106"
+        },
+        {
+          "bbox": [
+            466.73,
+            219.05,
+            475.21,
+            225.69
+          ],
+          "type": 0,
+          "text": "107"
+        },
+        {
+          "bbox": [
+            466.73,
+            206.55,
+            475.21,
+            213.2
+          ],
+          "type": 0,
+          "text": "108"
+        },
+        {
+          "bbox": [
+            458.27,
+            214.9,
+            464.7,
+            258.04
+          ],
+          "type": 0,
+          "text": "1 / Mesh Distance"
+        },
+        {
+          "bbox": [
+            486.24,
+            361.67,
+            546.05,
+            375.44
+          ],
+          "type": 0,
+          "text": "1K\n10K\n100K\nNumber of Tokens"
+        },
+        {
+          "bbox": [
+            469.41,
+            356.0,
+            475.66,
+            362.44
+          ],
+          "type": 0,
+          "text": "25"
+        },
+        {
+          "bbox": [
+            469.41,
+            338.92,
+            475.66,
+            345.35
+          ],
+          "type": 0,
+          "text": "30"
+        },
+        {
+          "bbox": [
+            469.41,
+            321.83,
+            475.66,
+            328.26
+          ],
+          "type": 0,
+          "text": "35"
+        },
+        {
+          "bbox": [
+            469.41,
+            304.74,
+            475.66,
+            311.17
+          ],
+          "type": 0,
+          "text": "40"
+        },
+        {
+          "bbox": [
+            469.41,
+            287.65,
+            475.66,
+            294.08
+          ],
+          "type": 0,
+          "text": "45"
+        },
+        {
+          "bbox": [
+            458.49,
+            308.57,
+            464.93,
+            341.31
+          ],
+          "type": 0,
+          "text": "Normal PSNR"
+        },
+        {
+          "bbox": [
+            464.37,
+            378.09,
+            490.76,
+            392.38
+          ],
+          "type": 0,
+          "text": "Ours\nSparseFlex"
+        },
+        {
+          "bbox": [
+            500.8,
+            378.09,
+            530.15,
+            392.38
+          ],
+          "type": 0,
+          "text": "Trellis\nDirect3D-S2"
+        },
+        {
+          "bbox": [
+            540.3,
+            378.09,
+            552.18,
+            384.52
+          ],
+          "type": 0,
+          "text": "Dora"
+        },
+        {
+          "bbox": [
+            235.13,
+            192.82,
+            301.62,
+            207.01
+          ],
+          "type": 0,
+          "text": "Generation"
+        },
+        {
+          "bbox": [
+            384.7,
+            362.05,
+            415.81,
+            369.79
+          ],
+          "type": 0,
+          "text": "Base Color"
+        },
+        {
+          "bbox": [
+            403.96,
+            348.34,
+            424.65,
+            355.28
+          ],
+          "type": 0,
+          "text": "Metallic"
+        },
+        {
+          "bbox": [
+            417.46,
+            336.87,
+            442.06,
+            342.84
+          ],
+          "type": 0,
+          "text": "Roughness"
+        },
+        {
+          "bbox": [
+            429.89,
+            325.01,
+            441.23,
+            330.17
+          ],
+          "type": 0,
+          "text": "Alpha"
+        },
+        {
+          "bbox": [
+            390.97,
+            387.23,
+            423.9,
+            391.1
+          ],
+          "type": 0,
+          "text": "~25s\n~35s"
+        },
+        {
+          "bbox": [
+            63.72,
+            192.82,
+            152.8,
+            207.01
+          ],
+          "type": 0,
+          "text": "Reconstruction"
+        },
+        {
+          "bbox": [
+            92.61,
+            386.97,
+            355.17,
+            391.89
+          ],
+          "type": 0,
+          "text": "16×\n~ 2.2K\n16×\n~ 9.6K\n16×\n~ 20K\n~7s\n~10s\n~1s\n~2s"
+        },
+        {
+          "bbox": [
+            58.5,
+            400.25,
+            553.5,
+            464.09
+          ],
+          "type": 0,
+          "text": "Figure 1. Left: A 1536³ asset reconstruction by our method. Despite the high compactness of the latents (see token counts below), it\nfaithfully recovers extremely fine geometric and material details, supports arbitrary topology, and preserves enclosed structures (shown in\nthe second row). Middle: A 1536³ 3D asset generated in about one minute (∼35s for shape and ∼25s for texture; see more runtime in\nbottom row). Building on our latents, the generator efficiently produces high-quality PBR-textured assets, delivering intricate geometric\ndetail and realistic materials across open-domain inputs. Right: Latent representation comparison on shape reconstruction. Our method\nachieves much higher fidelity with modest token number, pushing the frontier of both quality and compactness. (Best viewed with zoom.)"
+        },
+        {
+          "bbox": [
+            154.38,
+            481.94,
+            198.87,
+            493.89
+          ],
+          "type": 0,
+          "text": "Abstract"
+        },
+        {
+          "bbox": [
+            58.5,
+            508.22,
+            294.75,
+            673.6
+          ],
+          "type": 0,
+          "text": "Recent advancements in 3D generative modeling have sig-\nnificantly improved the generation realism, yet the field is\nstill hampered by existing representations, which struggle\nto capture assets with complex topologies and detailed ap-\npearance. This paper presents an approach for learning a\nstructured latent representation from native 3D data to ad-\ndress this challenge. At its core is a new sparse voxel struc-\nture called O-Voxel, an omni-voxel representation that en-\ncodes both geometry and appearance. O-Voxel can robustly\nmodel arbitrary topology, including open, non-manifold,\nand fully-enclosed surfaces, while capturing comprehensive\nsurface attributes beyond texture color, such as physically-\nbased rendering parameters.\nBased on O-Voxel, we de-\nsign a Sparse Compression VAE which provides a high"
+        },
+        {
+          "bbox": [
+            68.53,
+            685.17,
+            290.85,
+            713.92
+          ],
+          "type": 0,
+          "text": "∗Open-source project; see our project page for code, model, and data.\n⋆Work done during internship at Microsoft Research\n†Corresponding author"
+        },
+        {
+          "bbox": [
+            317.25,
+            483.38,
+            553.5,
+            577.03
+          ],
+          "type": 0,
+          "text": "spatial compression rate and a compact latent space. We\ntrain large-scale flow-matching models comprising 4B pa-\nrameters for 3D generation using diverse public 3D asset\ndatasets. Despite their scale, inference remains highly effi-\ncient. Meanwhile, the geometry and material quality of our\ngenerated assets far exceed those of existing models. We be-\nlieve our approach offers a significant advancement in 3D\ngenerative modeling."
+        },
+        {
+          "bbox": [
+            317.25,
+            600.21,
+            394.09,
+            612.16
+          ],
+          "type": 0,
+          "text": "1. Introduction"
+        },
+        {
+          "bbox": [
+            317.25,
+            620.75,
+            553.5,
+            714.4
+          ],
+          "type": 0,
+          "text": "3D generative modeling has progressed at an unprecedented\nrate recently, spurred by innovations in latent 3D represen-\ntation design and the integration of large latent learning and\ngenerative models [68, 58, 3, 17, 57]. These advancements\nhave dramatically enhanced both reconstruction fidelity and\ngeneration realism, bringing 3D content creation closer to\nreal-world deployment and industrial applications.\nDespite the progress, the field still lacks fundamental"
+        },
+        {
+          "bbox": [
+            132.31,
+            0.57,
+            479.69,
+            13.02
+          ],
+          "type": 0,
+          "text": "This CVPR paper is the Open Access version, provided by the Computer Vision Foundation."
+        },
+        {
+          "bbox": [
+            165.92,
+            12.26,
+            446.08,
+            36.42
+          ],
+          "type": 0,
+          "text": "Except for this watermark, it is identical to the accepted version;\nthe final published version of the proceedings is available on IEEE Xplore."
+        },
+        {
+          "bbox": [
+            294.75,
+            748.52,
+            317.25,
+            760.53
+          ],
+          "type": 0,
+          "text": "14419"
+        }
+      ],
+      "preview": null
+    },
+    {
+      "doc": "trellis_2",
+      "page": 2,
+      "width": 612.0,
+      "height": 792.0,
+      "text": "representations that can both faithfully capture the full-\nspectrum information of arbitrary 3D assets and effectively\nbe processed into latents with neural networks.\nRecent\nlarge 3D generation models [68, 58, 7, 3, 57, 17, 30] pre-\ndominantly leverage iso-surface fields (e.g., signed distance\nfunction, Flexicubes [48]) to represent geometry, which\nhave intrinsic limitations in handling open surfaces, non-\nmanifold geometry, and enclosed interior structures. More-\nover, most existing works focus on 3D shape generation\nwhile neglecting the appearance and material information\ninherent in 3D assets that are fundamentally correlated with\nshape. [58] introduces a structured 3D latent (SLAT) repre-\nsentation that jointly models geometry and appearance, but\nits reliance on multiview 2D image feature input and pure\nrendering-based supervision leads to deficiencies in captur-\ning complex structures and materials.\nIn this work, we introduce a new “field-free” sparse\nvoxel structure termed O-Voxel. O-Voxel is an omni-voxel\nrepresentation that encodes both geometry and appearance,\nserving as a nexus between mesh assets and neural net-\nworks. The “omnipotence” of this structure not only lies\nin its integrated approach to modeling geometry and ap-\npearance but also in its robust capacity to handle their in-\nherent complexity. For geometry, it can handle arbitrary\ntopology including open, non-manifold, and fully-enclosed\nsurfaces, unlike existing field-based methods. By introduc-\ning a flexible dual grid structure corresponding to the pri-\nmal sparse voxels, it can accommodate complex topology\nwithout lossy data preprocessing and preserve sharp edge\nfeatures and normal discontinuities for accurate geometry\nreproduction. For appearance, it can capture arbitrary sur-\nface attributes beyond mere texture color.\nIn this work,\nwe implement physically-based rendering (PBR) parame-\nters aligned with surface geometry to enable re-lighting ca-\npability. In particular, it incorporates material opacity, al-\nlowing it to handle translucent surfaces—a capability not\npresent in previous methods.\nAnother notable advantage of O-Voxel is its instant bidi-\nrectional conversions to and from raw 3D assets. The pro-\ncesses are both optimization-free and rendering-free. Trans-\nforming a mesh into this structure takes only a few seconds\non a single CPU, while reconstructing surfaces and materi-\nals from it completes within tens of milliseconds.\nGiven the O-Voxel representation, we design a sparse 3D\nvariational autoencoder to learn a proper latent space. This\nleads to a native structured latent space compared to that in\n[58] which is built from multiview 2D information. Further-\nmore, we aim for a compact latent space to support efficient\nand high-resolution 3D generation. Utilizing a residual au-\ntoencoding design [1] applied to sparse voxel structure, our\nVAE achieves a 16× spatial downsampling, a high ratio not\nseen in prior voxel-based methods. Our approach encodes a\nfully textured asset with 10243 resolution into only ∼9.6K\nlatent tokens with negligible perceptual degradation upon\nreconstruction. Experiments show that our reconstruction\nquality surpasses prior methods by a wide margin, albeit us-\ning substantially fewer tokens. In addition to enabling high-\nresolution 3D generation, our compact latent space also fa-\ncilitates the scaling of the generative model.\nWe train large flow-matching generative models in the\nlearned latent space for image-to-3D generation. The mod-\nels contain about 4 billion parameters in total and are trained\non diverse public 3D asset datasets. Despite their scale, in-\nference remains highly efficient: it takes only ∼3s for 5123\nfully-textured assets generation, ∼17s for the 10243 resolu-\ntion, and ∼60s for the 15363 resolution on a NVIDIA H100\nGPU, which are significantly faster than existing large 3D\ngeneration models. Meanwhile, the geometry and material\nquality of our generated assets far exceed those of existing\nmodels, as demonstrated in our experiments.\n2. Related Work\n3D Representations for Generation.\nEffectively repre-\nsenting geometry and appearance for neural network pro-\ncessing is a key challenge in 3D generation. Early works\nadopted implicit fields or their discretized structures to rep-\nresent shape, such as occupancy fields [36] and Signed Dis-\ntance Functions (SDF) [43, 12, 18, 71]. NeRF [37, 53, 38]\nintegrates geometry and appearance in a radiance field,\nyielding realistic rendering but suffering from low geom-\netry quality and heavy sampling costs. Unstructured 3D\nrepresentations, including meshes [40, 4], point clouds [41,\n34, 73], and Gaussians [23, 65, 67, 16], offer explicit 3D\nrepresentations but lack structural regularity, posing chal-\nlenges for network processing and latent compression. Re-\ncent works have introduced structured representations tai-\nlored for 3D generation [17, 30]. They combine field-based\niso-surface modeling with sparse voxels to achieve high-\nresolution geometry. However, their reliance on field-based\nprimitives limits their capability to represent open or non-\nmanifold surfaces and they do not handle appearance, un-\nlike our approach.\nLatent 3D Representations.\nRecent advances in 3D gen-\neration have increasingly shifted from using explicit geo-\nmetric representations to compact latent spaces, analogous\nto those used in the 2D domain [47]. Various latent formula-\ntions have been explored, including latent point clouds [26,\n61, 7, 55], volumetric or hierarchical grids [42, 59, 46, 35],\nand triplane embeddings [56, 25, 15]. Among these, two la-\ntent paradigms have emerged as the dominant choices for\nrecent large 3D generation models.\nThe first is the un-\nstructured latent, inspired by the Perceiver-style architec-\ntures [20], where 3D data are encoded as unordered fea-\nture vectors. Representative works include [66, 70] and the\nfollow-up methods [22, 68, 27, 28, 19]. These methods can\nachieve strong compression but are typically constrained by\n14420\n",
+      "blocks": [
+        {
+          "bbox": [
+            58.5,
+            74.23,
+            294.75,
+            713.41
+          ],
+          "type": 0,
+          "text": "representations that can both faithfully capture the full-\nspectrum information of arbitrary 3D assets and effectively\nbe processed into latents with neural networks.\nRecent\nlarge 3D generation models [68, 58, 7, 3, 57, 17, 30] pre-\ndominantly leverage iso-surface fields (e.g., signed distance\nfunction, Flexicubes [48]) to represent geometry, which\nhave intrinsic limitations in handling open surfaces, non-\nmanifold geometry, and enclosed interior structures. More-\nover, most existing works focus on 3D shape generation\nwhile neglecting the appearance and material information\ninherent in 3D assets that are fundamentally correlated with\nshape. [58] introduces a structured 3D latent (SLAT) repre-\nsentation that jointly models geometry and appearance, but\nits reliance on multiview 2D image feature input and pure\nrendering-based supervision leads to deficiencies in captur-\ning complex structures and materials.\nIn this work, we introduce a new “field-free” sparse\nvoxel structure termed O-Voxel. O-Voxel is an omni-voxel\nrepresentation that encodes both geometry and appearance,\nserving as a nexus between mesh assets and neural net-\nworks. The “omnipotence” of this structure not only lies\nin its integrated approach to modeling geometry and ap-\npearance but also in its robust capacity to handle their in-\nherent complexity. For geometry, it can handle arbitrary\ntopology including open, non-manifold, and fully-enclosed\nsurfaces, unlike existing field-based methods. By introduc-\ning a flexible dual grid structure corresponding to the pri-\nmal sparse voxels, it can accommodate complex topology\nwithout lossy data preprocessing and preserve sharp edge\nfeatures and normal discontinuities for accurate geometry\nreproduction. For appearance, it can capture arbitrary sur-\nface attributes beyond mere texture color.\nIn this work,\nwe implement physically-based rendering (PBR) parame-\nters aligned with surface geometry to enable re-lighting ca-\npability. In particular, it incorporates material opacity, al-\nlowing it to handle translucent surfaces—a capability not\npresent in previous methods.\nAnother notable advantage of O-Voxel is its instant bidi-\nrectional conversions to and from raw 3D assets. The pro-\ncesses are both optimization-free and rendering-free. Trans-\nforming a mesh into this structure takes only a few seconds\non a single CPU, while reconstructing surfaces and materi-\nals from it completes within tens of milliseconds.\nGiven the O-Voxel representation, we design a sparse 3D\nvariational autoencoder to learn a proper latent space. This\nleads to a native structured latent space compared to that in\n[58] which is built from multiview 2D information. Further-\nmore, we aim for a compact latent space to support efficient\nand high-resolution 3D generation. Utilizing a residual au-\ntoencoding design [1] applied to sparse voxel structure, our\nVAE achieves a 16× spatial downsampling, a high ratio not\nseen in prior voxel-based methods. Our approach encodes a\nfully textured asset with 10243 resolution into only ∼9.6K"
+        },
+        {
+          "bbox": [
+            317.25,
+            74.23,
+            553.5,
+            203.92
+          ],
+          "type": 0,
+          "text": "latent tokens with negligible perceptual degradation upon\nreconstruction. Experiments show that our reconstruction\nquality surpasses prior methods by a wide margin, albeit us-\ning substantially fewer tokens. In addition to enabling high-\nresolution 3D generation, our compact latent space also fa-\ncilitates the scaling of the generative model.\nWe train large flow-matching generative models in the\nlearned latent space for image-to-3D generation. The mod-\nels contain about 4 billion parameters in total and are trained\non diverse public 3D asset datasets. Despite their scale, in-\nference remains highly efficient: it takes only ∼3s for 5123"
+        },
+        {
+          "bbox": [
+            317.25,
+            202.3,
+            553.5,
+            275.65
+          ],
+          "type": 0,
+          "text": "fully-textured assets generation, ∼17s for the 10243 resolu-\ntion, and ∼60s for the 15363 resolution on a NVIDIA H100\nGPU, which are significantly faster than existing large 3D\ngeneration models. Meanwhile, the geometry and material\nquality of our generated assets far exceed those of existing\nmodels, as demonstrated in our experiments."
+        },
+        {
+          "bbox": [
+            317.25,
+            286.45,
+            400.36,
+            298.4
+          ],
+          "type": 0,
+          "text": "2. Related Work"
+        },
+        {
+          "bbox": [
+            317.25,
+            306.91,
+            553.5,
+            713.41
+          ],
+          "type": 0,
+          "text": "3D Representations for Generation.\nEffectively repre-\nsenting geometry and appearance for neural network pro-\ncessing is a key challenge in 3D generation. Early works\nadopted implicit fields or their discretized structures to rep-\nresent shape, such as occupancy fields [36] and Signed Dis-\ntance Functions (SDF) [43, 12, 18, 71]. NeRF [37, 53, 38]\nintegrates geometry and appearance in a radiance field,\nyielding realistic rendering but suffering from low geom-\netry quality and heavy sampling costs. Unstructured 3D\nrepresentations, including meshes [40, 4], point clouds [41,\n34, 73], and Gaussians [23, 65, 67, 16], offer explicit 3D\nrepresentations but lack structural regularity, posing chal-\nlenges for network processing and latent compression. Re-\ncent works have introduced structured representations tai-\nlored for 3D generation [17, 30]. They combine field-based\niso-surface modeling with sparse voxels to achieve high-\nresolution geometry. However, their reliance on field-based\nprimitives limits their capability to represent open or non-\nmanifold surfaces and they do not handle appearance, un-\nlike our approach.\nLatent 3D Representations.\nRecent advances in 3D gen-\neration have increasingly shifted from using explicit geo-\nmetric representations to compact latent spaces, analogous\nto those used in the 2D domain [47]. Various latent formula-\ntions have been explored, including latent point clouds [26,\n61, 7, 55], volumetric or hierarchical grids [42, 59, 46, 35],\nand triplane embeddings [56, 25, 15]. Among these, two la-\ntent paradigms have emerged as the dominant choices for\nrecent large 3D generation models.\nThe first is the un-\nstructured latent, inspired by the Perceiver-style architec-\ntures [20], where 3D data are encoded as unordered fea-\nture vectors. Representative works include [66, 70] and the\nfollow-up methods [22, 68, 27, 28, 19]. These methods can\nachieve strong compression but are typically constrained by"
+        },
+        {
+          "bbox": [
+            294.75,
+            748.52,
+            317.25,
+            760.53
+          ],
+          "type": 0,
+          "text": "14420"
+        }
+      ],
+      "preview": null
+    },
+    {
+      "doc": "trellis_2",
+      "page": 3,
+      "width": 612.0,
+      "height": 792.0,
+      "text": "Figure 2. Overview of our approach. We introduce O-Voxel for\nshape and material representation (Sec. 3.1), based on which we\nemploy Sparse Compression VAEs for compact latent space learn-\ning (Sec. 3.2) and large flow models for 3D generation (Sec. 3.3).\nreconstruction fidelity. The second category is the struc-\ntured latent built upon sparsity priors, exemplified by [58]\nand its extensions [30, 17]. Such representations yield high\ngeometric accuracy but require a larger number of latent\ntokens, which reduces compression efficiency. Some ef-\nforts [57, 5] attempted to mitigate this issue by optimizing\nnetwork computation rather than improving latent compact-\nness. In this work, our method learns a compact structured\nlatent space directly from native 3D inputs, achieving higher\nspatial downsampling rate and fewer latent tokens.\nLarge 3D Asset Generation Models and Systems.\nWith\nthe rapid expansion of large-scale 3D asset datasets [10, 11,\n69], there has been a surge in large models and systems ca-\npable of generating 3D assets with high-quality shapes and\ntextures [68, 58, 7, 19, 62, 28, 29]. A common paradigm de-\ncomposes the generation into two stages: shape generation\nand multi-view texture synthesis [68, 19, 62, 28, 28, 29].\nWhile this pipeline benefits from powerful 2D image\ndiffusion backbones, it typically requires complex multi-\nview rendering, baking, and texture alignment, which hin-\nder scalability and often introduce appearance inconsisten-\ncies. [58] tackles 3D generation with material information,\nyet still relies on multiview baking to merge the generated\nmesh and 3D Gaussians for asset extraction. In contrast,\nour approach performs native, end-to-end 3D asset genera-\ntion, directly producing high-fidelity, fully textured 3D as-\nsets without any view-dependent postprocessing.\n3. Method\nOur objective is to generate high-resolution 3D assets with\narbitrary shape topology and flexible material attributes. An\noverview of our approach is presented in Fig. 2.\n3.1. O-Voxel: A Native 3D Representation\nGiven a 3D asset, O-Voxel represents it as a collection of\nfeature tuples associated with sparse voxels on a regular 3D\ngrid of resolution N × N × N:\nf = {(f shape\ni\n, f mat\ni\n, pi)}L\ni=1,\n(1)\nwhere f shape\ni\nencodes local geometric information, f mat\ni\nen-\ncodes material properties, and pi ∈{0, 1, . . . , N −1}3 de-\nnotes the coordinate of the i-th active voxel. Empty voxels\nthat do not intersect with the asset are set inactive.\nO-Voxel\nBase\nColor\nMetallic\nRoughness\nAlpha\nShape: Flexible Dual Grid\n1. Construct primal\n& dual grid\n2. Get dual face existence\n& Hermite data\n3. Move dual vertices\nminimizing QEF\n3. Flexible split quads\ninto triangles\n2. Connect quads from\nadjacent dual vertices\n1. Find active edge &\ndual vertices\nDual\nVertices\nIntersect\nFlags\nSplitting\nWeights\n1. Voxel from FDG\n2. Project to surface\n1. Query from texel/vertices\n3. Sample texture map\n2. Trilinear interpolation\nMaterial: Volumetric Surface Attributes\nSurfaces\nHermite data\nVoxel center\nDual vertex\nMaterial query\nQuad split vertex\nFigure 3. Illustration of O-Voxel and the instant bidirectional con-\nvertion between 3D asset and O-Voxel.\n3.1.1. Flexible Dual Grid for Shape\nThe O-Voxel can robustly represent surfaces with arbitrary\ntopology, owing to its Flexible Dual Grid formulation. In\nthis dual grid, one vertex is defined per primal cell and one\nquadrilateral face per primal edge, connecting dual vertices\nin adjacent primal cells. By constructing a dual grid cor-\nresponding to the primal regular voxel grid, our algorithm\nflexibly adjusts the positions of dual vertices and the ex-\nistence of dual grid faces to accurately represent arbitrary\ninput surface data (illustrated in the first row of Fig. 3).\nThis formulation is inspired by Dual Contouring\n(DC) [21, 6], an algorithm to extract surfaces from a signed\ngrid with edges tagged by Hermite data (i.e., intersection\npoints and normals). The original DC was designed to pro-\ncess discretized scalar fields such as SDFs. Different from\nDC, we do not utilize any field representation.\nOur ap-\nproach is straightforward: we directly use the asset’s mesh\nsurface to determine edge intersection flags (rather than de-\ntecting sign changes as in DC) and to assign Hermite data.\nEach edge that intersects the mesh activates the correspond-\ning dual face, and the associated Hermite data are then used\nto adjust the positions of the dual vertices. Given Hermite\ndata {qi, ni}, we compute the dual vertex v in closed form\nusing the following quadratic error function (QEF):\nmin\nv∈voxel e(v) =\nX\ni\nd2\nΠ,i + λbound\nX\nj\nd2\nL,j + λreg d2\nˆq.\n(2)\nThe original QEF in DC only contains the first component,\nwhich measures the squared distance from v to the plane de-\ntermined by {qi, ni}, d2\nΠ,i = (ni·(v−qi))2. We introduce\nan additional error term that penalizes the distance between\n14421\n",
+      "blocks": [
+        {
+          "bbox": [
+            58.5,
+            119.91,
+            294.75,
+            161.75
+          ],
+          "type": 0,
+          "text": "Figure 2. Overview of our approach. We introduce O-Voxel for\nshape and material representation (Sec. 3.1), based on which we\nemploy Sparse Compression VAEs for compact latent space learn-\ning (Sec. 3.2) and large flow models for 3D generation (Sec. 3.3)."
+        },
+        {
+          "bbox": [
+            58.5,
+            175.65,
+            294.75,
+            293.39
+          ],
+          "type": 0,
+          "text": "reconstruction fidelity. The second category is the struc-\ntured latent built upon sparsity priors, exemplified by [58]\nand its extensions [30, 17]. Such representations yield high\ngeometric accuracy but require a larger number of latent\ntokens, which reduces compression efficiency. Some ef-\nforts [57, 5] attempted to mitigate this issue by optimizing\nnetwork computation rather than improving latent compact-\nness. In this work, our method learns a compact structured\nlatent space directly from native 3D inputs, achieving higher\nspatial downsampling rate and fewer latent tokens."
+        },
+        {
+          "bbox": [
+            58.5,
+            299.52,
+            294.75,
+            501.15
+          ],
+          "type": 0,
+          "text": "Large 3D Asset Generation Models and Systems.\nWith\nthe rapid expansion of large-scale 3D asset datasets [10, 11,\n69], there has been a surge in large models and systems ca-\npable of generating 3D assets with high-quality shapes and\ntextures [68, 58, 7, 19, 62, 28, 29]. A common paradigm de-\ncomposes the generation into two stages: shape generation\nand multi-view texture synthesis [68, 19, 62, 28, 28, 29].\nWhile this pipeline benefits from powerful 2D image\ndiffusion backbones, it typically requires complex multi-\nview rendering, baking, and texture alignment, which hin-\nder scalability and often introduce appearance inconsisten-\ncies. [58] tackles 3D generation with material information,\nyet still relies on multiview baking to merge the generated\nmesh and 3D Gaussians for asset extraction. In contrast,\nour approach performs native, end-to-end 3D asset genera-\ntion, directly producing high-fidelity, fully textured 3D as-\nsets without any view-dependent postprocessing."
+        },
+        {
+          "bbox": [
+            58.5,
+            514.36,
+            110.3,
+            526.31
+          ],
+          "type": 0,
+          "text": "3. Method"
+        },
+        {
+          "bbox": [
+            58.5,
+            535.2,
+            294.75,
+            569.07
+          ],
+          "type": 0,
+          "text": "Our objective is to generate high-resolution 3D assets with\narbitrary shape topology and flexible material attributes. An\noverview of our approach is presented in Fig. 2."
+        },
+        {
+          "bbox": [
+            58.5,
+            579.06,
+            253.91,
+            590.02
+          ],
+          "type": 0,
+          "text": "3.1. O-Voxel: A Native 3D Representation"
+        },
+        {
+          "bbox": [
+            58.5,
+            597.14,
+            294.75,
+            631.02
+          ],
+          "type": 0,
+          "text": "Given a 3D asset, O-Voxel represents it as a collection of\nfeature tuples associated with sparse voxels on a regular 3D\ngrid of resolution N × N × N:"
+        },
+        {
+          "bbox": [
+            120.15,
+            640.88,
+            294.76,
+            655.42
+          ],
+          "type": 0,
+          "text": "f = {(f shape\ni\n, f mat\ni\n, pi)}L\ni=1,\n(1)"
+        },
+        {
+          "bbox": [
+            58.5,
+            664.9,
+            294.75,
+            713.41
+          ],
+          "type": 0,
+          "text": "where f shape\ni\nencodes local geometric information, f mat\ni\nen-\ncodes material properties, and pi ∈{0, 1, . . . , N −1}3 de-\nnotes the coordinate of the i-th active voxel. Empty voxels\nthat do not intersect with the asset are set inactive."
+        },
+        {
+          "bbox": [
+            505.71,
+            176.3,
+            536.54,
+            186.38
+          ],
+          "type": 0,
+          "text": "O-Voxel"
+        },
+        {
+          "bbox": [
+            506.28,
+            199.29,
+            518.76,
+            211.22
+          ],
+          "type": 0,
+          "text": "Base\nColor"
+        },
+        {
+          "bbox": [
+            503.51,
+            218.25,
+            521.61,
+            224.28
+          ],
+          "type": 0,
+          "text": "Metallic"
+        },
+        {
+          "bbox": [
+            501.26,
+            231.32,
+            526.21,
+            237.35
+          ],
+          "type": 0,
+          "text": "Roughness"
+        },
+        {
+          "bbox": [
+            505.79,
+            244.65,
+            519.28,
+            250.68
+          ],
+          "type": 0,
+          "text": "Alpha"
+        },
+        {
+          "bbox": [
+            317.44,
+            70.75,
+            394.99,
+            78.75
+          ],
+          "type": 0,
+          "text": "Shape: Flexible Dual Grid"
+        },
+        {
+          "bbox": [
+            333.11,
+            120.76,
+            371.25,
+            132.11
+          ],
+          "type": 0,
+          "text": "1. Construct primal\n& dual grid"
+        },
+        {
+          "bbox": [
+            376.05,
+            120.76,
+            426.75,
+            132.11
+          ],
+          "type": 0,
+          "text": "2. Get dual face existence\n& Hermite data"
+        },
+        {
+          "bbox": [
+            431.03,
+            120.58,
+            473.71,
+            131.93
+          ],
+          "type": 0,
+          "text": "3. Move dual vertices\nminimizing QEF"
+        },
+        {
+          "bbox": [
+            329.11,
+            171.67,
+            372.69,
+            183.03
+          ],
+          "type": 0,
+          "text": "3. Flexible split quads\ninto triangles"
+        },
+        {
+          "bbox": [
+            378.89,
+            171.67,
+            423.73,
+            183.03
+          ],
+          "type": 0,
+          "text": "2. Connect quads from\nadjacent dual vertices"
+        },
+        {
+          "bbox": [
+            430.92,
+            171.49,
+            473.56,
+            182.85
+          ],
+          "type": 0,
+          "text": "1. Find active edge &\ndual vertices"
+        },
+        {
+          "bbox": [
+            503.44,
+            82.88,
+            521.41,
+            94.81
+          ],
+          "type": 0,
+          "text": "Dual\nVertices"
+        },
+        {
+          "bbox": [
+            502.75,
+            101.75,
+            522.37,
+            113.69
+          ],
+          "type": 0,
+          "text": "Intersect\nFlags"
+        },
+        {
+          "bbox": [
+            502.89,
+            120.63,
+            522.04,
+            132.57
+          ],
+          "type": 0,
+          "text": "Splitting\nWeights"
+        },
+        {
+          "bbox": [
+            331.47,
+            236.72,
+            420.66,
+            242.17
+          ],
+          "type": 0,
+          "text": "1. Voxel from FDG\n2. Project to surface"
+        },
+        {
+          "bbox": [
+            406.42,
+            282.54,
+            461.91,
+            287.98
+          ],
+          "type": 0,
+          "text": "1. Query from texel/vertices"
+        },
+        {
+          "bbox": [
+            429.64,
+            236.54,
+            473.98,
+            241.99
+          ],
+          "type": 0,
+          "text": "3. Sample texture map"
+        },
+        {
+          "bbox": [
+            343.33,
+            282.71,
+            391.59,
+            288.16
+          ],
+          "type": 0,
+          "text": "2. Trilinear interpolation"
+        },
+        {
+          "bbox": [
+            317.44,
+            187.16,
+            434.9,
+            195.16
+          ],
+          "type": 0,
+          "text": "Material: Volumetric Surface Attributes"
+        },
+        {
+          "bbox": [
+            330.06,
+            292.65,
+            547.82,
+            298.09
+          ],
+          "type": 0,
+          "text": "Surfaces\nHermite data\nVoxel center\nDual vertex\nMaterial query\nQuad split vertex"
+        },
+        {
+          "bbox": [
+            317.25,
+            303.94,
+            553.5,
+            323.87
+          ],
+          "type": 0,
+          "text": "Figure 3. Illustration of O-Voxel and the instant bidirectional con-\nvertion between 3D asset and O-Voxel."
+        },
+        {
+          "bbox": [
+            317.25,
+            336.36,
+            465.34,
+            346.33
+          ],
+          "type": 0,
+          "text": "3.1.1. Flexible Dual Grid for Shape"
+        },
+        {
+          "bbox": [
+            317.25,
+            351.4,
+            553.5,
+            624.37
+          ],
+          "type": 0,
+          "text": "The O-Voxel can robustly represent surfaces with arbitrary\ntopology, owing to its Flexible Dual Grid formulation. In\nthis dual grid, one vertex is defined per primal cell and one\nquadrilateral face per primal edge, connecting dual vertices\nin adjacent primal cells. By constructing a dual grid cor-\nresponding to the primal regular voxel grid, our algorithm\nflexibly adjusts the positions of dual vertices and the ex-\nistence of dual grid faces to accurately represent arbitrary\ninput surface data (illustrated in the first row of Fig. 3).\nThis formulation is inspired by Dual Contouring\n(DC) [21, 6], an algorithm to extract surfaces from a signed\ngrid with edges tagged by Hermite data (i.e., intersection\npoints and normals). The original DC was designed to pro-\ncess discretized scalar fields such as SDFs. Different from\nDC, we do not utilize any field representation.\nOur ap-\nproach is straightforward: we directly use the asset’s mesh\nsurface to determine edge intersection flags (rather than de-\ntecting sign changes as in DC) and to assign Hermite data.\nEach edge that intersects the mesh activates the correspond-\ning dual face, and the associated Hermite data are then used\nto adjust the positions of the dual vertices. Given Hermite\ndata {qi, ni}, we compute the dual vertex v in closed form\nusing the following quadratic error function (QEF):"
+        },
+        {
+          "bbox": [
+            327.4,
+            634.32,
+            400.56,
+            653.0
+          ],
+          "type": 0,
+          "text": "min\nv∈voxel e(v) =\nX"
+        },
+        {
+          "bbox": [
+            391.95,
+            634.32,
+            470.94,
+            657.69
+          ],
+          "type": 0,
+          "text": "i\nd2\nΠ,i + λbound\nX"
+        },
+        {
+          "bbox": [
+            461.89,
+            634.85,
+            553.5,
+            657.69
+          ],
+          "type": 0,
+          "text": "j\nd2\nL,j + λreg d2\nˆq.\n(2)"
+        },
+        {
+          "bbox": [
+            317.25,
+            667.58,
+            553.5,
+            713.41
+          ],
+          "type": 0,
+          "text": "The original QEF in DC only contains the first component,\nwhich measures the squared distance from v to the plane de-\ntermined by {qi, ni}, d2\nΠ,i = (ni·(v−qi))2. We introduce\nan additional error term that penalizes the distance between"
+        },
+        {
+          "bbox": [
+            294.75,
+            748.52,
+            317.25,
+            760.53
+          ],
+          "type": 0,
+          "text": "14421"
+        }
+      ],
+      "preview": null
+    },
+    {
+      "doc": "trellis_2",
+      "page": 4,
+      "width": 612.0,
+      "height": 792.0,
+      "text": "v and any boundary edges of the mesh intersecting the pri-\nmal cell, d2\nL,j = ∥(v −oj) −((v −oj) · dj)dj∥2, as well\nas a regularization term that encourages v to stay close to\nthe average of the intersecting points, d2\nˆq = ∥v −¯q∥2. The\nformer guides the dual vertex to align with boundary edges,\nimproving the representation of open surfaces, while the lat-\nter encourages a smoother vertex distribution and stabilizes\nthe QEF optimization against singularities.\nBased on the above algorithm description, for each active\nvoxel, our geometric feature f shape\ni\ncomprises:\n• Dual vertex vi ∈R3\n[0,1], a vertex within the grid to rep-\nresent local surface shape.\n• Edge intersection flags δi ∈{0, 1}3, which determine\nthe quad connections among neighboring dual vertices.\nWe use the surface-edge intersections on 3 predefined\nvoxel edges along the X, Y , and Z axes, respectively\n(e.g., those that share the minimum-coordinate corner)1.\n• Splitting weights γi ∈R>0, controlling how quadrilat-\neral faces are adaptively subdivided into triangles, fol-\nlowing the flexible topology rule in [48].\nThe conversion algorithm between O-Voxel and mesh is\nsummarized as follows (see also Fig. 3 for an illustration).\nMesh →O-Voxel. Given a mesh, we first identify all\nvoxel edges intersecting with the mesh surface and mark\ntheir neighboring voxels as active. The intersection points\nand their normals are computed analytically from mesh tri-\nangles, yielding Hermite data. The dual vertex for each ac-\ntive voxel is then calculated by solving the QEF in Eq. (2).\nO-Voxel →Mesh. From an O-Voxel, we recover mesh\nsurfaces by connecting dual vertices across intersected\nedges, forming quadrilateral faces among neighboring ac-\ntive voxels. Each quadrilateral can be adaptively subdivided\ninto two triangles guided by the splitting weights, allowing\nthe surface to better conform to local geometric features.\nThe Flexible Dual Grid offers several key advantages:\n1. Instant bidirectional conversion — it enables rapid map-\nping with meshes and supports high-resolution conver-\nsion with minimal computation overhead. The costly\nprocesses in prior works such as SDF evaluation, flood-\nfill procedure, and iterative optimization are not needed.\n2. Arbitrary-topology modeling — it is free from the wa-\ntertight and manifold constraints, enabling robust han-\ndling of arbitrary geometry including self-intersecting\nsurfaces and fully-enclosed interior structures.\n3. High precision and sharp feature preservation — the\ndual vertices are aligned with local geometric features\nby algorithm design [21], allowing for the preservation\nof sharp features.\nAdditionally, the dual vertex posi-\ntions and splitting weights can receive learnable adjust-\nments by neural network using other supervisions such\nas rendering loss (see Section 3.2.2), further enhancing\nthe flexibility and precision of the geometry.\n1The flags for the other 9 voxel edges are stored in neighboring voxels.\n3.1.2. Volumetric Attributes for Material\nThe O-Voxel can model arbitrary surface attributes aligned\nwith surface geometry, including color and other mate-\nrial attributes.\nIn this work, we implement physically-\nbased rendering (PBR) parameters to capture the intrin-\nsic light–surface interaction characteristics of the materials.\nSpecifically, our material feature f mat\ni\nfor each active voxel\nconsists of six channels:\nf mat\ni\n= (ci, mi, ri, αi),\n(3)\nwhere ci ∈R3\n[0,1] denotes the base color, mi ∈R[0,1] the\nmetallic ratio, ri ∈R[0,1] the roughness, and αi ∈R[0,1] the\nopacity. This parameterization follows the standard PBR\nconvention widely adopted in modern physically-based ren-\ndering pipelines. The conversion between O-Voxel data and\nmesh texture is simple and fast, as illustrated in Fig. 3.\nTexture →O-Voxel. For an active voxel, we project its\ncenter onto each intersected triangle and sample each ma-\nterial attribute from the texture map using UV coordinates\nand appropriate mipmap levels. The sampled attributes are\nweighted-averaged based on the point-to-surface distances\nto obtain the final value. More details of this process can be\nfound in the supplementary material.\nO-Voxel →Texture. During reconstruction, for each\nquery point – either a mesh vertex position for vertex col-\noring or a 3D surface point corresponding to a texture map\ntexel – material attributes are obtained via trilinear interpo-\nlation of the neighboring voxel attributes. The reconstructed\nmesh is then ready for rendering without need for any addi-\ntional post-processing.\n3.2. Sparse Compression VAE\nWe apply a VAE to learn a proper latent space from O-Voxel\ndata. Our goal is to obtain a compact latent space that facil-\nitates efficient, high-resolution 3D generation. We design a\nSparse Compression VAE (SC-VAE) to achieve this.\n3.2.1. Network Architecture\nThe architecture of our SC-VAE is illustrated in Fig. 4.\nUnlike transformer-based designs in priors work [58, 17],\nour SC-VAE employs a fully sparse-convolutional network\nthat is both computationally efficient at high resolutions and\ngeneralizes well across scales. Following a U-shaped VAE\ndesign [47], our encoder hierarchically downsamples sparse\nvoxel features through multiple residual blocks, and the de-\ncoder mirrors this process for reconstruction. We meticu-\nlously design the residual and (down/up)sampling blocks to\nenable high-compression encoding and faithful recovery.\nSparse Residual Autoencoding Layer.\nWe adapt the\nResidual Autoencoding principle from DC-AE [1] to sparse\nvoxel data by introducing non-parametric residual short-\ncuts within downsampling and upsampling blocks. These\n14422\n",
+      "blocks": [
+        {
+          "bbox": [
+            58.5,
+            74.18,
+            294.76,
+            696.51
+          ],
+          "type": 0,
+          "text": "v and any boundary edges of the mesh intersecting the pri-\nmal cell, d2\nL,j = ∥(v −oj) −((v −oj) · dj)dj∥2, as well\nas a regularization term that encourages v to stay close to\nthe average of the intersecting points, d2\nˆq = ∥v −¯q∥2. The\nformer guides the dual vertex to align with boundary edges,\nimproving the representation of open surfaces, while the lat-\nter encourages a smoother vertex distribution and stabilizes\nthe QEF optimization against singularities.\nBased on the above algorithm description, for each active\nvoxel, our geometric feature f shape\ni\ncomprises:\n• Dual vertex vi ∈R3\n[0,1], a vertex within the grid to rep-\nresent local surface shape.\n• Edge intersection flags δi ∈{0, 1}3, which determine\nthe quad connections among neighboring dual vertices.\nWe use the surface-edge intersections on 3 predefined\nvoxel edges along the X, Y , and Z axes, respectively\n(e.g., those that share the minimum-coordinate corner)1.\n• Splitting weights γi ∈R>0, controlling how quadrilat-\neral faces are adaptively subdivided into triangles, fol-\nlowing the flexible topology rule in [48].\nThe conversion algorithm between O-Voxel and mesh is\nsummarized as follows (see also Fig. 3 for an illustration).\nMesh →O-Voxel. Given a mesh, we first identify all\nvoxel edges intersecting with the mesh surface and mark\ntheir neighboring voxels as active. The intersection points\nand their normals are computed analytically from mesh tri-\nangles, yielding Hermite data. The dual vertex for each ac-\ntive voxel is then calculated by solving the QEF in Eq. (2).\nO-Voxel →Mesh. From an O-Voxel, we recover mesh\nsurfaces by connecting dual vertices across intersected\nedges, forming quadrilateral faces among neighboring ac-\ntive voxels. Each quadrilateral can be adaptively subdivided\ninto two triangles guided by the splitting weights, allowing\nthe surface to better conform to local geometric features.\nThe Flexible Dual Grid offers several key advantages:\n1. Instant bidirectional conversion — it enables rapid map-\nping with meshes and supports high-resolution conver-\nsion with minimal computation overhead. The costly\nprocesses in prior works such as SDF evaluation, flood-\nfill procedure, and iterative optimization are not needed.\n2. Arbitrary-topology modeling — it is free from the wa-\ntertight and manifold constraints, enabling robust han-\ndling of arbitrary geometry including self-intersecting\nsurfaces and fully-enclosed interior structures.\n3. High precision and sharp feature preservation — the\ndual vertices are aligned with local geometric features\nby algorithm design [21], allowing for the preservation\nof sharp features.\nAdditionally, the dual vertex posi-\ntions and splitting weights can receive learnable adjust-\nments by neural network using other supervisions such\nas rendering loss (see Section 3.2.2), further enhancing\nthe flexibility and precision of the geometry."
+        },
+        {
+          "bbox": [
+            69.36,
+            703.65,
+            294.75,
+            712.93
+          ],
+          "type": 0,
+          "text": "1The flags for the other 9 voxel edges are stored in neighboring voxels."
+        },
+        {
+          "bbox": [
+            317.25,
+            74.32,
+            489.83,
+            84.28
+          ],
+          "type": 0,
+          "text": "3.1.2. Volumetric Attributes for Material"
+        },
+        {
+          "bbox": [
+            317.25,
+            89.73,
+            553.5,
+            171.42
+          ],
+          "type": 0,
+          "text": "The O-Voxel can model arbitrary surface attributes aligned\nwith surface geometry, including color and other mate-\nrial attributes.\nIn this work, we implement physically-\nbased rendering (PBR) parameters to capture the intrin-\nsic light–surface interaction characteristics of the materials.\nSpecifically, our material feature f mat\ni\nfor each active voxel\nconsists of six channels:"
+        },
+        {
+          "bbox": [
+            388.98,
+            181.94,
+            553.5,
+            195.67
+          ],
+          "type": 0,
+          "text": "f mat\ni\n= (ci, mi, ri, αi),\n(3)"
+        },
+        {
+          "bbox": [
+            317.25,
+            204.4,
+            553.5,
+            444.67
+          ],
+          "type": 0,
+          "text": "where ci ∈R3\n[0,1] denotes the base color, mi ∈R[0,1] the\nmetallic ratio, ri ∈R[0,1] the roughness, and αi ∈R[0,1] the\nopacity. This parameterization follows the standard PBR\nconvention widely adopted in modern physically-based ren-\ndering pipelines. The conversion between O-Voxel data and\nmesh texture is simple and fast, as illustrated in Fig. 3.\nTexture →O-Voxel. For an active voxel, we project its\ncenter onto each intersected triangle and sample each ma-\nterial attribute from the texture map using UV coordinates\nand appropriate mipmap levels. The sampled attributes are\nweighted-averaged based on the point-to-surface distances\nto obtain the final value. More details of this process can be\nfound in the supplementary material.\nO-Voxel →Texture. During reconstruction, for each\nquery point – either a mesh vertex position for vertex col-\noring or a 3D surface point corresponding to a texture map\ntexel – material attributes are obtained via trilinear interpo-\nlation of the neighboring voxel attributes. The reconstructed\nmesh is then ready for rendering without need for any addi-\ntional post-processing."
+        },
+        {
+          "bbox": [
+            317.25,
+            454.91,
+            456.52,
+            465.87
+          ],
+          "type": 0,
+          "text": "3.2. Sparse Compression VAE"
+        },
+        {
+          "bbox": [
+            317.25,
+            473.08,
+            553.5,
+            518.91
+          ],
+          "type": 0,
+          "text": "We apply a VAE to learn a proper latent space from O-Voxel\ndata. Our goal is to obtain a compact latent space that facil-\nitates efficient, high-resolution 3D generation. We design a\nSparse Compression VAE (SC-VAE) to achieve this."
+        },
+        {
+          "bbox": [
+            317.25,
+            527.92,
+            435.48,
+            537.89
+          ],
+          "type": 0,
+          "text": "3.2.1. Network Architecture"
+        },
+        {
+          "bbox": [
+            317.25,
+            543.34,
+            553.5,
+            660.89
+          ],
+          "type": 0,
+          "text": "The architecture of our SC-VAE is illustrated in Fig. 4.\nUnlike transformer-based designs in priors work [58, 17],\nour SC-VAE employs a fully sparse-convolutional network\nthat is both computationally efficient at high resolutions and\ngeneralizes well across scales. Following a U-shaped VAE\ndesign [47], our encoder hierarchically downsamples sparse\nvoxel features through multiple residual blocks, and the de-\ncoder mirrors this process for reconstruction. We meticu-\nlously design the residual and (down/up)sampling blocks to\nenable high-compression encoding and faithful recovery."
+        },
+        {
+          "bbox": [
+            317.25,
+            667.49,
+            553.5,
+            713.41
+          ],
+          "type": 0,
+          "text": "Sparse Residual Autoencoding Layer.\nWe adapt the\nResidual Autoencoding principle from DC-AE [1] to sparse\nvoxel data by introducing non-parametric residual short-\ncuts within downsampling and upsampling blocks. These"
+        },
+        {
+          "bbox": [
+            294.75,
+            748.52,
+            317.25,
+            760.53
+          ],
+          "type": 0,
+          "text": "14422"
+        }
+      ],
+      "preview": null
+    },
+    {
+      "doc": "trellis_2",
+      "page": 5,
+      "width": 612.0,
+      "height": 792.0,
+      "text": "N×\nUp Stage\nConvNeXt\nBlock\nResidual Dec.\n···\n×N\nResidual\nEnc.\nDown Stage\n···\nFFN\nLayerNorm\nSubMConv\nConvNeXt Block\nMaterial SC-Enc.\nShape SC-Enc.\n×N\nDown Stage\n···\nFFN\nLayerNorm\nSubMConv\nConvNeXt Block\nShape SC-Dec.\nShare\nSubdiv\nN×\nConvNeXt\nBlock\n···\nShare\nSubdiv\nSparse Residual\nAutoencoding\nSpatial to Ch\nCh Average\nCh Duplicate\nCh to Spatial\nDownsample Block\nUpsample Block\nAdd\nAdd\nO-Voxel\nSLat\nResidual\nEnc.\nUp Stage\nResidual Dec.\nMaterial SC-Dec.\nFigure 4. The network structure of SC-VAE.\nshortcuts mitigate optimization challenges under high spa-\ntial compression by rearranging information between space\nand channel dimensions in the sparse grid.\nSpecifically, for a downsampling factor of 2, we aggre-\ngate each voxel’s eight children into its channel dimension.\nGiven input features Ffine ∈RC and target coarse features\nFcoarse ∈RC′ (typically C′ = 2C), we have:\nF raw\ncoarse = stack\n\u0000Fchild1, . . . , Fchild8\n\u0001\n∈R8C,\nFcoarse = avg groups\n\u0000F raw\ncoarse\n\u0001\n∈RC′,\n(4)\nwhere the avg groups operation averages grouped channels\nto produce a coarse residual estimate. Missing voxels con-\ntribute zero vectors due to sparsity.\nDuring upsampling, a symmetric channel-to-space short-\ncut distributes each coarse feature back to its neighborhood:\nF raw\nfine = unstack\n\u0000Fcoarse\n\u0001\n∈R8C′/8,\nFfine = dup groups\n\u0000F raw\nfine\n\u0001\n∈RC,\n(5)\nwhere dup groups copies channels within each group to\nmatch the target dimension.\nEarly-pruning Upsampler.\nTo further enhance effi-\nciency, we employ an early-pruning mechanism [46] for the\nupsampler. Before each upsampling step, the module pre-\ndicts a binary mask ˆρ ∈{0, 1}8 specifying the active child\nvoxels of each parent node. Inactive nodes are skipped sub-\nsequently, thus greatly reducing runtime and memory cost.\nOptimized Residual Block.\nSparse convolutions exhibit\nlow effective computation and parameter efficiency for high\nsparsity data. In light of this, we redesign the residual block\nby reducing convolutional layers and incorporating point-\nwise MLPs for richer feature transformation. Specifically,\nwe substitute the standard design of two conv layers with\na single conv layer and fewer normalization and activation\nlayers, following the ConvNeXt-style [32] simplification.\nThe second conv is replaced by a wide point-wise MLP –\nanalogous to a Transformer FFN – which expands channel\ndimensions for enhanced nonlinearity and representation.\nThis modification does not affect efficiency but improves\nreconstruction quality, as demonstrated in our experiments.\n3.2.2. VAE Training\nSC-VAE is trained in two stages. In the first stage, we use\nlow-resolution data to quickly stabilize learning with direct\nO-Voxel reconstruction loss and KL loss.\nFor geometry\nfeatures, Mean-Squared-Error (MSE) and Binary Cross En-\ntropy (BCE) losses are applied on dual vertex positions v\nand dual face flags δ, respectively. Material attributes f mat\nand the pruning mask ρ are supervised by the L1 and BCE\nloss, respectively:\nLs1 = λv|ˆv −v|2\n2 + λδ BCE(ˆδ, δ) + λρ BCE(ˆρ, ρ)\n+ λmat|ˆf\nmat −f mat|1 + λKLLKL.\n(6)\nIn the second stage, we add rendering-based perceptual\nsupervision at high resolution to enhance geometric and ma-\nterial fidelity. We render mask, depth, and normal maps\nand supervise them with L1 loss, augmented with SSIM\nand LPIPS terms on normals. The material attributes are\nrendered and supervised by these perceptual losses as well.\nThe loss can be written as:\nLs2 = Ls1 + Lrender.\n(7)\nWe randomly place cameras around with a shallow near\nplane to slice through the surface, encouraging the model to\ncapture both external and internal structures. More details\nof the losses are provided in the supplementary material.\nTo facilitate a sequential generation scheme for shape\nand material (in particular, to enable the application of ma-\nterial generation for given shapes), we learn decoupled la-\ntent spaces with two SC-VAEs: one models shape, while\nthe other models material conditioned on the shape VAE’s\nsubdivision structures during upsampling.\n3.3. Generative Modeling\nBuilt upon the learned latent space, we construct a scalable\ngenerative framework following the overall design of [58].\nWe adopt full DiT-based architectures [44] trained with the\nflow matching paradigm [31] and extend the pipeline of [58]\nto fully leverage the power of our new latents.\nModel and Generation Pipeline.\nThe complete gener-\nation process unfolds in three stages with three models:\n1) sparse structure generation, which predicts the occu-\npancy layout of the sparse voxel grid; 2) geometry gener-\nation, which produces geometry latents within active vox-\nels; and 3) material generation, which synthesizes mate-\nrial latents aligned to the geometry structure. The first two\nstages largely follow the strategy of [58], forming the geo-\nmetric backbone of the asset. The novel material genera-\ntion stage models PBR materials directly in the native 3D\n14423\n",
+      "blocks": [
+        {
+          "bbox": [
+            134.94,
+            183.23,
+            141.98,
+            189.03
+          ],
+          "type": 0,
+          "text": "N×"
+        },
+        {
+          "bbox": [
+            169.79,
+            165.27,
+            175.6,
+            185.46
+          ],
+          "type": 0,
+          "text": "Up Stage"
+        },
+        {
+          "bbox": [
+            143.38,
+            164.32,
+            154.87,
+            186.79
+          ],
+          "type": 0,
+          "text": "ConvNeXt\nBlock"
+        },
+        {
+          "bbox": [
+            124.71,
+            160.76,
+            130.51,
+            190.48
+          ],
+          "type": 0,
+          "text": "Residual Dec."
+        },
+        {
+          "bbox": [
+            191.5,
+            171.38,
+            195.19,
+            177.19
+          ],
+          "type": 0,
+          "text": "···"
+        },
+        {
+          "bbox": [
+            156.6,
+            113.09,
+            163.61,
+            118.9
+          ],
+          "type": 0,
+          "text": "×N"
+        },
+        {
+          "bbox": [
+            168.41,
+            94.21,
+            179.91,
+            112.86
+          ],
+          "type": 0,
+          "text": "Residual\nEnc."
+        },
+        {
+          "bbox": [
+            104.07,
+            90.33,
+            109.88,
+            117.22
+          ],
+          "type": 0,
+          "text": "Down Stage"
+        },
+        {
+          "bbox": [
+            191.38,
+            99.54,
+            195.08,
+            105.35
+          ],
+          "type": 0,
+          "text": "···"
+        },
+        {
+          "bbox": [
+            147.54,
+            98.9,
+            153.35,
+            108.03
+          ],
+          "type": 0,
+          "text": "FFN"
+        },
+        {
+          "bbox": [
+            137.89,
+            91.27,
+            143.69,
+            115.71
+          ],
+          "type": 0,
+          "text": "LayerNorm"
+        },
+        {
+          "bbox": [
+            128.13,
+            91.44,
+            133.94,
+            115.61
+          ],
+          "type": 0,
+          "text": "SubMConv"
+        },
+        {
+          "bbox": [
+            125.81,
+            119.88,
+            152.2,
+            124.18
+          ],
+          "type": 0,
+          "text": "ConvNeXt Block"
+        },
+        {
+          "bbox": [
+            89.85,
+            71.36,
+            142.63,
+            79.84
+          ],
+          "type": 0,
+          "text": "Material SC-Enc."
+        },
+        {
+          "bbox": [
+            82.8,
+            82.45,
+            129.17,
+            90.93
+          ],
+          "type": 0,
+          "text": "Shape SC-Enc."
+        },
+        {
+          "bbox": [
+            149.55,
+            125.23,
+            156.56,
+            131.03
+          ],
+          "type": 0,
+          "text": "×N"
+        },
+        {
+          "bbox": [
+            96.37,
+            102.47,
+            102.18,
+            129.35
+          ],
+          "type": 0,
+          "text": "Down Stage"
+        },
+        {
+          "bbox": [
+            184.34,
+            111.67,
+            188.03,
+            117.48
+          ],
+          "type": 0,
+          "text": "···"
+        },
+        {
+          "bbox": [
+            140.5,
+            111.03,
+            146.3,
+            120.16
+          ],
+          "type": 0,
+          "text": "FFN"
+        },
+        {
+          "bbox": [
+            130.84,
+            103.4,
+            136.65,
+            127.84
+          ],
+          "type": 0,
+          "text": "LayerNorm"
+        },
+        {
+          "bbox": [
+            121.09,
+            103.57,
+            126.89,
+            127.74
+          ],
+          "type": 0,
+          "text": "SubMConv"
+        },
+        {
+          "bbox": [
+            118.76,
+            132.01,
+            145.16,
+            136.31
+          ],
+          "type": 0,
+          "text": "ConvNeXt Block"
+        },
+        {
+          "bbox": [
+            82.61,
+            165.95,
+            129.99,
+            174.42
+          ],
+          "type": 0,
+          "text": "Shape SC-Dec."
+        },
+        {
+          "bbox": [
+            106.06,
+            152.45,
+            120.02,
+            166.33
+          ],
+          "type": 0,
+          "text": "Share\nSubdiv"
+        },
+        {
+          "bbox": [
+            105.92,
+            206.54,
+            112.95,
+            212.35
+          ],
+          "type": 0,
+          "text": "N×"
+        },
+        {
+          "bbox": [
+            114.35,
+            187.64,
+            125.84,
+            210.1
+          ],
+          "type": 0,
+          "text": "ConvNeXt\nBlock"
+        },
+        {
+          "bbox": [
+            162.47,
+            194.6,
+            166.17,
+            200.41
+          ],
+          "type": 0,
+          "text": "···"
+        },
+        {
+          "bbox": [
+            153.44,
+            152.45,
+            167.4,
+            166.33
+          ],
+          "type": 0,
+          "text": "Share\nSubdiv"
+        },
+        {
+          "bbox": [
+            237.08,
+            70.51,
+            287.77,
+            87.32
+          ],
+          "type": 0,
+          "text": "Sparse Residual\nAutoencoding"
+        },
+        {
+          "bbox": [
+            245.14,
+            118.6,
+            249.58,
+            198.26
+          ],
+          "type": 0,
+          "text": "Spatial to Ch\nCh Average"
+        },
+        {
+          "bbox": [
+            255.44,
+            122.87,
+            259.97,
+            199.58
+          ],
+          "type": 0,
+          "text": "Ch Duplicate\nCh to Spatial"
+        },
+        {
+          "bbox": [
+            269.17,
+            136.86,
+            274.97,
+            179.49
+          ],
+          "type": 0,
+          "text": "Downsample Block"
+        },
+        {
+          "bbox": [
+            281.06,
+            140.37,
+            286.86,
+            176.17
+          ],
+          "type": 0,
+          "text": "Upsample Block"
+        },
+        {
+          "bbox": [
+            269.99,
+            94.1,
+            276.91,
+            98.4
+          ],
+          "type": 0,
+          "text": "Add"
+        },
+        {
+          "bbox": [
+            263.31,
+            204.8,
+            270.23,
+            209.1
+          ],
+          "type": 0,
+          "text": "Add"
+        },
+        {
+          "bbox": [
+            60.11,
+            131.03,
+            70.79,
+            163.66
+          ],
+          "type": 0,
+          "text": "O-Voxel"
+        },
+        {
+          "bbox": [
+            216.54,
+            138.57,
+            227.23,
+            155.7
+          ],
+          "type": 0,
+          "text": "SLat"
+        },
+        {
+          "bbox": [
+            161.37,
+            106.34,
+            172.86,
+            124.99
+          ],
+          "type": 0,
+          "text": "Residual\nEnc."
+        },
+        {
+          "bbox": [
+            140.77,
+            188.58,
+            146.57,
+            208.78
+          ],
+          "type": 0,
+          "text": "Up Stage"
+        },
+        {
+          "bbox": [
+            95.68,
+            184.07,
+            101.49,
+            213.8
+          ],
+          "type": 0,
+          "text": "Residual Dec."
+        },
+        {
+          "bbox": [
+            111.86,
+            142.25,
+            165.66,
+            150.73
+          ],
+          "type": 0,
+          "text": "Material SC-Dec."
+        },
+        {
+          "bbox": [
+            96.82,
+            228.7,
+            256.43,
+            237.67
+          ],
+          "type": 0,
+          "text": "Figure 4. The network structure of SC-VAE."
+        },
+        {
+          "bbox": [
+            58.5,
+            251.38,
+            294.75,
+            334.32
+          ],
+          "type": 0,
+          "text": "shortcuts mitigate optimization challenges under high spa-\ntial compression by rearranging information between space\nand channel dimensions in the sparse grid.\nSpecifically, for a downsampling factor of 2, we aggre-\ngate each voxel’s eight children into its channel dimension.\nGiven input features Ffine ∈RC and target coarse features\nFcoarse ∈RC′ (typically C′ = 2C), we have:"
+        },
+        {
+          "bbox": [
+            93.9,
+            343.03,
+            269.32,
+            357.64
+          ],
+          "type": 0,
+          "text": "F raw\ncoarse = stack\n\u0000\nFchild1, . . . , Fchild8\n\u0001\n∈R8C,"
+        },
+        {
+          "bbox": [
+            93.9,
+            354.01,
+            294.75,
+            374.6
+          ],
+          "type": 0,
+          "text": "Fcoarse = avg groups\n\u0000\nF raw\ncoarse\n\u0001\n∈RC′,\n(4)"
+        },
+        {
+          "bbox": [
+            58.5,
+            384.23,
+            294.76,
+            442.36
+          ],
+          "type": 0,
+          "text": "where the avg groups operation averages grouped channels\nto produce a coarse residual estimate. Missing voxels con-\ntribute zero vectors due to sparsity.\nDuring upsampling, a symmetric channel-to-space short-\ncut distributes each coarse feature back to its neighborhood:"
+        },
+        {
+          "bbox": [
+            109.48,
+            452.1,
+            253.73,
+            467.81
+          ],
+          "type": 0,
+          "text": "F raw\nfine = unstack\n\u0000\nFcoarse\n\u0001\n∈R8C′/8,"
+        },
+        {
+          "bbox": [
+            110.75,
+            463.18,
+            294.75,
+            483.77
+          ],
+          "type": 0,
+          "text": "Ffine = dup groups\n\u0000\nF raw\nfine\n\u0001\n∈RC,\n(5)"
+        },
+        {
+          "bbox": [
+            58.5,
+            493.52,
+            294.76,
+            515.67
+          ],
+          "type": 0,
+          "text": "where dup groups copies channels within each group to\nmatch the target dimension."
+        },
+        {
+          "bbox": [
+            58.5,
+            520.8,
+            294.75,
+            590.63
+          ],
+          "type": 0,
+          "text": "Early-pruning Upsampler.\nTo further enhance effi-\nciency, we employ an early-pruning mechanism [46] for the\nupsampler. Before each upsampling step, the module pre-\ndicts a binary mask ˆρ ∈{0, 1}8 specifying the active child\nvoxels of each parent node. Inactive nodes are skipped sub-\nsequently, thus greatly reducing runtime and memory cost."
+        },
+        {
+          "bbox": [
+            58.5,
+            595.76,
+            294.75,
+            713.41
+          ],
+          "type": 0,
+          "text": "Optimized Residual Block.\nSparse convolutions exhibit\nlow effective computation and parameter efficiency for high\nsparsity data. In light of this, we redesign the residual block\nby reducing convolutional layers and incorporating point-\nwise MLPs for richer feature transformation. Specifically,\nwe substitute the standard design of two conv layers with\na single conv layer and fewer normalization and activation\nlayers, following the ConvNeXt-style [32] simplification.\nThe second conv is replaced by a wide point-wise MLP –\nanalogous to a Transformer FFN – which expands channel"
+        },
+        {
+          "bbox": [
+            317.25,
+            74.41,
+            553.5,
+            108.28
+          ],
+          "type": 0,
+          "text": "dimensions for enhanced nonlinearity and representation.\nThis modification does not affect efficiency but improves\nreconstruction quality, as demonstrated in our experiments."
+        },
+        {
+          "bbox": [
+            317.25,
+            116.07,
+            401.24,
+            126.03
+          ],
+          "type": 0,
+          "text": "3.2.2. VAE Training"
+        },
+        {
+          "bbox": [
+            317.25,
+            131.1,
+            553.5,
+            200.84
+          ],
+          "type": 0,
+          "text": "SC-VAE is trained in two stages. In the first stage, we use\nlow-resolution data to quickly stabilize learning with direct\nO-Voxel reconstruction loss and KL loss.\nFor geometry\nfeatures, Mean-Squared-Error (MSE) and Binary Cross En-\ntropy (BCE) losses are applied on dual vertex positions v\nand dual face flags δ, respectively. Material attributes f mat"
+        },
+        {
+          "bbox": [
+            317.25,
+            202.6,
+            553.5,
+            224.75
+          ],
+          "type": 0,
+          "text": "and the pruning mask ρ are supervised by the L1 and BCE\nloss, respectively:"
+        },
+        {
+          "bbox": [
+            324.8,
+            234.36,
+            534.35,
+            249.42
+          ],
+          "type": 0,
+          "text": "Ls1 = λv|ˆv −v|2\n2 + λδ BCE(ˆδ, δ) + λρ BCE(ˆρ, ρ)"
+        },
+        {
+          "bbox": [
+            340.58,
+            246.08,
+            553.5,
+            267.14
+          ],
+          "type": 0,
+          "text": "+ λmat|ˆf\nmat −f mat|1 + λKLLKL.\n(6)"
+        },
+        {
+          "bbox": [
+            317.25,
+            274.03,
+            553.5,
+            355.72
+          ],
+          "type": 0,
+          "text": "In the second stage, we add rendering-based perceptual\nsupervision at high resolution to enhance geometric and ma-\nterial fidelity. We render mask, depth, and normal maps\nand supervise them with L1 loss, augmented with SSIM\nand LPIPS terms on normals. The material attributes are\nrendered and supervised by these perceptual losses as well.\nThe loss can be written as:"
+        },
+        {
+          "bbox": [
+            395.1,
+            367.08,
+            553.5,
+            378.67
+          ],
+          "type": 0,
+          "text": "Ls2 = Ls1 + Lrender.\n(7)"
+        },
+        {
+          "bbox": [
+            317.25,
+            389.13,
+            553.5,
+            506.69
+          ],
+          "type": 0,
+          "text": "We randomly place cameras around with a shallow near\nplane to slice through the surface, encouraging the model to\ncapture both external and internal structures. More details\nof the losses are provided in the supplementary material.\nTo facilitate a sequential generation scheme for shape\nand material (in particular, to enable the application of ma-\nterial generation for given shapes), we learn decoupled la-\ntent spaces with two SC-VAEs: one models shape, while\nthe other models material conditioned on the shape VAE’s\nsubdivision structures during upsampling."
+        },
+        {
+          "bbox": [
+            317.25,
+            515.71,
+            435.13,
+            526.67
+          ],
+          "type": 0,
+          "text": "3.3. Generative Modeling"
+        },
+        {
+          "bbox": [
+            317.25,
+            533.5,
+            553.5,
+            713.41
+          ],
+          "type": 0,
+          "text": "Built upon the learned latent space, we construct a scalable\ngenerative framework following the overall design of [58].\nWe adopt full DiT-based architectures [44] trained with the\nflow matching paradigm [31] and extend the pipeline of [58]\nto fully leverage the power of our new latents.\nModel and Generation Pipeline.\nThe complete gener-\nation process unfolds in three stages with three models:\n1) sparse structure generation, which predicts the occu-\npancy layout of the sparse voxel grid; 2) geometry gener-\nation, which produces geometry latents within active vox-\nels; and 3) material generation, which synthesizes mate-\nrial latents aligned to the geometry structure. The first two\nstages largely follow the strategy of [58], forming the geo-\nmetric backbone of the asset. The novel material genera-\ntion stage models PBR materials directly in the native 3D"
+        },
+        {
+          "bbox": [
+            294.75,
+            748.52,
+            317.25,
+            760.53
+          ],
+          "type": 0,
+          "text": "14423"
+        }
+      ],
+      "preview": null
+    },
+    {
+      "doc": "trellis_2",
+      "page": 6,
+      "width": 612.0,
+      "height": 792.0,
+      "text": "space. A sparse DiT predicts material latents conditioned\njointly on the input image and the generated geometry la-\ntents. This design unifies geometric and material genera-\ntion in the same native 3D latent domain and ensures their\nspatial alignment under arbitrary topology.\nArchitectural and Training Details.\nAll our DiT mod-\nules employ the AdaLN-single modulation [2] and Ro-\ntary Position Embedding (RoPE) [52] for better scalabil-\nity and cross-resolution generalization. Image condition-\ning features are extracted from DINOv3-L [49]. Benefit-\ning from the high spatial compression achieved by SC-VAE,\nour sparse DiTs discard the convolutional packing and skip\nconnection designs in [58], resulting in a vanilla-style DiT\nwhich reduces complexity and improves efficiency.\nWe first train the sparse structure generation with 512 ×\n512 conditioning images to learn coarse occupancy priors\nand establish the global sparse layout. In the subsequent\nstages, training proceeds in a progressive manner, gradually\nincreasing both the spatial and visual resolution. The geom-\netry and material generators are scaled from 5123 outputs\n(323 latent resolution) to 10243 outputs (643 latent resolu-\ntion), with the conditioning image resolution correspond-\ningly increased to 1024. This progressive strategy allows\nthe learned priors to transfer smoothly across resolutions,\nenabling efficient training of large-scale sparse DiTs while\nmaintaining fidelity in both geometry and material.\n4. Experiments\nImplementation details.\nOur SC-VAE is trained using\nthe Trellis-500K setup [58] after filtering out assets with-\nout PBR materials, resulting in a curated collection from\nObjaverse-XL [11], ABO [8], and HSSD [24]. We use an\noptimized Triton [54] implementation for Submanifold con-\nvolution [14] to further improve training speed. SC-VAEs\nare trained on 16 H100 GPUs with a batch size of 128.\nThe generative model is trained on an extended collec-\ntion of about 800K assets, augmented with TexVerse [69]\nto enrich PBR diversity and realism. For image prompts,\nwe render 16 views per asset in Blender [9] with ran-\ndomized FoVs and lighting.\nAll models are trained us-\ning AdamW [33] (learning rate 1 × 10−4, weight decay\n0.01) with classifier-free guidance (drop rate 0.1). Each DiT\nin our framework contains approximately 1.3B parameters\n(width: 1536, blocks: 30, heads: 12, MLP width: 8192),\ntrained on 32 H100 GPUs with a batch size of 256.\nFor reconstruction evaluation, we use the Toys4K bench-\nmark [51] together with a curated test set containing 90 as-\nsets featuring complex PBR materials and detailed shapes\nfrom recent Sketchfab assets [50] released within the past\ntwo years. Both test sets are unseen during training. For\ngeneration quality comparison and user studies, 100 AI-\ngenerated image prompts [13] are used to ensure train-\ning–testing disjointness.\nSplit-sum renderer from nvd-\niffrec [39] is used for PBR asset rendering. All runtime\nstatistics are reported on an NVIDIA A100 GPU. Addi-\ntional details are provided in the supplementary material.\n4.1. 3D Asset Reconstruction\nShape Reconstruction.\nWe compare with four represen-\ntative baselines: Dora [3] based on Shape2Vecset; TREL-\nLIS [58], Direct3D-s2 [57], and SparseFlex [17] based on\nsparse voxel structure. For evaluation, we employ multi-\nple metrics: (i) Mesh Distance (MD) calculated as Bidi-\nrectional Point-to-Mesh Distance with F1-score to measure\nreconstruction fidelity of meshes including internal struc-\ntures; (ii) Chamfer Distance with F1-score computed on\npoint clouds sampled from visible surfaces, focusing only\non external shapes; and (iii) surface quality metrics using\nPSNR and LPIPS of rendered normal maps.\nAs shown in Table 1, our method consistently outper-\nforms all baselines by a substantial margin across every\nmetric, despite using only a modest number of tokens and\nrequiring significantly less runtime. This demonstrates not\nonly its superior geometric fidelity, finer detail preservation,\nand more accurate modeling of internal structures, but also\nthe high efficiency of our approach.\nMaterial Reconstruction.\nAs no suitable baseline exists\nfor encoding only material properties given shapes, we re-\nport metrics solely for our method. We assess the fidelity\nof directly rendered PBR attribute maps and shaded images\nusing PSNR and LPIPS. Our method achieves 38.89 dB /\n0.033 on PBR attributes and 38.69 dB / 0.026 on shaded im-\nages, demonstrating faithful material reproduction and con-\nsistent geometry–appearance alignment.\n4.2. Image to 3D Generation\nWe next evaluate the generative capabilities of our frame-\nwork by producing 3D assets conditioned on input images.\nFig. 5 presents representative results, illustrating both geo-\nmetric fidelity and material realism.\nLeveraging the compact latent space compressing O-\nVoxels, our method generates assets that faithfully preserve\nfine-scale structures, sharp surface features, and internally\ncomplex or non-manifold shapes—ranging from detailed\ngears, enclosed cockpit and open leaves and flowers.\nIt\nalso reproduces vivid, realistic PBR textures with physically\nconsistent shading under novel lighting, including challeng-\ning translucent or reflective materials such as glass and\nmetal. Together, These results demonstrate that our native\n3D latent space enables the generation of tightly aligned,\nhigh-fidelity geometry and photorealistic appearance, even\nfor topologically complex assets.\nQualitative comparison.\nWe compare our approach\nagainst state-of-the-art 3D generation systems, including\nTRELLIS [58], Hi3DGen [63], Direct3D-s2 [57], Step1X-\n3D [28], and Hunyuan3D 2.1 [19]. Samples from Fig. 6\n14424\n",
+      "blocks": [
+        {
+          "bbox": [
+            58.5,
+            74.41,
+            294.75,
+            385.18
+          ],
+          "type": 0,
+          "text": "space. A sparse DiT predicts material latents conditioned\njointly on the input image and the generated geometry la-\ntents. This design unifies geometric and material genera-\ntion in the same native 3D latent domain and ensures their\nspatial alignment under arbitrary topology.\nArchitectural and Training Details.\nAll our DiT mod-\nules employ the AdaLN-single modulation [2] and Ro-\ntary Position Embedding (RoPE) [52] for better scalabil-\nity and cross-resolution generalization. Image condition-\ning features are extracted from DINOv3-L [49]. Benefit-\ning from the high spatial compression achieved by SC-VAE,\nour sparse DiTs discard the convolutional packing and skip\nconnection designs in [58], resulting in a vanilla-style DiT\nwhich reduces complexity and improves efficiency.\nWe first train the sparse structure generation with 512 ×\n512 conditioning images to learn coarse occupancy priors\nand establish the global sparse layout. In the subsequent\nstages, training proceeds in a progressive manner, gradually\nincreasing both the spatial and visual resolution. The geom-\netry and material generators are scaled from 5123 outputs\n(323 latent resolution) to 10243 outputs (643 latent resolu-\ntion), with the conditioning image resolution correspond-\ningly increased to 1024. This progressive strategy allows\nthe learned priors to transfer smoothly across resolutions,\nenabling efficient training of large-scale sparse DiTs while\nmaintaining fidelity in both geometry and material."
+        },
+        {
+          "bbox": [
+            58.5,
+            395.97,
+            135.54,
+            407.93
+          ],
+          "type": 0,
+          "text": "4. Experiments"
+        },
+        {
+          "bbox": [
+            58.5,
+            416.43,
+            294.75,
+            713.41
+          ],
+          "type": 0,
+          "text": "Implementation details.\nOur SC-VAE is trained using\nthe Trellis-500K setup [58] after filtering out assets with-\nout PBR materials, resulting in a curated collection from\nObjaverse-XL [11], ABO [8], and HSSD [24]. We use an\noptimized Triton [54] implementation for Submanifold con-\nvolution [14] to further improve training speed. SC-VAEs\nare trained on 16 H100 GPUs with a batch size of 128.\nThe generative model is trained on an extended collec-\ntion of about 800K assets, augmented with TexVerse [69]\nto enrich PBR diversity and realism. For image prompts,\nwe render 16 views per asset in Blender [9] with ran-\ndomized FoVs and lighting.\nAll models are trained us-\ning AdamW [33] (learning rate 1 × 10−4, weight decay\n0.01) with classifier-free guidance (drop rate 0.1). Each DiT\nin our framework contains approximately 1.3B parameters\n(width: 1536, blocks: 30, heads: 12, MLP width: 8192),\ntrained on 32 H100 GPUs with a batch size of 256.\nFor reconstruction evaluation, we use the Toys4K bench-\nmark [51] together with a curated test set containing 90 as-\nsets featuring complex PBR materials and detailed shapes\nfrom recent Sketchfab assets [50] released within the past\ntwo years. Both test sets are unseen during training. For\ngeneration quality comparison and user studies, 100 AI-\ngenerated image prompts [13] are used to ensure train-\ning–testing disjointness.\nSplit-sum renderer from nvd-"
+        },
+        {
+          "bbox": [
+            317.25,
+            74.41,
+            553.5,
+            108.28
+          ],
+          "type": 0,
+          "text": "iffrec [39] is used for PBR asset rendering. All runtime\nstatistics are reported on an NVIDIA A100 GPU. Addi-\ntional details are provided in the supplementary material."
+        },
+        {
+          "bbox": [
+            317.25,
+            117.41,
+            451.47,
+            128.37
+          ],
+          "type": 0,
+          "text": "4.1. 3D Asset Reconstruction"
+        },
+        {
+          "bbox": [
+            317.25,
+            135.12,
+            553.5,
+            446.71
+          ],
+          "type": 0,
+          "text": "Shape Reconstruction.\nWe compare with four represen-\ntative baselines: Dora [3] based on Shape2Vecset; TREL-\nLIS [58], Direct3D-s2 [57], and SparseFlex [17] based on\nsparse voxel structure. For evaluation, we employ multi-\nple metrics: (i) Mesh Distance (MD) calculated as Bidi-\nrectional Point-to-Mesh Distance with F1-score to measure\nreconstruction fidelity of meshes including internal struc-\ntures; (ii) Chamfer Distance with F1-score computed on\npoint clouds sampled from visible surfaces, focusing only\non external shapes; and (iii) surface quality metrics using\nPSNR and LPIPS of rendered normal maps.\nAs shown in Table 1, our method consistently outper-\nforms all baselines by a substantial margin across every\nmetric, despite using only a modest number of tokens and\nrequiring significantly less runtime. This demonstrates not\nonly its superior geometric fidelity, finer detail preservation,\nand more accurate modeling of internal structures, but also\nthe high efficiency of our approach.\nMaterial Reconstruction.\nAs no suitable baseline exists\nfor encoding only material properties given shapes, we re-\nport metrics solely for our method. We assess the fidelity\nof directly rendered PBR attribute maps and shaded images\nusing PSNR and LPIPS. Our method achieves 38.89 dB /\n0.033 on PBR attributes and 38.69 dB / 0.026 on shaded im-\nages, demonstrating faithful material reproduction and con-\nsistent geometry–appearance alignment."
+        },
+        {
+          "bbox": [
+            317.25,
+            455.84,
+            449.35,
+            466.8
+          ],
+          "type": 0,
+          "text": "4.2. Image to 3D Generation"
+        },
+        {
+          "bbox": [
+            317.25,
+            473.64,
+            553.5,
+            713.41
+          ],
+          "type": 0,
+          "text": "We next evaluate the generative capabilities of our frame-\nwork by producing 3D assets conditioned on input images.\nFig. 5 presents representative results, illustrating both geo-\nmetric fidelity and material realism.\nLeveraging the compact latent space compressing O-\nVoxels, our method generates assets that faithfully preserve\nfine-scale structures, sharp surface features, and internally\ncomplex or non-manifold shapes—ranging from detailed\ngears, enclosed cockpit and open leaves and flowers.\nIt\nalso reproduces vivid, realistic PBR textures with physically\nconsistent shading under novel lighting, including challeng-\ning translucent or reflective materials such as glass and\nmetal. Together, These results demonstrate that our native\n3D latent space enables the generation of tightly aligned,\nhigh-fidelity geometry and photorealistic appearance, even\nfor topologically complex assets.\nQualitative comparison.\nWe compare our approach\nagainst state-of-the-art 3D generation systems, including\nTRELLIS [58], Hi3DGen [63], Direct3D-s2 [57], Step1X-\n3D [28], and Hunyuan3D 2.1 [19]. Samples from Fig. 6"
+        },
+        {
+          "bbox": [
+            294.75,
+            748.52,
+            317.25,
+            760.53
+          ],
+          "type": 0,
+          "text": "14424"
+        }
+      ],
+      "preview": null
+    },
+    {
+      "doc": "trellis_2",
+      "page": 7,
+      "width": 612.0,
+      "height": 792.0,
+      "text": "Figure 5. High-quality 3D assets generated by our method, featuring intricate geometric details and physically accurate materials with high\nvisual fidelity, including thin structures, open surfaces, and translucent regions that highlight the model’s expressive capability.\nNo\nPBR\nNo\nPBR\nOurs\nHunyuan3D 2.1\nStep1X-3D\nTRELLIS\nDirect3D-S2\nHi3DGen\nNo\nPBR\nNo\nPBR\nFigure 6. Visual comparison showing the normal (main image) and the final render, base color, metallic, and roughness (small images).\ndemonstrate that our method achieves superior generation\nquality—delivering accurate and detailed geometry, physi-\ncally plausible materials, and faithful prompt alignment.\nQuantitative comparison.\nWe conduct quantitative eval-\nuation using AI-generated images. Visual alignment is mea-\nsured with the CLIP score [45], while multimodal models\nULIP-2 [60] and Uni3D [72] are employed to assess the ge-\nometric similarity. Table 2 shows that our method achieves\nthe highest alignment score across all metrics, demonstrat-\ning clear superiority in visual and geometric consistency.\nWe also conduct a user study with about 40 participants\nto evaluate perceptual quality. Using 100 AI-generated im-\nage prompts, we generate assets with each method under\nidentical conditions without curation and collect preference\nvotes. Table 2 shows our method is favored by participants,\nhighlighting its clear superiority in visual realism, richness\nof geometric detail, and alignment with input prompts.\n4.3. Shape-Conditioned Texture Generation\nThe third stage of our generation pipeline can be indepen-\ndently used as a 3D PBR texture synthesis model given 3D\nmesh and reference image. To evaluate its performance, we\ncompare against representative baselines: multi-view PBR\ngeneration and fusion methods Hunyuan3D-Paint [19], and\nUV-based TEXGen [64].\nAs shown in Fig. 7, multi-view approaches often suffer\nOurs\nHunyuan3D 2.1\nTEXGen\nPrompt / Shape\nNo\nPBR\nNo\nPBR\nFigure 7. Visual comparison of PBR texture generation.\nfrom inconsistencies both between the shape and synthe-\nsized images, as well as across different views, resulting in\nghosting or blurred textures. UV-based methods suffer from\nambiguous UV charts and seam artifacts, resulting in de-\ngraded visual quality. In contrast, our framework performs\nappearance reasoning natively in 3D. This enables sharper\n14425\n",
+      "blocks": [
+        {
+          "bbox": [
+            58.5,
+            227.12,
+            553.5,
+            247.05
+          ],
+          "type": 0,
+          "text": "Figure 5. High-quality 3D assets generated by our method, featuring intricate geometric details and physically accurate materials with high\nvisual fidelity, including thin structures, open surfaces, and translucent regions that highlight the model’s expressive capability."
+        },
+        {
+          "bbox": [
+            359.05,
+            279.84,
+            448.19,
+            299.07
+          ],
+          "type": 0,
+          "text": "No\nPBR\nNo\nPBR"
+        },
+        {
+          "bbox": [
+            159.09,
+            359.5,
+            546.69,
+            367.61
+          ],
+          "type": 0,
+          "text": "Ours\nHunyuan3D 2.1\nStep1X-3D\nTRELLIS\nDirect3D-S2\nHi3DGen"
+        },
+        {
+          "bbox": [
+            359.05,
+            334.25,
+            448.19,
+            353.52
+          ],
+          "type": 0,
+          "text": "No\nPBR\nNo\nPBR"
+        },
+        {
+          "bbox": [
+            63.67,
+            370.38,
+            548.33,
+            379.34
+          ],
+          "type": 0,
+          "text": "Figure 6. Visual comparison showing the normal (main image) and the final render, base color, metallic, and roughness (small images)."
+        },
+        {
+          "bbox": [
+            58.5,
+            394.83,
+            294.75,
+            428.7
+          ],
+          "type": 0,
+          "text": "demonstrate that our method achieves superior generation\nquality—delivering accurate and detailed geometry, physi-\ncally plausible materials, and faithful prompt alignment."
+        },
+        {
+          "bbox": [
+            58.5,
+            436.15,
+            294.75,
+            602.15
+          ],
+          "type": 0,
+          "text": "Quantitative comparison.\nWe conduct quantitative eval-\nuation using AI-generated images. Visual alignment is mea-\nsured with the CLIP score [45], while multimodal models\nULIP-2 [60] and Uni3D [72] are employed to assess the ge-\nometric similarity. Table 2 shows that our method achieves\nthe highest alignment score across all metrics, demonstrat-\ning clear superiority in visual and geometric consistency.\nWe also conduct a user study with about 40 participants\nto evaluate perceptual quality. Using 100 AI-generated im-\nage prompts, we generate assets with each method under\nidentical conditions without curation and collect preference\nvotes. Table 2 shows our method is favored by participants,\nhighlighting its clear superiority in visual realism, richness\nof geometric detail, and alignment with input prompts."
+        },
+        {
+          "bbox": [
+            58.5,
+            612.86,
+            262.17,
+            623.81
+          ],
+          "type": 0,
+          "text": "4.3. Shape-Conditioned Texture Generation"
+        },
+        {
+          "bbox": [
+            58.5,
+            631.18,
+            294.75,
+            713.41
+          ],
+          "type": 0,
+          "text": "The third stage of our generation pipeline can be indepen-\ndently used as a 3D PBR texture synthesis model given 3D\nmesh and reference image. To evaluate its performance, we\ncompare against representative baselines: multi-view PBR\ngeneration and fusion methods Hunyuan3D-Paint [19], and\nUV-based TEXGen [64].\nAs shown in Fig. 7, multi-view approaches often suffer"
+        },
+        {
+          "bbox": [
+            315.77,
+            394.45,
+            324.28,
+            604.2
+          ],
+          "type": 0,
+          "text": "Ours\nHunyuan3D 2.1\nTEXGen\nPrompt / Shape"
+        },
+        {
+          "bbox": [
+            382.22,
+            581.34,
+            398.86,
+            601.63
+          ],
+          "type": 0,
+          "text": "No\nPBR"
+        },
+        {
+          "bbox": [
+            518.8,
+            569.27,
+            535.44,
+            589.56
+          ],
+          "type": 0,
+          "text": "No\nPBR"
+        },
+        {
+          "bbox": [
+            335.2,
+            622.78,
+            535.55,
+            631.75
+          ],
+          "type": 0,
+          "text": "Figure 7. Visual comparison of PBR texture generation."
+        },
+        {
+          "bbox": [
+            317.25,
+            643.67,
+            553.5,
+            713.41
+          ],
+          "type": 0,
+          "text": "from inconsistencies both between the shape and synthe-\nsized images, as well as across different views, resulting in\nghosting or blurred textures. UV-based methods suffer from\nambiguous UV charts and seam artifacts, resulting in de-\ngraded visual quality. In contrast, our framework performs\nappearance reasoning natively in 3D. This enables sharper"
+        },
+        {
+          "bbox": [
+            294.75,
+            748.52,
+            317.25,
+            760.53
+          ],
+          "type": 0,
+          "text": "14425"
+        }
+      ],
+      "preview": null
+    },
+    {
+      "doc": "trellis_2",
+      "page": 8,
+      "width": 612.0,
+      "height": 792.0,
+      "text": "Table 1. Comparison of shape reconstruction efficiency and fidelity. MD and CD is reported ×106; runtime measured on an A100 GPU.\nToys4K\nSketchfab Featured\nMethod\n#Token (#Dim)\nfdown\nDec. (s)↓\nAll Surface\nOuter Surface\nNormal\nAll Surface\nOuter Surface\nNormal\nMD↓\nF11e-8↑\nCD↓\nF11e-6↑\nPSNR↑\nLPIPS↓\nMD↓\nF11e-8↑\nCD↓\nF11e-6↑\nPSNR↑\nLPIPS↓\nDora\n2.0K (131K)\n–\n37.7\n366.1\n0.019\n325.3\n0.140\n27.26\n0.117\n987.2\n0.020\n1182.\n0.130\n22.02\n0.175\nDora\n4.1K (262K)\n–\n43.0\n360.8\n0.019\n327.3\n0.138\n27.32\n0.115\n1139.\n0.020\n1351.\n0.130\n22.09\n0.174\nTRELLIS\n9.6K (77K)\n4×\n0.108\n85.07\n0.074\n2.755\n0.544\n30.29\n0.067\n49.20\n0.031\n8.171\n0.286\n24.31\n0.110\nDirect3D-S2 512\n3.0K (48K)\n8×\n1.86\n137.6\n0.002\n23.85\n0.027\n26.34\n0.138\n128.0\n0.002\n26.64\n0.032\n22.76\n0.159\nDirect3D-S2 1024\n17K (271K)\n8×\n13.0\n73.17\n0.001\n13.45\n0.001\n27.38\n0.134\n70.13\n0.001\n14.06\n0.000\n23.82\n0.138\nSparseFlex 512\n56K (452K)\n4×\n1.22\n1.303\n0.735\n0.8366\n0.840\n36.56\n0.027\n3.221\n0.487\n1.881\n0.783\n29.46\n0.055\nSparseFlex 1024\n225K (1799K)\n4×\n3.21\n0.3132\n0.845\n0.8062\n0.843\n37.34\n0.042\n0.7593\n0.684\n1.129\n0.828\n32.12\n0.036\nOurs 512\n2.2K (70K)\n16×\n0.077\n0.0323\n0.888\n0.5890\n0.851\n39.54\n0.013\n0.1572\n0.613\n0.7447\n0.833\n31.00\n0.034\nOurs 1024\n9.6K (306K)\n16×\n0.301\n0.0042\n0.971\n0.5660\n0.855\n43.11\n0.005\n0.0170\n0.868\n0.6402\n0.850\n35.26\n0.013\nTable 2. Comparison of image-to-3D generation results. -N: mea-\nsured with normal map.\nMethod\nAlignment\nQuality (User Study)\nCLIP↑CLIP-N↑ULIP-2↑Uni3D↑Pref%↑Pref-N%↑\nTRELLIS\n0.876\n0.748\n0.470\n0.414\n6.40%\n2.82%\nHi3DGen\n–\n0.753\n0.395\n0.373\n–\n6.57%\nDirect3D-S2\n–\n0.746\n0.420\n0.392\n–\n12.2%\nStep1X-3D\n0.875\n0.738\n0.464\n0.411\n11.8%\n0.469%\nHunyuan3D 2.1\n0.869\n0.753\n0.474\n0.427\n13.3%\n7.51%\nOurs\n0.894\n0.758\n0.477\n0.436\n66.5%\n69.0%\nTable 3. Ablation study of SC-VAE architecture designs using\nshape reconstruction fidelity.\nSetting\n#Token Dec. (ms)↓MD↓F11e-8↑PSNR↑LPIPS↓\nSC-VAE f16c32\n503\n28.6\n1.032\n0.312\n27.26\n0.072\nw/o Residual AE\n503\n28.7\n1.747\n0.268\n26.73\n0.081\nw/o Opt. ResBlock\n503\n29.6\n1.198\n0.285\n26.67\n0.083\nSC-VAE f32c128\n118\n33.9\n1.405\n0.273\n26.65\n0.081\nw/o Residual AE\n118\n34.0\n7.394\n0.192\n25.01\n0.102\ntextures, consistent shape–material alignment, and synthe-\nsis of textures for internal surfaces, crucial for complex as-\nsets with occluded or non-manifold geometry.\n4.4. Ablation and Design Analysis\nWe conduct ablation study to analyze the architecture de-\nsign of SC-VAE. All ablations are conducted on the curated\nsketchfab assets at a resolution of 2563 using shape metrics.\nSparse residual autoencoding.\nTo evaluate the effect of\nthe sparse residual autoencoding layer, we compare SC-\nVAE with a baseline using average pooling and nearest-\nneighbor upsampling. As shown in Table 3, the baseline\nexhibits severe quality degradation: MD increases by 69%\nand PSNR decreases 0.5dB at 16× compression, worsening\nto 526% and 1.6dB at 32×. In contrast, the sparse resid-\nual design maintains high fidelity across compression ratios,\nconfirming its robustness under strong spatial bottlenecks.\nOptimized residual block.\nTo assess the effect of the op-\ntimized residual block, we compare SC-VAE with a base-\nline using standard residual blocks. Table 3 shows that this\nleads to a clear drop in reconstruction quality, MD increases\nby 16% and PSNR decreases by 0.6dB, while runtime re-\nmains unchanged. This confirms that the hybrid sparse con-\nScale Up Computation\n1024³\n20s\n1024³\n20s+3s\nScale Up Resolution\n1024³\n1536³\nFigure 8. Scaling up resolution for finer detail and compute for\nhigher quality during test time. (Best viewed with zoom)\nvolution and point-wise MLP design better preserves fine-\nscale details without sacrificing efficiency.\n4.5. Test-time Compute and Resolution Scaling\nOur generative framework supports flexible compute and\nresolution scaling at test time, and our compact latent space\nmakes this scaling efficient. Since the shape SC-VAE up-\nsamples the sparse structure by 16× while using far fewer\ntokens than prior methods, the second-stage generator can\nbe recursively applied to produce shapes at resolutions be-\nyond the training scale. Within the trained range, inserting\nintermediate refinement steps (first applying the model to\na downsampled sparse structure) helps correct local errors\nand yields cleaner layouts for subsequent high-resolution\ngeneration. This recursive mechanism, enabled by our low\ntoken count, provides a controllable trade-off between effi-\nciency and fidelity, enabling finer and more stable outputs\nwith increased recursion depth, as is shown in Fig. 8.\n5. Conclusion\nWe present an approach for learning a comprehensive yet\ncompact structured 3D latent representation for 3D genera-\ntion. A key innovation is O-Voxel, an omni-voxel represen-\ntation that is capable of encoding complex geometry and\nmaterials. We also introduce a Sparse Compression VAE\nthat achieves a high spatial compression rate on O-Voxel to\nconstruct the latent space. Our large flow-matching models\ndeliver substantially superior generation quality compared\nto existing methods while maintaining high efficiency. We\nbelieve our approach offers a significant advancement in\n3D generative modeling, enhancing both the efficiency and\nrealism of 3D content creation and opening avenues for\nbroader applications across various domains.\n14426\n",
+      "blocks": [
+        {
+          "bbox": [
+            61.56,
+            71.19,
+            550.44,
+            81.84
+          ],
+          "type": 0,
+          "text": "Table 1. Comparison of shape reconstruction efficiency and fidelity. MD and CD is reported ×106; runtime measured on an A100 GPU."
+        },
+        {
+          "bbox": [
+            289.47,
+            88.76,
+            492.65,
+            95.74
+          ],
+          "type": 0,
+          "text": "Toys4K\nSketchfab Featured"
+        },
+        {
+          "bbox": [
+            82.44,
+            99.78,
+            527.22,
+            107.52
+          ],
+          "type": 0,
+          "text": "Method\n#Token (#Dim)\nfdown\nDec. (s)↓\nAll Surface\nOuter Surface\nNormal\nAll Surface\nOuter Surface\nNormal"
+        },
+        {
+          "bbox": [
+            224.14,
+            110.98,
+            541.85,
+            118.71
+          ],
+          "type": 0,
+          "text": "MD↓\nF11e-8↑\nCD↓\nF11e-6↑\nPSNR↑\nLPIPS↓\nMD↓\nF11e-8↑\nCD↓\nF11e-6↑\nPSNR↑\nLPIPS↓"
+        },
+        {
+          "bbox": [
+            68.4,
+            124.21,
+            537.78,
+            194.94
+          ],
+          "type": 0,
+          "text": "Dora\n2.0K (131K)\n–\n37.7\n366.1\n0.019\n325.3\n0.140\n27.26\n0.117\n987.2\n0.020\n1182.\n0.130\n22.02\n0.175\nDora\n4.1K (262K)\n–\n43.0\n360.8\n0.019\n327.3\n0.138\n27.32\n0.115\n1139.\n0.020\n1351.\n0.130\n22.09\n0.174\nTRELLIS\n9.6K (77K)\n4×\n0.108\n85.07\n0.074\n2.755\n0.544\n30.29\n0.067\n49.20\n0.031\n8.171\n0.286\n24.31\n0.110\nDirect3D-S2 512\n3.0K (48K)\n8×\n1.86\n137.6\n0.002\n23.85\n0.027\n26.34\n0.138\n128.0\n0.002\n26.64\n0.032\n22.76\n0.159\nDirect3D-S2 1024\n17K (271K)\n8×\n13.0\n73.17\n0.001\n13.45\n0.001\n27.38\n0.134\n70.13\n0.001\n14.06\n0.000\n23.82\n0.138\nSparseFlex 512\n56K (452K)\n4×\n1.22\n1.303\n0.735\n0.8366\n0.840\n36.56\n0.027\n3.221\n0.487\n1.881\n0.783\n29.46\n0.055\nSparseFlex 1024\n225K (1799K)\n4×\n3.21\n0.3132\n0.845\n0.8062\n0.843\n37.34\n0.042\n0.7593\n0.684\n1.129\n0.828\n32.12\n0.036\nOurs 512\n2.2K (70K)\n16×\n0.077\n0.0323\n0.888\n0.5890\n0.851\n39.54\n0.013\n0.1572\n0.613\n0.7447\n0.833\n31.00\n0.034\nOurs 1024\n9.6K (306K)\n16×\n0.301\n0.0042\n0.971\n0.5660\n0.855\n43.11\n0.005\n0.0170\n0.868\n0.6402\n0.850\n35.26\n0.013"
+        },
+        {
+          "bbox": [
+            58.5,
+            210.99,
+            294.75,
+            230.91
+          ],
+          "type": 0,
+          "text": "Table 2. Comparison of image-to-3D generation results. -N: mea-\nsured with normal map."
+        },
+        {
+          "bbox": [
+            77.47,
+            237.84,
+            281.91,
+            248.8
+          ],
+          "type": 0,
+          "text": "Method\nAlignment\nQuality (User Study)"
+        },
+        {
+          "bbox": [
+            115.3,
+            248.85,
+            284.62,
+            256.01
+          ],
+          "type": 0,
+          "text": "CLIP↑CLIP-N↑ULIP-2↑Uni3D↑Pref%↑Pref-N%↑"
+        },
+        {
+          "bbox": [
+            66.87,
+            262.08,
+            280.91,
+            308.84
+          ],
+          "type": 0,
+          "text": "TRELLIS\n0.876\n0.748\n0.470\n0.414\n6.40%\n2.82%\nHi3DGen\n–\n0.753\n0.395\n0.373\n–\n6.57%\nDirect3D-S2\n–\n0.746\n0.420\n0.392\n–\n12.2%\nStep1X-3D\n0.875\n0.738\n0.464\n0.411\n11.8%\n0.469%\nHunyuan3D 2.1\n0.869\n0.753\n0.474\n0.427\n13.3%\n7.51%\nOurs\n0.894\n0.758\n0.477\n0.436\n66.5%\n69.0%"
+        },
+        {
+          "bbox": [
+            58.5,
+            318.65,
+            294.75,
+            338.58
+          ],
+          "type": 0,
+          "text": "Table 3. Ablation study of SC-VAE architecture designs using\nshape reconstruction fidelity."
+        },
+        {
+          "bbox": [
+            64.96,
+            345.31,
+            286.55,
+            353.04
+          ],
+          "type": 0,
+          "text": "Setting\n#Token Dec. (ms)↓MD↓F11e-8↑PSNR↑LPIPS↓"
+        },
+        {
+          "bbox": [
+            64.96,
+            358.47,
+            282.47,
+            381.45
+          ],
+          "type": 0,
+          "text": "SC-VAE f16c32\n503\n28.6\n1.032\n0.312\n27.26\n0.072\nw/o Residual AE\n503\n28.7\n1.747\n0.268\n26.73\n0.081\nw/o Opt. ResBlock\n503\n29.6\n1.198\n0.285\n26.67\n0.083"
+        },
+        {
+          "bbox": [
+            64.96,
+            387.39,
+            282.47,
+            402.39
+          ],
+          "type": 0,
+          "text": "SC-VAE f32c128\n118\n33.9\n1.405\n0.273\n26.65\n0.081\nw/o Residual AE\n118\n34.0\n7.394\n0.192\n25.01\n0.102"
+        },
+        {
+          "bbox": [
+            58.5,
+            421.65,
+            294.75,
+            455.52
+          ],
+          "type": 0,
+          "text": "textures, consistent shape–material alignment, and synthe-\nsis of textures for internal surfaces, crucial for complex as-\nsets with occluded or non-manifold geometry."
+        },
+        {
+          "bbox": [
+            58.5,
+            467.14,
+            215.61,
+            478.1
+          ],
+          "type": 0,
+          "text": "4.4. Ablation and Design Analysis"
+        },
+        {
+          "bbox": [
+            58.5,
+            485.77,
+            294.75,
+            519.64
+          ],
+          "type": 0,
+          "text": "We conduct ablation study to analyze the architecture de-\nsign of SC-VAE. All ablations are conducted on the curated\nsketchfab assets at a resolution of 2563 using shape metrics."
+        },
+        {
+          "bbox": [
+            58.5,
+            528.76,
+            294.75,
+            634.46
+          ],
+          "type": 0,
+          "text": "Sparse residual autoencoding.\nTo evaluate the effect of\nthe sparse residual autoencoding layer, we compare SC-\nVAE with a baseline using average pooling and nearest-\nneighbor upsampling. As shown in Table 3, the baseline\nexhibits severe quality degradation: MD increases by 69%\nand PSNR decreases 0.5dB at 16× compression, worsening\nto 526% and 1.6dB at 32×. In contrast, the sparse resid-\nual design maintains high fidelity across compression ratios,\nconfirming its robustness under strong spatial bottlenecks."
+        },
+        {
+          "bbox": [
+            58.5,
+            643.58,
+            294.75,
+            713.41
+          ],
+          "type": 0,
+          "text": "Optimized residual block.\nTo assess the effect of the op-\ntimized residual block, we compare SC-VAE with a base-\nline using standard residual blocks. Table 3 shows that this\nleads to a clear drop in reconstruction quality, MD increases\nby 16% and PSNR decreases by 0.6dB, while runtime re-\nmains unchanged. This confirms that the hybrid sparse con-"
+        },
+        {
+          "bbox": [
+            459.64,
+            264.09,
+            521.29,
+            271.36
+          ],
+          "type": 0,
+          "text": "Scale Up Computation"
+        },
+        {
+          "bbox": [
+            457.86,
+            220.27,
+            519.81,
+            230.2
+          ],
+          "type": 0,
+          "text": "1024³\n20s\n1024³\n20s+3s"
+        },
+        {
+          "bbox": [
+            356.6,
+            264.09,
+            411.23,
+            271.36
+          ],
+          "type": 0,
+          "text": "Scale Up Resolution"
+        },
+        {
+          "bbox": [
+            326.68,
+            220.27,
+            403.14,
+            225.31
+          ],
+          "type": 0,
+          "text": "1024³\n1536³"
+        },
+        {
+          "bbox": [
+            317.25,
+            278.13,
+            553.5,
+            298.05
+          ],
+          "type": 0,
+          "text": "Figure 8. Scaling up resolution for finer detail and compute for\nhigher quality during test time. (Best viewed with zoom)"
+        },
+        {
+          "bbox": [
+            317.25,
+            311.82,
+            553.5,
+            333.73
+          ],
+          "type": 0,
+          "text": "volution and point-wise MLP design better preserves fine-\nscale details without sacrificing efficiency."
+        },
+        {
+          "bbox": [
+            317.25,
+            343.25,
+            535.73,
+            354.21
+          ],
+          "type": 0,
+          "text": "4.5. Test-time Compute and Resolution Scaling"
+        },
+        {
+          "bbox": [
+            317.25,
+            361.18,
+            553.5,
+            526.56
+          ],
+          "type": 0,
+          "text": "Our generative framework supports flexible compute and\nresolution scaling at test time, and our compact latent space\nmakes this scaling efficient. Since the shape SC-VAE up-\nsamples the sparse structure by 16× while using far fewer\ntokens than prior methods, the second-stage generator can\nbe recursively applied to produce shapes at resolutions be-\nyond the training scale. Within the trained range, inserting\nintermediate refinement steps (first applying the model to\na downsampled sparse structure) helps correct local errors\nand yields cleaner layouts for subsequent high-resolution\ngeneration. This recursive mechanism, enabled by our low\ntoken count, provides a controllable trade-off between effi-\nciency and fidelity, enabling finer and more stable outputs\nwith increased recursion depth, as is shown in Fig. 8."
+        },
+        {
+          "bbox": [
+            317.25,
+            539.3,
+            386.34,
+            551.25
+          ],
+          "type": 0,
+          "text": "5. Conclusion"
+        },
+        {
+          "bbox": [
+            317.25,
+            559.98,
+            553.5,
+            713.41
+          ],
+          "type": 0,
+          "text": "We present an approach for learning a comprehensive yet\ncompact structured 3D latent representation for 3D genera-\ntion. A key innovation is O-Voxel, an omni-voxel represen-\ntation that is capable of encoding complex geometry and\nmaterials. We also introduce a Sparse Compression VAE\nthat achieves a high spatial compression rate on O-Voxel to\nconstruct the latent space. Our large flow-matching models\ndeliver substantially superior generation quality compared\nto existing methods while maintaining high efficiency. We\nbelieve our approach offers a significant advancement in\n3D generative modeling, enhancing both the efficiency and\nrealism of 3D content creation and opening avenues for\nbroader applications across various domains."
+        },
+        {
+          "bbox": [
+            294.75,
+            748.52,
+            317.25,
+            760.53
+          ],
+          "type": 0,
+          "text": "14426"
+        }
+      ],
+      "preview": null
+    },
+    {
+      "doc": "trellis_2",
+      "page": 9,
+      "width": 612.0,
+      "height": 792.0,
+      "text": "References\n[1] Junyu Chen, Han Cai, Junsong Chen, Enze Xie, Shang Yang,\nHaotian Tang, Muyang Li, Yao Lu, and Song Han. Deep\ncompression autoencoder for efficient high-resolution diffu-\nsion models. arXiv preprint arXiv:2410.10733, 2024. 2, 4\n[2] Junsong Chen, YU Jincheng, GE Chongjian, Lewei Yao,\nEnze Xie, Zhongdao Wang, James Kwok, Ping Luo,\nHuchuan Lu, and Zhenguo Li. Pixart-α: Fast training of dif-\nfusion transformer for photorealistic text-to-image synthesis.\nIn ICLR, 2024. 6\n[3] Rui Chen, Jianfeng Zhang, Yixun Liang, Guan Luo, Weiyu\nLi, Jiarui Liu, Xiu Li, Xiaoxiao Long, Jiashi Feng, and Ping\nTan. Dora: Sampling and benchmarking for 3d shape varia-\ntional auto-encoders. In Proceedings of the Computer Vision\nand Pattern Recognition Conference, pages 16251–16261,\n2025. 1, 2, 6\n[4] Yiwen Chen, Tong He, Di Huang, Weicai Ye, Sijin Chen, Ji-\naxiang Tang, Xin Chen, Zhongang Cai, Lei Yang, Gang Yu,\net al. Meshanything: Artist-created mesh generation with au-\ntoregressive transformers. arXiv preprint arXiv:2406.10163,\n2024. 2\n[5] Yiwen Chen, Zhihao Li, Yikai Wang, Hu Zhang, Qin Li,\nChi Zhang, and Guosheng Lin. Ultra3d: Efficient and high-\nfidelity 3d generation with part attention.\narXiv preprint\narXiv:2507.17745, 2025. 3\n[6] Zhiqin Chen, Andrea Tagliasacchi, Thomas Funkhouser, and\nHao Zhang. Neural dual contouring. ACM Transactions on\nGraphics (TOG), 41(4):1–13, 2022. 3\n[7] Zhaoxi Chen, Jiaxiang Tang, Yuhao Dong, Ziang Cao,\nFangzhou Hong, Yushi Lan, Tengfei Wang, Haozhe Xie,\nTong Wu, Shunsuke Saito, et al. 3dtopia-xl: Scaling high-\nquality 3d asset generation via primitive diffusion.\narXiv\npreprint arXiv:2409.12957, 2024. 2, 3\n[8] Jasmine Collins, Shubham Goel, Kenan Deng, Achlesh-\nwar Luthra, Leon Xu, Erhan Gundogdu, Xi Zhang, Tomas\nF Yago Vicente, Thomas Dideriksen, Himanshu Arora, et al.\nAbo: Dataset and benchmarks for real-world 3d object un-\nderstanding.\nIn Proceedings of the IEEE/CVF conference\non computer vision and pattern recognition, pages 21126–\n21136, 2022. 6\n[9] Blender Online Community. Blender — a 3D modelling and\nrendering package. Blender Foundation, Stichting Blender\nFoundation, Amsterdam, 2018. 6\n[10] Matt Deitke, Dustin Schwenk, Jordi Salvador, Luca Weihs,\nOscar Michel, Eli VanderBilt, Ludwig Schmidt, Kiana\nEhsani, Aniruddha Kembhavi, and Ali Farhadi. Objaverse:\nA universe of annotated 3d objects.\nIn Proceedings of\nthe IEEE/CVF Conference on Computer Vision and Pattern\nRecognition, pages 13142–13153, 2023. 3\n[11] Matt Deitke, Ruoshi Liu, Matthew Wallingford, Huong Ngo,\nOscar Michel, Aditya Kusupati, Alan Fan, Christian Laforte,\nVikram Voleti, Samir Yitzhak Gadre, et al. Objaverse-xl: A\nuniverse of 10m+ 3d objects. Advances in Neural Informa-\ntion Processing Systems, 36, 2024. 3, 6\n[12] Yu Deng, Jiaolong Yang, and Xin Tong. Deformed implicit\nfield: Modeling 3d shapes with learned dense correspon-\ndence. In Proceedings of the IEEE/CVF Conference on Com-\nputer Vision and Pattern Recognition, pages 10286–10296,\n2021. 2\n[13] Alisa Fortin, Guillaume Vernade, Kat Kampf, and Am-\nmaar Reshi.\nIntroducing gemini 2.5 flash image:\nOur\nstate-of-the-art image model. https://developers.\ngoogleblog.com/en/introducing-gemini-2-\n5-flash-image/, 2025. Google Developer Blog. 6\n[14] Benjamin Graham and Laurens Van der Maaten.\nSub-\nmanifold sparse convolutional networks.\narXiv preprint\narXiv:1706.01307, 2017. 6\n[15] Anchit Gupta, Wenhan Xiong, Yixin Nie, Ian Jones, and Bar-\nlas O˘guz. 3dgen: Triplane latent diffusion for textured mesh\ngeneration. arXiv preprint arXiv:2303.05371, 2023. 2\n[16] Xianglong He, Junyi Chen, Sida Peng, Di Huang, Yang-\nguang Li, Xiaoshui Huang, Chun Yuan, Wanli Ouyang, and\nTong He. Gvgen: Text-to-3d generation with volumetric rep-\nresentation. In ECCV, 2024. 2\n[17] Xianglong He, Zi-Xin Zou, Chia-Hao Chen, Yuan-Chen\nGuo, Ding Liang, Chun Yuan, Wanli Ouyang, Yan-Pei\nCao, and Yangguang Li.\nSparseflex:\nHigh-resolution\nand arbitrary-topology 3d shape modeling. arXiv preprint\narXiv:2503.21732, 2025. 1, 2, 3, 4, 6\n[18] Ka-Hei Hui, Ruihui Li, Jingyu Hu, and Chi-Wing Fu. Neural\nwavelet-domain diffusion for 3d shape generation. In SIG-\nGRAPH Asia 2022 Conference Papers, pages 1–9, 2022. 2\n[19] Team Hunyuan3D, Shuhui Yang, Mingxin Yang, Yifei Feng,\nXin Huang, Sheng Zhang, Zebin He, Di Luo, Haolin Liu,\nYunfei Zhao, et al. Hunyuan3d 2.1: From images to high-\nfidelity 3d assets with production-ready pbr material. arXiv\npreprint arXiv:2506.15442, 2025. 2, 3, 6, 7\n[20] Andrew Jaegle, Sebastian Borgeaud, Jean-Baptiste Alayrac,\nCarl Doersch, Catalin Ionescu, David Ding, Skanda Kop-\npula, Daniel Zoran, Andrew Brock, Evan Shelhamer, et al.\nPerceiver io: A general architecture for structured inputs &\noutputs. arXiv preprint arXiv:2107.14795, 2021. 2\n[21] Tao Ju, Frank Losasso, Scott Schaefer, and Joe Warren. Dual\ncontouring of hermite data. In Proceedings of the 29th an-\nnual conference on Computer graphics and interactive tech-\nniques, pages 339–346, 2002. 3, 4\n[22] Heewoo Jun and Alex Nichol.\nShap-e:\nGenerat-\ning conditional 3d implicit functions.\narXiv preprint\narXiv:2305.02463, 2023. 2\n[23] Bernhard Kerbl, Georgios Kopanas, Thomas Leimk¨uhler,\nand George Drettakis.\n3d gaussian splatting for real-time\nradiance field rendering. ACM Trans. Graph., 42(4):139–1,\n2023. 2\n[24] Mukul Khanna*, Yongsen Mao*, Hanxiao Jiang, Sanjay\nHaresh, Brennan Shacklett, Dhruv Batra, Alexander Clegg,\nEric Undersander, Angel X. Chang, and Manolis Savva.\nHabitat Synthetic Scenes Dataset (HSSD-200): An Analy-\nsis of 3D Scene Scale and Realism Tradeoffs for ObjectGoal\nNavigation. arXiv preprint, 2023. 6\n[25] Yushi Lan, Fangzhou Hong, Shuai Yang, Shangchen Zhou,\nXuyi Meng, Bo Dai, Xingang Pan, and Chen Change Loy.\nLn3diff: Scalable latent neural fields diffusion for speedy 3d\ngeneration. In ECCV, 2024. 2\n[26] Yushi Lan, Shangchen Zhou, Zhaoyang Lyu, Fangzhou\nHong, Shuai Yang, Bo Dai, Xingang Pan, and Chen Change\n14427\n",
+      "blocks": [
+        {
+          "bbox": [
+            58.5,
+            72.79,
+            114.04,
+            84.74
+          ],
+          "type": 0,
+          "text": "References"
+        },
+        {
+          "bbox": [
+            58.5,
+            93.1,
+            294.75,
+            713.17
+          ],
+          "type": 0,
+          "text": "[1] Junyu Chen, Han Cai, Junsong Chen, Enze Xie, Shang Yang,\nHaotian Tang, Muyang Li, Yao Lu, and Song Han. Deep\ncompression autoencoder for efficient high-resolution diffu-\nsion models. arXiv preprint arXiv:2410.10733, 2024. 2, 4\n[2] Junsong Chen, YU Jincheng, GE Chongjian, Lewei Yao,\nEnze Xie, Zhongdao Wang, James Kwok, Ping Luo,\nHuchuan Lu, and Zhenguo Li. Pixart-α: Fast training of dif-\nfusion transformer for photorealistic text-to-image synthesis.\nIn ICLR, 2024. 6\n[3] Rui Chen, Jianfeng Zhang, Yixun Liang, Guan Luo, Weiyu\nLi, Jiarui Liu, Xiu Li, Xiaoxiao Long, Jiashi Feng, and Ping\nTan. Dora: Sampling and benchmarking for 3d shape varia-\ntional auto-encoders. In Proceedings of the Computer Vision\nand Pattern Recognition Conference, pages 16251–16261,\n2025. 1, 2, 6\n[4] Yiwen Chen, Tong He, Di Huang, Weicai Ye, Sijin Chen, Ji-\naxiang Tang, Xin Chen, Zhongang Cai, Lei Yang, Gang Yu,\net al. Meshanything: Artist-created mesh generation with au-\ntoregressive transformers. arXiv preprint arXiv:2406.10163,\n2024. 2\n[5] Yiwen Chen, Zhihao Li, Yikai Wang, Hu Zhang, Qin Li,\nChi Zhang, and Guosheng Lin. Ultra3d: Efficient and high-\nfidelity 3d generation with part attention.\narXiv preprint\narXiv:2507.17745, 2025. 3\n[6] Zhiqin Chen, Andrea Tagliasacchi, Thomas Funkhouser, and\nHao Zhang. Neural dual contouring. ACM Transactions on\nGraphics (TOG), 41(4):1–13, 2022. 3\n[7] Zhaoxi Chen, Jiaxiang Tang, Yuhao Dong, Ziang Cao,\nFangzhou Hong, Yushi Lan, Tengfei Wang, Haozhe Xie,\nTong Wu, Shunsuke Saito, et al. 3dtopia-xl: Scaling high-\nquality 3d asset generation via primitive diffusion.\narXiv\npreprint arXiv:2409.12957, 2024. 2, 3\n[8] Jasmine Collins, Shubham Goel, Kenan Deng, Achlesh-\nwar Luthra, Leon Xu, Erhan Gundogdu, Xi Zhang, Tomas\nF Yago Vicente, Thomas Dideriksen, Himanshu Arora, et al.\nAbo: Dataset and benchmarks for real-world 3d object un-\nderstanding.\nIn Proceedings of the IEEE/CVF conference\non computer vision and pattern recognition, pages 21126–\n21136, 2022. 6\n[9] Blender Online Community. Blender — a 3D modelling and\nrendering package. Blender Foundation, Stichting Blender\nFoundation, Amsterdam, 2018. 6\n[10] Matt Deitke, Dustin Schwenk, Jordi Salvador, Luca Weihs,\nOscar Michel, Eli VanderBilt, Ludwig Schmidt, Kiana\nEhsani, Aniruddha Kembhavi, and Ali Farhadi. Objaverse:\nA universe of annotated 3d objects.\nIn Proceedings of\nthe IEEE/CVF Conference on Computer Vision and Pattern\nRecognition, pages 13142–13153, 2023. 3\n[11] Matt Deitke, Ruoshi Liu, Matthew Wallingford, Huong Ngo,\nOscar Michel, Aditya Kusupati, Alan Fan, Christian Laforte,\nVikram Voleti, Samir Yitzhak Gadre, et al. Objaverse-xl: A\nuniverse of 10m+ 3d objects. Advances in Neural Informa-\ntion Processing Systems, 36, 2024. 3, 6\n[12] Yu Deng, Jiaolong Yang, and Xin Tong. Deformed implicit\nfield: Modeling 3d shapes with learned dense correspon-\ndence. In Proceedings of the IEEE/CVF Conference on Com-"
+        },
+        {
+          "bbox": [
+            317.25,
+            75.0,
+            553.5,
+            713.17
+          ],
+          "type": 0,
+          "text": "puter Vision and Pattern Recognition, pages 10286–10296,\n2021. 2\n[13] Alisa Fortin, Guillaume Vernade, Kat Kampf, and Am-\nmaar Reshi.\nIntroducing gemini 2.5 flash image:\nOur\nstate-of-the-art image model. https://developers.\ngoogleblog.com/en/introducing-gemini-2-\n5-flash-image/, 2025. Google Developer Blog. 6\n[14] Benjamin Graham and Laurens Van der Maaten.\nSub-\nmanifold sparse convolutional networks.\narXiv preprint\narXiv:1706.01307, 2017. 6\n[15] Anchit Gupta, Wenhan Xiong, Yixin Nie, Ian Jones, and Bar-\nlas O˘guz. 3dgen: Triplane latent diffusion for textured mesh\ngeneration. arXiv preprint arXiv:2303.05371, 2023. 2\n[16] Xianglong He, Junyi Chen, Sida Peng, Di Huang, Yang-\nguang Li, Xiaoshui Huang, Chun Yuan, Wanli Ouyang, and\nTong He. Gvgen: Text-to-3d generation with volumetric rep-\nresentation. In ECCV, 2024. 2\n[17] Xianglong He, Zi-Xin Zou, Chia-Hao Chen, Yuan-Chen\nGuo, Ding Liang, Chun Yuan, Wanli Ouyang, Yan-Pei\nCao, and Yangguang Li.\nSparseflex:\nHigh-resolution\nand arbitrary-topology 3d shape modeling. arXiv preprint\narXiv:2503.21732, 2025. 1, 2, 3, 4, 6\n[18] Ka-Hei Hui, Ruihui Li, Jingyu Hu, and Chi-Wing Fu. Neural\nwavelet-domain diffusion for 3d shape generation. In SIG-\nGRAPH Asia 2022 Conference Papers, pages 1–9, 2022. 2\n[19] Team Hunyuan3D, Shuhui Yang, Mingxin Yang, Yifei Feng,\nXin Huang, Sheng Zhang, Zebin He, Di Luo, Haolin Liu,\nYunfei Zhao, et al. Hunyuan3d 2.1: From images to high-\nfidelity 3d assets with production-ready pbr material. arXiv\npreprint arXiv:2506.15442, 2025. 2, 3, 6, 7\n[20] Andrew Jaegle, Sebastian Borgeaud, Jean-Baptiste Alayrac,\nCarl Doersch, Catalin Ionescu, David Ding, Skanda Kop-\npula, Daniel Zoran, Andrew Brock, Evan Shelhamer, et al.\nPerceiver io: A general architecture for structured inputs &\noutputs. arXiv preprint arXiv:2107.14795, 2021. 2\n[21] Tao Ju, Frank Losasso, Scott Schaefer, and Joe Warren. Dual\ncontouring of hermite data. In Proceedings of the 29th an-\nnual conference on Computer graphics and interactive tech-\nniques, pages 339–346, 2002. 3, 4\n[22] Heewoo Jun and Alex Nichol.\nShap-e:\nGenerat-\ning conditional 3d implicit functions.\narXiv preprint\narXiv:2305.02463, 2023. 2\n[23] Bernhard Kerbl, Georgios Kopanas, Thomas Leimk¨uhler,\nand George Drettakis.\n3d gaussian splatting for real-time\nradiance field rendering. ACM Trans. Graph., 42(4):139–1,\n2023. 2\n[24] Mukul Khanna*, Yongsen Mao*, Hanxiao Jiang, Sanjay\nHaresh, Brennan Shacklett, Dhruv Batra, Alexander Clegg,\nEric Undersander, Angel X. Chang, and Manolis Savva.\nHabitat Synthetic Scenes Dataset (HSSD-200): An Analy-\nsis of 3D Scene Scale and Realism Tradeoffs for ObjectGoal\nNavigation. arXiv preprint, 2023. 6\n[25] Yushi Lan, Fangzhou Hong, Shuai Yang, Shangchen Zhou,\nXuyi Meng, Bo Dai, Xingang Pan, and Chen Change Loy.\nLn3diff: Scalable latent neural fields diffusion for speedy 3d\ngeneration. In ECCV, 2024. 2\n[26] Yushi Lan, Shangchen Zhou, Zhaoyang Lyu, Fangzhou\nHong, Shuai Yang, Bo Dai, Xingang Pan, and Chen Change"
+        },
+        {
+          "bbox": [
+            294.75,
+            748.52,
+            317.25,
+            760.53
+          ],
+          "type": 0,
+          "text": "14427"
+        }
+      ],
+      "preview": null
+    },
+    {
+      "doc": "trellis_2",
+      "page": 10,
+      "width": 612.0,
+      "height": 792.0,
+      "text": "Loy. Gaussiananything: Interactive point cloud latent diffu-\nsion for 3d generation. In ICLR, 2025. 2\n[27] Weiyu Li, Jiarui Liu, Rui Chen, Yixun Liang, Xuelin Chen,\nPing Tan, and Xiaoxiao Long.\nCraftsman: High-fidelity\nmesh generation with 3d native generation and interactive\ngeometry refiner. arXiv preprint arXiv:2405.14979, 2024. 2\n[28] Weiyu Li, Xuanyang Zhang, Zheng Sun, Di Qi, Hao Li,\nWei Cheng, Weiwei Cai, Shihao Wu, Jiarui Liu, Zihao\nWang, et al.\nStep1x-3d: Towards high-fidelity and con-\ntrollable generation of textured 3d assets.\narXiv preprint\narXiv:2505.07747, 2025. 2, 3, 6\n[29] Yangguang Li, Zi-Xin Zou, Zexiang Liu, Dehu Wang, Yuan\nLiang, Zhipeng Yu, Xingchao Liu, Yuan-Chen Guo, Ding\nLiang, Wanli Ouyang, et al. Triposg: High-fidelity 3d shape\nsynthesis using large-scale rectified flow models.\narXiv\npreprint arXiv:2502.06608, 2025. 3\n[30] Zhihao Li, Yufei Wang, Heliang Zheng, Yihao Luo, and\nBihan Wen. Sparc3d: Sparse representation and construc-\ntion for high-resolution 3d shapes modeling. arXiv preprint\narXiv:2505.14521, 2025. 2, 3\n[31] Yaron Lipman, Ricky TQ Chen, Heli Ben-Hamu, Maximil-\nian Nickel, and Matthew Le. Flow matching for generative\nmodeling. In ICLR, 2023. 5\n[32] Zhuang Liu, Hanzi Mao, Chao-Yuan Wu, Christoph Feicht-\nenhofer, Trevor Darrell, and Saining Xie. A convnet for the\n2020s. In Proceedings of the IEEE/CVF conference on com-\nputer vision and pattern recognition, pages 11976–11986,\n2022. 5\n[33] I Loshchilov. Decoupled weight decay regularization. arXiv\npreprint arXiv:1711.05101, 2017. 6\n[34] Shitong Luo and Wei Hu. Diffusion probabilistic models for\n3d point cloud generation. In Proceedings of the IEEE/CVF\nconference on computer vision and pattern recognition,\npages 2837–2845, 2021. 2\n[35] Quan Meng, Lei Li, Matthias Nießner, and Angela Dai.\nLt3sd: Latent trees for 3d scene diffusion. In Proceedings\nof the Computer Vision and Pattern Recognition Conference,\npages 650–660, 2025. 2\n[36] Lars Mescheder, Michael Oechsle, Michael Niemeyer, Se-\nbastian Nowozin, and Andreas Geiger. Occupancy networks:\nLearning 3d reconstruction in function space. In Proceedings\nof the IEEE/CVF conference on computer vision and pattern\nrecognition, pages 4460–4470, 2019. 2\n[37] Ben Mildenhall, Pratul P Srinivasan, Matthew Tancik,\nJonathan T Barron, Ravi Ramamoorthi, and Ren Ng. Nerf:\nRepresenting scenes as neural radiance fields for view syn-\nthesis. Communications of the ACM, 65(1):99–106, 2021.\n2\n[38] Norman\nM¨uller,\nYawar\nSiddiqui,\nLorenzo\nPorzi,\nSamuel Rota Bulo,\nPeter Kontschieder,\nand Matthias\nNießner.\nDiffrf:\nRendering-guided 3d radiance field\ndiffusion.\nIn Proceedings of the IEEE/CVF Conference\non Computer Vision and Pattern Recognition,\npages\n4328–4338, 2023. 2\n[39] Jacob Munkberg, Jon Hasselgren, Tianchang Shen, Jun Gao,\nWenzheng Chen, Alex Evans, Thomas M¨uller, and Sanja Fi-\ndler. Extracting triangular 3d models, materials, and lighting\nfrom images. In Proceedings of the IEEE/CVF Conference\non Computer Vision and Pattern Recognition, pages 8280–\n8290, 2022. 6\n[40] Charlie Nash, Yaroslav Ganin, SM Ali Eslami, and Peter\nBattaglia. Polygen: An autoregressive generative model of\n3d meshes. In International conference on machine learning,\npages 7220–7229. PMLR, 2020. 2\n[41] Alex Nichol, Heewoo Jun, Prafulla Dhariwal, Pamela\nMishkin, and Mark Chen. Point-e: A system for generat-\ning 3d point clouds from complex prompts. arXiv preprint\narXiv:2212.08751, 2022. 2\n[42] Evangelos Ntavelis, Aliaksandr Siarohin, Kyle Olszewski,\nChaoyang Wang, Luc V Gool, and Sergey Tulyakov. Au-\ntodecoding latent 3d diffusion models. Advances in Neural\nInformation Processing Systems, 36:67021–67047, 2023. 2\n[43] Jeong Joon Park, Peter Florence, Julian Straub, Richard\nNewcombe, and Steven Lovegrove. Deepsdf: Learning con-\ntinuous signed distance functions for shape representation.\nIn Proceedings of the IEEE/CVF conference on computer vi-\nsion and pattern recognition, pages 165–174, 2019. 2\n[44] William Peebles and Saining Xie. Scalable diffusion models\nwith transformers. In Proceedings of the IEEE/CVF Inter-\nnational Conference on Computer Vision, pages 4195–4205,\n2023. 5\n[45] Alec Radford, Jong Wook Kim, Chris Hallacy, Aditya\nRamesh, Gabriel Goh, Sandhini Agarwal, Girish Sastry,\nAmanda Askell, Pamela Mishkin, Jack Clark, et al. Learning\ntransferable visual models from natural language supervi-\nsion. In International conference on machine learning, pages\n8748–8763. PMLR, 2021. 7\n[46] Xuanchi Ren, Jiahui Huang, Xiaohui Zeng, Ken Museth,\nSanja Fidler, and Francis Williams. Xcube: Large-scale 3d\ngenerative modeling using sparse voxel hierarchies. In Pro-\nceedings of the IEEE/CVF Conference on Computer Vision\nand Pattern Recognition, pages 4209–4219, 2024. 2, 5\n[47] Robin Rombach, Andreas Blattmann, Dominik Lorenz,\nPatrick Esser, and Bj¨orn Ommer.\nHigh-resolution image\nsynthesis with latent diffusion models.\nIn Proceedings of\nthe IEEE/CVF conference on computer vision and pattern\nrecognition, pages 10684–10695, 2022. 2, 4\n[48] Tianchang Shen, Jacob Munkberg, Jon Hasselgren, Kangxue\nYin, Zian Wang, Wenzheng Chen, Zan Gojcic, Sanja Fidler,\nNicholas Sharp, and Jun Gao. Flexible isosurface extraction\nfor gradient-based mesh optimization. ACM Trans. Graph.,\n42(4), 2023. 2, 4\n[49] Oriane Sim´eoni, Huy V Vo, Maximilian Seitzer, Federico\nBaldassarre, Maxime Oquab, Cijo Jose, Vasil Khalidov,\nMarc Szafraniec, Seungeun Yi, Micha¨el Ramamonjisoa,\net al. Dinov3. arXiv preprint arXiv:2508.10104, 2025. 6\n[50] Sketchfab.\nSketchfab - the best 3d viewer on the web.\nhttps://sketchfab.com/, 2025. 6\n[51] Stefan Stojanov, Anh Thai, and James M Rehg. Using shape\nto categorize: Low-shot learning with an explicit shape bias.\nIn Proceedings of the IEEE/CVF conference on computer vi-\nsion and pattern recognition, pages 1798–1808, 2021. 6\n[52] Jianlin Su, Murtadha Ahmed, Yu Lu, Shengfeng Pan, Wen\nBo, and Yunfeng Liu. Roformer: Enhanced transformer with\n14428\n",
+      "blocks": [
+        {
+          "bbox": [
+            58.5,
+            75.16,
+            294.75,
+            713.17
+          ],
+          "type": 0,
+          "text": "Loy. Gaussiananything: Interactive point cloud latent diffu-\nsion for 3d generation. In ICLR, 2025. 2\n[27] Weiyu Li, Jiarui Liu, Rui Chen, Yixun Liang, Xuelin Chen,\nPing Tan, and Xiaoxiao Long.\nCraftsman: High-fidelity\nmesh generation with 3d native generation and interactive\ngeometry refiner. arXiv preprint arXiv:2405.14979, 2024. 2\n[28] Weiyu Li, Xuanyang Zhang, Zheng Sun, Di Qi, Hao Li,\nWei Cheng, Weiwei Cai, Shihao Wu, Jiarui Liu, Zihao\nWang, et al.\nStep1x-3d: Towards high-fidelity and con-\ntrollable generation of textured 3d assets.\narXiv preprint\narXiv:2505.07747, 2025. 2, 3, 6\n[29] Yangguang Li, Zi-Xin Zou, Zexiang Liu, Dehu Wang, Yuan\nLiang, Zhipeng Yu, Xingchao Liu, Yuan-Chen Guo, Ding\nLiang, Wanli Ouyang, et al. Triposg: High-fidelity 3d shape\nsynthesis using large-scale rectified flow models.\narXiv\npreprint arXiv:2502.06608, 2025. 3\n[30] Zhihao Li, Yufei Wang, Heliang Zheng, Yihao Luo, and\nBihan Wen. Sparc3d: Sparse representation and construc-\ntion for high-resolution 3d shapes modeling. arXiv preprint\narXiv:2505.14521, 2025. 2, 3\n[31] Yaron Lipman, Ricky TQ Chen, Heli Ben-Hamu, Maximil-\nian Nickel, and Matthew Le. Flow matching for generative\nmodeling. In ICLR, 2023. 5\n[32] Zhuang Liu, Hanzi Mao, Chao-Yuan Wu, Christoph Feicht-\nenhofer, Trevor Darrell, and Saining Xie. A convnet for the\n2020s. In Proceedings of the IEEE/CVF conference on com-\nputer vision and pattern recognition, pages 11976–11986,\n2022. 5\n[33] I Loshchilov. Decoupled weight decay regularization. arXiv\npreprint arXiv:1711.05101, 2017. 6\n[34] Shitong Luo and Wei Hu. Diffusion probabilistic models for\n3d point cloud generation. In Proceedings of the IEEE/CVF\nconference on computer vision and pattern recognition,\npages 2837–2845, 2021. 2\n[35] Quan Meng, Lei Li, Matthias Nießner, and Angela Dai.\nLt3sd: Latent trees for 3d scene diffusion. In Proceedings\nof the Computer Vision and Pattern Recognition Conference,\npages 650–660, 2025. 2\n[36] Lars Mescheder, Michael Oechsle, Michael Niemeyer, Se-\nbastian Nowozin, and Andreas Geiger. Occupancy networks:\nLearning 3d reconstruction in function space. In Proceedings\nof the IEEE/CVF conference on computer vision and pattern\nrecognition, pages 4460–4470, 2019. 2\n[37] Ben Mildenhall, Pratul P Srinivasan, Matthew Tancik,\nJonathan T Barron, Ravi Ramamoorthi, and Ren Ng. Nerf:\nRepresenting scenes as neural radiance fields for view syn-\nthesis. Communications of the ACM, 65(1):99–106, 2021.\n2\n[38] Norman\nM¨uller,\nYawar\nSiddiqui,\nLorenzo\nPorzi,\nSamuel Rota Bulo,\nPeter Kontschieder,\nand Matthias\nNießner.\nDiffrf:\nRendering-guided 3d radiance field\ndiffusion.\nIn Proceedings of the IEEE/CVF Conference\non Computer Vision and Pattern Recognition,\npages\n4328–4338, 2023. 2\n[39] Jacob Munkberg, Jon Hasselgren, Tianchang Shen, Jun Gao,\nWenzheng Chen, Alex Evans, Thomas M¨uller, and Sanja Fi-\ndler. Extracting triangular 3d models, materials, and lighting"
+        },
+        {
+          "bbox": [
+            317.25,
+            75.0,
+            553.5,
+            713.17
+          ],
+          "type": 0,
+          "text": "from images. In Proceedings of the IEEE/CVF Conference\non Computer Vision and Pattern Recognition, pages 8280–\n8290, 2022. 6\n[40] Charlie Nash, Yaroslav Ganin, SM Ali Eslami, and Peter\nBattaglia. Polygen: An autoregressive generative model of\n3d meshes. In International conference on machine learning,\npages 7220–7229. PMLR, 2020. 2\n[41] Alex Nichol, Heewoo Jun, Prafulla Dhariwal, Pamela\nMishkin, and Mark Chen. Point-e: A system for generat-\ning 3d point clouds from complex prompts. arXiv preprint\narXiv:2212.08751, 2022. 2\n[42] Evangelos Ntavelis, Aliaksandr Siarohin, Kyle Olszewski,\nChaoyang Wang, Luc V Gool, and Sergey Tulyakov. Au-\ntodecoding latent 3d diffusion models. Advances in Neural\nInformation Processing Systems, 36:67021–67047, 2023. 2\n[43] Jeong Joon Park, Peter Florence, Julian Straub, Richard\nNewcombe, and Steven Lovegrove. Deepsdf: Learning con-\ntinuous signed distance functions for shape representation.\nIn Proceedings of the IEEE/CVF conference on computer vi-\nsion and pattern recognition, pages 165–174, 2019. 2\n[44] William Peebles and Saining Xie. Scalable diffusion models\nwith transformers. In Proceedings of the IEEE/CVF Inter-\nnational Conference on Computer Vision, pages 4195–4205,\n2023. 5\n[45] Alec Radford, Jong Wook Kim, Chris Hallacy, Aditya\nRamesh, Gabriel Goh, Sandhini Agarwal, Girish Sastry,\nAmanda Askell, Pamela Mishkin, Jack Clark, et al. Learning\ntransferable visual models from natural language supervi-\nsion. In International conference on machine learning, pages\n8748–8763. PMLR, 2021. 7\n[46] Xuanchi Ren, Jiahui Huang, Xiaohui Zeng, Ken Museth,\nSanja Fidler, and Francis Williams. Xcube: Large-scale 3d\ngenerative modeling using sparse voxel hierarchies. In Pro-\nceedings of the IEEE/CVF Conference on Computer Vision\nand Pattern Recognition, pages 4209–4219, 2024. 2, 5\n[47] Robin Rombach, Andreas Blattmann, Dominik Lorenz,\nPatrick Esser, and Bj¨orn Ommer.\nHigh-resolution image\nsynthesis with latent diffusion models.\nIn Proceedings of\nthe IEEE/CVF conference on computer vision and pattern\nrecognition, pages 10684–10695, 2022. 2, 4\n[48] Tianchang Shen, Jacob Munkberg, Jon Hasselgren, Kangxue\nYin, Zian Wang, Wenzheng Chen, Zan Gojcic, Sanja Fidler,\nNicholas Sharp, and Jun Gao. Flexible isosurface extraction\nfor gradient-based mesh optimization. ACM Trans. Graph.,\n42(4), 2023. 2, 4\n[49] Oriane Sim´eoni, Huy V Vo, Maximilian Seitzer, Federico\nBaldassarre, Maxime Oquab, Cijo Jose, Vasil Khalidov,\nMarc Szafraniec, Seungeun Yi, Micha¨el Ramamonjisoa,\net al. Dinov3. arXiv preprint arXiv:2508.10104, 2025. 6\n[50] Sketchfab.\nSketchfab - the best 3d viewer on the web.\nhttps://sketchfab.com/, 2025. 6\n[51] Stefan Stojanov, Anh Thai, and James M Rehg. Using shape\nto categorize: Low-shot learning with an explicit shape bias.\nIn Proceedings of the IEEE/CVF conference on computer vi-\nsion and pattern recognition, pages 1798–1808, 2021. 6\n[52] Jianlin Su, Murtadha Ahmed, Yu Lu, Shengfeng Pan, Wen\nBo, and Yunfeng Liu. Roformer: Enhanced transformer with"
+        },
+        {
+          "bbox": [
+            294.75,
+            748.52,
+            317.25,
+            760.53
+          ],
+          "type": 0,
+          "text": "14428"
+        }
+      ],
+      "preview": null
+    },
+    {
+      "doc": "trellis_2",
+      "page": 11,
+      "width": 612.0,
+      "height": 792.0,
+      "text": "rotary position embedding. Neurocomputing, 568:127063,\n2024. 6\n[53] Zhicong Tang, Shuyang Gu, Chunyu Wang, Ting Zhang,\nJianmin Bao, Dong Chen, and Baining Guo. Volumediffu-\nsion: Flexible text-to-3d generation with efficient volumetric\nencoder. arXiv preprint arXiv:2312.11459, 2023. 2\n[54] Philippe Tillet, Hsiang-Tsung Kung, and David Cox. Tri-\nton: an intermediate language and compiler for tiled neu-\nral network computations. In Proceedings of the 3rd ACM\nSIGPLAN International Workshop on Machine Learning and\nProgramming Languages, pages 10–19, 2019. 6\n[55] Arash Vahdat, Francis Williams, Zan Gojcic, Or Litany,\nSanja Fidler, Karsten Kreis, et al. Lion: Latent point dif-\nfusion models for 3d shape generation. Advances in Neural\nInformation Processing Systems, 35:10021–10039, 2022. 2\n[56] Shuang Wu, Youtian Lin, Feihu Zhang, Yifei Zeng, Jingxi\nXu, Philip Torr, Xun Cao, and Yao Yao. Direct3d: Scalable\nimage-to-3d generation via 3d latent diffusion transformer.\narXiv preprint arXiv:2405.14832, 2024. 2\n[57] Shuang Wu, Youtian Lin, Feihu Zhang, Yifei Zeng, Yikang\nYang, Yajie Bao, Jiachen Qian, Siyu Zhu, Xun Cao,\nPhilip Torr, et al.\nDirect3d-s2: Gigascale 3d generation\nmade easy with spatial sparse attention.\narXiv preprint\narXiv:2505.17412, 2025. 1, 2, 3, 6\n[58] Jianfeng Xiang, Zelong Lv, Sicheng Xu, Yu Deng, Ruicheng\nWang, Bowen Zhang, Dong Chen, Xin Tong, and Jiaolong\nYang. Structured 3d latents for scalable and versatile 3d gen-\neration. In Proceedings of the Computer Vision and Pattern\nRecognition Conference, pages 21469–21480, 2025. 1, 2, 3,\n4, 5, 6\n[59] Bojun Xiong, Si-Tong Wei, Xin-Yang Zheng, Yan-Pei Cao,\nZhouhui Lian, and Peng-Shuai Wang. Octfusion: Octree-\nbased diffusion models for 3d shape generation. In Computer\nGraphics Forum, page e70198. Wiley Online Library, 2025.\n2\n[60] Le Xue, Ning Yu, Shu Zhang, Artemis Panagopoulou, Jun-\nnan Li, Roberto Mart´ın-Mart´ın, Jiajun Wu, Caiming Xiong,\nRan Xu, Juan Carlos Niebles, et al. Ulip-2: Towards scalable\nmultimodal pre-training for 3d understanding. In Proceed-\nings of the IEEE/CVF Conference on Computer Vision and\nPattern Recognition, pages 27091–27101, 2024. 7\n[61] Haitao Yang, Yuan Dong, Hanwen Jiang, Dejia Xu, Georgios\nPavlakos, and Qixing Huang. Atlas gaussians diffusion for\n3d generation with infinite number of points. arXiv preprint\narXiv:2408.13055, 2024. 2\n[62] Jiayu Yang, Taizhang Shang, Weixuan Sun, Xibin Song,\nZiang Cheng, Senbo Wang, Shenzhou Chen, Weizhe Liu,\nHongdong Li, and Pan Ji.\nPandora3d: A comprehensive\nframework for high-quality 3d shape and texture generation.\narXiv preprint arXiv:2502.14247, 2025. 3\n[63] Chongjie Ye, Yushuang Wu, Ziteng Lu, Jiahao Chang, Xi-\naoyang Guo, Jiaqing Zhou, Hao Zhao, and Xiaoguang Han.\nHi3dgen: High-fidelity 3d geometry generation from images\nvia normal bridging. arXiv preprint arXiv:2503.22236, 3:2,\n2025. 6\n[64] Xin Yu, Ze Yuan, Yuan-Chen Guo, Ying-Tian Liu, Jianhui\nLiu, Yangguang Li, Yan-Pei Cao, Ding Liang, and Xiaojuan\nQi. Texgen: a generative diffusion model for mesh textures.\nACM Transactions on Graphics (TOG), 43(6):1–14, 2024. 7\n[65] Zehao Yu, Anpei Chen, Binbin Huang, Torsten Sattler, and\nAndreas Geiger. Mip-splatting: Alias-free 3d gaussian splat-\nting. In Proceedings of the IEEE/CVF Conference on Com-\nputer Vision and Pattern Recognition, pages 19447–19456,\n2024. 2\n[66] Biao Zhang, Jiapeng Tang, Matthias Niessner, and Peter\nWonka. 3dshape2vecset: A 3d shape representation for neu-\nral fields and generative diffusion models. ACM Transactions\non Graphics (TOG), 42(4):1–16, 2023. 2\n[67] Bowen Zhang, Yiji Cheng, Jiaolong Yang, Chunyu Wang,\nFeng Zhao, Yansong Tang, Dong Chen, and Baining Guo.\nGaussiancube:\nStructuring gaussian splatting using opti-\nmal transport for 3d generative modeling.\narXiv preprint\narXiv:2403.19655, 2024. 2\n[68] Longwen Zhang, Ziyu Wang, Qixuan Zhang, Qiwei Qiu,\nAnqi Pang, Haoran Jiang, Wei Yang, Lan Xu, and Jingyi Yu.\nClay: A controllable large-scale generative model for creat-\ning high-quality 3d assets. ACM Transactions on Graphics\n(TOG), 43(4):1–20, 2024. 1, 2, 3\n[69] Yibo Zhang, Li Zhang, Rui Ma, and Nan Cao. Texverse: A\nuniverse of 3d objects with high-resolution textures. arXiv\npreprint arXiv:2508.10868, 2025. 3, 6\n[70] Zibo Zhao, Wen Liu, Xin Chen, Xianfang Zeng, Rui Wang,\nPei Cheng, Bin Fu, Tao Chen, Gang Yu, and Shenghua Gao.\nMichelangelo: Conditional 3d shape generation based on\nshape-image-text aligned latent representation. Advances in\nNeural Information Processing Systems, 36, 2024. 2\n[71] Xin-Yang Zheng, Hao Pan, Peng-Shuai Wang, Xin Tong,\nYang Liu, and Heung-Yeung Shum. Locally attentional sdf\ndiffusion for controllable 3d shape generation. ACM Trans-\nactions on Graphics (SIGGRAPH), 42(4), 2023. 2\n[72] Junsheng Zhou, Jinsheng Wang, Baorui Ma, Yu-Shen Liu,\nTiejun Huang, and Xinlong Wang. Uni3d: Exploring unified\n3d representation at scale. arXiv preprint arXiv:2310.06773,\n2023. 7\n[73] Linqi Zhou, Yilun Du, and Jiajun Wu. 3d shape generation\nand completion through point-voxel diffusion. In Proceed-\nings of the IEEE/CVF international conference on computer\nvision, pages 5826–5835, 2021. 2\n14429\n",
+      "blocks": [
+        {
+          "bbox": [
+            58.5,
+            75.0,
+            294.75,
+            713.17
+          ],
+          "type": 0,
+          "text": "rotary position embedding. Neurocomputing, 568:127063,\n2024. 6\n[53] Zhicong Tang, Shuyang Gu, Chunyu Wang, Ting Zhang,\nJianmin Bao, Dong Chen, and Baining Guo. Volumediffu-\nsion: Flexible text-to-3d generation with efficient volumetric\nencoder. arXiv preprint arXiv:2312.11459, 2023. 2\n[54] Philippe Tillet, Hsiang-Tsung Kung, and David Cox. Tri-\nton: an intermediate language and compiler for tiled neu-\nral network computations. In Proceedings of the 3rd ACM\nSIGPLAN International Workshop on Machine Learning and\nProgramming Languages, pages 10–19, 2019. 6\n[55] Arash Vahdat, Francis Williams, Zan Gojcic, Or Litany,\nSanja Fidler, Karsten Kreis, et al. Lion: Latent point dif-\nfusion models for 3d shape generation. Advances in Neural\nInformation Processing Systems, 35:10021–10039, 2022. 2\n[56] Shuang Wu, Youtian Lin, Feihu Zhang, Yifei Zeng, Jingxi\nXu, Philip Torr, Xun Cao, and Yao Yao. Direct3d: Scalable\nimage-to-3d generation via 3d latent diffusion transformer.\narXiv preprint arXiv:2405.14832, 2024. 2\n[57] Shuang Wu, Youtian Lin, Feihu Zhang, Yifei Zeng, Yikang\nYang, Yajie Bao, Jiachen Qian, Siyu Zhu, Xun Cao,\nPhilip Torr, et al.\nDirect3d-s2: Gigascale 3d generation\nmade easy with spatial sparse attention.\narXiv preprint\narXiv:2505.17412, 2025. 1, 2, 3, 6\n[58] Jianfeng Xiang, Zelong Lv, Sicheng Xu, Yu Deng, Ruicheng\nWang, Bowen Zhang, Dong Chen, Xin Tong, and Jiaolong\nYang. Structured 3d latents for scalable and versatile 3d gen-\neration. In Proceedings of the Computer Vision and Pattern\nRecognition Conference, pages 21469–21480, 2025. 1, 2, 3,\n4, 5, 6\n[59] Bojun Xiong, Si-Tong Wei, Xin-Yang Zheng, Yan-Pei Cao,\nZhouhui Lian, and Peng-Shuai Wang. Octfusion: Octree-\nbased diffusion models for 3d shape generation. In Computer\nGraphics Forum, page e70198. Wiley Online Library, 2025.\n2\n[60] Le Xue, Ning Yu, Shu Zhang, Artemis Panagopoulou, Jun-\nnan Li, Roberto Mart´ın-Mart´ın, Jiajun Wu, Caiming Xiong,\nRan Xu, Juan Carlos Niebles, et al. Ulip-2: Towards scalable\nmultimodal pre-training for 3d understanding. In Proceed-\nings of the IEEE/CVF Conference on Computer Vision and\nPattern Recognition, pages 27091–27101, 2024. 7\n[61] Haitao Yang, Yuan Dong, Hanwen Jiang, Dejia Xu, Georgios\nPavlakos, and Qixing Huang. Atlas gaussians diffusion for\n3d generation with infinite number of points. arXiv preprint\narXiv:2408.13055, 2024. 2\n[62] Jiayu Yang, Taizhang Shang, Weixuan Sun, Xibin Song,\nZiang Cheng, Senbo Wang, Shenzhou Chen, Weizhe Liu,\nHongdong Li, and Pan Ji.\nPandora3d: A comprehensive\nframework for high-quality 3d shape and texture generation.\narXiv preprint arXiv:2502.14247, 2025. 3\n[63] Chongjie Ye, Yushuang Wu, Ziteng Lu, Jiahao Chang, Xi-\naoyang Guo, Jiaqing Zhou, Hao Zhao, and Xiaoguang Han.\nHi3dgen: High-fidelity 3d geometry generation from images\nvia normal bridging. arXiv preprint arXiv:2503.22236, 3:2,\n2025. 6\n[64] Xin Yu, Ze Yuan, Yuan-Chen Guo, Ying-Tian Liu, Jianhui\nLiu, Yangguang Li, Yan-Pei Cao, Ding Liang, and Xiaojuan"
+        },
+        {
+          "bbox": [
+            317.25,
+            75.16,
+            553.5,
+            531.45
+          ],
+          "type": 0,
+          "text": "Qi. Texgen: a generative diffusion model for mesh textures.\nACM Transactions on Graphics (TOG), 43(6):1–14, 2024. 7\n[65] Zehao Yu, Anpei Chen, Binbin Huang, Torsten Sattler, and\nAndreas Geiger. Mip-splatting: Alias-free 3d gaussian splat-\nting. In Proceedings of the IEEE/CVF Conference on Com-\nputer Vision and Pattern Recognition, pages 19447–19456,\n2024. 2\n[66] Biao Zhang, Jiapeng Tang, Matthias Niessner, and Peter\nWonka. 3dshape2vecset: A 3d shape representation for neu-\nral fields and generative diffusion models. ACM Transactions\non Graphics (TOG), 42(4):1–16, 2023. 2\n[67] Bowen Zhang, Yiji Cheng, Jiaolong Yang, Chunyu Wang,\nFeng Zhao, Yansong Tang, Dong Chen, and Baining Guo.\nGaussiancube:\nStructuring gaussian splatting using opti-\nmal transport for 3d generative modeling.\narXiv preprint\narXiv:2403.19655, 2024. 2\n[68] Longwen Zhang, Ziyu Wang, Qixuan Zhang, Qiwei Qiu,\nAnqi Pang, Haoran Jiang, Wei Yang, Lan Xu, and Jingyi Yu.\nClay: A controllable large-scale generative model for creat-\ning high-quality 3d assets. ACM Transactions on Graphics\n(TOG), 43(4):1–20, 2024. 1, 2, 3\n[69] Yibo Zhang, Li Zhang, Rui Ma, and Nan Cao. Texverse: A\nuniverse of 3d objects with high-resolution textures. arXiv\npreprint arXiv:2508.10868, 2025. 3, 6\n[70] Zibo Zhao, Wen Liu, Xin Chen, Xianfang Zeng, Rui Wang,\nPei Cheng, Bin Fu, Tao Chen, Gang Yu, and Shenghua Gao.\nMichelangelo: Conditional 3d shape generation based on\nshape-image-text aligned latent representation. Advances in\nNeural Information Processing Systems, 36, 2024. 2\n[71] Xin-Yang Zheng, Hao Pan, Peng-Shuai Wang, Xin Tong,\nYang Liu, and Heung-Yeung Shum. Locally attentional sdf\ndiffusion for controllable 3d shape generation. ACM Trans-\nactions on Graphics (SIGGRAPH), 42(4), 2023. 2\n[72] Junsheng Zhou, Jinsheng Wang, Baorui Ma, Yu-Shen Liu,\nTiejun Huang, and Xinlong Wang. Uni3d: Exploring unified\n3d representation at scale. arXiv preprint arXiv:2310.06773,\n2023. 7\n[73] Linqi Zhou, Yilun Du, and Jiajun Wu. 3d shape generation\nand completion through point-voxel diffusion. In Proceed-\nings of the IEEE/CVF international conference on computer\nvision, pages 5826–5835, 2021. 2"
+        },
+        {
+          "bbox": [
+            294.75,
+            748.52,
+            317.25,
+            760.53
+          ],
+          "type": 0,
+          "text": "14429"
+        }
+      ],
+      "preview": null
+    }
+  ]
+}

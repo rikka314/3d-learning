@@ -1,0 +1,277 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\citation{zhang2024clay,xiang2025structured,chen2025dora,he2025sparseflex,wu2025direct3d}
+\providecommand \oddpage@label [2]{}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces  \textbf  {Left:} A 1536³ asset reconstruction by our method. Despite the high compactness of the latents (see token counts below), it faithfully recovers extremely fine geometric and material details, supports arbitrary topology, and preserves enclosed structures (shown in the second row). \textbf  {Middle:} A 1536³ 3D asset generated in about one minute ($\sim $35s for shape and $\sim $25s for texture; see more runtime in bottom row). Building on our latents, the generator efficiently produces high-quality PBR-textured assets, delivering intricate geometric detail and realistic materials across open-domain inputs. \textbf  {Right:} Latent representation comparison on shape reconstruction. Our method achieves much higher fidelity with modest token number, pushing the frontier of both quality and compactness. \textbf  {\emph  {(Best viewed with zoom.)}} }}{1}{figure.caption.1}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{fig:teaser}{{1}{1}{\textbf {Left:} A 1536³ asset reconstruction by our method. Despite the high compactness of the latents (see token counts below), it faithfully recovers extremely fine geometric and material details, supports arbitrary topology, and preserves enclosed structures (shown in the second row). \textbf {Middle:} A 1536³ 3D asset generated in about one minute ($\sim $35s for shape and $\sim $25s for texture; see more runtime in bottom row). Building on our latents, the generator efficiently produces high-quality PBR-textured assets, delivering intricate geometric detail and realistic materials across open-domain inputs. \textbf {Right:} Latent representation comparison on shape reconstruction. Our method achieves much higher fidelity with modest token number, pushing the frontier of both quality and compactness. \textbf {\emph {(Best viewed with zoom.)}}}{figure.caption.1}{}}
+\newlabel{fig:teaser@cref}{{[figure][1][]1}{[1][1][]1}{}{}{}}
+\citation{zhang2024clay,xiang2025structured,chen20243dtopia,chen2025dora,wu2025direct3d,he2025sparseflex,li2025sparc3d}
+\citation{shen2023flexicubes}
+\citation{xiang2025structured}
+\citation{xiang2025structured}
+\citation{chen2024deep}
+\citation{mescheder2019occupancy}
+\citation{park2019deepsdf,deng2021deformed,hui2022neural,zheng2023lasdiffusion}
+\citation{mildenhall2021nerf,tang2023volumediffusion,muller2023diffrf}
+\citation{nash2020polygen,chen2024meshanything}
+\citation{nichol2022point,luo2021diffusion,zhou20213d}
+\citation{kerbl20233d,yu2024mip,zhang2024gaussiancube,he2024gvgen}
+\citation{he2025sparseflex,li2025sparc3d}
+\citation{rombach2022high}
+\citation{lan2024ga,yang2024atlas,chen20243dtopia,vahdat2022lion}
+\citation{ntavelis2023autodecoding,xiong2025octfusion,ren2024xcube,meng2025lt3sd}
+\citation{wu2024direct3d,lan2024ln3diff,gupta20233dgen}
+\citation{jaegle2021perceiver}
+\citation{zhang20233dshape2vecset,zhao2024michelangelo}
+\citation{jun2023shap,zhang2024clay,li2024craftsman,li2025step1x,hunyuan3d2025hunyuan3d}
+\citation{xiang2025structured}
+\citation{li2025sparc3d,he2025sparseflex}
+\citation{wu2025direct3d,chen2025ultra3d}
+\@writefile{toc}{\contentsline {section}{\numberline {1}\hskip -1em.~Introduction}{2}{section.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2}\hskip -1em.~Related Work}{2}{section.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{3D Representations for Generation.}{2}{section*.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Latent 3D Representations.}{2}{section*.3}\protected@file@percent }
+\citation{deitke2023objaverse,deitke2024objaverse,zhang2025texverse}
+\citation{zhang2024clay,xiang2025structured,chen20243dtopia,hunyuan3d2025hunyuan3d,yang2025pandora3d,li2025step1x,li2025triposg}
+\citation{zhang2024clay,hunyuan3d2025hunyuan3d,yang2025pandora3d,li2025step1x,li2025step1x,li2025triposg}
+\citation{xiang2025structured}
+\citation{ju2002dual,chen2022neural}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Overview of our approach. We introduce O-Voxel for shape and material representation (Sec.~\ref {sec:N3xus}), based on which we employ Sparse Compression VAEs for compact latent space learning (Sec.~\ref {sec:dcslat}) and large flow models for 3D generation (Sec.~\ref {sec:gen}).}}{3}{figure.caption.5}\protected@file@percent }
+\newlabel{fig:overview}{{2}{3}{Overview of our approach. We introduce O-Voxel for shape and material representation (Sec.~\ref {sec:N3xus}), based on which we employ Sparse Compression VAEs for compact latent space learning (Sec.~\ref {sec:dcslat}) and large flow models for 3D generation (Sec.~\ref {sec:gen})}{figure.caption.5}{}}
+\newlabel{fig:overview@cref}{{[figure][2][]2}{[1][3][]3}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{Large 3D Asset Generation Models and Systems.}{3}{section*.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3}\hskip -1em.~Method}{3}{section.3}\protected@file@percent }
+\newlabel{sec:methodology}{{3}{3}{\texorpdfstring {\hskip -1em.~}{}Method}{section.3}{}}
+\newlabel{sec:methodology@cref}{{[section][3][]3}{[1][3][]3}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Illustration of O-Voxel and the instant bidirectional convertion between 3D asset and O-Voxel. }}{3}{figure.caption.6}\protected@file@percent }
+\newlabel{fig:representation}{{3}{3}{Illustration of O-Voxel and the instant bidirectional convertion between 3D asset and O-Voxel}{figure.caption.6}{}}
+\newlabel{fig:representation@cref}{{[figure][3][]3}{[1][3][]3}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}\hskip -1em.~O-Voxel: A Native 3D Representation}{3}{subsection.3.1}\protected@file@percent }
+\newlabel{sec:N3xus}{{3.1}{3}{\texorpdfstring {\hskip -1em.~}{}O-Voxel: A Native 3D Representation}{subsection.3.1}{}}
+\newlabel{sec:N3xus@cref}{{[subsection][1][3]3.1}{[1][3][]3}{}{}{}}
+\newlabel{eq:N3xus}{{1}{3}{\texorpdfstring {\hskip -1em.~}{}O-Voxel: A Native 3D Representation}{equation.1}{}}
+\newlabel{eq:N3xus@cref}{{[equation][1][]1}{[1][3][]3}{}{}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.1}\hskip -1em.~Flexible Dual Grid for Shape}{3}{subsubsection.3.1.1}\protected@file@percent }
+\citation{shen2023flexicubes}
+\citation{ju2002dual}
+\citation{xiang2025structured,he2025sparseflex}
+\citation{rombach2022high}
+\newlabel{eq:qef}{{2}{4}{\texorpdfstring {\hskip -1em.~}{}Flexible Dual Grid for Shape}{equation.2}{}}
+\newlabel{eq:qef@cref}{{[equation][2][]2}{[1][4][]4}{}{}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.2}\hskip -1em.~Volumetric Attributes for Material}{4}{subsubsection.3.1.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}\hskip -1em.~Sparse Compression VAE}{4}{subsection.3.2}\protected@file@percent }
+\newlabel{sec:dcslat}{{3.2}{4}{\texorpdfstring {\hskip -1em.~}{}Sparse Compression VAE}{subsection.3.2}{}}
+\newlabel{sec:dcslat@cref}{{[subsection][2][3]3.2}{[1][4][]4}{}{}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.1}\hskip -1em.~Network Architecture}{4}{subsubsection.3.2.1}\protected@file@percent }
+\citation{chen2024deep}
+\citation{ren2024xcube}
+\citation{liu2022convnet}
+\citation{xiang2025structured}
+\citation{peebles2023scalable}
+\citation{lipman2023flow}
+\citation{xiang2025structured}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces The network structure of SC-VAE. }}{5}{figure.caption.7}\protected@file@percent }
+\newlabel{fig:vae}{{4}{5}{The network structure of SC-VAE}{figure.caption.7}{}}
+\newlabel{fig:vae@cref}{{[figure][4][]4}{[1][5][]5}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{Sparse Residual Autoencoding Layer.}{5}{section*.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Early-pruning Upsampler.}{5}{section*.9}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Optimized Residual Block.}{5}{section*.10}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.2}\hskip -1em.~VAE Training}{5}{subsubsection.3.2.2}\protected@file@percent }
+\newlabel{sec:vae_training}{{3.2.2}{5}{\texorpdfstring {\hskip -1em.~}{}VAE Training}{subsubsection.3.2.2}{}}
+\newlabel{sec:vae_training@cref}{{[subsubsection][2][3,2]3.2.2}{[1][5][]5}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}\hskip -1em.~Generative Modeling}{5}{subsection.3.3}\protected@file@percent }
+\newlabel{sec:gen}{{3.3}{5}{\texorpdfstring {\hskip -1em.~}{}Generative Modeling}{subsection.3.3}{}}
+\newlabel{sec:gen@cref}{{[subsection][3][3]3.3}{[1][5][]5}{}{}{}}
+\citation{xiang2025structured}
+\citation{chen2024pixart}
+\citation{su2024roformer}
+\citation{simeoni2025dinov3}
+\citation{xiang2025structured}
+\citation{xiang2025structured}
+\citation{deitke2024objaverse}
+\citation{collins2022abo}
+\citation{khanna2023hssd}
+\citation{tillet2019triton}
+\citation{graham2017submanifold}
+\citation{zhang2025texverse}
+\citation{blender}
+\citation{loshchilov2017decoupled}
+\citation{stojanov2021using}
+\citation{sketchfab2025}
+\citation{fortin2025nanobanana}
+\citation{munkberg2022extracting}
+\citation{chen2025dora}
+\citation{xiang2025structured}
+\citation{wu2025direct3d}
+\citation{he2025sparseflex}
+\@writefile{toc}{\contentsline {paragraph}{Model and Generation Pipeline.}{6}{section*.11}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Architectural and Training Details.}{6}{section*.12}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4}\hskip -1em.~Experiments}{6}{section.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Implementation details.}{6}{section*.15}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}\hskip -1em.~3D Asset Reconstruction}{6}{subsection.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Shape Reconstruction.}{6}{section*.17}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Material Reconstruction.}{6}{section*.18}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}\hskip -1em.~Image to 3D Generation}{6}{subsection.4.2}\protected@file@percent }
+\citation{xiang2025structured}
+\citation{ye2025hi3dgen}
+\citation{wu2025direct3d}
+\citation{li2025step1x}
+\citation{hunyuan3d2025hunyuan3d}
+\citation{radford2021learning}
+\citation{xue2024ulip}
+\citation{zhou2023uni3d}
+\citation{hunyuan3d2025hunyuan3d}
+\citation{yu2024texgen}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces High-quality 3D assets generated by our method, featuring intricate geometric details and physically accurate materials with high visual fidelity, including thin structures, open surfaces, and translucent regions that highlight the model’s expressive capability.}}{7}{figure.caption.13}\protected@file@percent }
+\newlabel{fig:results}{{5}{7}{High-quality 3D assets generated by our method, featuring intricate geometric details and physically accurate materials with high visual fidelity, including thin structures, open surfaces, and translucent regions that highlight the model’s expressive capability}{figure.caption.13}{}}
+\newlabel{fig:results@cref}{{[figure][5][]5}{[1][6][]7}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Visual comparison showing the normal (main image) and the final render, base color, metallic, and roughness (small images).}}{7}{figure.caption.14}\protected@file@percent }
+\newlabel{fig:comparison}{{6}{7}{Visual comparison showing the normal (main image) and the final render, base color, metallic, and roughness (small images)}{figure.caption.14}{}}
+\newlabel{fig:comparison@cref}{{[figure][6][]6}{[1][6][]7}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{Qualitative comparison.}{7}{section*.20}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Quantitative comparison.}{7}{section*.21}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Visual comparison of PBR texture generation.}}{7}{figure.caption.22}\protected@file@percent }
+\newlabel{fig:texture}{{7}{7}{Visual comparison of PBR texture generation}{figure.caption.22}{}}
+\newlabel{fig:texture@cref}{{[figure][7][]7}{[1][7][]7}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Comparison of shape reconstruction efficiency and fidelity. MD and CD is reported $\times 10^6$; runtime meaured on an A100 GPU.}}{8}{table.caption.16}\protected@file@percent }
+\newlabel{tab:reconstruction}{{1}{8}{Comparison of shape reconstruction efficiency and fidelity. MD and CD is reported $\times 10^6$; runtime meaured on an A100 GPU}{table.caption.16}{}}
+\newlabel{tab:reconstruction@cref}{{[table][1][]1}{[1][6][]8}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Comparison of image-to-3D generation results. -N: measured with normal map.}}{8}{table.caption.19}\protected@file@percent }
+\newlabel{tab:generation}{{2}{8}{Comparison of image-to-3D generation results. -N: measured with normal map}{table.caption.19}{}}
+\newlabel{tab:generation@cref}{{[table][2][]2}{[1][6][]8}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Ablation study of SC-VAE architecture designs.}}{8}{table.caption.23}\protected@file@percent }
+\newlabel{tab:ablation}{{3}{8}{Ablation study of SC-VAE architecture designs}{table.caption.23}{}}
+\newlabel{tab:ablation@cref}{{[table][3][]3}{[1][8][]8}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}\hskip -1em.~Shape-Conditioned Texture Generation}{8}{subsection.4.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}\hskip -1em.~Ablation and Design Analysis}{8}{subsection.4.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Sparse residual autoencoding.}{8}{section*.24}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Scaling up resolution for finer detail and compute for higher quality during test time. \textbf  {(Best viewed with zoom)}}}{8}{figure.caption.26}\protected@file@percent }
+\newlabel{fig:tts}{{8}{8}{Scaling up resolution for finer detail and compute for higher quality during test time. \textbf {(Best viewed with zoom)}}{figure.caption.26}{}}
+\newlabel{fig:tts@cref}{{[figure][8][]8}{[1][8][]8}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{Optimized residual block.}{8}{section*.25}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5}\hskip -1em.~Test-time Compute and Resolution Scaling}{8}{subsection.4.5}\protected@file@percent }
+\bibstyle{ieeenat_fullname}
+\bibdata{ref}
+\@writefile{toc}{\contentsline {section}{\numberline {5}\hskip -1em.~Conclusion}{9}{section.5}\protected@file@percent }
+\newlabel{sec:conclusion}{{5}{9}{\texorpdfstring {\hskip -1em.~}{}Conclusion}{section.5}{}}
+\newlabel{sec:conclusion@cref}{{[section][5][]5}{[1][9][]9}{}{}{}}
+\citation{liu2022convnet}
+\citation{chen2024deep}
+\citation{chen2024pixart}
+\@writefile{toc}{\contentsline {section}{\numberline {A}\hskip -1em.~More Implementation Details}{1}{appendix.A}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.1}\hskip -1em.~O-Voxel Conversion Algorithms}{1}{subsection.A.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {A.1.1}\hskip -1em.~Shape Conversion}{1}{subsubsection.A.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {A.1.2}\hskip -1em.~Material Conversion}{1}{subsubsection.A.1.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.2}\hskip -1em.~Network Architectures}{1}{subsection.A.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Sparse Compression VAE}{1}{section*.32}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Generative Models.}{1}{section*.33}\protected@file@percent }
+\@writefile{loa}{\contentsline {algocf}{\numberline {1}{\ignorespaces Mesh-to-O-Voxel Conversion}}{1}{algocf.1}\protected@file@percent }
+\newlabel{alg:mesh_to_ovoxel_shape}{{1}{1}{\texorpdfstring {\hskip -1em.~}{}Material Conversion}{algocf.1}{}}
+\newlabel{alg:mesh_to_ovoxel_shape@cref}{{[algorithm][1][]1}{[1][1][]1}{}{}{}}
+\citation{su2024roformer}
+\citation{esser2024scaling}
+\citation{zhang2019root}
+\@writefile{loa}{\contentsline {algocf}{\numberline {2}{\ignorespaces O-Voxel-to-Mesh Conversion}}{2}{algocf.2}\protected@file@percent }
+\newlabel{alg:ovoxel_to_mesh_shape}{{2}{2}{\texorpdfstring {\hskip -1em.~}{}Material Conversion}{algocf.2}{}}
+\newlabel{alg:ovoxel_to_mesh_shape@cref}{{[algorithm][2][]2}{[1][1][]2}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.3}\hskip -1em.~Training Details}{2}{subsection.A.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Sparse Compression VAE.}{2}{section*.35}\protected@file@percent }
+\@writefile{loa}{\contentsline {algocf}{\numberline {3}{\ignorespaces Texture-to-O-Voxel Conversion}}{2}{algocf.3}\protected@file@percent }
+\newlabel{alg:texture_to_ovoxel_material}{{3}{2}{\texorpdfstring {\hskip -1em.~}{}Material Conversion}{algocf.3}{}}
+\newlabel{alg:texture_to_ovoxel_material@cref}{{[algorithm][3][]3}{[1][1][]2}{}{}{}}
+\newlabel{eq:rendering_loss}{{8}{2}{Sparse Compression VAE}{equation.8}{}}
+\newlabel{eq:rendering_loss@cref}{{[equation][8][]8}{[1][2][]2}{}{}{}}
+\citation{liu2023flow}
+\citation{lipman2023flow}
+\citation{xiang2025structured}
+\citation{spconv2022}
+\citation{tangandyang2023torchsparse}
+\citation{williams2024fvdb}
+\citation{warpconvnet2025}
+\citation{spconv2022}
+\citation{tangandyang2023torchsparse}
+\citation{williams2024fvdb}
+\citation{warpconvnet2025}
+\citation{tillet2019triton}
+\citation{spconv2022}
+\@writefile{loa}{\contentsline {algocf}{\numberline {4}{\ignorespaces O-Voxel-to-Texture Conversion}}{3}{algocf.4}\protected@file@percent }
+\newlabel{alg:ovoxel_to_texture_material}{{4}{3}{\texorpdfstring {\hskip -1em.~}{}Material Conversion}{algocf.4}{}}
+\newlabel{alg:ovoxel_to_texture_material@cref}{{[algorithm][4][]4}{[1][1][]3}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Architectural details of the SC-VAE encoder. The decoder follows a symmetrical design.}}{3}{table.caption.31}\protected@file@percent }
+\newlabel{tab:scvae_detail}{{4}{3}{Architectural details of the SC-VAE encoder. The decoder follows a symmetrical design}{table.caption.31}{}}
+\newlabel{tab:scvae_detail@cref}{{[table][4][]4}{[1][1][]3}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Architectural Details for the Generative models.}}{3}{table.caption.34}\protected@file@percent }
+\newlabel{tab:dit_detail}{{5}{3}{Architectural Details for the Generative models}{table.caption.34}{}}
+\newlabel{tab:dit_detail@cref}{{[table][5][]5}{[1][2][]3}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{Generative Models.}{3}{section*.36}\protected@file@percent }
+\newlabel{eq:cfm}{{9}{3}{Generative Models}{equation.9}{}}
+\newlabel{eq:cfm@cref}{{[equation][9][]9}{[1][3][]3}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {B}\hskip -1em.~FlexGEMM: Our High-Performance Sparse Convolution Backend}{3}{appendix.B}\protected@file@percent }
+\citation{zhang2025texverse}
+\citation{deitke2024objaverse}
+\citation{deitke2024objaverse}
+\citation{collins2022abo}
+\citation{khanna2023hssd}
+\citation{stojanov2021using}
+\citation{xiang2025structured}
+\citation{fu20213d}
+\citation{blender}
+\citation{zhang2025texverse}
+\citation{sketchfab2025}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Speed test for FlexGEMM backend and baselines including Spconv~\cite  {spconv2022}, Torchsparse~\cite  {tangandyang2023torchsparse}, fvdb~\cite  {williams2024fvdb}, and WarpConvNet~\cite  {warpconvnet2025}}}{4}{figure.caption.37}\protected@file@percent }
+\newlabel{fig:spconv_bench}{{9}{4}{Speed test for FlexGEMM backend and baselines including Spconv~\cite {spconv2022}, Torchsparse~\cite {tangandyang2023torchsparse}, fvdb~\cite {williams2024fvdb}, and WarpConvNet~\cite {warpconvnet2025}}{figure.caption.37}{}}
+\newlabel{fig:spconv_bench@cref}{{[figure][9][]9}{[1][3][]4}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Composition of the training set and evaluation set.}}{4}{table.caption.38}\protected@file@percent }
+\newlabel{tab:dataset}{{6}{4}{Composition of the training set and evaluation set}{table.caption.38}{}}
+\newlabel{tab:dataset@cref}{{[table][6][]6}{[1][4][]4}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {C}\hskip -1em.~Data Preparation Details}{4}{appendix.C}\protected@file@percent }
+\citation{munkberg2022extracting}
+\@writefile{toc}{\contentsline {section}{\numberline {D}\hskip -1em.~More Experiment Details}{5}{appendix.D}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {D.1}\hskip -1em.~Evaluation Protocol}{5}{subsection.D.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {D.1.1}\hskip -1em.~Reconstruction Experiments}{5}{subsubsection.D.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Test set.}{5}{section*.39}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Geometry Accuracy.}{5}{section*.40}\protected@file@percent }
+\newlabel{eq:mesh_distance}{{10}{5}{Geometry Accuracy}{equation.10}{}}
+\newlabel{eq:mesh_distance@cref}{{[equation][10][]10}{[1][5][]5}{}{}{}}
+\citation{fortin2025nanobanana}
+\citation{radford2021learning}
+\citation{xue2024ulip}
+\citation{zhou2023uni3d}
+\@writefile{toc}{\contentsline {paragraph}{Appearance Fidelity.}{6}{section*.41}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {D.1.2}\hskip -1em.~Generation Experiments}{6}{subsubsection.D.1.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Test Set.}{6}{section*.42}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Evaluation Metrics.}{6}{section*.43}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces The interface for our user study. Participants were presented with two types of questions: one for evaluating the \emph  {overall quality} of fully rendered assets (top) and another for assessing the \emph  {shape quality} using normal map visualizations (bottom). The interface provided interactive controls for a thorough inspection.}}{6}{figure.caption.44}\protected@file@percent }
+\newlabel{fig:user_study_ui}{{10}{6}{The interface for our user study. Participants were presented with two types of questions: one for evaluating the \emph {overall quality} of fully rendered assets (top) and another for assessing the \emph {shape quality} using normal map visualizations (bottom). The interface provided interactive controls for a thorough inspection}{figure.caption.44}{}}
+\newlabel{fig:user_study_ui@cref}{{[figure][10][]10}{[1][6][]6}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {D.2}\hskip -1em.~User Study}{6}{subsection.D.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Study Design and Interface.}{6}{section*.45}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces Detailed statistics of the user study.}}{7}{table.caption.46}\protected@file@percent }
+\newlabel{tab:user_study}{{7}{7}{Detailed statistics of the user study}{table.caption.46}{}}
+\newlabel{tab:user_study@cref}{{[table][7][]7}{[1][7][]7}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{Detailed Analysis.}{7}{section*.47}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {E}\hskip -1em.~More Results}{7}{appendix.E}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {E.1}\hskip -1em.~3D Asset Reconstruction}{7}{subsection.E.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Additional Reconstruction Results.}{7}{section*.48}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Additional Qualitative Comparisons.}{7}{section*.49}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {E.2}\hskip -1em.~Image to 3D Asset Generation}{7}{subsection.E.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Additional Generation Results.}{7}{section*.50}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Additional Qualitative Comparisons.}{7}{section*.51}\protected@file@percent }
+\ttl@finishall
+\@writefile{toc}{\contentsline {section}{\numberline {F}\hskip -1em.~Limitation Discussion and Future Work}{8}{appendix.F}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces Reconstruction results of our method. Despite highly compact, it achieves high-fidelity recovery of complex shapes and materials.}}{9}{figure.caption.52}\protected@file@percent }
+\newlabel{fig:results_vae}{{11}{9}{Reconstruction results of our method. Despite highly compact, it achieves high-fidelity recovery of complex shapes and materials}{figure.caption.52}{}}
+\newlabel{fig:results_vae@cref}{{[figure][11][]11}{[1][8][]9}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces Qualitative comparison of shape reconstruction fidelity. Error maps are shown on the bottom right.}}{10}{figure.caption.53}\protected@file@percent }
+\newlabel{fig:comparison_vae}{{12}{10}{Qualitative comparison of shape reconstruction fidelity. Error maps are shown on the bottom right}{figure.caption.53}{}}
+\newlabel{fig:comparison_vae@cref}{{[figure][12][]12}{[1][8][]10}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {13}{\ignorespaces More image-to-3D generation results of our method. PBR attrbutes and relightings are shown below. (\emph  {\textbf  {Best viewed with zoom}})}}{11}{figure.caption.54}\protected@file@percent }
+\newlabel{fig:results_more}{{13}{11}{More image-to-3D generation results of our method. PBR attrbutes and relightings are shown below. (\emph {\textbf {Best viewed with zoom}})}{figure.caption.54}{}}
+\newlabel{fig:results_more@cref}{{[figure][13][]13}{[1][8][]11}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {14}{\ignorespaces More comparisons of image-to-3D generation results. Rendering results and PBR attrbutes (if applicable) are shown below. (\emph  {\textbf  {Best viewed with zoom}})}}{12}{figure.caption.55}\protected@file@percent }
+\newlabel{fig:comparison_more}{{14}{12}{More comparisons of image-to-3D generation results. Rendering results and PBR attrbutes (if applicable) are shown below. (\emph {\textbf {Best viewed with zoom}})}{figure.caption.55}{}}
+\newlabel{fig:comparison_more@cref}{{[figure][14][]14}{[1][8][]12}{}{}{}}
+\gdef \@abspage@last{21}

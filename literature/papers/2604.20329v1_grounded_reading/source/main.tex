@@ -1,0 +1,1001 @@
+\documentclass[11pt, a4paper, copyright, gdm]{google}
+
+\usepackage[authoryear, sort&compress, round]{natbib}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+\usepackage[table]{xcolor}
+\usepackage{array} % For better column alignment
+\usepackage{caption}
+\usepackage{subcaption}
+\captionsetup[subfigure]{justification=centering}
+\usepackage{placeins}
+\usepackage{makecell}
+\usepackage{float}
+\usepackage{cleveref}
+\usepackage{xfrac}
+
+\usepackage{lineno}
+% \linenumbers
+
+\bibliographystyle{abbrvnat}
+
+\newcommand{\songyou}[1]{\textcolor{red}{\textbf{Songyou:} #1}}
+\newcommand{\barron}[1]{\textcolor{red}{\textbf{Barron:} #1}}
+\newcommand{\tom}[1]{\textcolor{red}{\textbf{Tom:} #1}}
+\newcommand{\shangbang}[1]{\textcolor{red}{\textbf{Shangbang:} #1}}
+\newcommand{\km}[1]{\textcolor{orange}{[\textbf{Kaiming:} #1]}}
+\newcommand{\valentin}[1]{\textcolor{red}{\textbf{Valentin:} #1}}
+\newcommand{\huizhongc}[1]{\textcolor{red}{\textbf{Huizhong:} #1}}
+\definecolor{win_green}{RGB}{0, 128, 0}
+
+% Remove these if they are not needed
+% \keywords{paper template, tools}
+% \paperurl{https://arxiv.org/abs/123}
+
+% comment out if logo should not be used
+\uselogo{} 
+
+% Paper Title
+\title{Image Generators are Generalist Vision Learners}
+
+% Use the internally issued paper ID, if available
+\reportnumber{0001} % Leave blank if n/a
+
+% Assign your own date to the report.
+% Can comment out if not needed or leave blank if n/a.
+% \renewcommand{\today}{2025-03-21}
+
+% Can have as many authors and as many affiliations as needed. Best to indicate joint
+% first-authorship as shown below.
+\author[$\star$]{Valentin Gabeur}
+\author[$\star$]{Shangbang Long}
+\author[$\star$]{Songyou Peng}
+\author[$\nabla$]{Paul Voigtlaender}
+\author[$\nabla$]{Shuyang Sun}
+\author[$\nabla$]{Yanan Bao}
+\author[$\nabla$]{Karen Truong}
+\author[$\nabla$]{Zhicheng Wang}
+\author[$\nabla$]{Wenlei Zhou}
+\author[$\nabla$]{Jonathan T. Barron}
+\author[$\nabla$]{Kyle Genova}
+\author[$\nabla$]{Nithish Kannen}
+\author[$\nabla$]{Sherry Ben}
+\author[$\nabla$]{Yandong Li}
+\author[$\nabla$]{Mandy Guo}
+\author[$\nabla$]{Suhas Yogin}
+\author[$\dagger$]{Yiming Gu}
+\author[$\dagger$]{Huizhong Chen}
+\author[$\ddagger$]{Oliver Wang}
+\author[$\ddagger$]{Saining Xie}
+\author[$\ddagger$]{Howard Zhou}
+\author[$\ddagger$]{Kaiming He}
+\author[$\ddagger$]{Thomas Funkhouser}
+\author[$\ddagger$]{Jean-Baptiste Alayrac}
+\author[$\ddagger$]{Radu Soricut}
+
+% Affiliations *must* come after the declaration of \author[]
+\affil[$\star$]{project leads and equal contributions}
+\affil[$\nabla$]{core contributors}
+\affil[$\dagger$]{project advisors}
+\affil[$\ddagger$]{leadership sponsors}
+
+\correspondingauthor{vision-banana@google.com}
+
+
+\begin{abstract}
+% \vspace{2mm}
+
+Recent works show that image and video generators exhibit zero-shot visual understanding behaviors, in a way reminiscent of how Large Language Models (LLMs) develop emergent capabilities of language understanding and reasoning from generative pretraining. 
+While it has long been conjectured that the ability to create visual content implies an ability to understand it, there has been limited evidence that generative vision models have developed strong understanding capabilities. 
+In this work, we demonstrate that image generation training serves a role similar to LLM pretraining, and lets models learn powerful and general visual representations that enable \textbf{state-of-the-art} performance on various vision tasks.
+We introduce \textit{Vision Banana}, a generalist model built by instruction-tuning \textit{Nano Banana Pro} (NBP) on a mixture of its original training data alongside a small amount of vision task data.
+By parameterizing the output space of vision tasks as RGB images, we seamlessly reframe perception as image generation.
+Our generalist model, \textit{Vision Banana}, achieves state-of-the-art results on a variety of vision tasks involving both 2D and 3D understanding, beating or rivaling zero-shot domain-specialists, including \textit{Segment Anything Model 3} on segmentation tasks, and the \textit{Depth Anything} series on metric depth estimation.
+We show that these results can be achieved with lightweight instruction-tuning without sacrificing the base model's image generation capabilities.
+The superior results suggest that image generation pretraining is a generalist vision learner. 
+It also shows that image generation serves as a unified and universal interface for vision tasks, similar to text generation's role in language understanding and reasoning.
+We could be witnessing a major paradigm shift for computer vision, where generative vision pretraining takes a central role in building Foundational Vision Models for both generation and understanding.
+
+\vspace{3mm}
+Project Page: \url{vision-banana.github.io}
+\end{abstract}
+
+\begin{document}
+
+\maketitle
+
+\newcommand{\emojivb}{\raisebox{-0.2ex}{\includegraphics[height=1.2em]{assets/vb4.png}}}
+
+ \section{Introduction}
+
+
+In recent years, advanced image and video generation models \citep{nbp,veo3,flux2,seedance2,uni1,gpt1p5} have demonstrated unprecedented generation capabilities, synthesizing highly complex, high-fidelity visual context with precise semantic control. This remarkable capability for visual creation suggests that these models possess a deep, internalized comprehension of the visual world's underlying structures, semantics, and relationships. 
+However, leading methods on visual representation learning in general do not belong to the family of generative modeling.
+Instead, they include supervised discriminative learning \citep{krizhevsky2012imagenet_alexnet,dehghani2023scaling_vit22b,dosovitskiy2020image_vit}, 
+contrastive learning  \citep{simclr,he2020momentum_moco,chen2020improved_moco2,zhai2023siglip1,tschannen2025siglip2,radford2021learning_clip},
+bootstrapping \citep{caron2021emerging_dinov1,grill2020bootstrap_byol}, 
+auto-encoding \citep{he2022masked_mae,bao2021beit,chen2024deconstructing_dae} among others, and their combinations \citep{oquab2023dinov2,simeoni2025dinov3,zhou2021ibot,cao2026tipsv2}.
+Early efforts in generative vision pretraining \citep{chen2020generative_igpt, bai2024sequential_lvm} have shown promising scaling behaviors but their effectiveness has lagged behind non-generative models.
+
+
+\newcommand{\ie}{i.e.,\ }
+
+In this paper, we investigate \textit{whether visual generative models are secretly generalist vision learners}, \ie whether models trained for image and video generation develop internal representations that are suitable for visual understanding tasks. 
+To achieve this, we finetune a pretrained image generator with a small amount of computer vision data (depth estimation, surface normal estimation, segmentation, etc.).
+We then evaluate the resulting model on a wide variety of vision benchmarks.
+If the finetuned model performs at or near SOTA on these benchmarks, while retaining its image generation capabilities, then there is strong evidence that the image generator was indeed a foundation model for visual understanding -- i.e., a generalist vision learner.
+
+This is not the first paper to use image and video generators as base models for visual understanding.
+Previous research observes that state-of-the-art image and video generators can generate visual content that look like RGB visualizations of computer vision outputs for tasks such as segmentation, depth estimation, and surface normal estimation \citep{zuo2025nanobanana_low_level,wiedemer2025veo_learner}.  However, those methods do not provide state-of-the-art results on modern benchmarks.
+This is partially because these models don't strictly follow the prompts to produce vision outputs in the desired formats that can be decoded back to vision outputs for computing quantitative metrics.
+Other researchers \citep{he2024lotus,lotus2,marigold,ye2024stablenormal,yu2024high,zhao2025diception,wang2026thfm} adapt the generation architectures by adding specialized modules and performing full-finetuning to achieve SOTA-level results on specific target tasks.
+Although these methods successfully leverage the understanding capabilities of the pre-trained features, they sacrifice the model's generality across other understanding and generation tasks.
+
+
+
+\begin{figure}[!t]
+    \centering
+    \includegraphics[width=\textwidth]{assets/teaser_img_v6.pdf}
+    % \vspace{0mm}
+    \caption{We demonstrate the hidden visual understanding capabilities of image generators by instruction-tuning Nano Banana Pro.
+    The instruction-tuned model, \textbf{Vision Banana} \emojivb, can produce visualizations in a precise format that can enable evaluation on established benchmarks. 
+    }
+    \label{fig:teaser_img}
+    % \vspace{4mm}
+\end{figure}
+
+
+
+We take an approach motivated by recent advancements in large language models (LLMs). In natural language processing (NLP), generative pretraining \citep{brown2020language_gpt3,chowdhery2023palm} is performed to produce base models, often referred to as LLMs, that are good at generating text, whereas instruction-tuning \citep{ouyang2022training_instructgpt,wei2021finetuned_flan} guides them to follow specific tasks and produce text in requested formats and stay on the task.
+Analogously, we position a visual generative model as a ``base'' model and perform instruction-tuning to align the model to produce visual output in desired formats, in accordance with the prompts, as illustrated in Fig. \ref{fig:teaser_img}.
+Specifically, the model is instructed to produce RGB images that can be decoded to computer vision outputs. 
+Such instruction prompts and decodable visualization schemes are designed to bridge and calibrate the visual generations to formats where measurable metrics for benchmarking can be applied.
+For example, by prompting the model to ``\textit{Segment the skateboard category in pure yellow (<255, 255, 0>)}'', we can easily parse the mask for \textit{skateboard} by clustering pixels whose values are close to \textit{<255, 255, 0>}.
+This strategy has three main advantages.
+First, it supports a wide variety of tasks with a single unified model -- after instruction tuning, the weights are shared among all tasks, and only the prompt changes.   
+Second, it requires relatively little new training data, since the instruction tuning is solely teaching the model how to format computer vision outputs as RGB.
+Third, it helps the model retain its original image generation capabilities, since the outputs are simply new RGB images.
+
+\begin{table}[t]
+\centering
+\resizebox{\textwidth}{!}{
+
+\begin{tabular}{@{}l|l|c|l@{}}
+\toprule
+\textbf{Capabilities} & \textbf{Benchmarks and Metrics} & \textbf{Vision Banana} \emojivb & \textbf{Best Counterpart} \\ \midrule
+
+\multirow{4}{*}{2D Understanding} & Referring segmentation: RefCOCOg UMD val (cIoU $\uparrow$) & \textbf{\color{win_green}0.738} & 0.734 (\textit{SAM3 Agent}) \\ %\cmidrule(l){2-4} 
+
+ & Referring segmentation: ReasonSeg val (gIoU $\uparrow$) & \textbf{\color{win_green} 0.793} & 0.770 (\textit{SAM3 Agent}) \\  %\cmidrule(l){2-4} 
+
+ & Semantic segmentation: Cityscapes val (mIoU $\uparrow$) & \textbf{\color{win_green} 0.699} & 0.652 (\textit{SAM3}) \\ % \cmidrule(l){2-4} 
+
+ & Instance segmentation: SA-Co/Gold ($pmF_1$ $\uparrow$) & 0.540* & \textbf{\color{win_green} 0.552} (\textit{DINO-X}) \\ \midrule
+
+\multirow{2}{*}{3D Understanding} & Metric depth estimation: average of 4 datasets ($\delta_1$$\uparrow$) & \textbf{\color{win_green} 0.929} & 0.918 (\textit{Depth Anything 3}) \\ % \cmidrule(l){2-4} 
+
+ & Surface normal estimation: average of 4 datasets (mean angle error $\downarrow$) & \textbf{\color{win_green} 18.928} & 19.642 (\textit{Lotus-2}) \\ \midrule
+
+ \multirow{2}{*}{Visual Generation} & Text-to-image: GenAI-Bench (win rate against the other $\uparrow$) & \textbf{\color{win_green} 53.5\%} & $46.5\%$ (\textit{Nano Banana Pro}) \\ % \cmidrule(l){2-4}
+
+  & Image editing: ImgEdit (win rate against the other $\uparrow$) & $47.8\%$ & \textbf{\color{win_green} 52.2\%} (\textit{Nano Banana Pro}) \\\bottomrule
+
+
+\end{tabular}
+}
+\raggedright
+\vspace{2mm}
+\footnotesize{*We evaluate on a randomly sampled subset of 500 queries from SA-Co/Gold to save compute.}
+\vspace{1mm}
+\caption{The instruction-tuned \textbf{Vision Banana} model surpasses or rivals SOTA specialists across visual generation and understanding. 
+For 2D visual understanding, it beats the highly specialized \textbf{Segment Anything Model 3} \citep{sam3} on 3 segmentation datasets, and is on par with DINO-X \citep{ren2024dinox} on instance segmentation.
+For 3D visual understanding, it surpasses the best metric depth estimation expert, \textbf{Depth Anything 3} \citep{dav3}, and the best surface normal estimation specialist, Lotus-2 \citep{lotus2}.
+In visual generation, Vision Banana inherits its capabilities from Nano Banana Pro and is on par with it on text-to-image and image editing.
+}
+\label{tab:overall}
+\end{table}
+
+
+We present \textbf{Vision Banana} \emojivb, a generalist vision model trained by performing a lightweight instruction-tuning to Nano Banana Pro on a mixture of its original image generation data and our additional vision task data.    During evaluation across several benchmarks, we find that Visual Banana excels at both visual understanding and generation, as summarized in Tab. \ref{tab:overall}. On the understanding side, Vision Banana surpasses or matches state-of-the-art results on both 2D and 3D tasks. For example, it beats the highly specialized segmentation model, \textit{SAM 3} \citep{sam3}, on various segmentation tasks, and the 3D expert, \textit{Depth Anything 3} \citep{dav3}, on metric depth estimation. On the generation side, it performs on par with its base model on image generation and editing benchmarks. On GenAI-Bench \citep{li2024genaibench}, Vision Banana scores a $53.5\%$ win rate against its base model. On ImgEdit \citep{ye2025imgedit} for image editing, Vision Banana's win rate is $47.8\%$. Since these results are achieved with a single unified model built by a lightweight instruction-tuning on its base model, there is strong evidence that Nano Banana Pro already possessed internal representations for visual understanding, which only needed to be unlocked with instruction tuning. 
+
+The implications of this study are two-fold.
+First, it suggests that image generators are indeed generalist vision learners under the hood, with
+generative vision pretraining playing a foundational role similar to language model pretraining.
+Second, it suggests that image generation can serve as a universal interface for unified visual understanding, mirroring the role of text generation in language understanding and reasoning.
+We could be witnessing a major paradigm shift for computer vision, where generative vision pretraining takes a central role in building \textbf{Foundational Vision Models} for both generation and understanding.
+
+
+
+\section{Method}
+
+\paragraph{Instruction-tuning Nano Banana Pro}
+Recent image and video generators have demonstrated zero-shot capabilities in generating visualizations of visual understanding tasks \citep{wiedemer2025veo_learner,zuo2025nanobanana_low_level}. 
+To rigorously investigate and benchmark these capabilities, we need to \textit{align} the models to generate visualizations that can be decoded back to visual task outputs for quantitative evaluation. 
+For example, in metric depth estimation, a generated depth heatmap must be invertible back to physical depth values for quantitative assessment. 
+Therefore, we create \textbf{Vision Banana} by instruction-tuning our base model, Nano Banana Pro, on a selection of vision tasks formatted in such invertible manners.
+Specifically, we mix vision task data into Nano Banana Pro's own training mixture at a very low ratio.
+This process allows us to align the model's emergent generative representations into measurable physical geometry and semantic labels, allowing our single generalist model to be evaluated alongside task-specific specialists.
+
+
+Mixing the vision data at a low ratio serves as a lightweight instruction-tuning strategy, ensuring that our vision task alignment does not degrade the model's original generative priors. 
+We validate the preservation of image generation capabilities by benchmarking Vision Banana against the base Nano Banana Pro on two tasks: text-to-image generation (GenAI-Bench~\citep{li2024genaibench}) and image editing (ImgEdit~\citep{ye2025imgedit}).
+In human evaluations, we obtain win rates of 53.5\% and 47.8\% respectively, indicating that Vision Banana successfully maintains the generative power of the base model.
+Qualitative comparisons in Fig. \ref{fig:t2i-demo} (text-to-image generation) and Fig. \ref{fig:imgedit-demo} (image editing) further confirm that the outputs are highly similar between Vision Banana and Nano Banana Pro.
+These results verify that Vision Banana does not forget its generative nature.
+
+
+\paragraph{Vision Tasks and Data.}
+We evaluate our framework on two fundamental categories of visual understanding: $2$D scene understanding and $3$D structure inference. 
+The $2$D suite consists of referring expression, semantic, and instance segmentation, which collectively test the model's capability to ground natural language and segment the corresponding objects. 
+For $3$D understanding, we focus on monocular metric depth and surface normal estimation, which demand geometric reasoning and internal knowledge about object scales.
+To collect data for instruction tuning, we utilize in-house model annotations for web-crawled 2D images, as well as synthetic data from rendering engines for 3D tasks. 
+Crucially, no training data from our evaluation benchmarks is included in the instruction-tuning mixture, ensuring that our results reflect true generalist capability.
+
+\newpage
+
+
+\section{Vision Banana - Generalist Vision Model from Image Generator}
+
+
+In this section, we present qualitative and quantitative assessments compared to task-specific specialist models.
+Built upon an image generator,
+Vision Banana achieves SOTA-level results across a broad range of visual understanding tasks, without specialized architectures or custom training losses.
+
+\subsection{2D Semantic Understanding}
+
+
+\begin{table}[h]
+    \caption{Vision-Banana \emojivb \ \ compared with state-of-the-art methods on various segmentation datasets.
+    We mainly compare with other methods that have not been trained on in-domain data, i.e., the training splits of these benchmarks.
+    We denote them as ``Zero-Shot Transfer'' in the table.
+    The usage of this term follows Segment Anything \citep{kirillov2023segment} and CLIP \citep{radford2021learning_clip}.
+    Non zero-shot transfer methods are marked in \textcolor{gray}{gray}.
+    $^*$: On SA-Co/Gold, we evaluate our method on $500$ randomly sampled queries.
+    On ReasonSeg, methods are paired with multimodal LLMs for reasoning. We use Gemini 2.5 Pro in our case.
+    References of previous methods are in the main text.
+    }
+    
+    \setlength{\tabcolsep}{3pt} 
+    % --- Subtable 1: Cityscapes ---
+    \begin{subtable}[t]{0.20\textwidth}
+        \scriptsize
+        \begin{tabular}[t]{@{}lc@{}}
+        \toprule
+        Model & mIoU \\
+        \midrule
+        \multicolumn{2}{l}{\color{gray} \textit{Non Zero-Shot Transfer}} \\
+        \midrule
+        \color{gray}SegMan-L & \color{gray}\textbf{0.842} \\
+        \midrule
+        \multicolumn{2}{l}{\textit{Zero-Shot Transfer}} \\
+        \midrule
+        APE-D & 0.442 \\
+        OpenSeeD & 0.478 \\
+        X-Decoder & 0.520 \\
+        SAM 3 & 0.652 \\
+        Vision Banana & \textbf{\color{win_green} 0.699} \\
+        \bottomrule
+        \end{tabular}
+        \caption{Cityscapes val.}
+        \label{tab-seg-cityscapes}
+    \end{subtable}%
+    % --- Subtable 2: SA-Co/Gold ---
+    \begin{subtable}[t]{0.20\textwidth}
+        \scriptsize
+        \begin{tabular}[t]{@{}lc@{}}
+        \toprule
+        Model & $pmF_1$ \\
+        \midrule
+        \multicolumn{2}{l}{\color{gray} \textit{Non Zero-Shot Transfer}} \\
+        \midrule
+        \color{gray} SAM 3 & \color{gray} \textbf{0.661} \\
+        \midrule
+        \multicolumn{2}{l}{\textit{Zero-Shot Transfer}} \\
+        \midrule
+        APE-D  & 0.369 \\
+        OWLv2  & 0.420 \\
+        Gemini 2.5  & 0.461 \\
+        DINO-X & \textbf{\color{win_green} 0.552} \\
+        Vision Banana & 0.540$^*$ \\
+        \bottomrule
+        \end{tabular}
+        \caption{SA-Co/Gold.}
+        \label{tab-seg-saco}
+    \end{subtable}%
+    % --- Subtable 3: RefCOCOg ---
+    \begin{subtable}[t]{0.28\textwidth}
+        \scriptsize
+        \begin{tabular}[t]{@{}lc@{}}
+        \toprule
+        Model & cIoU \\
+        \midrule
+        \multicolumn{2}{l}{\color{gray} \textit{Non Zero-Shot Transfer}} \\
+        \midrule
+        \color{gray}HyperSeg + Phi2 2.7B  & \color{gray}0.794 \\
+        \color{gray}X-SAM + Phi3 3.8B  & \color{gray}\textbf{0.838} \\
+        \midrule
+        \multicolumn{2}{l}{\textit{Zero-Shot Transfer}} \\
+        \midrule
+        HybridGL & 0.513 \\
+        Kang et al. + LLaVA-1.5 13B  & 0.677 \\
+        SAM 3 + Gemini 2.5 Pro  & 0.734 \\
+        Vision Banana  & \textbf{\color{win_green} 0.738} \\
+        \bottomrule
+        \end{tabular}
+        \caption{RefCOCOg val (U).}
+        \label{tab-seg-refcocog}
+    \end{subtable}%
+    % --- Subtable 4: ReasonSeg ---
+    \begin{subtable}[t]{0.25\textwidth}
+        \centering
+        \scriptsize
+        \begin{tabular}[t]{@{}llc@{}}
+        \toprule
+        Model & MLLM & gIoU \\
+        \midrule
+        \multicolumn{2}{l}{\color{gray} \textit{Non Zero-Shot Transfer}} \\
+        \midrule
+        \color{gray} X-SAM & \color{gray} Phi-3-3.8B & \color{gray} 0.566 \\
+        \color{gray} LISA-13B-LLaVA1.5 & \color{gray} - & \color{gray} 0.650 \\
+        \midrule
+        \multicolumn{2}{l}{\textit{Zero-Shot Transfer}} \\
+        \midrule
+        SegZero & Qwen2.5-VL 7B & 0.626 \\
+        RSVP & GPT-4o & 0.647 \\
+        SAM 3 Agent & Gemini 2.5 Pro & 0.770 \\
+        Vision Banana & Gemini 2.5 Pro & \textbf{\color{win_green} 0.793} \\
+        \bottomrule
+        \end{tabular}
+        \caption{ReasonSeg val.}
+        \label{tab-seg-reasonseg}
+    \end{subtable}
+
+\label{tab-segmentation-all}
+\end{table}
+
+
+Image segmentation stands as a cornerstone of visual understanding, traditionally requiring complex, task-specific models to parse pixels into semantic categories or object instances. Current leading methods such as the Segment Anything series \citep{kirillov2023segment,ravi2024sam2,sam3} tackle this through heavy architectural specialization and large volumes of expensive, human-annotated mask data. Vision Banana challenges this prevailing paradigm by demonstrating that SOTA segmentation can naturally emerge from an image generation model. Rather than training on vast amounts of meticulously crafted segmentation examples, we tap into the rich representations learned by the base image generation model. By instructing the model to generate multi-colored images of segmentation masks, we obtain dense segmentation maps from which individual masks can be decoded, therefore enabling segmentation through image generation. As detailed in Tab. \ref{tab-segmentation-all}, this elegant generative approach outperforms highly tuned specialist models, achieving SOTA zero-shot transfer performance on three of the four evaluated datasets.
+
+
+\paragraph{Semantic Segmentation.}
+
+Historically, the task ``semantic segmentation'' is to classify each pixel into one of the predefined categories, without distinguishing instances of the same category. For example, Cityscapes \citep{cityscapes} has $19$ classes, including \textit{road}, \textit{person}, \textit{truck}, \textit{vegetation}, \textit{sky}, and more.
+It is worth noting that advanced tasks of ``instance / referral expression'' segmentation are also semantic. 
+Here, we use ``semantic segmentation'' strictly to refer to the traditional, instance-agnostic, category-level classification task.
+In our case, this nature of the classical semantic segmentation task can be specified via the prompt, and we train the model to follow such instructions.
+We prompt the model to generate a visualization image where each pixel is colored according to its class, as shown in Fig. \ref{fig:demo-semantic-segmentation}. 
+Note that the class can be any text string, not limited to a fixed set.
+The color for each class is specified in the prompt. 
+We can use natural language to describe the correspondence.
+We can also use a mapping notation such as JSON.
+The color can be represented as hex numbers or RGB value tuples.
+In evaluation, we assign pixels to classes by matching its color according to the prompt.
+
+We compare Vision Banana with existing methods \citep{fu2025segman,shen2024_aped,zhang2023simple_openseed,zou2023generalized_xdecoder,sam3} in Tab. \ref{tab-seg-cityscapes}.
+On Cityscapes \citep{cityscapes}, Vision Banana surpasses SAM 3 by $4.7$ points in mIoU and is the best open vocabulary model, narrowing the gap with
+closed-set models such as SegMan \citep{fu2025segman}.
+
+
+
+
+
+\begin{figure}[!h]
+    % \centering
+    % sample 1
+    \begin{subfigure}[t]{0.32\textwidth}
+        \captionsetup{justification=raggedright, singlelinecheck=false,font=small}
+        \includegraphics[width=\textwidth]{assets/v2_vis/semseg/image5.jpg}
+        \caption{Example 1}
+        \label{fig:demo-semseg1}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.32\textwidth}
+        \captionsetup{font=tiny, justification=raggedright, singlelinecheck=false}
+        \includegraphics[width=\textwidth]{assets/v2_vis/semseg/image3.png}
+        \caption*{``Generate a semantic segmentation visualization image, using this color mapping: \{"cat": "red", "lock": "pink", "exit sign": "light purple", "background": yellow\}.''}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.32\textwidth}
+        \captionsetup{font=tiny, justification=raggedright, singlelinecheck=false}
+        \includegraphics[width=\textwidth]{assets/v2_vis/semseg/image2.png}
+        \caption*{``Generate a visualization image of semantic segmentation, using this color mapping: \{"cat ears": <255, 165, 0>, "exit sign": <0, 0, 255>, "background":<125,0, 125>\}''}
+    \end{subfigure}
+
+    % sample 2
+    \begin{subfigure}[t]{0.32\textwidth}
+        \captionsetup{justification=raggedright, singlelinecheck=false,font=small}
+        \includegraphics[width=\textwidth]{assets/v2_vis/semseg/image4.jpg}
+        \caption{Example 2}
+        \label{fig:demo-semseg2}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.32\textwidth}
+        \captionsetup{font=tiny, justification=raggedright, singlelinecheck=false}
+        \includegraphics[width=\textwidth]{assets/v2_vis/semseg/image6.png}
+        \caption*{``This image is a per-pixel class labeling of the input. The macaron cakes are represented by (255, 255, 0). The round plates are represented by (255, 192, 128). The slice cakes are depicted in (64, 192, 64). The flowers are shown in (128, 0, 64). The tongs are (255, 0, 192).''}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.32\textwidth}
+        \captionsetup{font=tiny, justification=raggedright, singlelinecheck=false}
+        \includegraphics[width=\textwidth]{assets/v2_vis/semseg/image1.png}
+        \caption*{``Generate a semantic segmentation visualization of the input. The menu is \#80C000. The dessert is \#800000. The patterns on the wall is \#40FFC0''}
+    \end{subfigure}
+
+
+    \caption{Vision Banana can perform semantic segmentation, following the instruction prompts. It handles various prompting styles.
+    It can also segment anything specified via text prompts, from single-word nouns to phrases.
+    It produces segmentation mask at fine-grained granularity, for example, the cats' whiskers in Example 1 (middle).
+    }
+    \label{fig:demo-semantic-segmentation}
+\end{figure}
+
+
+\begin{figure}[!t]
+    % \centering
+    % sample 3
+    \begin{subfigure}[t]{0.32\textwidth}
+        \captionsetup{justification=raggedright, singlelinecheck=false,font=small}
+        \includegraphics[width=\textwidth]{assets/v2_vis/insseg/insseg4.jpg}
+        \caption{Example 1}
+        \label{fig:demo-insseg1}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.32\textwidth}
+        \captionsetup{justification=raggedright, singlelinecheck=false,font=tiny}
+        \includegraphics[width=\textwidth]{assets/v2_vis/insseg/insseg4_pred1.png}
+        \caption*{``Generate an instance segmentation visualization of this image. Each piece of garlic is colored differently.''}
+        \label{fig:demo-insseg1_pred1}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.32\textwidth}
+        \captionsetup{justification=raggedright, singlelinecheck=false,font=tiny}
+        \includegraphics[width=\textwidth]{assets/v2_vis/insseg/insseg4_pred2.png}
+        \caption*{``Generate an instance segmentation visualization of this image.  Each piece of beef is colored differently.''}
+        \label{fig:demo-insseg1_pred2}
+    \end{subfigure}
+
+    % sample 4
+    \begin{subfigure}[t]{0.32\textwidth}
+        \captionsetup{justification=raggedright, singlelinecheck=false,font=small}
+        \includegraphics[width=\textwidth]{assets/v2_vis/insseg/insseg1.jpg}
+        \caption{Example 2}
+        \label{fig:demo-insseg2_in}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.32\textwidth}
+        \captionsetup{justification=raggedright, singlelinecheck=false,font=tiny}
+        \includegraphics[width=\textwidth]{assets/v2_vis/insseg/insseg1_1.png}
+        \caption*{``Generate an instance segmentation visualization of this image. Each price tag is colored differently. ''}
+        \label{fig:demo-insseg2_pred_1}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.32\textwidth}
+        \captionsetup{justification=raggedright, singlelinecheck=false,font=tiny}
+        \includegraphics[width=\textwidth]{assets/v2_vis/insseg/insseg1_2.png}
+        \caption*{``This image is a segmentation task derived from the input. The "crescent"-shaped croissant instances are each represented by a unique, solid color. Background is RGB(88, 50, 82).''}
+        \label{fig:demo-insseg2_pred_2}
+    \end{subfigure}
+
+    % sample 5
+    \begin{subfigure}[t]{0.32\textwidth}
+        \captionsetup{justification=raggedright, singlelinecheck=false,font=small}
+        \includegraphics[width=\textwidth]{assets/v2_vis/insseg/insseg3.png}
+        \caption{Example 3}
+        \label{fig:demo-insseg3_in}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.32\textwidth}
+        \captionsetup{justification=raggedright, singlelinecheck=false,font=tiny}
+        \includegraphics[width=\textwidth]{assets/v2_vis/insseg/insseg3_1.png}
+        \caption*{``This image shows segmentation masks for the basketballs from the input image. The background is set to \#10aa05. Each basketball instance is represented by a solid circular mask, and a different colora is used for each mask.''}
+        \label{fig:demo-insseg3_pred-1}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.32\textwidth}
+        \captionsetup{justification=raggedright, singlelinecheck=false,font=tiny}
+        \includegraphics[width=\textwidth]{assets/v2_vis/insseg/insseg3_2.png}
+        \caption*{``This image shows segmentation masks for the balls from the input image. The background is set to white color. Each ball is represented by a different color.''}
+        \label{fig:demo-insseg3_pred-2}
+    \end{subfigure}
+
+
+    \caption{Vision Banana can perform instance segmentation, one class at a time. It renders different instances with different colors.
+    It can understand the nuanced concept in language as well.
+    }
+    \label{fig:demo-instance-segmentation}
+\end{figure}
+
+
+
+\paragraph{Instance Segmentation.}
+
+
+Unlike semantic segmentation, instance segmentation requires the model to distinguish between individual objects that belong to the same class.
+For example, if an image contains five dogs, we expect the model to produce an individual mask for each distinct animal.
+This poses a unique challenge for Vision Banana: since the number of instances is unknown in advance, we cannot assign the colors in the prompt.
+To address this, we adopt a per-class inference strategy. For each inference, we instruct Vision Banana to produce segmentation masks for only one class, allowing the model to dynamically assign colors to different instances.
+Examples of instance segmentation are shown in Fig. \ref{fig:demo-instance-segmentation}.
+During evaluation, we simply cluster pixels that have similar colors by thresholding.
+
+\begin{figure}[!t]
+    \centering
+    \captionsetup[subfigure]{justification=raggedright, singlelinecheck=false,font=tiny}
+
+    \begin{subfigure}[t]{0.24\textwidth}
+    \captionsetup{font=small}
+        \includegraphics[width=\textwidth]{assets/v2_vis/refseg/refseg1.jpeg}
+        \caption{Input image}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.24\textwidth}
+        \includegraphics[width=\textwidth]{assets/v2_vis/refseg/refseg1_pred.png}
+        \caption*{A segmentation map image. The area that corresponds to the man in pink t shirt is rendered solid white; the other man is rendered in green.}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.24\textwidth}
+    \captionsetup{font=small}
+        \includegraphics[width=\textwidth]{assets/v2_vis/refseg/refseg3.jpeg}
+        \caption{Input image}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.24\textwidth}
+        \includegraphics[width=\textwidth]{assets/v2_vis/refseg/refseg3_pred.jpg}
+        \caption*{A segmentation map image. The stretching cat is rendered in green, the cat that is cleaning itself is in cyan.}
+    \end{subfigure}
+
+    \begin{subfigure}[t]{0.24\textwidth}
+    \captionsetup{font=small}
+        \includegraphics[width=\textwidth]{assets/v2_vis/refseg/refseg4_in.png}
+        \caption{Input image}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.24\textwidth}
+        \includegraphics[width=\textwidth]{assets/v2_vis/refseg/refseg_4_pred1.png}
+        \caption*{This image shows segmentation masks from the given image. The background is black color. The game control device is represented by a solid yellow.}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.24\textwidth}
+    \captionsetup{font=small}
+        \includegraphics[width=\textwidth]{assets/v2_vis/refseg/refseg5_in.png}
+        \caption{Input image}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.24\textwidth}
+        \includegraphics[width=\textwidth]{assets/v2_vis/refseg/refseg5_out.png}
+        \caption*{This image shows segmentation masks from the given image. The background is black color. The chef's names in both Chinese and English are rendered as cyan color.}
+    \end{subfigure}
+
+    \caption{Vision Banana can understand natural language prompts and reason about them, including but not limited to: (a) description of objects' appearances (``\textit{man in pink t shirt}''); (b) description of actions (``\textit{stretching}'' and ``\textit{cleaning}''); (c) objects that have uncommon usage (\textit{toaster as a game controller}); (d) multilingual text content (\textit{text on the menu in Chinese and English}). This requires strong and comprehensive visual understanding capability.
+    }
+    \label{fig:refseg-demo}
+\end{figure}
+
+We evaluated our model on SA-Co/Gold \citep{sam3} using the $pmF_1$ metric, summarizing results in Tab. \ref{tab-seg-saco}.
+Compared with SAM 3, Vision Banana still lags behind in instance segmentation on SA-Co/Gold, highlighting some challenges in this task. Note that unlike SAM 3, we did not include SA-Co in our model's training data. 
+Under the zero-shot transfer setting,
+Vision Banana surpasses many existing methods, including Gemini 2.5 \citep{gemini25} ($pmF_1=0.461$), APE-D \citep{shen2024_aped} ($pmF_1=0.369$), and OWLv2 \citep{minderer2023gowol} ($pmF_1=0.420$).
+Vision Banana is on par with DINO-X \citep{ren2024dinox} ($pmF_1$ score $0.540$ v.s. $0.552$).
+
+
+
+\paragraph{Referring Expression Segmentation.} 
+
+
+
+
+Unlike traditional fixed-class segmentation, referring expression segmentation is based on free-form text queries. This requires models to comprehend and reason the nuanced natural language expressions, as well as understand complex relationships among objects.
+Vision Banana is a natural fit for this task and establishes a new state-of-the-art. As summarized in Tab. \ref{tab-seg-refcocog} and Tab. \ref{tab-seg-reasonseg}, it achieves a cIoU of $0.738$ on RefCOCOg UMD \citep{refcoco} and an IoU of $0.793$ on ReasonSeg \citep{reasonseg}, outperforming SAM 3 Agent \citep{sam3} and other previous works under the zero-shot transfer setting, including HybridGL \citep{liu2025hybrid}, \cite{kang2025your}, SegZero \citep{liu2025segzero}, and RSVP \citep{lu2025rsvp}. 
+On RefCOCOg, there is still some gap from methods that are trained on the training split, including HyperSeg \citep{wei2024hyperseg} and X-SAM \citep{wang2026xsam}.
+On ReasonSeg, Vision Banana + Gemini 2.5 Pro even beats methods that are not zero-shot, such as X-SAM \citep{wang2026xsam} and LISA \citep{reasonseg}.
+Fig. \ref{fig:refseg-demo} shows qualitative examples of various referring expression segmentation. 
+This success highlights a key advantage of our approach: the multimodal intelligence inherited from generative pre-training allows Vision Banana to reason about ``what'' to segment more effectively than discriminative models.
+
+Interestingly, Vision Banana also demonstrates a similar mastery of referring expressions on semantic and instance segmentation, despite not being explicitly trained to condition these specific tasks on free-form text queries.
+For example, in Fig. \ref{fig:demo-semseg2} (right), the model understands what ``patterns on the wall'' is referring to.
+In Fig. \ref{fig:demo-insseg2_in} (right), the model successfully distinguishes crescent-shaped croissants from other variations of croissants.
+These observations suggest robust cross-task transfers in Vision Banana.
+
+
+
+
+\subsection{3D Understanding from Monocular Images}
+Vision Banana demonstrates a strong ability to infer 3D structures from 2D monocular images. We evaluate this capability on two classical tasks: monocular metric depth estimation and surface normal estimation.
+As summarized in Tab. \ref{tab:overall}, Vision Banana achieves SOTA performance on both tasks, surpassing specialists such as Depth Anything V3 \citep{dav3} and Lotus-2 \citep{lotus2}.
+
+\paragraph{Metric Depth Estimation.}
+The goal of depth estimation is to produce a depth map from a monocular image, where each pixel's value represents the physical metric distance from the camera plane to the observed object~\citep{eigen2014depth}. This is a fundamental computer vision task that benefits a wide range of applications such as robotics, augmented/virtual reality, and autonomous driving. 
+However, depth estimation is inherently ill-posed, as 2D projections inherently discard critical 3D geometric information.
+Furthermore, monocular depth estimation is particularly challenging due to the absence of parallax cues available in multi-view setups, even when camera intrinsic parameters are known.
+
+
+
+In the deep-learning era, the research community has largely framed depth estimation as a dense per-pixel supervised regression problem, employing specialized architectures and domain-specific loss functions. Most recent SOTA methods rely on camera intrinsics during training, inference, or both~\citep{yang2024dav2,bochkovskii2024depthpro,wang2024moge,wang2025moge2,lotus2,he2024lotus,hu2024metric3dv2,depthlm,dav3,piccinelli2025unidepthv2,unik3d}.
+While using intrinsics mitigates the inherent ambiguity of depth estimation, it also necessitates specialized model designs. 
+In contrast, our work is predicated on the hypothesis that the mode-seeking nature of generative modeling naturally resolves training target ambiguities, thereby eliminating the need for such specialized techniques.
+Furthermore, the broad world knowledge acquired during pretraining endows the model with stronger priors on object sizes and distances compared to narrowly targeted models.
+To enable Nano Banana Pro to estimate depth in metric units, we instruct the model to output a carefully constructed false-color visualization of depth values.
+
+\newcommand\lft{\mathopen{}\left}
+\newcommand\rgt{\aftergroup\mathclose\aftergroup{\aftergroup}\right}
+\newcommand{\power}{\lambda}
+
+To visualize depth maps as RGB images, we establish a mapping between unbounded depth values in $[0, \infty)$ and bounded RGB values in $[0, 1]^3$. 
+Because the utility of accurate metric depth for nearby image content is generally higher than that of distant content (e.g.,\ graspable objects matter more for robotics tasks, stereo/monodepth benchmarks usually measure accuracy terms of disparity or relative/log-depth) we ``curve'' metric depth prior to RGB encoding.
+Specifically, this is achieved by first applying the power transform of \citet{barron2025power}  to warp the depth values, and then using those curved distances to produce a false-color visualization. 
+We constrain the power transform to $\power < -1$ and rescale it to map metric distances $d \in [0, \infty)$ to normalized distances in $[0, 1)$:
+\begin{equation}
+  f(d, \power, c) = 1 - \lft( 1 - \sfrac{d}{\power c}  \rgt)^{\power + 1}
+\end{equation}
+In all experiments, we set the shape parameter to $\power = -3$ and the scale parameter to $c = \sfrac{10}{3}$. These curved and normalized distances $f(d, \power, c)$ are then used to interpolate along a piecewise-linear function that follows the edges of the RGB cube, traversing along its edges from black to white, similarly to the first iteration of a 3D Hilbert curve. A visualization of this process is provided in Fig.~\ref{fig:color_tubes_minipage}. 
+
+
+\begin{figure}[htbp]
+  \centering
+  % [c] vertically centers the image with the text. Change to [t] or [b] if needed.
+  % \hfill
+  \begin{minipage}[r]{0.35\textwidth}
+    \includegraphics[width=\linewidth]{./assets/color_tubes.png}
+  \end{minipage}
+  \begin{minipage}[l]{0.5\textwidth}
+  % \hfill
+    \caption{A visualization of our bijection between scalar metric distances $d \geq 0$ and RGB color values in $[0, 1]^3$, which is achieved by curving metric depth with a power transform, and then interpolating along the edges of the color cube according to that curved metric depth. The metric depth values (in meters) corresponding to various RGB colors are overlaid. }
+
+    \label{fig:color_tubes_minipage}
+  \end{minipage}
+\end{figure}
+
+This mapping from normalized distance to RGB color can be inverted by simply projecting the RGB values onto the nearest line segment and then inverting the linear interpolation along the cube's edges. Because both the false-color visualization and the power transform are strictly invertible, their composition forms a bijection between metric depth in $[0, \infty]$ and RGB space in $[0, 1]^3$. During training, we apply this mapping to ground-truth metric depths to generate RGB training targets. At inference, we apply the inverse mapping to decode the model's generated RGB images back into metric depth, enabling direction evaluation on standard depth benchmarks. To enhance the model's robustness across diverse color representations, we augment our training data with alternative color maps, such as \textit{Plasma}, \textit{Inferno}, \textit{Viridis}, and \textit{grayscale}.
+
+
+
+\begin{table}[t]
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{|l|c|c|c|c|c|c|c|}
+
+\hline
+\multicolumn{2}{|c|}{} & \makecell{\textbf{DepthLM-7B} \\ \tiny{\citep{depthlm}}} & \makecell{\textbf{Depth Any. v3}\\ \tiny{\citep{dav3}}} & \makecell{\textbf{Depth Pro}\\ \tiny{\citep{bochkovskii2024depthpro}}} & \makecell{\textbf{UniK3D}\\ \tiny{\citep{unik3d}}} & \makecell{\textbf{MoGe-2}\\ \tiny{\citep{wang2025moge2}}} &  \textbf{\makecell{Vision \\ Banana}} \emojivb \\ \hline
+
+\multirow{2}{*}{\makecell[l]{\textbf{Camera}\\\textbf{Intrinsics}}} & \textbf{Inference} & \checkmark & \checkmark & & & &  \\ \cline{2-8}
+ & \textbf{Training} & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark &  \\ \hline
+
+\textbf{Average} & $\delta_1 \uparrow$ & \textit{partial}* & \textit{partial}* & 0.715 & 0.823 & 0.802 & \textbf{\color{win_green}0.882} \\ \cline{2-8}
+\textbf{Benchmarks} & AbsRel $\downarrow$ & & & & 0.156 & 0.144 & \textbf{\color{win_green}0.116} \\ \hline
+
+\textbf{NYU} & $\delta_1 \uparrow$ & 0.915 & 0.963 & 0.961 & \textbf{\color{win_green}0.965} & 0.961 & 0.948 \\ \cline{2-8}
+{\tiny \citep{nyuv2}} & AbsRel $\downarrow$ & & \textbf{\color{win_green}0.07} & & 0.074 & 0.0733 & 0.081 \\ \hline
+
+\textbf{iBims1} & $\delta_1 \uparrow$ & 0.92 & & 0.913 & 0.919 & 0.830 & \textbf{\color{win_green}0.934} \\ \cline{2-8}
+{\tiny \citep{koch2018evaluation_ibims1}} & AbsRel $\downarrow$ & & & & 0.104 & 0.136 & \textbf{\color{win_green}0.078} \\ \hline
+
+\textbf{ETH3D} & $\delta_1 \uparrow$ & 0.718 & 0.917 & 0.415 & 0.687 & 0.908 & \textbf{\color{win_green}0.935} \\ \cline{2-8}
+{\tiny \citep{eth3d}} & AbsRel $\downarrow$ & & 0.104 & 0.327 & 0.236 & 0.104 & \textbf{\color{win_green}0.103} \\ \hline
+
+\textbf{DIODE-Indoor} & $\delta_1 \uparrow$ & & 0.838 & 0.671 & 0.713 & 0.664 & \textbf{\color{win_green}0.917} \\ \cline{2-8}
+{\tiny \citep{diode_dataset}} & AbsRel $\downarrow$ & & 0.123 & 0.199 & 0.161 & 0.175 & \textbf{\color{win_green}0.108} \\ \hline
+
+\textbf{KITTI} & $\delta_1 \uparrow$ & & \textbf{\color{win_green}0.953} & 0.843$\ddagger$ & 0.812 & 0.629 & 0.915 \\ \cline{2-8}
+{\tiny \citep{Uhrig2017THREEDV_kitti}} & AbsRel $\downarrow$ & & \textbf{\color{win_green}0.086} & 0.121$\ddagger$ & 0.174 & 0.181 & 0.107 \\ \hline
+
+\textbf{nuScenes} & $\delta_1 \uparrow$ & \textit{\color{win_green}0.865}$\dagger$ & & 0.491 & 0.840 & 0.820 & 0.643 \\ \cline{2-8}
+{\tiny \citep{caesar2020nuscenes}} & AbsRel $\downarrow$ & & & 0.287 & \textbf{\color{win_green}0.189} & 0.195 & 0.219 \\ \hline
+
+\end{tabular}
+}
+\raggedright
+\footnotesize{
+* The average $\delta_1$ of DepthLM-7B on the 4 datasets it evaluated on (NYU + iBims1 + ETH3D + nuScenes) is $0.855$; our average $\delta_1$ on the same 4 datasets is $0.865$. The average $\delta_1$ of Depth-Anything V3 on the 4 datasets it evaluated on (NYU + ETH3D + DIODE + KITTI) is $0.918$; our average $\delta_1$ on the same 4 datasets is $0.929$. \\
+$\dagger$ DepthLM is trained on nuScenes so it’s not zero-shot. \\
+$\ddagger$ Numbers reported by Depth-Anything V3 \citep{dav3}. }
+
+\caption{Monocular metric depth estimation under the zero-shot transfer setting. Vision Banana achieves superior results on public datasets without using camera intrinsics in neither training of inference. 
+Metrics marked with $\uparrow$ are better if higher; metrics marked with $\downarrow$ are better if lower.
+}
+% \bigskip
+\label{tab:depth}
+\end{table}
+
+
+Tab. \ref{tab:depth} presents the empirical results of Vision Banana compared to specialist models across six major academic benchmarks. Vision Banana achieves an average $\delta_1$ accuracy of 0.882, outperforming Unik3D~\citep{unik3d} by nearly 6 points, while achieving a 20\% lower absolute relative error (AbsRel) compared to MoGe-2~\citep{wang2025moge2}. 
+Notably, Vision Banana outperforms Depth Anything V3 \citep{dav3} on average across the four datasets (NYU, ETH3D, DIODE, KITTI) on which it was evaluated ($0.929$ v.s. $0.918$), demonstrating robust performance in both near-field and distant scenes.
+Our model is trained entirely on synthetic depth data created from simulation engines --- we use zero real-world depth data, and exclude training data from any of the depth datasets we evaluate on.
+Note that this result is achieved without relying on camera parameters (neither intrinsics nor extrinsics) during \emph{both} training or inference. 
+By leveraging the immense geometric priors embedded in its foundation model, Vision Banana infers absolute scale solely from visual cues and object relationships, enabling zero-shot generalization to any arbitrary input image.
+
+
+
+\begin{figure}[!p]
+    \centering
+    % The @{} removes padding at the edges, and @{\hspace{2pt}} adds a tiny 2pt gap between columns.
+    \begin{tabular}{@{} c @{\hspace{2pt}} c @{\hspace{2pt}} c @{\hspace{2pt}} c @{}}
+        
+        % Sample 1
+        \includegraphics[width=0.24\textwidth]{assets/depth_demo/depth_3_0.png} &
+        \includegraphics[width=0.24\textwidth]{assets/depth_demo/depth_3_1.png} &
+        \includegraphics[width=0.24\textwidth]{assets/depth_demo/depth_3_2.png} &
+        \includegraphics[width=0.24\textwidth]{assets/depth_demo/depth_3_3.png} \\[2pt]
+        
+        % Sample 2
+        \includegraphics[width=0.24\textwidth]{assets/depth_demo/depth_162_0.png} &
+        \includegraphics[width=0.24\textwidth]{assets/depth_demo/depth_162_1.png} &
+        \includegraphics[width=0.24\textwidth]{assets/depth_demo/depth_162_2.png} &
+        \includegraphics[width=0.24\textwidth]{assets/depth_demo/depth_162_3.png} \\[2pt]
+        
+        % Sample 3
+        \includegraphics[width=0.24\textwidth]{assets/depth_demo/depth_eth3d_47_0.jpg} &
+        \includegraphics[width=0.24\textwidth]{assets/depth_demo/depth_eth3d_47_1.jpg} &
+        \includegraphics[width=0.24\textwidth]{assets/depth_demo/depth_eth3d_47_2.png} &
+        \includegraphics[width=0.24\textwidth]{assets/depth_demo/depth_eth3d_47_3.png} \\[2pt]
+        
+        % Sample 4
+        \includegraphics[width=0.24\textwidth]{assets/depth_demo/depth_eth3d_205_0.jpeg} &
+        \includegraphics[width=0.24\textwidth]{assets/depth_demo/depth_eth3d_205_1.png} &
+        \includegraphics[width=0.24\textwidth]{assets/depth_demo/depth_eth3d_205_2.png} &
+        \includegraphics[width=0.24\textwidth]{assets/depth_demo/depth_eth3d_205_3.png} \\[2pt]
+        
+        % Sample 5
+        \includegraphics[width=0.24\textwidth]{assets/depth_demo/depth_15_0.png} &
+        \includegraphics[width=0.24\textwidth]{assets/depth_demo/depth_15_1.png} &
+        \includegraphics[width=0.24\textwidth]{assets/depth_demo/depth_15_2.png} &
+        \includegraphics[width=0.24\textwidth]{assets/depth_demo/depth_15_3.jpg} \\
+        \small Input image & \small Generated depth image & \small Vis. view 1 & \small Vis. view 2
+    \end{tabular}
+    \caption{
+    Demonstration of Vision Banana's metric depth estimation capabilities. 
+    The two columns to the left are the input images and the depth visualization image generated by Vision Banana.
+    The depth images are then decoded back to metric depth values. Combining them with the camera intrinsics, we can reconstruct the 3D scene accurately. The two columns on the right are random views of the reconstructed scenes.
+    Note that camera intrinsics are not needed in predicting the depth itself.
+    Samples taken from NYU v2 \citep{nyuv2} and ETH 3D \citep{eth3d}.
+    }
+    \label{fig:depth-demo1}
+\end{figure}
+
+\begin{figure}[!t]
+    \centering
+    \begin{subfigure}{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{assets/depth_demo_real/depth_in.jpg}
+        \caption{Photo taken at Kinkaku-Ji}
+    \end{subfigure}
+    \begin{subfigure}{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{assets/depth_demo_real/depth_out.png}
+        \caption{Vision Banana estimated depth}
+    \end{subfigure}
+    \begin{subfigure}{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{assets/depth_demo_real/depth_map.png}
+        \caption{Measurement from Google Maps}
+    \end{subfigure}
+
+    \caption{Vision Banana depth estimation in the wild. (a) Author of this paper takes a picture near Kinkaku-Ji with a consumer cell-phone. (b) Vision Banana generates a depth estimation image. The depth value at the position marked by a green star is decoded to be $13.71$ meters. (c) Author then measures the actual distance using Google Map, which turns out to be 12.87 meters. The AbsRel error at this point is around $0.065$.}
+    \label{fig:depth-kinkakuji}
+\end{figure}
+
+
+Qualitative inspections further validate the model's capabilities. As illustrated in Fig. ~\ref{fig:depth-demo1}, Vision Banana generates highly precise depth maps that preserve crisp geometric details, even in cluttered environments like classrooms. 
+When these 2D predictions are unprojected into 3D point clouds, they exhibit global consistency across diverse scenes, maintaining accurate planar surfaces and correct geometry. 
+In addition to common academic benchmarks, we also conducted a ``vibe test'' using a casual smartphone photograph, as shown in Fig. \ref{fig:depth-kinkakuji}. Crossed validated by depth measured on Google Maps, Vision Banana successfully produced an accurate depth estimation on this photo captured by a consumer device unseen during training.
+
+
+
+\paragraph{Surface Normal Estimation.}
+
+Surface normal estimation represents another critical vision task. Surface normals, which are unit vectors $(x, y, z)$ with values ranging from $-1.0$ to $1.0$, serve as a critical proxy for local geometry and scene structures. 
+Unlike the complex color mapping required for metric depth, the visualization of surface normals is intrinsically aligned with the RGB color space, allowing straightforward integration into our model. 
+
+% \newpage
+
+We specifically utilize a camera-space normal formulation using the standard right-handed coordinate system (+x right, +y up, +z pointing out of the image plane). In this representation, the directional vector components map directly to RGB channels:
+
+\begin{itemize}
+    \item Facing Left $(-1, 0, 0)$: Encoded as  Pinkish Red.
+    \item Facing Up $(0, 1, 0)$: Encoded as Light Green.
+    \item Facing the Camera $(0, 0, 1)$: Encoded as Light Blue/Purple.
+\end{itemize}
+
+
+Table~\ref{tab:surface_normal} compares Vision Banana against SOTA specialist methods on four public benchmarks. When averaged across the three indoor datasets, Vision Banana achieves the lowest mean and median angular errors. It also demonstrates competitive accuracy on outdoor scenes.
+
+
+\begin{table}[!t]
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{l cc cc cc cc cc}
+\toprule
+\multirow{3}{*}{Methods} & \multicolumn{2}{c}{Indoor} & \multicolumn{6}{c}{Indoor} & \multicolumn{2}{c}{Outdoor} \\
+\cmidrule(lr){2-3} \cmidrule(lr){4-9} \cmidrule(lr){10-11}
+ & \multicolumn{2}{c}{Average} & \multicolumn{2}{c}{\makecell{NYUv2 \\ {\scriptsize \citep{nyuv2}}}} & \multicolumn{2}{c}{\makecell{DIODE-indoor \\ {\scriptsize \citep{diode_dataset}}}} & \multicolumn{2}{c}{\makecell{ScanNet \\ {\scriptsize \citep{dai2017scannet}}}} & \multicolumn{2}{c}{\makecell{VKitti \\ {\scriptsize \citep{cabon2020virtualkitty}}}} \\
+\cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7} \cmidrule(lr){8-9} \cmidrule(lr){10-11}
+ & mean $\downarrow$ & median $\downarrow$ & mean $\downarrow$ & median $\downarrow$ & mean $\downarrow$ & median $\downarrow$ & mean $\downarrow$ & median $\downarrow$ & mean $\downarrow$ & median $\downarrow$ \\
+\midrule
+Marigold {\scriptsize \citep{marigold}} & 19.606 & 11.828 & 20.864 & 11.134 & 16.671 & 12.084 & 21.284 & 12.268 & -- & -- \\
+DSINE {\scriptsize \citep{DSINE}} & 17.017 & 10.190 & \textbf{\color{win_green}16.4} & \textbf{\color{win_green}8.4} & 18.453 & 13.871 & 16.2 & 8.3 & 28.9 & 9.9 \\
+StableNormal {\scriptsize \citep{ye2024stablenormal}} & 17.168 & 10.028 & 19.707 & 10.527 & \textbf{\color{win_green}13.701} & \textbf{\color{win_green}9.46} & 18.098 & 10.097 & -- & -- \\
+Lotus-2-Normal {\scriptsize \citep{lotus2}} & 16.558 & -- & 16.9 & N/A & 18.575 & N/A & \textbf{\color{win_green}14.2} & N/A & \textbf{\color{win_green}28.894} & \textbf{\color{win_green}9.677} \\ \hline
+ \textbf{Vision Banana} \emojivb & \textbf{\color{win_green}15.549} & \textbf{\color{win_green}9.300} & 17.778 & 8.876 & 13.818 & 11.556 & 15.052 & \textbf{\color{win_green}7.468} & 29.063 & 10.699 \\
+\bottomrule
+\end{tabular}
+}
+\caption{Surface normal estimation results. Vision Banana achieves the lowest mean and median angle errors on the indoor datasets on average, and is on par with previous SOTA on outdoor scenes.}
+\label{tab:surface_normal}
+\end{table}
+
+
+\begin{figure}[!t]
+    \centering
+    % 3 columns separated by a 2pt gap
+    \begin{tabular}{@{} c @{\hspace{2pt}} c @{\hspace{2pt}} c @{}}
+        
+        % Column headers
+        
+        % Sample 1 (Row 1)
+        \includegraphics[width=0.32\textwidth]{assets/surface_normal/sn_1_in.jpg} &
+        \includegraphics[width=0.32\textwidth]{assets/surface_normal/sn_1_lotus.jpg} &
+        \includegraphics[width=0.32\textwidth]{assets/surface_normal/sn_1_gpm.jpg} \\[2pt]
+        
+        % Sample 2 (Row 2)
+        \includegraphics[width=0.32\textwidth]{assets/surface_normal/sn_2_in.jpg} &
+        \includegraphics[width=0.32\textwidth]{assets/surface_normal/sn_2_lotus.jpg} &
+        \includegraphics[width=0.32\textwidth]{assets/surface_normal/sn_2_gpm.jpg} \\[2pt]
+      
+        % Sample 4 (Row 4)
+        \includegraphics[width=0.32\textwidth]{assets/surface_normal/sn_4_in.jpg} &
+        \includegraphics[width=0.32\textwidth]{assets/surface_normal/sn_4_lotus.png} &
+        \includegraphics[width=0.32\textwidth]{assets/surface_normal/sn_4_gpm.png} \\
+        \small Input image & \small Lotus-2-Normal & \small \textbf{Vision Banana} \emojivb
+    \end{tabular}
+    \caption{
+    Comparison with SOTA surface normal estimation method Lotus-2~\citep{lotus2}.
+    Results of Lotus-2 are obtained using its Hugging-Face demo: \url{https://huggingface.co/spaces/haodongli/Lotus-2_Normal}.
+    Vision Banana can produce surface normal map with much higher visual quality and better fine-grained details.
+    Zoom-in for the details.
+    }
+    \label{fig:surface_normal_demo}
+\end{figure}
+
+Figure~\ref{fig:surface_normal_demo} visually compares the output from Vision Banana with the leading external method, Lotus-2 \citep{lotus2}. Vision Banana consistently produces surface normal maps with significantly higher fidelity and finer granular details. 
+The bottom row of Fig. \ref{fig:surface_normal_demo} highlights a sample from Virtual KITTI 2 \citep{cabon2020virtualkitty}. Although Vision Banana registers slightly higher quantitative errors on this benchmark compared to Lotus-2, it yields demonstrably superior visual quality. Also note that Lotus-2 is trained on Virtual KITTI 2 for surface normal estimation, whereas Vision Banana maintains a strict zero-shot transfer protocol, having never seen the training sets of any evaluated benchmarks.
+
+\section{Discussion}
+
+\paragraph{Image Generators are Generalist Vision Learners.}
+Generative pretraining \citep{radford2018improving_gpt1,radford2019language_gpt2,brown2020language_gpt3} has fundamentally transformed language understanding and reasoning. 
+In the meantime, recent observations of emergent vision capabilities \citep{wiedemer2025veo_learner,zuo2025nanobanana_low_level} have ignited speculation that computer vision is approaching a similar paradigm shift.
+By instruction-tuning a leading image generator, Nano Banana Pro, into a state-of-the-art visual generation and understanding model, we confirm that \textbf{this shift is already underway}.
+Models pretrained on large-scale image generation naturally acquire robust visual understanding capabilities.
+These generative priors surpass the specialized architectures and dedicated training paradigms traditionally employed by specialist vision models.
+We are witnessing a paradigm shift for computer vision that will be fueled by generative vision pretraining, which we believe paves the way for true \textbf{Foundational Vision Models} and \textbf{Artificial General Intelligence from Vision} (AGI-V).
+
+
+\paragraph{Image Generation as a Universal Interface.}
+As a byproduct of this study, we show that image generation can serve as the universal interface for computer vision, analogous to how text generation acts as the unifying interface for many tasks embedded in natural language, including language understanding, generation, reasoning, math, coding, agentic tasks, etc.. 
+By representing vision task outputs as RGB images, we can use natural language prompts to seamlessly instruct the model. While we are not the first to encode vision outputs as RGB \citep{marigold,zhao2025diception}, we demonstrate that when combined with powerful pretrained visual generators, this simple design is sufficient to outperform modern domain-specific specialist models.
+
+In addition to the unification of vision task outputs as RGB images, generative modeling naturally provides a workaround for the ambiguity in vision tasks where a single input can correspond to several modes of the output distribution. 
+In order to prevent the collapse of the output to a blurry mean, expert discriminative models \citep{sam3,dav3} usually resort to custom architectures and training losses. 
+For example, the Segment Anything models \citep{kirillov2023segment,ravi2024sam2,sam3} return several segmentation masks but only apply the loss to a single one.
+Generative models, however, inherently learn the full data distribution, gracefully managing ambiguity by design.
+By eliminating the need for bespoke architectural designs, this formulation could lead to a truly unified ``omni'' multimodal model.
+
+
+\paragraph{Future Work.}
+While Vision Banana achieves SOTA results on fundamental tasks for 2D semantic understanding and 3D understanding from monocular images, several exciting avenues remain for future exploration. 
+First, scaling the diversity of instruction-tuned tasks may unlock further emergent cross-task generalization, similar to behaviors observed in LLMs \cite{wei2021finetuned_flan}.
+Second, our current evaluation focuses on monocular image inputs.
+In the future, we can extend this framework to process multi-view inputs \citep{wang2025vggt} and video inputs \citep{zhang2025d4rt}.
+Similarly, investigating whether video generators yield even richer, temporally-aware visual representations presents a highly promising research direction.
+Another important next step is exploring the synergistic integration of foundational vision models with large language models to enhance cross-modality reasoning.
+Finally, utilizing image generators like Nano Banana Pro currently incurs a significantly higher computational overhead than running lightweight specialist models.
+Developing acceleration and cost-reduction strategies will be an essential hurdle to overcome for the widespread deployment of generative vision framework.
+
+\section*{Acknowledgment}
+We thank 
+Xi Chen, Fei Xia, 
+Kaushik Shivakumar, Abhishek Sinha, Phillip Lippe, Yilin Gao, Javier Rey, Sanghyun Woo,
+Renshen Wang, Wentao Yuan, Keran Rong, Rundi Wu,
+Manoj Kumar, Manli Shu, Francesco Piccinno, Ishita Dasgupta, 
+Benigno Uria, Miki Rubinstein, Aäron van den Oord, Jon Shlens
+for their helpful discussions, advice, and technical guidance.
+
+
+\bibliography{main}
+
+\newpage
+
+\section*{Appendix - Additional Demonstrations}
+
+
+\begin{figure}[!h]
+    \centering
+    % sample 1
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{assets/T2I/demo_1_dp.jpg}
+        \caption*{\textit{A ghostly ship sailing on a fog-shrouded, moonlit sea.}}
+    \end{subfigure}
+     \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{assets/T2I/demo_1_nbp.jpg}
+        \caption*{ }
+    \end{subfigure}
+
+    % sample 2
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{assets/T2I/demo_2_dp.jpg}
+        \caption*{\textit{A lantern casting dim light in a haunted forest.}}
+    \end{subfigure}
+     \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{assets/T2I/demo_2_nbp.jpg}
+        \caption*{ }
+    \end{subfigure}
+    
+    % sample 3
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{assets/T2I/demo_3_dp.jpg}
+        \caption*{\textit{A yellow taxi waiting outside a modern glass building.}}
+    \end{subfigure}
+     \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{assets/T2I/demo_3_nbp.jpg}
+        \caption*{ }
+    \end{subfigure}
+
+
+    % sample 4
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{assets/T2I/demo_4_vb.jpg}
+        \caption*{\textit{A samurai with a silk sash in a cherry blossom garden.}}
+    \end{subfigure}
+     \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{assets/T2I/demo_4_nbp.jpg}
+        \caption*{ }
+    \end{subfigure}
+    
+    \caption{Comparing Vision Banana (left) and Nano Banana Pro (right) on text-to-image generation. Prompts sampled from GenAI-Bench \citep{li2024genaibench}.
+    Results verify that Vision Banana does not forget its generative features during the instruction-tuning.
+    }
+    \label{fig:t2i-demo}
+\end{figure}
+
+
+\begin{figure}[!t]
+    \centering
+        \begin{tabular}{cccc}
+
+        % legends
+        Original image & Vision Banana \emojivb & Nano Banana Pro \\
+
+        % sample 1
+        \includegraphics[width=0.32\textwidth]{assets/imgedit/sample.1.original.jpg} &
+        \includegraphics[width=0.32\textwidth]{assets/imgedit/sample.1.vb.jpg} &
+        \includegraphics[width=0.32\textwidth]{assets/imgedit/sample.1.nbp.jpg} \\
+        \multicolumn{3}{l}{\textit{Change the grassy hills in the picture to a beach with ocean waves.}}  \\
+
+        % sample 2
+        \includegraphics[width=0.32\textwidth]{assets/imgedit/sample.2.original.jpg} &
+        \includegraphics[width=0.32\textwidth]{assets/imgedit/sample.2.vb.jpg} &
+        \includegraphics[width=0.32\textwidth]{assets/imgedit/sample.2.nbp.jpg} \\
+        \multicolumn{3}{l}{\textit{Remove the plant from the shelf, and resize the picture frame to be larger.}}  \\
+
+        % sample 3
+        \includegraphics[width=0.32\textwidth]{assets/imgedit/sample.3.original.jpg} &
+        \includegraphics[width=0.32\textwidth]{assets/imgedit/sample.3.vb.jpg} &
+        \includegraphics[width=0.32\textwidth]{assets/imgedit/sample.3.nbp.jpg} \\
+        \multicolumn{3}{l}{\textit{Change the vehicle's color to red.}}  \\
+
+        % sample 4
+        \includegraphics[width=0.32\textwidth]{assets/imgedit/sample.4.original.jpg} &
+        \includegraphics[width=0.32\textwidth]{assets/imgedit/sample.4.vb.jpg} &
+        \includegraphics[width=0.32\textwidth]{assets/imgedit/sample.4.nbp.jpg} \\
+        \multicolumn{3}{l}{\makecell[l]{
+        \textit{Change the background of the suit from a blank wall to a luxurious office setting that includes} \\  \textit{a wooden desk and a large window showing a cityscape.}
+        }}  \\
+
+    
+    \end{tabular}
+
+    \caption{Comparing Vision Banana (left) and Nano Banana Pro (right) on image-editing. Prompts sampled from ImgEdit \citep{ye2025imgedit}.
+    }
+    \label{fig:imgedit-demo}
+\end{figure}
+
+
+
+
+
+\end{document}

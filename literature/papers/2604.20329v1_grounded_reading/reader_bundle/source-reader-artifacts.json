@@ -1,0 +1,33 @@
+{
+  "schema_version": "paper-reader-artifacts/1.0",
+  "paper": {
+    "title": "Image Generators are Generalist Vision Learners",
+    "source_mode": "latex-primary"
+  },
+  "report": {
+    "markdown": "report.md"
+  },
+  "traceability_manifest": "traceability_manifest.json",
+  "latex_paragraphs": "latex_paragraphs.json",
+  "research_lens": "research_lens.json",
+  "documents": [
+    {
+      "doc": "main",
+      "label": "main",
+      "pdf": "source/main.pdf",
+      "synctex": "source/main.synctex.gz"
+    }
+  ],
+  "storyboard": {
+    "manifest": "storyboard_manifest.json",
+    "prompts": "storyboard_prompts.md",
+    "images": [
+      "storyboard/S1-unmeasurable-generation.png",
+      "storyboard/S2-invertible-rgb-protocol.png",
+      "storyboard/S3-one-model-many-tasks.png",
+      "storyboard/S4-results-and-boundaries.png",
+      "storyboard/S5-causal-next-step.png"
+    ]
+  },
+  "reader_output": "reader_bundle"
+}

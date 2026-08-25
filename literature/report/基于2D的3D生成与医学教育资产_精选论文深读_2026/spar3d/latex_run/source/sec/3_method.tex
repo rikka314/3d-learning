@@ -1,0 +1,73 @@
+\section{Method}
+\label{sec:method}
+
+\paragraph{\method Overview.}
+Given the input image $I \in \mathbb{R}^{3 \times h \times w}$, our method produces a 3D mesh with PBR materials, including albedo, metallic, roughness and surface normals. The main goal of our work is to develop a model that enjoys the benefits of distribution learning through diffusion models, while not suffering from the low output fidelity and computational inefficiency. To this end, we design a two-stage model that consists of the point sampling stage and the meshing stage (see~\cref{fig:overview}). At the point sampling stage, a point diffusion model learns the conditional distribution of point clouds given the input image. This stage is computationally efficient given the low resolution of the point clouds. The regression-based meshing stage transforms the sampled point cloud into a highly detailed mesh that aligns with the visible surface. The reduced uncertainty with point sampling further facilitates the learning of materials and illumination in an unsupervised manner during the meshing stage. This reduces baked-in lighting artifacts and results in better modeling of specular surfaces. Finally, by using sparse point clouds as the intermediate representation, \method enables human editing in the loop.
+
+\subsection{Point Sampling Stage}
+\paragraph{Overview.}
+The point sampling stage produces a sparse point cloud as the input to the meshing stage. The core of the point sampling stage is a point diffusion model, which generates point clouds $\point_0 \in \mathbb{R}^{n \times 6}$ conditioned on the input image $I$. The six channels include three XYZ channels and three RGB channels. In our work, the resolution of the point cloud $n$ is set to 512.
+
+\paragraph{Point Diffusion Framework.}
+Our diffusion framework is based on DDPM~\cite{ho2020denoising}, which consists of two processes: 1) the forward process which adds noise to the original point cloud, and 2) the backward process where the denoiser learns to remove the noise. At timestep $t \in [0, T]$, the diffusion process combines Gaussian noise $\boldsymbol{\epsilon} \sim \mathcal{N}(\mathbf{0},\mathbf{I})$ with a point cloud $\point_0$ as
+\begin{equation}
+    \point_t = \sqrt{\bar{\alpha_t}} \point_0 + \sqrt{1 - \bar{\alpha_t}} \boldsymbol{\epsilon},
+\end{equation}
+where $\bar{\alpha_t}$ denotes the noise schedule. We use the sigmoid noise schedule proposed in~\cite{chen2023importance}, combined with input scaling and the renormalization trick. The denoiser $\boldsymbol{\epsilon}_\theta (\point_t, t; \condition)$ then learns to recover the noise from $\point_t$ and is supervised by
+\begin{equation}
+    L_{simple}(\theta) = \mathbb{E}_{t,\point_0,\boldsymbol{\epsilon}} \lVert \boldsymbol{\epsilon} - \boldsymbol{\epsilon}_\theta (\point_t, t; \condition) \rVert_2^2.
+\end{equation}
+Here $\condition$ denotes the image condition tokens. During inference, we use the DDIM sampler~\cite{songdenoising} to generate point cloud samples. Samples generated directly often align poorly with the condition, hence we use the classifier-free guidance (CFG)~\cite{ho2022classifier} to improve sampling fidelity. 
+
+\paragraph{Denoiser Design.}
+We use a transformer denoiser similar to Point-E~\cite{nichol2022point}, where the noisy point cloud $\point_t \in \mathbb{R}^{n \times 6}$ is linearly mapped to a set of point tokens $\boldsymbol{x} \in \mathbb{R}^{n \times d}$. We use DINOv2~\cite{oquab2023dinov2} to encode the input image $I$ as conditioning tokens $\condition \in \mathbb{R}^{c \times d}$. The conditions and the point tokens are then concatenated together as input to the transformer, which predicts the added noise on each point. 
+
+\paragraph{Albedo Point clouds.}
+In the meshing stage, we estimate the materials and lighting alongside the geometry. However, this decomposition is inherently ambiguous because there are countless combinations of lighting and albedo that can explain the same input image. It is challenging to learn this highly uncertain decomposition during the regressive meshing stage alone. We therefore reduce the uncertainty at the point sampling stage, by directly generating albedo point clouds with diffusion models. Sampling albedo point clouds as input to the meshing stage drastically reduces the ambiguity of inverse rendering and stabilizes the decomposition learning.
+
+\begin{figure*}[htb]
+\begin{minipage}[t]{0.55\linewidth}
+\centering
+\includegraphics[width=1.0\linewidth]{figures/rendering.pdf}
+\caption{\textbf{Our Differentiable Renderer.} We estimate geometry, albedo, lighting, and normal maps from the triplane and metallic/roughness values from the image. We rasterize and interpolate these values as input to our shader (omitted here for simplicity). Our shader uses the Disney BRDF~\cite{Burley2012} and performs Monte Carlo integration. We further perform visibility testing to improve shadow modeling. Finally, we compare the rendered image with the GT image and minimize the rendering loss.}
+\label{fig:rendering}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.42\linewidth}
+\centering
+\includegraphics[width=\linewidth]{figures/shadow_test.pdf}
+\caption{\textbf{Shadow Modeling.} We perform visibility testing in screen-space by marching along sampled rays. If any point along the ray has a ray depth which is farther away than the depth map, we consider the entire ray as shadowed.}
+\label{fig:shadow_test}
+\end{minipage}
+\vspace{-5mm}
+\end{figure*}
+
+\subsection{Meshing Stage}
+
+\paragraph{Overview.}
+The meshing stage produces a textured mesh from the input image and the point cloud. The backbone of our meshing model is a large triplane transformer, which predicts triplane features from the image and point cloud conditions. We estimate the geometry, texture and lighting of the current object from the triplane, and metallic/roughness from the image features. The geometry and materials are fed into our differentiable renderer during training, so that we can apply rendering loss to supervise our model.
+
+\paragraph{Triplane Transformer.}
+Our triplane transformer consists of three submodules: the point cloud encoder, the image encoder, and the transformer backbone. We use a simple transformer encoder to encode the point cloud as a set of point tokens. Given the low resolution of the point clouds, each point can be directly mapped to a single token. Our image encoder is DINOv2~\cite{oquab2023dinov2}, which produces local image embeddings. Our triplane transformer follows a similar design to PointInfinity~\cite{huang2024pointinfinity} and SF3D~\cite{sf3d2024}, which produces triplanes at high resolution of $384 \times 384$ by using a computationally-detached two-stream design.
+
+\paragraph{Surface Estimation.}
+To estimate the geometry, the triplanes are queried with a shallow MLP to produce density values. Similar to~\cite{sf3d2024,wang2024crm,xu2024instantmesh}, we convert the implicit density field to explicit surface using differentiable Marching Tetrahedron (DMTet)~\cite{shen2021deep}. We additionally use two MLP heads to predict vertex offsets and surface normals together with density. These two attributes reduce the artifacts introduced by the Marching Tetrahedron and lead to locally smoother surfaces.
+
+\paragraph{Material and Illumination Estimation.}
+We perform inverse rendering and jointly estimate materials (albedo, metallic and roughness) and illumination alongside the geometry. The task is highly ill-posed and Neural-PIL~\cite{Boss2021neuralPIL} showed that an illumination prior can reduce the ambiguity. We build our illumination estimator upon the learning-based illumination prior from RENI++~\cite{gardner2023reni++}. RENI++ is originally an unconditional generative model for HDR illumination generation. We learn an encoder to map triplane features into the latent space of RENI++. This allows us to estimate the environment illumination in the input image. The albedo is estimated from triplane similar to geometry, where a shallow MLP predicts the albedo value for each 3D location. For metallic and roughness, we follow SF3D~\cite{sf3d2024} and learn to estimate them with a probabilistic approach via a Beta prior. We find that the CLIP encoder used in SF3D is unstable when the object size changes. We therefore replace their CLIP encoder with AlphaCLIP~\cite{sun2023alphaclip} to alleviate this issue using foreground object masks.
+
+\paragraph{Differentiable Rendering.}
+We implement a differentiable renderer that renders images based on the predicted environment map, PBR materials and geometry surface (see~\cref{fig:rendering}). We use a differentiable mesh rasterizer and add a differentiable shader. Specifically, we leverage the standard simplified Disney PBR model~\cite{Burley2012} in our shader. As we use RENI++ to reconstruct environment maps, we need to explicitly integrate the incoming radiance. Here, we opt to use the Monte Carlo Integration. Given the low sample counts we can computationally afford during training, we rely on Multiple Importance Sampling (MIS) with the balanced heuristic~\cite{VeachPhD} to reduce integration variance. Additionally, to better model the self-occlusion which has been typically ignored in prior works, we implement a visibility test for better shadow modeling. We take inspiration from real-time graphics and model the visibility test as a screen-space method using the depth map from our rasterizer. An overview of this test is shown in Fig.~\ref{fig:shadow_test}. Specifically, we ray-march a short distance (0.25) in 6 steps for all proposed sample directions from MIS, and project the position back to image space. If the current ray depth is farther away than the sampled value from the depth map, then the ray is marked as shadowed. 
+
+\paragraph{Loss Function.}
+Our main loss function is the rendering loss that compares renderings from novel views to the grountruth (GT) images. Specifically, our rendering loss is a linear combination of 1) the L2 distance between the rendered and GT images, 2) the perceptual distance between the rendered and GT images measured by LPIPS~\cite{zhang2018perceptual}, and 3) the L2 distance between the rendered opacity and the GT foreground mask. Apart from the rendering loss, we also follow SF3D and apply the mesh and shading regularization that regularizes the surface smoothness and the inverse rendering respectively. 
+
+\subsection{Interactive Editing}
+A unique advantage of our two-stage design is that it naturally supports interactive editing of unseen regions in our produced mesh. In most circumstances, the visible surface is determined by the input image and remains highly accurate, while the unseen surface is mainly based on the sampled point cloud, which might not align with user intention. In this case, editing the unseen surface of the mesh is feasible by altering the point cloud. Point clouds are perhaps one of the most flexible 3D representation for editing purposes because there are no topology constraints. Given the low resolution of our point clouds, editing the point cloud is fairly efficient and intuitive. Users can easily delete, duplicate, stretch or recolor points in the point cloud. Our efficient meshing model is able to produce the adjusted mesh in 0.3 seconds, which makes this process fairly interactive. 
+
+\subsection{Implementation Details}
+\paragraph{Point Sampling Stage.}
+Our point diffusion model has 16 transformer blocks in total. Each transformer block consists of two Layer Normalization layer, one Multi-Head Attention (MHA) layer and one MLP. We use a feature dimension of 1024 and 16 attention heads in each MHA layer. With many emissive objects in our dataset, albedo can be visually distinct from the input image and hard to learn. Therefore, instead of directly generating albedo point clouds in the point sampling stage, we learn to generate white-lit point clouds as a proxy target. 
+
+\paragraph{Meshing Stage.}
+Our triplane transformer consists of 4 two-stream blocks~\cite{huang2024pointinfinity}. Each two-stream block consists of three self-attentions and two cross-attentions. The main computation is carried out using 3,072 latent tokens, each with a feature dimension of 1024. The MHA includes 16 attention heads. The point cloud encoder is a vanilla transformer with 12 layers and 512 feature dimension, and the image encoder is DINOv2-large. We use a tetrahedra resolution of 160 for DMTet. In our differentiable shader, we follow Hasselgren \etal~\cite{hasselgren2022nvdiffrecmc} and use a detached biased sampling scheme. We sample based on the specular lobe (GGX~\cite{Walter2007}), the 2D piecewise-linear distribution of the environment map luminance and the hemispherical distribution.  Specifically, we include 6 samples from the GGX lobe, 6 samples from the 2D piecewise-linear distribution of the luminance, and 4 samples from the hemispherical distribution. The main body of the shader is implemented in PyTorch, while the screen-space shadowing and the 2D piecewise-linear distribution computation for the environment map are implemented as custom CUDA kernels for efficiency. The training of our meshing stage includes multiple phases, where we increase the rendering resolution and decrease the batch size at later training phases. We use GT point clouds as input when training the meshing model. The curation of our training data follows TripoSR~\cite{TripoSR2024}. 

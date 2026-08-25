@@ -1,0 +1,53 @@
+{
+  "schema_version": "paper-research-lens/1.0",
+  "paper": {
+    "title": "四篇核心论文的复现路线",
+    "source_mode": "mixed-source"
+  },
+  "research_equation": {
+    "one_sentence_thesis": "在医学教育中，2D/text prior 可高效生成候选，但不可见解剖事实必须由 verified geometry + QC 补足。",
+    "valuable_paradigm": "image-to-3D foundation models",
+    "broken_assumption": "视觉保真等于结构正确",
+    "hard_setting": "教育资产的安全发布",
+    "borrowed_tool": "point/latent/PBR/multimodal generation",
+    "unavailable_mechanism": "单一输入中完整解剖真值",
+    "surrogate_mechanism": "canonical geometry、landmark、part graph、topology QC、人工审核",
+    "claim_ids": [
+      "C30.1",
+      "C30.2"
+    ]
+  },
+  "direction_reconstruction": {
+    "starting_dissatisfaction": "通用 3D 模型 demo 不可横向比较，也没有医学发布门。",
+    "almost_worked_transfer": "把通用 image-to-3D 直接用于医学插图。",
+    "blocking_constraint": "隐藏结构与拓扑关系不能由视觉合理性保证。",
+    "replacement_logic": "用统一 benchmark、生成候选与 canonical QC 分层。",
+    "claim_ids": [
+      "C30.1",
+      "C30.2"
+    ]
+  },
+  "challenge_module_map": [],
+  "module_lenses": [],
+  "story_patterns": [
+    {
+      "pattern_name": "verification-first production",
+      "formula": "generate -> align -> topology/ontology QC -> expert review -> publish",
+      "lesson": "把不可验证的生成自由度限制在 presentation 层。",
+      "claim_ids": [
+        "C30.2"
+      ]
+    }
+  ],
+  "boundary_directions": [
+    {
+      "title": "Anatomy-aware 3D generation",
+      "hidden_assumption": "通用 proxy metric 足以保证教学正确",
+      "what_breaks": "结构和关系可能错而仍有高 render similarity",
+      "new_direction": "以 part graph、laterality、landmark 与 uncertainty 训练/评测生成器",
+      "claim_ids": [
+        "C30.2"
+      ]
+    }
+  ]
+}

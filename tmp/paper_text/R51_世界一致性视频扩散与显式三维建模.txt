@@ -1,0 +1,601 @@
+                           This CVPR paper is the Open Access version, provided by the Computer Vision Foundation.
+                                        Except for this watermark, it is identical to the accepted version;
+                                  the final published version of the proceedings is available on IEEE Xplore.
+
+
+
+
+                 World-consistent Video Diffusion with Explicit 3D Modeling
+
+          Qihang Zhang1,2 * Shuangfei Zhai1 Miguel Angel Bautista Martin1                                 Kevin Miao1
+                            Alexander Toshev1 Josh Susskind1 Jiatao Gu1
+                           1
+                             Apple 2 The Chinese University of Hong Kong
+
+
+
+
+               Figure 1. WVD predicts 6D videos from an image, unifying various 3D tasks with a single diffusion model.
+
+
+                           Abstract                                   age generation with a single pretrained model. Our project
+                                                                      website is at https://zqh0253.github.io/wvd.
+    Recent advancements in diffusion models have set new
+benchmarks in image and video generation, enabling real-
+istic visual synthesis across single- and multi-frame con-            1. Introduction
+texts. However, these models still struggle with efficiently
+and explicitly generating 3D-consistent content. To address           Recent advancements in deep generative models have
+this, we propose World-consistent Video Diffusion (WVD),              brought significant breakthroughs to the field of visual syn-
+a novel framework that incorporates explicit 3D supervision           thesis, with diffusion models [18, 46] emerging as the
+using XYZ images, which encode global 3D coordinates for              state-of-the-art approach for high-quality image genera-
+each image pixel. More specifically, we train a diffusion             tion [9, 37]. These models have demonstrated remarkable
+transformer to learn the joint distribution of RGB and XYZ            success in generating realistic images. By extending the
+frames. This approach supports multi-task adaptability via            input from single-frame image to multiple frames, diffu-
+a flexible inpainting strategy. For example, WVD can esti-            sion models have also been applied to tasks such as video
+mate XYZ frames from ground-truth RGB or generate novel               generation [1, 2, 4, 12, 15, 19, 20, 56] and multi-view im-
+RGB frames using XYZ projections along a specified cam-               age synthesis [11, 21, 26, 27, 42, 54, 62], where consis-
+era trajectory. In doing so, WVD unifies tasks like single-           tency across frames is crucial. In these applications, multi-
+image-to-3D generation, multi-view stereo, and camera-                frame consistency is typically learned in an implicit man-
+controlled video generation. Our approach demonstrates                ner, e.g., through the attention mechanism that captures re-
+competitive performance across multiple benchmarks, pro-              lationships across frames. Despite their success, multi-view
+viding a scalable solution for 3D-consistent video and im-            (video) diffusion models face several limitations: they de-
+                                                                      mand large amounts of data and significant computational
+  * Work done during internship at Apple MLR.                         resources for training, and they lack explicit guarantees for
+
+
+
+                                                                  21685
+3D consistency, often leading to 3D inconsistencies.              for cross-view consistency. Notable approaches like MV-
+    In contrast to these implicit methods, some ap-               Dream [42], ImageDream [54], Zero123++ [26], Consist-
+proaches [5, 13, 30, 32, 61] seek to explicitly model 3D          Net [62], SyncDreamer [27], and ViewDiff [21] adapt text-
+correspondences by embedding 3D inductive biases into             to-image diffusion models [37] to produce synchronized
+the generative pipeline. These methods leverage techniques        multi-view outputs. Video diffusion models [1, 2, 4, 12,
+such as volume rendering [31], which can impose con-              15, 19, 20, 56] learn multi-view consistency from extensive
+straints that ensure 3D consistency in the generated images.      video datasets. Models like CameraCtrl [16], MotionC-
+However, the integration of 3D inductive biases tends to          trl [58], and Camco [60] enhance video diffusion models
+place heavy constraints on both the data and the architec-        by introducing camera-specific conditions, which allow for
+tural design, making it difficult to scale these methods to       controlled synthesis of novel views across different perspec-
+more complex datasets with diverse distributions.                 tives.
+    To address these limitations, we propose a novel frame-       Estimating 3D from Multi-view Images. Estimating
+work for multi-view and video generation that introduces          3D structure from multi-view images remains a foun-
+explicit 3D supervision into diffusion models. Our method         dational challenge in 3D vision. Classical approaches,
+is designed to handle both RGB image generation and               such as COLMAP [40], tackle this problem with a multi-
+3D geometry modeling within a unified framework. A                stage pipeline involving keypoint detection and matching,
+major challenge in this integration arises from the inher-        RANSAC [10], Perspective-n-Point (PnP) solvers [10], and
+ent incompatibility between traditional 3D geometry rep-          a final bundled adjustment step for refinement. While clas-
+resentations and existing image architectures, such as the        sical geometric methods are effective, they require exten-
+2D Transformer-based models commonly used in diffusion            sive engineering and optimization, often making it chal-
+models (e.g., DiT [34]). To resolve this, we propose to use       lenging to achieve accurate solutions, especially with large
+XYZ images to represent 3D geometry, which are compat-            or complex datasets. Modern approaches study end-to-end
+ible with 2D Transformer architectures. Each pixel in an          learning methods that simplify the 3D estimation pipeline
+XYZ image records its corresponding global 3D coordi-             while also learning 3D priors from data. For example,
+nates. Unlike RGB images, which encode complex texture            VGGsfm [53] introduces differentiability at every stage of
+and lighting information, XYZ images are textureless and          the COLMAP pipeline, making the process more adapt-
+only capture geometric information, making them ideal for         able to gradient-based optimization. DUSt3R [55] takes
+providing explicit 3D supervision during training.                this a step further by employing Vision Transformers to
+    Furthermore, because our model learns the joint distri-       regress point clouds directly from unposed image pairs.
+bution of RGB and XYZ images during the training phase,           Mast3R [25] builds on these methods, enhancing perfor-
+it can naturally perform conditional generation during in-        mance by predicting features that increase the accuracy of
+ference using a flexible inpainting strategy [28, 29]. This       keypoint matching, resulting in more reliable 3D recon-
+enables the model to adapt to a wide range of tasks beyond        structions. These recent end-to-end approaches reduce the
+image synthesis, including camera pose estimation, single-        need for complex engineering and iterative processes, offer-
+view and multi-view depth prediction from unposed images,         ing an efficient alternative to traditional multi-view 3D re-
+and camera-conditioned novel view synthesis. This versa-          construction pipelines and paving the way for more robust
+tility allows our model to unify various generative and dis-      and scalable 3D vision applications.
+criminative tasks under a single framework.
+    We refer to our proposed method as WVD. The major             3. World-consistent Video Diffusion (WVD)
+contributions of our work can be summarized as follows:
+                                                                  In this section, we present World-consistent Video Diffu-
+• We propose a novel approach to learn a multi-view diffu-
+                                                                  sion Models (WVD), which leverage diffusion models to
+   sion model with explicit 3D supervision.
+                                                                  jointly model the distribution of RGB and XYZ frames
+• Via a flexible inference strategy, WVD is capable of uni-
+                                                                  across different viewpoints. We begin by introducing foun-
+   fying various tasks within a single framework.
+                                                                  dational concepts of diffusion models and its application in
+• WVD achieves competitive performance over different
+                                                                  modeling 3D content (Sec. 3.1), followed by an in-depth
+   tasks, showcasing the potential to become a world-
+                                                                  discussion of our architectural design (Sec. 3.2).
+   consistent 3D foundation model.
+                                                                  3.1. Preliminaries
+2. Related Work
+                                                                  Diffusion Models. Standard diffusion models [18] oper-
+Multi-view Diffusion Models. The advancement of multi-            ate by iteratively transforming noise into structured data
+view diffusion models represents a significant step in gen-       through a denoising process. More specifically, a data point
+erative modeling, combining the robust generation capabil-        x0 is progressively noised through a forward process, yield-
+ities of diffusion frameworks with the complex requirement        ing a sequence {xt }Tt=1 according to a variance-scheduled
+
+
+
+                                                               21686
+Figure 2. An illustration of WVD pipeline. The left part shows 6D videos formed by RGB and XYZ frames. On the right part, WVD
+iteratively denoises the 6D videos based on a specified RGB frame, which is highlighted with a red box.
+
+
+Gaussian distribution. The diffusion model aims to reverse              However, this approach has two clear challenges: (1) It
+this, parameterized as pθ (xt−1 |xt ), where θ denotes the          lacks explicit 3D guarantees, relying on the model to in-
+model parameters. To reduce the computation cost for high-          fer consistency purely from multi-view images. This of-
+resolution inputs, LDM [37] improves by learning diffusion          ten requires significant computational resources and high-
+in the latent space z = E(x) of a pretrained VAE [24].              quality data, yet it can still suffer from 3D inconsistency
+Diffusion models are typically implemented using a UNet             failures; (2) Furthermore, the dependence on camera ray
+architecture [38]. Recently, however, Diffusion Transform-          inputs poses challenges for scaling to large datasets due
+ers (DiT)[34] have emerged as a promising alternative.              to fundamental ambiguities in existing camera representa-
+Leveraging the self-attention mechanism of Transformers             tions. These representations struggle to handle variations
+to model intricate dependencies, DiT has demonstrated sig-          across datasets, necessitating non-trivial camera normaliza-
+nificant improvements in the fidelity of generated outputs          tion [59], which further complicates the training process.
+and enhanced flexibility. This approach has shown poten-
+tial across modalities, including images [6] and videos [3].        3.2. Approach
+For instance, DiT can process videos by flattening and con-         To tackle the primary challenges faced by traditional multi-
+catenating each frame into a single long sequence, allowing         view diffusion models, we propose World-consistent Video
+it to jointly denoise all frames.                                   Diffusion (WVD), drawing inspiration from advancements
+                                                                    in video diffusion models. Instead of incorporating addi-
+Multi-view Diffusion Models. A common approach for                  tional camera control, our approach explicitly predicts 3D
+diffusion models to learn 3D structure involves modeling            geometry by simultaneously diffusing over RGB frames
+the joint distribution of multi-view images [27, 42] and re-        and their corresponding point clouds. Specifically, the point
+constructing 3D content in a second stage. This reconstruc-         clouds are projected into each frame as XYZ images.
+tion is typically achieved either through optimization [31] or      XYZ Image Representation. Point clouds are a widely
+feed-forward prediction [22]. One can use DiT to process            used representation of 3D geometry. However, their highly
+multi-view inputs similar to video diffusion, where DiT’s           unstructured nature (X ∈ RN ×3 ) poses significant chal-
+attention layers operate across views. This implicitly cap-         lenges for learning with standard DiT architectures. To ad-
+tures 3D consistency, thus ensuring coherent image syn-             dress this, we propose representing a 3D scene using multi-
+thesis across perspectives. To make the diffusion process           ple XYZ images, which provide a structured and learnable
+3D controllable, approaches like CAT3D [11] condition the           format. The transformation from a point cloud to an XYZ
+model on camera ray maps (r) [45] using pθ (xt−1 |xt , r).          image is defined as:
+This condition is crucial as it allows the trained model to
+generate novel views during inference.                                              xXYZ = R(N (X), X, C),                   (1)
+
+
+
+                                                                 21687
+where C = (P, K) represents the camera parameters, in-             Perspective-n-Point (PnP) algorithm to recover the corre-
+cluding the pose (P ) and intrinsic (K) matrices. Here, N is       sponding camera C = (P, K) and depth maps d given the
+a normalization function that centers and rescales the point       predicted XYZ images x̂XYZ . In this paper, we directly per-
+clouds within the range [-1, 1], and R is a rasterizer that        form gradient optimization over re-projection loss:
+maps the normalized 3D point values onto an image plane,                                X
+                                                                                                        XYZ 2
+using the 3D positions and camera transformations. This                            min      ∥x̃XYZ
+                                                                                               u,v − x̂u,v ∥2 ,             (3)
+                                                                                   P,K,d
+representation ensures compatibility with existing architec-                               u,v
+tures while preserving the geometric structure of the scene.                          −1 −1
+    The XYZ image has the same shape as its RGB coun-              where x̃XYZ
+                                                                            u,v = P      K du,v [u, v, 1]T , and u, v are the
+terpart, with each pixel corresponding to a 3D point in the        pixel coordinates. This post-optimization step is efficient
+global coordinate system. By combining XYZ and RGB                 and can be easily parallelized across views. Moreover, the
+images into a unified 6D video representation, the model           optimized depth map d and camera parameters C provide a
+effectively captures a 3D region while maintaining compat-         more accurate and physically consistent estimation x̃XYZ of
+ibility with standard video diffusion architectures. Beyond        the original XYZ image, which can be highly beneficial for
+its simplicity and learnability, representing 3D geometry us-      downstream tasks.
+ing XYZ images offers several additional benefits:
+                                                                   4. WVD as a 3D Foundation Model
+• Explicit Consistency Supervision: XYZ images are
+  texture-free and provide robust pixel alignment across           WVD learns to generate RGB and XYZ frames together by
+  views, unlike RGB images, which are influenced by vari-          modeling the joint probability P (RGB, XYZ), effectively
+  ations in texture and lighting. When two pixels in dif-          capturing their interdependent structures and features. At
+  ferent views share the same value in XYZ images, they            inference time, this joint distribution can be leveraged to es-
+  correspond to the same location in the global 3D coordi-         timate conditional distributions, such as P (XYZ | RGB) or
+  nate system. This property facilitates strong pixel corre-       P (RGB | XYZ). This capability makes WVD a foundation
+  spondence across views, enabling direct 3D supervision           for supporting a wide range of downstream tasks.
+  during the generation of both XYZ and RGB images.
+• Elimination of Camera Control: By encoding 3D ge-                4.1. Single-image to 3D Tasks
+  ometry directly, XYZ images obviate the need for addi-           Given its training methodology, WVD can be directly ap-
+  tional camera information to align multiple views, as re-        plied to various single-image tasks, including monocular
+  quired in existing methods [11, 16]. This approach re-           depth estimation (as described in Eq. (3)), novel view syn-
+  duces camera-related ambiguities, making it practical to         thesis, and 3D reconstruction. Notably, unlike traditional
+  scale up to larger and more complex datasets.                    monocular depth estimation approaches that are typically
+                                                                   supervised to infer depth from single-image inputs, our ap-
+RGB-XYZ Diffusion. Following prior works [11], WVD                 proach estimates depth through a generative process. By
+learns a DiT-like model in the latent space, operating on a        jointly sampling consistent surrounding views from the
+                                     XYZ N
+sequence of 6D video data {xRGB
+                              n , xn }n=1 . Since xn
+                                                        XYZ
+                                                                   learnt data distribution, WVD produces depth predictions
+is pre-normalized, it can be directly processed using pre-         that are more 3D-grounded and consistent with the global
+trained VAEs [37] without requiring additional fine-tuning.        scene geometry.
+To improve computational efficiency, we concatenate the
+RGB and XYZ latents along the channel dimension before             4.2. Multi-view Stereo Tasks
+adding noise:
+                                                                   Since WVD learns the distribution of videos, it can also be
+                                     L×2D                          applied to multi-view tasks with a collection of unposed
+           zn = [E(xRGB     XYZ
+                    n ); E(xn )] ∈ R      ,              (2)
+                                                                   RGB images provided. In this setup, the model predicts
+where L is the sequence length, D is the latent dimen-             only the XYZ images through a diffusion process, follow-
+sion. This design allows us to directly fine-tune pretrained       ing a procedure akin to “in-painting” [43]. At each diffu-
+image or video diffusion models, significantly enhancing           sion step, the model’s RGB predictions are replaced with
+training efficiency. The model can be trained using either         the observed RGB values, ensuring consistency with the
+text- or image-conditioned data, depending on the dataset.         given inputs while generating the missing XYZ compo-
+For instance, as illustrated in Fig. 2, in the case of image-      nents. Consistent with the findings in [14], our early exper-
+conditioned generation, the added noise on the conditional         iments revealed that incorporating additional Langevin cor-
+image is simply removed at each iteration during training.         rection steps [47] significantly enhances the quality and sta-
+                                                                   bility of the in-painting process. With the additional post-
+Post Optimization. As WVD directly predicts the point              optimization steps (Eq. (3)), WVD not only reconstructs
+clouds in the global coordinates, we can easily perform a          3D geometry but also enables consistent multi-view video
+
+
+
+                                                                21688
+Figure 3. Illustration of camera-controlled multi-view generation pipeline. We first use WVD to infer the geometry from the input
+image, and then project it to obtain XYZ images for novel views. Next, we employ an inpainting strategy to sample RGB images.
+
+
+depth estimation. This capability makes it highly valuable             Table 1. Quantitative comparisons for single image to 3D.
+for applications that require accurate 3D scene interpreta-
+tion from diverse viewing angles.                                          Method               FID↓       KPM↑        FC↑
+                                                                           CameraCtrl [16]      12.1        88.6       94.0
+4.3. Controllable Generation Tasks                                         MotionCtrl [58]      12.9        68.6       94.6
+
+WVD also supports controllable video generation by lever-                  WVD                  15.8        95.8       95.4
+                                                                           WVD w/o XYZ          18.3        72.3       95.0
+aging the XYZ information in reverse mode. Similar to
+existing multi-view diffusion models, WVD is trained in
+a camera-agnostic manner, learning the underlying distri-
+                                                                   datasets cover a broad range, from object-centric to scene-
+bution of camera trajectories implicitly without requiring
+                                                                   centric distributions. For RealEstate10K, MVImgNet, and
+explicit conditional guidance. However, at inference time,
+                                                                   CO3D, we use DUSt3R [55] to generate pseudo-ground-
+the model can be adapted to enable video generation with
+                                                                   truth point clouds. ScanNet offers ground-truth depth maps
+camera control through point re-projection. As illustrated
+                                                                   that contain holes, which we fill using NeRF with depth reg-
+in Fig. 3, the pipeline involves the following steps:
+                                                                   ularization [8]. For Habitat, we directly utilize the rendered
+1. Single-image to 3D: We first estimate the points of the         ground-truth point cloud. All images are center-cropped
+   input using standard WVD diffusion inference.                   and resized to 256 × 256 resolution.
+2. Point Re-projection: The synthesized point clouds are
+   projected onto the target camera poses, producing partial       Implementation details. Our Diffusion Transformer has
+   XYZ images with corresponding projection masks, as              2 billion parameters and is implemented with rotary po-
+   described in Eq. (1);                                           sitional embedding [49] and RMSNorm [66]. A detailed
+3. RGB & XYZ In-painting: Finally, WVD regenerates                 model card is available in the Supplementary materials. As
+   the RGB images jointly with the projected XYZ images            for training, we employ a learning rate of 3 × 10−4 using
+   through an in-painting process.                                 the AdamW optimizer, with the momentum parameter set-
+   Unlike the scenario in Sec. 4.2, the projected XYZ im-          ting to β = (0.99, 0.95). We train the model for 1 million
+ages in this case are typically incomplete, requiring the          steps, with an effective batch size of 128. The training takes
+model to in-paint both the RGB and missing XYZ compo-              approximately two weeks over 64 A100 GPUs.
+nents during the diffusion process. In addition, the above
+point-guidance process enables us to maintain the union of
+                                                                   5.2. Main Results
+synthesized points as a “spatial memory,” where new video          Single Image to 3D. Fig. 4 illustrates the synthesized
+frames are guided by the projected points. This approach al-       RGB and XYZ frames conditioned on a single RGB frame.
+lows for the progressive generation of long video sequences        Our method effectively generates multi-view consistent
+while enforcing explicit consistency constraints, ensuring         frames with remarkable detail across a diverse range of vi-
+coherence across frames.                                           sual distributions. Furthermore, we visualize the 3D scenes
+                                                                   by projecting RGB pixels into 3D space using the corre-
+5. Experimental Results                                            sponding coordinates from the XYZ frames. The resulting
+                                                                   3D point cloud exhibits realistic appearance and geometry,
+5.1. Settings
+                                                                   showcasing our ability to create 3D scenes from a single
+Datasets. We train our model WVD on a mix-                         image.
+ture of datasets: RealEstate10K [68], ScanNet [7],                    For quantitative comparison with baselines, we choose
+MVImgNet [65], CO3D [36], and Habitat [39]. These                  the following metrics to measure the quality of synthesized
+
+
+
+                                                               21689
+Figure 4. Synthesized Multi-view RGB and XYZ Images by WVD, and associated reconstructed point clouds. Input images are
+randomly sampled across the validation set.
+
+
+frames: (1) Frechet Inception Distance (FID) [17] measures      the per-frame appearance quality; (2) Key Points Matching
+
+
+
+
+                                                             21690
+                                     NYU-v2                                                         BONN
+
+
+        RGB
+
+
+
+
+         GT
+
+
+
+
+ DUSt3R
+
+
+
+       WVD
+       (ours)
+
+
+Figure 5. Monocular depth estimation on NYU-v2 [44] and BONN [33] benchmarks. We present RGB input images, ground-truth
+                                                                                                      Apple Con dential–Internal Use Only
+depth maps, and the predicted depth maps from DUSt3R (512 resolution) and WVD, respectively.
+  fi
+Figure 6. Camera-controlled video generation. By re-projecting XYZ images and using them as conditions, our method can control the
+camera movements in the synthesized videos, effectively replicating the trajectories of the real videos.
+
+
+(KPM) [57] assesses multi-view consistency by averaging                the number of matching key points identified by a pretrained
+
+
+
+
+                                                                   21691
+Table 2. Monocular depth estimation performance on NYU-                 Table 3. Video depth estimation performance on ScanNet++.
+v2 [44] and BONN [33]. *DUSt3R-512 was trained with higher
+                                                                                                         ScanNet++
+resolution than ours.                                                           Method
+                                                                                                     AbsRel ↓    δ1.03 ↑
+                         NYU-v2 [44]       BONN [33]                            COLMAP [40, 40]        14.6        34.2
+     Methods
+                        Rel ↓ δ1.25 ↑    Rel ↓ δ1.25 ↑
+                                                                                Vis-MVSSNet [67]        8.9        33.5
+     RobustMIX [35]      11.8    90.5     -        -                            MVS2D [63]             27.2         5.3
+     SlowTv [48]         11.6    87.2     -        -
+     DUSt3R-224 [55]     10.3    88.9    11.1     89.1                          DeMon [52]             75.0         0.0
+     DUSt3R-512 [55]∗    6.5     94.1    8.1      93.6                          MVSNet [64]            65.2        28.5
+                                                                                Robust MVD [41]         7.4        38.4
+     WVD                 9.7     90.8     7.0     96.4
+                                                                                DeepV2D [51]            4.4        54.8
+                                                                                DUSt3R-224 [55]         5.9        50.8
+                                                                                DUSt3R-512 [55]∗        4.9        60.2
+matching model [50]. We use the numbers obtained from
+                                                                                WVD                     5.0        57.2
+the ground truth videos as a baseline and report the per-
+centage of each method; (3) Frame Consistency (FC) [23]
+assesses a video based on the similarity of the CLIP image
+features among its frames. We choose CameraCtrl [16] and              We demonstrate this process in Fig. 6, showcasing the
+MotionCtrl [58] as baselines, and show the results in Fig. 4.      ground-truth videos, the corresponding projected XYZ im-
+Our method achieves comparable performance to Camer-               ages, and the videos generated by our method. The synthe-
+aCtrl and MotionCtrl in terms of frame appearance. It con-         sized videos can mimic the camera motion observed in the
+sistently outperforms both baselines in multi-view consis-         real videos, highlighting the effectiveness of our approach
+tency, as measured by KPM and FC, highlighting the ad-             for camera-controlled video synthesis.
+vantages of jointly modeling XYZ and RGB images.
+                                                                   Ablation of jointly predicting XYZ together with RGB
+Monocular depth estimation. As shown above, our                    frames. In Tab. 1, we assess the necessity of learning
+method can generate multi-view RGB and XYZ images                  XYZ frames by training an RGB-only model. Without
+with single RGB frame. By converting the XYZ-encoded               learning the XYZ frames, both image quality and multi-
+point clouds into dense depth maps, we enable monocular            view consistency declines. This demonstrates that jointly
+depth estimation. We evaluated our approach against other          learning the XYZ frames offers explicit 3D supervision,
+zero-shot methods on the NYU-v2 [44] and BONN [33]                 which enhances multi-view synthesis.
+benchmarks for monocular depth estimation. We visualize
+the result in Fig. 5. Although our method is never trained         6. Discussions and Future Work
+over any depth prediction benchmark, our model can make
+precise prediction given monocular image as input. Quanti-         We introduce WVD, a DiT framework that jointly models
+tative comparison with baselines is presented in Tab. 2. On        the distribution of multi-view RGB and XYZ images, en-
+BONN, our method outperforms all baseline models. While            abling direct 3D scene generation without the need for post-
+DUSt3R trained at 512×512 achieves the best performance            processing. Additionally, WVD can be adapted for various
+on NYU-v2, our model, despite being trained at a lower res-        downstream tasks (e.g., monocular depth estimation, cam-
+olution (256 × 256), surpasses all other baseline methods.         era pose estimation) through a flexible inference strategy.
+                                                                      While WVD demonstrates the potential to serve as a 3D
+Video depth estimation. As discussed in Sec. 4.2,
+                                                                   foundation model, the framework itself is not limited by
+our model can estimate the conditional distribution of
+                                                                   modality. Future work could explore incorporating different
+P(XYZ | RGB) using an in-painting strategy. This allows
+                                                                   modalities rather than 3D XYZ images (e.g., optical flow,
+us to adapt our model for estimating 3D geometry based on
+                                                                   splatter images) within our framework to support an even
+a set of unposed RGB images. We can sample point clouds
+                                                                   broader range of tasks.
+from P(XYZ | RGB), and subsequently convert these point
+clouds into dense depth maps through post-optimization, ef-        Limitations. Our model currently has the following
+fectively repurposing our method as a video depth estima-          limitations: (1) We have only trained on static datasets, re-
+tor. We benchmark this capability and present the perfor-          stricting its application to static scenes. Extending this work
+mance in Tab. 3. The results demonstrate that our method           to dynamic 4D datasets and jointly learning motion-related
+performs on par with state-of-the-art approaches..                 representations, such as optical flow, would be a valuable
+                                                                   direction for future research. (2) Our model does not incor-
+Camera-controlled Video Generation. As mentioned in                porate confidence maps, making it challenging to handle
+Sec. 4.3, our model enables camera-controlled video gener-         unbounded or outdoor scenes. Jointly modeling XYZ with
+ation by first estimating 3D geometry from a single image,         confidence could improve performance in such scenarios.
+which is then used to guide novel view generation.
+
+
+
+                                                                21692
+References                                                              [12] Rohit Girdhar, Mannat Singh, Andrew Brown, Quentin Du-
+                                                                             val, Samaneh Azadi, Sai Saketh Rambhatla, Akbar Shah, Xi
+ [1] Omer Bar-Tal, Hila Chefer, Omer Tov, Charles Her-                       Yin, Devi Parikh, and Ishan Misra. Emu video: Factoriz-
+     rmann, Roni Paiss, Shiran Zada, Ariel Ephrat, Junhwa                    ing text-to-video generation by explicit image conditioning.
+     Hur, Guanghui Liu, Amit Raj, et al. Lumiere: A space-                   arXiv preprint arXiv:2311.10709, 2023. 1, 2
+     time diffusion model for video generation. arXiv preprint          [13] Jiatao Gu, Alex Trevithick, Kai-En Lin, Josh Susskind,
+     arXiv:2401.12945, 2024. 1, 2                                            Christian Theobalt, Lingjie Liu, and Ravi Ramamoor-
+ [2] Andreas Blattmann, Tim Dockhorn, Sumith Kulal, Daniel                   thi. Nerfdiff: Single-image view synthesis with nerf-
+     Mendelevitch, Maciej Kilian, Dominik Lorenz, Yam Levi,                  guided distillation from 3d-aware diffusion. arXiv preprint
+     Zion English, Vikram Voleti, Adam Letts, et al. Stable video            arXiv:2302.10109, 2023. 2
+     diffusion: Scaling latent video diffusion models to large          [14] Jiatao Gu, Qingzhe Gao, Shuangfei Zhai, Baoquan Chen,
+     datasets. arXiv preprint arXiv:2311.15127, 2023. 1, 2                   Lingjie Liu, and Josh Susskind. Control3diff: Learning con-
+ [3] Tim Brooks, Bill Peebles, Connor Holmes, Will DePue,                    trollable 3d diffusion models from single-view images. In
+     Yufei Guo, Li Jing, David Schnurr, Joe Taylor, Troy Luh-                2024 International Conference on 3D Vision (3DV), pages
+     man, Eric Luhman, Clarence Ng, Ricky Wang, and Aditya                   685–696. IEEE, 2024. 4
+     Ramesh. Video generation models as world simulators.               [15] Yuwei Guo, Ceyuan Yang, Anyi Rao, Yaohui Wang, Yu
+     2024. 3                                                                 Qiao, Dahua Lin, and Bo Dai. Animatediff: Animate your
+ [4] Tim Brooks, Bill Peebles, Connor Holmes, Will DePue,                    personalized text-to-image diffusion models without specific
+     Yufei Guo, Li Jing, David Schnurr, Joe Taylor, Troy Luh-                tuning. arXiv preprint arXiv:2307.04725, 2023. 1, 2
+     man, Eric Luhman, et al. Video generation models as world          [16] Hao He, Yinghao Xu, Yuwei Guo, Gordon Wetzstein, Bo
+     simulators. 2024. URL https://openai. com/research/video-               Dai, Hongsheng Li, and Ceyuan Yang. Cameractrl: Enabling
+     generation-models-as-world-simulators, 3, 2024. 1, 2                    camera control for text-to-video generation. arXiv preprint
+ [5] Eric R Chan, Connor Z Lin, Matthew A Chan, Koki Nagano,                 arXiv:2404.02101, 2024. 2, 4, 5, 8
+     Boxiao Pan, Shalini De Mello, Orazio Gallo, Leonidas               [17] Martin Heusel, Hubert Ramsauer, Thomas Unterthiner,
+     Guibas, Jonathan Tremblay, Sameh Khamis, et al. Efficient               Bernhard Nessler, and Sepp Hochreiter. Gans trained by a
+     geometry-aware 3d generative adversarial networks. arXiv                two time-scale update rule converge to a local nash equilib-
+     preprint arXiv:2112.07945, 2021. 2                                      rium. Advances in neural information processing systems,
+ [6] Junsong Chen, Jincheng Yu, Chongjian Ge, Lewei Yao, Enze                30, 2017. 6
+     Xie, Yue Wu, Zhongdao Wang, James Kwok, Ping Luo,                  [18] Jonathan Ho, Ajay Jain, and Pieter Abbeel. Denoising diffu-
+     Huchuan Lu, et al. Pixart-alpha: Fast training of diffusion             sion probabilistic models. Advances in Neural Information
+     transformer for photorealistic text-to-image synthesis. arXiv           Processing Systems, 33:6840–6851, 2020. 1, 2
+     preprint arXiv:2310.00426, 2023. 3                                 [19] Jonathan Ho, William Chan, Chitwan Saharia, Jay Whang,
+                                                                             Ruiqi Gao, Alexey Gritsenko, Diederik P Kingma, Ben
+ [7] Angela Dai, Angel X. Chang, Manolis Savva, Maciej Hal-
+                                                                             Poole, Mohammad Norouzi, David J Fleet, et al. Imagen
+     ber, Thomas Funkhouser, and Matthias Nießner. Scannet:
+                                                                             video: High definition video generation with diffusion mod-
+     Richly-annotated 3d reconstructions of indoor scenes. In
+                                                                             els. arXiv preprint arXiv:2210.02303, 2022. 1, 2
+     Proc. Computer Vision and Pattern Recognition (CVPR),
+                                                                        [20] Jonathan Ho, Tim Salimans, Alexey A Gritsenko, William
+     IEEE, 2017. 5
+                                                                             Chan, Mohammad Norouzi, and David J Fleet. Video diffu-
+ [8] Kangle Deng, Andrew Liu, Jun-Yan Zhu, and Deva Ra-                      sion models. In ICLR Workshop on Deep Generative Models
+     manan. Depth-supervised NeRF: Fewer views and faster                    for Highly Structured Data, 2022. 1, 2
+     training for free. In Proceedings of the IEEE/CVF Confer-
+                                                                        [21] Lukas Höllein, Aljaž Božič, Norman Müller, David Novotny,
+     ence on Computer Vision and Pattern Recognition (CVPR),
+                                                                             Hung-Yu Tseng, Christian Richardt, Michael Zollhöfer, and
+     2022. 5
+                                                                             Matthias Nießner. Viewdiff: 3d-consistent image generation
+ [9] Patrick Esser, Sumith Kulal, Andreas Blattmann, Rahim                   with text-to-image models. In Proceedings of the IEEE/CVF
+     Entezari, Jonas Müller, Harry Saini, Yam Levi, Dominik                 Conference on Computer Vision and Pattern Recognition,
+     Lorenz, Axel Sauer, Frederic Boesel, et al. Scaling recti-              pages 5043–5052, 2024. 1, 2
+     fied flow transformers for high-resolution image synthesis.        [22] Yicong Hong, Kai Zhang, Jiuxiang Gu, Sai Bi, Yang Zhou,
+     In Forty-first International Conference on Machine Learn-               Difan Liu, Feng Liu, Kalyan Sunkavalli, Trung Bui, and Hao
+     ing, 2024. 1                                                            Tan. Lrm: Large reconstruction model for single image to
+[10] Martin A Fischler and Robert C Bolles. Random sample                    3d. arXiv preprint arXiv:2311.04400, 2023. 3
+     consensus: a paradigm for model fitting with applications to       [23] Ziqi Huang, Yinan He, Jiashuo Yu, Fan Zhang, Chenyang Si,
+     image analysis and automated cartography. Communications                Yuming Jiang, Yuanhan Zhang, Tianxing Wu, Qingyang Jin,
+     of the ACM, 24(6):381–395, 1981. 2                                      Nattapol Chanpaisit, et al. Vbench: Comprehensive bench-
+[11] Ruiqi Gao, Aleksander Holynski, Philipp Henzler, Arthur                 mark suite for video generative models. In Proceedings of
+     Brussee, Ricardo Martin-Brualla, Pratul Srinivasan,                     the IEEE/CVF Conference on Computer Vision and Pattern
+     Jonathan T Barron, and Ben Poole. Cat3d: Create anything                Recognition, pages 21807–21818, 2024. 8
+     in 3d with multi-view diffusion models. arXiv preprint             [24] Diederik P Kingma and Max Welling. Auto-encoding varia-
+     arXiv:2405.10314, 2024. 1, 3, 4                                         tional bayes. arXiv preprint arXiv:1312.6114, 2013. 3
+
+
+
+
+                                                                     21693
+[25] Vincent Leroy, Yohann Cabon, and Jerome Revaud. Ground-                  tation. In International Conference on Medical image com-
+     ing image matching in 3d with mast3r, 2024. 2                            puting and computer-assisted intervention, pages 234–241.
+[26] Ruoshi Liu, Rundi Wu, Basile Van Hoorick, Pavel Tok-                     Springer, 2015. 3
+     makov, Sergey Zakharov, and Carl Vondrick. Zero-1-to-3:             [39] Manolis Savva, Abhishek Kadian, Oleksandr Maksymets,
+     Zero-shot one image to 3d object, 2023. 1, 2                             Yili Zhao, Erik Wijmans, Bhavana Jain, Julian Straub, Jia
+[27] Yuan Liu, Cheng Lin, Zijiao Zeng, Xiaoxiao Long, Lingjie                 Liu, Vladlen Koltun, Jitendra Malik, Devi Parikh, and Dhruv
+     Liu, Taku Komura, and Wenping Wang. Syncdreamer: Gen-                    Batra. Habitat: A Platform for Embodied AI Research. In
+     erating multiview-consistent images from a single-view im-               Proceedings of the IEEE/CVF International Conference on
+     age. arXiv preprint arXiv:2309.03453, 2023. 1, 2, 3                      Computer Vision (ICCV), 2019. 5
+[28] Andreas Lugmayr, Martin Danelljan, Andres Romero, Fisher            [40] Johannes Lutz Schönberger, Enliang Zheng, Marc Pollefeys,
+     Yu, Radu Timofte, and Luc Van Gool. Repaint: Inpainting                  and Jan-Michael Frahm. Pixelwise view selection for un-
+     using denoising diffusion probabilistic models. In Proceed-              structured multi-view stereo. In European Conference on
+     ings of the IEEE/CVF Conference on Computer Vision and                   Computer Vision (ECCV), 2016. 2, 8
+     Pattern Recognition, pages 11461–11471, 2022. 2                     [41] Philipp Schröppel, Jan Bechtold, Artemij Amiranashvili, and
+[29] Chenlin Meng, Yutong He, Yang Song, Jiaming Song, Jia-                   Thomas Brox. A benchmark and a baseline for robust multi-
+     jun Wu, Jun-Yan Zhu, and Stefano Ermon. Sdedit: Guided                   view depth estimation. In 2022 International Conference on
+     image synthesis and editing with stochastic differential equa-           3D Vision (3DV), pages 637–645. IEEE, 2022. 8
+     tions. arXiv preprint arXiv:2108.01073, 2021. 2                     [42] Yichun Shi, Peng Wang, Jianglong Ye, Mai Long, Kejie Li,
+                                                                              and Xiao Yang. Mvdream: Multi-view diffusion for 3d gen-
+[30] Quan Meng, Anpei Chen, Haimin Luo, Minye Wu, Hao Su,
+                                                                              eration. arXiv preprint arXiv:2308.16512, 2023. 1, 2, 3
+     Lan Xu, Xuming He, and Jingyi Yu. Gnerf: Gan-based
+     neural radiance field without posed camera. In Proceedings          [43] Meng-Li Shih, Shih-Yang Su, Johannes Kopf, and Jia-
+     of the IEEE/CVF International Conference on Computer Vi-                 Bin Huang. 3D Photography using Context-aware Layered
+     sion, pages 6351–6361, 2021. 2                                           Depth Inpainting. IEEE Conference on Computer Vision and
+                                                                              Pattern Recognition, 2020. 4
+[31] Ben Mildenhall, Pratul P Srinivasan, Matthew Tancik,
+                                                                         [44] Nathan Silberman, Derek Hoiem, Pushmeet Kohli, and Rob
+     Jonathan T Barron, Ravi Ramamoorthi, and Ren Ng. Nerf:
+                                                                              Fergus. Indoor Segmentation and Support Inference from
+     Representing scenes as neural radiance fields for view syn-
+                                                                              RGBD Images. European Conference on Computer Vision,
+     thesis. arXiv preprint arXiv:2003.08934, 2020. 2, 3
+                                                                              pages 746–760, 2012. 7, 8
+[32] Michael Niemeyer and Andreas Geiger. GIRAFFE: Repre-
+                                                                         [45] Vincent Sitzmann, Semon Rezchikov, William T Freeman,
+     senting Scenes as Compositional Generative Neural Feature
+                                                                              Joshua B. Tenenbaum, and Frédo Durand. Light Field
+     Fields. CVPR, pages 11453–11464, 2021. 2
+                                                                              Networks : Neural Scene Representations with Single-
+[33] Emanuele Palazzolo, Jens Behley, Philipp Lottes, Philippe                Evaluation Rendering. arXiv:2106.02634, 2021. 3
+     Giguere, and Cyrill Stachniss. Refusion: 3d reconstruction          [46] Jascha Sohl-Dickstein, Eric Weiss, Niru Maheswaranathan,
+     in dynamic environments for rgb-d cameras exploiting resid-              and Surya Ganguli. Deep unsupervised learning using
+     uals. In 2019 IEEE/RSJ International Conference on Intel-                nonequilibrium thermodynamics. In International Confer-
+     ligent Robots and Systems (IROS), pages 7855–7862. IEEE,                 ence on Machine Learning, pages 2256–2265. PMLR, 2015.
+     2019. 7, 8                                                               1
+[34] William Peebles and Saining Xie. Scalable diffusion models          [47] Yang Song, Jascha Sohl-Dickstein, Diederik P Kingma, Ab-
+     with transformers. In Proceedings of the IEEE/CVF Inter-                 hishek Kumar, Stefano Ermon, and Ben Poole. Score-based
+     national Conference on Computer Vision, pages 4195–4205,                 generative modeling through stochastic differential equa-
+     2023. 2, 3                                                               tions. arXiv preprint arXiv:2011.13456, 2020. 4
+[35] René Ranftl, Katrin Lasinger, David Hafner, Konrad                 [48] Jaime Spencer, Chris Russell, Simon Hadfield, and Richard
+     Schindler, and Vladlen Koltun. Towards robust monocular                  Bowden. Kick back & relax: Learning to reconstruct the
+     depth estimation: Mixing datasets for zero-shot cross-dataset            world by watching slowtv. In Proceedings of the IEEE/CVF
+     transfer. IEEE transactions on pattern analysis and machine              International Conference on Computer Vision, pages 15768–
+     intelligence, 44(3):1623–1637, 2020. 8                                   15779, 2023. 8
+[36] Jeremy Reizenstein, Roman Shapovalov, Philipp Henzler,              [49] Jianlin Su, Murtadha Ahmed, Yu Lu, Shengfeng Pan, Wen
+     Luca Sbordone, Patrick Labatut, and David Novotny. Com-                  Bo, and Yunfeng Liu. Roformer: Enhanced transformer with
+     mon objects in 3d: Large-scale learning and evaluation of                rotary position embedding. Neurocomputing, 568:127063,
+     real-life 3d category reconstruction. In International Con-              2024. 5
+     ference on Computer Vision, 2021. 5                                 [50] Jiaming Sun, Zehong Shen, Yuang Wang, Hujun Bao, and
+[37] Robin Rombach, Andreas Blattmann, Dominik Lorenz,                        Xiaowei Zhou. Loftr: Detector-free local feature matching
+     Patrick Esser, and Björn Ommer. High-resolution image                   with transformers. In Proceedings of the IEEE/CVF con-
+     synthesis with latent diffusion models. In Proceedings of                ference on computer vision and pattern recognition, pages
+     the IEEE/CVF conference on computer vision and pattern                   8922–8931, 2021. 8
+     recognition, pages 10684–10695, 2022. 1, 2, 3, 4                    [51] Zachary Teed and Jia Deng. Deepv2d: Video to depth
+[38] Olaf Ronneberger, Philipp Fischer, and Thomas Brox. U-                   with differentiable structure from motion. arXiv preprint
+     net: Convolutional networks for biomedical image segmen-                 arXiv:1812.04605, 2018. 8
+
+
+
+
+                                                                      21694
+[52] Benjamin Ummenhofer, Huizhong Zhou, Jonas Uhrig, Niko-            [64] Yao Yao, Zixin Luo, Shiwei Li, Tian Fang, and Long Quan.
+     laus Mayer, Eddy Ilg, Alexey Dosovitskiy, and Thomas                   Mvsnet: Depth inference for unstructured multi-view stereo.
+     Brox. Demon: Depth and motion network for learning                     In Proceedings of the European conference on computer vi-
+     monocular stereo. In Proceedings of the IEEE conference on             sion (ECCV), pages 767–783, 2018. 8
+     computer vision and pattern recognition, pages 5038–5047,         [65] Xianggang Yu, Mutian Xu, Yidan Zhang, Haolin Liu,
+     2017. 8                                                                Chongjie Ye, Yushuang Wu, Zizheng Yan, Chenming Zhu,
+[53] Jianyuan Wang, Nikita Karaev, Christian Rupprecht, and                 Zhangyang Xiong, Tianyou Liang, et al. Mvimgnet: A
+     David Novotny. Vggsfm: Visual geometry grounded deep                   large-scale dataset of multi-view images. In Proceedings of
+     structure from motion. In Proceedings of the IEEE/CVF                  the IEEE/CVF conference on computer vision and pattern
+     Conference on Computer Vision and Pattern Recognition,                 recognition, pages 9150–9161, 2023. 5
+     pages 21686–21697, 2024. 2                                        [66] Biao Zhang and Rico Sennrich. Root mean square layer nor-
+[54] Peng Wang and Yichun Shi. Imagedream: Image-prompt                     malization. Advances in Neural Information Processing Sys-
+     multi-view diffusion for 3d generation. arXiv preprint                 tems, 32, 2019. 5
+     arXiv:2312.02201, 2023. 1, 2                                      [67] Jingyang Zhang, Shiwei Li, Zixin Luo, Tian Fang, and Yao
+[55] Shuzhe Wang, Vincent Leroy, Yohann Cabon, Boris                        Yao. Vis-mvsnet: Visibility-aware multi-view stereo net-
+     Chidlovskii, and Jerome Revaud. Dust3r: Geometric 3d vi-               work. International Journal of Computer Vision, 131(1):
+     sion made easy. In Proceedings of the IEEE/CVF Conference              199–214, 2023. 8
+     on Computer Vision and Pattern Recognition, pages 20697–          [68] Tinghui Zhou, Richard Tucker, John Flynn, Graham Fyffe,
+     20709, 2024. 2, 5, 8                                                   and Noah Snavely. Stereo magnification: Learning view syn-
+[56] Yaohui Wang, Xinyuan Chen, Xin Ma, Shangchen Zhou,                     thesis using multiplane images. In SIGGRAPH, 2018. 5
+     Ziqi Huang, Yi Wang, Ceyuan Yang, Yinan He, Jiashuo
+     Yu, Peiqing Yang, et al. Lavie: High-quality video gener-
+     ation with cascaded latent diffusion models. arXiv preprint
+     arXiv:2309.15103, 2023. 1, 2
+[57] Yuqi Wang, Jiawei He, Lue Fan, Hongxin Li, Yuntao Chen,
+     and Zhaoxiang Zhang. Driving into the future: Multiview
+     visual forecasting and planning with world model for au-
+     tonomous driving. In Proceedings of the IEEE/CVF Con-
+     ference on Computer Vision and Pattern Recognition, pages
+     14749–14759, 2024. 7
+[58] Zhouxia Wang, Ziyang Yuan, Xintao Wang, Yaowei Li,
+     Tianshui Chen, Menghan Xia, Ping Luo, and Ying Shan.
+     Motionctrl: A unified and flexible motion controller for
+     video generation. In ACM SIGGRAPH 2024 Conference Pa-
+     pers, pages 1–11, 2024. 2, 5, 8
+[59] Daniel Watson, Saurabh Saxena, Lala Li, Andrea Tagliasac-
+     chi, and David J Fleet. Controlling space and time with dif-
+     fusion models. arXiv preprint arXiv:2407.07860, 2024. 3
+[60] Dejia Xu, Weili Nie, Chao Liu, Sifei Liu, Jan Kautz,
+     Zhangyang Wang, and Arash Vahdat. Camco: Camera-
+     controllable 3d-consistent image-to-video generation. arXiv
+     preprint arXiv:2406.02509, 2024. 2
+[61] Yinghao Xu, Sida Peng, Ceyuan Yang, Yujun Shen, and
+     Bolei Zhou. 3d-aware image synthesis via learning struc-
+     tural and textural representations. In Proceedings of the
+     IEEE/CVF conference on computer vision and pattern
+     recognition, pages 18430–18439, 2022. 2
+[62] Jiayu Yang, Ziang Cheng, Yunfei Duan, Pan Ji, and Hong-
+     dong Li. Consistnet: Enforcing 3d consistency for multi-
+     view images diffusion. In Proceedings of the IEEE/CVF
+     Conference on Computer Vision and Pattern Recognition,
+     pages 7079–7088, 2024. 1, 2
+[63] Zhenpei Yang, Zhile Ren, Qi Shan, and Qixing Huang.
+     Mvs2d: Efficient multi-view stereo via attention-driven 2d
+     convolutions. In Proceedings of the IEEE/CVF conference
+     on computer vision and pattern recognition, pages 8574–
+     8584, 2022. 8
+
+
+
+
+                                                                    21695
+

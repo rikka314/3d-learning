@@ -1,0 +1,51 @@
+\clearpage
+\setcounter{page}{1}
+\appendix
+
+\twocolumn[{%
+\renewcommand\twocolumn[1][]{#1}%
+\begin{center}
+    \centering
+    \captionsetup{type=figure}
+    \includegraphics[width=1.0\textwidth]{figures/supp-qualidecomp.pdf}
+    \captionof{figure}{\textbf{Decomposition and Relighting Results.} We show decomposed albedo and relighting results of \method in comparison with SF3D. The albedo estimated by \method has less baked-in lighting compared with SF3D and results in better relighting outcomes.}
+    \label{fig:supp-decomp}
+    \includegraphics[width=1.0\textwidth]{figures/supp-qualiwild.pdf}
+    \captionof{figure}{\textbf{Additional In-the-wild Results.} We show additional results of \method on in-the-wild images. The reconstructed meshes achieve high fidelity and exhibit great surface details.}
+    \vspace{3mm}
+    \label{fig:supp-wild}
+\end{center}%
+}]
+
+This appendix is structured as follows: in~\cref{sec:limitation} we discuss the limitations of our approach; in~\cref{sec:illustration} we provide two additional illustrations of our architecture; in~\cref{sec:decomposition} we show decomposition and relighting results of our model in comparison with SF3D~\cite{sf3d2024}; in~\cref{sec:wild} we present additional in-the-wild results.
+
+\section{Limitations}
+\label{sec:limitation}
+The main limitations of \method are twofold. First, the point clouds generated during the point sampling stage occasionally exhibit artifacts, such as small surface spikes or detached parts. While these imperfections can typically be remedied through \method's editing capabilities with minimal effort (see Fig. 7 in the main paper), exploring more principled solutions (e.g. improving the denoiser design or diffusion samplers) could further enhance the utility and robustness of our method.
+
+Second, although \method learns material decomposition during training, the accuracy of these decompositions can sometimes be suboptimal. This limitation is primarily due to the inherent ambiguity of inverse rendering from a single image, especially when learned in an unsupervised manner. Unsupervised decomposition learning is useful given the scarcity of 3D assets containing high-quality Physically Based Rendering (PBR) materials and is scalable to real-world multi-view datasets. However, investigating semi-supervised learning techniques may offer a pathway to more plausible material estimations in future work.
+
+\section{Additional Illustrations of our Architecture}
+We show additional illustrations of our point cloud denoiser and our meshing model in~\cref{fig:supp-denoiser} and~\cref{fig:supp-meshing}. We hope these illustrations facilitate a better understanding of our architecture.
+\label{sec:illustration}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.48\textwidth]{figures/supp-denoiser.pdf}
+\caption{\textbf{Point Cloud Denoiser Architecture.} We illustrate the architecture of our point cloud denoiser. The point cloud denoiser takes the noisy point cloud and the image as input, and produces a denoised point cloud. The image and the noisy point cloud are encoded as latent vectors and concatenated together. The concatenated latent vectors are processed by a set of transformer blocks and decoded as the denoised point cloud.}
+\label{fig:supp-denoiser}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.48\textwidth]{figures/supp-meshing.pdf}
+\caption{\textbf{Meshing Model Architecture.} We illustrate the architecture of our meshing model, which takes the point cloud and the image as input, and produces a textured mesh and an environment map as output. Specifically, the meshing model first encodes the image and the point cloud as latent vectors. The learnable triplane tokens are then processed by the triplane transformer conditioned on the latent vectors. We query the triplane with MLPs to obtain albedo, density, vertex deformation and surface normal, which are converted to a textured mesh using DMTet. The triplane also produces an environment map using the illumination prior from RENI++. The metallic and roughness values are estimated from the image directly and are omitted here for simplicity.}
+\label{fig:supp-meshing}
+\end{figure}
+
+\section{Decomposition Results}
+\label{sec:decomposition}
+We show decomposition and relighting results of \method in comparison with SF3D, which is a full regressive method. As shown in~\cref{fig:supp-decomp}, our estimated albedo often has less baked-in lighting artifacts compared with SF3D, which improves the quality of relighting under different illumination conditions. % However, as discussed in the limitations, our decomposition is still inaccurate sometimes and can be further improved.
+
+\section{Additional In-the-wild Results}
+\label{sec:wild}                      
+We present additional reconstruction results on in-the-wild images. In~\cref{fig:supp-wild}, we show the reconstructions of \method on images from 3D-Arena (Ebert, 2024). On this data source, \method also achieves high reconstruction quality. This further validates the strong generalization ability of \method.

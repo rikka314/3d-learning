@@ -1,0 +1,50 @@
+{
+  "schema_version": "paper-traceability/1.0",
+  "paper": {
+    "title": "基于2D的3D生成与医学教育资产：四篇核心论文精读",
+    "source_mode": "pdf-primary",
+    "report_path": "report.md"
+  },
+  "claims": [
+    {
+      "claim_id": "C30.1",
+      "section_id": "30",
+      "section_title": "路线总比较",
+      "claim_text": "四篇不是同一赛道的“谁更强”：SPAR3D 是低门槛可编辑 mesh 基线，Hunyuan3D 2.1 是 PBR production 候选，TIGON 检验 image+text 的条件增益，TRELLIS.2 给出复杂拓扑/PBR 上界。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "project route synthesis",
+      "evidence": [
+        {
+          "evidence_id": "E-C30.1-a",
+          "doc": "route",
+          "paragraph_id": "pdf::route::p1",
+          "quote": "路线报告把四个模型分别列为首个复现、主生产候选、研究主候选和高端上界。",
+          "relation": "direct",
+          "locator_snippets": [
+            "立即复现：3 个主项目"
+          ]
+        }
+      ]
+    },
+    {
+      "claim_id": "C30.2",
+      "section_id": "30",
+      "section_title": "路线总比较",
+      "claim_text": "对医学教育，所有模型只能生成候选草模或 presentation；可发布几何必须来自 verified canonical anatomy/scan-derived segmentation，并经 landmark、part graph、topology 与专家审核。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "medical safety boundary",
+      "evidence": [
+        {
+          "evidence_id": "E-C30.2-a",
+          "doc": "route",
+          "paragraph_id": "pdf::route::p5",
+          "quote": "原路线报告给出 verified geometry + generative presentation 与 QC/审核门。",
+          "relation": "direct",
+          "locator_snippets": [
+            "可信 canonical anatomy mesh"
+          ]
+        }
+      ]
+    }
+  ]
+}

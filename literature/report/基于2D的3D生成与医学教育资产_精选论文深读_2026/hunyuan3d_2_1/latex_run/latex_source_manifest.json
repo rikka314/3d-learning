@@ -1,0 +1,31 @@
+{
+  "schema_version": "paper-latex-source-prep/1.0",
+  "source": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\source.tar.gz",
+  "source_kind": "tar",
+  "source_dir": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source",
+  "tex_files": [
+    "neurips_2025.tex"
+  ],
+  "compiled": true,
+  "compile_results": [
+    {
+      "tex": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\neurips_2025.tex",
+      "success": false,
+      "pdf": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\neurips_2025.pdf",
+      "synctex": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\neurips_2025.synctex.gz",
+      "logs": [
+        "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\neurips_2025.compile1.log"
+      ]
+    }
+  ],
+  "latex_paragraphs": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\latex_paragraphs.json",
+  "reader_artifacts": "",
+  "documents": [
+    {
+      "doc": "neurips_2025",
+      "label": "neurips_2025",
+      "pdf": "source/neurips_2025.pdf",
+      "synctex": "source/neurips_2025.synctex.gz"
+    }
+  ]
+}

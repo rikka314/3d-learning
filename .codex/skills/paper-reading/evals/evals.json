@@ -1,0 +1,134 @@
+{
+  "skill_name": "paper-reading",
+  "version": "1.1.0",
+  "evals": [
+    {
+      "id": "trigger-01",
+      "prompt": "我上传了一篇 CVPR 论文，先快速判断讲了什么、实验是否可靠、值不值得精读。",
+      "should_trigger": true,
+      "mode": "quick-screen",
+      "expected_behavior": "Read the concrete paper, inspect its principal evidence, and return a reading-priority judgment.",
+      "files": ["paper.pdf"]
+    },
+    {
+      "id": "trigger-02",
+      "prompt": "帮我梳理这篇论文作者真正的核心想法和完整处理流程，不要逐段翻译。",
+      "should_trigger": true,
+      "mode": "standard-interpretation",
+      "expected_behavior": "Reconstruct the problem, bottleneck, design action, end-to-end flow, evidence, and limitations.",
+      "files": ["paper.pdf"]
+    },
+    {
+      "id": "trigger-03",
+      "prompt": "请细讲论文 Figure 3 里的 cross-modal routing，每个输入输出分别是什么？",
+      "should_trigger": true,
+      "mode": "focused-deep-read",
+      "expected_behavior": "Inspect the requested figure and enough surrounding method context to explain it accurately.",
+      "files": ["paper.pdf"]
+    },
+    {
+      "id": "trigger-04",
+      "prompt": "Explain Equation 7 in arXiv:2604.01234 and connect every symbol to the training objective.",
+      "should_trigger": true,
+      "mode": "focused-deep-read",
+      "expected_behavior": "Locate the named paper and equation, then explain symbols, operations, intuition, and role.",
+      "files": []
+    },
+    {
+      "id": "trigger-05",
+      "prompt": "基于论文和作者官方 GitHub，整理一份可复现清单，指出论文与配置文件是否一致。",
+      "should_trigger": true,
+      "mode": "method-and-reproduction",
+      "expected_behavior": "Use the paper as primary evidence and the official repository as supporting implementation evidence.",
+      "files": ["paper.pdf"]
+    },
+    {
+      "id": "trigger-06",
+      "prompt": "我要在组会上讲这篇 paper，帮我整理成老师能直接听懂的讲解逻辑，并保留必要公式。",
+      "should_trigger": true,
+      "mode": "presentation-interpretation",
+      "expected_behavior": "Produce a teachable narrative grounded in the paper's figures, formulas, and experiments.",
+      "files": ["paper.pdf"]
+    },
+    {
+      "id": "trigger-07",
+      "prompt": "比较我上传的两篇多模态遥感分类论文，重点看融合机制、实验公平性和哪篇更值得精读。",
+      "should_trigger": true,
+      "mode": "direct-comparison",
+      "expected_behavior": "Apply a common evidence frame and flag non-comparable settings before ranking reading value.",
+      "files": ["paper-a.pdf", "paper-b.pdf"]
+    },
+    {
+      "id": "trigger-08",
+      "prompt": "把上次为这篇论文生成的 paper-reading HTML 修正一下，公式回退失效，正文分析不要改变。",
+      "should_trigger": true,
+      "mode": "html-extension",
+      "expected_behavior": "Use the existing paper-reading content and load only the HTML extension references needed for repair.",
+      "files": ["paper-reading.html", "paper.pdf"]
+    },
+    {
+      "id": "no-trigger-01",
+      "prompt": "帮我找近三年多模态遥感分类方向的所有高水平论文。",
+      "should_trigger": false,
+      "mode": "literature-discovery",
+      "expected_behavior": "Route to literature search or research discovery rather than this skill.",
+      "files": []
+    },
+    {
+      "id": "no-trigger-02",
+      "prompt": "逐条核验这个 Excel 里 200 篇论文的 DOI 和 URL 是否真实可访问。",
+      "should_trigger": false,
+      "mode": "batch-verification",
+      "expected_behavior": "Route to batch citation and URL verification.",
+      "files": ["papers.xlsx"]
+    },
+    {
+      "id": "no-trigger-03",
+      "prompt": "把这篇英文论文全文逐句翻译成中文。",
+      "should_trigger": false,
+      "mode": "full-translation",
+      "expected_behavior": "Route to translation; this skill must not replace full translation with interpretation.",
+      "files": ["paper.pdf"]
+    },
+    {
+      "id": "no-trigger-04",
+      "prompt": "帮我写一篇多模态遥感分类的 Related Work，引用至少 30 篇论文。",
+      "should_trigger": false,
+      "mode": "academic-writing",
+      "expected_behavior": "Route to literature research and academic writing.",
+      "files": []
+    },
+    {
+      "id": "no-trigger-05",
+      "prompt": "全面 review 这个 GitHub 仓库的架构、bug 和 CI。",
+      "should_trigger": false,
+      "mode": "repository-review",
+      "expected_behavior": "Route to repository or code-review tooling unless the repository is explicitly tied to an identified paper-reading task.",
+      "files": []
+    },
+    {
+      "id": "no-trigger-06",
+      "prompt": "做一个黑白风格的学术论文阅读网页，内容先用占位符。",
+      "should_trigger": false,
+      "mode": "general-html-development",
+      "expected_behavior": "Route to webpage or frontend generation because no concrete paper-reading task is anchored.",
+      "files": []
+    },
+    {
+      "id": "no-trigger-07",
+      "prompt": "帮我下载 Cognition-inspired multimodal attention fusion 这篇论文的 PDF。",
+      "should_trigger": false,
+      "mode": "paper-acquisition",
+      "expected_behavior": "Route to paper lookup or download; activate paper-reading only after the user asks to interpret the identified paper.",
+      "files": []
+    },
+    {
+      "id": "no-trigger-08",
+      "prompt": "请以审稿人身份写一份正式 peer review，包含 accept/reject 建议。",
+      "should_trigger": false,
+      "mode": "formal-peer-review",
+      "expected_behavior": "Route to a peer-review workflow; this skill's A-D judgment is only reading priority.",
+      "files": ["manuscript.pdf"]
+    }
+  ]
+}

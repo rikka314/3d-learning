@@ -1,0 +1,2023 @@
+                                                   3DGen-Bench: Comprehensive Benchmark Suite for 3D
+                                                                  Generative Models
+
+                                            Yuhan Zhang1, 3∗ Mengchen Zhang2, 3∗ Tong Wu4†    Tengfei Wang3
+                                                      Gordon Wetzstein4 Dahua Lin5   Ziwei Liu6†
+                                            1
+                                                Fudan University 2 Zhejiang University 3 Shanghai Artificial Intelligence Laboratory
+                                                    4
+                                                      Stanford University 5 The Chinese University of Hong Kong
+                                                                    6
+                                                                      S-Lab, Nanyang Technological University .
+arXiv:2503.21745v3 [cs.CV] 27 Jul 2025
+
+
+
+
+                                                     ∗
+                                                       These authors contributed equally to this work. † Corresponding author.
+
+
+
+
+                                                                                             Abstract
+                                                3D generation is experiencing rapid advancements, while the development of 3D evaluation has not
+                                                kept pace. How to keep automatic evaluation equitably aligned with human perception has become a
+                                                well-recognized challenge. Recent advances in the field of language and image generation have explored
+                                                human preferences and showcased respectable fitting ability. However, the 3D domain still lacks such
+                                                a comprehensive preference dataset over generative models. To mitigate this absence, we develop
+                                                3DGen-Arena, an integrated platform in a battle manner. Then, we carefully design diverse text
+                                                and image prompts and leverage the arena platform to gather human preferences from both public
+                                                users and expert annotators, resulting in a large-scale multi-dimension human preference dataset
+                                                3DGen-Bench. Using this dataset, we further train a CLIP-based scoring model, 3DGen-Score, and
+                                                a MLLM-based automatic evaluator, 3DGen-Eval. These two models innovatively unify the quality
+                                                evaluation of text-to-3D and image-to-3D generation, and jointly form our automated evaluation
+                                                system with their respective strengths. Extensive experiments demonstrate the efficacy of our scoring
+                                                model in predicting human preferences, exhibiting a superior correlation with human ranks compared
+                                                to existing metrics. We believe that our 3DGen-Bench dataset and automated evaluation system will
+                                                foster a more equitable evaluation in the field of 3D generation, further promoting the development
+                                                of 3D generative models and their downstream applications.
+
+                                                Keywords: 3D Evaluation, 3D Generation, Human Preference, Leaderboard
+
+
+
+
+                                         1 Introduction                                               facilitated an explosion of 3D generative mod-
+                                                                                                      els (R. Chen, Chen, Jiao, & Jia, 2023; Y. Chen
+                                         3D content generation has emerged as a pivotal               et al., 2024; Z. Chen, Wang, & Liu, 2023; Cheng,
+                                         research area with diverse applications across vir-          Lee, Tuyakov, Schwing, & Gui, 2023; Di et al.,
+                                         tual reality, video games, films, and robotics. In           2024; Gao* et al., 2024; Gupta, Xiong, Nie, Jones,
+                                         recent years, the field has undergone a trans-               & Oğuz, 2023; F. Hong et al., 2024; Jun & Nichol,
+                                         formative revolution fueled by the extraordinary             2023; Kong et al., 2024; W. Li, Chen, Chen, &
+                                         generative capabilities of diffusion models and the          Tan, 2023; Lin et al., 2023; F. Liu, Wu, Wei,
+                                         availability of large-scale 3D datasets. This has            Rao, & Duan, 2023; M. Liu et al., 2023; M. Liu,
+                                                                                                      Xu, et al., 2024; R. Liu et al., 2023; Y. Liu et
+
+
+                                                                                                  1
+                 al S
+                     cene          Large Prompt Set                             Human Preference                               Human Evaluation
+                ti
+     i-obj.s Spa
+
+                                                 4 difficulty scenarios     3DGen-Arena                                                      Leaderboard
+                     Image
+
+
+                                    Single o
+                                                 6 basic subjects                                                                              Text-to-3D
+  ult
+
+
+
+
+                                            bj                                                                                                    MVDream
+               M               ec
+                                 t
+
+                     Vehicle A                   270+ distinct categories                                                                         …
+               od
+                                                                                Left       Tie         Right
+                               ni
+    Fo
+
+
+
+
+                                                 500+ text prompts                                                                             Image-to-3D
+                                 ma
+                                   l Plant O
+
+
+
+
+                     Text                                                   Multi-dim Criteria                                                   Wonder3D
+                                                 500+ image prompts                                                                              …
+    or
+
+
+
+
+                                                                                    ometry Plausibility
+                                            ut
+  do
+
+
+
+
+                            do
+                                                                               1) Ge metr y-Texture C
+               Iu             or                                                                                           Texture Quality
+                                                                                                           2
+                                                                               4) Ge
+                                                                                    o                  oher ) Geo
+                                                                                                           enc
+                            Manifold 3D Assets                              3DGen-Bench                                    Automatic Evaluation
+
+
+
+
+                                                                                                               metry
+                                                                                                                e
+                                                                                De 5) P
+                                                                                  tail
+                                                                                      s
+                                                                                        rompt-Asset Alignment          ➢ CLIP-based 3DGen-Score Model
+                                                                                          3) Texture Quality
+                                                                                                                       ➢ MMLM-based 3DGen-Eval Model
+                                                                            Large-Scale Annotations
+                                                                                                                         Model A
+                     9 text-to-3D models
+                                                                              ➢ 58k+ battle pairs                        Prompt                    Win score
+                     13 image-to-3D models                                                                               Model B
+                                                                              ➢ 68k+ preference votes
+                     11,220 generated 3D assets                                                                         High human preference alignment
+                                                                              ➢ 56k+ score annotations
+
+Fig. 1 Overview of 3DGen-Bench, which is the first comprehensive human preference dataset for 3D models. For
+efficient data collection, we build the 3DGen-Arena platform in a pairwise battle manner. Based on the annotated data,
+we perform a comprehensive evaluation for state-of-the-art 3D generative models, and propose two scoring model, 3DGen-
+Score and 3DGen-Eval models, regarded as automated 3D evaluators that align well with human judgments.
+
+
+al., 2023; Long et al., 2023; Ma et al., 2023;                                                    et al., 2023) attempted to establish a more suit-
+Melas-Kyriazi et al., 2024; Metzer, Richardson,                                                   able benchmark by manually curating a prompt
+Patashnik, Giryes, & Cohen-Or, 2023; Nichol, Jun,                                                 set designed for text-to-3D generation. However,
+Dhariwal, Mishkin, & Chen, 2022; Poole, Jain,                                                     its metrics for the Quality Assessment dimen-
+Barron, & Mildenhall, 2022; Qian et al., 2024; Raj                                                sion still rely on the original CLIP (Radford
+et al., 2023; R. Shi et al., 2023; Y. Shi et al.,                                                 et al., 2021), leaving its inherent limitations
+2023; J. Sun et al., 2023; Tang et al., 2024; Tang,                                               unaddressed. Meanwhile, using BLIP (J. Li, Li,
+Ren, Zhou, Liu, & Zeng, 2023; Tang, Wang, et al.,                                                 Xiong, & Hoi, 2022) as the caption model intro-
+2023; Voleti et al., 2024; H. Wang, Du, Li, Yeh,                                                  duces unnecessary errors in the Alignment Assess-
+& Shakhnarovich, 2023; Z. Wang, Lu, et al., 2024;                                                 ment dimension. GPTEval3D (T. Wu et al.,
+Z. Wang, Wang, Hancke, Liu, & Lau, 2024; T. Wu,                                                   2024) explored the potential of prompting GPT-
+Wang, et al., 2023; Y. Xu et al., 2024; C. Zheng                                                  4V(ision), a powerful multimodal large language
+& Vedaldi, 2023; Zhu & Zhuang, 2023; Zou et al.,                                                  model, as a versatile and human-aligned 3D eval-
+2023) that can craft high-fidelity 3D assets from                                                 uator. While it demonstrated notable robustness,
+specific textual or visual prompts.                                                               the closed-source and black-box nature of GPT-
+    However, the advancement in 3D evaluation                                                     4V raises concerns about potential biases, which
+techniques has not kept pace with the increase                                                    remain challenging to interpret.
+of 3D generative models. While CLIP similar-                                                          Existing metrics for 3D assessment lack
+ity (Hessel, Holtzman, Forbes, Bras, & Choi, 2022;                                                grounding in real-world human preference data, a
+Radford et al., 2021) has been widely adopted                                                     principle well-established in 2D image generation
+for measuring text-image alignment, its applica-                                                  benchmarks. Numerous works in image evalua-
+tion in 3D often proves inadequate and inaccurate.                                                tion (Kirstain et al., 2023; Ku et al., 2023; Schuh-
+This is primarily due to the lack of 3D-specific                                                  mann et al., 2022; X. Wu et al., 2023; J. Xu, Liu,
+prior knowledge and its inability to accommo-                                                     et al., 2024) have developed metrics that closely
+date the versatile evaluation requirements of 3D                                                  align with human preferences. In contrast, a simi-
+assets.User-Study provides more reliable assess-                                                  lar, transparent, user-focused metric for 3D assets
+ments, but the absence of a standardized prompt                                                   is still absent. This highlights the pressing need
+set makes fair comparisons across different works
+challenging. Recognizing this, T 3 Bench (Y. He
+
+
+
+                                                                                             2
+for a large-scale dataset that captures human pref-       Specifically, the model takes a prompt along with
+erences for 3D generation, a crucial step toward          four-view normal and RGB renderings from two
+aligning 3D assessments with human judgment.              models as input and returns a win-rate tuple
+    In this paper, we propose the first compre-           for five dimensions. Furthermore, leveraging the
+hensive benchmark that incorporates large-scale           success of Multi-modal Large Language Mod-
+human preferences and uniforms the evaluation             els(MLLMs), we fine-tune LLaVA H. Liu, Li,
+of text-to-3D and image-to-3D generation, named           Wu, and Lee (2024) to evaluate 3D models in a
+3DGen-Bench . Our main contributions can be               Question&Answer(QA) style, termed as 3DGen-
+summarized in three aspects: 1) Comprehen-                Eval , which is encouraged to provide explanations
+sive model zoo for 3D generation. To build                to enhance credibility.
+this dataset, we carefully curate over 1,000 text             We have carried out comparative experiments
+and image prompts across various categories, cov-         on test data, evaluating our models against com-
+ering single-object, multi-object, and micro-scene,       monly used metrics such as CLIP-Score Hessel
+which is approximately tenfold the number of              et al. (2022), Aesthetic score Schuhmann et al.
+prompts designed in previous works Y. He et al.           (2022), GPTEval3D T. Wu et al. (2024), and oth-
+(2023); T. Wu et al. (2024). With the proposed            ers. Experimental results demonstrate that our
+prompt set, we evaluate 19 representative open-           proposed models exhibit strong alignment with
+sourced generative models, including 9 for text-to-       human references, comprehensively outperform-
+3D and 13 for image-to-3D, yielding over 10,000           ing all other metrics in both pairwise alignment
+3D assets and more than 58,000 battle pairs.              and ranking correlation. Meanwhile, each model
+2) Large-scale multi-criteria human pref-                 offers distinct advantages. 3DGen-Score excels
+erence collection. To gather extensive human              in human alignment, efficiency, and scalability,
+feedback, we build a voting platform open to com-         while 3DGen-Eval offers superior interpretability
+munity, dubbed as 3DGen-Arena, which adopt                and robustness, matching or surpassing GPT-4V
+the anonymous pairwise battle manner, enabling            without additional costs. Furthermore, we also
+users to express their preferences between pairs of       experimentally validate the potential of our scor-
+3D generative models. Considering the complexity          ing model in optimizing the quality of generated
+of 3D contents, we identified five key dimensions         models served as a loss function or reward model.
+for assessment T. Wu et al. (2024): Geometry              We believe that our work will play a significant
+Plausibility, Geometry Details, Texture Quality,          role in advancing 3D evaluation, paving the way
+Geometry-Texture Coherency, and Prompt-Asset              for high-quality 3D generation.
+Alignment. In practice, we collect feedback from
+two user groups: the general public and special-          2 Related Work
+ized experts. Although votes from public users
+are valuable for their volume, they may intro-            2.1 3D Generative Models.
+duce noises that can affect subsequent tasks.
+To mitigate this, we also engage experts whose            Conditional 3D generation creates 3D models
+annotations offer a more reliable data source for         from text or image prompts. Empowered by
+human preferences. In addition to the pairwise            advances in text-to-image diffusion models (Rom-
+comparisons from 3DGen-Arena, we also ask our             bach, Blattmann, Lorenz, Esser, & Ommer, 2022;
+experts to assign absolute scores for each 3D             Saharia et al., 2022), optimization-based meth-
+model, which is more suitable for large-scale eval-       ods (R. Chen et al., 2023; Y. Chen et al., 2024;
+uation. 3) Human-aligned automatic scoring                W. Li et al., 2023; Lin et al., 2023; F. Liu et al.,
+models. The collected human preference dataset            2023; Ma et al., 2023; Metzer et al., 2023; Poole
+enables the training of a scoring model. Inspired         et al., 2022; Qian et al., 2024; Y. Shi et al., 2023;
+by Kirstain et al. (2023); Ouyang et al. (2022), we       Tang, Wang, et al., 2023; H. Wang et al., 2023;
+finetune a pre-trained CLIP model Radford et al.          Zhu & Zhuang, 2023) have applied Score Distil-
+(2021) on our proposed dataset in a Reward Mod-           lation Sampling (SDS) (Poole et al., 2022) for
+eling(RM) style, named 3DGen-Score , which is             conditional 3D generation. (Z. Wang, Lu, et al.,
+designed to predict the human preference between          2024) further presented Variational Score Distil-
+two 3D models generated from the same prompt.             lation (VSD), which optimized the distribution of
+
+
+                                                      3
+Table 1 Comparison between 3DGen-Bench dataset and others. Our dataset is the first to incorporate both
+text and image prompts, as well as the first to implement absolute value scoring annotations, showcasing a substantial
+advantage in model scale. Note that dimension ”public” is for annotations only, and symbol ”ℵ” represents ”partly public
+avaliable” as 3DRewardDB (Ye et al., 2024) only release partial annotations of 1000 prompts.
+
+                               Condition                                                           Annotation
+   Dataset                                     Prompt       Dim         Model    Assert
+                             text   image                                                   pair     score    public
+   T 3 Bench                  ✓        -          300          2           6        -        -         -        -
+   GPTEval3D                  ✓        -          110          5          13      1,430     234        -        -
+   3DRewardDB                 ✓        -         2,530         4           5        -      25.3k       -        ℵ
+   3DGen-Bench(Ours)          ✓        ✓         1,020         5          22     11,220    13.8k     11.2k      ✓
+
+
+3D scenes instead. Some works (Raj et al., 2023;                   worlds and given conditions. For text-conditioned
+J. Sun et al., 2023; Z. Wang, Wang, et al., 2024)                  generative tasks, CLIP (Radford et al., 2021) has
+employ a second-stage DreamBooth-like model                        been widely used to assess text-to-3D alignment.
+fine-tuning for enhanced texture modeling. Recent                  For image-conditioned generative tasks, multi-
+works (Z. Chen et al., 2023; Di et al., 2024; Tang,                view datasets such as GSO (Downs et al., 2022)
+Ren, et al., 2023) have incorporated SDS with 3D                   and RTMV (Tremblay et al., 2022) are usually
+Gaussian Splatting (Kerbl, Kopanas, Leimkühler,                   used to evaluate single-view reconstruction qual-
+& Drettakis, 2023). In the meantime, feed-forward                  ity. However, these metrics are constrained by
+diffusion models (Cheng et al., 2023; Gupta et                     the challenge of acquiring a comprehensive ref-
+al., 2023; F. Hong et al., 2024; Jun & Nichol,                     erence set. User studies are adopted by many
+2023; Nichol et al., 2022; T. Wang et al., 2023)                   works (Lin et al., 2023; Y. Shi et al., 2023;
+also show respectable performance with fast infer-                 Voleti et al., 2024; Z. Wang, Lu, et al., 2024;
+ence. Transformer-based regression models (Z. He                   Y. Xu et al., 2024) but are costly and difficult
+& Wang, 2023; Y. Hong et al., 2023; J. Li et al.,                  to scale. Recent efforts have focused on auto-
+2023) train a regression model to predict triplanes                mated text-to-3D evaluation. T 3 Bench (Y. He et
+directly from images. Another line of work (Gao*                   al., 2023) introduced two automatic metrics based
+et al., 2024; Kong et al., 2024; M. Liu et al., 2023;              on multi-view images, but they rely on a hand-
+M. Liu, Xu, et al., 2024; R. Liu et al., 2023; Y. Liu              designed regional convolution mechanism, raising
+et al., 2023; Long et al., 2023; R. Shi et al., 2023;              concerns about their credibility and validity. Wu
+Voleti et al., 2024; C. Zheng & Vedaldi, 2023)                     et al. (T. Wu et al., 2024) proposed leveraging
+fine-tunes image or video diffusion models to gen-                 GPT-4V’s visual question-answering capability
+erate novel views for stronger 3D guidance. Some                   to evaluate 3D models, but this approach may
+works (Melas-Kyriazi et al., 2024; Tang et al.,                    introduce uninterpretable biases in answer selec-
+2024; Y. Xu et al., 2024; Zou et al., 2023) use 3D                 tion. Our framework stands out by incorporating
+Gaussian Splatting (Kerbl et al., 2023) for multi-                 human preference data into a comprehensive five-
+view reconstruction. With rapid advancements in                    dimensional evaluation scheme, effectively captur-
+3D generative technologies, the need for an objec-                 ing the subtleties of generated 3D content missed
+tive and comprehensive evaluation system has                       by prior metrics. Leveraging these insights to train
+become increasingly urgent. In this paper, we pro-                 automated evaluators, we enhance alignment with
+pose a comprehensive evaluation framework that                     human preferences. This hybrid approach bridges
+encompasses five distinct dimensions informed by                   the gap between subjective evaluations and auto-
+the collection of human preference data. Building                  mated metrics, providing a more reliable and
+on this foundation, we further train automated                     scalable solution for 3D model assessment.
+evaluators, achieving exceptional performance in
+simulating human judgments.                                        2.3 Human Preference.
+                                                                   Recent advances in language and image generation
+2.2 3D Evaluation Metrics.                                         have placed significant emphasis on human pref-
+Evaluating conditional 3D generative models is                     erence. Learning from human preference not only
+challenging due to the need to understand both 3D                  enables adaptation to complex tasks that may
+
+
+                                                           4
+                                                                                     Vehicle
+                                                                            od                 A
+
+
+
+
+                                                                  Fo
+
+
+
+
+                                                                                               ni
+                                                                                                 ma
+                                                                                                   l Plant O
+                                                                                     Text
+
+
+
+
+                                                                  or
+                                                                do
+
+
+
+
+                                                                                                            ut
+                                                                                            do
+                                                                                In            or
+                                                                               Scene
+                                                                            al
+
+
+
+
+                                                                            i
+                                                                          at
+                                                                   bj.s Sp
+                                                                                     Image
+
+
+
+
+                                                                                                   Single o
+                                                               ti-o
+                                                             ul
+
+
+
+
+                                                                                                           bj
+                                                                          M                    ec
+                                                                                                 t
+
+
+                                                             Fig. 3 Visualization of prompts. Left are two fan dia-
+                                                             grams respectively show the distribution of the 6 basic
+                                                             category subjects and 4 main difficulty scenarios (where
+                                                             the ”implicit count” and ”explicit count” are both grouped
+                                                             into the ”Multi-obj.s”). Right is the visualization of word
+Fig. 2 3D Generative Models. The specific list of gen-       cloud of text prompts.
+erative models we selected for our benchmark.
+                                                             clouds, triplanes, NeRF, and 3D Gaussian mod-
+challenge automatic evaluation but also guides               els. Additionally, we include pioneering works
+models to align with human expectations. Specif-             that leverage multi-view diffusion models for novel
+ically, there are two major downstream scenarios:            sparse reconstruction. Ultimately, our benchmark
+human evaluation for model ranking (Kirstain et              includes 9 text-to-3D generative models (Jun &
+al., 2023; Ku et al., 2023; Lu et al., 2024; mrfak-          Nichol, 2023; Liang et al., 2023; Lin et al., 2023;
+ename et al., n.d.; L. Zheng et al., 2023) and               Metzer et al., 2023; Nichol et al., 2022; Poole et
+human feedback for model tuning (Bai et al.,                 al., 2022; Y. Shi et al., 2023; H. Wang et al., 2023;
+2022; Ethayarajh, Choi, & Swayamdipta, 2022;                 Y. Xu et al., 2024) and 13 image-to-3D genera-
+Köpf et al., 2024; Nakano et al., 2021; Stiennon            tive models (Z. He & Wang, 2023; Jun & Nichol,
+et al., 2020; Taori et al., 2023; Y. Wang et al.,            2023; Kong et al., 2024; R. Liu et al., 2023; Y. Liu
+2022). LMSYS (L. Zheng et al., 2023) introduced              et al., 2023; Long et al., 2023; Nichol et al., 2022;
+a new preference collection method to mitigate               Qian et al., 2024; Tang et al., 2024; Y. Xu et
+individual bias, making it accessible to the public          al., 2024; C. Zheng & Vedaldi, 2023; Zou et al.,
+through an open arena platform. In this paper, we            2023), as shown in Figure 2. The complete list of
+extend human preference learning to the field of             the included models is provided in Appendix B.2.
+3D evaluation by establishing the first 3D arena.            This diverse selection ensures that our benchmark
+Additionally, we integrate the two key application           encompasses a broad spectrum of 3D generative
+aspects: on one hand, we establish a 3D leader-              models, catering to varied research requirements
+board driven by human evaluations; on the other              and offering a comprehensive evaluation platform.
+hand, we develop a reward model for automatic                Model Implementation. We prioritize using
+evaluation and generative model optimization.                the official code of each model when available;
+                                                             otherwise, we rely on Threestudio’s (Guo et
+3 3DGen-Bench Dataset                                        al., 2023) implementation for consistency. For
+                                                             LRM (Y. Hong et al., 2023), we employ the
+3.1 Comprehensive Model Zoo for                              open-sourced implementation OpenLRM (Z. He
+    3D Generation                                            & Wang, 2023). All experiments were conducted
+                                                             using the default hyperparameters specified in
+3.1.1 3D Generative Models Involved                          each code. The entire generation process took
+Model Selection. To ensure comprehensive                     place over 4 weeks, utilizing 8 NVIDIA A100-
+benchmark coverage, we collect a variety of 3D               SXM4-80GB GPUs.
+generative models, including both optimization-              Render Implementation.For each 3D model,
+based and feed-forward approaches, and encom-                we attempt to obtain surrounding videos in three
+passing various representations such as point                formats: RGB, normal, and geomerty(texture-free
+                                                             geometry). As the 3D models are generated in
+
+
+
+                                                         5
+PLY, OBJ or GLB formats, for models that can              final image set includes 47 multi-object compo-
+directly generate RGB and normal renderings, we           sitions featuring more than six objects, 49 com-
+capture these directly. Otherwise, we uniformly           positions with a modest number of 2-6 objects,
+convert it into mesh representation, and then             61 instances of spatial relational compositions, 40
+render it into required videos.                           complex scenes, and 313 individual objects.
+
+3.1.2 Prompt Generation                                   3.2 Multi-criteria Human Voting
+We carefully design 1,020 prompts, including 510              Collection
+texts and 510 images, which is approximately 10×          3.2.1 Evaluation Criteria
+the previous prompt suites (Y. He et al., 2023;
+T. Wu et al., 2024). Our prompt set spans more            When evaluating the quality of 3D model gen-
+than 270 distinct categories, derived from 6 basic        eration, we typically consider the following five
+subjects: “Vehicle”, “Animal”, “Plant”, “Food”,           criteria as outlined in GPTEval3D (T. Wu et al.,
+“Indoor objects”, “Outdoor objects”. Furthermore,         2024), with some slight adjustments:
+to evaluate the models’ robustness for complex            1) Geometry Plausibility assesses whether the
+prompts, we expanded the prompt set to include            general shape resemble the real object logically
+scenarios with multiple objects and micro-scenes.         and physically. A plausible 3D asset is expected to
+Ensuring diversity and a balanced distribution of         have recognizable structures and avoid improbable
+prompts across both text and image generation             features, such as distorted faces (Multi-face Janus
+is crucial. During the prompt generation process,         problem), floating fragments or noisy geometry.
+we use predefined proportions to sample cate-             2) Geometry Details assesses the fineness and
+gories, attributes, and scenario complexities. The        intricacy of shapes. High-detail models exhibit
+raw prompts are then manually screened to ensure          well-defined and intentional surface features, care-
+diversity and representativeness. The visualization       fully distinguishing them from noise, whereas low-
+of prompts can be found in Figure 3. Subsequently,        detail models may appear rough and simplistic.
+we conducted stratified sampling on the cleaned           3) Texture Quality underscores both aesthetic
+prompts, splitting them into training, validation,        and consistency. The former includes aspects like
+and test sets in a 9 : 1 : 2 ratio. More details on       realistic material representation and appropriate
+this process can be found in Appendix B.1.                coloring, while the latter emphasizes uniformity
+Text Prompt. We employ GPT-4 to generate                  and seamlessness across different viewing angles.
+text prompts heuristically. This process involves         4) Geometry-Texture Coherence evaluates
+deconstructing sentences into four fundamental            the alignment between geometric and texture
+components: count, category, attribution, and spa-        characteristics. Textures should conform natu-
+tial relation. For example, a sentence can be             rally to the model’s contours without distortion
+structured to include an explicit count (”three”),        and maintain a consistent appearance without
+a category (”apples”), an attribution (”green”),          compensating for or obscuring geometric details.
+and a spatial relation (”on the table”). Based on         5) Prompt-Asset Alignment ensures that gen-
+this, we provide GPT-4 with various sentence tem-         erated 3D assets accurately reflect their prompts
+plates and manually filter the final prompts. More        in terms of category, quantity, attributes, and spa-
+details can be found in Appendix B.1. Ultimately,         tial relationships. For image-to-3D generations,
+our text set includes exactly 510 prompts, com-           maintaining identity consistency is also essential.
+prising 43 with explicit counts, 104 with implicit        Figure 4 illustrates several examples of these
+counts (e.g., “a pile of”), 73 featuring spatial          criteria in a pairwise comparison style.
+relationships, and 290 individual objects.
+Image Prompt. We manually collect and curate              3.2.2 3DGen-Arena
+a set of 510 images, ensuring their quality and           Inspired by previous works (Ku et al., 2023; Lu
+diversity through a careful selection process. To         et al., 2024; mrfakename et al., n.d.; L. Zheng et
+prepare them as prompts, we use rembg (Qin et             al., 2023), we introduce 3DGen-Arena, the first
+al., 2020) to remove backgrounds. As a result, the        arena-style benchmark platform in the 3D field.
+                                                          This platform employs an anonymous pairwise
+
+
+                                                      6
+                                                                                                        "Stone lions stand guard at
+                                     "A designer handbag                                              the entrance, their fierce
+                                   crafted from Italian leather"                                      expressions warding off evil
+                                                                                                      spirits and protecting the
+                                                                                                      garden's peaceful tranquility"
+                                   Geometry Details
+                                                                                                     Geometry Plausibility
+                                        Left Better
+                                                                                                          Left Better
+                                        Right Better
+                                                                                                          Right Better
+                                        Tie
+                                                                                                          Tie
+                                   Geometry-Texture Coherence                                        Texture Quality
+                                        Left Better
+                                                                                                          Left Better
+                                        Right Better                                                      Right Better
+                                        Tie                                                               Tie
+
+
+
+
+                                  Geometry Plausibility                                              Geometry Details
+                                       Left Better                                                        Left Better
+                                       Right Better                                                       Right Better
+                                       Tie                                                                Tie
+
+                                  Texture Quality                                                    Prompt-Assert Alignment
+                                       Left Better                                                        Left Better
+                                       Right Better                                                       Right Better
+                                       Tie                                                                Tie
+
+
+Fig. 4 Examples of evaluation criteria. We try to give an intuitive explanation by means of pairwise comparison,
+where the top row for text-to-3D generation and the bottom row for image-to-3D generaion. Notice that the five dimensions
+are mutually independent, each with its own emphasis.
+
+
+comparison manner, augmented with ”named bat-                          regular feedback. Annotators are compensated at
+tles” and ”direct chat” functionalities to encour-                     a rate of $6 per hour, resulting in a total expendi-
+age richer interactions. Specifically, visitors can                    ture of approximately $4,700. Additionally, during
+sample prompts while the models in the battle                          the annotation process, they are required to com-
+remain anonymous until all five voting dimensions                      plete two types of annotations, as detailed below:
+have been completed. For each dimension, visitors                      1) Comparison votes in a battle format, where
+can choose from the options: ‘Model A is better’,                      annotators are asked to choose the better one
+‘Model B is better’, ‘Tie’, ‘Both bad’. Moreover,                      given two anonymous models generated from the
+to facilitate user understanding, instead of sim-                      same prompt. 2) Absolute scores in numeri-
+ply displaying the generated 3D assets, 3DGen-                         cal format, where annotators are asked to provide
+Arena presents them through three distinct 360°                        a reasonable value within a predefined range for
+panoramic videos: normal maps, textureless geom-                       each dimension given a single model.
+etry, and fully textured renderings. The sreenshots
+of user interfaces can be found in Appendix C.1.                       3.3.1 Comparison Votes
+Additionally, we have received 8,045 anonymous
+                                                                       Rules. We reuse the same annotation rules as
+votes from the public to date, with the correspond-
+                                                                       3DGen-Arena. Given a text/image prompt pi ,
+ing leaderboard shown in Appendix D.
+                                                                       we sample two 3D models generated from differ-
+                                                                       ent methods, (S0 , S1 ), and showcase their 360°
+3.3 Large-scale Human Annotation                                       panoramic videos {(Vi geo , Vi normal , Vi rgb ), i ∈
+In addition to anonymous voting, we collect a                          [0, 1]}. Annotators are expected to vote for the
+substantial set of reliable labels from expert anno-                   five dimensions outlined in Section 3.2.1 in a single
+tators. Specifically, we meticulously instruct 47                      route. More details about the annotation platform
+professional annotators with detailed guidelines                       can be found in Appendix C.2.
+and closely monitor their performance through
+
+
+                                                                   7
+Statistics. We randomly sampled 13,680 battle              Given that 3D and video encoding have yet to
+pairs and organized them into 456 packs, each              reach the same level of maturity as image encod-
+containing 30 pairs. Finally, we collected 114,576         ing, we propose utilizing multi-view image encod-
+raw votes (the sum of 5 dimensions). Then, we              ing as an alternative to direct 3D representation
+employ three validation strategies simultaneously          in this work. Building on this idea, we propose
+to clean raw votes: 1) We compute the strong-              the 3DGen-Score model, a CLIP-based evaluator,
+conflict ratio (when ”left vote” meets ”right vote”)       which inherits the advantages of CLIP-like archi-
+against valid pairs (287 pairs, 2%) labeled by us;         tectures, including open-domain adaptability, ease
+2) We set up cross-annotation packs (240 packs,            of expansion, and computational efficiency. How-
+52.6%), which are labeled by two isolated anno-            ever, since it primarily returns numerical scores,
+tators, and then compute the strong-conflict ratio         its interpretability remains somewhat limited. To
+between them; 3) We compute the ”tie/both bad              address this, we further introduce the 3DGen-
+vote” ratio to identify potential lazy annotators.         Eval model, an MLLM-based evaluator, which
+We revise our data with above three ratios, and            leverages the strong visual-text reasoning capabil-
+ultimately obtain 68,400 unique votes.                     ities of large models, offering enhanced open-world
+                                                           generalization and an interpretable reasoning pro-
+3.3.2 Absolute Scores                                      cess. However, MLLM-based models often suffer
+                                                           from inherent irreproducibility, where variations
+Rules. Given a text/image prompt pi , we want
+                                                           in prompts or even input timing can lead to
+to assign a score to the quality of a generated
+                                                           different outputs. Therefore, these two models
+3D model in absolute terms. Even with highly
+                                                           complement each other in practice, jointly forming
+detailed instruction documentation, it remains
+                                                           a comprehensive evaluation system.
+challenging to ensure scoring consistency. To mit-
+igate this, we display all 3D models (9 for text, 13
+for image) generated from the same prompt simul-           4.1 CLIP-based 3DGen-Score
+taneously. Annotators are required to rank these               Model
+models based on different dimensions before pro-           Traditional CLIP-based metrics are designed for
+viding scores. We apply three score ranges based           Image Generation tasks, primarily to evaluate
+on the complexity of distinct dimensions: [0, 9],          the similarity between images and text. However,
+[0, 4], and [0, 1]. The screenshot of the annotation       when applied to 3D generation, these metrics often
+platform can be found in Appendix C.2.                     overlook adverse aspects such as cross-view con-
+Statistics. We generated 11,220 3D models and              sistency and unrealistic repetition due to the lack
+assigned two independent annotators to each                of information exchange between views. To allevi-
+model. Finally, we collected 124,695 raw scores            ate this, we modify the original CLIP framework
+(the sum of 5 dimensions). Similarly to preference         to enable the simultaneous processing of multi-
+data, we also employ three validation strategies:          view images. Additionally, we incorporate normal
+1) We check the consistency between labeled rank-          maps, as they tend to capture geometric features
+ing and score order; 2) We compute the error rate          more accurately than RGB images.
+against valid samples (336 models, 3%) labeled by          Model. Our 3DGen-Score model S , as shown in
+us; 3) We compute the conflict ratio between two           Figure 5, is equipped with three encoder modules:
+annotators. Noting that quality scoring is a very          a prompt encoder module Ep , a normal visual
+subjective task, we allow a certain degree of devi-        encoder En and a RGB visual encoder Er . Specifi-
+ation when calculating the error rate and conflict         cally, to support text and image prompts simulta-
+ratio. In this paper, we set the absolute deviation        neously, the prompt encoder module incorporates
+threshold to 1. The final score for each dimension         two distinct modal encoders, just like the original
+is weighted by two records, totaling 56,100 entries.       CLIP. The addition of two extra visual encoder
+                                                           modules allows for the separation of multi-view
+4 3DGen-Evaluator                                          encoding from prompt encoding, simplifying the
+                                                           training process and facilitating easier expansion.
+An intuitive downstream application of our col-            Formula. To enhance the interpretability of our
+lected data is training automated evaluators.              score model, we approximate each evaluation
+
+
+                                                       8
+                                        R1
+
+                                        R2
+                                                                                  RGB                +biasg
+                            RGB                                                                  ⊙
+                                                                                                                   Texture
+                           Encoder      R3                                       Encoder                           Quality
+
+                                        …
+     …
+                                        Rn                                          Wg                  +biast    Geometry
+                                                                                                 ⊙                 Details
+                                        N1                                          Wt
+
+                                        N2
+                                                                                                        ×σcoher   Geometry-
+                           Normal            Similarity                                          ⊙                 Texture
+                           Encoder      N3                                       Normal
+                                             Matching                            Encoder
+                                                                                                                  Coherency
+                                        …
+    …                                   Nn                                                              ×σalign    Prompt-
+                                                                                                 ⊙                   Asset
+                                                                                                                  Alignment
+
+
+                                                            A delicate lace                             ×σgeo
+      A large piece of
+                           Prompt                                                Prompt                           Geometry
+                                                            fan, its intricate
+      broccoli with the
+                           Encoder      P                   patterns woven       Encoder         ⊙                Plausibility
+      rhizome removed      Text/Image                       with silk thread…    Text/Image
+       …
+    …
+
+                          Stage 1                                                             Stage 2
+Fig. 5 Overview of 3DGen-Score Model. The model consists of three encoder modules, which can simultaneously
+process both multi-view normal and RGB images and support both text and image prompts. It works in a pairwise
+comparison style, and return a five dimension win-rate tuple for each input 3D model. And we apply a ”two-stage” training
+stage. As shown in the left, we finetune visual encoders just like original CLIP to align embedding spaces in the first stage.
+Then in the second stage (right), we train the five predictors with the supervision of Comparison votes data.
+
+
+dimension in an abstract sense. For example,                        where σgeo , σalign , σcoher are learnable scalar tem-
+the Prompt-Asset Alignment dimension is usu-                        perature parameters similar to CLIP, and Wg ,
+ally approximate as the similarity between RGB                      biasg , Wt , biast are learnable parameters.
+renderings and prompts. Similarly, we could cal-                    Training. We initialize our model from
+culate the similarity between normal renderings                     CLIP-ViT-H/14 (Ilharco et al., 2021; Radford et
+and prompts to estimate Geometry Plausibility                       al., 2021), and keep the prompt encoders frozen
+and the similarity between normal renderings and                    during training. Noting that CLIP has merely
+                                                                    seen four-view normal and RGB images during
+RGB renderings to estimate Geometry-Texture
+                                                                    the pretraining process, we propose a ”two-stage”
+Coherence. As for the Geometry Details and Tex-                     training strategy, shown in Figure 5. In the first
+ture Quality, illuminated by the LAION Aesthetic                    stage, we fine-tune vision encoders only with
+Predictor (Schuhmann et al., 2022), we simplify                     contrastive loss to align the embedding spaces
+them into two linear predictors. To be specific,                    of concatenated normal and RGB renderings
+given the prompt p and the multi-view normal ren-                   with the prompt embeddings. However, images
+derings In and RGB renderings Ir of a 3D model,                     rendered from generated models are often imper-
+the five dimensions can be formulated as follows:                   fectly aligned with their prompts or even severely
+                                                                    collapsed. To address this, we additionally incor-
+      Sgeo (p, In ) = σgeo · Ep (p) · En (In ),           (1)       porate 3D assets from OmniObject3D (T. Wu,
+                                                                    Zhang, et al., 2023) and Cap3D (Luo, Johnson,
+    Salign (p, Ir ) = σalign · Ep (p) · Er (Ir ),         (2)       & Lee, 2024) datasets, which not only exhibit
+   Scoher (In , Ir ) = σcoher · En (In ) · Er (Ir ),      (3)       high-quality geometry and texture but are also
+   Sgeo detail (In ) = Wg · En (In ) + biasg ,            (4)       well aligned with their annotations. Specifically,
+                                                                    for each asset, we take its caption annotation
+     Stexture (Ir ) = Wt · Er (Ir ) + biast ,             (5)
+
+
+
+                                                                9
+ Stage1. Vision Encoder Adaptation
+
+                                                                        The NORMAL rendering showcases a delicately
+                                                                        detailed 3D model of a lace fan. Intricate geometric
+                                                                        patterns are evident, with fine, web-like designs
+
+
+                     CLIP
+
+
+
+                                MLP
+                                                                        spread symmetrically across the fan. Each section
+                                                                        of the fan appears uniformly segmented, with poles
+                                                                        extending to create a semi-circular shape…
+                                                  LLaVa                 The RGB rendering portrays the lace fan with
+                                                                        vibrant colors, emphasizing its silk thread material.
+                                                                        Rich blue hues dominate the fan's segments, with
+                                                                        golden-yellow highlights adding to its aesthetic
+           …Please generate a
+                                                                        appeal. The silk thread appears finely woven,
+           detailed description
+                                                                        capturing the intricate and delicate nature...
+           for me
+
+
+Fig. 6 Vision Encoder Adaption, the first training stage of 3DGen-Eval model. In this stage, we serve the model as
+a captioner for multi-view images, supervised by captions generated by GPT-4V.
+
+
+as the text prompt and its front-view render-                           GPT-4V directly, the inevitable and unpredictable
+ing image as the image prompt. Then, in the                             bias often causes it to deviate from human judg-
+second stage, we optimize the parameters of                             ments. Although MV-LLaVa (Z. Sun et al., 2024)
+scoring functions supervised by human prefer-                           has been fine-tuned to preference data, potential
+ence labels. The objective of the second training                       biases remain, as pseudo-labels are generated by
+stage is to minimize the KL-divergence between
+                                                                        GPT-4V. To alleviate this, we propose fine-tuning
+the softmax-normalized scores and ground-truth
+labels, formulated as below. Notice that both                           MV-LLaVa with our human annotations.
+training stages are trained on the Comparison                           Preliminary. MV-LLaVA (Z. Sun et al., 2024)
+votes data. Meanwhile, rather than unfreezing                           is a caption generation and overall quality scoring
+all layers of the vision encoders, we selectively                       model for 3D assets, fine-tuned from instructive
+unfreeze specific layers during training, illustrated                   conversation pairs generated by GPT-4V. It takes
+by (L. Chen et al., 2023; Z. Sun et al., 2024). In                      four-view images as input and processes visual
+this paper, we only unfreeze the last 4 layers. We                      signals by feeding them into LLaVa (H. Liu et
+conducted experiments on two A100 GPUs for                              al., 2024) in the form of separate CLIP embed-
+4,000 steps, requiring 5 hours for a single stage                       dings. Inspired by ShareGPT-4V (L. Chen et al.,
+with a batch size of 32 and a learning rate that                        2023), the model trains the vision encoder only
+warms up to 3e-6 over the first 500 steps.
+                             X                                          in the first stage, using captions for supervision
+    minθ KL(P̂ ||P ) =                pi · log(pi − pˆi ),   (6)        to enhance multi-view awareness and texture per-
+                            i∈{0,1}                                     ception. Subsequently, the model evaluates quality
+                      exp(si )                                          based on the multi-view images and captions
+         pˆi =                       , i ∈ {0, 1},           (7)
+                 exp(s0 ) + exp(s1 )                                    through a chain-of-thought reasoning process.
+                                                                        While MV-LLaVA relies solely on RGB renderings
+ where the ground truth pi ∈ {0, 0.5, 1}5 , rep-
+                                                                        as input and is supervised by GPT-4V, it tends
+resenting ”win vote”, ”tie vote” and ”fail vote”,
+                                                                        to provide only a coarse evaluation of 3D models
+respectively.
+                                                                        and frequently deviates from humans.
+                                                                        Model. We follow the same model structure as
+4.2 MLLM-based 3DGen-Eval                                               MV-LLaVa (Z. Sun et al., 2024), equipped with
+    Model                                                               two primary modules: CLIP for visual embedding
+Building on the success of MLLMs, some explo-                           and LLaVa for evaluation in a style of Ques-
+rations (Z. Sun et al., 2024; T. Wu et al., 2024)                       tion&Answer(QA). Instead of separate four-view
+have advocated the use of MLLMs to simulate                             RGB images, our 3DGen-Eval model takes con-
+human experts for evaluation. However, since                            catenated images arranged in a 2*2 grid format
+GPTEval3D (Qi et al., 2024) calls the black-box                         as input and additionally incorporates normal
+
+
+                                                                   10
+ Stage2a. Instruct Tuning -- Absolute Score
+      The NORMAL rendering showcases a               Score: 7                                         Score: 5
+      delicately detailed 3D model of a lace fan…    Explanation:                          ……         Explanation:
+      The RGB rendering portrays the lace fan        The model closely matches the                    The model fully aligns with the
+      with vibrant colors, emphasizing…              structure of a real lace fan…                    prompt. Every aspect described…
+
+
+
+                                                                 LLaVa
+
+                          Detailed description?       Geometry Plausibility?              ……              Prompt-Asset Alignment?
+
+
+
+                                                                                       5 Dimensions
+
+
+ Stage2b. Instruct Tuning -- Pairwise Comparison
+      Model_0: The RGB rendering portrays the        Model_0 is better                                Model_0 is better
+      lace fan with…The Normal rendering…            Explanation:                          ……         Explanation:
+      Model_1: The RGB rendering reveals a lace      Model_0 presents a more logical                  Model_0 closely matches the
+      fan with…The Normal rendering…                 and physically consistent…                       prompt…
+
+
+
+                                                                 LLaVa
+
+                                        Detailed description?     Geometry Plausibility?      ……          Prompt-Asset Alignment?
+
+
+                                                                Prompt:
+                                                             A delicate lace fan, its intricate patterns woven with silk thread…
+
+
+Fig. 7 Instruct Tuning, the second training stage of 3DGen-Eval model, consisting of two sub-modules. The top sub-
+module is trained on Absolute Score data, to help the model establish an overall understanding of each evaluation dimension.
+In the subsequent sub-module, the model learns to identify subtle differences between instances within each dimension,
+using Pairwise Comparison data for supervison. Noticing that despite human annotations, we also encourage LLaVa to
+generate some explanations, guided by responses from GPT-4V, to enhance interpretability.
+
+
+renderings to enhance the evaluation of geometry-                         GPT-4V. More details of the prompts used for
+related dimensions.                                                       pseudo-labels and templates used in training can
+Training. We initialize our 3DGen-Eval model                              be found in appendix F.3
+with MV-LLaVa and perform a ”two-stage” train-
+ing process. In the first stage, we finetune the                          5 Evaluation
+visual encoder while keeping LLaVA frozen, allow-
+ing the model to learn to understand images in                            In this section, we conduct a preliminary evalu-
+both the concatenated format and the normal                               ation to assess the alignment of our metric with
+format, as illustrated in Figure 6. In the subse-                         human judgments. To be specific, we introduce the
+quent ”Instruct Tuning” stage, we introduce two                           baseline metrics in Section 5.1, and present the
+sub-modules designed to adapt to our data and                             human evaluation results based on the preference
+distinct objectives, as shown in Figure 7, which                          data in Section 5.2. Subsequently, we compare
+separately learn to assign an absolute score for                          our models with baseline metrics in terms of the
+a single 3D model and to compare between two                              alignment of human preference in Section 5.3. Fur-
+models over five dimensions. Moreover, aimed at                           thermore, we conduct validation experiments for
+enhancing the confidence of the evaluator, except                         the generalization of our models in Section 5.4 and
+solely supervised by the human annotations, the                           ablation experiments for the training strategy in
+model is also encouraged to generate some reason-                         Section 5.5. Finally, we summarize the advantages
+able explanations, supervised by responses from
+
+
+                                                                     11
+Fig. 8 Radar visualization of Elo scores based on human annotations. Left: text-to-3D generative models. Right:
+The top-9 image-to-3D generative models. The legend in the bottom-left corner of each image lists the model ranking based
+on the average Elo scores across five dimensions, from top to bottom. The detailed leaderboard can be checked in appendix D
+
+
+of our two models and give some recommendations                  uniformly sample 40 objects as test data. Addi-
+for automated evaluation in Section 5.6                          tionally, due to its formatting restriction and
+                                                                 modality limitation, we cannot achieve a fair com-
+5.1 Baseline Metrics                                             parison with T 3 Bench (Y. He et al., 2023) in
+                                                                 this section. However, we provide supplementary
+We selected 7 evaluation metrics based on vari-                  comparison experiments in Appendix F.2.
+ous considerations. 1) CLIP Score (Hessel et al.,
+2022) is widely used for Text–Asset Alignment.
+The compatibility of normal-caption pairs helps
+                                                                 5.2 Human Preference Evaluations
+measure Geometry Plausibility. In this paper, we                 In this section, we conduct a comprehensive
+use CLIP-ViT-H/14. 2) CLIP Similarity mea-                       assessment of each generative model based on
+sures the cosine distance between the CLIP fea-                  human expert annotations. Specifically, we cal-
+tures of the multi-view renderings and the image                 culate the average Elo scores for each model
+prompt, which is used to assess Image–Asset                      across the five criteria and present radar charts
+Alignment. 3) Aesthetic Score (Schuhmann                         in Figure 8, which depict the top 9 models for
+et al., 2022) is a CLIP-based linear estimator                   Text-to-3D and Image-to-3D tracks.
+that predicts the aesthetic quality of images,                   Text-to-3D. According to our criteria,
+which can be used to measure the Texture Qual-                   the top-3 methods in text-to-3D track are
+ity. 4) HPSv2.1 (X. Wu et al., 2023) and 5)                      MVDream (Y. Shi et al., 2023), Lucid-
+PickScore (Kirstain et al., 2023) are human                      Dreamer (Liang et al., 2023), and Magic3D (Lin
+preference scoring models trained on user pref-                  et al., 2023), achieving average Elo scores of
+erence datasets. They are designed to predict                    1177.66, 1112.21, and 1088.93, respectively. These
+preferences for generated images. 6) Open-                       results shed light on the distinct strengths and
+Shape (M. Liu, Shi, et al., 2024) is a CLIP-based                weaknesses of each method, offering insights that
+point cloud embedding. We calculate its similarity               can inform future improvements in 3D generation
+with the CLIP embedding of the input prompt.                     techniques. The success of MVDream (Y. Shi
+7) GPTEval3D (T. Wu et al., 2024) is a human-                    et al., 2023) demonstrates the advancement
+aligned evaluator for text-to-3D generation utiliz-              of multi-view diffusion model, which not only
+ing GPT-4V. For image-to-3D generation, we use                   achieves the effective combination of 2D prior
+BLIP (J. Li et al., 2022) to obtain text captions.               and 3D prior but also facilitates the information
+All metrics are calculated on the annotated test                 exchange between different views. Building on the
+dataset. For fairness, we average the four-view                  3DGS representation, LucidDreamer (Liang et
+scores as the final value. Except for GPTE-                      al., 2023) performs well on geometry and texture
+val3D (T. Wu et al., 2024), limited by API, we                   quality. Magic3D (Lin et al., 2023) benefits from
+
+
+                                                            12
+Table 2 Text-to-3D pairwise rating alignment with human judgment. We assess the average probability of
+alignment with human judgments for each comparison. Our method demonstrates strong alignment across all criteria, with
+higher values indicating better performance. Bold and underlined results indicate the best and second-best performers.
+
+  Methods                  Plausibility    Geo. Details        Tex. Quality    Geo-Tex.     Alignment     Average
+  CLIP                        0.666            0.640              0.684          0.702        0.612         0.661
+  Aesthetic score             0.524            0.536              0.557          0.549        0.508         0.535
+  HPSv2.1                     0.505            0.505              0.507          0.507        0.503         0.505
+  PickScore                   0.625            0.646              0.684          0.705        0.567         0.645
+  OpenShape                   0.502            0.501              0.500          0.500        0.502         0.501
+  MV-LLaVa                    0.493            0.514              0.495          0.490        0.511         0.501
+  GPTEval3D                   0.660            0.667              0.699          0.767        0.592         0.677
+  3DGen-Eval(Ours)            0.687            0.665              0.689          0.696        0.625         0.672
+  3DGen-Score(Ours)           0.729            0.707              0.760          0.764        0.667         0.725
+
+
+Table 3 Image-to-3D pairwise rating alignment with human judgment. We assess the average probability of
+alignment with human judgments for each comparison. Our method demonstrates strong alignment across all criteria,
+with higher values indicating better performance.
+
+  Methods                  Plausibility    Geo. Details        Tex. Quality    Geo-Tex.     Alignment     Average
+  CLIP similarity             0.529            0.523              0.542          0.538        0.524         0.531
+  Aesthetic score             0.560            0.560              0.567          0.566        0.545         0.560
+  OpenShape                   0.500            0.501              0.499          0.499        0.500         0.500
+  MV-LLaVa                    0.463            0.447              0.441           0.45        0.485         0.457
+  GPTEval3D                   0.703            0.676              0.714          0.701        0.654         0.670
+  3DGen-Eval(Ours)            0.744           0.750               0.754         0.755         0.651        0.731
+  3DGen-Score(Ours)           0.777           0.768               0.778         0.798         0.712        0.767
+
+
+a ”two-stage” optimization strategy, significantly              5.3 Comparisons on Human
+enhancing the geometric plausibility of generated                   Preference Correlation
+3D models. However, its texture quality remains
+somewhat unsatisfactory, primarily due to the                   In this section, we assess the alignment between
+inherent limitations of SDS loss.                               our proposed metric and human preferences. To
+Image-to-3D. On the image-to-3D track, Won-                     accomplish this, we employ the Softmax func-
+der3D (Long et al., 2023), OpenLRM (Z. He                       tion over basic metrics to assign a win probability
+& Wang, 2023), and Stable Zero123 (R. Liu et                    for each evaluation match. Experimental results
+al., 2023) emerge as the frontrunners, achiev-                  demonstrate a strong correlation between our
+ing average Elo scores of 1304.05, 1279.67, and                 models and human judgment.
+1200.69, respectively. Wonder3D (Long et al.,                   Pairwise Alignment. Let pi represent the pre-
+2023) employs a multi-view cross-domain atten-                  dicted win rating of the left model player in the
+tion mechanism, which again verifies the signifi-               i-th battle and qi denote the human judgment of
+cance of 2D&3D domain blending and multi-view                   making the same choice. Thus, the pairwise rat-
+consistency. Benefiting from Objarverse (Deitke                 ing alignment is given by Ei [pi qi + (1 − pi )(1 −
+et al., 2024, 2023) datasets, OpenLRM rein-                     qi )]. A higher value signifies a stronger alignment
+vigorates the transformer-based encoder-decoder                 with human experts. As demonstrated in Table 2
+architecture, enhancing the quality and diver-                  and Table 3, our 3DGen-Score model consis-
+sity of generated 3D objects. Meanwhile, Stable                 tently outperforms other metrics, highlighting its
+Zero123 (R. Liu et al., 2023) achieves a compre-                versatility across various evaluation criteria. More-
+hensive improvement over Zero123-XL (R. Liu et                  over, our 3DGen-Eval model achieves significant
+al., 2023) in multiple dimensions, but still leaves             improvements in all dimensions compared to MV-
+room for improvement in geometric details.                      LLaVa (Z. Sun et al., 2024). In some dimensions,
+
+
+
+                                                          13
+Table 4 Text-to-3D ranking alignment with human judgment. The table illustrates Kendall’s tau ranking
+correlation (Kendall, 1938) between Text-to-3D rankings produced by various metrics and those determined by human
+experts. A higher correlation suggests a stronger alignment with human judgment. Bold and underlined results indicate
+the best and second-best performers.
+
+  Methods                  Plausibility    Geo. Details        Tex. Quality    Geo-Tex.     Alignment      Average
+  CLIP-Score                   0.667           0.611               0.722        0.833         0.333          0.635
+  Aesthetic score              0.333           0.389               0.556        0.667         0.167          0.422
+  HPSv2.1                      0.389           0.444               0.611        0.722         0.222          0.478
+  PickScore                    0.333           0.389               0.556         0.667        0.167          0.422
+  OpenShape                   0.071            0.071               0.000        -0.143        0.143         0.029
+  MV-LLaVa                    -0.278           0.056              -0.056        -0.111        0.111         -0.056
+  GPTEval3D                    0.500           0.500              0.889         0.833         0.389          0.622
+  3DGen-Eval(Ours)            0.722            0.722              0.722         0.833         0.333         0.667
+  3DGen-Score(Ours)           0.667            0.556              0.889         0.944         0.500         0.711
+
+
+Table 5 Image-to-3D ranking alignment with human judgment. The table illustrates Kendall’s tau ranking
+correlation (Kendall, 1938) between Image-to-3D rankings from various metrics and human experts. A higher correlation
+suggests a stronger alignment with human judgment.
+
+  Methods                   Plausibility     Geo. Details       Tex. Quality     Geo-Tex.      Alignment       Average
+  CLIP similarity              0.256            0.154               0.256         0.256          0.128           0.210
+  Aesthetic score             0.487              0.436             0.590           0.538          0.513         0.513
+  OpenShape                    0.600             0.527             0.636          0.636           0.636          0.607
+  MV-LLaVa                    -0.179            -0.231             -0.308         -0.282         -0.154         -0.231
+  GPTEval3D                   0.564              0.590             0.667          0.667           0.513         0.600
+  3DGen-Eval(Ours)            0.744             0.744              0.744          0.795          0.692          0.744
+  3DGen-Score(Ours)           0.897             0.872              0.821          0.923          0.769          0.856
+
+
+it even outperforms GPT-4V, demonstrating the                   comprehensive evaluation dimensions, regardless
+effectiveness of the fine-tuning process.                       of whether the assessment is conducted on pair-
+Ranking Alignment. Table 4 and Table 5 dis-                     wise alignment or ranking correlation and in
+play the ranking correlations between various                   both text-to-3D and image-to-3D tracks. Notably,
+evaluation metrics and the reference Elo scores                 among our models, the CLIP-based 3DGen-
+computed from the expert annotations. All met-                  Score outperforms the MLLM-based 3DGen-Eval
+ric scores, excluding GPTEval3D (Qi et al., 2024),              model. We attribute this to CLIP’s simpler archi-
+are based on the average scores of prompts in                   tecture and fewer parameters, which enable more
+the test set, while GPTEval3D and our models                    efficient training and contribute to stronger per-
+calculate scores using the Elo rating system, start-            formance. Additionally, model performance is gen-
+ing with an initial score of 1,000 and a K factor               erally stronger on the image-to-3D track compared
+of 32. Table 5 shows that our methods achieves-                 to the text-to-3D track. We hypothesize that this
+the highest ranking across all dimensions on the                discrepancy arises from two key factors: first, the
+image-to-3D track, securing the 1st and 2nd posi-               image-to-3D track benefits from a larger volume of
+tions. As for the text-to-3D ranking, our 3DGen-                training data; second, the process of aligning text
+Eval model demonstrates impressive performance                  and images within encoders may introduce biases.
+in the geometric-related dimension, while our                   Furthermore, the performance of 3DGen-Score on
+3DGen-Score model achieves the highest overall                  the text-to-3D track in the ranking setting high-
+ranking on average, with a notable improvement                  lights the necessity of training 3DGen-Eval to
+in ”Prompt-Asset Alignment” dimension.                          improve generalization to normal images.
+Analysis Experimental results demonstrate that
+our models outperform all existing metrics across
+
+
+                                                          14
+Table 6 Pairwise rating alignment with additional Instant-Mesh. We assess the average probability of alignment
+with human judgments for each comparison between Instant-Mesh and other 13 image-to-3D models.
+
+  Methods                Plausibility    Geo. Details        Tex. Quality    Geo-Tex.       Alignment     Average
+  CLIP similarity           0.667           0.654               0.703          0.714          0.751        0.698
+  Aesthetic score           0.529           0.544               0.558          0.547          0.559        0.547
+  OpenShape                 0.544           0.580               0.603          0.587          0.553        0.573
+  MV-LLaVa                  0.553           0.550               0.558          0.565          0.535        0.552
+  GPTEval3D                 0.711           0.782               0.789          0.776          0.757        0.763
+  3DGen-Eval(Ours)          0.700           0.712               0.727          0.708         0.692        0.708
+  3DGen-Score(Ours)         0.754           0.741               0.826          0.765         0.815        0.780
+
+
+Table 7 Pairwise rating alignment compared on 3DRewardDB. We assess the average alignment across
+considered dimensions for each method.
+
+  Methods       3DGen-Score(Ours)       3DGen-Eval(Ours)         GPTEval3D       PickScore      HPSv2.1     CLIP
+  Alignment            0.716                  0.576                  0.676          0.505        0.675      0.671
+
+
+5.4 Generalization Performance                                et al., 2023), the state-of-the-art method for sur-
+                                                              face normal estimation, to predict normal maps.
+In Section 5.3, we conduct evaluation experiments
+                                                              We then sample 120 comparison pairs as the test
+only on our proprietary dataset, which may intro-
+                                                              set. Notably, 3DRewardDB derives final scores
+duce specific biases and limit our ability to assess
+                                                              based on alignment, consistency, and overall qual-
+the model’s performance and robustness. To alle-
+                                                              ity while omitting criteria such as Geometry
+viate it, we expand our testing to include external
+                                                              Details and Geometry-Texture Alignment during
+data, such as new 3d models and external dataset.
+                                                              its labeling process. To align its criteria with ours,
+Evaluation on New Model To verify the
+                                                              we exclude those less-considered dimensions and
+robustness of our model on unseen data, we uti-
+                                                              aggregate scores for ”3D Plausibility”, ”Texture
+lize Instant-Mesh (J. Xu, Cheng, et al., 2024), an
+                                                              Quality”, and ”Asset-Prompt Alignment” to com-
+advanced image-to-3D model, to generate 510 3D
+                                                              pute a final score. The same approach is applied
+assets using our prompt set. We then randomly
+                                                              to GPTEval3D (T. Wu et al., 2024). The exper-
+pair these assets with those from 13 other image-
+                                                              imental results are presented in Table 7. Since
+to-3D models, resulting in 130 comparison pairs.
+                                                              the normal maps used here are estimated using
+Subsequently, we calculate pairwise rating align-
+                                                              Metric3D rather than ground truth, this may
+ment between our model and annotations from
+                                                              introduce visual bias, potentially affecting the
+experts, shown in Table 6. The results indicate
+                                                              performance of our scoring models in geometry-
+that our 3DGen-Score model exhibits strong gen-
+                                                              related dimensions. Despite this limitation, our
+eralization capabilities, allowing it to assess pre-
+                                                              scoring models still achieve outstanding perfor-
+viously unseen models while surpassing existing
+                                                              mance on external datasets, demonstrating not
+methods across multiple dimensions. This under-
+                                                              only strong generalization capabilities but also
+scores its effectiveness as a robust and reliable
+                                                              remarkable robustness in handling diverse data
+evaluation metric for 3D assessment tasks.
+                                                              sources and inherent estimation noise.
+Evaluation on External Dataset We conduct
+experiments using 3DRewardDB (Ye et al., 2024),
+a coarse preference dataset of generated text-                5.5 Ablation Experiments
+to-3D models and, to our knowledge, the only                  We introduce a ”two-stage” training strategy in
+available relative dataset. However, 3DRewardDB               Section 4. To validate its effectiveness and neces-
+provides four-view perspectives only for each                 sity, we carefully design and conduct ablation
+model, lacking normal maps or raw 3D assets. To               experiments on the 3DGen-Score model. Further-
+address this limitation, we apply Metric3D (Yin               more, considering the requirements of the eval-
+                                                              uation task, we thoroughly assess two aspects:
+
+
+                                                        15
+Table 8 Human alignment results of ablation experiments. The first 3 columns demonstrate training strategiesm,
+where C loss means ”contrastive loss” applied in stage-1, and V enc means ”finetune vision encoders” applid in stage-2.
+The rest columns demonstrate the pairwise alignment on test data, and the ’Average’ column is weighted by the count
+of involved models. The higher values indicate better alignment with human judgments.
+
+         Strategy                                        Dimensions
+                                                                                                         Avgerage
+   C loss     V enc.     Plausibility    Geo. Details     Tex. Quality      Geo-Tex.      Alignment
+     ✓                      0.759            0.714             0.735         0.759          0.684          0.730
+                ✓           0.746            0.742             0.771         0.776          0.686          0.744
+     ✓          ✓           0.757            0.747             0.771         0.784          0.694          0.750
+
+
+Table 9 Model robustness results of ablation experiments. We calculate the pairwise alignment on
+comparisons between Instant-Mesh and other 13 image-to-3D models. The higher values indicate better model robustness.
+
+         Strategy                                        Dimensions
+                                                                                                         Avgerage
+   C loss     V enc.     Plausibility    Geo. Details     Tex. Quality      Geo-Tex.      Alignment
+     ✓                      0.715            0.599             0.781         0.665          0.738          0.700
+                ✓           0.677            0.757             0.774         0.781          0.800          0.758
+     ✓          ✓           0.754            0.741             0.826         0.765          0.815          0.780
+
+
+1) alignment with human judgments and                          referring to the 3DGen-Eval model’s results. Addi-
+2) robustness to new models. Specifically,                     tionally, we also provide a CLIP-based absolute
+we compute pairwise alignment on test pairs                    scoring predictor in Appendix E, which is more
+to measure the models’ alignment with human                    computationally efficient, allowing model ranking
+judgments, and use Instant-Mesh pairs to assess                without the need for comparisons.
+their generalization performance. The experimen-
+tal results, presented in Table 8 and Table 9,                 6 Application
+demonstrate that the two-stage training strat-
+egy generally outperforms single-stage training. In            Using human preference data to establish leader-
+particular, the second-stage training enhances the             boards or train automatic scoring models is
+model’s alignment with human judgments, while                  a straightforward application, but its potential
+incorporating the first stage further strengthens              extends beyond these use cases. One of the most
+its robustness to new models.                                  critical applications is leveraging it as a reward
+                                                               signal to optimize generative models. In practice,
+5.6 Discussion                                                 Reinforcement Learning from Human Feedback
+                                                               (RLHF) has gained significant traction in the field
+In summary, our two models each have distinct                  of language and image generation (Bai et al., 2022;
+advantages. The 3DGen-Score model aligns well                  Nakano et al., 2021; Ouyang et al., 2022; Stien-
+with human preferences while remaining computa-                non et al., 2020; J. Xu, Liu, et al., 2024). Inspired
+tionally efficient and highly scalable. In contrast,           by recent works such as (J. Xu, Liu, et al., 2024;
+the 3DGen-Eval model provides superior inter-                  Ye et al., 2024), we similarly employ 3DGen-Score
+pretability, matching or even surpassing GPT-4V                as a Reward Model (RM) to simulate human
+in human preference alignment without incurring                feedback, allowing us to refine the behavior of gen-
+additional costs. Based on these strengths, we rec-            erative models. To achieve this, we simplify the
+ommend the 3DGen-Eval model for detailed qual-                 final objective function into the following formula:
+ity analysis of individual samples. For method-
+level comparisons, the 3DGen-Score model proves                  LReward (θ) ≈ LSDS − λr r(p, Inormal , Irgb ), (8)
+to be a suitable choice, particularly for the image-
+to-3D track. However, for those geometry-related               where r represents the 3DGen-Score model, λr
+dimensions of text-to-3D models, we recommend                  is a hyperparameter, p denotes the prompt, and
+                                                               Inormal and Irgb are rendering images arranged in
+
+
+                                                          16
+          MVDream                                                        + Score Reward
+
+
+
+
+                               (a) A dog took shelter from the rain under an umbrella
+
+
+
+
+                             (b) An assortment of vintage, fragrant perfumes on display
+
+
+
+
+                 (c) A traffic light stands tall on the intersection, with red, yellow, and green lights
+
+
+
+
+                                 (d) A carved wooden bear with a salmon in mouth
+Fig. 9 Visual results of Reward Generation We operate experiments over MVDream (Y. Shi et al., 2023), with
+original results on Left and RM-optimized on Right.
+
+
+four views. For a detailed derivation, please refer             reduction, while examples (c) and (d) exhibit the
+to DreamReward (Ye et al., 2024).                               enhanced capability of simulating 3D priors and
+Experiments. In this paper, we conduct exper-                   refining textures. These results indicate that our
+iments on MVDream(Y. Shi et al., 2023), which                   3DGen-Score model provides valuable insights for
+ranks as the top text-to-3D generative model                    advancing generative performance.
+according to our criteria. Moreover, MVDream                    Dimension Study. We explored the impacts on
+generates multi-view images in parallel during                  each evaluation dimension through taking sin-
+optimization, which is particularly compatible                  gle dimension scores as the final reward. Visual
+with our objective function. In practice, we derive             results in Figure 10 highlight the potential for tar-
+the final reward for each asset by averaging the                geted improvements in specific dimensions. Inter-
+scores across five evaluation dimensions. As shown              estingly, we find that the effect of the reward score
+in Figure 9, our approach effectively enhances the              is not entirely isolated to each dimension. Instead,
+quality and coherence of 3D generative outputs                  there is notable interaction across different dimen-
+across critical dimensions. For instance, exam-                 sions, as optimizing for one dimension can also
+ples (a) and (b) illustrate improvements in noise               enhance or impact performance in others.
+
+
+                                                           17
+      Geometry Plausibility
+
+
+
+
+                         A rusted anchor, its chains worn with age, lies forgotten on the sandy ocean floor
+      Texture Quality
+
+
+
+
+                                              A rotary telephone carved out of wood
+      Geometry Details
+
+
+
+
+                                                    A wind-up plastic toy car
+     Geo-Tex. Coherence
+
+
+
+
+                                             A silver spaceship with rocket boosters
+     Asset-Prompt Alignment
+
+
+
+
+                                           Several chairs are arranged around the table
+Fig. 10 Visual results of Reward Generation for each dim
+
+
+Ablation Study. We investigate the impact of                         When λr is set too low, the improving poten-
+varying the value of λr . As shown in Figure 11, the                 tial remains underutilized. Conversely, if λr is too
+effects of λr are not purely linear. Positive influ-                 large, the benefits diminish, and the generation
+ence is observed only within an optimal range.                       process even begins to show signs of collapse.
+
+
+
+
+                                                                18
+                                 Several chairs are arranged around the table
+
+
+
+
+            �� = 0                    �� = 10                      �� = 100               �� = 1000
+Fig. 11 Visual Comparison on various λr
+
+
+7 Conclusions                                               remains a need for a more advanced 3DGen-
+                                                            Evaluator. Future iterations should explore more
+In this work, we present 3DGen-Bench, the first             sophisticated model architectures or improved
+large-scale human preference dataset for 3D mod-            embedding techniques to enhance the evaluator’s
+els. To construct this dataset, we developed                effectiveness and alignment.
+3DGen-Arena, a data platform that integrates
+11,200 3D models generated by 19 different 3D               Data Availability. The dataset used in this
+generative models. By collecting votes from both            study is publicly available in the 3DGen-Bench
+public users and expert annotators, 3DGen-Bench             repository:      https://huggingface.co/datasets/
+eventually compiles over 68,000 preference votes            3DGen/3DGen-Bench. Noting that the 3D assets
+and more than 56,000 score labels. Leveraging               adhere to the licensing terms of the respective
+this data, we conduct a comprehensive evalua-               methods from which they are derived, any use
+tion and analysis of 3D generative models across            of the 3D data must comply with the original
+five criteria, providing valuable insights for the          licensing terms and copyright policies.
+advancement of 3D generation research. Addi-
+tionally, we train two scoring models, 3DGen-               Appendix
+Score and 3DGen-Eval, which serve as automated
+3D evaluators, demonstrating superior alignment             In Appendix, we provide the basic information and
+with human judgment and greater robustness to               licensing terms of our dataset in Section A, along
+new models compared to existing metrics.                    with additional details regarding its construction
+Limitations. Our collection now includes 19                 in Section B. We then present further instructions
+open-source generative models, but many works               on the annotation platform and human leader-
+in this area still remain closed-source. Our goal is        board in Section C and Section D, respectively.
+to involve state-of-the-art models and consistently         Finally, we introduce a new scoring model in
+update our leaderboard with the latest advance-             absolute form in Section E and provide more
+ments. Additionally, due to the lack of a robust 3D         experimental details in Section F.
+embedding model, we opt for 2D CLIP embedding
+as an alternative. Developing more advanced 3D              A Dataset Information
+embedding techniques remains a priority to fully
+leverage the naive 3D data for evaluation.                  A.1 Dataset Link and
+Future Works. Our 3DGen-Bench dataset inno-                     Documentation
+vatively realizes the subdivision of the annotation
+dimension, rescuing it from a holistic and rough            The dataset we established in this study, together
+score. While our annotations currently operate              with its metadata and license, is now publicly
+at the instance level, evolving evaluation stan-            available in the 3DGen-Bench repository: https://
+dards may encourage finer-grained labeling, such            huggingface.co/datasets/3DGen/3DGen-Bench.
+as region-level annotations. Additionally, there            Specifically, we release the curated prompts,
+
+
+
+                                                       19
+generated 3D models along with their render-               • Composite sentence:
+ings, and annotated human preferences. Detailed              {count}{attribution}{category}{verb-
+documentation of its structure and usage can                 phrase}{count}{attribution}{category}
+be found in the dataset card, and the Croissant            • Other templates:
+metadata record can be viewed and down-                      allow ChatGPT to generate freely
+loaded by reviewers at https://huggingface.co/
+                                                           where {attribution} and {adv./verb-phrase/with
+api/datasets/3DGen/3DGen-Bench/croissant.
+                                                           ...} are optional, {count} should smaller than six
+Additionally, we host the 3DGen-Arena app
+                                                           if defined explicitly, and prompts are encouraged
+on Huggingface Space https://huggingface.co/
+                                                           to contain descriptive part to describe either geo-
+spaces/ZhangYuhan/3DGen-Arena,          enabling
+                                                           metric features or appearance features concretely.
+online voting among our diverse 3D assets.
+                                                           Through heuristic generation in different domains,
+                                                           we obtained 600 raw prompts. We then do manual
+A.2 Licensing Terms                                        screening and targeted regeneration to ensure the
+Depending on the data source, the prompts and              balance of categories and difficulties. Eventually,
+annotations are released under the MIT License,            we obtained 510 text prompts.
+while the 3D assets follow the original licenses of
+the respective methods. Any use of the data must           B.2 3D Generative Models
+comply with the corresponding licensing terms
+and copyright policies.                                    In our benchmark, we include 9 text-to-3D gen-
+                                                           erative models: Mvdream (Y. Shi et al., 2023),
+                                                           Lucid-dreamer (Liang et al., 2023), Magic3D (Lin
+B Additional Details on                                    et al., 2023), GRM (Y. Xu et al., 2024), Dream-
+  Dataset Construction                                     fusion (Poole et al., 2022), Latent-NeRF (Met-
+                                                           zer et al., 2023), Shap-E (Jun & Nichol, 2023),
+B.1 Prompt Generation                                      SJC (H. Wang et al., 2023), and Point-E (Nichol et
+We provide 510 text prompts in TXT format and              al., 2022), and 13 image-to-3D generative models:
+510 image prompts in RGBA format, generated                Wonder3D (Long et al., 2023), OpenLRM (Z. He
+respectively from ChatGPT and Stable Diffision.            & Wang, 2023), Stable Zero123 (R. Liu et al.,
+Specifically, for text prompts, we first identified        2023), Zero-1-to-3 XL (R. Liu et al., 2023),
+6 basic category domain: ”Vehicle”, ”Plant”,               Magic123 (Qian et al., 2024), LGM (Tang et
+”Animal”, ”Food”, ”Indoor Object” and                      al., 2024), GRM (Y. Xu et al., 2024), Sync-
+”Outdoor Object”. Then, aiming to obtain as                Dreamer (Y. Liu et al., 2023), Shap-E (Jun
+many specific categories as possible, we prompted          & Nichol, 2023), Triplane-Gaussian (Zou et al.,
+ChatGPT with ”We want to generate a prompt                 2023), Point-E (Nichol et al., 2022), Escher-
+suite for text-to-3D generation evaluation. We             Net (Kong et al., 2024), and Free3D (C. Zheng &
+hope the suite is comprehensive and challenging.           Vedaldi, 2023).
+The first step is to define category domain. We
+totally spit into 6 prime domain: vehicle, animal,         B.3 Annotation Cost
+plant, food, indoor, outdoor. Now we need you to           Throughout the annotation process, we employed
+list specific categories for each domain as many           47 expert annotators at a rate of $6 per hour,
+as possible ”. Subsequently, equipped with diverse         spending approximately $4,700 in total. The
+categories, we started to generate descriptive sen-        cleaned results are published on Huggingface 1 .
+tences. In order to generate prompts at different
+difficulty levels, we employed the following tem-
+plates in turn.                                             1
+                                                                https://huggingface.co/datasets/3DGen/3DGen-Bench
+• Noun phrase:
+  {a/an}{attribution}{category}{with ...}
+• Simple sentence:
+  {count}{attribution}{category}{adv./verb-
+  phrase /with ...}
+
+
+                                                      20
+Table R1 Leaderboard of Text-to-3D generative models. Ranked by the average Elo score computed from
+comparison annotations.
+
+      Method           Plausibility     Geo. Details    Tex. Quality     Geo-Tex.     Alignment      Average
+     MvDream             1107.90          1182.60         1229.61         1270.78       1095.39      1177.66
+   LucidDreamer          1105.05          1133.85         1158.18         1163.19       1000.79      1122.21
+     Magic3D             1143.94          1100.30         1046.93         1042.77       1106.71      1088.93
+       GRM               1032.35          1026.28         1100.23         1111.33       1058.49      1065.74
+    Dreamfusion          1084.69          1029.05         1030.02         1009.73       1066.99      1044.10
+   Latent-NeRF           986.09           938.78          1046.76         1130.76        983.47      1017.97
+      Shap-E             889.87           890.49           849.57          764.86       981.75        875.71
+        SJC              837.64           821.15           906.59          852.02       777.70        839.71
+      Point-E            812.47           877.50           632.11          654.56       928.72        781.71
+
+
+Table R2 Leaderboard of Image-to-3D generative models. Ranked by the average Elo score computed from
+comparison annotations.
+
+       Method            Plausibility    Geo. Details    Tex. Quality     Geo-Tex.     Alignment     Average
+     Wonder3D              1333.95          1308.03          1347.60       1321.71       1210.94      1304.05
+     OpenLRM               1294.69          1330.10          1270.31       1260.36       1244.88      1279.67
+   Stable Zero123          1222.58          1157.20          1243.73       1225.31       1154.64      1200.69
+     Zero123-XL            1092.45          1142.73          1140.74       1213.14       1055.74      1128.96
+      Magic123             1076.61          1038.36          1166.43       1194.64       1082.10      1111.23
+        LGM                1058.78          1060.23          1066.24       1068.82       1049.68      1060.35
+        GRM                1038.48          1067.10          1062.29       1025.53       1059.53      1042.99
+    SyncDreamer            1079.61          1081.16           997.50       971.29        905.29       1006.97
+       Shap-E               965.11           993.74           905.02       906.95        996.59        953.48
+  TriplaneGaussian          840.28           819.21           880.53       893.25        836.79        854.01
+       Point-E              740.57           769.02           707.68       704.43        916.69        767.68
+      EscherNet             721.99           690.57           689.32       728.21        843.21        734.66
+       Free3D               534.90           542.55           522.61       486.36        643.91        546.47
+
+
+C Additional Details about                                   C.2 More Platforms
+  Annotation Platform                                        Comparison Votes. This process follows the
+                                                             same rules as the anonymous comparison in
+C.1 3DGen-Arena                                              3DGen-Arena, but given fixed battle pairs sam-
+We run the 3DGen-Arena app on Huggingface                    pled by us to maintain balanced data distribu-
+Space 2 . It supports online voting across our man-          tion. In addition, to maintain the integrity and
+ifold 3D assets, offering three interaction modes:           authenticity of the voting process, participants are
+’Anonymous battle models’, ’Named bat-                       required to vote using their real names, adding
+tle models’ and ’Single model chat’. The first               a layer of accountability to the evaluation. The
+two modes enable model comparisons, differing                screenshot of voting platform is in Figure S11.
+in whether the voter is aware of the participant             Absolute Scores. To enhance the credibil-
+models’ identities, while the third mode allows for          ity of the scoring results, we command anno-
+individual model interactions. The corresponding             tators to rank all 3D models generated from
+screenshots are listed in Figure S8, S9, S10.                the same prompt firstly, ensuring a consistent
+                                                             and fair assessment across similar generations.
+                                                             Subsequently, annotators proceed to label each
+  2
+    https://huggingface.co/spaces/ZhangYuhan/3DGen           model systematically, maintaining uniform crite-
+-Arena                                                       ria throughout the evaluation process. This dual-
+                                                             step approach helps standardize scoring, reduce
+
+
+
+                                                        21
+Fig. S1 Elo scores of Generative models calculated by anonymous votes gathered from 3DGen-Arena. Left:
+Text-to-3D generative models. Right: The top-9 Image-to-3D generative models. The legend in the down left corner of each
+image lists the ranking of each method based on the average across five dimensions of Elo scores, from top to bottom. The
+accurate scores can be checked in the leaderboard page running on huggingface 2 .
+
+
+
+
+Fig. S2 Distribution of Absolute Score data. It shows that high-quality 3D models are few in the collected dataset,
+annotated only over generated models.
+
+
+bias, and improve the reliability of our results. The           leaderboard that aggregates these two types of
+scoring platform screenshot is in Figure S12.                   data is presented in huggingface 2 .
+
+D Human Leaderboard                                             E Absolute Scoring Predictor
+Expert Annotations We employ the Elo rat-                       E.1 3DGen-Score Predictor
+ing algorithm (Elo, 1967) to compute the human
+                                                                We proposed the 3DGen-Score model in
+leaderboard on our collected 13.8k comparison
+                                                                Section 4.1 to predict the win rate between two
+annotations. This approach enables a dynamic
+                                                                candidate models, learned from Comparison
+and adaptive ranking system, where models are
+                                                                Votes data, while Absolute Scores data remain
+evaluated based on their relative performance
+                                                                under exploration. To fully leverage the potential
+against each other. The accurate elo scores are
+                                                                of these data, we introduce 3DGen-SP, short
+listed in Table R1 and Table R2.
+                                                                for 3DGen-Score Predictor. Inspired by LAION
+Anonymous Votes After hosting the 3DGen-
+                                                                Aesthetic Predictor V1 (Schuhmann et al., 2022),
+Arena app for several months, we have collected
+                                                                we extend vision encoders by incorporating five
+8,045 votes from anonymous visitors until now,
+                                                                additional predictor heads to predict absolute
+with 6,351 votes for text-to-3D track and 1,694
+                                                                scores for each dimension of the criterion.
+for image-to-3D track. Based on these anonymous
+                                                                Data Preparation As shown in Figure S2, the
+votes, we establish the leaderboard similarly by
+                                                                distribution of absolute score annotations for the
+calculating Elo rankings, as shown in Figure S1.
+                                                                11.2k generated 3D models is imbalanced, with
+Additionally, we also collected some votes from
+                                                                high-quality samples being underrepresented in
+’Named battle models’ mode. And the detailed
+                                                                some dimensions. To address this, we expand
+                                                                our score dataset by incorporating models from
+
+
+                                                           22
+Table R3 Ranking alignment with human judgment. we compute the Kendall’s tau ranking correlation (Kendall,
+1938), where a higher value suggests a stronger alignment with human judgment.
+
+     Task            Method         Plausibility   Geo. Details    Tex. Quality    Geo-Tex.    Alignment   Average
+                    CLIP               0.833          0.722            0.833        0.2778       0.889      0.711
+  Text-to-3D
+                3DGen-SP(ours)         0.833          0.833            0.889        0.389        0.889      0.767
+                    CLIP               0.154           0.00            0.256        0.462        0.180      0.210
+ Image-to-3D
+                3DGen-SP(ours)         0.897          0.821            0.821        0.692        0.780      0.802
+
+
+Table R4 Ranking alignment with additional Instant-Mesh. we compute the Kendall’s tau ranking
+correlation (Kendall, 1938), where a higher value suggests a stronger alignment with human judgment.
+
+       Method           Plausibility    Geo. Details       Tex. Quality        Geo-Tex.      Alignment     Average
+      CLIP                 0.209            0.077              0.297            0.473          0231        0.257
+  3DGen-SP(Ours)           0.802            0.736              0.846            0.692         0.780        0.771
+
+
+OmniObject3D (T. Wu, Zhang, et al., 2023) and                  rank models by calculating the average score over
+Cap3D (Luo et al., 2024). Specifically, we assign              test dataset predicted by CLIP and 3DGen-SP,
+full scores for 6k scanned models from OmniOb-                 respectively, and calculate the Kendall’s tau rank-
+ject3D and filter 3.4k high-quality models rated as            ing correlation (Kendall, 1938) to assess alignment
+”good” or higher by GPT-4 from Cap3D (Z. Sun                   with human annotations. As shown in Table R3,
+et al., 2024). For each model, we treat its cap-               our model consistently outperforms CLIP in all
+tion as the text prompt and its rendering image                tested scenarios.
+as the image prompt. As a result, we obtain                    Robustness to New Model In a similar setting,
+approximately 19k high-quality models and 11.2k                we further conduct experiments on Instant-Mesh
+human-annotated models.                                        pairs to evaluate the generalization capability of
+Training Strategy We follow a similar model                    3DGen-SP model. As shown in Table R4, our
+structure to 3DGen-Score model and employ a                    3DGen-SP model demonstrates strong robustness
+”two-stage” training strategy. In the first stage,             against novel models, consistently outperforming
+called the Encoder-Adaptation stage, we minimize               CLIP across all dimensions. These results further
+contrastive loss using only the 19k high-quality               validate the effectiveness of our training strategy.
+samples. In the subsequent stage, we minimize
+MSE loss with supervision from a total of 30k                  F Additional Details about
+training samples. For implementation, we initial-
+ize the encoders from CLIP-ViT-H/14 (Radford                     3DGen-Evaluator
+et al., 2021) and initialize the learnable predic-
+tor heads using Xavier Uniform. And we only
+                                                               F.1 3D Prior Exploration
+unfreeze selected final layers of vision encoders              We employ 3D point-based MLLMs (Qi et al.,
+during training, specifically the last 4 layers in this        2024; R. Xu et al., 2023) to explore the feasibility
+paper. The model is trained with a batch size of               of assessing quality directly using 3D represen-
+32 and a learning rate of 3e-6, using the Adam                 tations. The primary process involves evaluating
+optimizer to optimize the training process.                    the alignment between ground-truth prompts and
+                                                               generated captions, as shown in Figure S3. First,
+E.2 Evaluation                                                 we extract a colored point cloud from the gener-
+                                                               ated 3D models, typically represented in formats
+Alignment with Human As an evaluation
+                                                               such as Mesh, NeRF, or Gaussian, and organize
+task, we prioritize consistency across distribu-
+                                                               them into the format (N points, 6), consisting of
+tions rather than precise score values of individual
+                                                               xyz coordinates and RGB colors. Next, we prompt
+models. Therefore, we assess the performance of
+                                                               the 3D MLLMs with ”What is the object? ” to
+the scoring model by computing ranking consis-
+                                                               generate corresponding captions. These text pairs
+tency with human annotations. Specifically, we
+
+
+                                                          23
+                    Text-to-3D Methods                                                                           89%          MVDream
+
+
+
+
+                                                                                       GPT4Point
+                    (e.g. Dreamfusion, Latent-NeRF)
+
+                                                                                                                 83%       Latent-NeRF
+
+
+                                                                                                               70%       Magic123
+
+
+
+
+                                                                 GPT API Eval
+          a wedding cake with pink flowers on top
+
+                   Text Input / Ground Truth                                                       0%    20%       40%      60%      80%    100%
+    Extract the
+    point cloud.
+                      a multi-tiered cake                                                                        87%           MVDream
+               with red and white decorations.
+
+
+
+
+                                                                                       PointLLM
+                          Text Output
+                                                                                                                 89%       Latent-NeRF
+
+
+                     Point Cloud LLM                        Score: 85/100                                        69%     Magic123
+                      (e.g. GPTPoint, PointLLM)
+
+                                                                                                   0%    20%       40%      60%      80%    100%
+
+Fig. S3 Evaluation with point-based MLLMs Left: An overview of the evaluation pipeline. Right: Model rankings
+on the test data.
+
+
+Table R5 Pairwise rating alignment compared with T 3 Bench. We assess the average probability that our
+model’s decisions align with human judgments for each comparison.
+
+  Methods                      Plausibility           Geo. Details              Tex. Quality            Geo-Tex.         Alignment       Average
+    3
+  T Bench                          0.686                 0.675                     0.693                 0.665            0.608            0.665
+  3DGen-Score(Ours)                0.789                 0.714                     0.742                 0.716            0.747            0.742
+
+
+are then submitted to ChatGPT for human-like                                    F.3 Prompt Design for 3DGen-Eval
+assessment. Finally, we sample 100 battle pairs
+                                                                                Prompts for GPT-4V To generate pseudo
+from the test dataset, and the ranking results are
+                                                                                labels for training the 3DGen-Eval model, we
+presented in Figure S3.
+                                                                                prompt GPT-4V to produce detailed descriptions
+                                                                                for each 3D model and well-reasoned explana-
+F.2 Comparison with T 3 Bench                                                   tions for each dimension to justify the assigned
+Since T 3 Bench (Y. He et al., 2023) has stricter                               scores. The template used for Absolute Scores and
+requirements on the input format, converting the                                Comparison Votes are shown in Figure S4 and
+format for some models in the 3DGS representa-                                  Figure S5, respectively.
+tion proved challenging. So we only conduct exper-                              Templates for Instruct Tuning We then struc-
+iments on five models that are supported: Dream-                                ture the responses generated from GPT-4V into
+fusion (Poole et al., 2022), Latent-NeRF (Metzer                                templates compatible with LLaVA (H. Liu et
+et al., 2023), Mvdream (Y. Shi et al., 2023),                                   al., 2024) for better understanding and process-
+SJC (H. Wang et al., 2023) and Magic3D (Lin                                     ing. Example diagrams for Abosulte Score and
+et al., 2023). We compare pairwise alignment                                    Comparison Votes are shown in Figure S6 and
+with human on our test dataset, as T 3 Bench                                    Figure S7, respectively.
+has not provided or released validation data. The
+results, shown in Table R5, reveal that our scoring
+model consistently outperforms T3Bench across
+all dimensions, demonstrating its impressive abil-
+ity to simulate human preferences.
+
+
+
+                                                                     24
+ There are two quad images in the NORMAL and RGB format generated from rendering a
+ SINGLE 3D model FROM FOUR DIFFERENT views, where the NORMAL rendering can
+                                                                                                                <image><image>\n There is a set of multi-view photos in the NORMAL format
+ show geometric features better. If there is an expert 3D model evaluation system and the                       and RGB format rendered from a single 3D object or scene. Please generate a
+ score ranges from 1 to 5, representing the overall quality of the model from low to high.                      detailed description for me.
+
+ Known that the current model is scored as {int(avg_score)}, I would like you to generate                   The NORMAL rendering showcases……
+                                                                                                            \n The RGB rendering depicts……
+ a description of the current model.
+ After description generation, I hope you to give some reasoning explanations for                              What do you think about the “Geometry Plausibility” of this 3D model. Score
+                                                                                                               ranging from 1 to 10, assess whether the 3D model‘s overall shape and structure
+ following refined dimensions.                                                                                 match the real object logically and physically. A plausible 3D asset should avoid
+                                                                                                               improbable features, such as distorted faces (Janus problem) or floating, noisy
+                                                                                                               geometry. Please score it, and try to provide reasoning explanations.
+             • Geometry Plausibility: Score ranging from 1 to 10, assess whether the 3D
+               model's overall shape and structure match the real object logically and                      Score: 3\n Explanation: The model’s overall shape is…
+               physically. A plausible 3D asset should avoid improbable features, such as                      What do you think about the "Geometry Details" of this 3D model. Score ranging
+               distorted faces (Janus problem) or floating, noisy geometry.                                    from 1 to 5, assess shape's fineness and exquisiteness. High-detail models feature
+                                                                                                               complex surface features, while low-detail models may look rough and simplistic.
+             • Geometry Details: Score ranging from 1 to 5, assess shape's fineness and                        Pay attention to the distinction between details and noises. Please score it, and try
+               exquisiteness. High-detail models feature complex surface features, while                       to provide reasoning explanations.
+
+               low-detail models may look rough and simplistic. Pay attention to the                        Score: 2\n Explanation: The geometry appears coarse…
+               distinction between details and noises.
+                                                                                                               What do you think about the "Texture Quality" of this 3D model. Score ranging
+             • Texture Quality: Score ranging from 1 to 5, underscore both aesthetic quality                   from 1 to 5, underscore both aesthetic quality and view-consistency. As the former
+                                                                                                               encompasses aspects such as realistic representation of materials and appropriate
+               and view-consistency. As the former encompasses aspects such as realistic                       coloring, the latter prioritizes uniformity and seamlessness across various viewing
+               representation of materials and appropriate coloring, the latter prioritizes                    angles. Please score it, and try to provide reasoning explanations.
+
+               uniformity and seamlessness across various viewing angles.                                   Score: 5\n Explanation: Textures are high aesthetic…
+             • Geometry-Texture Coherency: Score ranging from 1 to 2, assess the
+                                                                                                                What do you think about the “Geometry-Texture Coherency" of this 3D model.
+               alignment between geometric features and texture features. Texture maps                          Score ranging from 1 to 2, assess the alignment between geometric features and
+               should neither make up nor cover up geometric details.                                           texture features. Texture maps should neither make up nor cover up geometric
+                                                                                                                details.. Please score it, and try to provide reasoning explanations.
+             • Prompt-Asset Alignment: Score ranging from 1 to 5, assess the alignment
+               between 3D model and its prompt, involving matches about category,                           Score: 2\n Explanation: Geometry and textures align…
+               quantity, attributes or spatial relationships possibly described in prompt.                     Known that its prompt is {prompt}, what do you think about the "Prompt-Asset
+                                                                                                               Alignment" of this 3D model. Score ranging from 1 to 5, assess the alignment
+ For all above dimensions, the higher the score, the higher the quality on that dimension. And                 between 3D model and its prompt, involving matches about category, quantity,
+                                                                                                               attributes or spatial relationships possibly described in prompt. Please score it,
+ for each 3D model, multi-dimension scores are provided in the LIST format, written as                         and try to provide reasoning explanations.
+ score_list. Known that the score_list of the current 3D model is {[score for score in
+                                                                                                            Score: 4\n Explanation: The model matches prompt…
+ score_dict.values()]} and its visual prompt is {prompt}, please generate some reasoning
+ explanations for each dimensions.
+                                                                                                      Fig. S6 Prompts for 3DGen-Eval model’s Instruct-
+Fig. S4 Prompts for GPT-4V to generate descrip-                                                       Tuning stage(a) trained with Absolute scores, where
+tions and explanations of Absolute score for single                                                   the {score} is supervised by the human annotations, and
+3D model, where the {score dict} is score annotations                                                 the {explanation} is supervised by GPT-4V’s responses.
+of 5 dimensions, and the {avg score} is averaged from
+{score dict}.
+                                                                                                                <image><image>\n There is a set of multi-view photos in the NORMAL format
+                                                                                                                and RGB format rendered from a single 3D object or scene, termed Model_0.
+ There are two sets of quad images rendered from two 3D models generated from the                               Please generate a detailed description for me.
+ SAME prompt. For each image set, there are two images respectively in the NORMAL and                       Model_0: The NORMAL rendering showcases……
+ RGB format rendered from a SINGLE 3D model FROM FOUR DIFFERENT views, where the                            \n The RGB rendering displays……
+
+ NORMAL rendering displays geometry structure and details clearly, and the RGB rendering                        <image><image>\n There is a set of multi-view photos in the NORMAL format
+                                                                                                                and RGB format rendered from a single 3D object or scene, termed Model_1.
+ shows color, material, overall style and other texture details.                                                Please generate a detailed description for me.
+ If there is an expert 3D model evaluation system, it compares these two 3D models from the
+                                                                                                            Model_1: The NORMAL rendering presents……
+ following dimensions.                                                                                      \n The RGB rendering depicts……
+
+                                                                                                             What do you think about the "Geometry Plausibility" of these two 3D models, which
+              • Geometry Plausibility: Assess whether the 3D model's overall shape and                       assess whether the 3D model's overall shape and structure match the real object
+                                                                                                             logically and physically. A plausible 3D asset should avoid improbable features, such
+                structure match the real object logically and physically. A plausible 3D asset               as distorted faces (Janus problem) or floating, noisy geometry.. Please compare two
+                should avoid improbable features, such as distorted faces (Janus problem) or                 models, choosing from "Model_0 is better", "Model_1 is better", "Equally good/bad".
+                                                                                                             And try to provide reasoning explanations.
+                floating, noisy geometry.
+                                                                                                            Model_0 is better\n Explanation: Model_0 presents…
+              • Geometry Details: Assess shape's fineness and exquisiteness. High-detail
+                models feature complex surface features, while low-detail models may look                    What do you think about the "Geometry Details" of these two 3D models, which
+                                                                                                             assess shape's fineness and exquisiteness. High-detail models feature complex
+                rough and simplistic.                                                                        surface features, while low-detail models may look rough and simplistic. Pay
+              • Texture Quality: Underscore both aesthetic quality and view-consistency. As                  attention to the distinction between details and noises. Please compare two models,
+                                                                                                             choosing from "Model_0 is better", "Model_1 is better", "Equally good/bad". And
+                the former encompasses aspects such as realistic representation of                           try to provide reasoning explanations.
+                materials and appropriate coloring, the latter prioritizes uniformity and                   Model_0 is better\n Explanation: Model_0 captures…
+                seamlessness across various viewing angles.
+                                                                                                             What do you think about the "Texture Quality" of these two 3D models, which
+              • Geometry-Texture Coherency: Assess the alignment between geometric                           underscore both aesthetic quality and view-consistency. As the former encompasses
+                                                                                                             aspects such as realistic representation of materials and appropriate coloring, the
+                features and texture features. Texture maps should neither make up nor
+                                                                                                             latter prioritizes uniformity and seamlessness across various viewing angles. Please
+                cover up geometric details.                                                                  compare two models, choosing from "Model_0 is better", "Model_1 is better",
+                                                                                                             "Equally good/bad". And try to provide reasoning explanations..
+              • Prompt-Asset Alignment: Assess the alignment between 3D model and its
+                prompt, involving matches about category, quantity, attributes or spatial                   Model_1 is better\n Explanation: Model_1 provides…
+
+                relationships possibly described in prompt.                                                  What do you think about the "Geometry-Texture Coherency" of these two 3D models,
+                                                                                                             which assess the alignment between geometric features and texture features. Texture
+                                                                                                             maps should neither make up nor cover up geometric details. Please compare two
+ The comparison results are selected from[0, 1, 0.5] and collected in a LIST format, where"0"                models, choosing from "Model_0 is better", "Model_1 is better", "Equally good/bad".
+ represents"model_0 is better","1" represents"model_1 is better" and"0.5"                                    And try to provide reasoning explanations.
+
+ represents"tie(equally well or poorly)".                                                                   Model_1 is better\n Explanation: Model_1 shows…
+ Now, known that the {task} prompt is {prompt} and the comparison results are                                Known that these two models are generated from the same prompt and their prompt
+ {[float(winner_dict[dim]) for dim in COMP_DIMS]}, please genetate some reasoning                            is {prompt}, what do you think about the "Prompt-Asset Alignment" of these two 3D
+                                                                                                             models, which assess the alignment between 3D model and its prompt, involving
+ explanations for each dimension.                                                                            matches about category, quantity, attributes or spatial relationships possibly
+                                                                                                             described in prompt. Please compare two models, choosing from "Model_0 is better",
+                                                                                                             "Model_1 is better", "Equally good/bad". And try to provide reasoning explanations.
+
+Fig. S5 Prompts for GPT-4V to generate expla-                                                               Model_1 is better\n Explanation: Model_1 aligns…
+
+nations of Pairwise comparison for two 3D models
+generated from the same prompt, where the {prompt}                                                    Fig. S7 Prompts for 3DGen-Eval model’s Instruct-
+is the corresponding prompt input and the {winner dict}                                               Tuning stage(b) trained with Comparison votes.
+represents comparison annotations of five dimensions.
+
+
+
+                                                                                                 25
+                                        Anonymous model players
+
+
+
+
+Fig. S8 3DGen-Arena Page1: Anonymous battle models
+
+
+
+
+                                          Select model players
+
+
+
+
+Fig. S9 3DGen-Arena Page2: Named battle models
+
+
+
+
+                                           Single model chat
+
+
+
+
+Fig. S10 3DGen-Arena Page3: Single model chat
+
+
+
+
+                                                     26
+                                  “Comparison votes” Annotation platform
+
+
+
+
+Fig. S11 Screenshots of annotation platform for Comparison Votes
+
+                                  “Absolute scores” Annotation platform
+
+
+
+
+                  9 text-to-3D generative models
+
+
+
+
+                                  “Absolute scores” Annotation platform
+
+
+
+
+                  13 image-to-3D generative models
+
+
+Fig. S12 Screenshots of annotation platform for Absolute Scores
+
+
+
+
+                                                      27
+References                                                 Di, D., Yang, J., Luo, C., Xue, Z., Chen, W., Yang,
+                                                                 X., Gao, Y. (2024). Hyper-3dg: Text-to-3d
+Bai, Y., Jones, A., Ndousse, K., Askell, A., Chen,               gaussian generation via hypergraph. CoRR ,
+      A., DasSarma, N., . . . others (2022). Train-              abs/2403.09236 , ,
+      ing a helpful and harmless assistant with
+      reinforcement learning from human feed-
+      back. arXiv preprint arXiv:2204.05862 ,              Downs, L., Francis, A., Koenig, N., Kinman, B.,
+      ,                                                        Hickman, R., Reymann, K., . . . Vanhoucke,
+                                                               V. (2022). Google scanned objects: A
+                                                               high-quality dataset of 3d scanned household
+Chen, L., Li, J., Dong, X., Zhang, P., He,                     items.
+     C., Wang, J., . . . Lin, D.         (2023).
+     Sharegpt4v: Improving large multi-modal               Elo, A.E. (1967). The proposed uscf rating
+     models with better captions. arXiv preprint                system, its development, theory, and appli-
+     arXiv:2311.12793 , ,                                       cations. Chess life , 22 (8), 242–247,
+
+
+Chen, R., Chen, Y., Jiao, N., Jia, K. (2023).              Ethayarajh, K., Choi, Y., Swayamdipta, S. (2022).
+     Fantasia3d: Disentangling geometry and                     Understanding dataset difficulty with V -
+     appearance for high-quality text-to-3d con-                usable information. International conference
+     tent creation. Proceedings of the ieee/cvf                 on machine learning (pp. 5988–6008).
+     international conference on computer vision
+     (pp. 22246–22256).                                    Gao*, R., Holynski*, A., Henzler, P., Brussee,
+                                                                A., Martin-Brualla, R., Srinivasan, P.P., . . .
+Chen, Y., Wang, T., Wu, T., Pan, X., Jia, K.,                   Poole*, B. (2024). Cat3d: Create any-
+     Liu, Z. (2024). Comboverse: Compositional                  thing in 3d with multi-view diffusion models.
+     3d assets creation using spatially-aware dif-              arXiv , ,
+     fusion guidance.
+
+Chen, Z., Wang, F., Liu, H. (2023). Text-                  Guo, Y.-C., Liu, Y.-T., Shao, R., Laforte, C.,
+     to-3d using gaussian splatting. CoRR ,                     Voleti, V., Luo, G., . . . Zhang, S.-H. (2023).
+     abs/2309.16585 , ,                                         threestudio: A unified framework for 3d
+                                                                content generation. https://github.com/
+                                                                threestudio-project/threestudio.
+Cheng, Y.-C., Lee, H.-Y., Tuyakov, S., Schwing,
+    A., Gui, L. (2023). SDFusion: Multimodal               Gupta, A., Xiong, W., Nie, Y., Jones, I., Oğuz, B.
+    3d shape completion, reconstruction, and                   (2023). 3dgen: Triplane latent diffusion for
+    generation. Cvpr.                                          textured mesh generation. arXiv preprint
+                                                               arXiv:2303.05371 , ,
+Deitke, M., Liu, R., Wallingford, M., Ngo,
+     H., Michel, O., Kusupati, A., . . . others
+     (2024). Objaverse-xl: A universe of 10m+              He, Y., Bai, Y., Lin, M., Zhao, W., Hu, Y., Sheng,
+     3d objects. Advances in Neural Information                 J., . . . Liu, Y.-J. (2023). T3 bench: Bench-
+     Processing Systems , 36 , ,                                marking current progress in text-to-3d gen-
+                                                                eration. arXiv preprint arXiv:2310.02977 ,
+                                                                ,
+Deitke, M., Schwenk, D., Salvador, J., Weihs,
+     L., Michel, O., VanderBilt, E., . . . Farhadi,
+     A. (2023). Objaverse: A universe of anno-             He, Z., & Wang, T. (2023). Openlrm: Open-source
+     tated 3d objects. Proceedings of the ieee/cvf               large reconstruction models. https://github
+     conference on computer vision and pattern                   .com/3DTopia/OpenLRM.
+     recognition (pp. 13142–13153).
+
+
+                                                      28
+Hessel, J., Holtzman, A., Forbes, M., Bras, R.L.,          Köpf, A., Kilcher, Y., von Rütte, D., Anagnostidis,
+     Choi, Y. (2022). Clipscore: A reference-free                S., Tam, Z.R., Stevens, K., . . . others (2024).
+     evaluation metric for image captioning.                     Openassistant conversations-democratizing
+                                                                 large language model alignment. Advances
+Hong, F., Tang, J., Cao, Z., Shi, M., Wu, T., Chen,              in Neural Information Processing Systems ,
+     Z., . . . Liu, Z. (2024). 3dtopia: Large text-              36 , ,
+     to-3d generation model with hybrid diffusion
+     priors. arXiv preprint arXiv:2403.02234 , ,
+                                                           Ku, M., Li, T., Zhang, K., Lu, Y., Fu, X.,
+                                                               Zhuang, W., Chen, W. (2023). Imagenhub:
+Hong, Y., Zhang, K., Gu, J., Bi, S., Zhou, Y., Liu,            Standardizing the evaluation of conditional
+     D., . . . Tan, H. (2023). Lrm: Large recon-               image generation models. arXiv preprint
+     struction model for single image to 3d. arXiv             arXiv:2310.01596 , ,
+     preprint arXiv:2311.04400 , ,
+
+                                                           Li, J., Li, D., Xiong, C., Hoi, S. (2022). Blip: Boot-
+Ilharco, G., Wortsman, M., Wightman,                              strapping language-image pre-training for
+      R., Gordon, C., Carlini, N., Taori,                         unified vision-language understanding and
+      R., . . . Schmidt, L.        (2021, July).                  generation. Icml.
+      Openclip.      Zenodo.     Retrieved from
+      https://doi.org/10.5281/zenodo.5143773               Li, J., Tan, H., Zhang, K., Xu, Z., Luan, F.,
+      (If you use this software, please cite it as               Xu, Y., . . . Bi, S. (2023). Instant3d: Fast
+      below.)                                                    text-to-3d with sparse-view generation and
+                                                                 large reconstruction model. arXiv preprint
+Jun, H., & Nichol, A. (2023). Shap-e: Generat-                   arXiv:2311.06214 , ,
+     ing conditional 3d implicit functions. arXiv
+     preprint arXiv:2305.02463 , ,
+                                                           Li, W., Chen, R., Chen, X., Tan, P. (2023).
+                                                                Sweetdreamer: Aligning geometric priors
+Kendall, M.G. (1938). A new measure of rank                     in 2d diffusion for consistent text-to-3d.
+    correlation. Biometrika , 30 (1/2), 81–93,                  arxiv:2310.02596 , ,
+
+
+Kerbl, B., Kopanas, G., Leimkühler, T., Dret-             Liang, Y., Yang, X., Lin, J., Li, H., Xu,
+     takis, G. (2023). 3d gaussian splatting                    X., Chen, Y.       (2023).   Luciddreamer:
+     for real-time radiance field rendering. ACM                Towards high-fidelity text-to-3d generation
+     Transactions on Graphics , 42 (4), 1–14,                   via interval score matching. arXiv preprint
+                                                                arXiv:2311.11284 , ,
+Kirstain, Y., Polyak, A., Singer, U., Matiana,
+      S., Penna, J., Levy, O. (2023). Pick-a-              Lin, C.-H., Gao, J., Tang, L., Takikawa, T., Zeng,
+      pic: An open dataset of user preferences                   X., Huang, X., . . . Lin, T.-Y. (2023).
+      for text-to-image generation. Advances in                  Magic3d: High-resolution text-to-3d content
+      Neural Information Processing Systems , 36 ,               creation. Proceedings of the ieee/cvf confer-
+      36652–36663,                                               ence on computer vision and pattern recog-
+                                                                 nition (pp. 300–309).
+Kong, X., Liu, S., Lyu, X., Taher, M., Qi, X.,             Liu, F., Wu, D., Wei, Y., Rao, Y., Duan, Y. (2023).
+     Davison, A.J. (2024). Eschernet: A genera-                  Sherpa3d: Boosting high-fidelity text-to-3d
+     tive model for scalable view synthesis. arXiv               generation via coarse 3d prior.
+     preprint arXiv:2402.03908 , ,
+
+
+
+                                                      29
+Liu, H., Li, C., Wu, Q., Lee, Y.J. (2024). Visual              arXiv preprint arXiv:2404.07984 , ,
+      instruction tuning.    Advances in neural
+      information processing systems , 36 , ,
+                                                          Ma, B., Deng, H., Zhou, J., Liu, Y.-S., Huang, T.,
+                                                               Wang, X. (2023). Geodream: Disentangling
+Liu, M., Shi, R., Chen, L., Zhang, Z., Xu, C.,                 2d and geometric priors for high-fidelity and
+     Wei, X., . . . Su, H. (2023). One-2-3-45++:               consistent 3d generation. arXiv preprint
+     Fast single image to 3d objects with consis-              arXiv:2311.17971 , ,
+     tent multi-view generation and 3d diffusion.
+     arXiv preprint arXiv:2311.07885 , ,
+                                                          Melas-Kyriazi, L., Laina, I., Rupprecht, C.,
+                                                               Neverova, N., Vedaldi, A., Gafni, O., Kokki-
+Liu, M., Shi, R., Kuang, K., Zhu, Y., Li, X., Han,             nos, F. (2024). IM-3D: iterative multiview
+     S., . . . Su, H. (2024). Openshape: Scaling               diffusion and reconstruction for high-quality
+     up 3d shape representation towards open-                  3d generation. CoRR , abs/2402.08682 , ,
+     world understanding. Advances in neural
+     information processing systems , 36 , ,
+                                                          Metzer, G., Richardson, E., Patashnik, O., Giryes,
+                                                               R., Cohen-Or, D. (2023). Latent-nerf
+Liu, M., Xu, C., Jin, H., Chen, L., Varma T, M.,               for shape-guided generation of 3d shapes
+     Xu, Z., Su, H. (2024). One-2-3-45: Any sin-               and textures. Proceedings of the ieee/cvf
+     gle image to 3d mesh in 45 seconds without                conference on computer vision and pattern
+     per-shape optimization. Advances in Neural                recognition (pp. 12663–12673).
+     Information Processing Systems , 36 , ,
+                                                          mrfakename, Srivastav, V., Fourrier, C., Pouget,
+                                                               L., Lacombe, Y., main, Gandhi, S. (n.d.).
+Liu, R., Wu, R., Hoorick, B.V., Tokmakov, P.,                  Text to speech arena. https://huggingface
+     Zakharov, S., Vondrick, C. (2023). Zero-1-                .co/spaces/TTS-AGI/TTS-Arena. Hugging
+     to-3: Zero-shot one image to 3d object.                   Face.
+
+Liu, Y., Lin, C., Zeng, Z., Long, X., Liu, L.,            Nakano, R., Hilton, J., Balaji, S., Wu, J.,
+     Komura, T., Wang, W. (2023). Sync-                        Ouyang, L., Kim, C., . . . Schulman, J.
+     dreamer: Generating multiview-consistent                  (2021). Webgpt: Browser-assisted question-
+     images from a single-view image. arXiv                    answering with human feedback. arxiv.
+     preprint arXiv:2309.03453 , ,
+                                                          Nichol, A., Jun, H., Dhariwal, P., Mishkin, P.,
+                                                               Chen, M. (2022). Point-e: A system for
+Long, X., Guo, Y.-C., Lin, C., Liu, Y., Dou, Z.,               generating 3d point clouds from complex
+     Liu, L., . . . others (2023). Wonder3d: Sin-              prompts. arXiv preprint arXiv:2212.08751 ,
+     gle image to 3d using cross-domain diffusion.             ,
+     arXiv preprint arXiv:2310.15008 , ,
+
+                                                   Ouyang, L., Wu, J., Jiang, X., Almeida, D., Wain-
+Lu, Y., Jiang, D., Chen, W., Wang, W.,                 wright, C., Mishkin, P., . . . others (2022).
+    Choi, Y., Lin, B.Y.      (2024, February).         Training language models to follow instruc-
+    Wildvision arena: Benchmarking multi-              tions with human feedback. Advances in
+    modal llms in the wild. Retrieved from             neural information processing systems , 35 ,
+    https://huggingface.co/spaces/WildVision/vision-   27730–27744,
+    arena/
+
+Luo, T., Johnson, J., Lee, H. (2024). View selec-         Poole, B., Jain, A., Barron, J.T., Mildenhall, B.
+     tion for 3d captioning via diffusion ranking.             (2022). Dreamfusion: Text-to-3d using 2d
+
+
+                                                     30
+     diffusion. arXiv preprint arXiv:2209.14988 ,          Saharia, C., Chan, W., Saxena, S., Li, L., Whang,
+     ,                                                          J., Denton, E.L., . . . others (2022). Photo-
+                                                                realistic text-to-image diffusion models with
+                                                                deep language understanding. Advances in
+Qi, Z., Fang, Y., Sun, Z., Wu, X., Wu, T., Wang,                neural information processing systems , 35 ,
+      J., . . . Zhao, H. (2024). Gpt4point: A                   36479–36494,
+      unified framework for point-language under-
+      standing and generation. Proceedings of the
+      ieee/cvf conference on computer vision and           Schuhmann, C., Beaumont, R., Vencu, R.,
+      pattern recognition (pp. 26417–26427).                    Gordon, C.W., Wightman, R., Cherti,
+                                                                M., . . . Jitsev, J.    (2022).    LAION-
+Qian, G., Mai, J., Hamdi, A., Ren, J., Siaro-                   5b: An open large-scale dataset for
+     hin, A., Li, B., . . . Ghanem, B. (2024).                  training next generation image-text mod-
+     Magic123: One image to high-quality                        els.    Thirty-sixth conference on neural
+     3d object generation using both 2d                         information processing systems datasets
+     and 3d diffusion priors.      The twelfth                  and benchmarks track.       Retrieved from
+     international conference on learning                       https://openreview.net/forum?id=M3Y74vmsMcY
+     representations (iclr).    Retrieved from
+     https://openreview.net/forum?id=0jHkUDyEO9
+                                                           Shi, R., Chen, H., Zhang, Z., Liu, M., Xu, C., Wei,
+                                                                 X., . . . Su, H. (2023). Zero123++: a single
+Qin, X., Zhang, Z., Huang, C., Dehghan, M.,                      image to consistent multi-view diffusion base
+     Zaı̈ane, O.R., Jägersand, M. (2020). U2 -net:              model. CoRR , abs/2310.15110 , ,
+     Going deeper with nested u-structure for
+     salient object detection. Pattern Recognit.,
+     106 , 107404,                                         Shi, Y., Wang, P., Ye, J., Long, M., Li, K.,
+                                                                Yang, X. (2023). Mvdream: Multi-view
+                                                                diffusion for 3d generation. arXiv preprint
+Radford, A., Kim, J., Hallacy, C., Ramesh, A.,                  arXiv:2308.16512 , ,
+     Goh, G., Agarwal, S., . . . Sutskever, I.
+     (2021, Feb). Learning transferable visual
+     models from natural language supervision.             Stiennon, N., Ouyang, L., Wu, J., Ziegler, D.,
+     Cornell University - arXiv,Cornell Univer-                 Lowe, R., Voss, C., . . . Christiano, P. (2020,
+     sity - arXiv , ,                                           Sep). Learning to summarize from human
+                                                                feedback. arXiv: Computation and Lan-
+                                                                guage,arXiv: Computation and Language ,
+Raj, A., Kaza, S., Poole, B., Niemeyer, M.,                     ,
+     Ruiz, N., Mildenhall, B., . . . others (2023).
+     Dreambooth3d: Subject-driven text-to-3d
+     generation. Proceedings of the ieee/cvf inter-        Sun, J., Zhang, B., Shao, R., Wang, L., Liu,
+     national conference on computer vision (pp.                W., Xie, Z., Liu, Y. (2023). Dream-
+     2349–2359).                                                craft3d: Hierarchical 3d generation with
+                                                                bootstrapped diffusion prior. arXiv preprint
+Rombach, R., Blattmann, A., Lorenz, D.,                         arXiv:2310.16818 , ,
+    Esser, P., Ommer, B.         (2022, Jun).
+    High-resolution image synthesis with
+    latent diffusion models.    2022 ieee/cvf      Sun, Z., Wu, T., Zhang, P., Zang, Y., Dong,
+    conference on computer vision and pat-              X., Xiong, Y., . . . Wang, J.     (2024).
+    tern recognition (cvpr). Retrieved from             Bootstrap3d: Improving 3d content cre-
+    http://dx.doi.org/10.1109/cvpr52688.2022.01042      ation with synthetic data. arXiv preprint
+                                                        arXiv:2406.00093 , ,
+
+
+
+                                                      31
+Tang, J., Chen, Z., Chen, X., Wang, T., Zeng, G.,
+     Liu, Z. (2024). Lgm: Large multi-view gaus-
+     sian model for high-resolution 3d content             Wang, Y., Kordi, Y., Mishra, S., Liu, A., Smith,
+     creation. arXiv preprint arXiv:2402.05054 ,               N.A., Khashabi, D., Hajishirzi, H. (2022).
+     ,                                                         Self-instruct: Aligning language models with
+                                                               self-generated instructions. arXiv preprint
+                                                               arXiv:2212.10560 , ,
+Tang, J., Ren, J., Zhou, H., Liu, Z., Zeng, G.
+     (2023). Dreamgaussian: Generative gaussian
+     splatting for efficient 3d content creation.          Wang, Z., Lu, C., Wang, Y., Bao, F., Li, C., Su,
+     arXiv preprint arXiv:2309.16653 , ,                       H., Zhu, J. (2024). Prolificdreamer: High-
+                                                               fidelity and diverse text-to-3d generation
+                                                               with variational score distillation. Advances
+Tang, J., Wang, T., Zhang, B., Zhang, T., Yi, R.,              in Neural Information Processing Systems ,
+     Ma, L., Chen, D. (2023). Make-it-3d: High-                36 , ,
+     fidelity 3d creation from a single image with
+     diffusion prior. International conference on
+     computer vision ICCV.                                 Wang, Z., Wang, T., Hancke, G., Liu, Z., Lau,
+                                                               R.W. (2024). Themestation: Generating
+Taori, R., Gulrajani, I., Zhang, T., Dubois, Y.,               theme-aware 3d assets from few exemplars.
+      Li, X., Guestrin, C., . . . Hashimoto, T.B.              Acm siggraph 2024 conference papers (pp.
+      (2023). Stanford alpaca: An instruction-                 1–12).
+      following llama model. https://github.com/
+      tatsu-lab/stanford alpaca. GitHub.                   Wu, T., Wang, J., Pan, X., Xu, X., Theobalt,
+                                                               C., Liu, Z., Lin, D. (2023). Voxurf: Voxel-
+Tremblay, J., Meshry, M., Evans, A., Kautz,                    based efficient and accurate neural surface
+    J., Keller, A., Khamis, S., . . . Birchfield,              reconstruction. International conference on
+    S. (2022). Rtmv: A ray-traced multi-                       learning representations (iclr).
+    view synthetic dataset for novel view syn-
+    thesis. IEEE/CVF European Conference                   Wu, T., Yang, G., Li, Z., Zhang, K., Liu, Z.,
+    on Computer Vision Workshop (Learn3DG                      Guibas, L., . . . Wetzstein, G. (2024). Gpt-4v
+    ECCVW), 2022 , ,                                           (ision) is a human-aligned evaluator for text-
+                                                               to-3d generation. Proceedings of the ieee/cvf
+                                                               conference on computer vision and pattern
+Voleti, V., Yao, C., Boss, M., Letts, A., Pankratz,            recognition (pp. 22227–22238).
+      D., Tochilkin, D., . . . Jampani, V. (2024).
+      SV3D: novel multi-view synthesis and 3d              Wu, T., Zhang, J., Fu, X., Wang, Y., Jiawei Ren,
+      generation from a single image using latent               L.P., Wu, W., . . . Liu, Z. (2023). Omniob-
+      video diffusion. CoRR , abs/2403.12008 , ,                ject3d: Large-vocabulary 3d object dataset
+                                                                for realistic perception, reconstruction and
+                                                                generation. Ieee/cvf conference on computer
+Wang, H., Du, X., Li, J., Yeh, R.A.,                            vision and pattern recognition (cvpr).
+    Shakhnarovich, G. (2023). Score jacobian
+    chaining: Lifting pretrained 2d diffusion              Wu, X., Hao, Y., Sun, K., Chen, Y., Zhu, F., Zhao,
+    models for 3d generation. Proceedings of                    R., Li, H. (2023). Human preference score
+    the ieee/cvf conference on computer vision                  v2: A solid benchmark for evaluating human
+    and pattern recognition (pp. 12619–12629).                  preferences of text-to-image synthesis. arXiv
+                                                                preprint arXiv:2306.09341 , ,
+Wang, T., Zhang, B., Zhang, T., Gu, S., Bao, J.,
+    Baltrusaitis, T., . . . Guo, B. (2023). Rodin:
+    A generative model for sculpting 3d digital
+    avatars using diffusion. CVPR , ,
+
+
+                                                      32
+Xu, J., Cheng, W., Gao, Y., Wang, X., Gao,                       diffusion guidance.
+     S., Shan, Y. (2024). Instantmesh: Effi-
+     cient 3d mesh generation from a single image           Zou, Z.-X., Yu, Z., Guo, Y.-C., Li, Y., Liang,
+     with sparse-view large reconstruction mod-                  D., Cao, Y.-P., Zhang, S.-H.         (2023).
+     els. arXiv preprint arXiv:2404.07191 , ,                    Triplane meets gaussian splatting: Fast
+                                                                 and generalizable single-view 3d reconstruc-
+                                                                 tion with transformers.      arXiv preprint
+Xu, J., Liu, X., Wu, Y., Tong, Y., Li, Q., Ding, M.,             arXiv:2312.09147 , ,
+      . . . Dong, Y. (2024). Imagereward: Learning
+      and evaluating human preferences for text-
+      to-image generation. Advances in Neural
+      Information Processing Systems , 36 , ,
+
+
+Xu, R., Wang, X., Wang, T., Chen, Y., Pang, J.,
+     Lin, D. (2023). Pointllm: Empowering large
+     language models to understand point clouds.
+     arXiv preprint arXiv:2308.16911 , ,
+
+
+Xu, Y., Shi, Z., Yifan, W., Peng, S., Yang, C.,
+     Shen, Y., Gordon, W. (2024). Grm: Large
+     gaussian reconstruction model for efficient
+     3d reconstruction and generation. arxiv:
+     2403.14621 , ,
+
+
+Ye, J., Liu, F., Li, Q., Wang, Z., Wang, Y., Wang,
+      X., . . . Zhu, J. (2024). Dreamreward: Text-
+      to-3d generation with human preference.
+
+Yin, W., Zhang, C., Chen, H., Cai, Z., Yu, G.,
+     Wang, K., . . . Shen, C. (2023). Metric3d:
+     Towards zero-shot metric 3d prediction from
+     a single image. Proceedings of the ieee/cvf
+     international conference on computer vision
+     (pp. 9043–9053).
+
+Zheng, C., & Vedaldi, A.       (2023).  Free3d:
+     Consistent novel view synthesis without 3d
+     representation. arXiv , ,
+
+
+Zheng, L., Chiang, W.-L., Sheng, Y., Zhuang, S.,
+     Wu, Z., Zhuang, Y., . . . others (2023). Judg-
+     ing llm-as-a-judge with mt-bench and chat-
+     bot arena. Advances in Neural Information
+     Processing Systems , 36 , 46595–46623,
+
+
+Zhu, J., & Zhuang, P. (2023). Hifa: High-
+     fidelity text-to-3d generation with advanced
+
+
+                                                       33
+

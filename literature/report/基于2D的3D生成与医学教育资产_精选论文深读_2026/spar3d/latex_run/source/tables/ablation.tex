@@ -1,0 +1,19 @@
+\begin{table}[htb]
+\begin{center}
+\scriptsize
+\resizebox{1.0\linewidth}{!}{\begin{tabular}{l c c c c}
+\hline
+Method & CD$\downarrow$ & FS@0.1$\uparrow$ & PSNR$\uparrow$ & LPIPS$\downarrow$ \\
+\hline
+\method w/o Point                   & 0.136 & 0.506 & 18.5 & 0.146    \\
+\method                             & \textbf{0.120} & \textbf{0.584} & \textbf{18.6} & \textbf{0.139}    \\
+\hline
+\hline
+\method w/o Point                   & 0.140 & 0.509 & 17.8 & 0.146    \\
+\method                             & \textbf{0.122} & \textbf{0.587} & \textbf{17.9} & \textbf{0.140}    \\
+\hline
+\end{tabular}}
+\caption{\textbf{Ablation Study on GSO (top 2 rows) and Omniobject3D (bottom 2 rows).} Removing the point sampling stage leads to significant performance drop.}
+\label{tab:ablation}
+\end{center}
+\end{table}

@@ -1,0 +1,919 @@
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex)
+ restricted \write18 enabled.
+entering extended mode
+(./main.tex
+LaTeX2e <2024-11-01> patch level 2
+L3 programming layer <2025-01-18>
+(./google.cls
+Document Class: google 
+(d:/texlive/2025/texmf-dist/tex/latex/xifthen/xifthen.sty
+(d:/texlive/2025/texmf-dist/tex/latex/tools/calc.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/base/ifthen.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/ifmtarg/ifmtarg.sty))
+(d:/texlive/2025/texmf-dist/tex/latex/extsizes/extarticle.cls
+Document Class: extarticle 1996/10/08 v1.0 Non Standard LaTeX document class
+(d:/texlive/2025/texmf-dist/tex/latex/base/size11.clo)
+(d:/texlive/2025/texmf-dist/tex/latex/base/exscale.sty))
+(d:/texlive/2025/texmf-dist/tex/latex/base/inputenc.sty)
+(d:/texlive/2025/texmf-dist/tex/generic/babel/babel.sty
+(d:/texlive/2025/texmf-dist/tex/generic/babel/txtbabel.def)
+(d:/texlive/2025/texmf-dist/tex/generic/babel-english/english.ldf))
+(d:/texlive/2025/texmf-dist/tex/generic/babel/locale/en/babel-english.tex)
+(d:/texlive/2025/texmf-dist/tex/latex/amscls/amsthm.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/amsmath/amsmath.sty
+For additional information on amsmath, use the `?' option.
+(d:/texlive/2025/texmf-dist/tex/latex/amsmath/amstext.sty
+(d:/texlive/2025/texmf-dist/tex/latex/amsmath/amsgen.sty))
+(d:/texlive/2025/texmf-dist/tex/latex/amsmath/amsbsy.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/amsmath/amsopn.sty))
+(d:/texlive/2025/texmf-dist/tex/latex/amsfonts/amsfonts.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/amsfonts/amssymb.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/cmap/cmap.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/base/fontenc.sty<<t1.cmap>>)
+(d:/texlive/2025/texmf-dist/tex/latex/url/url.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/hyperref/hyperref.sty
+(d:/texlive/2025/texmf-dist/tex/generic/iftex/iftex.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/graphics/keyval.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty)
+(d:/texlive/2025/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty)
+(d:/texlive/2025/texmf-dist/tex/generic/pdfescape/pdfescape.sty
+(d:/texlive/2025/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty)
+(d:/texlive/2025/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+(d:/texlive/2025/texmf-dist/tex/generic/infwarerr/infwarerr.sty)))
+(d:/texlive/2025/texmf-dist/tex/latex/hycolor/hycolor.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/hyperref/nameref.sty
+(d:/texlive/2025/texmf-dist/tex/latex/refcount/refcount.sty)
+(d:/texlive/2025/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
+(d:/texlive/2025/texmf-dist/tex/latex/kvoptions/kvoptions.sty)))
+(d:/texlive/2025/texmf-dist/tex/latex/etoolbox/etoolbox.sty)
+(d:/texlive/2025/texmf-dist/tex/generic/stringenc/stringenc.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/hyperref/pd1enc.def)
+(d:/texlive/2025/texmf-dist/tex/generic/intcalc/intcalc.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/hyperref/puenc.def)
+(d:/texlive/2025/texmf-dist/tex/generic/bitset/bitset.sty
+(d:/texlive/2025/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty))
+(d:/texlive/2025/texmf-dist/tex/latex/base/atbegshi-ltx.sty))
+(d:/texlive/2025/texmf-dist/tex/latex/hyperref/hpdftex.def
+(d:/texlive/2025/texmf-dist/tex/latex/base/atveryend-ltx.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+(d:/texlive/2025/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty)))
+(d:/texlive/2025/texmf-dist/tex/latex/psnfss/pifont.sty
+(d:/texlive/2025/texmf-dist/tex/latex/psnfss/upzd.fd)
+(d:/texlive/2025/texmf-dist/tex/latex/psnfss/upsy.fd))
+(d:/texlive/2025/texmf-dist/tex/latex/xcolor/xcolor.sty
+(d:/texlive/2025/texmf-dist/tex/latex/graphics-cfg/color.cfg)
+(d:/texlive/2025/texmf-dist/tex/latex/graphics-def/pdftex.def)
+(d:/texlive/2025/texmf-dist/tex/latex/graphics/mathcolor.ltx))
+(d:/texlive/2025/texmf-dist/tex/latex/graphics/dvipsnam.def)
+(d:/texlive/2025/texmf-dist/tex/latex/base/textcomp.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/textcase/textcase.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/graphics/graphicx.sty
+(d:/texlive/2025/texmf-dist/tex/latex/graphics/graphics.sty
+(d:/texlive/2025/texmf-dist/tex/latex/graphics/trig.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/graphics-cfg/graphics.cfg)))
+(d:/texlive/2025/texmf-dist/tex/latex/colortbl/colortbl.sty
+(d:/texlive/2025/texmf-dist/tex/latex/tools/array.sty))
+(d:/texlive/2025/texmf-dist/tex/latex/booktabs/booktabs.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/changepage/changepage.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/enumitem/enumitem.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/tools/tabularx.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/datetime/datetime.sty
+(d:/texlive/2025/texmf-dist/tex/latex/fmtcount/fmtcount.sty
+(d:/texlive/2025/texmf-dist/tex/latex/xkeyval/xkeyval.sty
+(d:/texlive/2025/texmf-dist/tex/generic/xkeyval/xkeyval.tex
+(d:/texlive/2025/texmf-dist/tex/generic/xkeyval/xkvutils.tex)))
+(d:/texlive/2025/texmf-dist/tex/latex/fmtcount/fcprefix.sty
+(d:/texlive/2025/texmf-dist/tex/latex/fmtcount/fcnumparser.sty))
+(d:/texlive/2025/texmf-dist/tex/latex/fmtcount/fc-english.def))
+(d:/texlive/2025/texmf-dist/tex/latex/datetime/datetime-defaults.sty))
+(d:/texlive/2025/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/lastpage/lastpage.sty
+(d:/texlive/2025/texmf-dist/tex/latex/lastpage/lastpage2e.sty
+(d:/texlive/2025/texmf-dist/tex/latex/lastpage/lastpagemodern.sty) 
+)) (d:/texlive/2025/texmf-dist/tex/latex/titlesec/titlesec.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/natbib/bibentry.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/mdframed/mdframed.sty
+(d:/texlive/2025/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
+(d:/texlive/2025/texmf-dist/tex/latex/l3kernel/expl3.sty
+(d:/texlive/2025/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def)))
+(d:/texlive/2025/texmf-dist/tex/latex/zref/zref-abspage.sty
+(d:/texlive/2025/texmf-dist/tex/latex/zref/zref-base.sty
+(d:/texlive/2025/texmf-dist/tex/generic/etexcmds/etexcmds.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/auxhook/auxhook.sty)))
+(d:/texlive/2025/texmf-dist/tex/latex/needspace/needspace.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/mdframed/md-frame-0.mdf))
+(d:/texlive/2025/texmf-dist/tex/latex/caption/caption.sty
+(d:/texlive/2025/texmf-dist/tex/latex/caption/caption3.sty))
+(d:/texlive/2025/texmf-dist/tex/generic/soul/soul.sty
+(d:/texlive/2025/texmf-dist/tex/generic/soul/soul-ori.sty))
+(d:/texlive/2025/texmf-dist/tex/latex/xcharter/XCharter.sty
+`XCharter' v1.25, 2023/07/21 Text macros for XCharter, an extension of Charter 
+(msharpe) (d:/texlive/2025/texmf-dist/tex/generic/xstring/xstring.sty
+(d:/texlive/2025/texmf-dist/tex/generic/xstring/xstring.tex))
+(d:/texlive/2025/texmf-dist/tex/latex/carlisle/scalefnt.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/base/fontenc.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/fontaxes/fontaxes.sty))
+(d:/texlive/2025/texmf-dist/tex/latex/newtx/newtxmath.sty
+`newtxmath' v1.754, 2024/09/22 Math macros based originally on txfonts (msharpe
+) (d:/texlive/2025/texmf-dist/tex/latex/oberdiek/centernot.sty)
+(d:/texlive/2025/texmf-dist/tex/generic/kastrup/binhex.tex)
+amsthm NOT loaded
+) (d:/texlive/2025/texmf-dist/tex/latex/zlmtt/zlmtt.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/geometry/geometry.sty
+(d:/texlive/2025/texmf-dist/tex/generic/iftex/ifvtex.sty))
+(d:/texlive/2025/texmf-dist/tex/latex/preprint/authblk.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/newfloat/newfloat.sty))
+(d:/texlive/2025/texmf-dist/tex/latex/microtype/microtype.sty
+(d:/texlive/2025/texmf-dist/tex/latex/microtype/microtype-pdftex.def)
+(d:/texlive/2025/texmf-dist/tex/latex/microtype/microtype.cfg))
+(d:/texlive/2025/texmf-dist/tex/latex/natbib/natbib.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/multirow/multirow.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/caption/subcaption.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/placeins/placeins.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/makecell/makecell.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/float/float.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/cleveref/cleveref.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/xfrac/xfrac.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/lineno/lineno.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/xcharter/T1XCharter-TLF.fd)
+No file main.aux.
+(d:/texlive/2025/texmf-dist/tex/latex/xcharter/omlzchmi.fd)
+(d:/texlive/2025/texmf-dist/tex/latex/newtx/untxexa.fd)
+(d:/texlive/2025/texmf-dist/tex/latex/newtx/lmsntxsy.fd)
+(d:/texlive/2025/texmf-dist/tex/latex/newtx/lmxntxexx.fd)
+(d:/texlive/2025/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+) (d:/texlive/2025/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+(d:/texlive/2025/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg))
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+(d:/texlive/2025/texmf-dist/tex/latex/microtype/mt-bch.cfg)
+(d:/texlive/2025/texmf-dist/tex/latex/xcharter/OT1XCharter-TLF.fd)<<ot1.cmap>><
+<oml.cmap>> (d:/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd)
+(d:/texlive/2025/texmf-dist/tex/latex/microtype/mt-msa.cfg)
+(d:/texlive/2025/texmf-dist/tex/latex/amsfonts/umsb.fd)
+(d:/texlive/2025/texmf-dist/tex/latex/microtype/mt-msb.cfg)
+(d:/texlive/2025/texmf-dist/tex/latex/newtx/untxmia.fd)
+(d:/texlive/2025/texmf-dist/tex/latex/newtx/untxsym.fd)
+(d:/texlive/2025/texmf-dist/tex/latex/newtx/untxsyc.fd)
+(d:/texlive/2025/texmf-dist/tex/latex/zlmtt/t1zlmtt.fd)
+Underfull \hbox (badness 10000) in paragraph at lines 110--111
+
+
+Package natbib Warning: Citation `nbp' on page 1 undefined on input line 117.
+
+
+Package natbib Warning: Citation `veo3' on page 1 undefined on input line 117.
+
+
+Package natbib Warning: Citation `flux2' on page 1 undefined on input line 117.
+
+
+
+Package natbib Warning: Citation `seedance2' on page 1 undefined on input line 
+117.
+
+
+Package natbib Warning: Citation `uni1' on page 1 undefined on input line 117.
+
+
+Package natbib Warning: Citation `gpt1p5' on page 1 undefined on input line 117
+.
+
+
+Package natbib Warning: Citation `krizhevsky2012imagenet_alexnet' on page 1 und
+efined on input line 119.
+
+
+Package natbib Warning: Citation `dehghani2023scaling_vit22b' on page 1 undefin
+ed on input line 119.
+
+
+Package natbib Warning: Citation `dosovitskiy2020image_vit' on page 1 undefined
+ on input line 119.
+
+
+Package natbib Warning: Citation `simclr' on page 1 undefined on input line 120
+.
+
+
+Package natbib Warning: Citation `he2020momentum_moco' on page 1 undefined on i
+nput line 120.
+
+
+Package natbib Warning: Citation `chen2020improved_moco2' on page 1 undefined o
+n input line 120.
+
+
+Package natbib Warning: Citation `zhai2023siglip1' on page 1 undefined on input
+ line 120.
+
+
+Package natbib Warning: Citation `tschannen2025siglip2' on page 1 undefined on 
+input line 120.
+
+
+Package natbib Warning: Citation `radford2021learning_clip' on page 1 undefined
+ on input line 120.
+
+
+Package natbib Warning: Citation `caron2021emerging_dinov1' on page 1 undefined
+ on input line 121.
+
+
+Package natbib Warning: Citation `grill2020bootstrap_byol' on page 1 undefined 
+on input line 121.
+
+
+Package natbib Warning: Citation `he2022masked_mae' on page 1 undefined on inpu
+t line 122.
+
+
+Package natbib Warning: Citation `bao2021beit' on page 1 undefined on input lin
+e 122.
+
+
+Package natbib Warning: Citation `chen2024deconstructing_dae' on page 1 undefin
+ed on input line 122.
+
+
+Package natbib Warning: Citation `oquab2023dinov2' on page 1 undefined on input
+ line 122.
+
+
+Package natbib Warning: Citation `simeoni2025dinov3' on page 1 undefined on inp
+ut line 122.
+
+
+Package natbib Warning: Citation `zhou2021ibot' on page 1 undefined on input li
+ne 122.
+
+
+Package natbib Warning: Citation `cao2026tipsv2' on page 1 undefined on input l
+ine 122.
+
+
+Package natbib Warning: Citation `chen2020generative_igpt' on page 1 undefined 
+on input line 123.
+
+
+Package natbib Warning: Citation `bai2024sequential_lvm' on page 1 undefined on
+ input line 123.
+
+
+(d:/texlive/2025/texmf-dist/tex/latex/xcharter/TS1XCharter-TLF.fd) [1{d:/texliv
+e/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{d:/texlive/2025/texmf-dist
+/fonts/enc/dvips/xcharter/xch_rydp4l.enc}{d:/texlive/2025/texmf-dist/fonts/enc/
+dvips/lm/lm-ec.enc}{d:/texlive/2025/texmf-dist/fonts/enc/dvips/xcharter/xch1_co
+4ru4.enc} <./assets/logo_GoogleDeepmind_FullColor.png>]
+
+Package natbib Warning: Citation `zuo2025nanobanana_low_level' on page 2 undefi
+ned on input line 134.
+
+
+Package natbib Warning: Citation `wiedemer2025veo_learner' on page 2 undefined 
+on input line 134.
+
+
+Package natbib Warning: Citation `he2024lotus' on page 2 undefined on input lin
+e 136.
+
+
+Package natbib Warning: Citation `lotus2' on page 2 undefined on input line 136
+.
+
+
+Package natbib Warning: Citation `marigold' on page 2 undefined on input line 1
+36.
+
+
+Package natbib Warning: Citation `ye2024stablenormal' on page 2 undefined on in
+put line 136.
+
+
+Package natbib Warning: Citation `yu2024high' on page 2 undefined on input line
+ 136.
+
+
+Package natbib Warning: Citation `zhao2025diception' on page 2 undefined on inp
+ut line 136.
+
+
+Package natbib Warning: Citation `wang2026thfm' on page 2 undefined on input li
+ne 136.
+
+
+Package natbib Warning: Citation `brown2020language_gpt3' on page 2 undefined o
+n input line 154.
+
+
+Package natbib Warning: Citation `chowdhery2023palm' on page 2 undefined on inp
+ut line 154.
+
+
+Package natbib Warning: Citation `ouyang2022training_instructgpt' on page 2 und
+efined on input line 154.
+
+
+Package natbib Warning: Citation `wei2021finetuned_flan' on page 2 undefined on
+ input line 154.
+
+
+LaTeX Warning: Reference `fig:teaser_img' on page 2 undefined on input line 155
+.
+
+
+[2 <./assets/teaser_img_v6.pdf> <./assets/vb4.png>]
+
+Package natbib Warning: Citation `sam3' on page 3 undefined on input line 199.
+
+
+Package natbib Warning: Citation `ren2024dinox' on page 3 undefined on input li
+ne 199.
+
+
+Package natbib Warning: Citation `dav3' on page 3 undefined on input line 199.
+
+
+Package natbib Warning: Citation `lotus2' on page 3 undefined on input line 199
+.
+
+
+LaTeX Warning: Reference `tab:overall' on page 3 undefined on input line 204.
+
+
+Package natbib Warning: Citation `sam3' on page 3 undefined on input line 204.
+
+
+Package natbib Warning: Citation `dav3' on page 3 undefined on input line 204.
+
+
+Package natbib Warning: Citation `li2024genaibench' on page 3 undefined on inpu
+t line 204.
+
+
+Package natbib Warning: Citation `ye2025imgedit' on page 3 undefined on input l
+ine 204.
+
+
+Package natbib Warning: Citation `wiedemer2025veo_learner' on page 3 undefined 
+on input line 217.
+
+
+Package natbib Warning: Citation `zuo2025nanobanana_low_level' on page 3 undefi
+ned on input line 217.
+
+
+[3{d:/texlive/2025/texmf-dist/fonts/enc/dvips/xcharter/xch_3gllts.enc}]
+
+Package natbib Warning: Citation `li2024genaibench' on page 4 undefined on inpu
+t line 226.
+
+
+Package natbib Warning: Citation `ye2025imgedit' on page 4 undefined on input l
+ine 226.
+
+
+LaTeX Warning: Reference `fig:t2i-demo' on page 4 undefined on input line 228.
+
+
+LaTeX Warning: Reference `fig:imgedit-demo' on page 4 undefined on input line 2
+28.
+
+
+[4]
+
+Package natbib Warning: Citation `kirillov2023segment' on page 5 undefined on i
+nput line 261.
+
+
+Package natbib Warning: Citation `radford2021learning_clip' on page 5 undefined
+ on input line 261.
+
+
+Overfull \hbox (36.72095pt too wide) in paragraph at lines 337--354
+ [][] 
+
+Package natbib Warning: Citation `kirillov2023segment' on page 5 undefined on i
+nput line 362.
+
+
+Package natbib Warning: Citation `ravi2024sam2' on page 5 undefined on input li
+ne 362.
+
+
+Package natbib Warning: Citation `sam3' on page 5 undefined on input line 362.
+
+
+LaTeX Warning: Reference `tab-segmentation-all' on page 5 undefined on input li
+ne 362.
+
+
+Package natbib Warning: Citation `cityscapes' on page 5 undefined on input line
+ 367.
+
+
+LaTeX Warning: Reference `fig:demo-semantic-segmentation' on page 5 undefined o
+n input line 371.
+
+
+[5]
+
+Package natbib Warning: Citation `fu2025segman' on page 6 undefined on input li
+ne 379.
+
+
+Package natbib Warning: Citation `shen2024_aped' on page 6 undefined on input l
+ine 379.
+
+
+Package natbib Warning: Citation `zhang2023simple_openseed' on page 6 undefined
+ on input line 379.
+
+
+Package natbib Warning: Citation `zou2023generalized_xdecoder' on page 6 undefi
+ned on input line 379.
+
+
+Package natbib Warning: Citation `sam3' on page 6 undefined on input line 379.
+
+
+LaTeX Warning: Reference `tab-seg-cityscapes' on page 6 undefined on input line
+ 379.
+
+
+Package natbib Warning: Citation `cityscapes' on page 6 undefined on input line
+ 380.
+
+
+Package natbib Warning: Citation `fu2025segman' on page 6 undefined on input li
+ne 381.
+
+
+LaTeX Warning: Reference `fig:demo-instance-segmentation' on page 6 undefined o
+n input line 512.
+
+
+Package natbib Warning: Citation `sam3' on page 6 undefined on input line 562.
+
+
+LaTeX Warning: Reference `tab-seg-saco' on page 6 undefined on input line 562.
+
+
+Package natbib Warning: Citation `gemini25' on page 6 undefined on input line 5
+65.
+
+
+Package natbib Warning: Citation `shen2024_aped' on page 6 undefined on input l
+ine 565.
+
+
+Package natbib Warning: Citation `minderer2023gowol' on page 6 undefined on inp
+ut line 565.
+
+
+Package natbib Warning: Citation `ren2024dinox' on page 6 undefined on input li
+ne 566.
+
+
+[6 <./assets/v2_vis/semseg/image5.jpg> <./assets/v2_vis/semseg/image3.png (PNG 
+copy)> <./assets/v2_vis/semseg/image2.png> <./assets/v2_vis/semseg/image4.jpg> 
+<./assets/v2_vis/semseg/image6.png> <./assets/v2_vis/semseg/image1.png>]
+
+LaTeX Warning: Reference `tab-seg-refcocog' on page 7 undefined on input line 5
+76.
+
+
+LaTeX Warning: Reference `tab-seg-reasonseg' on page 7 undefined on input line 
+576.
+
+
+Package natbib Warning: Citation `refcoco' on page 7 undefined on input line 57
+6.
+
+
+Package natbib Warning: Citation `reasonseg' on page 7 undefined on input line 
+576.
+
+
+Package natbib Warning: Citation `sam3' on page 7 undefined on input line 576.
+
+
+Package natbib Warning: Citation `liu2025hybrid' on page 7 undefined on input l
+ine 576.
+
+
+Package natbib Warning: Citation `kang2025your' on page 7 undefined on input li
+ne 576.
+
+
+Package natbib Warning: Citation `liu2025segzero' on page 7 undefined on input 
+line 576.
+
+
+Package natbib Warning: Citation `lu2025rsvp' on page 7 undefined on input line
+ 576.
+
+
+Package natbib Warning: Citation `wei2024hyperseg' on page 7 undefined on input
+ line 577.
+
+
+Package natbib Warning: Citation `wang2026xsam' on page 7 undefined on input li
+ne 577.
+
+
+Package natbib Warning: Citation `wang2026xsam' on page 7 undefined on input li
+ne 578.
+
+
+Package natbib Warning: Citation `reasonseg' on page 7 undefined on input line 
+578.
+
+
+LaTeX Warning: Reference `fig:refseg-demo' on page 7 undefined on input line 57
+9.
+
+
+[7 <./assets/v2_vis/insseg/insseg4.jpg> <./assets/v2_vis/insseg/insseg4_pred1.p
+ng (PNG copy)> <./assets/v2_vis/insseg/insseg4_pred2.png (PNG copy)> <./assets/
+v2_vis/insseg/insseg1.jpg> <./assets/v2_vis/insseg/insseg1_1.png (PNG copy)> <.
+/assets/v2_vis/insseg/insseg1_2.png (PNG copy)> <./assets/v2_vis/insseg/insseg3
+.png> <./assets/v2_vis/insseg/insseg3_1.png (PNG copy)> <./assets/v2_vis/insseg
+/insseg3_2.png (PNG copy)>]
+
+LaTeX Warning: Reference `fig:demo-semseg2' on page 8 undefined on input line 5
+83.
+
+
+LaTeX Warning: Reference `fig:demo-insseg2_in' on page 8 undefined on input lin
+e 584.
+
+
+LaTeX Warning: Reference `tab:overall' on page 8 undefined on input line 592.
+
+
+Package natbib Warning: Citation `dav3' on page 8 undefined on input line 592.
+
+
+Package natbib Warning: Citation `lotus2' on page 8 undefined on input line 592
+.
+
+
+Package natbib Warning: Citation `eigen2014depth' on page 8 undefined on input 
+line 595.
+
+
+[8 <./assets/v2_vis/refseg/refseg1.jpeg> <./assets/v2_vis/refseg/refseg1_pred.p
+ng> <./assets/v2_vis/refseg/refseg3.jpeg> <./assets/v2_vis/refseg/refseg3_pred.
+jpg> <./assets/v2_vis/refseg/refseg4_in.png> <./assets/v2_vis/refseg/refseg_4_p
+red1.png> <./assets/v2_vis/refseg/refseg5_in.png> <./assets/v2_vis/refseg/refse
+g5_out.png>]
+
+Package natbib Warning: Citation `yang2024dav2' on page 9 undefined on input li
+ne 601.
+
+
+Package natbib Warning: Citation `bochkovskii2024depthpro' on page 9 undefined 
+on input line 601.
+
+
+Package natbib Warning: Citation `wang2024moge' on page 9 undefined on input li
+ne 601.
+
+
+Package natbib Warning: Citation `wang2025moge2' on page 9 undefined on input l
+ine 601.
+
+
+Package natbib Warning: Citation `lotus2' on page 9 undefined on input line 601
+.
+
+
+Package natbib Warning: Citation `he2024lotus' on page 9 undefined on input lin
+e 601.
+
+
+Package natbib Warning: Citation `hu2024metric3dv2' on page 9 undefined on inpu
+t line 601.
+
+
+Package natbib Warning: Citation `depthlm' on page 9 undefined on input line 60
+1.
+
+
+Package natbib Warning: Citation `dav3' on page 9 undefined on input line 601.
+
+
+Package natbib Warning: Citation `piccinelli2025unidepthv2' on page 9 undefined
+ on input line 601.
+
+
+Package natbib Warning: Citation `unik3d' on page 9 undefined on input line 601
+.
+
+
+Package natbib Warning: Citation `barron2025power' on page 9 undefined on input
+ line 613.
+
+
+LaTeX Warning: Reference `fig:color_tubes_minipage' on page 9 undefined on inpu
+t line 618.
+
+
+[9 <./assets/color_tubes.png>]
+
+Package natbib Warning: Citation `depthlm' on page 10 undefined on input line 6
+73.
+
+
+Package natbib Warning: Citation `dav3' on page 10 undefined on input line 673.
+
+
+
+Package natbib Warning: Citation `bochkovskii2024depthpro' on page 10 undefined
+ on input line 673.
+
+
+Package natbib Warning: Citation `unik3d' on page 10 undefined on input line 67
+3.
+
+
+Package natbib Warning: Citation `wang2025moge2' on page 10 undefined on input 
+line 673.
+
+
+Package natbib Warning: Citation `nyuv2' on page 10 undefined on input line 673
+.
+
+
+Package natbib Warning: Citation `koch2018evaluation_ibims1' on page 10 undefin
+ed on input line 673.
+
+
+Package natbib Warning: Citation `eth3d' on page 10 undefined on input line 673
+.
+
+
+Package natbib Warning: Citation `diode_dataset' on page 10 undefined on input 
+line 673.
+
+
+Package natbib Warning: Citation `Uhrig2017THREEDV_kitti' on page 10 undefined 
+on input line 673.
+
+
+Package natbib Warning: Citation `caesar2020nuscenes' on page 10 undefined on i
+nput line 673.
+
+
+Package natbib Warning: Citation `dav3' on page 10 undefined on input line 678.
+
+
+
+LaTeX Warning: Reference `tab:depth' on page 10 undefined on input line 688.
+
+
+Package natbib Warning: Citation `unik3d' on page 10 undefined on input line 68
+8.
+
+
+Package natbib Warning: Citation `wang2025moge2' on page 10 undefined on input 
+line 688.
+
+
+Package natbib Warning: Citation `dav3' on page 10 undefined on input line 689.
+
+
+
+Package natbib Warning: Citation `nyuv2' on page 10 undefined on input line 738
+.
+
+
+Package natbib Warning: Citation `eth3d' on page 10 undefined on input line 738
+.
+
+
+LaTeX Warning: Reference `fig:depth-demo1' on page 10 undefined on input line 7
+65.
+
+
+LaTeX Warning: Reference `fig:depth-kinkakuji' on page 10 undefined on input li
+ne 767.
+
+
+[10]
+[11 <./assets/depth_demo/depth_3_0.png (PNG copy)> <./assets/depth_demo/depth_3
+_1.png (PNG copy)> <./assets/depth_demo/depth_3_2.png> <./assets/depth_demo/dep
+th_3_3.png> <./assets/depth_demo/depth_162_0.png (PNG copy)> <./assets/depth_de
+mo/depth_162_1.png (PNG copy)> <./assets/depth_demo/depth_162_2.png> <./assets/
+depth_demo/depth_162_3.png> <./assets/depth_demo/depth_eth3d_47_0.jpg> <./asset
+s/depth_demo/depth_eth3d_47_1.jpg> <./assets/depth_demo/depth_eth3d_47_2.png> <
+./assets/depth_demo/depth_eth3d_47_3.png> <./assets/depth_demo/depth_eth3d_205_
+0.jpeg> <./assets/depth_demo/depth_eth3d_205_1.png (PNG copy)> <./assets/depth_
+demo/depth_eth3d_205_2.png> <./assets/depth_demo/depth_eth3d_205_3.png> <./asse
+ts/depth_demo/depth_15_0.png (PNG copy)> <./assets/depth_demo/depth_15_1.png (P
+NG copy)> <./assets/depth_demo/depth_15_2.png> <./assets/depth_demo/depth_15_3.
+jpg>]
+
+LaTeX Warning: Reference `tab:surface_normal' on page 12 undefined on input lin
+e 787.
+
+
+Package natbib Warning: Citation `nyuv2' on page 12 undefined on input line 808
+.
+
+
+Package natbib Warning: Citation `diode_dataset' on page 12 undefined on input 
+line 808.
+
+
+Package natbib Warning: Citation `dai2017scannet' on page 12 undefined on input
+ line 808.
+
+
+Package natbib Warning: Citation `cabon2020virtualkitty' on page 12 undefined o
+n input line 808.
+
+
+Package natbib Warning: Citation `marigold' on page 12 undefined on input line 
+808.
+
+
+Package natbib Warning: Citation `DSINE' on page 12 undefined on input line 808
+.
+
+
+Package natbib Warning: Citation `ye2024stablenormal' on page 12 undefined on i
+nput line 808.
+
+
+Package natbib Warning: Citation `lotus2' on page 12 undefined on input line 80
+8.
+
+
+Package natbib Warning: Citation `lotus2' on page 12 undefined on input line 84
+2.
+
+
+LaTeX Warning: Reference `fig:surface_normal_demo' on page 12 undefined on inpu
+t line 846.
+
+
+Package natbib Warning: Citation `lotus2' on page 12 undefined on input line 84
+6.
+
+
+LaTeX Warning: Reference `fig:surface_normal_demo' on page 12 undefined on inpu
+t line 847.
+
+
+Package natbib Warning: Citation `cabon2020virtualkitty' on page 12 undefined o
+n input line 847.
+
+
+[12 <./assets/depth_demo_real/depth_in.jpg> <./assets/depth_demo_real/depth_out
+.png> <./assets/depth_demo_real/depth_map.png>]
+[13 <./assets/surface_normal/sn_1_in.jpg> <./assets/surface_normal/sn_1_lotus.j
+pg> <./assets/surface_normal/sn_1_gpm.jpg> <./assets/surface_normal/sn_2_in.jpg
+> <./assets/surface_normal/sn_2_lotus.jpg> <./assets/surface_normal/sn_2_gpm.jp
+g> <./assets/surface_normal/sn_4_in.jpg> <./assets/surface_normal/sn_4_lotus.pn
+g (PNG copy)> <./assets/surface_normal/sn_4_gpm.png (PNG copy)>]
+
+Package natbib Warning: Citation `radford2018improving_gpt1' on page 14 undefin
+ed on input line 852.
+
+
+Package natbib Warning: Citation `radford2019language_gpt2' on page 14 undefine
+d on input line 852.
+
+
+Package natbib Warning: Citation `brown2020language_gpt3' on page 14 undefined 
+on input line 852.
+
+
+Package natbib Warning: Citation `wiedemer2025veo_learner' on page 14 undefined
+ on input line 853.
+
+
+Package natbib Warning: Citation `zuo2025nanobanana_low_level' on page 14 undef
+ined on input line 853.
+
+
+Package natbib Warning: Citation `marigold' on page 14 undefined on input line 
+862.
+
+
+Package natbib Warning: Citation `zhao2025diception' on page 14 undefined on in
+put line 862.
+
+
+Package natbib Warning: Citation `sam3' on page 14 undefined on input line 865.
+
+
+
+Package natbib Warning: Citation `dav3' on page 14 undefined on input line 865.
+
+
+
+Package natbib Warning: Citation `kirillov2023segment' on page 14 undefined on 
+input line 866.
+
+
+Package natbib Warning: Citation `ravi2024sam2' on page 14 undefined on input l
+ine 866.
+
+
+Package natbib Warning: Citation `sam3' on page 14 undefined on input line 866.
+
+
+
+Package natbib Warning: Citation `wei2021finetuned_flan' on page 14 undefined o
+n input line 873.
+
+
+Package natbib Warning: Citation `wang2025vggt' on page 14 undefined on input l
+ine 875.
+
+
+Package natbib Warning: Citation `zhang2025d4rt' on page 14 undefined on input 
+line 875.
+
+
+[14] (./main.bbl
+[15]
+Underfull \hbox (badness 2126) in paragraph at lines 140--144
+[]\T1/XCharter-TLF/m/n/10.95 (+20) Google.  In-tro-duc-ing nano ba-nana pro.  [
+][]$\T1/zlmtt/m/n/10.95 https : / / blog . google / innovation-[]and-[]ai /
+
+[16]
+[17]
+[18]
+[19])
+[20]
+
+Package natbib Warning: Citation `li2024genaibench' on page 21 undefined on inp
+ut line 951.
+
+
+Overfull \hbox (17.11774pt too wide) in paragraph at lines 958--991
+ [][] 
+
+Package natbib Warning: Citation `ye2025imgedit' on page 21 undefined on input 
+line 993.
+
+
+LaTeX Warning: Float too large for page by 1.7946pt on input line 995.
+
+
+Package natbib Warning: There were undefined citations.
+
+
+[21 <./assets/T2I/demo_1_dp.jpg> <./assets/T2I/demo_1_nbp.jpg> <./assets/T2I/de
+mo_2_dp.jpg> <./assets/T2I/demo_2_nbp.jpg> <./assets/T2I/demo_3_dp.jpg> <./asse
+ts/T2I/demo_3_nbp.jpg> <./assets/T2I/demo_4_vb.jpg> <./assets/T2I/demo_4_nbp.jp
+g>]
+[22 <./assets/imgedit/sample.1.original.jpg> <./assets/imgedit/sample.1.vb.jpg>
+ <./assets/imgedit/sample.1.nbp.jpg> <./assets/imgedit/sample.2.original.jpg> <
+./assets/imgedit/sample.2.vb.jpg> <./assets/imgedit/sample.2.nbp.jpg> <./assets
+/imgedit/sample.3.original.jpg> <./assets/imgedit/sample.3.vb.jpg> <./assets/im
+gedit/sample.3.nbp.jpg> <./assets/imgedit/sample.4.original.jpg> <./assets/imge
+dit/sample.4.vb.jpg> <./assets/imgedit/sample.4.nbp.jpg>]
+
+enddocument/afterlastpage (AED): lastpage setting LastPage.
+(./main.aux
+
+Package natbib Warning: Citation(s) may have changed.
+(natbib)                Rerun to get citations correct.
+
+)
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+
+Package rerunfilecheck Warning: File `main.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+
+Package lastpage Warning: Rerun to get the references right on input line 1001.
+
+
+ )
+(see the transcript file for additional information)<d:/texlive/2025/texmf-dist
+/fonts/type1/public/xcharter/XCharter-Bold.pfb><d:/texlive/2025/texmf-dist/font
+s/type1/public/xcharter/XCharter-BoldItalic.pfb><d:/texlive/2025/texmf-dist/fon
+ts/type1/public/xcharter/XCharter-Italic.pfb><d:/texlive/2025/texmf-dist/fonts/
+type1/public/xcharter/XCharter-Roman.pfb><d:/texlive/2025/texmf-dist/fonts/type
+1/public/xcharter/XCharterMathMI.pfb><d:/texlive/2025/texmf-dist/fonts/type1/pu
+blic/lm/lmtk10.pfb><d:/texlive/2025/texmf-dist/fonts/type1/public/lm/lmtt10.pfb
+><d:/texlive/2025/texmf-dist/fonts/type1/public/newtx/txmiaX.pfb><d:/texlive/20
+25/texmf-dist/fonts/type1/public/newtx/txsym.pfb><d:/texlive/2025/texmf-dist/fo
+nts/type1/public/newtx/txsys.pfb>
+Output written on main.pdf (22 pages, 38166391 bytes).
+SyncTeX written on main.synctex.gz.
+
+Transcript written on main.log.

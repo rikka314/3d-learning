@@ -1,0 +1,1335 @@
+{
+  "schema_version": "paper-latex-paragraphs/1.0",
+  "tex_root": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source",
+  "paragraphs": [
+    {
+      "paragraph_id": "main.tex::p0001",
+      "tex_file": "main.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\main.tex",
+      "section_path": [],
+      "block_type": "command-block",
+      "line_start": 3,
+      "line_end": 3,
+      "text": "\\documentclass[10pt,twocolumn,letterpaper]{article}",
+      "normalized_text": "\\documentclass[10pt,twocolumn,letterpaper]{article}"
+    },
+    {
+      "paragraph_id": "main.tex::p0002",
+      "tex_file": "main.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\main.tex",
+      "section_path": [],
+      "block_type": "command-block",
+      "line_start": 8,
+      "line_end": 11,
+      "text": "\\usepackage{multirow} \\usepackage[accsupp]{axessibility} \\usepackage[table]{xcolor} \\definecolor{rowgray}{RGB}{242,242,242}",
+      "normalized_text": "\\usepackage{multirow} \\usepackage[accsupp]{axessibility} \\usepackage[table]{xcolor} \\definecolor{rowgray}{rgb}{242,242,242}"
+    },
+    {
+      "paragraph_id": "main.tex::p0003",
+      "tex_file": "main.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\main.tex",
+      "section_path": [],
+      "block_type": "command-block",
+      "line_start": 24,
+      "line_end": 26,
+      "text": "\\definecolor{cvprblue}{rgb}{0.21,0.49,0.74} \\usepackage[pagebackref,breaklinks,colorlinks,allcolors=cvprblue]{hyperref} \\usepackage{marvosym}",
+      "normalized_text": "\\definecolor{cvprblue}{rgb}{0.21,0.49,0.74} \\usepackage[pagebackref,breaklinks,colorlinks,allcolors=cvprblue]{hyperref} \\usepackage{marvosym}"
+    },
+    {
+      "paragraph_id": "main.tex::p0004",
+      "tex_file": "main.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\main.tex",
+      "section_path": [],
+      "block_type": "command-block",
+      "line_start": 28,
+      "line_end": 30,
+      "text": "\\def\\paperID{***} \\def\\confName{CVPR} \\def\\confYear{2026}",
+      "normalized_text": "\\def\\paperid{***} \\def\\confname{cvpr} \\def\\confyear{2026}"
+    },
+    {
+      "paragraph_id": "main.tex::p0005",
+      "tex_file": "main.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\main.tex",
+      "section_path": [],
+      "block_type": "command-block",
+      "line_start": 33,
+      "line_end": 33,
+      "text": "\\title{Text–Image Conditioned 3D Generation}",
+      "normalized_text": "\\title{text–image conditioned 3d generation}"
+    },
+    {
+      "paragraph_id": "main.tex::p0006",
+      "tex_file": "main.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\main.tex",
+      "section_path": [],
+      "block_type": "command-block",
+      "line_start": 107,
+      "line_end": 124,
+      "text": "\\author{ Jiazhong Cen\\textsuperscript{\\rm 1}\\footnotemark[2] \\quad Jiemin Fang\\textsuperscript{\\rm 2 \\Letter} \\quad Sikuang Li\\textsuperscript{\\rm 1}\\footnotemark[2] \\quad Guanjun Wu\\textsuperscript{\\rm 3}\\footnotemark[2] \\quad Chen Yang\\textsuperscript{\\rm 2} \\quad Taoran Yi\\textsuperscript{\\rm 3}\\footnotemark[2] \\\\ Zanwei Zhou\\textsuperscript{\\rm 1}\\footnotemark[2] \\quad Zhikuan Bao\\textsuperscript{\\rm 2} \\quad Lingxi Xie\\textsuperscript{\\rm 2} \\quad Wei Shen\\textsuperscript{\\rm 1 \\Letter} \\quad Qi Tian\\textsuperscript{\\rm 2} \\\\ $^{1}$MoE Key Lab of Artificial Intelligence, AI Institute, \\\\ School of Computer Science, Shanghai Jiao Tong University \\\\ $^{2}$Huawei Inc. \\\\ $^{3}$Huazhong University of Science and Technology \\\\ {\\tt\\small jaminfong@gmail.com, wei.shen@sjtu.edu.cn} }",
+      "normalized_text": "\\author{ jiazhong cen\\textsuperscript{\\rm 1}\\footnotemark[2] \\quad jiemin fang\\textsuperscript{\\rm 2 \\letter} \\quad sikuang li\\textsuperscript{\\rm 1}\\footnotemark[2] \\quad guanjun wu\\textsuperscript{\\rm 3}\\footnotemark[2] \\quad chen yang\\textsuperscript{\\rm 2} \\quad taoran yi\\textsuperscript{\\rm 3}\\footnotemark[2] \\\\ zanwei zhou\\textsuperscript{\\rm 1}\\footnotemark[2] \\quad zhikuan bao\\textsuperscript{\\rm 2} \\quad lingxi xie\\textsuperscript{\\rm 2} \\quad wei shen\\textsuperscript{\\rm 1 \\letter} \\quad qi tian\\textsuperscript{\\rm 2} \\\\ $^{1}$moe key lab of artificial intelligence, ai institute, \\\\ school of computer science, shanghai jiao tong university \\\\ $^{2}$huawei inc. \\\\ $^{3}$huazhong university of science and technology \\\\ {\\tt\\small jaminfong@gmail.com, wei.shen@sjtu.edu.cn} }"
+    },
+    {
+      "paragraph_id": "main.tex::p0007",
+      "tex_file": "main.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\main.tex",
+      "section_path": [],
+      "block_type": "command-block",
+      "line_start": 126,
+      "line_end": 127,
+      "text": "\\begin{document} \\maketitle",
+      "normalized_text": "\\begin{document} \\maketitle"
+    },
+    {
+      "paragraph_id": "main.tex::p0008",
+      "tex_file": "main.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\main.tex",
+      "section_path": [],
+      "block_type": "paragraph",
+      "line_start": 129,
+      "line_end": 133,
+      "text": "{ \\renewcommand{\\thefootnote}{\\fnsymbol{footnote}} \\footnotetext[2]{Work done during internship at Huawei.} \\footnotetext[0]{\\hspace{-4pt}$^\\text{\\Letter}$Corresponding authors.} }",
+      "normalized_text": "{ \\renewcommand{\\thefootnote}{\\fnsymbol{footnote}} \\footnotetext[2]{work done during internship at huawei.} \\footnotetext[0]{\\hspace{-4pt}$^\\text{\\letter}$corresponding authors.} }"
+    },
+    {
+      "paragraph_id": "main.tex::p0009",
+      "tex_file": "main.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\main.tex",
+      "section_path": [],
+      "block_type": "command-block",
+      "line_start": 135,
+      "line_end": 140,
+      "text": "\\input{0_abstract} \\input{1_intro} \\input{2_related} \\input{3_method} \\input{4_experiments} \\input{5_conclusion}",
+      "normalized_text": "\\input{0_abstract} \\input{1_intro} \\input{2_related} \\input{3_method} \\input{4_experiments} \\input{5_conclusion}"
+    },
+    {
+      "paragraph_id": "main.tex::p0010",
+      "tex_file": "main.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\main.tex",
+      "section_path": [
+        "Acknowledgements"
+      ],
+      "block_type": "paragraph",
+      "line_start": 143,
+      "line_end": 148,
+      "text": "This work was supported by the NSFC under Grant 62322604 and 62576207. We thank the anonymous reviewers for their valuable feedback and suggestions. { \\small \\bibliographystyle{ieeenat_fullname} \\bibliography{main} }",
+      "normalized_text": "this work was supported by the nsfc under grant 62322604 and 62576207. we thank the anonymous reviewers for their valuable feedback and suggestions. { \\small \\bibliographystyle{ieeenat_fullname} \\bibliography{main} }"
+    },
+    {
+      "paragraph_id": "0_abstract.tex::p0001",
+      "tex_file": "0_abstract.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\0_abstract.tex",
+      "section_path": [
+        "Abstract"
+      ],
+      "block_type": "paragraph",
+      "line_start": 7,
+      "line_end": 7,
+      "text": "High-quality 3D assets are essential for VR/AR, industrial design, and entertainment, motivating growing interest in generative models that create 3D content from user prompts. Most existing 3D generators, however, rely on a single conditioning modality: image-conditioned models achieve high visual fidelity by exploiting pixel-aligned cues bhaodeut suffer from viewpoint bias when the input view is limited or ambiguous, while text-conditioned models provide broad semantic guidance yet lack low-level visual detail. This limits how users can express intent and raises a natural question: can these two modalities be combined for more flexible and faithful 3D generation? Our diagnostic study shows that even simple late fusion of text- and image-conditioned predictions outperforms single-modality models, revealing strong cross-modal complementarity. We therefore formalize \\textbf{Text–Image Conditioned 3D Generation}, which requires joint reasoning over a visual exemplar and a textual specification. To address this task, we introduce \\textbf{TIGON}, a minimalist dual-branch baseline with separate image- and text-conditioned backbones and lightweight cross-modal fusion. Extensive experiments show that text–image conditioning consistently improves over single-modality methods, highlighting complementary vision–language guidance as a promising direction for future 3D generation research. Project page: \\url{https://jumpat.github.io/tigon-page}",
+      "normalized_text": "high-quality 3d assets are essential for vr/ar, industrial design, and entertainment, motivating growing interest in generative models that create 3d content from user prompts. most existing 3d generators, however, rely on a single conditioning modality: image-conditioned models achieve high visual fidelity by exploiting pixel-aligned cues bhaodeut suffer from viewpoint bias when the input view is limited or ambiguous, while text-conditioned models provide broad semantic guidance yet lack low-level visual detail. this limits how users can express intent and raises a natural question: can these two modalities be combined for more flexible and faithful 3d generation? our diagnostic study shows that even simple late fusion of text- and image-conditioned predictions outperforms single-modality models, revealing strong cross-modal complementarity. we therefore formalize \\textbf{text–image conditioned 3d generation}, which requires joint reasoning over a visual exemplar and a textual specification. to address this task, we introduce \\textbf{tigon}, a minimalist dual-branch baseline with separate image- and text-conditioned backbones and lightweight cross-modal fusion. extensive experiments show that text–image conditioning consistently improves over single-modality methods, highlighting complementary vision–language guidance as a promising direction for future 3d generation research. project page: \\url{https://jumpat.github.io/tigon-page}"
+    },
+    {
+      "paragraph_id": "1_intro.tex::p0001",
+      "tex_file": "1_intro.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\1_intro.tex",
+      "section_path": [
+        "Introduction"
+      ],
+      "block_type": "paragraph",
+      "line_start": 4,
+      "line_end": 4,
+      "text": "Generating high-quality 3D assets has attracted increasing attention due to its importance for downstream applications such as virtual reality, industrial design, and embodied AI. A particularly promising line of work~\\cite{trellis, hunyuan3d, direct3ds2, triposr, step1x, clay} learns to generate 3D objects from either an input image or a text description. However, relying on a single conditioning modality can limit the flexibility of 3D generation.",
+      "normalized_text": "generating high-quality 3d assets has attracted increasing attention due to its importance for downstream applications such as virtual reality, industrial design, and embodied ai. a particularly promising line of work~\\cite{trellis, hunyuan3d, direct3ds2, triposr, step1x, clay} learns to generate 3d objects from either an input image or a text description. however, relying on a single conditioning modality can limit the flexibility of 3d generation."
+    },
+    {
+      "paragraph_id": "1_intro.tex::p0002",
+      "tex_file": "1_intro.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\1_intro.tex",
+      "section_path": [
+        "Introduction"
+      ],
+      "block_type": "command-block",
+      "line_start": 6,
+      "line_end": 13,
+      "text": "\\begin{figure} \\centering \\includegraphics[width=\\linewidth]{tigon-teaser.png} \\caption{Single-modality conditioning has limitations in satisfying user intent. Image-only conditioning captures local appearance but omits unobserved regions; text-only conveys semantics but lacks visual fidelity. In contrast, joint text–image conditioning produces 3D assets that are both semantically aligned with the description and faithful to the reference appearance.} \\label{fig:teaser} \\end{figure}",
+      "normalized_text": "\\begin{figure} \\centering \\includegraphics[width=\\linewidth]{tigon-teaser.png} \\caption{single-modality conditioning has limitations in satisfying user intent. image-only conditioning captures local appearance but omits unobserved regions; text-only conveys semantics but lacks visual fidelity. in contrast, joint text–image conditioning produces 3d assets that are both semantically aligned with the description and faithful to the reference appearance.} \\label{fig:teaser} \\end{figure}"
+    },
+    {
+      "paragraph_id": "1_intro.tex::p0003",
+      "tex_file": "1_intro.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\1_intro.tex",
+      "section_path": [
+        "Introduction"
+      ],
+      "block_type": "paragraph",
+      "line_start": 15,
+      "line_end": 15,
+      "text": "As shown in~\\cref{fig:teaser}, when a user specifies a 3D object with an example image, image-conditioned 3D generation can preserve local appearance but is highly sensitive to viewpoint informativeness: occlusions, atypical views, or incomplete object coverage force the model to hallucinate under-constrained regions, causing the generated 3D asset to deviate from the intended semantics. In contrast, text-conditioned 3D generation is semantically reasonable but lacks concrete visual constraints, so the output may roughly match the prompt while exhibiting poor visual quality.",
+      "normalized_text": "as shown in~\\cref{fig:teaser}, when a user specifies a 3d object with an example image, image-conditioned 3d generation can preserve local appearance but is highly sensitive to viewpoint informativeness: occlusions, atypical views, or incomplete object coverage force the model to hallucinate under-constrained regions, causing the generated 3d asset to deviate from the intended semantics. in contrast, text-conditioned 3d generation is semantically reasonable but lacks concrete visual constraints, so the output may roughly match the prompt while exhibiting poor visual quality."
+    },
+    {
+      "paragraph_id": "1_intro.tex::p0004",
+      "tex_file": "1_intro.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\1_intro.tex",
+      "section_path": [
+        "Introduction"
+      ],
+      "block_type": "paragraph",
+      "line_start": 17,
+      "line_end": 17,
+      "text": "These observations raise a natural question of whether image and text conditions can provide complementary information for more flexible 3D generation. Intuitively, images anchor the result to the actual observed view, supplying reliable geometry and appearance cues, while text can specify additional semantics to disambiguate unobserved regions (\\emph{e.g.}, ``with a long coiled tiger tail''). In a diagnostic study, we find that conditioning on a low-information view degrades performance, but adding a textual description and fusing the image- and text-conditioned predictions noticeably recovers quality. This motivates us to move beyond single-modality settings and introduce \\textbf{Text--Image Conditioned 3D Generation}\\footnote{Here we focus on the \\emph{native} 3D generation setting, where the model directly generates a 3D representation under joint text--image conditioning.}, which requires the 3D generator to jointly reason over the visual exemplar and the textual specification, and to generate a consistent 3D asset that is simultaneously faithful to the image-conditioned appearance/geometry and aligned with the text-defined semantics.",
+      "normalized_text": "these observations raise a natural question of whether image and text conditions can provide complementary information for more flexible 3d generation. intuitively, images anchor the result to the actual observed view, supplying reliable geometry and appearance cues, while text can specify additional semantics to disambiguate unobserved regions (\\emph{e.g.}, ``with a long coiled tiger tail''). in a diagnostic study, we find that conditioning on a low-information view degrades performance, but adding a textual description and fusing the image- and text-conditioned predictions noticeably recovers quality. this motivates us to move beyond single-modality settings and introduce \\textbf{text--image conditioned 3d generation}\\footnote{here we focus on the \\emph{native} 3d generation setting, where the model directly generates a 3d representation under joint text--image conditioning.}, which requires the 3d generator to jointly reason over the visual exemplar and the textual specification, and to generate a consistent 3d asset that is simultaneously faithful to the image-conditioned appearance/geometry and aligned with the text-defined semantics."
+    },
+    {
+      "paragraph_id": "1_intro.tex::p0005",
+      "tex_file": "1_intro.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\1_intro.tex",
+      "section_path": [
+        "Introduction"
+      ],
+      "block_type": "paragraph",
+      "line_start": 19,
+      "line_end": 19,
+      "text": "To address this task, we propose a strong yet minimalist baseline named \\textbf{TIGON}. It adopts a dual-branch design that retains two modality-specialized DiT backbones and couples them via two lightweight fusion mechanisms: (i) cross-modal linear bridges for bidirectional feature sharing (early fusion), and (ii) step-wise prediction averaging along the denoising trajectory (late fusion). This design prevents either branch from shouldering the cross-modal domain gap, preserves their original single-modality ability, and enables free-form conditioning. Extensive experiments show that TIGON delivers more flexible 3D generation.",
+      "normalized_text": "to address this task, we propose a strong yet minimalist baseline named \\textbf{tigon}. it adopts a dual-branch design that retains two modality-specialized dit backbones and couples them via two lightweight fusion mechanisms: (i) cross-modal linear bridges for bidirectional feature sharing (early fusion), and (ii) step-wise prediction averaging along the denoising trajectory (late fusion). this design prevents either branch from shouldering the cross-modal domain gap, preserves their original single-modality ability, and enables free-form conditioning. extensive experiments show that tigon delivers more flexible 3d generation."
+    },
+    {
+      "paragraph_id": "1_intro.tex::p0006",
+      "tex_file": "1_intro.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\1_intro.tex",
+      "section_path": [
+        "Introduction"
+      ],
+      "block_type": "paragraph",
+      "line_start": 21,
+      "line_end": 21,
+      "text": "Our contributions are summarized as follows: (1) We identify and empirically diagnose the limitations of existing single-modality 3D generation methods. (2) We show that image and text provide complementary conditioning signals and, motivated by this, introduce the task of text–image conditioned 3D generation. (3) We propose TIGON, a simple yet effective baseline method that leverages modality-specific backbones with lightweight cross-modal fusion. (4) We conduct extensive experiments to demonstrate that TIGON achieves more robust and flexible 3D generation.",
+      "normalized_text": "our contributions are summarized as follows: (1) we identify and empirically diagnose the limitations of existing single-modality 3d generation methods. (2) we show that image and text provide complementary conditioning signals and, motivated by this, introduce the task of text–image conditioned 3d generation. (3) we propose tigon, a simple yet effective baseline method that leverages modality-specific backbones with lightweight cross-modal fusion. (4) we conduct extensive experiments to demonstrate that tigon achieves more robust and flexible 3d generation."
+    },
+    {
+      "paragraph_id": "2_related.tex::p0001",
+      "tex_file": "2_related.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\2_related.tex",
+      "section_path": [
+        "Related Work"
+      ],
+      "block_type": "command-block",
+      "line_start": 13,
+      "line_end": 14,
+      "text": "\\paragraph{3D Generation with 2D Generative Models.} SDS-based text-to-3D methods optimize differentiable 3D representations (\\emph{e.g.}, NeRFs~\\cite{nerf}) using frozen 2D diffusion priors, as pioneered by DreamFusion~\\cite{dreamfusion} and SJC~\\cite{sjc}. Later works improve resolution, geometry--appearance disentanglement, optimization stability, and multi-view consistency, while recent hybrids with 3D Gaussian Splatting or native 3D diffusion further boost efficiency and fidelity~\\cite{consistent3d,magic3d,fantasia3d,prolificdreamer,li2024connecting,kwak2024geometry,dreamcraft3d,gaussiandreamer,dreamgaussian,liang2024luciddreamer,li2023instant3d}. A parallel line studies image-conditioned 3D generation and reconstruction with 2D generative priors, either by directly optimizing 3D representations or by first generating consistent multi-view images and then reconstructing 3D content~\\cite{realfusion,neurallift360,makeit3d,liu2023zero,weng2023consistent123,liu2024one,liu2023one,wonder3d,syncdreamer,xu2024instantmesh,li2023instant3d}. Despite strong progress, reliance on 2D priors often limits 3D consistency, motivating native 3D generative models and cross-modal latent modeling~\\cite{michelangelo}.",
+      "normalized_text": "\\paragraph{3d generation with 2d generative models.} sds-based text-to-3d methods optimize differentiable 3d representations (\\emph{e.g.}, nerfs~\\cite{nerf}) using frozen 2d diffusion priors, as pioneered by dreamfusion~\\cite{dreamfusion} and sjc~\\cite{sjc}. later works improve resolution, geometry--appearance disentanglement, optimization stability, and multi-view consistency, while recent hybrids with 3d gaussian splatting or native 3d diffusion further boost efficiency and fidelity~\\cite{consistent3d,magic3d,fantasia3d,prolificdreamer,li2024connecting,kwak2024geometry,dreamcraft3d,gaussiandreamer,dreamgaussian,liang2024luciddreamer,li2023instant3d}. a parallel line studies image-conditioned 3d generation and reconstruction with 2d generative priors, either by directly optimizing 3d representations or by first generating consistent multi-view images and then reconstructing 3d content~\\cite{realfusion,neurallift360,makeit3d,liu2023zero,weng2023consistent123,liu2024one,liu2023one,wonder3d,syncdreamer,xu2024instantmesh,li2023instant3d}. despite strong progress, reliance on 2d priors often limits 3d consistency, motivating native 3d generative models and cross-modal latent modeling~\\cite{michelangelo}."
+    },
+    {
+      "paragraph_id": "2_related.tex::p0002",
+      "tex_file": "2_related.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\2_related.tex",
+      "section_path": [
+        "Related Work"
+      ],
+      "block_type": "paragraph",
+      "line_start": 16,
+      "line_end": 16,
+      "text": "Among prior works, TICD~\\cite{ticd} and FlexGen~\\cite{flexgen} are most related to ours. TICD augments SDS-based text-to-3D with an image diffusion prior, while FlexGen jointly conditions on text and image but focuses on 2D multi-view generation rather than native 3D synthesis. In contrast, we study \\textbf{native} 3D generation under joint text-image conditioning.",
+      "normalized_text": "among prior works, ticd~\\cite{ticd} and flexgen~\\cite{flexgen} are most related to ours. ticd augments sds-based text-to-3d with an image diffusion prior, while flexgen jointly conditions on text and image but focuses on 2d multi-view generation rather than native 3d synthesis. in contrast, we study \\textbf{native} 3d generation under joint text-image conditioning."
+    },
+    {
+      "paragraph_id": "2_related.tex::p0003",
+      "tex_file": "2_related.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\2_related.tex",
+      "section_path": [
+        "Related Work"
+      ],
+      "block_type": "command-block",
+      "line_start": 18,
+      "line_end": 19,
+      "text": "\\paragraph{Native 3D Generative Models.} Unlike SDS-based pipelines that rely on 2D generators at test time, native 3D generative models operate directly on 3D representations such as point clouds, meshes, voxels, 3D Gaussians~\\cite{3dgs,tang2024lgm}, and neural fields~\\cite{rf, nerf, mipnerf, lan2024ln3diff}. Early works~\\cite{nichol2022point, vahdat2022lion} introduce fast point-cloud synthesis via latent diffusion. Later models such as 3DShape2VecSet~\\cite{zhang20233dshape2vecset} improve geometry-aware latents for diffusion training. Moreover, scalable voxel-based methods~\\cite{ren2024xcube}, octree-based models~\\cite{xiong2025octfusion} and 3DGS-based models~\\cite{yang2024atlas} improve generation resolution and efficiency.",
+      "normalized_text": "\\paragraph{native 3d generative models.} unlike sds-based pipelines that rely on 2d generators at test time, native 3d generative models operate directly on 3d representations such as point clouds, meshes, voxels, 3d gaussians~\\cite{3dgs,tang2024lgm}, and neural fields~\\cite{rf, nerf, mipnerf, lan2024ln3diff}. early works~\\cite{nichol2022point, vahdat2022lion} introduce fast point-cloud synthesis via latent diffusion. later models such as 3dshape2vecset~\\cite{zhang20233dshape2vecset} improve geometry-aware latents for diffusion training. moreover, scalable voxel-based methods~\\cite{ren2024xcube}, octree-based models~\\cite{xiong2025octfusion} and 3dgs-based models~\\cite{yang2024atlas} improve generation resolution and efficiency."
+    },
+    {
+      "paragraph_id": "2_related.tex::p0004",
+      "tex_file": "2_related.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\2_related.tex",
+      "section_path": [
+        "Related Work"
+      ],
+      "block_type": "paragraph",
+      "line_start": 21,
+      "line_end": 22,
+      "text": "More recent studies scale data and model capacity for high-quality asset synthesis. Some focus on geometry-only generation for detailed meshes~\\cite{chen2025ultra3d,direct3d,direct3ds2,li2025sparc3d,ye2025hi3dgen}, while others target fully textured 3D assets~\\cite{clay,3dtopiaxl,hunyuan3d2025hunyuan3d2.1,lai2025hunyuan3d2.5,step1x,zhou2025few}. Among the latter, TRELLIS~\\cite{trellis} introduces a sparse, structured latent representation that enables high-fidelity 3D generation via a two-stage pipeline, and UniLat3D~\\cite{unilat} provides a unified-latent variant with a simplified sampling process. Together, these advances establish native 3D diffusion models as strong alternatives to 2D diffusion-based pipelines. However, most existing approaches assume single-modality conditioning (either image or text), which limits the flexibility and expressiveness of user instructions. In this work, we study this limitation and introduce the task of text–image conditioned 3D generation.",
+      "normalized_text": "more recent studies scale data and model capacity for high-quality asset synthesis. some focus on geometry-only generation for detailed meshes~\\cite{chen2025ultra3d,direct3d,direct3ds2,li2025sparc3d,ye2025hi3dgen}, while others target fully textured 3d assets~\\cite{clay,3dtopiaxl,hunyuan3d2025hunyuan3d2.1,lai2025hunyuan3d2.5,step1x,zhou2025few}. among the latter, trellis~\\cite{trellis} introduces a sparse, structured latent representation that enables high-fidelity 3d generation via a two-stage pipeline, and unilat3d~\\cite{unilat} provides a unified-latent variant with a simplified sampling process. together, these advances establish native 3d diffusion models as strong alternatives to 2d diffusion-based pipelines. however, most existing approaches assume single-modality conditioning (either image or text), which limits the flexibility and expressiveness of user instructions. in this work, we study this limitation and introduce the task of text–image conditioned 3d generation."
+    },
+    {
+      "paragraph_id": "2_related.tex::p0005",
+      "tex_file": "2_related.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\2_related.tex",
+      "section_path": [
+        "Related Work"
+      ],
+      "block_type": "command-block",
+      "line_start": 27,
+      "line_end": 28,
+      "text": "\\paragraph{Multimodal-Conditioned Generation.} Multimodal conditioning has proven effective in text, image, and video generation. Multimodal LLMs that ingest both language and visual (or even 3D) inputs~\\cite{llava,qwenvl,instructblip,internvl,3dllm,pointllm,ll3da} enable grounded reasoning and control, while text-to-image diffusion benefits from additional visual controls (edges, depth, pose, layout) and joint text-image inputs~\\cite{controlnet,t2i,ipadapter,qwenimage,bagel,instructp2p} for better alignment with user intent. In video generation, combining a reference frame with textual guidance~\\cite{makeitmove,wan} yields more consistent and controllable outputs. These successes motivate our exploration of whether joint text-image conditioning can similarly endow 3D generators with complementary strengths beyond single-modality conditioning.",
+      "normalized_text": "\\paragraph{multimodal-conditioned generation.} multimodal conditioning has proven effective in text, image, and video generation. multimodal llms that ingest both language and visual (or even 3d) inputs~\\cite{llava,qwenvl,instructblip,internvl,3dllm,pointllm,ll3da} enable grounded reasoning and control, while text-to-image diffusion benefits from additional visual controls (edges, depth, pose, layout) and joint text-image inputs~\\cite{controlnet,t2i,ipadapter,qwenimage,bagel,instructp2p} for better alignment with user intent. in video generation, combining a reference frame with textual guidance~\\cite{makeitmove,wan} yields more consistent and controllable outputs. these successes motivate our exploration of whether joint text-image conditioning can similarly endow 3d generators with complementary strengths beyond single-modality conditioning."
+    },
+    {
+      "paragraph_id": "3_method.tex::p0001",
+      "tex_file": "3_method.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\3_method.tex",
+      "section_path": [
+        "Preliminaries"
+      ],
+      "block_type": "command-block",
+      "line_start": 6,
+      "line_end": 7,
+      "text": "\\label{sec:trellis} TRELLIS~\\cite{trellis} is an effective 3D generator that learns rectified-flow models~\\cite{lipman2022flow,esser2024scaling} for a geometry latent (which voxels are active) and an appearance latent defined on those active locations.",
+      "normalized_text": "\\label{sec:trellis} trellis~\\cite{trellis} is an effective 3d generator that learns rectified-flow models~\\cite{lipman2022flow,esser2024scaling} for a geometry latent (which voxels are active) and an appearance latent defined on those active locations."
+    },
+    {
+      "paragraph_id": "3_method.tex::p0002",
+      "tex_file": "3_method.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\3_method.tex",
+      "section_path": [
+        "Preliminaries"
+      ],
+      "block_type": "command-block",
+      "line_start": 9,
+      "line_end": 17,
+      "text": "\\paragraph{Geometry Generation.} A 3D object is voxelized into a sparse set of occupied points $\\{\\mathbf{p}_i\\}_{i=1}^N$, $\\mathbf{p}_i \\in \\mathbb{R}^3$. A geometry VAE compresses and reconstructs this set: \\begin{equation} \\mathbf{z}_{\\text{geo}} = \\mathcal{E}_{\\text{geo}}(\\{\\mathbf{p}_i\\}), \\qquad \\{\\mathbf{p}_i\\} = \\mathcal{D}_{\\text{geo}}(\\mathbf{z}_{\\text{geo}}). \\label{eq:trellis-geo} \\end{equation} A rectified-flow model $\\mathcal{F}_{\\text{geo}}$ parameterizes a time-conditioned velocity field that transports Gaussian noise toward $\\mathbf{z}_{\\text{geo}}$ under image or text conditioning.",
+      "normalized_text": "\\paragraph{geometry generation.} a 3d object is voxelized into a sparse set of occupied points $\\{\\mathbf{p}_i\\}_{i=1}^n$, $\\mathbf{p}_i \\in \\mathbb{r}^3$. a geometry vae compresses and reconstructs this set: \\begin{equation} \\mathbf{z}_{\\text{geo}} = \\mathcal{e}_{\\text{geo}}(\\{\\mathbf{p}_i\\}), \\qquad \\{\\mathbf{p}_i\\} = \\mathcal{d}_{\\text{geo}}(\\mathbf{z}_{\\text{geo}}). \\label{eq:trellis-geo} \\end{equation} a rectified-flow model $\\mathcal{f}_{\\text{geo}}$ parameterizes a time-conditioned velocity field that transports gaussian noise toward $\\mathbf{z}_{\\text{geo}}$ under image or text conditioning."
+    },
+    {
+      "paragraph_id": "3_method.tex::p0003",
+      "tex_file": "3_method.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\3_method.tex",
+      "section_path": [
+        "Preliminaries"
+      ],
+      "block_type": "command-block",
+      "line_start": 19,
+      "line_end": 34,
+      "text": "\\paragraph{Appearance Generation.} On the occupied positions $\\{\\mathbf{p}_i\\}$, TRELLIS aggregates multi-view image features \\[ \\mathbf{F} = \\{(\\mathbf{p}_i, \\mathbf{f}_i)\\}_{i=1}^N, \\quad \\mathbf{f}_i \\in \\mathbb{R}^d, \\] extracted by a 2D vision encoder such as DINOv2~\\cite{dinov2}, and encodes them into a Structured LATent (SLAT) with an appearance VAE: \\begin{equation} \\mathbf{z}_{\\text{SLAT}} = \\mathcal{E}_{\\text{app}}(\\mathbf{F}) = \\{(\\mathbf{p}_i, \\mathbf{z}_i)\\}_{i=1}^N. \\label{eq:trellis-slat} \\end{equation} A second rectified-flow model $\\mathcal{F}_{\\text{app}}$ is learned for $\\mathbf{z}_{\\text{SLAT}}$, and the appearance decoder produces the final 3D representation \\begin{equation} \\mathcal{O} = \\mathcal{D}_{\\text{app}}(\\mathbf{z}_{\\text{SLAT}}), \\end{equation} where $\\mathcal{O}$ can be mesh, 3DGS~\\cite{3dgs}, or radiance fields~\\cite{rf}.",
+      "normalized_text": "\\paragraph{appearance generation.} on the occupied positions $\\{\\mathbf{p}_i\\}$, trellis aggregates multi-view image features \\[ \\mathbf{f} = \\{(\\mathbf{p}_i, \\mathbf{f}_i)\\}_{i=1}^n, \\quad \\mathbf{f}_i \\in \\mathbb{r}^d, \\] extracted by a 2d vision encoder such as dinov2~\\cite{dinov2}, and encodes them into a structured latent (slat) with an appearance vae: \\begin{equation} \\mathbf{z}_{\\text{slat}} = \\mathcal{e}_{\\text{app}}(\\mathbf{f}) = \\{(\\mathbf{p}_i, \\mathbf{z}_i)\\}_{i=1}^n. \\label{eq:trellis-slat} \\end{equation} a second rectified-flow model $\\mathcal{f}_{\\text{app}}$ is learned for $\\mathbf{z}_{\\text{slat}}$, and the appearance decoder produces the final 3d representation \\begin{equation} \\mathcal{o} = \\mathcal{d}_{\\text{app}}(\\mathbf{z}_{\\text{slat}}), \\end{equation} where $\\mathcal{o}$ can be mesh, 3dgs~\\cite{3dgs}, or radiance fields~\\cite{rf}."
+    },
+    {
+      "paragraph_id": "3_method.tex::p0004",
+      "tex_file": "3_method.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\3_method.tex",
+      "section_path": [
+        "Preliminaries"
+      ],
+      "block_type": "command-block",
+      "line_start": 36,
+      "line_end": 50,
+      "text": "\\paragraph{Sampling with Rectified Flow.} For each latent $\\ell \\in \\{\\text{geo}, \\text{SLAT}\\}$ with decoder $\\mathcal{D}_\\ell \\in \\{\\mathcal{D}_{\\text{geo}}, \\mathcal{D}_{\\text{app}}\\}$ and a chosen condition $\\mathbf{c}$ (image $\\mathbf{I}$ or text $\\mathbf{T}$), inference integrates the rectified-flow ODE from noise to data. Let $1 = t_0 > t_1 > \\cdots > t_K = 0$ be a fixed schedule and initialize $\\tilde{\\mathbf{z}}_{\\ell, t_0} \\sim \\mathcal{N}(\\mathbf{0}, \\mathbb{I}^{c})$, where $c$ is the latent dimension. At step $k$, \\begin{equation} \\begin{aligned} &\\mathbf{v}_{\\ell, k} = \\mathcal{F}_{\\ell}\\!\\left(\\tilde{\\mathbf{z}}_{\\ell, t_k},\\, t_k;\\, \\mathbf{c}\\right),\\\\ &\\tilde{\\mathbf{z}}_{\\ell, t_{k+1}} = \\tilde{\\mathbf{z}}_{\\ell, t_k} - (t_k - t_{k+1})\\, \\mathbf{v}_{\\ell, k}, \\end{aligned} \\end{equation} yielding $\\tilde{\\mathbf{z}}_{\\ell, 0}$ after $K$ steps. Decoding $\\tilde{\\mathbf{z}}_{\\text{geo}, 0}$ with $\\mathcal{D}_{\\text{geo}}$ produces the activated voxels, and decoding $\\tilde{\\mathbf{z}}_{\\text{SLAT}, 0}$ with $\\mathcal{D}_{\\text{app}}$ gives the final 3D output $\\mathcal{O}$.",
+      "normalized_text": "\\paragraph{sampling with rectified flow.} for each latent $\\ell \\in \\{\\text{geo}, \\text{slat}\\}$ with decoder $\\mathcal{d}_\\ell \\in \\{\\mathcal{d}_{\\text{geo}}, \\mathcal{d}_{\\text{app}}\\}$ and a chosen condition $\\mathbf{c}$ (image $\\mathbf{i}$ or text $\\mathbf{t}$), inference integrates the rectified-flow ode from noise to data. let $1 = t_0 > t_1 > \\cdots > t_k = 0$ be a fixed schedule and initialize $\\tilde{\\mathbf{z}}_{\\ell, t_0} \\sim \\mathcal{n}(\\mathbf{0}, \\mathbb{i}^{c})$, where $c$ is the latent dimension. at step $k$, \\begin{equation} \\begin{aligned} &\\mathbf{v}_{\\ell, k} = \\mathcal{f}_{\\ell}\\!\\left(\\tilde{\\mathbf{z}}_{\\ell, t_k},\\, t_k;\\, \\mathbf{c}\\right),\\\\ &\\tilde{\\mathbf{z}}_{\\ell, t_{k+1}} = \\tilde{\\mathbf{z}}_{\\ell, t_k} - (t_k - t_{k+1})\\, \\mathbf{v}_{\\ell, k}, \\end{aligned} \\end{equation} yielding $\\tilde{\\mathbf{z}}_{\\ell, 0}$ after $k$ steps. decoding $\\tilde{\\mathbf{z}}_{\\text{geo}, 0}$ with $\\mathcal{d}_{\\text{geo}}$ produces the activated voxels, and decoding $\\tilde{\\mathbf{z}}_{\\text{slat}, 0}$ with $\\mathcal{d}_{\\text{app}}$ gives the final 3d output $\\mathcal{o}$."
+    },
+    {
+      "paragraph_id": "3_method.tex::p0005",
+      "tex_file": "3_method.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\3_method.tex",
+      "section_path": [
+        "Preliminaries"
+      ],
+      "block_type": "command-block",
+      "line_start": 54,
+      "line_end": 60,
+      "text": "\\paragraph{UniLat3D.} Based on TRELLIS, UniLat3D~\\cite{unilat} offers a more convenient single-stage 3D generator. Given view-aggregated features $\\mathbf{F}$, it encodes them as \\begin{equation} \\mathbf{z}_{\\text{uni}} = \\mathcal{E}_{\\text{uni}}(\\mathbf{F}), \\quad \\mathbf{z}_{\\text{uni}} \\in \\mathbb{R}^{16 \\times 16 \\times 16 \\times c}, \\end{equation} and directly decodes to a 3D output $\\mathcal{O} = \\mathcal{D}_{\\text{uni}}(\\mathbf{z}_{\\text{uni}})$. A single rectified-flow model predicts $\\tilde{\\mathbf{z}}_{\\text{uni}}$ during generation. We adopt UniLat3D for its simplicity and compatibility with our conditioning study.",
+      "normalized_text": "\\paragraph{unilat3d.} based on trellis, unilat3d~\\cite{unilat} offers a more convenient single-stage 3d generator. given view-aggregated features $\\mathbf{f}$, it encodes them as \\begin{equation} \\mathbf{z}_{\\text{uni}} = \\mathcal{e}_{\\text{uni}}(\\mathbf{f}), \\quad \\mathbf{z}_{\\text{uni}} \\in \\mathbb{r}^{16 \\times 16 \\times 16 \\times c}, \\end{equation} and directly decodes to a 3d output $\\mathcal{o} = \\mathcal{d}_{\\text{uni}}(\\mathbf{z}_{\\text{uni}})$. a single rectified-flow model predicts $\\tilde{\\mathbf{z}}_{\\text{uni}}$ during generation. we adopt unilat3d for its simplicity and compatibility with our conditioning study."
+    },
+    {
+      "paragraph_id": "3_method.tex::p0006",
+      "tex_file": "3_method.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\3_method.tex",
+      "section_path": [
+        "Text-Image Conditioned 3D Generation"
+      ],
+      "block_type": "paragraph",
+      "line_start": 65,
+      "line_end": 65,
+      "text": "As discussed in~\\cref{sec:intro}, image-conditioned 3D generation is vulnerable to viewpoint bias, while text-conditioned generation benefits from comprehensive semantics but lacks the visual cues needed for high-fidelity synthesis. In this section, we first empirically diagnose this limitation, then show that even a simple late fusion of image- and text-conditioned predictions yields noticeable gains, revealing clear complementarity between the two modalities and motivating the task of text–image conditioned 3D generation.",
+      "normalized_text": "as discussed in~\\cref{sec:intro}, image-conditioned 3d generation is vulnerable to viewpoint bias, while text-conditioned generation benefits from comprehensive semantics but lacks the visual cues needed for high-fidelity synthesis. in this section, we first empirically diagnose this limitation, then show that even a simple late fusion of image- and text-conditioned predictions yields noticeable gains, revealing clear complementarity between the two modalities and motivating the task of text–image conditioned 3d generation."
+    },
+    {
+      "paragraph_id": "3_method.tex::p0007",
+      "tex_file": "3_method.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\3_method.tex",
+      "section_path": [
+        "Text-Image Conditioned 3D Generation"
+      ],
+      "block_type": "command-block",
+      "line_start": 67,
+      "line_end": 72,
+      "text": "\\begin{figure} \\centering \\includegraphics[width=0.9\\linewidth]{tigon-show-view.png} \\caption{Reference views used in our diagnostic study. Moving from \\emph{View-0} to \\emph{View-1} reduces observable cues and creates a lower-information setting. Under this shift, single-modality baselines exhibit a marked performance drop.} \\label{fig:viewpoint} \\end{figure}",
+      "normalized_text": "\\begin{figure} \\centering \\includegraphics[width=0.9\\linewidth]{tigon-show-view.png} \\caption{reference views used in our diagnostic study. moving from \\emph{view-0} to \\emph{view-1} reduces observable cues and creates a lower-information setting. under this shift, single-modality baselines exhibit a marked performance drop.} \\label{fig:viewpoint} \\end{figure}"
+    },
+    {
+      "paragraph_id": "3_method.tex::p0008",
+      "tex_file": "3_method.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\3_method.tex",
+      "section_path": [
+        "Text-Image Conditioned 3D Generation"
+      ],
+      "block_type": "command-block",
+      "line_start": 74,
+      "line_end": 75,
+      "text": "\\paragraph{Limitations of Single-Modality Conditioning.} \\cref{tab:view_0_res} reports the performance of representative 3D generation models on Toys4K under two viewpoint configurations\\footnote{Please refer to~\\cref{sec:eval_metric} for details about the metrics used in~\\cref{tab:view_0_res}.}. As illustrated in Fig.~\\ref{fig:viewpoint}, \\textit{View-0} is a frontal view with rich semantics and clear local details, whereas \\textit{View-1} is a low-angle view providing much weaker cues. This change alone leads to substantial degradation: TRELLIS degrades from $56.08$ FD$_{\\text{DINOv2}}$ under \\textit{View-0} to $143.58$ under \\textit{View-1}, indicating strong dependence on viewpoint completeness. Moreover, the text-only counterparts perform even worse in visual alignment (\\emph{e.g.}, UniLat3D reaches only $154.88$ FD$_{\\text{DINOv2}}$), confirming that text priors alone are insufficient to recover fine-grained visual details.",
+      "normalized_text": "\\paragraph{limitations of single-modality conditioning.} \\cref{tab:view_0_res} reports the performance of representative 3d generation models on toys4k under two viewpoint configurations\\footnote{please refer to~\\cref{sec:eval_metric} for details about the metrics used in~\\cref{tab:view_0_res}.}. as illustrated in fig.~\\ref{fig:viewpoint}, \\textit{view-0} is a frontal view with rich semantics and clear local details, whereas \\textit{view-1} is a low-angle view providing much weaker cues. this change alone leads to substantial degradation: trellis degrades from $56.08$ fd$_{\\text{dinov2}}$ under \\textit{view-0} to $143.58$ under \\textit{view-1}, indicating strong dependence on viewpoint completeness. moreover, the text-only counterparts perform even worse in visual alignment (\\emph{e.g.}, unilat3d reaches only $154.88$ fd$_{\\text{dinov2}}$), confirming that text priors alone are insufficient to recover fine-grained visual details."
+    },
+    {
+      "paragraph_id": "3_method.tex::p0009",
+      "tex_file": "3_method.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\3_method.tex",
+      "section_path": [
+        "Text-Image Conditioned 3D Generation"
+      ],
+      "block_type": "command-block",
+      "line_start": 77,
+      "line_end": 78,
+      "text": "\\begin{table}[t] \\centering",
+      "normalized_text": "\\begin{table}[t] \\centering"
+    },
+    {
+      "paragraph_id": "3_method.tex::p0010",
+      "tex_file": "3_method.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\3_method.tex",
+      "section_path": [
+        "Text-Image Conditioned 3D Generation"
+      ],
+      "block_type": "command-block",
+      "line_start": 80,
+      "line_end": 111,
+      "text": "\\small \\setlength{\\tabcolsep}{4.5pt} \\caption{Performance of existing methods on the Toys4K dataset under different conditioning signals. `GS' denotes that the 3D representation is 3DGS.} \\label{tab:view_0_res} \\begin{tabular}{lccc} \\toprule \\textbf{Model} & \\textbf{Cond.} & \\textbf{CLIP$\\uparrow$} & \\textbf{FD$_{\\text{DINOv2}}\\downarrow$} \\\\ \\midrule TripoSR & View-0 & 88.67 & 269.58 \\\\ Step1X-3D$^{\\dagger}$ & View-0 & 89.99 & 152.69 \\\\ Hunyuan3D-2.1$^{\\dagger}$ & View-0 & 89.87 & 114.64 \\\\ TRELLIS (GS) & View-0 & 92.88 & 56.08 \\\\ UniLat3D (GS) & View-0 & 93.34 & 47.41 \\\\ \\midrule TripoSR & View-1 & 79.40 & 804.18 \\\\ Step1X-3D$^{\\dagger}$ & View-1 & 80.47 & 562.84 \\\\ Hunyuan3D-2.1$^{\\dagger}$ & View-1 & 85.33 & 229.36 \\\\ TRELLIS (GS) & View-1 & 88.16 & 143.58 \\\\ UniLat3D (GS) & View-1 & 89.03 & 125.93 \\\\ \\midrule TRELLIS (GS) & Text & 86.30 & 148.21 \\\\ UniLat3D (GS) & Text & 86.14 & 154.88 \\\\ \\midrule SimFusion (GS; Ours) & View-1 + Text & \\textbf{90.64} & \\textbf{82.40} \\\\ \\bottomrule \\end{tabular} \\vspace{2pt} \\begin{flushleft} \\footnotesize $^{\\dagger}$ Using non-public training data. \\end{flushleft} \\end{table}",
+      "normalized_text": "\\small \\setlength{\\tabcolsep}{4.5pt} \\caption{performance of existing methods on the toys4k dataset under different conditioning signals. `gs' denotes that the 3d representation is 3dgs.} \\label{tab:view_0_res} \\begin{tabular}{lccc} \\toprule \\textbf{model} & \\textbf{cond.} & \\textbf{clip$\\uparrow$} & \\textbf{fd$_{\\text{dinov2}}\\downarrow$} \\\\ \\midrule triposr & view-0 & 88.67 & 269.58 \\\\ step1x-3d$^{\\dagger}$ & view-0 & 89.99 & 152.69 \\\\ hunyuan3d-2.1$^{\\dagger}$ & view-0 & 89.87 & 114.64 \\\\ trellis (gs) & view-0 & 92.88 & 56.08 \\\\ unilat3d (gs) & view-0 & 93.34 & 47.41 \\\\ \\midrule triposr & view-1 & 79.40 & 804.18 \\\\ step1x-3d$^{\\dagger}$ & view-1 & 80.47 & 562.84 \\\\ hunyuan3d-2.1$^{\\dagger}$ & view-1 & 85.33 & 229.36 \\\\ trellis (gs) & view-1 & 88.16 & 143.58 \\\\ unilat3d (gs) & view-1 & 89.03 & 125.93 \\\\ \\midrule trellis (gs) & text & 86.30 & 148.21 \\\\ unilat3d (gs) & text & 86.14 & 154.88 \\\\ \\midrule simfusion (gs; ours) & view-1 + text & \\textbf{90.64} & \\textbf{82.40} \\\\ \\bottomrule \\end{tabular} \\vspace{2pt} \\begin{flushleft} \\footnotesize $^{\\dagger}$ using non-public training data. \\end{flushleft} \\end{table}"
+    },
+    {
+      "paragraph_id": "3_method.tex::p0011",
+      "tex_file": "3_method.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\3_method.tex",
+      "section_path": [
+        "Text-Image Conditioned 3D Generation"
+      ],
+      "block_type": "command-block",
+      "line_start": 113,
+      "line_end": 113,
+      "text": "\\paragraph{Enhanced 3D Generation with Simple Cross-Modal Fusion.}",
+      "normalized_text": "\\paragraph{enhanced 3d generation with simple cross-modal fusion.}"
+    },
+    {
+      "paragraph_id": "3_method.tex::p0012",
+      "tex_file": "3_method.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\3_method.tex",
+      "section_path": [
+        "Text-Image Conditioned 3D Generation"
+      ],
+      "block_type": "paragraph",
+      "line_start": 115,
+      "line_end": 115,
+      "text": "Images and text provide complementary constraints: text offers high-level, multi-view semantic priors, while images provide precise cues on style, texture, geometry, and color. To verify this complementarity, we conduct a simple fusion experiment. At inference time, we take two pre-trained rectified-flow models, one image-conditioned and the other text-conditioned, and directly average their predicted velocity fields at each denoising step to form a joint text-image baseline, which we call SimFusion.",
+      "normalized_text": "images and text provide complementary constraints: text offers high-level, multi-view semantic priors, while images provide precise cues on style, texture, geometry, and color. to verify this complementarity, we conduct a simple fusion experiment. at inference time, we take two pre-trained rectified-flow models, one image-conditioned and the other text-conditioned, and directly average their predicted velocity fields at each denoising step to form a joint text-image baseline, which we call simfusion."
+    },
+    {
+      "paragraph_id": "3_method.tex::p0013",
+      "tex_file": "3_method.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\3_method.tex",
+      "section_path": [
+        "Text-Image Conditioned 3D Generation"
+      ],
+      "block_type": "paragraph",
+      "line_start": 117,
+      "line_end": 117,
+      "text": "As shown in~\\cref{tab:view_0_res}, this naive fusion already outperforms both image-only and text-only models by a large margin (82.40 FD vs. 125.93 and 145.06), suggesting that it preserves the semantic correctness from text while retaining the fine-grained visual cues from the image. This complementary effect motivates us to define a new task, termed \\textbf{Text--Image Conditioned 3D Generation}.",
+      "normalized_text": "as shown in~\\cref{tab:view_0_res}, this naive fusion already outperforms both image-only and text-only models by a large margin (82.40 fd vs. 125.93 and 145.06), suggesting that it preserves the semantic correctness from text while retaining the fine-grained visual cues from the image. this complementary effect motivates us to define a new task, termed \\textbf{text--image conditioned 3d generation}."
+    },
+    {
+      "paragraph_id": "3_method.tex::p0014",
+      "tex_file": "3_method.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\3_method.tex",
+      "section_path": [
+        "Text-Image Conditioned 3D Generation"
+      ],
+      "block_type": "command-block",
+      "line_start": 119,
+      "line_end": 120,
+      "text": "\\paragraph{Problem Formulation.} In text-image conditioned 3D generation, the model should jointly adopt a visual exemplar (image) and a semantic description (text) to generate a coherent 3D object. Formally, given an image condition $\\mathbf{I}$ and a text condition $\\mathbf{T}$, the goal is to model the conditional distribution $p(\\mathcal{O} \\mid \\mathbf{I}, \\mathbf{T})$, where $\\mathcal{O}$ denotes the target 3D representation (\\emph{e.g.}, mesh, 3DGS, or radiance field). This task requires the model to (i) satisfy the semantics in $\\mathbf{T}$ and (ii) match the view-specific appearance constraints in $\\mathbf{I}$.",
+      "normalized_text": "\\paragraph{problem formulation.} in text-image conditioned 3d generation, the model should jointly adopt a visual exemplar (image) and a semantic description (text) to generate a coherent 3d object. formally, given an image condition $\\mathbf{i}$ and a text condition $\\mathbf{t}$, the goal is to model the conditional distribution $p(\\mathcal{o} \\mid \\mathbf{i}, \\mathbf{t})$, where $\\mathcal{o}$ denotes the target 3d representation (\\emph{e.g.}, mesh, 3dgs, or radiance field). this task requires the model to (i) satisfy the semantics in $\\mathbf{t}$ and (ii) match the view-specific appearance constraints in $\\mathbf{i}$."
+    },
+    {
+      "paragraph_id": "3_method.tex::p0015",
+      "tex_file": "3_method.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\3_method.tex",
+      "section_path": [
+        "Method"
+      ],
+      "block_type": "command-block",
+      "line_start": 123,
+      "line_end": 124,
+      "text": "\\label{sec:method} In this section, we introduce \\textbf{TIGON} (Text–Image conditioned GeneratiON) as a baseline for our proposed task.",
+      "normalized_text": "\\label{sec:method} in this section, we introduce \\textbf{tigon} (text–image conditioned generation) as a baseline for our proposed task."
+    },
+    {
+      "paragraph_id": "3_method.tex::p0016",
+      "tex_file": "3_method.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\3_method.tex",
+      "section_path": [
+        "Method"
+      ],
+      "block_type": "command-block",
+      "line_start": 126,
+      "line_end": 131,
+      "text": "\\begin{figure} \\centering \\includegraphics[width=0.9\\linewidth]{tigon-method.pdf} \\caption{TIGON employs a dual-branch architecture, with a text-conditioned DiT (left) and an image-conditioned DiT (right). Paired blocks exchange features via cross-modal bridges (``Zero Linears''). At each denoising step, two predictions are averaged to produce the velocity field $\\mathbf{v}$. $T$ denotes the denoising timestep.} \\label{fig:pipe} \\end{figure}",
+      "normalized_text": "\\begin{figure} \\centering \\includegraphics[width=0.9\\linewidth]{tigon-method.pdf} \\caption{tigon employs a dual-branch architecture, with a text-conditioned dit (left) and an image-conditioned dit (right). paired blocks exchange features via cross-modal bridges (``zero linears''). at each denoising step, two predictions are averaged to produce the velocity field $\\mathbf{v}$. $t$ denotes the denoising timestep.} \\label{fig:pipe} \\end{figure}"
+    },
+    {
+      "paragraph_id": "3_method.tex::p0017",
+      "tex_file": "3_method.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\3_method.tex",
+      "section_path": [
+        "Method",
+        "Overall Pipeline"
+      ],
+      "block_type": "command-block",
+      "line_start": 134,
+      "line_end": 135,
+      "text": "\\label{sec:overall} As shown in~\\cref{fig:pipe}, \\textbf{TIGON} uses two parallel branches (image- and text-conditioned) that exchange features via zero-initialized cross-modal bridges between corresponding DiT blocks. At each denoising step, their predictions are averaged to produce the final velocity field $\\mathbf{v}$.",
+      "normalized_text": "\\label{sec:overall} as shown in~\\cref{fig:pipe}, \\textbf{tigon} uses two parallel branches (image- and text-conditioned) that exchange features via zero-initialized cross-modal bridges between corresponding dit blocks. at each denoising step, their predictions are averaged to produce the final velocity field $\\mathbf{v}$."
+    },
+    {
+      "paragraph_id": "3_method.tex::p0018",
+      "tex_file": "3_method.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\3_method.tex",
+      "section_path": [
+        "Method",
+        "Dual-Branch Backbone"
+      ],
+      "block_type": "paragraph",
+      "line_start": 140,
+      "line_end": 140,
+      "text": "TIGON adopts a dual-branch backbone because image and text provide fundamentally different signals for 3D generation. Image-conditioned tokens are dense, view-grounded, and locally informative, offering explicit cues about color, texture, and fine geometry, whereas text-conditioned tokens encode sparse, abstract semantics. This asymmetry creates a granularity mismatch: for example, the concept ``tiger'' may be conveyed by a single word token but requires many image tokens to depict. Without enough data, mixing such heterogeneous token semantics within a single backbone often degrades performance. Therefore, TIGON retains two modality-specific backbones and performs fusion explicitly, preserving each branch's strengths while avoiding overly aggressive entanglement.",
+      "normalized_text": "tigon adopts a dual-branch backbone because image and text provide fundamentally different signals for 3d generation. image-conditioned tokens are dense, view-grounded, and locally informative, offering explicit cues about color, texture, and fine geometry, whereas text-conditioned tokens encode sparse, abstract semantics. this asymmetry creates a granularity mismatch: for example, the concept ``tiger'' may be conveyed by a single word token but requires many image tokens to depict. without enough data, mixing such heterogeneous token semantics within a single backbone often degrades performance. therefore, tigon retains two modality-specific backbones and performs fusion explicitly, preserving each branch's strengths while avoiding overly aggressive entanglement."
+    },
+    {
+      "paragraph_id": "3_method.tex::p0019",
+      "tex_file": "3_method.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\3_method.tex",
+      "section_path": [
+        "Method",
+        "Dual-Branch Backbone"
+      ],
+      "block_type": "paragraph",
+      "line_start": 143,
+      "line_end": 150,
+      "text": "Each branch of TIGON is a Diffusion Transformer (DiT)~\\cite{dit} with $L$ blocks. Let $\\mathcal{F}_{\\texttt{img}}$ and $\\mathcal{F}_{\\texttt{txt}}$ denote the image- and text-conditioned branches. Given latent $\\tilde{\\mathbf{z}}$, time step $t$, and condition (image $\\mathbf{I}$ or text $\\mathbf{T}$), each branch predicts a velocity field: \\begin{equation} \\begin{aligned} \\mathbf{v}_{\\texttt{img}} &= \\mathcal{F}_{\\texttt{img}}\\!\\left(\\tilde{\\mathbf{z}},\\, t,\\, \\mathbf{I}\\right),\\\\ \\mathbf{v}_{\\texttt{txt}} &= \\mathcal{F}_{\\texttt{txt}}\\!\\left(\\tilde{\\mathbf{z}},\\, t,\\, \\mathbf{T}\\right). \\end{aligned} \\end{equation} Both branches are pretrained in the same latent space introduced in~\\cref{sec:trellis}, which allows simple additive fusion of the predicted velocities.",
+      "normalized_text": "each branch of tigon is a diffusion transformer (dit)~\\cite{dit} with $l$ blocks. let $\\mathcal{f}_{\\texttt{img}}$ and $\\mathcal{f}_{\\texttt{txt}}$ denote the image- and text-conditioned branches. given latent $\\tilde{\\mathbf{z}}$, time step $t$, and condition (image $\\mathbf{i}$ or text $\\mathbf{t}$), each branch predicts a velocity field: \\begin{equation} \\begin{aligned} \\mathbf{v}_{\\texttt{img}} &= \\mathcal{f}_{\\texttt{img}}\\!\\left(\\tilde{\\mathbf{z}},\\, t,\\, \\mathbf{i}\\right),\\\\ \\mathbf{v}_{\\texttt{txt}} &= \\mathcal{f}_{\\texttt{txt}}\\!\\left(\\tilde{\\mathbf{z}},\\, t,\\, \\mathbf{t}\\right). \\end{aligned} \\end{equation} both branches are pretrained in the same latent space introduced in~\\cref{sec:trellis}, which allows simple additive fusion of the predicted velocities."
+    },
+    {
+      "paragraph_id": "3_method.tex::p0020",
+      "tex_file": "3_method.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\3_method.tex",
+      "section_path": [
+        "Method",
+        "Early-Fusion Strategy"
+      ],
+      "block_type": "paragraph",
+      "line_start": 153,
+      "line_end": 153,
+      "text": "Simply averaging the final predictions of two rectified flow models is often sub-optimal: without explicit interaction, the branches can diverge and destructive averaging degrades detail and consistency. We therefore assign a \\textbf{cross-modal bridge} at every backbone block for early, fine-grained cross-modal feature fusion.",
+      "normalized_text": "simply averaging the final predictions of two rectified flow models is often sub-optimal: without explicit interaction, the branches can diverge and destructive averaging degrades detail and consistency. we therefore assign a \\textbf{cross-modal bridge} at every backbone block for early, fine-grained cross-modal feature fusion."
+    },
+    {
+      "paragraph_id": "3_method.tex::p0021",
+      "tex_file": "3_method.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\3_method.tex",
+      "section_path": [
+        "Method",
+        "Early-Fusion Strategy"
+      ],
+      "block_type": "paragraph",
+      "line_start": 155,
+      "line_end": 162,
+      "text": "Let the image- and text-conditioned branches each have \\(L\\) blocks. Denote by \\(\\mathbf{f}^{(i)}_{\\texttt{img}}\\) and \\(\\mathbf{f}^{(i)}_{\\texttt{txt}}\\) the output of the \\(i\\)-th block (\\(i{=}1,\\dots,L\\)). We insert learned linear projections $\\mathcal{P}^{(i)}_{\\texttt{txt}\\rightarrow\\texttt{img}}$ and $\\mathcal{P}^{(i)}_{\\texttt{img}\\rightarrow\\texttt{txt}}$ to inject information across branches. The inputs to the \\((i{+}1)\\)-th blocks are: \\begin{equation} \\label{eq:feature-switch} \\begin{aligned} \\mathbf{f}^{(i),\\prime}_{\\texttt{img}} &= \\mathbf{f}^{(i)}_{\\texttt{img}} \\;+\\; \\mathcal{P}^{(i)}_{\\texttt{txt}\\rightarrow\\texttt{img}}\\!\\big(\\mathbf{f}^{(i)}_{\\texttt{txt}}\\big),\\\\ \\mathbf{f}^{(i),\\prime}_{\\texttt{txt}} &= \\mathbf{f}^{(i)}_{\\texttt{txt}} \\;+\\; \\mathcal{P}^{(i)}_{\\texttt{img}\\rightarrow\\texttt{txt}}\\!\\big(\\mathbf{f}^{(i)}_{\\texttt{img}}\\big). \\end{aligned} \\end{equation}",
+      "normalized_text": "let the image- and text-conditioned branches each have \\(l\\) blocks. denote by \\(\\mathbf{f}^{(i)}_{\\texttt{img}}\\) and \\(\\mathbf{f}^{(i)}_{\\texttt{txt}}\\) the output of the \\(i\\)-th block (\\(i{=}1,\\dots,l\\)). we insert learned linear projections $\\mathcal{p}^{(i)}_{\\texttt{txt}\\rightarrow\\texttt{img}}$ and $\\mathcal{p}^{(i)}_{\\texttt{img}\\rightarrow\\texttt{txt}}$ to inject information across branches. the inputs to the \\((i{+}1)\\)-th blocks are: \\begin{equation} \\label{eq:feature-switch} \\begin{aligned} \\mathbf{f}^{(i),\\prime}_{\\texttt{img}} &= \\mathbf{f}^{(i)}_{\\texttt{img}} \\;+\\; \\mathcal{p}^{(i)}_{\\texttt{txt}\\rightarrow\\texttt{img}}\\!\\big(\\mathbf{f}^{(i)}_{\\texttt{txt}}\\big),\\\\ \\mathbf{f}^{(i),\\prime}_{\\texttt{txt}} &= \\mathbf{f}^{(i)}_{\\texttt{txt}} \\;+\\; \\mathcal{p}^{(i)}_{\\texttt{img}\\rightarrow\\texttt{txt}}\\!\\big(\\mathbf{f}^{(i)}_{\\texttt{img}}\\big). \\end{aligned} \\end{equation}"
+    },
+    {
+      "paragraph_id": "3_method.tex::p0022",
+      "tex_file": "3_method.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\3_method.tex",
+      "section_path": [
+        "Method",
+        "Early-Fusion Strategy"
+      ],
+      "block_type": "command-block",
+      "line_start": 164,
+      "line_end": 165,
+      "text": "\\paragraph{Stability via Zero-Initialization} Inspired by ControlNet~\\cite{controlnet}, to maintain training stability at the start of joint training, all cross-modal bridges are zero-initialized. Consequently, \\(\\mathbf{f}^{(i),\\prime}_{\\texttt{img}}=\\mathbf{f}^{(i)}_{\\texttt{img}}\\) and \\(\\mathbf{f}^{(i),\\prime}_{\\texttt{txt}}=\\mathbf{f}^{(i)}_{\\texttt{txt}}\\) initially, and gradients progressively ``open'' these gates, learning when (and how much) to exchange information at each depth.",
+      "normalized_text": "\\paragraph{stability via zero-initialization} inspired by controlnet~\\cite{controlnet}, to maintain training stability at the start of joint training, all cross-modal bridges are zero-initialized. consequently, \\(\\mathbf{f}^{(i),\\prime}_{\\texttt{img}}=\\mathbf{f}^{(i)}_{\\texttt{img}}\\) and \\(\\mathbf{f}^{(i),\\prime}_{\\texttt{txt}}=\\mathbf{f}^{(i)}_{\\texttt{txt}}\\) initially, and gradients progressively ``open'' these gates, learning when (and how much) to exchange information at each depth."
+    },
+    {
+      "paragraph_id": "3_method.tex::p0023",
+      "tex_file": "3_method.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\3_method.tex",
+      "section_path": [
+        "Method",
+        "Late-Fusion Strategy"
+      ],
+      "block_type": "command-block",
+      "line_start": 168,
+      "line_end": 172,
+      "text": "\\label{sec:late_fusion} We adopt a simple prediction-averaging scheme. Given the outputs of the text and image branches, $\\mathbf{v}_{\\texttt{txt}}$ and $\\mathbf{v}_{\\texttt{img}}$, the fused prediction at each denoising step is \\begin{equation} \\mathbf{v} = \\tfrac{1}{2}\\big(\\mathbf{v}_{\\texttt{txt}} + \\mathbf{v}_{\\texttt{img}}\\big). \\end{equation}",
+      "normalized_text": "\\label{sec:late_fusion} we adopt a simple prediction-averaging scheme. given the outputs of the text and image branches, $\\mathbf{v}_{\\texttt{txt}}$ and $\\mathbf{v}_{\\texttt{img}}$, the fused prediction at each denoising step is \\begin{equation} \\mathbf{v} = \\tfrac{1}{2}\\big(\\mathbf{v}_{\\texttt{txt}} + \\mathbf{v}_{\\texttt{img}}\\big). \\end{equation}"
+    },
+    {
+      "paragraph_id": "3_method.tex::p0024",
+      "tex_file": "3_method.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\3_method.tex",
+      "section_path": [
+        "Method",
+        "Late-Fusion Strategy"
+      ],
+      "block_type": "command-block",
+      "line_start": 174,
+      "line_end": 175,
+      "text": "\\paragraph{Why Is a Sophisticated Fusion Strategy Unnecessary?} Early fusion with cross-modal bridges and end-to-end fine-tuning enable each branch to implicitly condition on both modalities, so any potential benefit of dynamic, modality-weighted fusion can be absorbed into the branch parameters (\\emph{i.e.}, by reparameterization during training). To validate this, we compare against two learnable late-fusion variants: (i) a weight-prediction module that outputs a scalar for linear mixing; and (ii) an additional cross-modal attention block. Both yield at most marginal gains while introducing extra parameters and training variance. See~\\cref{sec:ablation} for quantitative results; architectural details are in the supplementary material.",
+      "normalized_text": "\\paragraph{why is a sophisticated fusion strategy unnecessary?} early fusion with cross-modal bridges and end-to-end fine-tuning enable each branch to implicitly condition on both modalities, so any potential benefit of dynamic, modality-weighted fusion can be absorbed into the branch parameters (\\emph{i.e.}, by reparameterization during training). to validate this, we compare against two learnable late-fusion variants: (i) a weight-prediction module that outputs a scalar for linear mixing; and (ii) an additional cross-modal attention block. both yield at most marginal gains while introducing extra parameters and training variance. see~\\cref{sec:ablation} for quantitative results; architectural details are in the supplementary material."
+    },
+    {
+      "paragraph_id": "3_method.tex::p0025",
+      "tex_file": "3_method.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\3_method.tex",
+      "section_path": [
+        "Method",
+        "Training Strategy"
+      ],
+      "block_type": "paragraph",
+      "line_start": 199,
+      "line_end": 199,
+      "text": "The training of TIGON is a two-stage process. The two branches are first pre-trained separately on their respective modalities to ensure balanced learning. Then, the zero-initialized cross-modal bridges are trained, and all model parameters are jointly fine-tuned.",
+      "normalized_text": "the training of tigon is a two-stage process. the two branches are first pre-trained separately on their respective modalities to ensure balanced learning. then, the zero-initialized cross-modal bridges are trained, and all model parameters are jointly fine-tuned."
+    },
+    {
+      "paragraph_id": "3_method.tex::p0026",
+      "tex_file": "3_method.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\3_method.tex",
+      "section_path": [
+        "Method",
+        "Training Strategy"
+      ],
+      "block_type": "paragraph",
+      "line_start": 203,
+      "line_end": 203,
+      "text": "To preserve unimodal generation capability, we apply condition dropout: during training, the image and text conditions are independently dropped with probability 0.5. This produces a uniform mixture over four regimes—25\\% unconditional (for CFG~\\cite{cfg}), 25\\% text-only, 25\\% image-only, and 25\\% text+image. Consequently, TIGON learns to handle \\textbf{free-form conditioning} at inference, supporting text-only, image-only, or joint text–image inputs.",
+      "normalized_text": "to preserve unimodal generation capability, we apply condition dropout: during training, the image and text conditions are independently dropped with probability 0.5. this produces a uniform mixture over four regimes—25\\% unconditional (for cfg~\\cite{cfg}), 25\\% text-only, 25\\% image-only, and 25\\% text+image. consequently, tigon learns to handle \\textbf{free-form conditioning} at inference, supporting text-only, image-only, or joint text–image inputs."
+    },
+    {
+      "paragraph_id": "4_experiments.tex::p0001",
+      "tex_file": "4_experiments.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\4_experiments.tex",
+      "section_path": [
+        "Experiments"
+      ],
+      "block_type": "command-block",
+      "line_start": 2,
+      "line_end": 3,
+      "text": "\\label{sec:experiments} We first describe the implementation details, datasets, and evaluation protocol, then report quantitative and qualitative results and ablations.",
+      "normalized_text": "\\label{sec:experiments} we first describe the implementation details, datasets, and evaluation protocol, then report quantitative and qualitative results and ablations."
+    },
+    {
+      "paragraph_id": "4_experiments.tex::p0002",
+      "tex_file": "4_experiments.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\4_experiments.tex",
+      "section_path": [
+        "Experiments",
+        "Implementation Details"
+      ],
+      "block_type": "paragraph",
+      "line_start": 26,
+      "line_end": 29,
+      "text": "TIGON is implemented in PyTorch~\\cite{pytorch} on top of TRELLIS and UniLat3D. We use the released UniLat3D checkpoint for the image branch. For the text branch, we reuse the UniLat3D backbone, replace its DINO-based condition encoder with a CLIP text encoder, and train from scratch for $1{,}000{,}000$ iterations with batch size $256$ and learning rate $1\\times10^{-4}$. We then jointly fine-tune both branches and the cross-modal bridges for $50{,}000$ iterations with learning rate $1\\times10^{-5}$ in BF16 on $64$ NVIDIA A800 GPUs, using DeepSpeed ZeRO-2~\\cite{deepspeed} and FlashAttention~\\cite{flashattention}.",
+      "normalized_text": "tigon is implemented in pytorch~\\cite{pytorch} on top of trellis and unilat3d. we use the released unilat3d checkpoint for the image branch. for the text branch, we reuse the unilat3d backbone, replace its dino-based condition encoder with a clip text encoder, and train from scratch for $1{,}000{,}000$ iterations with batch size $256$ and learning rate $1\\times10^{-4}$. we then jointly fine-tune both branches and the cross-modal bridges for $50{,}000$ iterations with learning rate $1\\times10^{-5}$ in bf16 on $64$ nvidia a800 gpus, using deepspeed zero-2~\\cite{deepspeed} and flashattention~\\cite{flashattention}."
+    },
+    {
+      "paragraph_id": "4_experiments.tex::p0003",
+      "tex_file": "4_experiments.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\4_experiments.tex",
+      "section_path": [
+        "Experiments",
+        "Implementation Details"
+      ],
+      "block_type": "command-block",
+      "line_start": 34,
+      "line_end": 35,
+      "text": "\\begin{table*}[t] \\centering",
+      "normalized_text": "\\begin{table*}[t] \\centering"
+    },
+    {
+      "paragraph_id": "4_experiments.tex::p0004",
+      "tex_file": "4_experiments.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\4_experiments.tex",
+      "section_path": [
+        "Experiments",
+        "Implementation Details"
+      ],
+      "block_type": "command-block",
+      "line_start": 37,
+      "line_end": 72,
+      "text": "\\small \\caption{Quantitative results on Toys4K (left) and UniLat1K (right). ``Cond.'' denotes conditioning modality (``I'': image, ``T'': text), and ``Rep.'' denotes output representation (``M.'': mesh, ``GS'': 3DGS).} \\label{tab:toys4k} \\setlength{\\tabcolsep}{5.6pt} \\begin{tabular}{lcc|cccc|cccc} \\toprule \\multirow{2}{*}{\\textbf{Model}} & \\multirow{2}{*}{\\textbf{Cond.}} & \\multirow{2}{*}{\\textbf{Rep.}} & \\multicolumn{4}{c|}{\\textbf{Toys4K}} & \\multicolumn{4}{c}{\\textbf{UniLat1K}} \\\\ & & & \\textbf{CLIP$\\uparrow$} & \\textbf{FD$_{\\text{DINOv2}}\\downarrow$} & \\textbf{ULIP$\\uparrow$} & \\textbf{Uni3D$\\uparrow$} & \\textbf{CLIP$\\uparrow$} & \\textbf{FD$_{\\text{DINOv2}}\\downarrow$} & \\textbf{ULIP$\\uparrow$} & \\textbf{Uni3D$\\uparrow$} \\\\ \\midrule TripoSR~\\cite{triposr} & I & M. & 83.14 & 596.44 & 27.37 & 24.38 & 83.37 & 652.27 & 25.90 & 23.96 \\\\ TRELLIS & I & M. & 89.09 & 171.44 & 39.97 & 35.61 & 89.40 & 233.53 & 39.37 & 35.40 \\\\ TRELLIS & I & GS & 90.50 & 98.75 & - & - & 90.83 & 177.20 & - & - \\\\ Step1X-3D$^{\\dagger}$~\\cite{step1x} & I & M. & 84.77 & 361.44 & 34.15 & 30.04 & 85.36 & 402.25 & 33.62 & 30.38 \\\\ Hunyuan3D-2.1$^{\\dagger}$~\\cite{hunyuan3d2025hunyuan3d2.1} & I & M. & 87.57 & 171.91 & 40.22 & 35.70 & 87.27 & 249.66 & 39.58 & 35.54 \\\\ Stable3DGen~\\cite{ye2025hi3dgen} & I & M. & - & - & 35.52 & 31.76 & - & - & 35.26 & 32.08 \\\\ Direct3D-S2~\\cite{direct3ds2} & I & M. & - & - & 33.47 & 29.29 & - & - & 32.74 & 29.44 \\\\ UniLat3D & I & M. & 91.85 & 109.68 & 40.32 & 35.75 & 90.00 & 205.72 & 39.60 & 35.49 \\\\ UniLat3D & I & GS & 91.20 & 85.30 & - & - & 91.40 & 155.99 & - & - \\\\ \\rowcolor{rowgray} TIGON (Ours) & I & GS & 91.40 & 84.62 & - & - & 91.64 & 153.79 & - & - \\\\ \\midrule TRELLIS & T & M. & 87.15 & 182.42 & 37.41 & 33.59 & 85.90 & 316.05 & 36.55 & 33.23 \\\\ TRELLIS & T & GS & 86.30 & 148.21 & - & - & 84.75 & 288.55 & - & - \\\\ UniLat3D & T & M. & 87.03 & 179.95 & 36.14 & 32.35 & 85.29 & 313.85 & 35.34 & 32.08 \\\\ UniLat3D & T & GS & 86.14 & 154.88 & - & - & 85.75 & 282.36 & - & - \\\\ \\rowcolor{rowgray} TIGON (Ours) & T & GS & 86.77 & 152.34 & - & - & 86.42 & 273.97 & - & - \\\\ \\midrule SimFusion (Ours) & I+T & GS & 91.95 & 66.78 & - & - & 92.09 & 136.97 & - & - \\\\ \\rowcolor{rowgray} TIGON (Ours) & I+T & M. & \\textbf{92.97} & 80.77 & \\textbf{41.36} & \\textbf{36.68} & 90.91 & 176.69 & \\textbf{40.95} & \\textbf{36.74} \\\\ \\rowcolor{rowgray} TIGON (Ours) & I+T & GS & 92.33 & \\textbf{61.59} & - & - & \\textbf{92.42} & \\textbf{130.08} & - & - \\\\ \\bottomrule \\end{tabular} \\begin{flushleft}",
+      "normalized_text": "\\small \\caption{quantitative results on toys4k (left) and unilat1k (right). ``cond.'' denotes conditioning modality (``i'': image, ``t'': text), and ``rep.'' denotes output representation (``m.'': mesh, ``gs'': 3dgs).} \\label{tab:toys4k} \\setlength{\\tabcolsep}{5.6pt} \\begin{tabular}{lcc|cccc|cccc} \\toprule \\multirow{2}{*}{\\textbf{model}} & \\multirow{2}{*}{\\textbf{cond.}} & \\multirow{2}{*}{\\textbf{rep.}} & \\multicolumn{4}{c|}{\\textbf{toys4k}} & \\multicolumn{4}{c}{\\textbf{unilat1k}} \\\\ & & & \\textbf{clip$\\uparrow$} & \\textbf{fd$_{\\text{dinov2}}\\downarrow$} & \\textbf{ulip$\\uparrow$} & \\textbf{uni3d$\\uparrow$} & \\textbf{clip$\\uparrow$} & \\textbf{fd$_{\\text{dinov2}}\\downarrow$} & \\textbf{ulip$\\uparrow$} & \\textbf{uni3d$\\uparrow$} \\\\ \\midrule triposr~\\cite{triposr} & i & m. & 83.14 & 596.44 & 27.37 & 24.38 & 83.37 & 652.27 & 25.90 & 23.96 \\\\ trellis & i & m. & 89.09 & 171.44 & 39.97 & 35.61 & 89.40 & 233.53 & 39.37 & 35.40 \\\\ trellis & i & gs & 90.50 & 98.75 & - & - & 90.83 & 177.20 & - & - \\\\ step1x-3d$^{\\dagger}$~\\cite{step1x} & i & m. & 84.77 & 361.44 & 34.15 & 30.04 & 85.36 & 402.25 & 33.62 & 30.38 \\\\ hunyuan3d-2.1$^{\\dagger}$~\\cite{hunyuan3d2025hunyuan3d2.1} & i & m. & 87.57 & 171.91 & 40.22 & 35.70 & 87.27 & 249.66 & 39.58 & 35.54 \\\\ stable3dgen~\\cite{ye2025hi3dgen} & i & m. & - & - & 35.52 & 31.76 & - & - & 35.26 & 32.08 \\\\ direct3d-s2~\\cite{direct3ds2} & i & m. & - & - & 33.47 & 29.29 & - & - & 32.74 & 29.44 \\\\ unilat3d & i & m. & 91.85 & 109.68 & 40.32 & 35.75 & 90.00 & 205.72 & 39.60 & 35.49 \\\\ unilat3d & i & gs & 91.20 & 85.30 & - & - & 91.40 & 155.99 & - & - \\\\ \\rowcolor{rowgray} tigon (ours) & i & gs & 91.40 & 84.62 & - & - & 91.64 & 153.79 & - & - \\\\ \\midrule trellis & t & m. & 87.15 & 182.42 & 37.41 & 33.59 & 85.90 & 316.05 & 36.55 & 33.23 \\\\ trellis & t & gs & 86.30 & 148.21 & - & - & 84.75 & 288.55 & - & - \\\\ unilat3d & t & m. & 87.03 & 179.95 & 36.14 & 32.35 & 85.29 & 313.85 & 35.34 & 32.08 \\\\ unilat3d & t & gs & 86.14 & 154.88 & - & - & 85.75 & 282.36 & - & - \\\\ \\rowcolor{rowgray} tigon (ours) & t & gs & 86.77 & 152.34 & - & - & 86.42 & 273.97 & - & - \\\\ \\midrule simfusion (ours) & i+t & gs & 91.95 & 66.78 & - & - & 92.09 & 136.97 & - & - \\\\ \\rowcolor{rowgray} tigon (ours) & i+t & m. & \\textbf{92.97} & 80.77 & \\textbf{41.36} & \\textbf{36.68} & 90.91 & 176.69 & \\textbf{40.95} & \\textbf{36.74} \\\\ \\rowcolor{rowgray} tigon (ours) & i+t & gs & 92.33 & \\textbf{61.59} & - & - & \\textbf{92.42} & \\textbf{130.08} & - & - \\\\ \\bottomrule \\end{tabular} \\begin{flushleft}"
+    },
+    {
+      "paragraph_id": "4_experiments.tex::p0005",
+      "tex_file": "4_experiments.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\4_experiments.tex",
+      "section_path": [
+        "Experiments",
+        "Implementation Details"
+      ],
+      "block_type": "paragraph",
+      "line_start": 74,
+      "line_end": 76,
+      "text": "$^{\\dagger}$ Using non-public training data. \\end{flushleft} \\end{table*}",
+      "normalized_text": "$^{\\dagger}$ using non-public training data. \\end{flushleft} \\end{table*}"
+    },
+    {
+      "paragraph_id": "4_experiments.tex::p0006",
+      "tex_file": "4_experiments.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\4_experiments.tex",
+      "section_path": [
+        "Experiments",
+        "Datasets and Evaluation Protocol"
+      ],
+      "block_type": "command-block",
+      "line_start": 79,
+      "line_end": 80,
+      "text": "\\label{sec:eval_metric} \\noindent\\textbf{Training.} TIGON is trained on \\textbf{TRELLIS-500K}. Please refer to the supplement for more details about this dataset.",
+      "normalized_text": "\\label{sec:eval_metric} \\noindent\\textbf{training.} tigon is trained on \\textbf{trellis-500k}. please refer to the supplement for more details about this dataset."
+    },
+    {
+      "paragraph_id": "4_experiments.tex::p0007",
+      "tex_file": "4_experiments.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\4_experiments.tex",
+      "section_path": [
+        "Experiments",
+        "Datasets and Evaluation Protocol"
+      ],
+      "block_type": "command-block",
+      "line_start": 83,
+      "line_end": 84,
+      "text": "\\noindent\\textbf{Evaluation.} We evaluate on two test sets: \\textbf{Toys4K} contains about 4K high-quality 3D objects from 105 categories and is widely used by TRELLIS and UniLat3D. \\textbf{UniLat1K} is a harder 1K-object benchmark curated by UniLat3D, containing 500 high-quality Sketchfab assets and 500 Toys4K samples.",
+      "normalized_text": "\\noindent\\textbf{evaluation.} we evaluate on two test sets: \\textbf{toys4k} contains about 4k high-quality 3d objects from 105 categories and is widely used by trellis and unilat3d. \\textbf{unilat1k} is a harder 1k-object benchmark curated by unilat3d, containing 500 high-quality sketchfab assets and 500 toys4k samples."
+    },
+    {
+      "paragraph_id": "4_experiments.tex::p0008",
+      "tex_file": "4_experiments.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\4_experiments.tex",
+      "section_path": [
+        "Experiments",
+        "Datasets and Evaluation Protocol"
+      ],
+      "block_type": "command-block",
+      "line_start": 90,
+      "line_end": 91,
+      "text": "\\noindent\\textbf{Metrics and Protocol.} We use four metrics: CLIP~\\cite{clip}, FD$_{\\text{DINOv2}}$, ULIP~\\cite{ulip}, and Uni3D~\\cite{uni3d}. CLIP and FD$_{\\text{DINOv2}}$ are computed from renderings of generated and ground-truth objects, while ULIP and Uni3D measure image--point-cloud alignment and are thus only reported for mesh outputs. To test robustness to viewpoint informativeness, each case is conditioned on three reference views (front, top, and bottom) instead of ideal views. We use public checkpoints for prior methods and re-evaluate them under this unified protocol; full metric definitions and rendering settings are provided in the supplement.",
+      "normalized_text": "\\noindent\\textbf{metrics and protocol.} we use four metrics: clip~\\cite{clip}, fd$_{\\text{dinov2}}$, ulip~\\cite{ulip}, and uni3d~\\cite{uni3d}. clip and fd$_{\\text{dinov2}}$ are computed from renderings of generated and ground-truth objects, while ulip and uni3d measure image--point-cloud alignment and are thus only reported for mesh outputs. to test robustness to viewpoint informativeness, each case is conditioned on three reference views (front, top, and bottom) instead of ideal views. we use public checkpoints for prior methods and re-evaluate them under this unified protocol; full metric definitions and rendering settings are provided in the supplement."
+    },
+    {
+      "paragraph_id": "4_experiments.tex::p0009",
+      "tex_file": "4_experiments.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\4_experiments.tex",
+      "section_path": [
+        "Experiments",
+        "Quantitative Results"
+      ],
+      "block_type": "paragraph",
+      "line_start": 110,
+      "line_end": 112,
+      "text": "Results on Toys4K and UniLat1K are reported in Table~\\ref{tab:toys4k}. We evaluate TIGON under three conditioning regimes, \\emph{i.e.}, text-only, image-only, and text–image. TIGON is competitive in both single-modality settings, while the largest gains appear under text–image conditioning, showing effective use of complementary signals.",
+      "normalized_text": "results on toys4k and unilat1k are reported in table~\\ref{tab:toys4k}. we evaluate tigon under three conditioning regimes, \\emph{i.e.}, text-only, image-only, and text–image. tigon is competitive in both single-modality settings, while the largest gains appear under text–image conditioning, showing effective use of complementary signals."
+    },
+    {
+      "paragraph_id": "4_experiments.tex::p0010",
+      "tex_file": "4_experiments.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\4_experiments.tex",
+      "section_path": [
+        "Experiments",
+        "Quantitative Results"
+      ],
+      "block_type": "command-block",
+      "line_start": 114,
+      "line_end": 119,
+      "text": "\\begin{figure*} \\centering \\includegraphics[width=\\textwidth]{tigon-main.png} \\caption{Qualitative comparison on Toys4K and UniLat1K against image-only and text-only variants of TRELLIS and UniLat3D. Dashed boxes mark artifacts from prior methods. Image-only models respect the reference view but must hallucinate unseen regions, while text-only models lack pixel-aligned cues and often produce low-fidelity geometry and appearance. Full prompts are provided in the supplement.} \\label{fig:main_comp} \\end{figure*}",
+      "normalized_text": "\\begin{figure*} \\centering \\includegraphics[width=\\textwidth]{tigon-main.png} \\caption{qualitative comparison on toys4k and unilat1k against image-only and text-only variants of trellis and unilat3d. dashed boxes mark artifacts from prior methods. image-only models respect the reference view but must hallucinate unseen regions, while text-only models lack pixel-aligned cues and often produce low-fidelity geometry and appearance. full prompts are provided in the supplement.} \\label{fig:main_comp} \\end{figure*}"
+    },
+    {
+      "paragraph_id": "4_experiments.tex::p0011",
+      "tex_file": "4_experiments.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\4_experiments.tex",
+      "section_path": [
+        "Experiments",
+        "Qualitative Results"
+      ],
+      "block_type": "paragraph",
+      "line_start": 122,
+      "line_end": 122,
+      "text": "As shown in~\\cref{fig:main_comp}, we compare TIGON with image-only and text-only variants of TRELLIS and UniLat3D.",
+      "normalized_text": "as shown in~\\cref{fig:main_comp}, we compare tigon with image-only and text-only variants of trellis and unilat3d."
+    },
+    {
+      "paragraph_id": "4_experiments.tex::p0012",
+      "tex_file": "4_experiments.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\4_experiments.tex",
+      "section_path": [
+        "Experiments",
+        "Qualitative Results"
+      ],
+      "block_type": "command-block",
+      "line_start": 127,
+      "line_end": 128,
+      "text": "\\noindent\\textbf{Image-Only Conditioning.} With only one reference view, shape and appearance remain under-constrained, so image-only models must hallucinate unseen regions and often deviate from user intent. For example, given a top view of a trophy, TRELLIS/UniLat3D capture the overall style but fail to reconstruct a faithful trophy. Even with a more informative view (\\emph{e.g.}, the toaster in the last row), they still produce distorted slots due to incomplete observation. Adding text supplies the missing semantics, so TIGON better matches both the description and the reference image.",
+      "normalized_text": "\\noindent\\textbf{image-only conditioning.} with only one reference view, shape and appearance remain under-constrained, so image-only models must hallucinate unseen regions and often deviate from user intent. for example, given a top view of a trophy, trellis/unilat3d capture the overall style but fail to reconstruct a faithful trophy. even with a more informative view (\\emph{e.g.}, the toaster in the last row), they still produce distorted slots due to incomplete observation. adding text supplies the missing semantics, so tigon better matches both the description and the reference image."
+    },
+    {
+      "paragraph_id": "4_experiments.tex::p0013",
+      "tex_file": "4_experiments.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\4_experiments.tex",
+      "section_path": [
+        "Experiments",
+        "Qualitative Results"
+      ],
+      "block_type": "command-block",
+      "line_start": 130,
+      "line_end": 131,
+      "text": "\\noindent\\textbf{Text-Only Conditioning.} Text provides high-level semantics but no pixel-aligned cues, leading to ambiguous geometry and lower visual fidelity. Introducing even a weak image cue markedly improves spatial alignment and appearance: in the third row of~\\cref{fig:main_comp}, a top-view image of a game console combined with text produces much more faithful geometry than the text-only baseline. Overall, the visual results show that text and image address complementary failure modes, and that joint conditioning enables more controllable, higher-quality 3D generation.",
+      "normalized_text": "\\noindent\\textbf{text-only conditioning.} text provides high-level semantics but no pixel-aligned cues, leading to ambiguous geometry and lower visual fidelity. introducing even a weak image cue markedly improves spatial alignment and appearance: in the third row of~\\cref{fig:main_comp}, a top-view image of a game console combined with text produces much more faithful geometry than the text-only baseline. overall, the visual results show that text and image address complementary failure modes, and that joint conditioning enables more controllable, higher-quality 3d generation."
+    },
+    {
+      "paragraph_id": "4_experiments.tex::p0014",
+      "tex_file": "4_experiments.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\4_experiments.tex",
+      "section_path": [
+        "Experiments",
+        "Qualitative Results"
+      ],
+      "block_type": "command-block",
+      "line_start": 133,
+      "line_end": 135,
+      "text": "\\begin{figure*} \\centering \\includegraphics[width=\\textwidth]{tigon-edit.png}",
+      "normalized_text": "\\begin{figure*} \\centering \\includegraphics[width=\\textwidth]{tigon-edit.png}"
+    },
+    {
+      "paragraph_id": "4_experiments.tex::p0015",
+      "tex_file": "4_experiments.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\4_experiments.tex",
+      "section_path": [
+        "Experiments",
+        "Qualitative Results"
+      ],
+      "block_type": "caption",
+      "line_start": 137,
+      "line_end": 139,
+      "text": "\\caption{Controllable generation under text and image conditions.} \\label{fig:edit} \\end{figure*}",
+      "normalized_text": "\\caption{controllable generation under text and image conditions.} \\label{fig:edit} \\end{figure*}"
+    },
+    {
+      "paragraph_id": "4_experiments.tex::p0016",
+      "tex_file": "4_experiments.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\4_experiments.tex",
+      "section_path": [
+        "Experiments",
+        "Qualitative Results"
+      ],
+      "block_type": "command-block",
+      "line_start": 141,
+      "line_end": 146,
+      "text": "\\begin{figure} \\centering \\includegraphics[width=\\linewidth]{tigon-limitation.png} \\caption{Generation with conflicting text-image conditions.} \\label{fig:contradict} \\end{figure}",
+      "normalized_text": "\\begin{figure} \\centering \\includegraphics[width=\\linewidth]{tigon-limitation.png} \\caption{generation with conflicting text-image conditions.} \\label{fig:contradict} \\end{figure}"
+    },
+    {
+      "paragraph_id": "4_experiments.tex::p0017",
+      "tex_file": "4_experiments.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\4_experiments.tex",
+      "section_path": [
+        "Experiments",
+        "Qualitative Results"
+      ],
+      "block_type": "paragraph",
+      "line_start": 150,
+      "line_end": 150,
+      "text": "To further demonstrate TIGON's controllability, we fix the input image and vary the text prompt to obtain diverse 3D outputs. As shown in~\\cref{fig:edit}, when the image is highly informative (\\emph{e.g.}, a distinctive character), TIGON preserves identity while adjusting fine-grained attributes according to the text; when the image is ambiguous (\\emph{e.g.}, a bottom view of a toaster), it relies more on text and can generate semantically different objects, such as a telephone or a bed. This combination of pixel-level alignment and semantic control offers greater flexibility than single-modality methods. We further observe in~\\cref{fig:contradict} that when the image and text explicitly conflict, TIGON tends to follow the image if it already provides clear semantic guidance, likely because images are usually more specific and less ambiguous than text. More qualitative results are provided in the supplement.",
+      "normalized_text": "to further demonstrate tigon's controllability, we fix the input image and vary the text prompt to obtain diverse 3d outputs. as shown in~\\cref{fig:edit}, when the image is highly informative (\\emph{e.g.}, a distinctive character), tigon preserves identity while adjusting fine-grained attributes according to the text; when the image is ambiguous (\\emph{e.g.}, a bottom view of a toaster), it relies more on text and can generate semantically different objects, such as a telephone or a bed. this combination of pixel-level alignment and semantic control offers greater flexibility than single-modality methods. we further observe in~\\cref{fig:contradict} that when the image and text explicitly conflict, tigon tends to follow the image if it already provides clear semantic guidance, likely because images are usually more specific and less ambiguous than text. more qualitative results are provided in the supplement."
+    },
+    {
+      "paragraph_id": "4_experiments.tex::p0018",
+      "tex_file": "4_experiments.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\4_experiments.tex",
+      "section_path": [
+        "Experiments",
+        "Qualitative Results"
+      ],
+      "block_type": "command-block",
+      "line_start": 155,
+      "line_end": 156,
+      "text": "\\begin{table}[htbp] \\centering",
+      "normalized_text": "\\begin{table}[htbp] \\centering"
+    },
+    {
+      "paragraph_id": "4_experiments.tex::p0019",
+      "tex_file": "4_experiments.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\4_experiments.tex",
+      "section_path": [
+        "Experiments",
+        "Qualitative Results"
+      ],
+      "block_type": "caption",
+      "line_start": 160,
+      "line_end": 175,
+      "text": "\\caption{Ablations on Toys4K. ``Bridges'' denotes zero-initialized cross-modal bridges; ``Sim'', ``AW'', and ``AT'' denote three fusion strategies; ``FT'' denotes joint fine-tuning. The TIGON setting is highlighted in light gray.} \\begin{tabular}{ccccccc} \\toprule \\multirow{2}{*}{\\textbf{Bridges}} & \\multicolumn{3}{c}{\\textbf{Fusion Strategy}} & \\multirow{2}{*}{\\textbf{FT}} & \\multirow{2}{*}{\\textbf{CLIP$\\uparrow$}} & \\multirow{2}{*}{\\textbf{FD$_{\\text{DINOv2}}\\downarrow$}} \\\\ & \\textbf{Sim} & \\textbf{AW} & \\textbf{AT} & & & \\\\ \\midrule & \\checkmark & & & & 91.95 & 66.78 \\\\ & \\checkmark & & & \\checkmark & 92.05 & 66.04 \\\\ \\rowcolor{rowgray} \\checkmark & \\checkmark & & & \\checkmark & 92.33 & 61.59 \\\\ \\checkmark & & \\checkmark & & \\checkmark & 92.31 & 60.90 \\\\ \\checkmark & & & \\checkmark & \\checkmark & 92.26 & 62.00\\\\ \\bottomrule \\end{tabular} \\label{tab:ablation} \\end{table}",
+      "normalized_text": "\\caption{ablations on toys4k. ``bridges'' denotes zero-initialized cross-modal bridges; ``sim'', ``aw'', and ``at'' denote three fusion strategies; ``ft'' denotes joint fine-tuning. the tigon setting is highlighted in light gray.} \\begin{tabular}{ccccccc} \\toprule \\multirow{2}{*}{\\textbf{bridges}} & \\multicolumn{3}{c}{\\textbf{fusion strategy}} & \\multirow{2}{*}{\\textbf{ft}} & \\multirow{2}{*}{\\textbf{clip$\\uparrow$}} & \\multirow{2}{*}{\\textbf{fd$_{\\text{dinov2}}\\downarrow$}} \\\\ & \\textbf{sim} & \\textbf{aw} & \\textbf{at} & & & \\\\ \\midrule & \\checkmark & & & & 91.95 & 66.78 \\\\ & \\checkmark & & & \\checkmark & 92.05 & 66.04 \\\\ \\rowcolor{rowgray} \\checkmark & \\checkmark & & & \\checkmark & 92.33 & 61.59 \\\\ \\checkmark & & \\checkmark & & \\checkmark & 92.31 & 60.90 \\\\ \\checkmark & & & \\checkmark & \\checkmark & 92.26 & 62.00\\\\ \\bottomrule \\end{tabular} \\label{tab:ablation} \\end{table}"
+    },
+    {
+      "paragraph_id": "4_experiments.tex::p0020",
+      "tex_file": "4_experiments.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\4_experiments.tex",
+      "section_path": [
+        "Experiments",
+        "Ablation Study"
+      ],
+      "block_type": "command-block",
+      "line_start": 179,
+      "line_end": 180,
+      "text": "\\label{sec:ablation} We study each TIGON component on Toys4K.",
+      "normalized_text": "\\label{sec:ablation} we study each tigon component on toys4k."
+    },
+    {
+      "paragraph_id": "4_experiments.tex::p0021",
+      "tex_file": "4_experiments.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\4_experiments.tex",
+      "section_path": [
+        "Experiments",
+        "Ablation Study"
+      ],
+      "block_type": "command-block",
+      "line_start": 183,
+      "line_end": 186,
+      "text": "\\paragraph{Early-Fusion Strategy.} As shown in \\cref{tab:ablation}, without cross-modal bridges, joint fine-tuning of the two branches only brings marginal improvement (66.78 $\\rightarrow$ 66.04 in $\\mathrm{FD}_{\\text{DINOv2}}$). Enabling cross-modal bridges yields a substantial gain (66.78 $\\rightarrow$ 61.59 in $\\mathrm{FD}_{\\text{DINOv2}}$), underscoring the necessity of cross-modal information exchange. Qualitatively, \\cref{fig:ablation} shows that, without cross-modal bridges, the text- and image-conditioned branches diverge during denoising, producing inconsistent or abnormal structures; with bridges, they remain aligned and produce coherent result.",
+      "normalized_text": "\\paragraph{early-fusion strategy.} as shown in \\cref{tab:ablation}, without cross-modal bridges, joint fine-tuning of the two branches only brings marginal improvement (66.78 $\\rightarrow$ 66.04 in $\\mathrm{fd}_{\\text{dinov2}}$). enabling cross-modal bridges yields a substantial gain (66.78 $\\rightarrow$ 61.59 in $\\mathrm{fd}_{\\text{dinov2}}$), underscoring the necessity of cross-modal information exchange. qualitatively, \\cref{fig:ablation} shows that, without cross-modal bridges, the text- and image-conditioned branches diverge during denoising, producing inconsistent or abnormal structures; with bridges, they remain aligned and produce coherent result."
+    },
+    {
+      "paragraph_id": "4_experiments.tex::p0022",
+      "tex_file": "4_experiments.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\4_experiments.tex",
+      "section_path": [
+        "Experiments",
+        "Ablation Study"
+      ],
+      "block_type": "command-block",
+      "line_start": 188,
+      "line_end": 193,
+      "text": "\\begin{figure} \\centering \\includegraphics[width=\\linewidth]{tigon-ablation.png} \\caption{Effect of early fusion. Without cross-modal bridges, the two branches diverge during denoising. Full text prompt is available in the supplement.} \\label{fig:ablation} \\end{figure}",
+      "normalized_text": "\\begin{figure} \\centering \\includegraphics[width=\\linewidth]{tigon-ablation.png} \\caption{effect of early fusion. without cross-modal bridges, the two branches diverge during denoising. full text prompt is available in the supplement.} \\label{fig:ablation} \\end{figure}"
+    },
+    {
+      "paragraph_id": "4_experiments.tex::p0023",
+      "tex_file": "4_experiments.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\4_experiments.tex",
+      "section_path": [
+        "Experiments",
+        "Ablation Study"
+      ],
+      "block_type": "command-block",
+      "line_start": 195,
+      "line_end": 196,
+      "text": "\\paragraph{Late-Fusion Strategy.} As discussed in~\\cref{sec:late_fusion}, a sophisticated learnable late-fusion strategy appears unnecessary. Under the same early-fusion setup and joint fine-tuning, simple averaging (\\textbf{Sim}) already reaches 61.59 $\\mathrm{FD}_{\\text{DINOv2}}$ (Table~\\ref{tab:ablation}), while adaptive weighting (\\textbf{AW}) and attention-based fusion (\\textbf{AT}) change this metric only slightly (60.90 and 62.00). We therefore adopt simple averaging by default.",
+      "normalized_text": "\\paragraph{late-fusion strategy.} as discussed in~\\cref{sec:late_fusion}, a sophisticated learnable late-fusion strategy appears unnecessary. under the same early-fusion setup and joint fine-tuning, simple averaging (\\textbf{sim}) already reaches 61.59 $\\mathrm{fd}_{\\text{dinov2}}$ (table~\\ref{tab:ablation}), while adaptive weighting (\\textbf{aw}) and attention-based fusion (\\textbf{at}) change this metric only slightly (60.90 and 62.00). we therefore adopt simple averaging by default."
+    },
+    {
+      "paragraph_id": "5_conclusion.tex::p0001",
+      "tex_file": "5_conclusion.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\5_conclusion.tex",
+      "section_path": [
+        "Conclusion"
+      ],
+      "block_type": "command-block",
+      "line_start": 2,
+      "line_end": 3,
+      "text": "\\label{sec:conclusion} In this paper, we revisit conventional single-modality conditioned 3D generation and highlight a clear limitation: image-conditioned models are sensitive to viewpoint informativeness and lack control over unobserved regions, while text-conditioned models capture global intent but lack concrete visual cues. Our diagnostic study empirically shows that these two signals are complementary, which motivates us to formalize the task of \\textbf{Text--Image Conditioned 3D Generation}. We further introduce \\textbf{TIGON}, a simple yet effective baseline for this task. Experiments demonstrate consistent gains over strong single-modality models, and show that combining modalities yields more robust and flexible 3D generation. We hope this work will help drive future research on controllable, high-quality 3D generation.",
+      "normalized_text": "\\label{sec:conclusion} in this paper, we revisit conventional single-modality conditioned 3d generation and highlight a clear limitation: image-conditioned models are sensitive to viewpoint informativeness and lack control over unobserved regions, while text-conditioned models capture global intent but lack concrete visual cues. our diagnostic study empirically shows that these two signals are complementary, which motivates us to formalize the task of \\textbf{text--image conditioned 3d generation}. we further introduce \\textbf{tigon}, a simple yet effective baseline for this task. experiments demonstrate consistent gains over strong single-modality models, and show that combining modalities yields more robust and flexible 3d generation. we hope this work will help drive future research on controllable, high-quality 3d generation."
+    },
+    {
+      "paragraph_id": "X_suppl.tex::p0001",
+      "tex_file": "X_suppl.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\X_suppl.tex",
+      "section_path": [],
+      "block_type": "command-block",
+      "line_start": 1,
+      "line_end": 9,
+      "text": "\\clearpage \\renewcommand{\\thepage}{A\\arabic{page}} \\setcounter{page}{1} \\maketitlesupplementary \\appendix \\renewcommand{\\thefigure}{A\\arabic{figure}} \\renewcommand{\\thetable}{A\\arabic{table}} \\setcounter{figure}{0} \\setcounter{table}{0}",
+      "normalized_text": "\\clearpage \\renewcommand{\\thepage}{a\\arabic{page}} \\setcounter{page}{1} \\maketitlesupplementary \\appendix \\renewcommand{\\thefigure}{a\\arabic{figure}} \\renewcommand{\\thetable}{a\\arabic{table}} \\setcounter{figure}{0} \\setcounter{table}{0}"
+    },
+    {
+      "paragraph_id": "X_suppl.tex::p0002",
+      "tex_file": "X_suppl.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\X_suppl.tex",
+      "section_path": [
+        "Contents"
+      ],
+      "block_type": "command-block",
+      "line_start": 12,
+      "line_end": 21,
+      "text": "\\label{sec:contents} In this supplement, we provide the following contents: \\begin{itemize} \\item The design of the cross-modal late-fusion module used for ablation. \\item The dataset composition of TRELLIS-500K. \\item The evaluation metric definitions and rendering settings. \\item Compatibility between TIGON and TRELLIS. \\item More qualitative results. \\item Full text prompts used in the main paper. \\end{itemize}",
+      "normalized_text": "\\label{sec:contents} in this supplement, we provide the following contents: \\begin{itemize} \\item the design of the cross-modal late-fusion module used for ablation. \\item the dataset composition of trellis-500k. \\item the evaluation metric definitions and rendering settings. \\item compatibility between tigon and trellis. \\item more qualitative results. \\item full text prompts used in the main paper. \\end{itemize}"
+    },
+    {
+      "paragraph_id": "X_suppl.tex::p0003",
+      "tex_file": "X_suppl.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\X_suppl.tex",
+      "section_path": [
+        "Design of Ablation for the Cross-Modal Late-Fusion Module"
+      ],
+      "block_type": "paragraph",
+      "line_start": 25,
+      "line_end": 25,
+      "text": "To assess whether more sophisticated mechanisms can outperform our simple averaging strategy, we design two learnable late-fusion variants.",
+      "normalized_text": "to assess whether more sophisticated mechanisms can outperform our simple averaging strategy, we design two learnable late-fusion variants."
+    },
+    {
+      "paragraph_id": "X_suppl.tex::p0004",
+      "tex_file": "X_suppl.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\X_suppl.tex",
+      "section_path": [
+        "Design of Ablation for the Cross-Modal Late-Fusion Module"
+      ],
+      "block_type": "command-block",
+      "line_start": 27,
+      "line_end": 33,
+      "text": "\\begin{figure}[htbp] \\centering \\includegraphics[width=\\linewidth]{tigon-fusion-module.pdf} \\caption{The adaptive fusion module used in the ablation study. $D$ denotes the intermediate feature dimension, and $C$ denotes the latent output dimension.} \\label{fig:fusion_module} \\end{figure}",
+      "normalized_text": "\\begin{figure}[htbp] \\centering \\includegraphics[width=\\linewidth]{tigon-fusion-module.pdf} \\caption{the adaptive fusion module used in the ablation study. $d$ denotes the intermediate feature dimension, and $c$ denotes the latent output dimension.} \\label{fig:fusion_module} \\end{figure}"
+    },
+    {
+      "paragraph_id": "X_suppl.tex::p0005",
+      "tex_file": "X_suppl.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\X_suppl.tex",
+      "section_path": [
+        "Design of Ablation for the Cross-Modal Late-Fusion Module"
+      ],
+      "block_type": "paragraph",
+      "line_start": 35,
+      "line_end": 45,
+      "text": "A fusion module must access the current branch predictions $\\mathbf{f}^{(L)}_{\\texttt{txt}}$ and $\\mathbf{f}^{(L)}_{\\texttt{img}}$, the modality conditions $\\mathbf{T}$ and $\\mathbf{I}$, and the denoising timestep $t$. To integrate these inputs, we employ a dual cross-attention module. As shown in~\\cref{fig:fusion_module}, we concatenate the two branch features along the channel dimension and obtain a fused representation: \\begin{equation} \\mathbf{f}_{\\texttt{fused}} = \\mathcal{M}\\big([\\mathbf{f}_{\\texttt{txt}} \\,;\\, \\mathbf{f}_{\\texttt{img}}],\\, t,\\, \\mathbf{T},\\, \\mathbf{I}\\big). \\end{equation} Different output heads applied to $\\mathbf{f}_{\\texttt{fused}}$ produce the two fusion variants below.",
+      "normalized_text": "a fusion module must access the current branch predictions $\\mathbf{f}^{(l)}_{\\texttt{txt}}$ and $\\mathbf{f}^{(l)}_{\\texttt{img}}$, the modality conditions $\\mathbf{t}$ and $\\mathbf{i}$, and the denoising timestep $t$. to integrate these inputs, we employ a dual cross-attention module. as shown in~\\cref{fig:fusion_module}, we concatenate the two branch features along the channel dimension and obtain a fused representation: \\begin{equation} \\mathbf{f}_{\\texttt{fused}} = \\mathcal{m}\\big([\\mathbf{f}_{\\texttt{txt}} \\,;\\, \\mathbf{f}_{\\texttt{img}}],\\, t,\\, \\mathbf{t},\\, \\mathbf{i}\\big). \\end{equation} different output heads applied to $\\mathbf{f}_{\\texttt{fused}}$ produce the two fusion variants below."
+    },
+    {
+      "paragraph_id": "X_suppl.tex::p0006",
+      "tex_file": "X_suppl.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\X_suppl.tex",
+      "section_path": [
+        "Design of Ablation for the Cross-Modal Late-Fusion Module"
+      ],
+      "block_type": "command-block",
+      "line_start": 47,
+      "line_end": 57,
+      "text": "\\paragraph{Linear Fusion with Learnable Adaptive Weighting (AW).} To produce element-wise fusion weights, the fusion module applies a linear projection $\\mathbb{R}^{B\\times N\\times 2D} \\rightarrow \\mathbb{R}^{B\\times N\\times 1}$, followed by a sigmoid activation to obtain $\\mathbf{w} \\in \\mathbb{R}^{B\\times N\\times 1}$. The final fused prediction is computed as \\begin{equation} \\mathbf{v} = \\mathbf{w}\\,\\mathbf{v}_{\\texttt{txt}} + (1-\\mathbf{w})\\,\\mathbf{v}_{\\texttt{img}}. \\end{equation}",
+      "normalized_text": "\\paragraph{linear fusion with learnable adaptive weighting (aw).} to produce element-wise fusion weights, the fusion module applies a linear projection $\\mathbb{r}^{b\\times n\\times 2d} \\rightarrow \\mathbb{r}^{b\\times n\\times 1}$, followed by a sigmoid activation to obtain $\\mathbf{w} \\in \\mathbb{r}^{b\\times n\\times 1}$. the final fused prediction is computed as \\begin{equation} \\mathbf{v} = \\mathbf{w}\\,\\mathbf{v}_{\\texttt{txt}} + (1-\\mathbf{w})\\,\\mathbf{v}_{\\texttt{img}}. \\end{equation}"
+    },
+    {
+      "paragraph_id": "X_suppl.tex::p0007",
+      "tex_file": "X_suppl.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\X_suppl.tex",
+      "section_path": [
+        "Design of Ablation for the Cross-Modal Late-Fusion Module"
+      ],
+      "block_type": "command-block",
+      "line_start": 59,
+      "line_end": 71,
+      "text": "\\paragraph{Attention-Based Cross-Modal Fusion (AT).} Instead of predicting fusion weights, this variant lets the fusion module directly generate modality-specific features. To maintain training stability, we reuse the original output projections $\\mathcal{G}_{*} : \\mathbb{R}^{D} \\rightarrow \\mathbb{R}^{C}$ for $* \\in \\{\\texttt{txt}, \\texttt{img}\\}$. We split the fused representation along the channel dimension to obtain $\\hat{\\mathbf{f}}_{\\texttt{txt}}, \\hat{\\mathbf{f}}_{\\texttt{img}} \\in \\mathbb{R}^{B\\times N\\times D}$. Each is then projected to the latent dimension, and the final prediction is formed by summation: \\begin{equation} \\mathbf{v} = \\frac{1}{2}(\\mathcal{G}_{\\texttt{txt}}(\\hat{\\mathbf{f}}_{\\texttt{txt}}) + \\mathcal{G}_{\\texttt{img}}(\\hat{\\mathbf{f}}_{\\texttt{img}})). \\end{equation} Note that we omit the normalization operation for brevity.",
+      "normalized_text": "\\paragraph{attention-based cross-modal fusion (at).} instead of predicting fusion weights, this variant lets the fusion module directly generate modality-specific features. to maintain training stability, we reuse the original output projections $\\mathcal{g}_{*} : \\mathbb{r}^{d} \\rightarrow \\mathbb{r}^{c}$ for $* \\in \\{\\texttt{txt}, \\texttt{img}\\}$. we split the fused representation along the channel dimension to obtain $\\hat{\\mathbf{f}}_{\\texttt{txt}}, \\hat{\\mathbf{f}}_{\\texttt{img}} \\in \\mathbb{r}^{b\\times n\\times d}$. each is then projected to the latent dimension, and the final prediction is formed by summation: \\begin{equation} \\mathbf{v} = \\frac{1}{2}(\\mathcal{g}_{\\texttt{txt}}(\\hat{\\mathbf{f}}_{\\texttt{txt}}) + \\mathcal{g}_{\\texttt{img}}(\\hat{\\mathbf{f}}_{\\texttt{img}})). \\end{equation} note that we omit the normalization operation for brevity."
+    },
+    {
+      "paragraph_id": "X_suppl.tex::p0008",
+      "tex_file": "X_suppl.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\X_suppl.tex",
+      "section_path": [
+        "TRELLIS-500K Dataset Overview"
+      ],
+      "block_type": "paragraph",
+      "line_start": 75,
+      "line_end": 75,
+      "text": "TRELLIS-500K is a large-scale 3D asset collection assembled in prior work~\\cite{trellis}, drawing from several publicly available repositories. The dataset merges objects from Objaverse-style sources together with high-quality CAD and artist-designed assets, followed by filtering procedures to remove models with missing geometry or severely degraded textures. Each object is additionally paired with a detailed natural-language caption generated using GPT-4o~\\cite{2024GPT4o}, providing consistent semantic supervision for text-driven 3D generation.",
+      "normalized_text": "trellis-500k is a large-scale 3d asset collection assembled in prior work~\\cite{trellis}, drawing from several publicly available repositories. the dataset merges objects from objaverse-style sources together with high-quality cad and artist-designed assets, followed by filtering procedures to remove models with missing geometry or severely degraded textures. each object is additionally paired with a detailed natural-language caption generated using gpt-4o~\\cite{2024gpt4o}, providing consistent semantic supervision for text-driven 3d generation."
+    },
+    {
+      "paragraph_id": "X_suppl.tex::p0009",
+      "tex_file": "X_suppl.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\X_suppl.tex",
+      "section_path": [
+        "TRELLIS-500K Dataset Overview"
+      ],
+      "block_type": "command-block",
+      "line_start": 77,
+      "line_end": 78,
+      "text": "\\paragraph{Objaverse-Derived ~\\cite{deitke2023objaverse, deitke2024objaverse}.} A substantial portion of TRELLIS-500K comes from higher-quality subsets of Objaverse-XL, particularly assets originating from Sketchfab (Objaverse V1) and selected GitHub contributions. These models cover a wide range of manually designed shapes, photogrammetry scans, and professionally captured artifacts. Lower-quality objects from the broader Objaverse-XL collection are excluded.",
+      "normalized_text": "\\paragraph{objaverse-derived ~\\cite{deitke2023objaverse, deitke2024objaverse}.} a substantial portion of trellis-500k comes from higher-quality subsets of objaverse-xl, particularly assets originating from sketchfab (objaverse v1) and selected github contributions. these models cover a wide range of manually designed shapes, photogrammetry scans, and professionally captured artifacts. lower-quality objects from the broader objaverse-xl collection are excluded."
+    },
+    {
+      "paragraph_id": "X_suppl.tex::p0010",
+      "tex_file": "X_suppl.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\X_suppl.tex",
+      "section_path": [
+        "TRELLIS-500K Dataset Overview"
+      ],
+      "block_type": "command-block",
+      "line_start": 80,
+      "line_end": 81,
+      "text": "\\paragraph{ABO~\\cite{collins2022abo}.} ABO contributes a set of professionally authored household product models characterized by clean topology and high-resolution materials, enriching the dataset with well-designed, manufacturable assets.",
+      "normalized_text": "\\paragraph{abo~\\cite{collins2022abo}.} abo contributes a set of professionally authored household product models characterized by clean topology and high-resolution materials, enriching the dataset with well-designed, manufacturable assets."
+    },
+    {
+      "paragraph_id": "X_suppl.tex::p0011",
+      "tex_file": "X_suppl.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\X_suppl.tex",
+      "section_path": [
+        "TRELLIS-500K Dataset Overview"
+      ],
+      "block_type": "command-block",
+      "line_start": 83,
+      "line_end": 84,
+      "text": "\\paragraph{3D-FUTURE~\\cite{fu20213d}.} 3D-FUTURE provides industrial-grade furniture models with detailed geometry and realistic textures, complementing other sources with contemporary interior designs.",
+      "normalized_text": "\\paragraph{3d-future~\\cite{fu20213d}.} 3d-future provides industrial-grade furniture models with detailed geometry and realistic textures, complementing other sources with contemporary interior designs."
+    },
+    {
+      "paragraph_id": "X_suppl.tex::p0012",
+      "tex_file": "X_suppl.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\X_suppl.tex",
+      "section_path": [
+        "TRELLIS-500K Dataset Overview"
+      ],
+      "block_type": "command-block",
+      "line_start": 86,
+      "line_end": 87,
+      "text": "\\paragraph{HSSD~\\cite{khanna2023hssd}.} Assets from HSSD include indoor objects such as decorative items and furnishings originally curated for embodied AI research. These assets are structurally consistent and help broaden the dataset’s coverage of indoor categories.",
+      "normalized_text": "\\paragraph{hssd~\\cite{khanna2023hssd}.} assets from hssd include indoor objects such as decorative items and furnishings originally curated for embodied ai research. these assets are structurally consistent and help broaden the dataset’s coverage of indoor categories."
+    },
+    {
+      "paragraph_id": "X_suppl.tex::p0013",
+      "tex_file": "X_suppl.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\X_suppl.tex",
+      "section_path": [
+        "TRELLIS-500K Dataset Overview"
+      ],
+      "block_type": "paragraph",
+      "line_start": 89,
+      "line_end": 89,
+      "text": "Overall, TRELLIS-500K offers a curated mixture of diverse, reasonably clean 3D assets with high-quality textual descriptions, and serves as a strong large-scale dataset for training text- and image-conditioned 3D generative models.",
+      "normalized_text": "overall, trellis-500k offers a curated mixture of diverse, reasonably clean 3d assets with high-quality textual descriptions, and serves as a strong large-scale dataset for training text- and image-conditioned 3d generative models."
+    },
+    {
+      "paragraph_id": "X_suppl.tex::p0014",
+      "tex_file": "X_suppl.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\X_suppl.tex",
+      "section_path": [
+        "Rendering Settings and Evaluation Metric Definitions",
+        "Rendering Settings"
+      ],
+      "block_type": "paragraph",
+      "line_start": 94,
+      "line_end": 94,
+      "text": "To assess generation quality, we render four reference views for each ground-truth object using cameras placed at yaw angles of ${0^\\circ, 90^\\circ, 180^\\circ, 270^\\circ}$ and a fixed pitch of $30^\\circ$, all looking toward the origin with a $40^\\circ$ field of view and positioned uniformly on a sphere of radius 2. We apply the same rendering protocol to the corresponding generated object to obtain its synthesized views. Image features are then extracted using the CLIP image encoder and DINOv2 to compute the CLIP similarity score and FD$_\\texttt{DINOv2}$, respectively.",
+      "normalized_text": "to assess generation quality, we render four reference views for each ground-truth object using cameras placed at yaw angles of ${0^\\circ, 90^\\circ, 180^\\circ, 270^\\circ}$ and a fixed pitch of $30^\\circ$, all looking toward the origin with a $40^\\circ$ field of view and positioned uniformly on a sphere of radius 2. we apply the same rendering protocol to the corresponding generated object to obtain its synthesized views. image features are then extracted using the clip image encoder and dinov2 to compute the clip similarity score and fd$_\\texttt{dinov2}$, respectively."
+    },
+    {
+      "paragraph_id": "X_suppl.tex::p0015",
+      "tex_file": "X_suppl.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\X_suppl.tex",
+      "section_path": [
+        "Rendering Settings and Evaluation Metric Definitions",
+        "Evaluation Metric Definitions"
+      ],
+      "block_type": "command-block",
+      "line_start": 98,
+      "line_end": 101,
+      "text": "\\paragraph{CLIP.} For each instance, we render four views for the ground-truth (GT) object and four views for the generated object, and compute the cosine similarity between every GT–generated pair, yielding a $4 \\times 4$ similarity matrix. Since the generated objects are not canonicalized with respect to front/back orientation, we do not know the exact correspondence between GT and generated views. Therefore, we apply the Hungarian matching to this $4 \\times 4$ matrix to find the optimal one-to-one assignment, and use the resulting matching score (average cosine similarity over the matched pairs) as the final CLIP score.",
+      "normalized_text": "\\paragraph{clip.} for each instance, we render four views for the ground-truth (gt) object and four views for the generated object, and compute the cosine similarity between every gt–generated pair, yielding a $4 \\times 4$ similarity matrix. since the generated objects are not canonicalized with respect to front/back orientation, we do not know the exact correspondence between gt and generated views. therefore, we apply the hungarian matching to this $4 \\times 4$ matrix to find the optimal one-to-one assignment, and use the resulting matching score (average cosine similarity over the matched pairs) as the final clip score."
+    },
+    {
+      "paragraph_id": "X_suppl.tex::p0016",
+      "tex_file": "X_suppl.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\X_suppl.tex",
+      "section_path": [
+        "Rendering Settings and Evaluation Metric Definitions",
+        "Evaluation Metric Definitions"
+      ],
+      "block_type": "command-block",
+      "line_start": 103,
+      "line_end": 113,
+      "text": "\\paragraph{Fréchet Inception Distance (FID).} To assess distributional similarity between real and generated objects, we compute a Fréchet Distance in the DINOv2 feature space. All GT and generated renders are embedded using a pretrained DINOv2 encoder to obtain sets of ``real'' features $\\{\\mathbf{x}_i\\}$ and ``generated'' features $\\{\\mathbf{y}_i\\}$. We estimate the empirical means and covariances $(\\boldsymbol{\\mu}_r, \\boldsymbol{\\Sigma}_r)$ and $(\\boldsymbol{\\mu}_g, \\boldsymbol{\\Sigma}_g)$ of the two distributions, and report \\begin{equation} \\text{FD}_\\texttt{DINOv2} = \\|\\boldsymbol{\\mu}_r - \\boldsymbol{\\mu}_g\\|_2^2 + \\operatorname{Tr}\\!\\left(\\boldsymbol{\\Sigma}_r + \\boldsymbol{\\Sigma}_g - 2(\\boldsymbol{\\Sigma}_r \\boldsymbol{\\Sigma}_g)^{1/2}\\right), \\end{equation} where lower values indicate that generated features more closely match the distribution of GT features.",
+      "normalized_text": "\\paragraph{fréchet inception distance (fid).} to assess distributional similarity between real and generated objects, we compute a fréchet distance in the dinov2 feature space. all gt and generated renders are embedded using a pretrained dinov2 encoder to obtain sets of ``real'' features $\\{\\mathbf{x}_i\\}$ and ``generated'' features $\\{\\mathbf{y}_i\\}$. we estimate the empirical means and covariances $(\\boldsymbol{\\mu}_r, \\boldsymbol{\\sigma}_r)$ and $(\\boldsymbol{\\mu}_g, \\boldsymbol{\\sigma}_g)$ of the two distributions, and report \\begin{equation} \\text{fd}_\\texttt{dinov2} = \\|\\boldsymbol{\\mu}_r - \\boldsymbol{\\mu}_g\\|_2^2 + \\operatorname{tr}\\!\\left(\\boldsymbol{\\sigma}_r + \\boldsymbol{\\sigma}_g - 2(\\boldsymbol{\\sigma}_r \\boldsymbol{\\sigma}_g)^{1/2}\\right), \\end{equation} where lower values indicate that generated features more closely match the distribution of gt features."
+    },
+    {
+      "paragraph_id": "X_suppl.tex::p0017",
+      "tex_file": "X_suppl.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\X_suppl.tex",
+      "section_path": [
+        "Rendering Settings and Evaluation Metric Definitions",
+        "Evaluation Metric Definitions"
+      ],
+      "block_type": "command-block",
+      "line_start": 115,
+      "line_end": 118,
+      "text": "\\paragraph{ULIP and Uni3D.} To evaluate the geometric fidelity of the generated 3D object, we employ ULIP~\\cite{ulip} and Uni3D~\\cite{uni3d} to measure semantic consistency between the generated 3D shape and the corresponding GT renderings. For each instance, we encode the four reference views using the ULIP or Uni3D image encoder, and encode the generated mesh using the corresponding point-cloud encoder applied to its vertices. The average cosine similarity between the image embeddings and the point-cloud embedding is reported as the ULIP or Uni3D score.",
+      "normalized_text": "\\paragraph{ulip and uni3d.} to evaluate the geometric fidelity of the generated 3d object, we employ ulip~\\cite{ulip} and uni3d~\\cite{uni3d} to measure semantic consistency between the generated 3d shape and the corresponding gt renderings. for each instance, we encode the four reference views using the ulip or uni3d image encoder, and encode the generated mesh using the corresponding point-cloud encoder applied to its vertices. the average cosine similarity between the image embeddings and the point-cloud embedding is reported as the ulip or uni3d score."
+    },
+    {
+      "paragraph_id": "X_suppl.tex::p0018",
+      "tex_file": "X_suppl.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\X_suppl.tex",
+      "section_path": [
+        "Compatibility between TIGON and TRELLIS"
+      ],
+      "block_type": "paragraph",
+      "line_start": 121,
+      "line_end": 121,
+      "text": "In this paper, we instantiate TIGON on UniLat3D, a single-stage extension of TRELLIS. However, the core idea of TIGON is not restricted to UniLat3D. To demonstrate this, we conduct an additional experiment directly on TRELLIS: we integrate the TRELLIS text and image models within the TIGON framework and evaluate the resulting model.",
+      "normalized_text": "in this paper, we instantiate tigon on unilat3d, a single-stage extension of trellis. however, the core idea of tigon is not restricted to unilat3d. to demonstrate this, we conduct an additional experiment directly on trellis: we integrate the trellis text and image models within the tigon framework and evaluate the resulting model."
+    },
+    {
+      "paragraph_id": "X_suppl.tex::p0019",
+      "tex_file": "X_suppl.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\X_suppl.tex",
+      "section_path": [
+        "Compatibility between TIGON and TRELLIS"
+      ],
+      "block_type": "paragraph",
+      "line_start": 123,
+      "line_end": 123,
+      "text": "Due to resource limitations, we add cross-modal bridges only to the sparse-structure flow of TRELLIS and fine-tune it, while keeping the SLAT flow as a simple fusion of the two modality branches.",
+      "normalized_text": "due to resource limitations, we add cross-modal bridges only to the sparse-structure flow of trellis and fine-tune it, while keeping the slat flow as a simple fusion of the two modality branches."
+    },
+    {
+      "paragraph_id": "X_suppl.tex::p0020",
+      "tex_file": "X_suppl.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\X_suppl.tex",
+      "section_path": [
+        "Compatibility between TIGON and TRELLIS"
+      ],
+      "block_type": "paragraph",
+      "line_start": 125,
+      "line_end": 126,
+      "text": "The performance is reported in Table~\\ref{tab:trellis_tigon}. With cross-modal fusion, TRELLIS exhibits improved generation quality compared with its single-modality variants. These results highlight the potential of TIGON as a general multimodal fusion framework that is compatible with a broader class of flow-based 3D generators.",
+      "normalized_text": "the performance is reported in table~\\ref{tab:trellis_tigon}. with cross-modal fusion, trellis exhibits improved generation quality compared with its single-modality variants. these results highlight the potential of tigon as a general multimodal fusion framework that is compatible with a broader class of flow-based 3d generators."
+    },
+    {
+      "paragraph_id": "X_suppl.tex::p0021",
+      "tex_file": "X_suppl.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\X_suppl.tex",
+      "section_path": [
+        "Compatibility between TIGON and TRELLIS"
+      ],
+      "block_type": "command-block",
+      "line_start": 128,
+      "line_end": 142,
+      "text": "\\begin{table}[htbp] \\centering \\begin{tabular}{cccc} \\toprule \\textbf{Model} & \\textbf{Cond.} & \\textbf{CLIP} & \\textbf{FD$_{\\texttt{DINOv2}}$} \\\\ \\midrule TRELLIS & I & 90.50 & 98.75\\\\ TRELLIS & T & 86.30 & 148.21\\\\ TRELLIS (w/o ss-bridge) & I+T & 91.23 & 80.35\\\\ TRELLIS (w/ ss-bridge) & I+T & 91.51 & 75.35\\\\ \\bottomrule \\end{tabular} \\caption{Integrating TIGON with TRELLIS. Experiment is conducted on Toys4K. We use 3D-GS as the representation. `ss-bridge' denotes the cross-modal bridge for the sparse-structure flow model.} \\label{tab:trellis_tigon} \\end{table}",
+      "normalized_text": "\\begin{table}[htbp] \\centering \\begin{tabular}{cccc} \\toprule \\textbf{model} & \\textbf{cond.} & \\textbf{clip} & \\textbf{fd$_{\\texttt{dinov2}}$} \\\\ \\midrule trellis & i & 90.50 & 98.75\\\\ trellis & t & 86.30 & 148.21\\\\ trellis (w/o ss-bridge) & i+t & 91.23 & 80.35\\\\ trellis (w/ ss-bridge) & i+t & 91.51 & 75.35\\\\ \\bottomrule \\end{tabular} \\caption{integrating tigon with trellis. experiment is conducted on toys4k. we use 3d-gs as the representation. `ss-bridge' denotes the cross-modal bridge for the sparse-structure flow model.} \\label{tab:trellis_tigon} \\end{table}"
+    },
+    {
+      "paragraph_id": "X_suppl.tex::p0022",
+      "tex_file": "X_suppl.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\X_suppl.tex",
+      "section_path": [
+        "Compatibility between TIGON and TRELLIS"
+      ],
+      "block_type": "command-block",
+      "line_start": 144,
+      "line_end": 149,
+      "text": "\\begin{figure*}[htbp] \\centering \\includegraphics[width=\\linewidth]{tigon-supp-mesh-comp.png} \\caption{Meshes generated by Hunyuan3D-2.1, Step1X-3D, and TIGON. For the full text prompts, please refer to~\\cref{sec:full_cap}.} \\label{fig:mesh} \\end{figure*}",
+      "normalized_text": "\\begin{figure*}[htbp] \\centering \\includegraphics[width=\\linewidth]{tigon-supp-mesh-comp.png} \\caption{meshes generated by hunyuan3d-2.1, step1x-3d, and tigon. for the full text prompts, please refer to~\\cref{sec:full_cap}.} \\label{fig:mesh} \\end{figure*}"
+    },
+    {
+      "paragraph_id": "X_suppl.tex::p0023",
+      "tex_file": "X_suppl.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\X_suppl.tex",
+      "section_path": [
+        "Compatibility between TIGON and TRELLIS"
+      ],
+      "block_type": "command-block",
+      "line_start": 151,
+      "line_end": 156,
+      "text": "\\begin{figure*}[htbp] \\centering \\includegraphics[width=\\linewidth]{tigon-supp-edit.png} \\caption{Additional visualization results of controllable generation with TIGON under joint text and image conditioning.} \\label{fig:supp_edit} \\end{figure*}",
+      "normalized_text": "\\begin{figure*}[htbp] \\centering \\includegraphics[width=\\linewidth]{tigon-supp-edit.png} \\caption{additional visualization results of controllable generation with tigon under joint text and image conditioning.} \\label{fig:supp_edit} \\end{figure*}"
+    },
+    {
+      "paragraph_id": "X_suppl.tex::p0024",
+      "tex_file": "X_suppl.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\X_suppl.tex",
+      "section_path": [
+        "Additional Qualitative Results"
+      ],
+      "block_type": "command-block",
+      "line_start": 159,
+      "line_end": 164,
+      "text": "\\paragraph{Mesh Generation.} In the main paper, we provide visualization with 3D-GS representation. We further provide comparison results with other mesh generation methods~\\cite{hunyuan3d2025hunyuan3d2.1, step1x} to demonstrate the ability of mesh generation of TIGON. Existing approaches exhibit a strong dependence on favorable viewpoints. For example, in the second row of~\\cref{fig:mesh}, although the input image clearly depicts a bird, Step1X-3D fails to produce a plausible geometry. Similarly, in the fifth row, Hunyuan3D-2.1 cannot generate the deer’s legs. With explicit semantic guidance from text, TIGON successfully reconstructs these cases, producing meshes that better align with both appearance cues and object semantics.",
+      "normalized_text": "\\paragraph{mesh generation.} in the main paper, we provide visualization with 3d-gs representation. we further provide comparison results with other mesh generation methods~\\cite{hunyuan3d2025hunyuan3d2.1, step1x} to demonstrate the ability of mesh generation of tigon. existing approaches exhibit a strong dependence on favorable viewpoints. for example, in the second row of~\\cref{fig:mesh}, although the input image clearly depicts a bird, step1x-3d fails to produce a plausible geometry. similarly, in the fifth row, hunyuan3d-2.1 cannot generate the deer’s legs. with explicit semantic guidance from text, tigon successfully reconstructs these cases, producing meshes that better align with both appearance cues and object semantics."
+    },
+    {
+      "paragraph_id": "X_suppl.tex::p0025",
+      "tex_file": "X_suppl.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\X_suppl.tex",
+      "section_path": [
+        "Additional Qualitative Results"
+      ],
+      "block_type": "command-block",
+      "line_start": 166,
+      "line_end": 168,
+      "text": "\\paragraph{Controllable Generation.} Additional results in~\\cref{fig:supp_edit} further illustrate TIGON’s controllable generation ability. By combining different condition images with different text prompts, TIGON produces diverse 3D objects while maintaining strong visual alignment, highlighting the flexibility and expressiveness enabled by joint text–image conditioning. We also provide videos that more fully show these controllable generation results; please refer to the supplementary materials.",
+      "normalized_text": "\\paragraph{controllable generation.} additional results in~\\cref{fig:supp_edit} further illustrate tigon’s controllable generation ability. by combining different condition images with different text prompts, tigon produces diverse 3d objects while maintaining strong visual alignment, highlighting the flexibility and expressiveness enabled by joint text–image conditioning. we also provide videos that more fully show these controllable generation results; please refer to the supplementary materials."
+    },
+    {
+      "paragraph_id": "X_suppl.tex::p0026",
+      "tex_file": "X_suppl.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\X_suppl.tex",
+      "section_path": [
+        "Full Text Prompts List"
+      ],
+      "block_type": "command-block",
+      "line_start": 173,
+      "line_end": 174,
+      "text": "\\label{sec:full_cap} We provide here the full text prompts that are abbreviated in our figures.",
+      "normalized_text": "\\label{sec:full_cap} we provide here the full text prompts that are abbreviated in our figures."
+    },
+    {
+      "paragraph_id": "X_suppl.tex::p0027",
+      "tex_file": "X_suppl.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\X_suppl.tex",
+      "section_path": [
+        "Full Text Prompts List"
+      ],
+      "block_type": "command-block",
+      "line_start": 176,
+      "line_end": 183,
+      "text": "\\noindent Fig. 4: From the 1st to the 5th row: \\begin{itemize} \\item A whimsical, yellow toy-like car with a clown driver, blue side panels, and roof, red circles near the wheels, three roof balloons, a yellow wind-up key, light blue bumpers, and a weathered, vintage aesthetic. \\item A circular dartboard with concentric rings alternating between white and red, featuring a central bullseye and a dart embedded in the outer red ring. The dart has a black shaft, a brown tip, and red fletching. The dartboard's surface appears to have a matte finish, and the lighting highlights its three-dimensional form. \\item A handheld gaming console with a sleek black body, featuring two detachable controllers, one blue on the left and one red on the right. The blue controller has a directional pad and four action buttons labeled A, B, X, and Y. The red controller includes a joystick and additional buttons. The device has a glossy finish with visible screws and ports along its edges, indicating a portable design for gaming on the go. \\item A golden trophy with intricate engravings and detailed textures, featuring two handles, a transparent lid with a purple band, and blue ribbons with logos draped over it. The base has multiple tiers with inscriptions, and the overall design includes reflective surfaces and polished finishes. \\item A vintage toaster with a compact, rectangular shape, rounded edges, predominantly orange with metallic silver accents, two top bread slots, front and back panels featuring curved orange with central silver panels, inwardly curved side panels with a metallic lever and two knobs, and a wider base. \\end{itemize}",
+      "normalized_text": "\\noindent fig. 4: from the 1st to the 5th row: \\begin{itemize} \\item a whimsical, yellow toy-like car with a clown driver, blue side panels, and roof, red circles near the wheels, three roof balloons, a yellow wind-up key, light blue bumpers, and a weathered, vintage aesthetic. \\item a circular dartboard with concentric rings alternating between white and red, featuring a central bullseye and a dart embedded in the outer red ring. the dart has a black shaft, a brown tip, and red fletching. the dartboard's surface appears to have a matte finish, and the lighting highlights its three-dimensional form. \\item a handheld gaming console with a sleek black body, featuring two detachable controllers, one blue on the left and one red on the right. the blue controller has a directional pad and four action buttons labeled a, b, x, and y. the red controller includes a joystick and additional buttons. the device has a glossy finish with visible screws and ports along its edges, indicating a portable design for gaming on the go. \\item a golden trophy with intricate engravings and detailed textures, featuring two handles, a transparent lid with a purple band, and blue ribbons with logos draped over it. the base has multiple tiers with inscriptions, and the overall design includes reflective surfaces and polished finishes. \\item a vintage toaster with a compact, rectangular shape, rounded edges, predominantly orange with metallic silver accents, two top bread slots, front and back panels featuring curved orange with central silver panels, inwardly curved side panels with a metallic lever and two knobs, and a wider base. \\end{itemize}"
+    },
+    {
+      "paragraph_id": "X_suppl.tex::p0028",
+      "tex_file": "X_suppl.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\X_suppl.tex",
+      "section_path": [
+        "Full Text Prompts List"
+      ],
+      "block_type": "command-block",
+      "line_start": 185,
+      "line_end": 185,
+      "text": "\\noindent Fig. 6: A modern all-in-one desktop computer with a sleek, white stand, slightly curved white back, flat rectangular screen with rounded corners, thin black side and top bezels, and a thicker white bottom bezel.",
+      "normalized_text": "\\noindent fig. 6: a modern all-in-one desktop computer with a sleek, white stand, slightly curved white back, flat rectangular screen with rounded corners, thin black side and top bezels, and a thicker white bottom bezel."
+    },
+    {
+      "paragraph_id": "X_suppl.tex::p0029",
+      "tex_file": "X_suppl.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\tigon\\latex_run\\source\\X_suppl.tex",
+      "section_path": [
+        "Full Text Prompts List"
+      ],
+      "block_type": "command-block",
+      "line_start": 187,
+      "line_end": 194,
+      "text": "\\noindent\\cref{fig:mesh}: From the 1st to the 5th row: \\begin{itemize} \\item A modern white sofa with curved backrest and sides, three horizontal seat cushions, and five throw pillows alternately colored in purple and white. \\item A small, stylized bird with a round body, featuring soft orange plumage on its head and back, transitioning to white on its chest. The bird has a short, pointed black beak, dark eyes, and delicate brown legs with clawed feet. Its tail is short and slightly fanned, matching the orange coloration of its back. The texture appears smooth and slightly fluffy, giving it a plush, cartoon-like appearance. \\item A detailed 3D model of a whimsical, purple house with multiple stories, featuring intricate architectural details such as gabled roofs, chimneys, windows with varying sizes and shapes, and a staircase leading to the entrance. The house has a textured surface resembling stone or brick, with small decorative elements like railings and a balcony. The surrounding area includes scattered debris and a small figure near the base, adding context to the scene. \\item A beige and brown backpack with a textured fabric surface, featuring two rounded ear-like protrusions on top, adjustable shoulder straps with padded sections, and a central zipper compartment. The backpack has a structured design with visible stitching details and reinforced areas around the straps and zippers. \\item Low-poly, tan-colored standing deer with simple shapes; head with elongated muzzle, branched antlers, arched back, thin tapered legs, darker hooves, and stubby tail. \\end{itemize}",
+      "normalized_text": "\\noindent\\cref{fig:mesh}: from the 1st to the 5th row: \\begin{itemize} \\item a modern white sofa with curved backrest and sides, three horizontal seat cushions, and five throw pillows alternately colored in purple and white. \\item a small, stylized bird with a round body, featuring soft orange plumage on its head and back, transitioning to white on its chest. the bird has a short, pointed black beak, dark eyes, and delicate brown legs with clawed feet. its tail is short and slightly fanned, matching the orange coloration of its back. the texture appears smooth and slightly fluffy, giving it a plush, cartoon-like appearance. \\item a detailed 3d model of a whimsical, purple house with multiple stories, featuring intricate architectural details such as gabled roofs, chimneys, windows with varying sizes and shapes, and a staircase leading to the entrance. the house has a textured surface resembling stone or brick, with small decorative elements like railings and a balcony. the surrounding area includes scattered debris and a small figure near the base, adding context to the scene. \\item a beige and brown backpack with a textured fabric surface, featuring two rounded ear-like protrusions on top, adjustable shoulder straps with padded sections, and a central zipper compartment. the backpack has a structured design with visible stitching details and reinforced areas around the straps and zippers. \\item low-poly, tan-colored standing deer with simple shapes; head with elongated muzzle, branched antlers, arched back, thin tapered legs, darker hooves, and stubby tail. \\end{itemize}"
+    }
+  ]
+}

@@ -1,0 +1,203 @@
+
+\section{Preliminaries}
+\label{sec:prelim}
+
+% \subsection{TRELLIS}
+\label{sec:trellis}
+TRELLIS~\cite{trellis} is an effective 3D generator that learns rectified-flow models~\cite{lipman2022flow,esser2024scaling} for a geometry latent (which voxels are active) and an appearance latent defined on those active locations.
+
+\paragraph{Geometry Generation.}
+A 3D object is voxelized into a sparse set of occupied points $\{\mathbf{p}_i\}_{i=1}^N$, $\mathbf{p}_i \in \mathbb{R}^3$. A geometry VAE compresses and reconstructs this set:
+\begin{equation}
+    \mathbf{z}_{\text{geo}} = \mathcal{E}_{\text{geo}}(\{\mathbf{p}_i\}), 
+    \qquad
+    \{\mathbf{p}_i\} = \mathcal{D}_{\text{geo}}(\mathbf{z}_{\text{geo}}).
+    \label{eq:trellis-geo}
+\end{equation}
+A rectified-flow model $\mathcal{F}_{\text{geo}}$ parameterizes a time-conditioned velocity field that transports Gaussian noise toward $\mathbf{z}_{\text{geo}}$ under image or text conditioning.
+
+\paragraph{Appearance Generation.}
+On the occupied positions $\{\mathbf{p}_i\}$, TRELLIS aggregates multi-view image features
+\[
+\mathbf{F} = \{(\mathbf{p}_i, \mathbf{f}_i)\}_{i=1}^N, \quad \mathbf{f}_i \in \mathbb{R}^d,
+\]
+extracted by a 2D vision encoder such as DINOv2~\cite{dinov2}, and encodes them into a Structured LATent (SLAT) with an appearance VAE:
+\begin{equation}
+    \mathbf{z}_{\text{SLAT}} = \mathcal{E}_{\text{app}}(\mathbf{F})
+    = \{(\mathbf{p}_i, \mathbf{z}_i)\}_{i=1}^N.
+    \label{eq:trellis-slat}
+\end{equation}
+A second rectified-flow model $\mathcal{F}_{\text{app}}$ is learned for $\mathbf{z}_{\text{SLAT}}$, and the appearance decoder produces the final 3D representation
+\begin{equation}
+    \mathcal{O} = \mathcal{D}_{\text{app}}(\mathbf{z}_{\text{SLAT}}),
+\end{equation}
+where $\mathcal{O}$ can be mesh, 3DGS~\cite{3dgs}, or radiance fields~\cite{rf}.
+
+\paragraph{Sampling with Rectified Flow.}
+For each latent $\ell \in \{\text{geo}, \text{SLAT}\}$ with decoder $\mathcal{D}_\ell \in \{\mathcal{D}_{\text{geo}}, \mathcal{D}_{\text{app}}\}$ and a chosen condition $\mathbf{c}$ (image $\mathbf{I}$ or text $\mathbf{T}$), inference integrates the rectified-flow ODE from noise to data. Let $1 = t_0 > t_1 > \cdots > t_K = 0$ be a fixed schedule and initialize
+$\tilde{\mathbf{z}}_{\ell, t_0} \sim \mathcal{N}(\mathbf{0}, \mathbb{I}^{c})$, where $c$ is the latent dimension. At step $k$,
+\begin{equation}
+\begin{aligned}
+        &\mathbf{v}_{\ell, k}
+    = \mathcal{F}_{\ell}\!\left(\tilde{\mathbf{z}}_{\ell, t_k},\, t_k;\, \mathbf{c}\right),\\
+    &\tilde{\mathbf{z}}_{\ell, t_{k+1}}
+    = \tilde{\mathbf{z}}_{\ell, t_k}
+      - (t_k - t_{k+1})\, \mathbf{v}_{\ell, k},
+\end{aligned}
+\end{equation}
+yielding $\tilde{\mathbf{z}}_{\ell, 0}$ after $K$ steps.
+Decoding $\tilde{\mathbf{z}}_{\text{geo}, 0}$ with $\mathcal{D}_{\text{geo}}$ produces the activated voxels, and decoding
+$\tilde{\mathbf{z}}_{\text{SLAT}, 0}$ with $\mathcal{D}_{\text{app}}$ gives the final 3D output $\mathcal{O}$.
+
+% \subsection{UniLat3D}
+% \label{sec:unilat}
+\paragraph{UniLat3D.} Based on TRELLIS, UniLat3D~\cite{unilat} offers a more convenient single-stage 3D generator. Given view-aggregated features $\mathbf{F}$, it encodes them as
+\begin{equation}
+    \mathbf{z}_{\text{uni}} = \mathcal{E}_{\text{uni}}(\mathbf{F}), \quad
+    \mathbf{z}_{\text{uni}} \in \mathbb{R}^{16 \times 16 \times 16 \times c},
+\end{equation}
+and directly decodes to a 3D output $\mathcal{O} = \mathcal{D}_{\text{uni}}(\mathbf{z}_{\text{uni}})$.
+A single rectified-flow model predicts $\tilde{\mathbf{z}}_{\text{uni}}$ during generation. We adopt UniLat3D for its simplicity and compatibility with our conditioning study.
+
+\section{Text-Image Conditioned 3D Generation}
+\label{sec:comp}
+
+As discussed in~\cref{sec:intro}, image-conditioned 3D generation is vulnerable to viewpoint bias, while text-conditioned generation benefits from comprehensive semantics but lacks the visual cues needed for high-fidelity synthesis. In this section, we first empirically diagnose this limitation, then show that even a simple late fusion of image- and text-conditioned predictions yields noticeable gains, revealing clear complementarity between the two modalities and motivating the task of text–image conditioned 3D generation.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.9\linewidth]{tigon-show-view.png}
+    \caption{Reference views used in our diagnostic study. Moving from \emph{View-0} to \emph{View-1} reduces observable cues and creates a lower-information setting. Under this shift, single-modality baselines exhibit a marked performance drop.}
+    \label{fig:viewpoint}
+\end{figure}
+
+\paragraph{Limitations of Single-Modality Conditioning.}
+\cref{tab:view_0_res} reports the performance of representative 3D generation models on Toys4K under two viewpoint configurations\footnote{Please refer to~\cref{sec:eval_metric} for details about the metrics used in~\cref{tab:view_0_res}.}. As illustrated in Fig.~\ref{fig:viewpoint}, \textit{View-0} is a frontal view with rich semantics and clear local details, whereas \textit{View-1} is a low-angle view providing much weaker cues. This change alone leads to substantial degradation: TRELLIS degrades from $56.08$ FD$_{\text{DINOv2}}$ under \textit{View-0} to $143.58$ under \textit{View-1}, indicating strong dependence on viewpoint completeness. Moreover, the text-only counterparts perform even worse in visual alignment (\emph{e.g.}, UniLat3D reaches only $154.88$ FD$_{\text{DINOv2}}$), confirming that text priors alone are insufficient to recover fine-grained visual details.
+
+\begin{table}[t]
+\centering
+% \footnotesize
+\small
+\setlength{\tabcolsep}{4.5pt}
+\caption{Performance of existing methods on the Toys4K dataset under different conditioning signals. `GS' denotes that the 3D representation is 3DGS.}
+\label{tab:view_0_res}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Model} & \textbf{Cond.} & \textbf{CLIP$\uparrow$} & \textbf{FD$_{\text{DINOv2}}\downarrow$} \\
+\midrule
+TripoSR                 & View-0 & 88.67 & 269.58 \\
+Step1X-3D$^{\dagger}$   & View-0 & 89.99 & 152.69 \\
+Hunyuan3D-2.1$^{\dagger}$ & View-0 & 89.87 & 114.64 \\
+TRELLIS (GS)               & View-0 & 92.88 & 56.08  \\
+UniLat3D (GS)                & View-0 & 93.34 & 47.41 \\
+\midrule
+TripoSR                 & View-1 & 79.40 & 804.18   \\
+Step1X-3D$^{\dagger}$   & View-1 & 80.47 & 562.84    \\
+Hunyuan3D-2.1$^{\dagger}$ & View-1 & 85.33 & 229.36   \\
+TRELLIS (GS)                  & View-1 & 88.16 & 143.58 \\
+UniLat3D (GS)                 & View-1 & 89.03 & 125.93    \\
+\midrule
+TRELLIS (GS)                  & Text   & 86.30    & 148.21    \\
+UniLat3D (GS)                 & Text   & 86.14    & 154.88 \\
+\midrule
+SimFusion (GS; Ours)        & View-1 + Text & \textbf{90.64} & \textbf{82.40} \\
+\bottomrule
+\end{tabular}
+\vspace{2pt}
+\begin{flushleft}
+\footnotesize
+$^{\dagger}$ Using non-public training data.
+\end{flushleft}
+\end{table}
+
+\paragraph{Enhanced 3D Generation with Simple Cross-Modal Fusion.}
+
+Images and text provide complementary constraints: text offers high-level, multi-view semantic priors, while images provide precise cues on style, texture, geometry, and color. To verify this complementarity, we conduct a simple fusion experiment. At inference time, we take two pre-trained rectified-flow models, one image-conditioned and the other text-conditioned, and directly average their predicted velocity fields at each denoising step to form a joint text-image baseline, which we call SimFusion.
+
+As shown in~\cref{tab:view_0_res}, this naive fusion already outperforms both image-only and text-only models by a large margin (82.40 FD vs. 125.93 and 145.06), suggesting that it preserves the semantic correctness from text while retaining the fine-grained visual cues from the image. This complementary effect motivates us to define a new task, termed \textbf{Text--Image Conditioned 3D Generation}.
+
+\paragraph{Problem Formulation.}
+In text-image conditioned 3D generation, the model should jointly adopt a visual exemplar (image) and a semantic description (text) to generate a coherent 3D object. Formally, given an image condition $\mathbf{I}$ and a text condition $\mathbf{T}$, the goal is to model the conditional distribution $p(\mathcal{O} \mid \mathbf{I}, \mathbf{T})$, where $\mathcal{O}$ denotes the target 3D representation (\emph{e.g.}, mesh, 3DGS, or radiance field). This task requires the model to (i) satisfy the semantics in $\mathbf{T}$ and (ii) match the view-specific appearance constraints in $\mathbf{I}$.
+
+\section{Method}
+\label{sec:method}
+In this section, we introduce \textbf{TIGON} (Text–Image conditioned GeneratiON) as a baseline for our proposed task.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.9\linewidth]{tigon-method.pdf}
+    \caption{TIGON employs a dual-branch architecture, with a text-conditioned DiT (left) and an image-conditioned DiT (right). Paired blocks exchange features via cross-modal bridges (``Zero Linears''). At each denoising step, two predictions are averaged to produce the velocity field $\mathbf{v}$. $T$ denotes the denoising timestep.}
+    \label{fig:pipe}
+\end{figure}
+
+\subsection{Overall Pipeline}
+\label{sec:overall}
+As shown in~\cref{fig:pipe}, \textbf{TIGON} uses two parallel branches (image- and text-conditioned) that exchange features via zero-initialized cross-modal bridges between corresponding DiT blocks. At each denoising step, their predictions are averaged to produce the final velocity field $\mathbf{v}$.
+
+\subsection{Dual-Branch Backbone}
+% TIGON adopts a dual-branch backbone because image and text conditions contribute fundamentally different signals to 3D generation. Image-conditioned tokens are dense, view-grounded, and locally informative, providing explicit cues about color, texture, and fine geometry. In contrast, text-conditioned tokens encode sparse, abstract semantics. This asymmetry creates a granularity mismatch: for example, the concept ``tiger'' can be conveyed by a single word token but requires many image tokens to depict, whereas the precise color carried by one image token has no direct counterpart in a single text token.
+
+TIGON adopts a dual-branch backbone because image and text provide fundamentally different signals for 3D generation. Image-conditioned tokens are dense, view-grounded, and locally informative, offering explicit cues about color, texture, and fine geometry, whereas text-conditioned tokens encode sparse, abstract semantics. This asymmetry creates a granularity mismatch: for example, the concept ``tiger'' may be conveyed by a single word token but requires many image tokens to depict. Without enough data, mixing such heterogeneous token semantics within a single backbone often degrades performance. Therefore, TIGON retains two modality-specific backbones and performs fusion explicitly, preserving each branch's strengths while avoiding overly aggressive entanglement.
+
+
+Each branch of TIGON is a Diffusion Transformer (DiT)~\cite{dit} with $L$ blocks. Let $\mathcal{F}_{\texttt{img}}$ and $\mathcal{F}_{\texttt{txt}}$ denote the image- and text-conditioned branches. Given latent $\tilde{\mathbf{z}}$, time step $t$, and condition (image $\mathbf{I}$ or text $\mathbf{T}$), each branch predicts a velocity field:
+\begin{equation}
+\begin{aligned}
+    \mathbf{v}_{\texttt{img}} &= \mathcal{F}_{\texttt{img}}\!\left(\tilde{\mathbf{z}},\, t,\, \mathbf{I}\right),\\
+    \mathbf{v}_{\texttt{txt}} &= \mathcal{F}_{\texttt{txt}}\!\left(\tilde{\mathbf{z}},\, t,\, \mathbf{T}\right).
+\end{aligned}
+\end{equation}
+Both branches are pretrained in the same latent space introduced in~\cref{sec:trellis}, which allows simple additive fusion of the predicted velocities.
+
+\subsection{Early-Fusion Strategy}
+Simply averaging the final predictions of two rectified flow models is often sub-optimal: without explicit interaction, the branches can diverge and destructive averaging degrades detail and consistency. We therefore assign a \textbf{cross-modal bridge} at every backbone block for early, fine-grained cross-modal feature fusion.
+
+Let the image- and text-conditioned branches each have \(L\) blocks. Denote by \(\mathbf{f}^{(i)}_{\texttt{img}}\) and \(\mathbf{f}^{(i)}_{\texttt{txt}}\) the output of the \(i\)-th block (\(i{=}1,\dots,L\)). We insert learned linear projections $\mathcal{P}^{(i)}_{\texttt{txt}\rightarrow\texttt{img}}$ and $\mathcal{P}^{(i)}_{\texttt{img}\rightarrow\texttt{txt}}$ to inject information across branches. The inputs to the \((i{+}1)\)-th blocks are:
+\begin{equation}
+\label{eq:feature-switch}
+\begin{aligned}
+\mathbf{f}^{(i),\prime}_{\texttt{img}} &= \mathbf{f}^{(i)}_{\texttt{img}} \;+\; \mathcal{P}^{(i)}_{\texttt{txt}\rightarrow\texttt{img}}\!\big(\mathbf{f}^{(i)}_{\texttt{txt}}\big),\\
+\mathbf{f}^{(i),\prime}_{\texttt{txt}} &= \mathbf{f}^{(i)}_{\texttt{txt}} \;+\; \mathcal{P}^{(i)}_{\texttt{img}\rightarrow\texttt{txt}}\!\big(\mathbf{f}^{(i)}_{\texttt{img}}\big).
+\end{aligned}
+\end{equation}
+
+\paragraph{Stability via Zero-Initialization}
+Inspired by ControlNet~\cite{controlnet}, to maintain training stability at the start of joint training, all cross-modal bridges are zero-initialized. Consequently, \(\mathbf{f}^{(i),\prime}_{\texttt{img}}=\mathbf{f}^{(i)}_{\texttt{img}}\) and \(\mathbf{f}^{(i),\prime}_{\texttt{txt}}=\mathbf{f}^{(i)}_{\texttt{txt}}\) initially, and gradients progressively ``open'' these gates, learning when (and how much) to exchange information at each depth.
+
+\subsection{Late-Fusion Strategy}
+\label{sec:late_fusion}
+We adopt a simple prediction-averaging scheme. Given the outputs of the text and image branches, $\mathbf{v}_{\texttt{txt}}$ and $\mathbf{v}_{\texttt{img}}$, the fused prediction at each denoising step is
+\begin{equation}
+    \mathbf{v} = \tfrac{1}{2}\big(\mathbf{v}_{\texttt{txt}} + \mathbf{v}_{\texttt{img}}\big).
+\end{equation}
+
+\paragraph{Why Is a Sophisticated Fusion Strategy Unnecessary?}
+Early fusion with cross-modal bridges and end-to-end fine-tuning enable each branch to implicitly condition on both modalities, so any potential benefit of dynamic, modality-weighted fusion can be absorbed into the branch parameters (\emph{i.e.}, by reparameterization during training). To validate this, we compare against two learnable late-fusion variants: (i) a weight-prediction module that outputs a scalar for linear mixing; and (ii) an additional cross-modal attention block. Both yield at most marginal gains while introducing extra parameters and training variance. See~\cref{sec:ablation} for quantitative results; architectural details are in the supplementary material.
+
+% \subsection{Inference}
+% Given initial Gaussian noise $\tilde{\mathbf{z}}_{1}\!\sim\!\mathcal{N}(\mathbf{0},\,\mathbb{I}^{c})$ and joint conditions (image $\mathbf{I}$, text $\mathbf{T}$), TIGON generates the final UniLat latent $\tilde{\mathbf{z}}_{0}$ via a multi-step denoising process. Let $1=t_{0}>t_{1}>\cdots>t_{K}=0$ be the time schedule, and let $\mathcal{B}$ denote the fused TIGON backbone. At each denoising step $k$, the model predicts a velocity field
+% \begin{equation}
+% \mathbf{v}_k \;=\; \mathcal{B}\!\left(\tilde{\mathbf{z}}_{t_k},\, t_k;\, \mathbf{I},\, \mathbf{T}\right),
+% \end{equation}
+% and the latent is advanced with an explicit Euler step along the rectified-flow direction:
+% \begin{equation}
+% \tilde{\mathbf{z}}_{t_{k+1}} \;=\; \tilde{\mathbf{z}}_{t_k} \;-\; \big(t_{k}-t_{k+1}\big)\,\mathbf{v}_k.
+% \end{equation}
+% Iterating from $t_{0}{=}1$ down to $t_{K}{=}0$ yields the final latent $\tilde{\mathbf{z}}_{0}$, which the decoder $\mathcal{D}_{\texttt{uni}}$ maps to the 3D output $\mathcal{O}$. 
+% Note that providing both modalities is not required: TIGON supports arbitrary conditioning and can operate with image-only or text-only inputs.
+
+
+% \noindent\textit{Notation and shapes.}
+% Intermediate tensors follow standard convention: \(\mathbf{f}^{(i)}_{\texttt{img}}\!\in\!\mathbb{R}^{B\times C^{(i)}_{\texttt{img}}\times H^{(i)}\times W^{(i)}}\) (or \(B\times C^{(i)}_{\texttt{img}}\times D^{(i)}\times H^{(i)}\times W^{(i)}\) for 3D), and \(\mathbf{f}^{(i)}_{\texttt{txt}}\!\in\!\mathbb{R}^{B\times C^{(i)}_{\texttt{txt}}\times \cdots}\). Each projection maps channels accordingly,
+% \(\mathcal{P}^{(i)}_{\texttt{txt}\rightarrow\texttt{img}}:\mathbb{R}^{C^{(i)}_{\texttt{txt}}}\!\to\!\mathbb{R}^{C^{(i)}_{\texttt{img}}}\) and
+% \(\mathcal{P}^{(i)}_{\texttt{img}\rightarrow\texttt{txt}}:\mathbb{R}^{C^{(i)}_{\texttt{img}}}\!\to\!\mathbb{R}^{C^{(i)}_{\texttt{txt}}}\),
+% acting channel-wise (no spatial receptive field) with optional bias. This simple residual injection yields richer cross-modal alignment than late averaging while keeping optimization well-behaved.
+
+
+
+\subsection{Training Strategy}
+The training of TIGON is a two-stage process. The two branches are first pre-trained separately on their respective modalities to ensure balanced learning. Then, the zero-initialized cross-modal bridges are trained, and all model parameters are jointly fine-tuned.
+
+% To preserve unimodal generation capability, we apply condition dropout: during training, the image and text conditions are independently dropped with probability 0.5. This yields a uniform mixture over four regimes—25\% unconditional (for CFG~\cite{cfg}), 25\% text-only, 25\% image-only, and 25\% image+text. As a result, TIGON can accept \textbf{free-form conditioning} at inference (text-only, image-only or text–image).
+
+To preserve unimodal generation capability, we apply condition dropout: during training, the image and text conditions are independently dropped with probability 0.5. This produces a uniform mixture over four regimes—25\% unconditional (for CFG~\cite{cfg}), 25\% text-only, 25\% image-only, and 25\% text+image. Consequently, TIGON learns to handle \textbf{free-form conditioning} at inference, supporting text-only, image-only, or joint text–image inputs.

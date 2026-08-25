@@ -1,0 +1,781 @@
+{
+  "schema_version": "paper-latex-paragraphs/1.0",
+  "tex_root": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\spar3d\\latex_run\\source",
+  "paragraphs": [
+    {
+      "paragraph_id": "main.tex::p0001",
+      "tex_file": "main.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\spar3d\\latex_run\\source\\main.tex",
+      "section_path": [],
+      "block_type": "command-block",
+      "line_start": 2,
+      "line_end": 10,
+      "text": "\\documentclass[10pt,twocolumn,letterpaper]{article} \\usepackage[pagenumbers]{cvpr} \\def\\method{SPAR3D\\xspace} \\def\\gentime{0.7\\xspace} \\def\\point{\\boldsymbol{p}} \\def\\condition{\\boldsymbol{c}} \\definecolor{cvprblue}{rgb}{0.21,0.49,0.74} \\usepackage[pagebackref,breaklinks,colorlinks,allcolors=cvprblue]{hyperref} \\usepackage{comment}",
+      "normalized_text": "\\documentclass[10pt,twocolumn,letterpaper]{article} \\usepackage[pagenumbers]{cvpr} \\def\\method{spar3d\\xspace} \\def\\gentime{0.7\\xspace} \\def\\point{\\boldsymbol{p}} \\def\\condition{\\boldsymbol{c}} \\definecolor{cvprblue}{rgb}{0.21,0.49,0.74} \\usepackage[pagebackref,breaklinks,colorlinks,allcolors=cvprblue]{hyperref} \\usepackage{comment}"
+    },
+    {
+      "paragraph_id": "main.tex::p0002",
+      "tex_file": "main.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\spar3d\\latex_run\\source\\main.tex",
+      "section_path": [],
+      "block_type": "command-block",
+      "line_start": 12,
+      "line_end": 18,
+      "text": "\\makeatletter \\renewcommand{\\paragraph}{ \\@startsection{paragraph}{4} {\\z@}{1ex \\@plus 1ex \\@minus .2ex}{-1em} {\\normalfont\\normalsize\\bfseries} } \\makeatother",
+      "normalized_text": "\\makeatletter \\renewcommand{\\paragraph}{ \\@startsection{paragraph}{4} {\\z@}{1ex \\@plus 1ex \\@minus .2ex}{-1em} {\\normalfont\\normalsize\\bfseries} } \\makeatother"
+    },
+    {
+      "paragraph_id": "main.tex::p0003",
+      "tex_file": "main.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\spar3d\\latex_run\\source\\main.tex",
+      "section_path": [],
+      "block_type": "command-block",
+      "line_start": 21,
+      "line_end": 21,
+      "text": "\\title{\\method: Stable Point-Aware Reconstruction of 3D Objects from Single Images}",
+      "normalized_text": "\\title{\\method: stable point-aware reconstruction of 3d objects from single images}"
+    },
+    {
+      "paragraph_id": "main.tex::p0004",
+      "tex_file": "main.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\spar3d\\latex_run\\source\\main.tex",
+      "section_path": [],
+      "block_type": "command-block",
+      "line_start": 24,
+      "line_end": 26,
+      "text": "\\author{Zixuan Huang$^{1,2*}$ \\quad Mark Boss$^{1}$ \\quad Aaryaman Vasishta$^{1}$ \\quad James M. Rehg$^{2}$ \\quad Varun Jampani$^{1}$\\\\ $^1$Stability AI, $^2$UIUC }",
+      "normalized_text": "\\author{zixuan huang$^{1,2*}$ \\quad mark boss$^{1}$ \\quad aaryaman vasishta$^{1}$ \\quad james m. rehg$^{2}$ \\quad varun jampani$^{1}$\\\\ $^1$stability ai, $^2$uiuc }"
+    },
+    {
+      "paragraph_id": "main.tex::p0005",
+      "tex_file": "main.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\spar3d\\latex_run\\source\\main.tex",
+      "section_path": [],
+      "block_type": "command-block",
+      "line_start": 28,
+      "line_end": 41,
+      "text": "\\begin{document} \\twocolumn[{ \\renewcommand\\twocolumn[1][]{#1} \\maketitle \\begin{center} \\centering \\captionsetup{type=figure} \\includegraphics[width=1.0\\textwidth]{figures/teaser.pdf} \\captionof{figure}{We present \\method, a state-of-the-art 3D reconstructor that reconstructs high-quality 3D meshes from single-view images. \\method enjoys a fast reconstruction speed at \\gentime seconds and supports interactive user edits. } \\vspace{3mm} \\label{fig:teaser} \\end{center} }]",
+      "normalized_text": "\\begin{document} \\twocolumn[{ \\renewcommand\\twocolumn[1][]{#1} \\maketitle \\begin{center} \\centering \\captionsetup{type=figure} \\includegraphics[width=1.0\\textwidth]{figures/teaser.pdf} \\captionof{figure}{we present \\method, a state-of-the-art 3d reconstructor that reconstructs high-quality 3d meshes from single-view images. \\method enjoys a fast reconstruction speed at \\gentime seconds and supports interactive user edits. } \\vspace{3mm} \\label{fig:teaser} \\end{center} }]"
+    },
+    {
+      "paragraph_id": "main.tex::p0006",
+      "tex_file": "main.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\spar3d\\latex_run\\source\\main.tex",
+      "section_path": [],
+      "block_type": "command-block",
+      "line_start": 43,
+      "line_end": 45,
+      "text": "\\iftoggle{cvprfinal}{ \\def\\thefootnote{*}\\footnotetext{Work done at Stability AI.}\\def\\thefootnote{\\arabic{footnote}} }",
+      "normalized_text": "\\iftoggle{cvprfinal}{ \\def\\thefootnote{*}\\footnotetext{work done at stability ai.}\\def\\thefootnote{\\arabic{footnote}} }"
+    },
+    {
+      "paragraph_id": "main.tex::p0007",
+      "tex_file": "main.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\spar3d\\latex_run\\source\\main.tex",
+      "section_path": [],
+      "block_type": "command-block",
+      "line_start": 47,
+      "line_end": 58,
+      "text": "\\input{sec/0_abstract} \\input{sec/1_intro} \\input{sec/2_related} \\input{sec/3_method} \\input{sec/4_experiments} \\input{sec/5_conclusion} { \\small \\bibliographystyle{ieeenat_fullname} \\bibliography{main} } \\input{sec/X_suppl}",
+      "normalized_text": "\\input{sec/0_abstract} \\input{sec/1_intro} \\input{sec/2_related} \\input{sec/3_method} \\input{sec/4_experiments} \\input{sec/5_conclusion} { \\small \\bibliographystyle{ieeenat_fullname} \\bibliography{main} } \\input{sec/x_suppl}"
+    },
+    {
+      "paragraph_id": "0_abstract.tex::p0001",
+      "tex_file": "sec/0_abstract.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\spar3d\\latex_run\\source\\sec\\0_abstract.tex",
+      "section_path": [
+        "Abstract"
+      ],
+      "block_type": "paragraph",
+      "line_start": 2,
+      "line_end": 3,
+      "text": "We study the problem of single-image 3D object reconstruction. Recent works have diverged into two directions: regression-based modeling and generative modeling. Regression methods efficiently infer visible surfaces, but struggle with occluded regions. Generative methods handle uncertain regions better by modeling distributions, but are computationally expensive and the generation is often misaligned with visible surfaces. In this paper, we present \\method, a novel two-stage approach aiming to take the best of both directions. The first stage of \\method generates sparse 3D point clouds using a lightweight point diffusion model, which has a fast sampling speed. The second stage uses both the sampled point cloud and the input image to create highly detailed meshes. Our two-stage design enables probabilistic modeling of the ill-posed single-image 3D task while maintaining high computational efficiency and great output fidelity. Using point clouds as an intermediate representation further allows for interactive user edits. Evaluated on diverse datasets, \\method demonstrates superior performance over previous state-of-the-art methods, at an inference speed of \\gentime seconds. Project page with code and model: \\url{https://spar3d.github.io}",
+      "normalized_text": "we study the problem of single-image 3d object reconstruction. recent works have diverged into two directions: regression-based modeling and generative modeling. regression methods efficiently infer visible surfaces, but struggle with occluded regions. generative methods handle uncertain regions better by modeling distributions, but are computationally expensive and the generation is often misaligned with visible surfaces. in this paper, we present \\method, a novel two-stage approach aiming to take the best of both directions. the first stage of \\method generates sparse 3d point clouds using a lightweight point diffusion model, which has a fast sampling speed. the second stage uses both the sampled point cloud and the input image to create highly detailed meshes. our two-stage design enables probabilistic modeling of the ill-posed single-image 3d task while maintaining high computational efficiency and great output fidelity. using point clouds as an intermediate representation further allows for interactive user edits. evaluated on diverse datasets, \\method demonstrates superior performance over previous state-of-the-art methods, at an inference speed of \\gentime seconds. project page with code and model: \\url{https://spar3d.github.io}"
+    },
+    {
+      "paragraph_id": "1_intro.tex::p0001",
+      "tex_file": "sec/1_intro.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\spar3d\\latex_run\\source\\sec\\1_intro.tex",
+      "section_path": [
+        "Introduction"
+      ],
+      "block_type": "paragraph",
+      "line_start": 4,
+      "line_end": 4,
+      "text": "Reconstructing 3D objects from monocular images is a fundamental problem in computer vision. An efficient reconstruction system opens up a wide range of applications, including augmented reality, filmmaking, and manufacturing. Monocular 3D reconstruction is also a complex inverse problem: while the visible surface can be estimated from shading, predicting the occluded surface necessitates a strong 3D object prior. Our field has seen a divergence in two different directions: feedforward regression~\\cite{choy20163d,wang2018pixel2mesh,mescheder2019occupancy,xu2019disn,groueix2018,wu2017marrnet,huang2023shapeclipper,wu2023multiview,huang2024zeroshape,hong2023lrm,TripoSR2024,tang2024lgm,zhang2024gs,xu2024instantmesh,wang2024crm,sf3d2024} and diffusion-based generation~\\cite{nichol2022point,jun2023shap,liu2023one2345++,shue20233d,chou2023diffusion,shim2023diffusion,cheng2023sdfusion,li2023diffusion,liu2023zero,shi2023mvdream,liu2023syncdreamer,huang2024pointinfinity,yariv2024mosaic,chen2023single,zhao2023michelangelo,lan2024ln3diff}. Despite the significant progress made in both directions, each has fundamental limitations.",
+      "normalized_text": "reconstructing 3d objects from monocular images is a fundamental problem in computer vision. an efficient reconstruction system opens up a wide range of applications, including augmented reality, filmmaking, and manufacturing. monocular 3d reconstruction is also a complex inverse problem: while the visible surface can be estimated from shading, predicting the occluded surface necessitates a strong 3d object prior. our field has seen a divergence in two different directions: feedforward regression~\\cite{choy20163d,wang2018pixel2mesh,mescheder2019occupancy,xu2019disn,groueix2018,wu2017marrnet,huang2023shapeclipper,wu2023multiview,huang2024zeroshape,hong2023lrm,triposr2024,tang2024lgm,zhang2024gs,xu2024instantmesh,wang2024crm,sf3d2024} and diffusion-based generation~\\cite{nichol2022point,jun2023shap,liu2023one2345++,shue20233d,chou2023diffusion,shim2023diffusion,cheng2023sdfusion,li2023diffusion,liu2023zero,shi2023mvdream,liu2023syncdreamer,huang2024pointinfinity,yariv2024mosaic,chen2023single,zhao2023michelangelo,lan2024ln3diff}. despite the significant progress made in both directions, each has fundamental limitations."
+    },
+    {
+      "paragraph_id": "1_intro.tex::p0002",
+      "tex_file": "sec/1_intro.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\spar3d\\latex_run\\source\\sec\\1_intro.tex",
+      "section_path": [
+        "Introduction"
+      ],
+      "block_type": "paragraph",
+      "line_start": 6,
+      "line_end": 6,
+      "text": "Regression-based models are highly effective in adhering to the visible surface in the image, and the inference speed is typically fast. However, they make the oversimplified assumption of bijective mapping between images and 3D. This assumption introduces ambiguity in the learning objective, leading to poorly estimated surfaces and textures in occluded regions. On the other hand, diffusion-based approaches are generative and do not predict the statistical mean. However, their iterative sampling at inference time is computationally inefficient when modeling high-resolution 3D. Additionally, previous studies such as~\\cite{huang2024zeroshape} indicate that diffusion-generated 3D models exhibit worse alignment to the surface visible in the input image. How can we take the best of both worlds while avoiding their limitations?",
+      "normalized_text": "regression-based models are highly effective in adhering to the visible surface in the image, and the inference speed is typically fast. however, they make the oversimplified assumption of bijective mapping between images and 3d. this assumption introduces ambiguity in the learning objective, leading to poorly estimated surfaces and textures in occluded regions. on the other hand, diffusion-based approaches are generative and do not predict the statistical mean. however, their iterative sampling at inference time is computationally inefficient when modeling high-resolution 3d. additionally, previous studies such as~\\cite{huang2024zeroshape} indicate that diffusion-generated 3d models exhibit worse alignment to the surface visible in the input image. how can we take the best of both worlds while avoiding their limitations?"
+    },
+    {
+      "paragraph_id": "1_intro.tex::p0003",
+      "tex_file": "sec/1_intro.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\spar3d\\latex_run\\source\\sec\\1_intro.tex",
+      "section_path": [
+        "Introduction"
+      ],
+      "block_type": "paragraph",
+      "line_start": 8,
+      "line_end": 8,
+      "text": "In light of this, we propose \\method, which breaks the 3D reconstruction process down into two stages: the point sampling stage and the meshing stage. The point sampling stage uses diffusion models to generate sparse point clouds, followed by the meshing stage, transforming point clouds into highly detailed meshes. Our main idea is to offload the uncertainty modeling to the point sampling stage, where the low resolution of the point clouds allows rapid iterative sampling. The subsequent meshing stage leverages the local image features to transform the point cloud into a detailed mesh of high output fidelity. Reducing the meshing uncertainty with point clouds further facilitates unsupervised learning of inverse rendering, which reduces the baked-in lighting in the textures. Our two-stage design enables \\method to significantly outperform previous regressive methods, while preserving high computational efficiency and fidelity to input observation.",
+      "normalized_text": "in light of this, we propose \\method, which breaks the 3d reconstruction process down into two stages: the point sampling stage and the meshing stage. the point sampling stage uses diffusion models to generate sparse point clouds, followed by the meshing stage, transforming point clouds into highly detailed meshes. our main idea is to offload the uncertainty modeling to the point sampling stage, where the low resolution of the point clouds allows rapid iterative sampling. the subsequent meshing stage leverages the local image features to transform the point cloud into a detailed mesh of high output fidelity. reducing the meshing uncertainty with point clouds further facilitates unsupervised learning of inverse rendering, which reduces the baked-in lighting in the textures. our two-stage design enables \\method to significantly outperform previous regressive methods, while preserving high computational efficiency and fidelity to input observation."
+    },
+    {
+      "paragraph_id": "1_intro.tex::p0004",
+      "tex_file": "sec/1_intro.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\spar3d\\latex_run\\source\\sec\\1_intro.tex",
+      "section_path": [
+        "Introduction"
+      ],
+      "block_type": "paragraph",
+      "line_start": 10,
+      "line_end": 10,
+      "text": "A key design choice of our method is the usage of point clouds to connect the two stages. To ensure fast reconstruction, our intermediate representation needs to be lightweight so it can be efficiently generated. However, it should provide enough guidance to the meshing stage. This inspires us to use point clouds, which are perhaps the most computationally efficient 3D representation because all information bits are used to represent the surface. Moreover, the lack of connectivity, typically considered as the drawback of point clouds, now turns into an advantage with our two-stage approach for editing purposes. When the back surface does not align with user expectations, local edits can be easily made on the low-resolution point clouds without worrying about topologies (see~\\cref{fig:teaser} bottom). Feeding edited point clouds into the meshing stage produces better meshes tailored towards user requirements.",
+      "normalized_text": "a key design choice of our method is the usage of point clouds to connect the two stages. to ensure fast reconstruction, our intermediate representation needs to be lightweight so it can be efficiently generated. however, it should provide enough guidance to the meshing stage. this inspires us to use point clouds, which are perhaps the most computationally efficient 3d representation because all information bits are used to represent the surface. moreover, the lack of connectivity, typically considered as the drawback of point clouds, now turns into an advantage with our two-stage approach for editing purposes. when the back surface does not align with user expectations, local edits can be easily made on the low-resolution point clouds without worrying about topologies (see~\\cref{fig:teaser} bottom). feeding edited point clouds into the meshing stage produces better meshes tailored towards user requirements."
+    },
+    {
+      "paragraph_id": "1_intro.tex::p0005",
+      "tex_file": "sec/1_intro.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\spar3d\\latex_run\\source\\sec\\1_intro.tex",
+      "section_path": [
+        "Introduction"
+      ],
+      "block_type": "paragraph",
+      "line_start": 12,
+      "line_end": 13,
+      "text": "Our experiments demonstrate the superiority of \\method over previous state-of-the-art methods, with solid quantitative and qualitative results on various data sources. \\method also exhibits a strong generalization ability to in-the-wild images and AI-generated images. With a total inference time below \\gentime seconds, \\method is not only efficient but also allows for easy user-driven edits, offering a practical solution to the task of monocular 3D reconstruction. We hope that this is a meaningful step towards scalable generation of high-quality 3D assets.",
+      "normalized_text": "our experiments demonstrate the superiority of \\method over previous state-of-the-art methods, with solid quantitative and qualitative results on various data sources. \\method also exhibits a strong generalization ability to in-the-wild images and ai-generated images. with a total inference time below \\gentime seconds, \\method is not only efficient but also allows for easy user-driven edits, offering a practical solution to the task of monocular 3d reconstruction. we hope that this is a meaningful step towards scalable generation of high-quality 3d assets."
+    },
+    {
+      "paragraph_id": "2_related.tex::p0001",
+      "tex_file": "sec/2_related.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\spar3d\\latex_run\\source\\sec\\2_related.tex",
+      "section_path": [
+        "Related Work"
+      ],
+      "block_type": "command-block",
+      "line_start": 2,
+      "line_end": 5,
+      "text": "\\label{sec:related} \\paragraph{Feedforward 3D reconstruction} methods address the problem of 3D object reconstruction by learning a feedforward model in a regression-based manner. Earlier works~\\cite{choy20163d,wang2018pixel2mesh,mescheder2019occupancy,xu2019disn,groueix2018,wu2017marrnet,huang2023shapeclipper} in this field typically predict only the geometry and train on small datasets~\\cite{chang2015shapenet,sun2018pix3d}, which limits their generalization ability. Recently, larger 3D datasets~\\cite{reizenstein2021co3d,deitke2022objaverse} have been collected, unlocking the potential to train feedforward 3D models at scale~\\cite{wu2023multiview,huang2024zeroshape,hong2023lrm}. These models exhibit great generalization ability to unseen images, and excel at producing reconstructions that tightly align with the observed cues in the input image. In particular, LRM~\\cite{hong2023lrm} and follow-up works~\\cite{TripoSR2024,tang2024lgm,zhang2024gs,xu2024instantmesh,wang2024crm,sf3d2024} show that properly designed large transformer models can be trained using only rendering losses to capture object geometry and texture in great detail. Despite the high fidelity and computational efficiency of these models, the oversimplified bijective assumption in these regressive approaches results in oversmoothed unseen surfaces. Multi-view diffusion models~\\cite{liu2023zero,shi2023mvdream,liu2023syncdreamer,shi2023zero123plus} have been considered as a remedy for this, where additional viewpoints are synthesized as input to the feedforward model~\\cite{tang2024lgm,wang2024crm,xu2024instantmesh}. However, the inconsistency across viewpoints often leads to significant artifacts on the reconstructed surfaces, and the computational efficiency of these approaches is severely affected by the slow multi-view generation process. Our model also aims to overcome the learning ambiguity in regressive approaches, but our point sampling approach is inherently 3D-consistent and computationally efficient, and further allows easy user edits.",
+      "normalized_text": "\\label{sec:related} \\paragraph{feedforward 3d reconstruction} methods address the problem of 3d object reconstruction by learning a feedforward model in a regression-based manner. earlier works~\\cite{choy20163d,wang2018pixel2mesh,mescheder2019occupancy,xu2019disn,groueix2018,wu2017marrnet,huang2023shapeclipper} in this field typically predict only the geometry and train on small datasets~\\cite{chang2015shapenet,sun2018pix3d}, which limits their generalization ability. recently, larger 3d datasets~\\cite{reizenstein2021co3d,deitke2022objaverse} have been collected, unlocking the potential to train feedforward 3d models at scale~\\cite{wu2023multiview,huang2024zeroshape,hong2023lrm}. these models exhibit great generalization ability to unseen images, and excel at producing reconstructions that tightly align with the observed cues in the input image. in particular, lrm~\\cite{hong2023lrm} and follow-up works~\\cite{triposr2024,tang2024lgm,zhang2024gs,xu2024instantmesh,wang2024crm,sf3d2024} show that properly designed large transformer models can be trained using only rendering losses to capture object geometry and texture in great detail. despite the high fidelity and computational efficiency of these models, the oversimplified bijective assumption in these regressive approaches results in oversmoothed unseen surfaces. multi-view diffusion models~\\cite{liu2023zero,shi2023mvdream,liu2023syncdreamer,shi2023zero123plus} have been considered as a remedy for this, where additional viewpoints are synthesized as input to the feedforward model~\\cite{tang2024lgm,wang2024crm,xu2024instantmesh}. however, the inconsistency across viewpoints often leads to significant artifacts on the reconstructed surfaces, and the computational efficiency of these approaches is severely affected by the slow multi-view generation process. our model also aims to overcome the learning ambiguity in regressive approaches, but our point sampling approach is inherently 3d-consistent and computationally efficient, and further allows easy user edits."
+    },
+    {
+      "paragraph_id": "2_related.tex::p0002",
+      "tex_file": "sec/2_related.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\spar3d\\latex_run\\source\\sec\\2_related.tex",
+      "section_path": [
+        "Related Work"
+      ],
+      "block_type": "command-block",
+      "line_start": 7,
+      "line_end": 13,
+      "text": "\\begin{figure*}[t] \\centering \\includegraphics[width=1.0\\linewidth]{figures/overview.pdf} \\caption{\\textbf{\\method Overview.} Conditioned on the input image, \\method first leverages a point diffusion model to generate a sparse point cloud. The triplane transformer then uses the sampled point cloud and image features to produce high-resolution triplane features. The triplane features are then queried to reconstruct the geometry, texture, and illumination of the object in the image.} \\vspace{-5mm} \\label{fig:overview} \\end{figure*}",
+      "normalized_text": "\\begin{figure*}[t] \\centering \\includegraphics[width=1.0\\linewidth]{figures/overview.pdf} \\caption{\\textbf{\\method overview.} conditioned on the input image, \\method first leverages a point diffusion model to generate a sparse point cloud. the triplane transformer then uses the sampled point cloud and image features to produce high-resolution triplane features. the triplane features are then queried to reconstruct the geometry, texture, and illumination of the object in the image.} \\vspace{-5mm} \\label{fig:overview} \\end{figure*}"
+    },
+    {
+      "paragraph_id": "2_related.tex::p0003",
+      "tex_file": "sec/2_related.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\spar3d\\latex_run\\source\\sec\\2_related.tex",
+      "section_path": [
+        "Related Work"
+      ],
+      "block_type": "command-block",
+      "line_start": 15,
+      "line_end": 16,
+      "text": "\\paragraph{Generative 3D modeling} learns the image-conditioned distribution of 3D assets instead of a deterministic mapping. Early 3D generative works use GAN~\\cite{valsesia2018learning,hui2020progressive,cai2020learning,gao2022get3d}, normalizing flow~\\cite{yang2019pointflow,klokov2020discrete} or VAE~\\cite{wu2019sagnet,mittal2022autosdf,gao2021tm} as the generative framework. Inspired by the success of 2D diffusion models~\\cite{dhariwal2021diffusion,rombach2022high}, 3D diffusion models~\\cite{nichol2022point,jun2023shap,liu2023one2345++,shue20233d,chou2023diffusion,shim2023diffusion,cheng2023sdfusion,li2023diffusion,liu2023zero,shi2023mvdream,liu2023syncdreamer,huang2024pointinfinity,yariv2024mosaic,chen2023single,zhao2023michelangelo,lan2024ln3diff} have also been extensively explored in recent works. Despite the advantage of probabilistic modeling that avoids over-smoothed results, diffusion-based 3D generation has two drawbacks: 1) not aligning well with input observations, and 2) having low inference speed at high resolution. Our work inherits the advantage of probabilistic modeling, while avoiding the drawbacks by using diffusion to generate only sparse point clouds.",
+      "normalized_text": "\\paragraph{generative 3d modeling} learns the image-conditioned distribution of 3d assets instead of a deterministic mapping. early 3d generative works use gan~\\cite{valsesia2018learning,hui2020progressive,cai2020learning,gao2022get3d}, normalizing flow~\\cite{yang2019pointflow,klokov2020discrete} or vae~\\cite{wu2019sagnet,mittal2022autosdf,gao2021tm} as the generative framework. inspired by the success of 2d diffusion models~\\cite{dhariwal2021diffusion,rombach2022high}, 3d diffusion models~\\cite{nichol2022point,jun2023shap,liu2023one2345++,shue20233d,chou2023diffusion,shim2023diffusion,cheng2023sdfusion,li2023diffusion,liu2023zero,shi2023mvdream,liu2023syncdreamer,huang2024pointinfinity,yariv2024mosaic,chen2023single,zhao2023michelangelo,lan2024ln3diff} have also been extensively explored in recent works. despite the advantage of probabilistic modeling that avoids over-smoothed results, diffusion-based 3d generation has two drawbacks: 1) not aligning well with input observations, and 2) having low inference speed at high resolution. our work inherits the advantage of probabilistic modeling, while avoiding the drawbacks by using diffusion to generate only sparse point clouds."
+    },
+    {
+      "paragraph_id": "2_related.tex::p0004",
+      "tex_file": "sec/2_related.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\spar3d\\latex_run\\source\\sec\\2_related.tex",
+      "section_path": [
+        "Related Work"
+      ],
+      "block_type": "command-block",
+      "line_start": 18,
+      "line_end": 19,
+      "text": "\\paragraph{Optimization-based single-view 3D} leverages 2D generative priors to recover 3D from single-view images. These works~\\cite{melas2023realfusion,deng2023nerdi,tang2023make,gu2023nerfdiff} rely on SDS-type loss~\\cite{pooledreamfusion, wang2023score} and generate 3D assets by optimizing for each object image separately. These methods achieve promising results without large-scale annotation. However, the lack of a strong explicit 3D prior makes the optimization process inefficient and prone to local minima.",
+      "normalized_text": "\\paragraph{optimization-based single-view 3d} leverages 2d generative priors to recover 3d from single-view images. these works~\\cite{melas2023realfusion,deng2023nerdi,tang2023make,gu2023nerfdiff} rely on sds-type loss~\\cite{pooledreamfusion, wang2023score} and generate 3d assets by optimizing for each object image separately. these methods achieve promising results without large-scale annotation. however, the lack of a strong explicit 3d prior makes the optimization process inefficient and prone to local minima."
+    },
+    {
+      "paragraph_id": "3_method.tex::p0001",
+      "tex_file": "sec/3_method.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\spar3d\\latex_run\\source\\sec\\3_method.tex",
+      "section_path": [
+        "Method"
+      ],
+      "block_type": "command-block",
+      "line_start": 4,
+      "line_end": 5,
+      "text": "\\paragraph{\\method Overview.} Given the input image $I \\in \\mathbb{R}^{3 \\times h \\times w}$, our method produces a 3D mesh with PBR materials, including albedo, metallic, roughness and surface normals. The main goal of our work is to develop a model that enjoys the benefits of distribution learning through diffusion models, while not suffering from the low output fidelity and computational inefficiency. To this end, we design a two-stage model that consists of the point sampling stage and the meshing stage (see~\\cref{fig:overview}). At the point sampling stage, a point diffusion model learns the conditional distribution of point clouds given the input image. This stage is computationally efficient given the low resolution of the point clouds. The regression-based meshing stage transforms the sampled point cloud into a highly detailed mesh that aligns with the visible surface. The reduced uncertainty with point sampling further facilitates the learning of materials and illumination in an unsupervised manner during the meshing stage. This reduces baked-in lighting artifacts and results in better modeling of specular surfaces. Finally, by using sparse point clouds as the intermediate representation, \\method enables human editing in the loop.",
+      "normalized_text": "\\paragraph{\\method overview.} given the input image $i \\in \\mathbb{r}^{3 \\times h \\times w}$, our method produces a 3d mesh with pbr materials, including albedo, metallic, roughness and surface normals. the main goal of our work is to develop a model that enjoys the benefits of distribution learning through diffusion models, while not suffering from the low output fidelity and computational inefficiency. to this end, we design a two-stage model that consists of the point sampling stage and the meshing stage (see~\\cref{fig:overview}). at the point sampling stage, a point diffusion model learns the conditional distribution of point clouds given the input image. this stage is computationally efficient given the low resolution of the point clouds. the regression-based meshing stage transforms the sampled point cloud into a highly detailed mesh that aligns with the visible surface. the reduced uncertainty with point sampling further facilitates the learning of materials and illumination in an unsupervised manner during the meshing stage. this reduces baked-in lighting artifacts and results in better modeling of specular surfaces. finally, by using sparse point clouds as the intermediate representation, \\method enables human editing in the loop."
+    },
+    {
+      "paragraph_id": "3_method.tex::p0002",
+      "tex_file": "sec/3_method.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\spar3d\\latex_run\\source\\sec\\3_method.tex",
+      "section_path": [
+        "Method",
+        "Point Sampling Stage"
+      ],
+      "block_type": "command-block",
+      "line_start": 8,
+      "line_end": 9,
+      "text": "\\paragraph{Overview.} The point sampling stage produces a sparse point cloud as the input to the meshing stage. The core of the point sampling stage is a point diffusion model, which generates point clouds $\\point_0 \\in \\mathbb{R}^{n \\times 6}$ conditioned on the input image $I$. The six channels include three XYZ channels and three RGB channels. In our work, the resolution of the point cloud $n$ is set to 512.",
+      "normalized_text": "\\paragraph{overview.} the point sampling stage produces a sparse point cloud as the input to the meshing stage. the core of the point sampling stage is a point diffusion model, which generates point clouds $\\point_0 \\in \\mathbb{r}^{n \\times 6}$ conditioned on the input image $i$. the six channels include three xyz channels and three rgb channels. in our work, the resolution of the point cloud $n$ is set to 512."
+    },
+    {
+      "paragraph_id": "3_method.tex::p0003",
+      "tex_file": "sec/3_method.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\spar3d\\latex_run\\source\\sec\\3_method.tex",
+      "section_path": [
+        "Method",
+        "Point Sampling Stage"
+      ],
+      "block_type": "command-block",
+      "line_start": 11,
+      "line_end": 20,
+      "text": "\\paragraph{Point Diffusion Framework.} Our diffusion framework is based on DDPM~\\cite{ho2020denoising}, which consists of two processes: 1) the forward process which adds noise to the original point cloud, and 2) the backward process where the denoiser learns to remove the noise. At timestep $t \\in [0, T]$, the diffusion process combines Gaussian noise $\\boldsymbol{\\epsilon} \\sim \\mathcal{N}(\\mathbf{0},\\mathbf{I})$ with a point cloud $\\point_0$ as \\begin{equation} \\point_t = \\sqrt{\\bar{\\alpha_t}} \\point_0 + \\sqrt{1 - \\bar{\\alpha_t}} \\boldsymbol{\\epsilon}, \\end{equation} where $\\bar{\\alpha_t}$ denotes the noise schedule. We use the sigmoid noise schedule proposed in~\\cite{chen2023importance}, combined with input scaling and the renormalization trick. The denoiser $\\boldsymbol{\\epsilon}_\\theta (\\point_t, t; \\condition)$ then learns to recover the noise from $\\point_t$ and is supervised by \\begin{equation} L_{simple}(\\theta) = \\mathbb{E}_{t,\\point_0,\\boldsymbol{\\epsilon}} \\lVert \\boldsymbol{\\epsilon} - \\boldsymbol{\\epsilon}_\\theta (\\point_t, t; \\condition) \\rVert_2^2. \\end{equation} Here $\\condition$ denotes the image condition tokens. During inference, we use the DDIM sampler~\\cite{songdenoising} to generate point cloud samples. Samples generated directly often align poorly with the condition, hence we use the classifier-free guidance (CFG)~\\cite{ho2022classifier} to improve sampling fidelity.",
+      "normalized_text": "\\paragraph{point diffusion framework.} our diffusion framework is based on ddpm~\\cite{ho2020denoising}, which consists of two processes: 1) the forward process which adds noise to the original point cloud, and 2) the backward process where the denoiser learns to remove the noise. at timestep $t \\in [0, t]$, the diffusion process combines gaussian noise $\\boldsymbol{\\epsilon} \\sim \\mathcal{n}(\\mathbf{0},\\mathbf{i})$ with a point cloud $\\point_0$ as \\begin{equation} \\point_t = \\sqrt{\\bar{\\alpha_t}} \\point_0 + \\sqrt{1 - \\bar{\\alpha_t}} \\boldsymbol{\\epsilon}, \\end{equation} where $\\bar{\\alpha_t}$ denotes the noise schedule. we use the sigmoid noise schedule proposed in~\\cite{chen2023importance}, combined with input scaling and the renormalization trick. the denoiser $\\boldsymbol{\\epsilon}_\\theta (\\point_t, t; \\condition)$ then learns to recover the noise from $\\point_t$ and is supervised by \\begin{equation} l_{simple}(\\theta) = \\mathbb{e}_{t,\\point_0,\\boldsymbol{\\epsilon}} \\lvert \\boldsymbol{\\epsilon} - \\boldsymbol{\\epsilon}_\\theta (\\point_t, t; \\condition) \\rvert_2^2. \\end{equation} here $\\condition$ denotes the image condition tokens. during inference, we use the ddim sampler~\\cite{songdenoising} to generate point cloud samples. samples generated directly often align poorly with the condition, hence we use the classifier-free guidance (cfg)~\\cite{ho2022classifier} to improve sampling fidelity."
+    },
+    {
+      "paragraph_id": "3_method.tex::p0004",
+      "tex_file": "sec/3_method.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\spar3d\\latex_run\\source\\sec\\3_method.tex",
+      "section_path": [
+        "Method",
+        "Point Sampling Stage"
+      ],
+      "block_type": "command-block",
+      "line_start": 22,
+      "line_end": 23,
+      "text": "\\paragraph{Denoiser Design.} We use a transformer denoiser similar to Point-E~\\cite{nichol2022point}, where the noisy point cloud $\\point_t \\in \\mathbb{R}^{n \\times 6}$ is linearly mapped to a set of point tokens $\\boldsymbol{x} \\in \\mathbb{R}^{n \\times d}$. We use DINOv2~\\cite{oquab2023dinov2} to encode the input image $I$ as conditioning tokens $\\condition \\in \\mathbb{R}^{c \\times d}$. The conditions and the point tokens are then concatenated together as input to the transformer, which predicts the added noise on each point.",
+      "normalized_text": "\\paragraph{denoiser design.} we use a transformer denoiser similar to point-e~\\cite{nichol2022point}, where the noisy point cloud $\\point_t \\in \\mathbb{r}^{n \\times 6}$ is linearly mapped to a set of point tokens $\\boldsymbol{x} \\in \\mathbb{r}^{n \\times d}$. we use dinov2~\\cite{oquab2023dinov2} to encode the input image $i$ as conditioning tokens $\\condition \\in \\mathbb{r}^{c \\times d}$. the conditions and the point tokens are then concatenated together as input to the transformer, which predicts the added noise on each point."
+    },
+    {
+      "paragraph_id": "3_method.tex::p0005",
+      "tex_file": "sec/3_method.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\spar3d\\latex_run\\source\\sec\\3_method.tex",
+      "section_path": [
+        "Method",
+        "Point Sampling Stage"
+      ],
+      "block_type": "command-block",
+      "line_start": 25,
+      "line_end": 26,
+      "text": "\\paragraph{Albedo Point clouds.} In the meshing stage, we estimate the materials and lighting alongside the geometry. However, this decomposition is inherently ambiguous because there are countless combinations of lighting and albedo that can explain the same input image. It is challenging to learn this highly uncertain decomposition during the regressive meshing stage alone. We therefore reduce the uncertainty at the point sampling stage, by directly generating albedo point clouds with diffusion models. Sampling albedo point clouds as input to the meshing stage drastically reduces the ambiguity of inverse rendering and stabilizes the decomposition learning.",
+      "normalized_text": "\\paragraph{albedo point clouds.} in the meshing stage, we estimate the materials and lighting alongside the geometry. however, this decomposition is inherently ambiguous because there are countless combinations of lighting and albedo that can explain the same input image. it is challenging to learn this highly uncertain decomposition during the regressive meshing stage alone. we therefore reduce the uncertainty at the point sampling stage, by directly generating albedo point clouds with diffusion models. sampling albedo point clouds as input to the meshing stage drastically reduces the ambiguity of inverse rendering and stabilizes the decomposition learning."
+    },
+    {
+      "paragraph_id": "3_method.tex::p0006",
+      "tex_file": "sec/3_method.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\spar3d\\latex_run\\source\\sec\\3_method.tex",
+      "section_path": [
+        "Method",
+        "Point Sampling Stage"
+      ],
+      "block_type": "command-block",
+      "line_start": 28,
+      "line_end": 43,
+      "text": "\\begin{figure*}[htb] \\begin{minipage}[t]{0.55\\linewidth} \\centering \\includegraphics[width=1.0\\linewidth]{figures/rendering.pdf} \\caption{\\textbf{Our Differentiable Renderer.} We estimate geometry, albedo, lighting, and normal maps from the triplane and metallic/roughness values from the image. We rasterize and interpolate these values as input to our shader (omitted here for simplicity). Our shader uses the Disney BRDF~\\cite{Burley2012} and performs Monte Carlo integration. We further perform visibility testing to improve shadow modeling. Finally, we compare the rendered image with the GT image and minimize the rendering loss.} \\label{fig:rendering} \\end{minipage} \\hfill \\begin{minipage}[t]{0.42\\linewidth} \\centering \\includegraphics[width=\\linewidth]{figures/shadow_test.pdf} \\caption{\\textbf{Shadow Modeling.} We perform visibility testing in screen-space by marching along sampled rays. If any point along the ray has a ray depth which is farther away than the depth map, we consider the entire ray as shadowed.} \\label{fig:shadow_test} \\end{minipage} \\vspace{-5mm} \\end{figure*}",
+      "normalized_text": "\\begin{figure*}[htb] \\begin{minipage}[t]{0.55\\linewidth} \\centering \\includegraphics[width=1.0\\linewidth]{figures/rendering.pdf} \\caption{\\textbf{our differentiable renderer.} we estimate geometry, albedo, lighting, and normal maps from the triplane and metallic/roughness values from the image. we rasterize and interpolate these values as input to our shader (omitted here for simplicity). our shader uses the disney brdf~\\cite{burley2012} and performs monte carlo integration. we further perform visibility testing to improve shadow modeling. finally, we compare the rendered image with the gt image and minimize the rendering loss.} \\label{fig:rendering} \\end{minipage} \\hfill \\begin{minipage}[t]{0.42\\linewidth} \\centering \\includegraphics[width=\\linewidth]{figures/shadow_test.pdf} \\caption{\\textbf{shadow modeling.} we perform visibility testing in screen-space by marching along sampled rays. if any point along the ray has a ray depth which is farther away than the depth map, we consider the entire ray as shadowed.} \\label{fig:shadow_test} \\end{minipage} \\vspace{-5mm} \\end{figure*}"
+    },
+    {
+      "paragraph_id": "3_method.tex::p0007",
+      "tex_file": "sec/3_method.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\spar3d\\latex_run\\source\\sec\\3_method.tex",
+      "section_path": [
+        "Method",
+        "Meshing Stage"
+      ],
+      "block_type": "command-block",
+      "line_start": 47,
+      "line_end": 48,
+      "text": "\\paragraph{Overview.} The meshing stage produces a textured mesh from the input image and the point cloud. The backbone of our meshing model is a large triplane transformer, which predicts triplane features from the image and point cloud conditions. We estimate the geometry, texture and lighting of the current object from the triplane, and metallic/roughness from the image features. The geometry and materials are fed into our differentiable renderer during training, so that we can apply rendering loss to supervise our model.",
+      "normalized_text": "\\paragraph{overview.} the meshing stage produces a textured mesh from the input image and the point cloud. the backbone of our meshing model is a large triplane transformer, which predicts triplane features from the image and point cloud conditions. we estimate the geometry, texture and lighting of the current object from the triplane, and metallic/roughness from the image features. the geometry and materials are fed into our differentiable renderer during training, so that we can apply rendering loss to supervise our model."
+    },
+    {
+      "paragraph_id": "3_method.tex::p0008",
+      "tex_file": "sec/3_method.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\spar3d\\latex_run\\source\\sec\\3_method.tex",
+      "section_path": [
+        "Method",
+        "Meshing Stage"
+      ],
+      "block_type": "command-block",
+      "line_start": 50,
+      "line_end": 51,
+      "text": "\\paragraph{Triplane Transformer.} Our triplane transformer consists of three submodules: the point cloud encoder, the image encoder, and the transformer backbone. We use a simple transformer encoder to encode the point cloud as a set of point tokens. Given the low resolution of the point clouds, each point can be directly mapped to a single token. Our image encoder is DINOv2~\\cite{oquab2023dinov2}, which produces local image embeddings. Our triplane transformer follows a similar design to PointInfinity~\\cite{huang2024pointinfinity} and SF3D~\\cite{sf3d2024}, which produces triplanes at high resolution of $384 \\times 384$ by using a computationally-detached two-stream design.",
+      "normalized_text": "\\paragraph{triplane transformer.} our triplane transformer consists of three submodules: the point cloud encoder, the image encoder, and the transformer backbone. we use a simple transformer encoder to encode the point cloud as a set of point tokens. given the low resolution of the point clouds, each point can be directly mapped to a single token. our image encoder is dinov2~\\cite{oquab2023dinov2}, which produces local image embeddings. our triplane transformer follows a similar design to pointinfinity~\\cite{huang2024pointinfinity} and sf3d~\\cite{sf3d2024}, which produces triplanes at high resolution of $384 \\times 384$ by using a computationally-detached two-stream design."
+    },
+    {
+      "paragraph_id": "3_method.tex::p0009",
+      "tex_file": "sec/3_method.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\spar3d\\latex_run\\source\\sec\\3_method.tex",
+      "section_path": [
+        "Method",
+        "Meshing Stage"
+      ],
+      "block_type": "command-block",
+      "line_start": 53,
+      "line_end": 54,
+      "text": "\\paragraph{Surface Estimation.} To estimate the geometry, the triplanes are queried with a shallow MLP to produce density values. Similar to~\\cite{sf3d2024,wang2024crm,xu2024instantmesh}, we convert the implicit density field to explicit surface using differentiable Marching Tetrahedron (DMTet)~\\cite{shen2021deep}. We additionally use two MLP heads to predict vertex offsets and surface normals together with density. These two attributes reduce the artifacts introduced by the Marching Tetrahedron and lead to locally smoother surfaces.",
+      "normalized_text": "\\paragraph{surface estimation.} to estimate the geometry, the triplanes are queried with a shallow mlp to produce density values. similar to~\\cite{sf3d2024,wang2024crm,xu2024instantmesh}, we convert the implicit density field to explicit surface using differentiable marching tetrahedron (dmtet)~\\cite{shen2021deep}. we additionally use two mlp heads to predict vertex offsets and surface normals together with density. these two attributes reduce the artifacts introduced by the marching tetrahedron and lead to locally smoother surfaces."
+    },
+    {
+      "paragraph_id": "3_method.tex::p0010",
+      "tex_file": "sec/3_method.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\spar3d\\latex_run\\source\\sec\\3_method.tex",
+      "section_path": [
+        "Method",
+        "Meshing Stage"
+      ],
+      "block_type": "command-block",
+      "line_start": 56,
+      "line_end": 57,
+      "text": "\\paragraph{Material and Illumination Estimation.} We perform inverse rendering and jointly estimate materials (albedo, metallic and roughness) and illumination alongside the geometry. The task is highly ill-posed and Neural-PIL~\\cite{Boss2021neuralPIL} showed that an illumination prior can reduce the ambiguity. We build our illumination estimator upon the learning-based illumination prior from RENI++~\\cite{gardner2023reni++}. RENI++ is originally an unconditional generative model for HDR illumination generation. We learn an encoder to map triplane features into the latent space of RENI++. This allows us to estimate the environment illumination in the input image. The albedo is estimated from triplane similar to geometry, where a shallow MLP predicts the albedo value for each 3D location. For metallic and roughness, we follow SF3D~\\cite{sf3d2024} and learn to estimate them with a probabilistic approach via a Beta prior. We find that the CLIP encoder used in SF3D is unstable when the object size changes. We therefore replace their CLIP encoder with AlphaCLIP~\\cite{sun2023alphaclip} to alleviate this issue using foreground object masks.",
+      "normalized_text": "\\paragraph{material and illumination estimation.} we perform inverse rendering and jointly estimate materials (albedo, metallic and roughness) and illumination alongside the geometry. the task is highly ill-posed and neural-pil~\\cite{boss2021neuralpil} showed that an illumination prior can reduce the ambiguity. we build our illumination estimator upon the learning-based illumination prior from reni++~\\cite{gardner2023reni++}. reni++ is originally an unconditional generative model for hdr illumination generation. we learn an encoder to map triplane features into the latent space of reni++. this allows us to estimate the environment illumination in the input image. the albedo is estimated from triplane similar to geometry, where a shallow mlp predicts the albedo value for each 3d location. for metallic and roughness, we follow sf3d~\\cite{sf3d2024} and learn to estimate them with a probabilistic approach via a beta prior. we find that the clip encoder used in sf3d is unstable when the object size changes. we therefore replace their clip encoder with alphaclip~\\cite{sun2023alphaclip} to alleviate this issue using foreground object masks."
+    },
+    {
+      "paragraph_id": "3_method.tex::p0011",
+      "tex_file": "sec/3_method.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\spar3d\\latex_run\\source\\sec\\3_method.tex",
+      "section_path": [
+        "Method",
+        "Meshing Stage"
+      ],
+      "block_type": "command-block",
+      "line_start": 59,
+      "line_end": 60,
+      "text": "\\paragraph{Differentiable Rendering.} We implement a differentiable renderer that renders images based on the predicted environment map, PBR materials and geometry surface (see~\\cref{fig:rendering}). We use a differentiable mesh rasterizer and add a differentiable shader. Specifically, we leverage the standard simplified Disney PBR model~\\cite{Burley2012} in our shader. As we use RENI++ to reconstruct environment maps, we need to explicitly integrate the incoming radiance. Here, we opt to use the Monte Carlo Integration. Given the low sample counts we can computationally afford during training, we rely on Multiple Importance Sampling (MIS) with the balanced heuristic~\\cite{VeachPhD} to reduce integration variance. Additionally, to better model the self-occlusion which has been typically ignored in prior works, we implement a visibility test for better shadow modeling. We take inspiration from real-time graphics and model the visibility test as a screen-space method using the depth map from our rasterizer. An overview of this test is shown in Fig.~\\ref{fig:shadow_test}. Specifically, we ray-march a short distance (0.25) in 6 steps for all proposed sample directions from MIS, and project the position back to image space. If the current ray depth is farther away than the sampled value from the depth map, then the ray is marked as shadowed.",
+      "normalized_text": "\\paragraph{differentiable rendering.} we implement a differentiable renderer that renders images based on the predicted environment map, pbr materials and geometry surface (see~\\cref{fig:rendering}). we use a differentiable mesh rasterizer and add a differentiable shader. specifically, we leverage the standard simplified disney pbr model~\\cite{burley2012} in our shader. as we use reni++ to reconstruct environment maps, we need to explicitly integrate the incoming radiance. here, we opt to use the monte carlo integration. given the low sample counts we can computationally afford during training, we rely on multiple importance sampling (mis) with the balanced heuristic~\\cite{veachphd} to reduce integration variance. additionally, to better model the self-occlusion which has been typically ignored in prior works, we implement a visibility test for better shadow modeling. we take inspiration from real-time graphics and model the visibility test as a screen-space method using the depth map from our rasterizer. an overview of this test is shown in fig.~\\ref{fig:shadow_test}. specifically, we ray-march a short distance (0.25) in 6 steps for all proposed sample directions from mis, and project the position back to image space. if the current ray depth is farther away than the sampled value from the depth map, then the ray is marked as shadowed."
+    },
+    {
+      "paragraph_id": "3_method.tex::p0012",
+      "tex_file": "sec/3_method.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\spar3d\\latex_run\\source\\sec\\3_method.tex",
+      "section_path": [
+        "Method",
+        "Meshing Stage"
+      ],
+      "block_type": "command-block",
+      "line_start": 62,
+      "line_end": 63,
+      "text": "\\paragraph{Loss Function.} Our main loss function is the rendering loss that compares renderings from novel views to the grountruth (GT) images. Specifically, our rendering loss is a linear combination of 1) the L2 distance between the rendered and GT images, 2) the perceptual distance between the rendered and GT images measured by LPIPS~\\cite{zhang2018perceptual}, and 3) the L2 distance between the rendered opacity and the GT foreground mask. Apart from the rendering loss, we also follow SF3D and apply the mesh and shading regularization that regularizes the surface smoothness and the inverse rendering respectively.",
+      "normalized_text": "\\paragraph{loss function.} our main loss function is the rendering loss that compares renderings from novel views to the grountruth (gt) images. specifically, our rendering loss is a linear combination of 1) the l2 distance between the rendered and gt images, 2) the perceptual distance between the rendered and gt images measured by lpips~\\cite{zhang2018perceptual}, and 3) the l2 distance between the rendered opacity and the gt foreground mask. apart from the rendering loss, we also follow sf3d and apply the mesh and shading regularization that regularizes the surface smoothness and the inverse rendering respectively."
+    },
+    {
+      "paragraph_id": "3_method.tex::p0013",
+      "tex_file": "sec/3_method.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\spar3d\\latex_run\\source\\sec\\3_method.tex",
+      "section_path": [
+        "Method",
+        "Interactive Editing"
+      ],
+      "block_type": "paragraph",
+      "line_start": 66,
+      "line_end": 66,
+      "text": "A unique advantage of our two-stage design is that it naturally supports interactive editing of unseen regions in our produced mesh. In most circumstances, the visible surface is determined by the input image and remains highly accurate, while the unseen surface is mainly based on the sampled point cloud, which might not align with user intention. In this case, editing the unseen surface of the mesh is feasible by altering the point cloud. Point clouds are perhaps one of the most flexible 3D representation for editing purposes because there are no topology constraints. Given the low resolution of our point clouds, editing the point cloud is fairly efficient and intuitive. Users can easily delete, duplicate, stretch or recolor points in the point cloud. Our efficient meshing model is able to produce the adjusted mesh in 0.3 seconds, which makes this process fairly interactive.",
+      "normalized_text": "a unique advantage of our two-stage design is that it naturally supports interactive editing of unseen regions in our produced mesh. in most circumstances, the visible surface is determined by the input image and remains highly accurate, while the unseen surface is mainly based on the sampled point cloud, which might not align with user intention. in this case, editing the unseen surface of the mesh is feasible by altering the point cloud. point clouds are perhaps one of the most flexible 3d representation for editing purposes because there are no topology constraints. given the low resolution of our point clouds, editing the point cloud is fairly efficient and intuitive. users can easily delete, duplicate, stretch or recolor points in the point cloud. our efficient meshing model is able to produce the adjusted mesh in 0.3 seconds, which makes this process fairly interactive."
+    },
+    {
+      "paragraph_id": "3_method.tex::p0014",
+      "tex_file": "sec/3_method.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\spar3d\\latex_run\\source\\sec\\3_method.tex",
+      "section_path": [
+        "Method",
+        "Implementation Details"
+      ],
+      "block_type": "command-block",
+      "line_start": 69,
+      "line_end": 70,
+      "text": "\\paragraph{Point Sampling Stage.} Our point diffusion model has 16 transformer blocks in total. Each transformer block consists of two Layer Normalization layer, one Multi-Head Attention (MHA) layer and one MLP. We use a feature dimension of 1024 and 16 attention heads in each MHA layer. With many emissive objects in our dataset, albedo can be visually distinct from the input image and hard to learn. Therefore, instead of directly generating albedo point clouds in the point sampling stage, we learn to generate white-lit point clouds as a proxy target.",
+      "normalized_text": "\\paragraph{point sampling stage.} our point diffusion model has 16 transformer blocks in total. each transformer block consists of two layer normalization layer, one multi-head attention (mha) layer and one mlp. we use a feature dimension of 1024 and 16 attention heads in each mha layer. with many emissive objects in our dataset, albedo can be visually distinct from the input image and hard to learn. therefore, instead of directly generating albedo point clouds in the point sampling stage, we learn to generate white-lit point clouds as a proxy target."
+    },
+    {
+      "paragraph_id": "3_method.tex::p0015",
+      "tex_file": "sec/3_method.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\spar3d\\latex_run\\source\\sec\\3_method.tex",
+      "section_path": [
+        "Method",
+        "Implementation Details"
+      ],
+      "block_type": "command-block",
+      "line_start": 72,
+      "line_end": 73,
+      "text": "\\paragraph{Meshing Stage.} Our triplane transformer consists of 4 two-stream blocks~\\cite{huang2024pointinfinity}. Each two-stream block consists of three self-attentions and two cross-attentions. The main computation is carried out using 3,072 latent tokens, each with a feature dimension of 1024. The MHA includes 16 attention heads. The point cloud encoder is a vanilla transformer with 12 layers and 512 feature dimension, and the image encoder is DINOv2-large. We use a tetrahedra resolution of 160 for DMTet. In our differentiable shader, we follow Hasselgren \\etal~\\cite{hasselgren2022nvdiffrecmc} and use a detached biased sampling scheme. We sample based on the specular lobe (GGX~\\cite{Walter2007}), the 2D piecewise-linear distribution of the environment map luminance and the hemispherical distribution. Specifically, we include 6 samples from the GGX lobe, 6 samples from the 2D piecewise-linear distribution of the luminance, and 4 samples from the hemispherical distribution. The main body of the shader is implemented in PyTorch, while the screen-space shadowing and the 2D piecewise-linear distribution computation for the environment map are implemented as custom CUDA kernels for efficiency. The training of our meshing stage includes multiple phases, where we increase the rendering resolution and decrease the batch size at later training phases. We use GT point clouds as input when training the meshing model. The curation of our training data follows TripoSR~\\cite{TripoSR2024}.",
+      "normalized_text": "\\paragraph{meshing stage.} our triplane transformer consists of 4 two-stream blocks~\\cite{huang2024pointinfinity}. each two-stream block consists of three self-attentions and two cross-attentions. the main computation is carried out using 3,072 latent tokens, each with a feature dimension of 1024. the mha includes 16 attention heads. the point cloud encoder is a vanilla transformer with 12 layers and 512 feature dimension, and the image encoder is dinov2-large. we use a tetrahedra resolution of 160 for dmtet. in our differentiable shader, we follow hasselgren \\etal~\\cite{hasselgren2022nvdiffrecmc} and use a detached biased sampling scheme. we sample based on the specular lobe (ggx~\\cite{walter2007}), the 2d piecewise-linear distribution of the environment map luminance and the hemispherical distribution. specifically, we include 6 samples from the ggx lobe, 6 samples from the 2d piecewise-linear distribution of the luminance, and 4 samples from the hemispherical distribution. the main body of the shader is implemented in pytorch, while the screen-space shadowing and the 2d piecewise-linear distribution computation for the environment map are implemented as custom cuda kernels for efficiency. the training of our meshing stage includes multiple phases, where we increase the rendering resolution and decrease the batch size at later training phases. we use gt point clouds as input when training the meshing model. the curation of our training data follows triposr~\\cite{triposr2024}."
+    },
+    {
+      "paragraph_id": "4_experiments.tex::p0001",
+      "tex_file": "sec/4_experiments.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\spar3d\\latex_run\\source\\sec\\4_experiments.tex",
+      "section_path": [
+        "Experiments"
+      ],
+      "block_type": "command-block",
+      "line_start": 2,
+      "line_end": 2,
+      "text": "\\label{sec:experiments}",
+      "normalized_text": "\\label{sec:experiments}"
+    },
+    {
+      "paragraph_id": "4_experiments.tex::p0002",
+      "tex_file": "sec/4_experiments.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\spar3d\\latex_run\\source\\sec\\4_experiments.tex",
+      "section_path": [
+        "Experiments"
+      ],
+      "block_type": "command-block",
+      "line_start": 4,
+      "line_end": 5,
+      "text": "\\input{tables/gso} \\input{tables/omniobj3d}",
+      "normalized_text": "\\input{tables/gso} \\input{tables/omniobj3d}"
+    },
+    {
+      "paragraph_id": "4_experiments.tex::p0003",
+      "tex_file": "sec/4_experiments.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\spar3d\\latex_run\\source\\sec\\4_experiments.tex",
+      "section_path": [
+        "Experiments",
+        "Evaluation"
+      ],
+      "block_type": "command-block",
+      "line_start": 8,
+      "line_end": 9,
+      "text": "\\paragraph{Datasets.} We used two datasets for evaluation, GSO~\\cite{downs2022google} and OmniObject3D~\\cite{wu2023omniobject3d}. We follow TripoSR~\\cite{TripoSR2024} and remove simple box or cylindrical objects to avoid bias on simple geometries. Each of the evaluation sets consists of around 250 objects. We render the objects with diverse azimuth angles at different elevations, with randomly sampled HDRI environment maps. We also vary the focal length of the camera to create more diverse test cases.",
+      "normalized_text": "\\paragraph{datasets.} we used two datasets for evaluation, gso~\\cite{downs2022google} and omniobject3d~\\cite{wu2023omniobject3d}. we follow triposr~\\cite{triposr2024} and remove simple box or cylindrical objects to avoid bias on simple geometries. each of the evaluation sets consists of around 250 objects. we render the objects with diverse azimuth angles at different elevations, with randomly sampled hdri environment maps. we also vary the focal length of the camera to create more diverse test cases."
+    },
+    {
+      "paragraph_id": "4_experiments.tex::p0004",
+      "tex_file": "sec/4_experiments.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\spar3d\\latex_run\\source\\sec\\4_experiments.tex",
+      "section_path": [
+        "Experiments",
+        "Evaluation"
+      ],
+      "block_type": "command-block",
+      "line_start": 11,
+      "line_end": 19,
+      "text": "\\paragraph{Metrics.} To evaluate the geometry quality of the reconstructed meshes, we use follow prior works~\\cite{TripoSR2024,xu2024instantmesh} and use Chamfer Distance (CD) and F-score (FS) as our evaluation metrics. CD measures the alignment between two point clouds and is defined as the average of accuracy and completeness: \\begin{equation} \\small d(S_1, S_2) = \\frac{1}{2|S_1|}\\sum_{x \\in S_1} \\min_{y \\in S_2} \\|x-y\\|_2 + \\frac{1}{2|S_2|}\\sum_{y \\in S_2} \\min_{x \\in S_1} \\|x-y\\|_2 \\label{eq:chamfer} \\end{equation} FS evaluates point cloud alignment by calculating the F-score with a predefined threshold. Predicted points that lie within the distance threshold are considered as correct predictions. A higher FS means better alignment between the reconstructed shape and the groundtruth. To evaluate the texture quality, we compute standard image metrics, including PSNR, SSIM and LPIPS, between images rendered from the predicted mesh and the groundtruth images.",
+      "normalized_text": "\\paragraph{metrics.} to evaluate the geometry quality of the reconstructed meshes, we use follow prior works~\\cite{triposr2024,xu2024instantmesh} and use chamfer distance (cd) and f-score (fs) as our evaluation metrics. cd measures the alignment between two point clouds and is defined as the average of accuracy and completeness: \\begin{equation} \\small d(s_1, s_2) = \\frac{1}{2|s_1|}\\sum_{x \\in s_1} \\min_{y \\in s_2} \\|x-y\\|_2 + \\frac{1}{2|s_2|}\\sum_{y \\in s_2} \\min_{x \\in s_1} \\|x-y\\|_2 \\label{eq:chamfer} \\end{equation} fs evaluates point cloud alignment by calculating the f-score with a predefined threshold. predicted points that lie within the distance threshold are considered as correct predictions. a higher fs means better alignment between the reconstructed shape and the groundtruth. to evaluate the texture quality, we compute standard image metrics, including psnr, ssim and lpips, between images rendered from the predicted mesh and the groundtruth images."
+    },
+    {
+      "paragraph_id": "4_experiments.tex::p0005",
+      "tex_file": "sec/4_experiments.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\spar3d\\latex_run\\source\\sec\\4_experiments.tex",
+      "section_path": [
+        "Experiments",
+        "Evaluation"
+      ],
+      "block_type": "command-block",
+      "line_start": 21,
+      "line_end": 28,
+      "text": "\\begin{figure*}[t] \\centering \\includegraphics[width=0.95\\textwidth]{figures/qualitative_compare.pdf} \\vspace{-4mm} \\caption{\\textbf{Qualitative Comparison.} We compare \\method to other state-of-the-art methods visually. \\method not only aligns better with the visible surfaces from images, but also generates higher-quality geometries and textures for the occluded surfaces.} \\label{fig:qualitative} \\vspace{-4mm} \\end{figure*}",
+      "normalized_text": "\\begin{figure*}[t] \\centering \\includegraphics[width=0.95\\textwidth]{figures/qualitative_compare.pdf} \\vspace{-4mm} \\caption{\\textbf{qualitative comparison.} we compare \\method to other state-of-the-art methods visually. \\method not only aligns better with the visible surfaces from images, but also generates higher-quality geometries and textures for the occluded surfaces.} \\label{fig:qualitative} \\vspace{-4mm} \\end{figure*}"
+    },
+    {
+      "paragraph_id": "4_experiments.tex::p0006",
+      "tex_file": "sec/4_experiments.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\spar3d\\latex_run\\source\\sec\\4_experiments.tex",
+      "section_path": [
+        "Experiments",
+        "Evaluation"
+      ],
+      "block_type": "command-block",
+      "line_start": 30,
+      "line_end": 31,
+      "text": "\\paragraph{Protocol.} To calculate the metrics that are comparable across methods, the meshes need to lie in the same coordinate system. To this end, we perform brute-force search in rotations to align each predicted mesh with the groundtruth mesh. Both the prediction and the groundtruth are normalized before the brute-force alignment, and the alignment is further refined with ICP.",
+      "normalized_text": "\\paragraph{protocol.} to calculate the metrics that are comparable across methods, the meshes need to lie in the same coordinate system. to this end, we perform brute-force search in rotations to align each predicted mesh with the groundtruth mesh. both the prediction and the groundtruth are normalized before the brute-force alignment, and the alignment is further refined with icp."
+    },
+    {
+      "paragraph_id": "4_experiments.tex::p0007",
+      "tex_file": "sec/4_experiments.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\spar3d\\latex_run\\source\\sec\\4_experiments.tex",
+      "section_path": [
+        "Experiments",
+        "Evaluation"
+      ],
+      "block_type": "command-block",
+      "line_start": 33,
+      "line_end": 34,
+      "text": "\\paragraph{Baselines.} We compare \\method with other efficient methods for single-view 3D generation or reconstruction~\\cite{TripoSR2024,tang2024lgm,xu2024instantmesh,wang2024crm,sf3d2024}. We use the official implementation for all baselines, and we evaluate the produced meshes under the same protocol. Specifically, we compare against TripoSR~\\cite{TripoSR2024}, LGM~\\cite{tang2024lgm}, CRM~\\cite{wang2024crm}, InstantMesh~\\cite{xu2024instantmesh}, LN3Diff~\\cite{lan2024ln3diff}, Shap-E~\\cite{jun2023shap} and SF3D~\\cite{sf3d2024}. Among these baselines, TripoSR and SF3D are pure regression-based approaches; LGM, CRM and InstantMesh use multiview diffusion to generate pseudo multi-view images; LN3Diff and Shap-E are purely diffusion-based 3D generative models.",
+      "normalized_text": "\\paragraph{baselines.} we compare \\method with other efficient methods for single-view 3d generation or reconstruction~\\cite{triposr2024,tang2024lgm,xu2024instantmesh,wang2024crm,sf3d2024}. we use the official implementation for all baselines, and we evaluate the produced meshes under the same protocol. specifically, we compare against triposr~\\cite{triposr2024}, lgm~\\cite{tang2024lgm}, crm~\\cite{wang2024crm}, instantmesh~\\cite{xu2024instantmesh}, ln3diff~\\cite{lan2024ln3diff}, shap-e~\\cite{jun2023shap} and sf3d~\\cite{sf3d2024}. among these baselines, triposr and sf3d are pure regression-based approaches; lgm, crm and instantmesh use multiview diffusion to generate pseudo multi-view images; ln3diff and shap-e are purely diffusion-based 3d generative models."
+    },
+    {
+      "paragraph_id": "4_experiments.tex::p0008",
+      "tex_file": "sec/4_experiments.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\spar3d\\latex_run\\source\\sec\\4_experiments.tex",
+      "section_path": [
+        "Experiments",
+        "Evaluation"
+      ],
+      "block_type": "command-block",
+      "line_start": 36,
+      "line_end": 42,
+      "text": "\\begin{figure*}[h] \\centering \\includegraphics[width=0.95\\textwidth]{figures/qualitative_wild.pdf} \\caption{\\textbf{Generalization Results.} We show qualitative results of \\method on in-the-wild images from 2D generative models (top 2 rows) and ImageNet (bottom 2 rows). The reconstructed meshes exhibit accurate geometric structures with great textures, demonstrating a strong generalization performance of \\method.} \\vspace{-6mm} \\label{fig:wild} \\end{figure*}",
+      "normalized_text": "\\begin{figure*}[h] \\centering \\includegraphics[width=0.95\\textwidth]{figures/qualitative_wild.pdf} \\caption{\\textbf{generalization results.} we show qualitative results of \\method on in-the-wild images from 2d generative models (top 2 rows) and imagenet (bottom 2 rows). the reconstructed meshes exhibit accurate geometric structures with great textures, demonstrating a strong generalization performance of \\method.} \\vspace{-6mm} \\label{fig:wild} \\end{figure*}"
+    },
+    {
+      "paragraph_id": "4_experiments.tex::p0009",
+      "tex_file": "sec/4_experiments.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\spar3d\\latex_run\\source\\sec\\4_experiments.tex",
+      "section_path": [
+        "Experiments",
+        "Evaluation"
+      ],
+      "block_type": "command-block",
+      "line_start": 44,
+      "line_end": 50,
+      "text": "\\begin{figure*}[h] \\centering \\includegraphics[width=0.95\\textwidth]{figures/qualitative_edit.pdf} \\caption{\\textbf{Editing Results.} We show qualitative examples of interactive editing with \\method. On the left two examples, we add a handle to the mug and a tail to the elephant doll by duplicating existing points. On the right two examples, we move or delete points to fix imperfections and to improve local details on the mesh. All the edits are performed in Blender within a minute.} \\label{fig:edit} \\vspace{-6mm} \\end{figure*}",
+      "normalized_text": "\\begin{figure*}[h] \\centering \\includegraphics[width=0.95\\textwidth]{figures/qualitative_edit.pdf} \\caption{\\textbf{editing results.} we show qualitative examples of interactive editing with \\method. on the left two examples, we add a handle to the mug and a tail to the elephant doll by duplicating existing points. on the right two examples, we move or delete points to fix imperfections and to improve local details on the mesh. all the edits are performed in blender within a minute.} \\label{fig:edit} \\vspace{-6mm} \\end{figure*}"
+    },
+    {
+      "paragraph_id": "4_experiments.tex::p0010",
+      "tex_file": "sec/4_experiments.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\spar3d\\latex_run\\source\\sec\\4_experiments.tex",
+      "section_path": [
+        "Experiments",
+        "Main Results"
+      ],
+      "block_type": "command-block",
+      "line_start": 53,
+      "line_end": 54,
+      "text": "\\paragraph{Quantitative Comparison.} We compare \\method to other baselines on GSO and Omniobject3D quantitatively. As shown in~\\cref{tab:gso} and~\\cref{tab:omni}, \\method outperforms all other regressive or generative baselines significantly across most metrics on both datasets. For SSIM, we observe that \\method is slightly worse than the strongest baseline for this metric. We find that this relates to the Monte Carlo noise from our shader. \\method is also among the fastest reconstruction models with an inference speed of \\gentime seconds per object, which is significantly faster than 3D or multiview diffusion-based approaches.",
+      "normalized_text": "\\paragraph{quantitative comparison.} we compare \\method to other baselines on gso and omniobject3d quantitatively. as shown in~\\cref{tab:gso} and~\\cref{tab:omni}, \\method outperforms all other regressive or generative baselines significantly across most metrics on both datasets. for ssim, we observe that \\method is slightly worse than the strongest baseline for this metric. we find that this relates to the monte carlo noise from our shader. \\method is also among the fastest reconstruction models with an inference speed of \\gentime seconds per object, which is significantly faster than 3d or multiview diffusion-based approaches."
+    },
+    {
+      "paragraph_id": "4_experiments.tex::p0011",
+      "tex_file": "sec/4_experiments.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\spar3d\\latex_run\\source\\sec\\4_experiments.tex",
+      "section_path": [
+        "Experiments",
+        "Main Results"
+      ],
+      "block_type": "command-block",
+      "line_start": 56,
+      "line_end": 57,
+      "text": "\\paragraph{Qualitative Results.} We show qualitative results of different methods in~\\cref{fig:qualitative}. The reconstructed meshes from pure regression-based approaches such as SF3D or TripoSR align with the input image well, but the backside is often less accurate and over-smoothed. Multi-view diffusion-based methods such as LGM, CRM and InstantMesh show more details on the backside. However, the inconsistency in the synthesized views leads to clear artifacts and overall worse results. Pure generative approaches such as Shap-E and LN3Diff are able to produce sharp surfaces in their generation. However, many details are erroneous hallucinations that do not accurately follow the input images, and the visible surfaces are often reconstructed incorrectly. Compared to prior art, the meshes produced by \\method not only faithfully resemble the input image, but also exhibit well-generated occluded parts with reasonable details. In~\\cref{fig:wild}, we further show qualitative results of \\method on in-the-wild images. The images are generated using text-to-image generative models or from the ImageNet validation set~\\cite{deng2009imagenet}. The high quality of the reconstructed meshes demonstrates a strong generalization performance of \\method.",
+      "normalized_text": "\\paragraph{qualitative results.} we show qualitative results of different methods in~\\cref{fig:qualitative}. the reconstructed meshes from pure regression-based approaches such as sf3d or triposr align with the input image well, but the backside is often less accurate and over-smoothed. multi-view diffusion-based methods such as lgm, crm and instantmesh show more details on the backside. however, the inconsistency in the synthesized views leads to clear artifacts and overall worse results. pure generative approaches such as shap-e and ln3diff are able to produce sharp surfaces in their generation. however, many details are erroneous hallucinations that do not accurately follow the input images, and the visible surfaces are often reconstructed incorrectly. compared to prior art, the meshes produced by \\method not only faithfully resemble the input image, but also exhibit well-generated occluded parts with reasonable details. in~\\cref{fig:wild}, we further show qualitative results of \\method on in-the-wild images. the images are generated using text-to-image generative models or from the imagenet validation set~\\cite{deng2009imagenet}. the high quality of the reconstructed meshes demonstrates a strong generalization performance of \\method."
+    },
+    {
+      "paragraph_id": "4_experiments.tex::p0012",
+      "tex_file": "sec/4_experiments.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\spar3d\\latex_run\\source\\sec\\4_experiments.tex",
+      "section_path": [
+        "Experiments",
+        "Editing Results"
+      ],
+      "block_type": "paragraph",
+      "line_start": 60,
+      "line_end": 60,
+      "text": "The usage of explicit point clouds as an intermediate representation enables interactive editing of the generated meshes. Users can easily alter the unseen surface of the mesh by manipulating the point cloud. In~\\cref{fig:edit}, we show a few editing examples with \\method, either by adding major object parts to the reconstruction, or improving undesirable generated details.",
+      "normalized_text": "the usage of explicit point clouds as an intermediate representation enables interactive editing of the generated meshes. users can easily alter the unseen surface of the mesh by manipulating the point cloud. in~\\cref{fig:edit}, we show a few editing examples with \\method, either by adding major object parts to the reconstruction, or improving undesirable generated details."
+    },
+    {
+      "paragraph_id": "4_experiments.tex::p0013",
+      "tex_file": "sec/4_experiments.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\spar3d\\latex_run\\source\\sec\\4_experiments.tex",
+      "section_path": [
+        "Experiments",
+        "Ablation"
+      ],
+      "block_type": "paragraph",
+      "line_start": 63,
+      "line_end": 65,
+      "text": "We ablate the key idea of \\method, the point sampling stage, which can be seen as an addition to standard regression approaches. We consider a variant of our model (\\method w/o Point), where we remove the point sampling stage and make \\method a full regressive model. We compare this variant with our full model on both GSO and Omniobject3D. As shown in~\\cref{tab:ablation}, our full \\method significantly outperforms the regressive variant, which validates the effectiveness of our design.",
+      "normalized_text": "we ablate the key idea of \\method, the point sampling stage, which can be seen as an addition to standard regression approaches. we consider a variant of our model (\\method w/o point), where we remove the point sampling stage and make \\method a full regressive model. we compare this variant with our full model on both gso and omniobject3d. as shown in~\\cref{tab:ablation}, our full \\method significantly outperforms the regressive variant, which validates the effectiveness of our design."
+    },
+    {
+      "paragraph_id": "4_experiments.tex::p0014",
+      "tex_file": "sec/4_experiments.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\spar3d\\latex_run\\source\\sec\\4_experiments.tex",
+      "section_path": [
+        "Experiments",
+        "Ablation"
+      ],
+      "block_type": "command-block",
+      "line_start": 67,
+      "line_end": 68,
+      "text": "\\input{tables/ablation} \\vspace{-6mm}",
+      "normalized_text": "\\input{tables/ablation} \\vspace{-6mm}"
+    },
+    {
+      "paragraph_id": "4_experiments.tex::p0015",
+      "tex_file": "sec/4_experiments.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\spar3d\\latex_run\\source\\sec\\4_experiments.tex",
+      "section_path": [
+        "Experiments",
+        "Ablation"
+      ],
+      "block_type": "command-block",
+      "line_start": 70,
+      "line_end": 76,
+      "text": "\\begin{figure}[h] \\centering \\includegraphics[width=0.9\\linewidth]{figures/qualitative-conflict.pdf} \\caption{\\textbf{Generated Mesh with Conflicting Cues.} Under conflicting cues from images and point clouds, our model reconstructs the visible surface based on the image, while generating the backside surface based on the point cloud.} \\label{fig:analysis} \\vspace{-5mm} \\end{figure}",
+      "normalized_text": "\\begin{figure}[h] \\centering \\includegraphics[width=0.9\\linewidth]{figures/qualitative-conflict.pdf} \\caption{\\textbf{generated mesh with conflicting cues.} under conflicting cues from images and point clouds, our model reconstructs the visible surface based on the image, while generating the backside surface based on the point cloud.} \\label{fig:analysis} \\vspace{-5mm} \\end{figure}"
+    },
+    {
+      "paragraph_id": "4_experiments.tex::p0016",
+      "tex_file": "sec/4_experiments.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\spar3d\\latex_run\\source\\sec\\4_experiments.tex",
+      "section_path": [
+        "Experiments",
+        "Analysis"
+      ],
+      "block_type": "paragraph",
+      "line_start": 79,
+      "line_end": 80,
+      "text": "We further design experiments to understand how \\method works. Our key assumption when designing \\method is that the two-stage design effectively separates the uncertain part (back-surface modeling) and the deterministic part (visible surface modeling) of the monocular 3D reconstruction problem. Ideally, the meshing stage should mainly rely on the input image for reconstructing the visible surface, while relying on the point cloud to generate the back surface. To see whether this is true, we design an experiment where we artificially use point clouds that conflict with the input image. In~\\cref{fig:analysis}, we feed the input image of a squirrel and the point cloud of a horse to the meshing model. As shown in the figure, the reconstructed mesh indeed aligns with the squirrel image well on the visible surface, while the back surface mainly adheres to the point cloud. This result validates our assumption.",
+      "normalized_text": "we further design experiments to understand how \\method works. our key assumption when designing \\method is that the two-stage design effectively separates the uncertain part (back-surface modeling) and the deterministic part (visible surface modeling) of the monocular 3d reconstruction problem. ideally, the meshing stage should mainly rely on the input image for reconstructing the visible surface, while relying on the point cloud to generate the back surface. to see whether this is true, we design an experiment where we artificially use point clouds that conflict with the input image. in~\\cref{fig:analysis}, we feed the input image of a squirrel and the point cloud of a horse to the meshing model. as shown in the figure, the reconstructed mesh indeed aligns with the squirrel image well on the visible surface, while the back surface mainly adheres to the point cloud. this result validates our assumption."
+    },
+    {
+      "paragraph_id": "5_conclusion.tex::p0001",
+      "tex_file": "sec/5_conclusion.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\spar3d\\latex_run\\source\\sec\\5_conclusion.tex",
+      "section_path": [
+        "Conclusion"
+      ],
+      "block_type": "command-block",
+      "line_start": 2,
+      "line_end": 2,
+      "text": "\\label{sec:conclusion}",
+      "normalized_text": "\\label{sec:conclusion}"
+    },
+    {
+      "paragraph_id": "5_conclusion.tex::p0002",
+      "tex_file": "sec/5_conclusion.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\spar3d\\latex_run\\source\\sec\\5_conclusion.tex",
+      "section_path": [
+        "Conclusion"
+      ],
+      "block_type": "paragraph",
+      "line_start": 4,
+      "line_end": 4,
+      "text": "We present \\method, a simple yet effective approach for single-view 3D reconstruction. The core of our model is a two-stage design based on point sampling. We first generate a sparse point cloud via point diffusion, and then reconstruct a highly detailed mesh from both the point cloud and the image. This design enables us to take the best of regression-based and generative modeling. Evaluated on standard benchmarks and in-the-wild images, \\method significantly outperforms previous state-of-the-art methods with a fast inference speed. We will release our model upon publication, and we hope our effort is useful for future research towards scalable generation of high-quality 3D content.",
+      "normalized_text": "we present \\method, a simple yet effective approach for single-view 3d reconstruction. the core of our model is a two-stage design based on point sampling. we first generate a sparse point cloud via point diffusion, and then reconstruct a highly detailed mesh from both the point cloud and the image. this design enables us to take the best of regression-based and generative modeling. evaluated on standard benchmarks and in-the-wild images, \\method significantly outperforms previous state-of-the-art methods with a fast inference speed. we will release our model upon publication, and we hope our effort is useful for future research towards scalable generation of high-quality 3d content."
+    },
+    {
+      "paragraph_id": "X_suppl.tex::p0001",
+      "tex_file": "sec/X_suppl.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\spar3d\\latex_run\\source\\sec\\X_suppl.tex",
+      "section_path": [],
+      "block_type": "command-block",
+      "line_start": 1,
+      "line_end": 3,
+      "text": "\\clearpage \\setcounter{page}{1} \\appendix",
+      "normalized_text": "\\clearpage \\setcounter{page}{1} \\appendix"
+    },
+    {
+      "paragraph_id": "X_suppl.tex::p0002",
+      "tex_file": "sec/X_suppl.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\spar3d\\latex_run\\source\\sec\\X_suppl.tex",
+      "section_path": [],
+      "block_type": "command-block",
+      "line_start": 5,
+      "line_end": 18,
+      "text": "\\twocolumn[{ \\renewcommand\\twocolumn[1][]{#1} \\begin{center} \\centering \\captionsetup{type=figure} \\includegraphics[width=1.0\\textwidth]{figures/supp-qualidecomp.pdf} \\captionof{figure}{\\textbf{Decomposition and Relighting Results.} We show decomposed albedo and relighting results of \\method in comparison with SF3D. The albedo estimated by \\method has less baked-in lighting compared with SF3D and results in better relighting outcomes.} \\label{fig:supp-decomp} \\includegraphics[width=1.0\\textwidth]{figures/supp-qualiwild.pdf} \\captionof{figure}{\\textbf{Additional In-the-wild Results.} We show additional results of \\method on in-the-wild images. The reconstructed meshes achieve high fidelity and exhibit great surface details.} \\vspace{3mm} \\label{fig:supp-wild} \\end{center} }]",
+      "normalized_text": "\\twocolumn[{ \\renewcommand\\twocolumn[1][]{#1} \\begin{center} \\centering \\captionsetup{type=figure} \\includegraphics[width=1.0\\textwidth]{figures/supp-qualidecomp.pdf} \\captionof{figure}{\\textbf{decomposition and relighting results.} we show decomposed albedo and relighting results of \\method in comparison with sf3d. the albedo estimated by \\method has less baked-in lighting compared with sf3d and results in better relighting outcomes.} \\label{fig:supp-decomp} \\includegraphics[width=1.0\\textwidth]{figures/supp-qualiwild.pdf} \\captionof{figure}{\\textbf{additional in-the-wild results.} we show additional results of \\method on in-the-wild images. the reconstructed meshes achieve high fidelity and exhibit great surface details.} \\vspace{3mm} \\label{fig:supp-wild} \\end{center} }]"
+    },
+    {
+      "paragraph_id": "X_suppl.tex::p0003",
+      "tex_file": "sec/X_suppl.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\spar3d\\latex_run\\source\\sec\\X_suppl.tex",
+      "section_path": [],
+      "block_type": "paragraph",
+      "line_start": 20,
+      "line_end": 20,
+      "text": "This appendix is structured as follows: in~\\cref{sec:limitation} we discuss the limitations of our approach; in~\\cref{sec:illustration} we provide two additional illustrations of our architecture; in~\\cref{sec:decomposition} we show decomposition and relighting results of our model in comparison with SF3D~\\cite{sf3d2024}; in~\\cref{sec:wild} we present additional in-the-wild results.",
+      "normalized_text": "this appendix is structured as follows: in~\\cref{sec:limitation} we discuss the limitations of our approach; in~\\cref{sec:illustration} we provide two additional illustrations of our architecture; in~\\cref{sec:decomposition} we show decomposition and relighting results of our model in comparison with sf3d~\\cite{sf3d2024}; in~\\cref{sec:wild} we present additional in-the-wild results."
+    },
+    {
+      "paragraph_id": "X_suppl.tex::p0004",
+      "tex_file": "sec/X_suppl.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\spar3d\\latex_run\\source\\sec\\X_suppl.tex",
+      "section_path": [
+        "Limitations"
+      ],
+      "block_type": "command-block",
+      "line_start": 23,
+      "line_end": 24,
+      "text": "\\label{sec:limitation} The main limitations of \\method are twofold. First, the point clouds generated during the point sampling stage occasionally exhibit artifacts, such as small surface spikes or detached parts. While these imperfections can typically be remedied through \\method's editing capabilities with minimal effort (see Fig. 7 in the main paper), exploring more principled solutions (e.g. improving the denoiser design or diffusion samplers) could further enhance the utility and robustness of our method.",
+      "normalized_text": "\\label{sec:limitation} the main limitations of \\method are twofold. first, the point clouds generated during the point sampling stage occasionally exhibit artifacts, such as small surface spikes or detached parts. while these imperfections can typically be remedied through \\method's editing capabilities with minimal effort (see fig. 7 in the main paper), exploring more principled solutions (e.g. improving the denoiser design or diffusion samplers) could further enhance the utility and robustness of our method."
+    },
+    {
+      "paragraph_id": "X_suppl.tex::p0005",
+      "tex_file": "sec/X_suppl.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\spar3d\\latex_run\\source\\sec\\X_suppl.tex",
+      "section_path": [
+        "Limitations"
+      ],
+      "block_type": "paragraph",
+      "line_start": 26,
+      "line_end": 26,
+      "text": "Second, although \\method learns material decomposition during training, the accuracy of these decompositions can sometimes be suboptimal. This limitation is primarily due to the inherent ambiguity of inverse rendering from a single image, especially when learned in an unsupervised manner. Unsupervised decomposition learning is useful given the scarcity of 3D assets containing high-quality Physically Based Rendering (PBR) materials and is scalable to real-world multi-view datasets. However, investigating semi-supervised learning techniques may offer a pathway to more plausible material estimations in future work.",
+      "normalized_text": "second, although \\method learns material decomposition during training, the accuracy of these decompositions can sometimes be suboptimal. this limitation is primarily due to the inherent ambiguity of inverse rendering from a single image, especially when learned in an unsupervised manner. unsupervised decomposition learning is useful given the scarcity of 3d assets containing high-quality physically based rendering (pbr) materials and is scalable to real-world multi-view datasets. however, investigating semi-supervised learning techniques may offer a pathway to more plausible material estimations in future work."
+    },
+    {
+      "paragraph_id": "X_suppl.tex::p0006",
+      "tex_file": "sec/X_suppl.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\spar3d\\latex_run\\source\\sec\\X_suppl.tex",
+      "section_path": [
+        "Additional Illustrations of our Architecture"
+      ],
+      "block_type": "paragraph",
+      "line_start": 29,
+      "line_end": 36,
+      "text": "We show additional illustrations of our point cloud denoiser and our meshing model in~\\cref{fig:supp-denoiser} and~\\cref{fig:supp-meshing}. We hope these illustrations facilitate a better understanding of our architecture. \\label{sec:illustration} \\begin{figure}[h] \\centering \\includegraphics[width=0.48\\textwidth]{figures/supp-denoiser.pdf} \\caption{\\textbf{Point Cloud Denoiser Architecture.} We illustrate the architecture of our point cloud denoiser. The point cloud denoiser takes the noisy point cloud and the image as input, and produces a denoised point cloud. The image and the noisy point cloud are encoded as latent vectors and concatenated together. The concatenated latent vectors are processed by a set of transformer blocks and decoded as the denoised point cloud.} \\label{fig:supp-denoiser} \\end{figure}",
+      "normalized_text": "we show additional illustrations of our point cloud denoiser and our meshing model in~\\cref{fig:supp-denoiser} and~\\cref{fig:supp-meshing}. we hope these illustrations facilitate a better understanding of our architecture. \\label{sec:illustration} \\begin{figure}[h] \\centering \\includegraphics[width=0.48\\textwidth]{figures/supp-denoiser.pdf} \\caption{\\textbf{point cloud denoiser architecture.} we illustrate the architecture of our point cloud denoiser. the point cloud denoiser takes the noisy point cloud and the image as input, and produces a denoised point cloud. the image and the noisy point cloud are encoded as latent vectors and concatenated together. the concatenated latent vectors are processed by a set of transformer blocks and decoded as the denoised point cloud.} \\label{fig:supp-denoiser} \\end{figure}"
+    },
+    {
+      "paragraph_id": "X_suppl.tex::p0007",
+      "tex_file": "sec/X_suppl.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\spar3d\\latex_run\\source\\sec\\X_suppl.tex",
+      "section_path": [
+        "Additional Illustrations of our Architecture"
+      ],
+      "block_type": "command-block",
+      "line_start": 38,
+      "line_end": 43,
+      "text": "\\begin{figure}[h] \\centering \\includegraphics[width=0.48\\textwidth]{figures/supp-meshing.pdf} \\caption{\\textbf{Meshing Model Architecture.} We illustrate the architecture of our meshing model, which takes the point cloud and the image as input, and produces a textured mesh and an environment map as output. Specifically, the meshing model first encodes the image and the point cloud as latent vectors. The learnable triplane tokens are then processed by the triplane transformer conditioned on the latent vectors. We query the triplane with MLPs to obtain albedo, density, vertex deformation and surface normal, which are converted to a textured mesh using DMTet. The triplane also produces an environment map using the illumination prior from RENI++. The metallic and roughness values are estimated from the image directly and are omitted here for simplicity.} \\label{fig:supp-meshing} \\end{figure}",
+      "normalized_text": "\\begin{figure}[h] \\centering \\includegraphics[width=0.48\\textwidth]{figures/supp-meshing.pdf} \\caption{\\textbf{meshing model architecture.} we illustrate the architecture of our meshing model, which takes the point cloud and the image as input, and produces a textured mesh and an environment map as output. specifically, the meshing model first encodes the image and the point cloud as latent vectors. the learnable triplane tokens are then processed by the triplane transformer conditioned on the latent vectors. we query the triplane with mlps to obtain albedo, density, vertex deformation and surface normal, which are converted to a textured mesh using dmtet. the triplane also produces an environment map using the illumination prior from reni++. the metallic and roughness values are estimated from the image directly and are omitted here for simplicity.} \\label{fig:supp-meshing} \\end{figure}"
+    },
+    {
+      "paragraph_id": "X_suppl.tex::p0008",
+      "tex_file": "sec/X_suppl.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\spar3d\\latex_run\\source\\sec\\X_suppl.tex",
+      "section_path": [
+        "Decomposition Results"
+      ],
+      "block_type": "command-block",
+      "line_start": 46,
+      "line_end": 47,
+      "text": "\\label{sec:decomposition} We show decomposition and relighting results of \\method in comparison with SF3D, which is a full regressive method. As shown in~\\cref{fig:supp-decomp}, our estimated albedo often has less baked-in lighting artifacts compared with SF3D, which improves the quality of relighting under different illumination conditions.",
+      "normalized_text": "\\label{sec:decomposition} we show decomposition and relighting results of \\method in comparison with sf3d, which is a full regressive method. as shown in~\\cref{fig:supp-decomp}, our estimated albedo often has less baked-in lighting artifacts compared with sf3d, which improves the quality of relighting under different illumination conditions."
+    },
+    {
+      "paragraph_id": "X_suppl.tex::p0009",
+      "tex_file": "sec/X_suppl.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\spar3d\\latex_run\\source\\sec\\X_suppl.tex",
+      "section_path": [
+        "Additional In-the-wild Results"
+      ],
+      "block_type": "command-block",
+      "line_start": 50,
+      "line_end": 51,
+      "text": "\\label{sec:wild} We present additional reconstruction results on in-the-wild images. In~\\cref{fig:supp-wild}, we show the reconstructions of \\method on images from 3D-Arena (Ebert, 2024). On this data source, \\method also achieves high reconstruction quality. This further validates the strong generalization ability of \\method.",
+      "normalized_text": "\\label{sec:wild} we present additional reconstruction results on in-the-wild images. in~\\cref{fig:supp-wild}, we show the reconstructions of \\method on images from 3d-arena (ebert, 2024). on this data source, \\method also achieves high reconstruction quality. this further validates the strong generalization ability of \\method."
+    }
+  ]
+}

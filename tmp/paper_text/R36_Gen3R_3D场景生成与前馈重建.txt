@@ -1,0 +1,794 @@
+                    This CVPR paper is the Open Access version, provided by the Computer Vision Foundation.
+                                 Except for this watermark, it is identical to the accepted version;
+                           the final published version of the proceedings is available on IEEE Xplore.
+
+
+
+
+           Gen3R: 3D Scene Generation Meets Feed-Forward Reconstruction
+
+           Jiaxin Huang1 , Yuanbo Yang1 , Bangbang Yang2 , Lin Ma2 , Yuewen Ma2 , Yiyi Liao1B
+                                               1                          2
+                                                   Zhejiang University        ByteDance
+                                     Project Page: https://xdimlab.github.io/Gen3R/
+
+
+
+
+Figure 1. Gen3R bridges foundational reconstruction models with 2D video diffusion, enabling the joint generation of 2D videos and their
+corresponding geometry in various settings.
+
+                             Abstract                                  generative models.
+
+We present Gen3R, a method that bridges the strong priors
+of foundational reconstruction models and video diffusion              1. Introduction
+models for scene-level 3D generation. We repurpose the                 3D scene generation has become a fundamental problem
+VGGT reconstruction model to produce geometric latents                 in computer vision and graphics, with wide applications in
+by training an adapter on its tokens, which are regularized            simulation, gaming, robotics, and virtual reality. A method
+to align with the appearance latents of pre-trained video              capable of producing photorealistic and geometrically con-
+diffusion models. By jointly generating these disentangled             sistent 3D scenes would enable the creation of immersive
+yet aligned latents, Gen3R produces both RGB videos and                environments at scale, serving as essential training data and
+corresponding 3D geometry, including camera poses, depth               providing new tools for creative content design.
+maps, and global point clouds. Experiments demonstrate                     Prior methods attempt to extend 2D generative models
+that our approach achieves state-of-the-art results in single-         via score distillation [33, 46, 63, 77], incremental outpaint-
+and multi-image conditioned 3D scene generation. Addi-                 ing [9, 13, 89, 90], or multi-view synthesis followed by
+tionally, our method can enhance the robustness of recon-              reconstruction [14, 16, 37, 53, 59, 80]. Despite promis-
+struction by leveraging generative priors, demonstrating               ing results, these methods often suffer from poor geometric
+the mutual benefit of tightly coupling reconstruction and              structure or high optimization cost. More recently, several
+                                                                       works [15, 28, 39, 62, 86, 95] have extended video diffu-
+   B Corresponding author.                                             sion frameworks to feed-forward 3D scene generation for
+
+
+
+                                                                25358
+improved efficiency. These approaches typically follow the          tion models, combining strong RGB priors with rich geo-
+Latent Diffusion Model paradigm, training a VAE to learn            metric priors for 3D scene generation. 2) A disentangled
+a compact latent space for 3D scenes and applying diffu-            yet aligned appearance and geometry latent space, enabling
+sion within that space. However, the scarcity of large-scale        controllable and multi-view consistent scene synthesis. 3) A
+3D ground truth makes learning geometry-centric VAEs                flexible pipeline capable of handling various input settings,
+highly challenging. One line of methods trains a VAE to re-         producing high-fidelity videos and globally consistent 3D
+construct geometry from RGB inputs while simultaneously             point clouds.
+learning a compressed latent representation [28, 55, 86]. Yet
+this is inherently difficult, especially when supervision is        2. Related Work
+limited to 2D signals, which often results in suboptimal ge-
+ometry and constrained generation quality.
+                                                                    3D Scene Generation fom 2D Priors. A common strategy
+    In parallel, transformer-based feed-forward reconstruc-         for 3D scene generation is to leverage pretrained 2D gener-
+tion models, such as Dust3R [73] and VGGT [71], have                ative models [52] to provide RGB priors. One line of work
+shown strong reconstruction ability from 2D images. Re-             employs score distillation sampling (SDS) [33, 46, 63, 77],
+cent works attempt to build better VAEs by compressing              directly optimizing a 3D representation such as NeRF [1–
+their 3D output [62, 95], but overlook a key fact: these re-        3, 41] and 3DGS [25, 45, 81, 88] to align with the distribu-
+construction models already operate in a spatially compact          tion of a 2D diffusion model. Another line of methods first
+token space that encodes rich multi-view geometric infor-           synthesizes multi-view images using pretrained 2D diffu-
+mation, including depth, camera pose, and global structure.         sion models, followed by 3D reconstruction through multi-
+This observation raises a central question: Can the intrinsic       view synthesis [7, 14, 16, 36, 37, 53, 59, 61, 80, 97] or in-
+latent manifold learned by reconstruction models be used to         cremental outpainting [9, 13, 57, 89, 90]. Both paradigms
+fully exploit reconstruction priors for 3D scene generation?        leverage the strong RGB priors of 2D models but are lim-
+    Building on this insight, we introduce Gen3R, a 3D-             ited by the lack of explicit 3D reasoning, often resulting in
+aware scene generation method that unifies advanced recon-          inconsistent geometry, weak multi-view fidelity, and high
+struction and generation models for jointly generating con-         computational cost. Our method tackles this challenge by
+trollable video and globally consistent 3D point clouds. Our        bridging rich geometric priors of a reconstruction founda-
+key idea is to recast a feed-forward reconstruction model,          tion model with a 2D generative model.
+VGGT [71], as a VAE-like provider of geometric latents and
+combine these with appearance latents from a pre-trained            Feed-Forward 3D Scene Generation. Object-level feed-
+video diffusion model for joint generation. This allows us          forward 3D generation methods [32, 40, 51, 83, 94] have
+to marry the rich geometric priors learned by reconstruc-           gained great success thanks to the large-scale 3D ground
+tion models over multiple 3D quantities with the strong             truth datasets [10, 31]. However, extending this success
+RGB priors of video diffusion models, effectively combin-           to full-scene 3D generation is challenging because high-
+ing the strengths of both. To achieve so, we first project          quality scene-level data is difficult to obtain. A practical
+the reconstruction model’s intermediate tokens to match the         alternative is to synthesize a 3D representation in a feed-
+spatial-temporal resolution of the appearance latents using         forward manner and train it using only 2D supervision. Re-
+a learned adapter. Notably, simply compressing the tokens           cent works [15, 28, 29, 43, 56, 78, 86] follow this strategy
+is insufficient as their distribution significantly differs from    by generating Gaussians and using differentiable render-
+the corresponding appearance latents. We therefore propose          ing to train directly on 2D images, thereby avoiding costly
+to align the two latent spaces, followed by fine-tuning a           3D data collection. However, these methods often strug-
+video diffusion model for joint generation. By keeping ge-          gle with intricate geometric details and multi-view consis-
+ometric and appearance latents disentangled while aligning          tency due to the lack of explicit 3D supervision. Other ap-
+their distributions, Gen3R demonstrates that the latent man-        proaches [44, 62, 65, 95] address this limitation by lever-
+ifold learned by reconstruction models can indeed serve as          aging off-the-shelf dense reconstruction models [26, 73] or
+a strong foundation for high-fidelity 3D scene generation.          Unreal Engine to obtain 3D data for training. In contrast to
+                                                                    methods directly compressing the 3D output of reconstruc-
+    Our framework supports flexible conditioning, enabling
+                                                                    tion models [65, 95], our approach treats the reconstruction
+generation from single or multiple input views, with or
+                                                                    model as an asymmetric VAE that encodes images into ge-
+without camera cues, as well as feed-forward scene recon-
+                                                                    ometry latents, allowing us to inherit the strong geometric
+struction within one unified model. It produces temporally
+                                                                    priors across multiple 3D quantities and the high-level scene
+coherent RGB videos and globally aligned point clouds
+                                                                    understanding from the foundation geometry model.
+across diverse configurations.
+    Our contributions are threefold: 1) A novel framework           Feed-forward 3D Scene Reconstruction. Traditional 3D
+integrating video diffusion models with geometric founda-           scene reconstruction pipelines [6, 42, 54, 66] have recently
+
+
+
+                                                               25359
+Figure 2. Method. Left: We recast an advanced transformer-based feed-forward reconstruction model, VGGT, as a VAE to produce
+geometry latents G by training an adapter on its latent tokens. The training is supervised with a reconstruction loss Lrec , along with a
+regularization term LKL that aligns G with the appearance latent A, which is obtained from the VAE of a pre-trained video diffusion
+model, WAN. Right: We fine-tune the video diffusion model to jointly generate geometry and appearance latents, Z = [A; G], under
+various conditioning signals. At inference, varying the conditioning enables the generation of RGB videos and multiple 3D quantities,
+including global point clouds, depth maps, and camera parameters, from a single or multiple frames, as well as performing reconstruction.
+
+been complemented by learning-based methods [12, 19, 26,               global point clouds, depth maps and camera parameters
+64, 70, 72, 73, 92, 93], which leverage neural architectures           (Sec. 3.3). Fig. 2 illustrates our overall architecture.
+to capture structural regularities of the world. Among these,
+seminal works such as [26, 73] demonstrated the ability
+                                                                       3.1. Geometry Adapter for Unified Latent Space
+to infer geometrically consistent point clouds from uncal-
+                                                                       Preliminary. VGGT [71], denoted as F, is a transformer-
+ibrated images. Recent advances, exemplified by [24, 71],
+                                                                       based feed-forward reconstruction model that directly in-
+provide unified frameworks that jointly estimate camera pa-
+                                                                       fers multiple key 3D quantities of a scene from observed
+rameters, dense geometry and point tracks. Subsequent
+                                                                       views. It takes N input images I ∈ RN ×H×W ×3 and
+studies have further extended VGGT to new scene repre-
+                                                                       encodes them into high-dimensional geometry tokens V ∈
+sentations [22, 27, 38, 69] or addressed its inherent limita-
+                                                                       RN ×hv ×wv ×C by its encoder EV , which consists of 24 at-
+tions [58, 75, 99].
+                                                                       tention blocks:
+   Our method integrates the geometric prior of such feed-
+forward reconstruction models [71] with a generative diffu-                          EV : I → V ∈ RN ×L×hv ×wv ×C ,                  (1)
+sion model [18, 68, 87]. Different from prior reconstruc-
+                                                                       where hv × wv is the token’s spatial resolution, C = 2048,
+tion approaches [22, 58, 71, 73, 75], our method is in-
+                                                                       and L = 4 is the number of intermediate transformer
+herently generative, capable of synthesizing coherent 3D
+                                                                       tokens—specifically those from the 4th, 11th, 17th and 23rd
+scenes from 1 or 2 views. Moreover, our method can also
+                                                                       blocks [85]—for subsequent decoding. For simplicity, we
+be used for performing reconstruction and is able to miti-
+                                                                       omit the camera tokens of VGGT in the description; please
+gate errors of the original reconstruction model.
+                                                                       refer to Supplementary for details.
+                                                                          The geometry tokens V are then decoded by several indi-
+3. Method
+                                                                       vidual DPT heads [48] DV into multi-modal dense predic-
+Our goal is to generate high-fidelity 3D scenes with consis-           tions, such as point clouds P ∈ RN ×H×W ×3 , depth maps
+tent geometry and controllable cameras given one or more               D ∈ RN ×H×W ×1 and camera parameters T ∈ RN ×9 :
+images. To achieve this, we propose Gen3R, a 3D-aware la-
+                                                                                            DV : V → (P, D, T ).                     (2)
+tent diffusion method bridging foundational reconstruction
+models with pre-trained video diffusion models.                        Token-to-Latent Adapter. We aim to recast VGGT [71]
+    Specifically, we first design a unified latent space for           as an asymmetric geometry VAE that takes as input N
+appearance and geometry by recasting the geometry fea-                 RGB images I ∈ RN ×H×W ×3 , produces geometric la-
+tures of the feed-forward reconstruction model, VGGT, into             tents G ∈ Rn×h×w×c for diffusion-based generation, and
+the latent space of a video diffusion model (Sec. 3.1). We             decodes them into multi-modal geometric outputs, includ-
+then fine-tune the video diffusion model to jointly gener-             ing globally consistent point clouds P̂ ∈ RN ×H×W ×3 , per-
+ate the appearance and geometry latents under various con-             view depth maps D̂ ∈ RN ×H×W ×1 and camera parame-
+ditions (Sec. 3.2). Finally, these latents are decoded sep-            ters T̂ ∈ RN ×9 . Since the latent space of a video diffu-
+arately into RGB frames and scene geometry, including                  sion model exhibits a different spatial-temporal resolution
+
+
+
+                                                                 25360
+ Input
+ WVD [95] Aether [65]
+  Ours
+
+
+
+
+                                Figure 3. Qualitative Comparison of Geometry Generation in the 1-view based setting.
+from VGGT tokens and operates in a substantially lower-                        latent space by aligning it with the pretrained appearance
+dimensional feature space (e.g., c = 16 [68]), we train an                     latent distribution. Specifically, we impose a KL loss on the
+adapter (Eadp , Dadp ) to bridge the two feature spaces by                     geometry adapter, encouraging its latent distribution qG to
+mapping the geometric tokens V into the latent space of the                    align with the pretrained RGB latent distribution qA :
+video diffusion model and project them back:                                                     LKL = DKL (qG ∥ qA ).               (7)
+                        Eadp : V → G ∈ R   n×h×w×c
+                                                     ,              (3)        This constraint ensures compatibility between the two la-
+                                                                               tent spaces and facilitates simultaneous modeling of both
+                        Dadp : G → V ∈ RN ×L×hv ×wv ×C ,            (4)        appearance and geometry distributions.
+where n × h × w is the downsampled resolution.                                 3.2. Geometry-Aware Joint Latent Generation
+   The resulting geometric latents G share the same spatial-
+temporal resolution and feature dimension as those of the                      Design of the Joint Latent Space. After training of the
+video diffusion model, enabling joint generation of appear-                    adapter, we establish a compact latent space where geome-
+ance and geometry within a unified latent space.                               try and appearance latents can be jointly processed. We then
+                                                                               fine-tune a video diffusion model [68], denoted as Gθ , to
+Training of the Adapter. Our adapter is trained with a re-
+                                                                               generate both modalities of latents within this unified space.
+construction loss and a distribution alignment loss wrt. the
+                                                                                   Specifically, we aim to generate latent codes Z consist-
+appearance latents:
+                                                                               ing of two components: appearance latents A = EW (I) ∈
+                             L = λ1 Lrec + λ2 LKL .                 (5)        Rn×h×w×c and geometry latents G ∈ Rn×h×w×c . To avoid
+                                                                               introducing additional trainable parameters and to preserve
+   Specifically, the reconstruction loss enforces the recon-
+                                                                               the pretrained video diffusion model’s generative capabil-
+structed geometry tokens V̂ = Dadp (G) to match the origi-
+                                                                               ity, we concatenate the two latents along the width dimen-
+nal tokens V, and further regularize the consistency between
+                                                                               sion [8] to form a unified latent representation:
+the decoded outputs (P̂, D̂, T̂ ) and those derived from the
+original tokens (P, D, T ) by the pretrained DPT heads:                                         Z = [A; G] ∈ Rn×h×2w×c ,               (8)
+                                                                               where [·; ·] denotes concatenation in the width dimension.
+           Lrec =E ∥V̂ − V∥2 + E ∥T̂ − T ∥1
+                                              
+                                                                               Training of the Diffusion Model. To enhance control-
+                +E ∥D̂ − D∥2 + E ∥P̂ − P∥2 .
+                                               
+                                                          (6)
+                                                                               lability, we incorporate multiple condition signals into the
+Furthermore, we observed in practice that although this su-                    diffusion process, including a text prompt y, a condition
+pervision alone effectively compresses the geometry tokens,                    image sequence Icond with a flexible number of available
+it does not constrain the mapped latent space, which hin-                      frames (where missing images are set to zero), correspond-
+ders diffusion training from converging and degrades gen-                      ing binary masks M and optional per-view camera condi-
+eration quality. While most LDMs use VAE or VQ-VAE to                          tions Tcond . The overall diffusion process is defined as:
+constrain the latents, we propose to directly regularize our                            Gθ : (Zt ; t, y, Icond , M, Tcond ) → Ẑt−1 ,    (9)
+
+
+
+                                                                       25361
+ Cond.
+
+                                                  RealEstate10K                                                  DL3DV-10K
+          Method
+                            PSNR ↑   SSIM ↑   LPIPS ↓   I2V Subj. ↑   I2V BG ↑    I.Q. ↑   PSNR ↑   SSIM ↑   LPIPS ↓   I2V Subj. ↑   I2V BG ↑   I.Q. ↑
+          LVSM [23]         18.97    0.7161   0.2992      0.9946       0.9933    0.4923    15.61    0.5384   0.4434      0.9635       0.9675    0.4262
+          Gen3C [50]        20.26    0.7186   0.2302      0.9931       0.9927    0.5200    16.21    0.5557   0.4575      0.9427       0.9547    0.4204
+ 1-view
+
+
+
+
+          GF [79]           16.32    0.5434   0.3803      0.9882       0.9789    0.5614    12.05    0.3458   0.5801      0.9335       0.9307    0.5410
+          Aether [65]       16.57    0.6374   0.3808      0.9927       0.9910    0.5419    13.82    0.5167   0.5272      0.9589       0.9653    0.4571
+          WVD [95]          17.62    0.6658   0.3300      0.9935       0.9932    0.5847    14.25    0.4848   0.5063      0.9531       0.9613    0.5466
+          Ours              20.51    0.7388   0.2281      0.9951       0.9952    0.5993    16.38    0.5821   0.4234      0.9657       0.9715    0.5497
+          DepthSplat [84]   26.67    0.8711   0.1742      0.9909       0.9867    0.4379    16.83    0.6094   0.3971      0.9505       0.9532    0.3855
+          LVSM [23]         29.58    0.9197   0.1060      0.9954       0.9943    0.5173    18.80    0.6404   0.3575      0.9704       0.9736    0.4616
+          Gen3C [50]        23.83    0.8340   0.1947      0.9936       0.9930    0.5191    17.91    0.6120   0.4207      0.9470       0.9566    0.4239
+ 2-view
+
+
+
+
+          GF [79]           23.28    0.7426   0.2098      0.9893       0.9798    0.5614    14.39    0.4152   0.5160      0.9050       0.9110    0.4911
+          Aether [65]       21.77    0.7645   0.2241      0.9919       0.9901    0.5258    15.68    0.5565   0.4555      0.9619       0.9676    0.4708
+          WVD [95]          23.78    0.7948   0.1949      0.9935       0.9926    0.5795    15.72    0.5522   0.4510      0.9520       0.9597    0.5584
+          Ours              27.05    0.8732   0.1352      0.9948       0.9946    0.6025    18.59    0.6149   0.3416      0.9685       0.9725    0.5623
+
+              Table 1. Quantitative Comparison of Appearance Generation. We compare both 1-view and 2-view based settings.
+
+where Zt is the noised latent at timestep t, Ẑt−1 is the pre-                   and reconstruction (Sec. 4.3). Finally, we present abla-
+dicted latent at t − 1.                                                          tion studies to further validate the effectiveness of our ap-
+    Note that we do not provide geometric latents as con-                        proach in Sec. 4.4. We highlight the best , second-best ,
+dition signals, allowing the model to handle diverse tasks                       and third-best scores achieved on any metrics.
+from input images only. During training, we uniformly
+sample conditions from the following options: (1) the first                      4.1. Training Details
+frame (1-view based), (2) the first and last frames (2-view
+based), (3) all frames, and adjust the binary masks corre-                       Datasets.        We train our model on a diverse collec-
+spondingly. We also randomly drop camera conditions to                           tion of 3D datasets with camera calibrations, including:
+ensure they can be omitted during inference.                                     RealEstate10K [98], DL3DV-10K [34], ACID [35], Tar-
+Inference. Practically, we evaluate on three condition-                          tanAir [74], KITTI-360 [30], Waymo [60], Co3Dv2 [49],
+ing settings: (1) 1-view-based generation, (2) 2-view-based                      MVImgNet [91], Virtual KITTI 2 [4] and WildRGB-D [82].
+generation, and (3) feed-forward reconstruction with a im-                       Together, these datasets provide over 300k multi-view con-
+age sequence. Each setting can be performed with or with-                        sistent 3D scenes, spanning a wide range of domains, in-
+out camera conditions. For fairness, we remove the camera                        cluding object-centric, indoor, outdoor, driving, and syn-
+conditions in the feed-forward reconstruction experiments.                       thetic scenarios. For RealEstate10K, we follow the official
+                                                                                 train-test split, while for the other datasets, we randomly
+3.3. Decoding Latents into Scene Attributes                                      sample around 90% of the scenes for training and use the
+                                                                                 rest for testing. Text prompts for each scene are generated
+Based on the pipeline described above, we achieve feed-                          using a multi-modal large language model [5]. Notably, our
+forward 3D scene generation by sampling unified latents                          method does not require explicit 3D GT representations for
+from noise using Gθ , and decoding them into RGB frames                          training, which are unavailable for many datasets.
+and geometry attributes using separate decoders.
+    The appearance latents A ∈ Rn×h×w×c are decoded                              Implementation Details. For the geometry adapter, we
+by the pretrained RGB VAE DW to synthesize photore-                              adopt a causal autoencoder architecture similar to [68], but
+alistic video frames I. Similarly, the geometry latents                          with different input, output, and hidden dimensions. The
+G ∈ Rn×h×w×c are mapped by the geometry adapter Dadp                             adapter is trained on the mixed dataset described above. To
+to recover geometry tokens V. These tokens are then de-                          ensure stability, the model is initially trained with 25 frames
+coded by pretrained VGGT heads DV to obtain scene at-                            at a resolution of 560 × 560 for 15k iterations, using a batch
+tributes, including globally consistent point clouds P, per-                     size of 2 and gradient accumulation steps of 4 on 24 H20
+view depth maps D and camera parameters T . Following                            GPUs, resulting a total batch size of 192. It is then fine-
+VGGT, we unproject the depth maps using the generated                            tuned with 49 frames for another 6k iterations, using a batch
+camera parameters as the final geometry results.                                 size of 1 and gradient accumulation steps of 8 on the same
+                                                                                 hardware. The adapter weights are randomly initialized.
+4. Experiments                                                                       For the video diffusion model, we fine-tune a pretrained
+                                                                                 image-camera conditioned Wan2.1 [68]. Similar to the ge-
+In this section, we compare our method with state-of-the-                        ometry adapter, during training we randomly sample 49
+art approaches across various conditions. We first describe                      consecutive frames from each video clip, which are then re-
+the training details in Sec. 4.1, followed by both quantita-                     sized and center-cropped to 560×560. The model is trained
+tive and qualitative evaluations on 3D generation (Sec. 4.2)                     for 8k iterations with a batch size of 4 on 24 H20 GPUs.
+
+
+
+                                                                          25362
+ Cond.
+                                      Co3Dv2                                   WildRGB-D                              TartanAir
+          Method
+                        Accuracy ↓   Completeness ↓    CD ↓      Accuracy ↓    Completeness ↓   CD ↓     Accuracy ↓   Completeness ↓   CD ↓
+          Aether [65]     1.2630         2.6366        1.9498      0.3181         0.2951        0.3066     3.1547        4.5366        3.8457
+ 1-view
+
+
+
+
+          WVD [95]        1.8038         1.4237        1.6137      0.2708         0.2562        0.2635     4.3944        3.0660        3.7302
+          VGGT [71]       0.3291         4.3830        2.3561      0.0346         0.6723        0.3534     0.7379        5.3595        3.0487
+          Ours            0.8284         1.3811        1.1047      0.1581         0.2402        0.1992     3.0250        2.5367        2.7809
+          Aether [65]     0.9664         2.1376        1.5520      0.3536         0.2540        0.3038     2.7745        3.4420        3.1082
+ 2-view
+
+
+
+
+          WVD [95]        2.1153         1.3009        1.7081      0.2483         0.1813        0.2148     4.3794        2.5268        3.4531
+          VGGT [71]       0.3951         2.1566        1.2759      0.0276         0.2650        0.1463     0.9201        3.2554        2.0877
+          Ours            0.7237         1.2298        0.9767      0.1109         0.1744        0.1426     2.2825        1.6643        1.9734
+
+              Table 2. Quantitative Comparison of Geometry Generation. We compare both 1-view and 2-view based settings.
+
+
+
+
+  Inputs           LVSM [23]         DepthSplat [84]          Gen3C [50]            WVD [95]               Ours             Ground Truth
+Figure 4. Qualitative Comparison of Novel View Synthesis with 2-view conditions. The input images are shown on the left, and error
+maps are displayed overlaid on the results. Bluer colors indicate smaller errors, while redder colors indicate larger errors.
+
+To enhance capability in handling diverse conditioning in-                    WildRGB-D, and TartanAir in the main text. Please refer to
+puts, each training step has 31 probability of using (i) 1-view               Supp. for complete results on all datasets.
+condition, (ii) 2-view (first-last frame) conditions, or (iii)                   For appearance evaluation, we randomly sample 200
+the entire frame sequence as input. Additionally, the text                    sequences with camera conditions from each of the
+prompt is dropped with a 20% probability for CFG [17],                        RealEstate10K and DL3DV-10K, and compute PSNR,
+and the camera condition is omitted with a 50% probability.                   SSIM [76], and LPIPS [96] between the generated and
+                                                                              ground-truth images. We additionally report the VBench
+4.2. 3D Generation                                                            Score [20, 21] to assess the models’ generative capability,
+                                                                              focusing on I2V Subject (I2V Subj.), I2V Background (I2V
+Datasets and Metrics.         We evaluate 3D generation                       BG), and Imaging Quality (I.Q.) given the presence of
+on RealEstate10K [98], DL3DV-10K [34], Co3Dv2 [49],                           image-based conditioning.
+WildRGB-D [82] and TartanAir [74] datasets. For each                             For geometry evaluation, we randomly sample 300 se-
+task, we assess both appearance (RGB) and geometry (point                     quences with camera conditions from each of the Co3Dv2
+clouds) metrics. Appearance metrics are computed across                       and WildRGB-D, along with an additional 80 sequences
+all these datasets, while geometry metrics are evaluated                      from TartanAir. We first use the Umeyama algorithm [67]
+only on Co3Dv2, WildRGB-D, and TartanAir, as the other                        to align the generated point clouds to the ground truth, then
+datasets do not provide ground truth geometry. Note                           sample 20k points from both point clouds using Farthest
+that we report appearance metrics only on RealEstate10K                       Point Sampling (FPS) [47], and finally compute Accuracy,
+and DL3DV-10K, and geometry metrics only on Co3Dv2,                           Completeness, and Chamfer Distance (CD) [11].
+
+
+
+                                                                       25363
+                                 Co3Dv2                                 WildRGB-D                                                           TartanAir
+ Method
+                   Accuracy ↓   Completeness ↓   CD ↓      Accuracy ↓    Completeness ↓                CD ↓         Accuracy ↓             Completeness ↓             CD ↓
+ VGGT [71]           0.9157        1.0107        0.9632     0.0925               0.1405                0.1165          2.2929                    0.8985               1.5957
+ WVD (VAE only)      1.0533        1.3627        1.2080     0.1273               0.1780                0.1526          3.5337                    2.0396               2.7867
+ Ours (VAE only)     0.9236        1.0735        0.9986     0.0929               0.1400                0.1165          2.2972                    1.0063               1.6518
+ Aether [65]         1.7755        1.2280        1.5018     0.3033               0.1665                0.2349          3.0287                    2.3684               2.6985
+ WVD [95]            1.7997        1.4609        1.6303     0.2758               0.1542                0.2150          3.8018                    2.0820               2.9419
+ Ours                0.9270        0.9980        0.9625     0.1058               0.1463                0.1260          1.9243                    1.0959               1.5101
+
+Table 3. Quantitative Comparison of Geometry Reconstruction. WVD (VAE only) uses pretrained RGB VAE to encode and reconstruct
+point clouds, while Ours (VAE only) projects and reconstruct VGGT tokens to decode scene geometry.
+                                                                        Cond.              RealEstate10K                   DL3DV-10K             Co3Dv2   WildRGB-D    TartanAir
+                                                                        Method     PSNR ↑     SSIM ↑    LPIPS ↓   PSNR ↑    SSIM ↑     LPIPS ↓    CD ↓      CD ↓         CD ↓
+                                                                        1-view
+                                                                        2-Stage    17.38      0.6617    0.3412    14.37      0.5085    0.5014    1.6223     0.2330      3.7029
+                                                                        w/o LKL    16.31      0.6476    0.3941    13.68      0.4797    0.5094    1.9620     0.3280      4.0395
+                                                                        Ours       20.51      0.7388    0.2281    16.38      0.5821    0.4234    1.1047     0.1992      2.7809
+                                                                        2-view
+                                                                        2-Stage    23.56      0.7883    0.1931    15.92      0.5413    0.4427    1.3615     0.1623      2.6579
+     Input         VGGT         VAE (Ours)          Ours                w/o LKL
+                                                                        Ours
+                                                                                   21.62
+                                                                                   27.05
+                                                                                              0.7592
+                                                                                              0.8732
+                                                                                                        0.2185
+                                                                                                        0.1352
+                                                                                                                  15.41
+                                                                                                                  18.59
+                                                                                                                             0.5222
+                                                                                                                             0.6149
+                                                                                                                                       0.4527
+                                                                                                                                       0.3416
+                                                                                                                                                 1.7144
+                                                                                                                                                 0.9767
+                                                                                                                                                            0.2898
+                                                                                                                                                            0.1426
+                                                                                                                                                                        3.5508
+                                                                                                                                                                        1.9734
+
+ Figure 5. Quali. Comparison of Geometry Reconstruction.                Table 4. Ablation Study on appearance and geometry generation.
+Comparison Baselines. We compare our method with                        GF similarly attempts to bridge reconstruction and genera-
+several state-of-the-art approaches that use image and cam-             tion. Unlike ours, which aligns latent spaces prior to dif-
+era conditions, including 1) Reconstruction-based method:               fusion training, GF aligns intermediate diffusion features to
+DepthSplat [84]; 2) 2D generation methods: LVSM [23],                   the reconstruction model during training, which is less ef-
+Gen3C [50], and Geometry Forcing (GF) [79]; and 3) Ex-                  fective in practice. Finally, all of the above baselines oper-
+plicit 3D generation methods: Aether [65] and WVD [95].                 ate purely in 2D and do not produce any 3D outputs.
+We use the official implementations for all of these methods            3) Explicit 3D generation methods: Our method clearly
+except for WVD, as it is not open-sourced; we re-implement              surpasses the most relevant generative baselines, Aether
+it following the same training strategy as ours. Note that              and WVD, both of which jointly generate RGB images
+Aether does not output point maps, so we back-project its               and scene geometry. As shown in Fig. 4, our approach
+generated depths using predicted camera parameters to ob-               yields higher-quality results and better camera alignment
+tain point clouds.                                                      than WVD. This highlights the advantage of bridging recon-
+Comparison on Appearance Generation.                 Tab. 1             struction and generation models in the latent space, rather
+presents quantitative results for 1-view-based and 2-view-              than compressing the reconstruction outputs for generation.
+based (first-last frames) appearance generation. Fig. 4 pro-            Comparison on Geometry Generation. We further com-
+vides the corresponding qualitative comparisons for the 2-              pare the generated point clouds with 3D-based methods
+view setting (see Supp. for 1-view results). Gen3R outper-              in Tab. 2, and Fig. 3 visualizes point clouds generated from
+forms or matches the baselines in most cases.                           a single input view. Our method clearly outperforms Aether
+1) Reconstruction-based methods: We evaluate DepthSplat                 and WVD in CD across both generation settings. The qual-
+only in the 2-view setting, as it requires multi-view inputs            itative results in Fig. 3 are consistent with the quantitative
+to construct cost volumes. Although it achieves competitive             findings: Aether and WVD exhibit poor global consistency,
+results, it leaves holes in occluded regions (see Fig. 4). In           whereas our method produces more complete objects and
+contrast, our method can plausibly complete these regions               scenes from single-view observations, with plausible geom-
+using diffusion-based generation.                                       etry in unseen regions. We also include VGGT in Tab. 2 as a
+2) 2D generation methods: LVSM performs best in the 2-                  reference. It performs pure reconstruction from one or two
+view case, as it is a non-generative model well suited for              input views without generation. Although VGGT achieves
+interpolation. However, it often produces blurred results               better accuracy, it suffers from lower completeness since it
+in over-exposed scenes (Fig. 4, 1st row), and its perfor-               does not generate geometry for novel views, leading to a
+mance degrades notably in the 1-view case. Gen3C also                   worse CD than Gen3R.
+achieves competitive results in 1-view generation by com-
+bining depth-based warping and inpainting, but its quality              4.3. Feed-forward 3D Reconstruction
+heavily depends on depth accuracy, leading to misaligned
+boundaries when the depth estimates are inaccurate. In ad-              Dataset and Metrics. Similar to 3D generation, we evalu-
+dition, it sometimes exhibits color differences from the in-            ate feed-forward 3D reconstruction on the same sequences
+put image, as shown in Fig. 4. More relevant to our method,             sample from Co3Dv2, WildRGB-D and TartanAir datasets
+
+
+
+                                                                25364
+                                                                                                     Input       RGB Latents      w/o LKL           Ours
+                                                                                                 Figure 7. Visualization of Latent Spaces from different VAEs.
+
+    Inputs       2-Stage       w/o LKL        Ours           GT                              ation methods: Our method significantly outperforms ex-
+Figure 6. Appearance Comparison with ablation baselines. We                                  isting generative models, Aether and WVD, on the recon-
+highlight the artifacts of the baselines directly in the figures.                            struction task, despite that our re-implemented WVD also
+                                                                                             leverages the prior of VGGT.
+               Cond.
+
+
+
+
+                                                    Cond.
+
+                        RealEstate10K   WildRGB-D            RealEstate10K   WildRGB-D
+ Method
+                         AUC@30 ↑       AUC@30 ↑              AUC@30 ↑       AUC@30 ↑        4.4. Ablation Study
+ Aether [65]               0.6398         0.5375                0.6220         0.5068
+ WVD [95]                  0.6727         0.6780                0.7249         0.7113
+               1-view
+
+
+
+
+                                                    2-view
+
+
+
+
+ 2-Stage                   0.6832         0.6798                0.7188         0.7211        Effect of Joint Generation. We investigate the impact
+ w/o LKL                   0.4100         0.4759                0.4683         0.4947
+ Ours                      0.7443         0.8004                0.7732         0.8098
+                                                                                             of jointly generating RGB and geometry. To this end, we
+                                                                                             design a 2-Stage baseline: a video diffusion model fine-
+Table 5. Quantitative Comparison of Camera Controllability
+                                                                                             tuned on our training set generates only RGB under cam-
+on RealEstate10K and WildRGB-D datasets.
+                                                                                             era control, while geometry is predicted separately using
+as before, but without camera conditions. We assess both                                     VGGT from the generated images. Results in Tab. 4 show
+geometric quality and camera pose estimation. For ge-                                        that our joint generation approach outperforms the 2-Stage
+ometry, we first align the predicted point clouds with GT,                                   pipeline in both appearance and geometry. This is because
+downsample both using FPS, and then compute Accuracy,                                        the 2-Stage approach naively connects 2D generation with
+Completeness, and Chamfer Distance (CD). For camera                                          3D reconstruction, leading to accumulated errors. Besides,
+pose estimation, we use the RealEstate10K and WildRGB-                                       Tab. 5 and Fig. 6 further show that our method outperforms
+D datasets and follow VGGT [71] in reporting AUC@30,                                         this 2-Stage alternative in terms of camera control accuracy.
+which combines both Relative Rotation Accuracy (RRA)                                         Effect of the Distribution Alignment Loss. We further
+and Relative Translation Accuracy (RTA). Please refer to                                     evaluate the impact of our distribution alignment loss LKL
+Supplementary for camera pose estimation results.                                            by training a variant of the adapter without it and visualiz-
+Comparison Baselines.          We compare our method                                         ing the resulting latents in Fig. 7. Without this constraint,
+with 1) feed-forward 3D reconstruction approach, VGGT,                                       the geometry latents clearly deviate from the appearance la-
+as well as different variants of VAE for compressing                                         tents. Results in Tab. 4, Tab. 5, and Fig. 6 show that this mis-
+VGGT. WVD (VAE only) encodes and decodes VGGT’s                                              alignment hinders convergence and significantly degrades
+global point clouds using a pre-trained RGB VAE, while                                       both camera controllability and generation quality.
+Ours (VAE only) encodes VGGT’s geometry tokens
+through our adapter and decodes them back. We also com-                                      5. Conclusion
+pare against 2) 3D generation methods Aether and WVD.
+                                                                                             We introduced Gen3R, a unified framework that couples
+Comparison on Geometry Reconstruction. We present                                            feed-forward reconstruction with video diffusion for high-
+quantitative results in Tab. 3. 1) Feed-forward 3D recon-                                    fidelity 3D scene synthesis. By reformulating VGGT as an
+struction: Our VAE maintains the competitive performance                                     asymmetric geometry VAE with the geometry adapter and
+of VGGT, whereas WVD’s VAE produces subpar results                                           aligning its latents with a video diffusion model, Gen3R
+when encoding and reconstructing explicit point clouds,                                      jointly generates RGB videos and globally consistent 3D
+as it is originally designed for RGB image reconstruction.                                   geometry. Extensive experiments show that Gen3R outper-
+Moreover, our generative version even enhances the re-                                       forms existing 2D and 3D based generative methods in both
+construction performance. This improvement arises be-                                        appearance and geometry, while also delivering superior
+cause our method jointly models the appearance and geom-                                     camera controllability. Furthermore, Gen3R improves the
+etry distribution, enabling mutual interactions between the                                  robustness of feed-forward reconstruction, highlighting the
+two modalities and thereby refining noisy geometric pre-                                     mutual benefits of combining generative priors with strong
+dictions. As shown in Fig. 5, VGGT occasionally exhibits                                     geometric foundations. We believe Gen3R offers a promis-
+floaters in its predicted geometry, and our adapted VAE in-                                  ing direction toward controllable and high-fidelity 3D scene
+herits these artifacts. However, our generative model cor-                                   generation, and opens new possibilities for bridging recon-
+rects the errors and produces cleaner depth. 2) 3D gener-                                    struction and generative modeling at scale.
+
+
+
+                                                                                         25365
+Acknowledgements                                                          eration of 3d gaussian splatting scenes. arXiv preprint
+                                                                          arXiv:2311.13384, 2023. 1, 2
+This work is supported by NSFC under grant 62441223.
+                                                                     [10] Matt Deitke, Dustin Schwenk, Jordi Salvador, Luca Weihs,
+                                                                          Oscar Michel, Eli VanderBilt, Ludwig Schmidt, Kiana
+                                                                          Ehsani, Aniruddha Kembhavi, and Ali Farhadi. Objaverse:
+References                                                                A universe of annotated 3d objects, 2022. 2
+[1] Jonathan T. Barron, Ben Mildenhall, Matthew Tancik, Peter        [11] Haoqiang Fan, Hao Su, and Leonidas Guibas. A point set
+    Hedman, Ricardo Martin-Brualla, and Pratul P. Srinivasan.             generation network for 3d object reconstruction from a single
+    Mip-nerf: A multiscale representation for anti-aliasing neu-          image, 2016. 6
+    ral radiance fields. ICCV, 2021. 2                               [12] Xianze Fang, Jingnan Gao, Zhe Wang, Zhuo Chen, Xingyu
+[2] Jonathan T. Barron, Ben Mildenhall, Dor Verbin, Pratul P.             Ren, Jiangjing Lyu, Qiaomu Ren, Zhonglei Yang, Xiaokang
+    Srinivasan, and Peter Hedman. Mip-nerf 360: Unbounded                 Yang, Yichao Yan, and Chengfei Lyu. Dens3r: A foun-
+    anti-aliased neural radiance fields. CVPR, 2022.                      dation model for 3d geometry prediction. arXiv preprint
+[3] Jonathan T. Barron, Ben Mildenhall, Dor Verbin, Pratul P.             arXiv:2507.16290, 2025. 3
+    Srinivasan, and Peter Hedman. Zip-nerf: Anti-aliased grid-       [13] Rafail Fridman, Amit Abecasis, Yoni Kasten, and Tali
+    based neural radiance fields. ICCV, 2023. 2                           Dekel. Scenescape: Text-driven consistent scene genera-
+[4] Yohann Cabon, Naila Murray, and Martin Humenberger. Vir-              tion. Advances in Neural Information Processing Systems,
+    tual kitti 2, 2020. 5                                                 36:39897–39914, 2023. 1, 2
+[5] Zheng Cai, Maosong Cao, Haojiong Chen, Kai Chen, Keyu            [14] Ruiqi Gao, Aleksander Holynski, Philipp Henzler, Arthur
+    Chen, Xin Chen, Xun Chen, Zehui Chen, Zhi Chen, Pei                   Brussee, Ricardo Martin-Brualla, Pratul Srinivasan,
+    Chu, Xiaoyi Dong, Haodong Duan, Qi Fan, Zhaoye Fei,                   Jonathan T Barron, and Ben Poole. Cat3d: Create anything
+    Yang Gao, Jiaye Ge, Chenya Gu, Yuzhe Gu, Tao Gui, Aijia               in 3d with multi-view diffusion models. arXiv preprint
+    Guo, Qipeng Guo, Conghui He, Yingfan Hu, Ting Huang,                  arXiv:2405.10314, 2024. 1, 2
+    Tao Jiang, Penglong Jiao, Zhenjiang Jin, Zhikai Lei, Jiax-       [15] Hyojun Go, Byeongjun Park, Jiho Jang, Jin-Young Kim,
+    ing Li, Jingwen Li, Linyang Li, Shuaibin Li, Wei Li, Yin-             Soonwoo Kwon, and Changick Kim. Splatflow: Multi-view
+    ing Li, Hongwei Liu, Jiangning Liu, Jiawei Hong, Kaiwen               rectified flow model for 3d gaussian splatting synthesis. In
+    Liu, Kuikun Liu, Xiaoran Liu, Chengqi Lv, Haijun Lv, Kai              Proceedings of the Computer Vision and Pattern Recognition
+    Lv, Li Ma, Runyuan Ma, Zerun Ma, Wenchang Ning, Linke                 Conference, pages 21524–21536, 2025. 1, 2
+    Ouyang, Jiantao Qiu, Yuan Qu, Fukai Shang, Yunfan Shao,          [16] Junlin Hao, Peiheng Wang, Haoyang Wang, Xinggong
+    Demin Song, Zifan Song, Zhihao Sui, Peng Sun, Yu Sun,                 Zhang, and Zongming Guo. Gaussvideodreamer: 3d scene
+    Huanze Tang, Bin Wang, Guoteng Wang, Jiaqi Wang, Jiayu                generation with video diffusion and inconsistency-aware
+    Wang, Rui Wang, Yudong Wang, Ziyi Wang, Xingjian Wei,                 gaussian splatting. arXiv preprint arXiv:2504.10001, 2025.
+    Qizhen Weng, Fan Wu, Yingtong Xiong, Chao Xu, Ruil-                   1, 2
+    iang Xu, Hang Yan, Yirong Yan, Xiaogui Yang, Haochen             [17] Jonathan Ho and Tim Salimans. Classifier-free diffusion
+    Ye, Huaiyuan Ying, Jia Yu, Jing Yu, Yuhang Zang, Chuyu                guidance, 2022. 6
+    Zhang, Li Zhang, Pan Zhang, Peng Zhang, Ruijie Zhang,            [18] Wenyi Hong, Ming Ding, Wendi Zheng, Xinghan Liu,
+    Shuo Zhang, Songyang Zhang, Wenjian Zhang, Wenwei                     and Jie Tang.      Cogvideo: Large-scale pretraining for
+    Zhang, Xingcheng Zhang, Xinyue Zhang, Hui Zhao, Qian                  text-to-video generation via transformers. arXiv preprint
+    Zhao, Xiaomeng Zhao, Fengzhe Zhou, Zaida Zhou, Jing-                  arXiv:2205.15868, 2022. 3
+    ming Zhuo, Yicheng Zou, Xipeng Qiu, Yu Qiao, and Dahua           [19] Yicong Hong, Kai Zhang, Jiuxiang Gu, Sai Bi, Yang Zhou,
+    Lin. Internlm2 technical report, 2024. 5                              Difan Liu, Feng Liu, Kalyan Sunkavalli, Trung Bui, and Hao
+[6] Carlos Campos, Richard Elvira, Juan J Gómez Rodrı́guez,              Tan. Lrm: Large reconstruction model for single image to
+    José MM Montiel, and Juan D Tardós. Orb-slam3: An                   3d, 2024. 3
+    accurate open-source library for visual, visual–inertial, and    [20] Ziqi Huang, Yinan He, Jiashuo Yu, Fan Zhang, Chenyang Si,
+    multimap slam. IEEE transactions on robotics, 37(6):1874–             Yuming Jiang, Yuanhan Zhang, Tianxing Wu, Qingyang Jin,
+    1890, 2021. 2                                                         Nattapol Chanpaisit, Yaohui Wang, Xinyuan Chen, Limin
+[7] Yuedong Chen, Chuanxia Zheng, Haofei Xu, Bohan Zhuang,                Wang, Dahua Lin, Yu Qiao, and Ziwei Liu. VBench: Com-
+    Andrea Vedaldi, Tat-Jen Cham, and Jianfei Cai. Mvs-                   prehensive benchmark suite for video generative models. In
+    plat360: Feed-forward 360 scene synthesis from sparse                 Proceedings of the IEEE/CVF Conference on Computer Vi-
+    views. Advances in Neural Information Processing Systems,             sion and Pattern Recognition, 2024. 6
+    37:107064–107086, 2024. 2                                        [21] Ziqi Huang, Fan Zhang, Xiaojie Xu, Yinan He, Jiashuo
+[8] Zhaoxi Chen, Tianqi Liu, Long Zhuo, Jiawei Ren, Zeng Tao,             Yu, Ziyue Dong, Qianli Ma, Nattapol Chanpaisit, Chenyang
+    He Zhu, Fangzhou Hong, Liang Pan, and Ziwei Liu. 4dnex:               Si, Yuming Jiang, Yaohui Wang, Xinyuan Chen, Ying-
+    Feed-forward 4d generative modeling made easy. arXiv                  Cong Chen, Limin Wang, Dahua Lin, Yu Qiao, and Zi-
+    preprint arXiv:2508.13154, 2025. 4                                    wei Liu. Vbench++: Comprehensive and versatile bench-
+[9] Jaeyoung Chung, Suyoung Lee, Hyeongjin Nam, Jaerin Lee,               mark suite for video generative models. arXiv preprint
+    and Kyoung Mu Lee. Luciddreamer: Domain-free gen-                     arXiv:2411.13503, 2024. 6
+
+
+
+
+                                                                25366
+[22] Lihan Jiang, Yucheng Mao, Linning Xu, Tao Lu, Kerui Ren,            large-scale scene dataset for deep learning-based 3d vision,
+     Yichen Jin, Xudong Xu, Mulin Yu, Jiangmiao Pang, Feng               2023. 5, 6
+     Zhao, et al. Anysplat: Feed-forward 3d gaussian splatting      [35] Andrew Liu, Richard Tucker, Varun Jampani, Ameesh
+     from unconstrained views. arXiv preprint arXiv:2505.23716,          Makadia, Noah Snavely, and Angjoo Kanazawa. Infinite na-
+     2025. 3                                                             ture: Perpetual view generation of natural scenes from a sin-
+[23] Haian Jin, Hanwen Jiang, Hao Tan, Kai Zhang, Sai Bi,                gle image. In Proceedings of the IEEE/CVF International
+     Tianyuan Zhang, Fujun Luan, Noah Snavely, and Zexiang               Conference on Computer Vision, pages 14458–14467, 2021.
+     Xu. Lvsm: A large view synthesis model with minimal 3d              5
+     inductive bias, 2025. 5, 6, 7                                  [36] Fangfu Liu, Wenqiang Sun, Hanyang Wang, Yikai Wang,
+[24] Nikhil Keetha, Norman Müller, Johannes Schönberger,               Haowen Sun, Junliang Ye, Jun Zhang, and Yueqi Duan. Re-
+     Lorenzo Porzi, Yuchen Zhang, Tobias Fischer, Arno                   conx: Reconstruct any scene from sparse views with video
+     Knapitsch, Duncan Zauss, Ethan Weber, Nelson Antunes,               diffusion model, 2024. 2
+     Jonathon Luiten, Manuel Lopez-Antequera, Samuel Rota           [37] Yuan Liu, Cheng Lin, Zijiao Zeng, Xiaoxiao Long, Lingjie
+     Bulò, Christian Richardt, Deva Ramanan, Sebastian Scherer,         Liu, Taku Komura, and Wenping Wang. Syncdreamer: Gen-
+     and Peter Kontschieder. Mapanything: Universal feed-                erating multiview-consistent images from a single-view im-
+     forward metric 3d reconstruction, 2025. 3                           age. arXiv preprint arXiv:2309.03453, 2023. 1, 2
+[25] Bernhard Kerbl, Georgios Kopanas, Thomas Leimkühler,          [38] Yang Liu, Chuanchen Luo, Zimo Tang, Junran Peng, and
+     and George Drettakis. 3d gaussian splatting for real-time           Zhaoxiang Zhang. Vggt-x: When vggt meets dense novel
+     radiance field rendering. ACM Transactions on Graphics, 42          view synthesis, 2025. 3
+     (4), 2023. 2                                                   [39] Yuanxun Lu, Jingyang Zhang, Tian Fang, Jean-Daniel Nah-
+[26] Vincent Leroy, Yohann Cabon, and Jérôme Revaud. Ground-           mias, Yanghai Tsin, Long Quan, Xun Cao, Yao Yao, and Shi-
+     ing image matching in 3d with mast3r, 2024. 2, 3                    wei Li. Matrix3d: Large photogrammetry model all-in-one.
+                                                                         Computer Vision and Pattern Recognition (CVPR), 2025. 1
+[27] Hao Li, Zhengyu Zou, Fangfu Liu, Xuanyang Zhang,
+                                                                    [40] Xuyi Meng, Chen Wang, Jiahui Lei, Kostas Daniilidis, Ji-
+     Fangzhou Hong, Yukang Cao, Yushi Lan, Manyuan Zhang,
+                                                                         atao Gu, and Lingjie Liu. Zero-1-to-g: Taming pretrained 2d
+     Gang Yu, Dingwen Zhang, and Ziwei Liu. Iggt: Instance-
+                                                                         diffusion model for direct 3d generation, 2025. 2
+     grounded geometry transformer for semantic 3d reconstruc-
+     tion, 2025. 3                                                  [41] Ben Mildenhall, Pratul P. Srinivasan, Matthew Tancik,
+                                                                         Jonathan T. Barron, Ravi Ramamoorthi, and Ren Ng. Nerf.
+[28] Xinyang Li, Zhangyu Lai, Linning Xu, Yansong Qu, Liujuan
+                                                                         Communications of the ACM, 65:99 – 106, 2020. 2
+     Cao, Shengchuan Zhang, Bo Dai, and Rongrong Ji. Direc-
+                                                                    [42] Raul Mur-Artal, J. M. M. Montiel, and Juan D. Tardos. Orb-
+     tor3d: Real-world camera trajectory and 3d scene generation
+                                                                         slam: A versatile and accurate monocular slam system. IEEE
+     from text. Advances in neural information processing sys-
+                                                                         Transactions on Robotics, 31(5):1147–1163, 2015. 2
+     tems, 37:75125–75151, 2024. 1, 2
+                                                                    [43] Norman Müller, Yawar Siddiqui, Lorenzo Porzi,
+[29] Hanwen Liang, Junli Cao, Vidit Goel, Guocheng Qian,                 Samuel Rota Bulò, Peter Kontschieder, and Matthias
+     Sergei Korolev, Demetri Terzopoulos, Konstantinos N. Pla-           Nießner.     Diffrf: Rendering-guided 3d radiance field
+     taniotis, Sergey Tulyakov, and Jian Ren. Wonderland: Navi-          diffusion, 2023. 2
+     gating 3d scenes from a single image, 2025. 2
+                                                                    [44] Hieu T. Nguyen, Yiwen Chen, Vikram Voleti, Varun Jam-
+[30] Yiyi Liao, Jun Xie, and Andreas Geiger. Kitti-360: A novel          pani, and Huaizu Jiang. Housecrafter: Lifting floorplans to
+     dataset and benchmarks for urban scene understanding in 2d          3d scenes with 2d diffusion model, 2025. 2
+     and 3d, 2022. 5                                                [45] Zhexi Peng, Tianjia Shao, Liu Yong, Jingke Zhou, Yin Yang,
+[31] Chendi Lin, Heshan Liu, Qunshu Lin, Zachary Bright, Shi-            Jingdong Wang, and Kun Zhou. Rtg-slam: Real-time 3d re-
+     tao Tang, Yihui He, Minghao Liu, Ling Zhu, and Cindy Le.            construction at scale using gaussian splatting. 2024. 2
+     Objaverse++: Curated 3d object dataset with quality annota-    [46] Ben Poole, Ajay Jain, Jonathan T Barron, and Ben Milden-
+     tions, 2025. 2                                                      hall. Dreamfusion: Text-to-3d using 2d diffusion. arXiv
+[32] Chenguo Lin, Panwang Pan, Bangbang Yang, Zeming Li,                 preprint arXiv:2209.14988, 2022. 1, 2
+     and Yadong Mu. Diffsplat: Repurposing image diffusion          [47] Charles R. Qi, Li Yi, Hao Su, and Leonidas J. Guibas. Point-
+     models for scalable gaussian splat generation, 2025. 2              net++: Deep hierarchical feature learning on point sets in a
+[33] Chen-Hsuan Lin, Jun Gao, Luming Tang, Towaki Takikawa,              metric space, 2017. 6
+     Xiaohui Zeng, Xun Huang, Karsten Kreis, Sanja Fidler,          [48] René Ranftl, Alexey Bochkovskiy, and Vladlen Koltun. Vi-
+     Ming-Yu Liu, and Tsung-Yi Lin. Magic3d: High-resolution             sion transformers for dense prediction, 2021. 3
+     text-to-3d content creation. 2023 IEEE/CVF Conference on       [49] Jeremy Reizenstein, Roman Shapovalov, Philipp Henzler,
+     Computer Vision and Pattern Recognition (CVPR), pages               Luca Sbordone, Patrick Labatut, and David Novotny. Com-
+     300–309, 2022. 1, 2                                                 mon objects in 3d: Large-scale learning and evaluation of
+[34] Lu Ling, Yichen Sheng, Zhi Tu, Wentian Zhao, Cheng                  real-life 3d category reconstruction. In International Con-
+     Xin, Kun Wan, Lantao Yu, Qianyu Guo, Zixun Yu, Yawen                ference on Computer Vision, 2021. 5, 6
+     Lu, Xuanmao Li, Xingpeng Sun, Rohan Ashok, Aniruddha           [50] Xuanchi Ren, Tianchang Shen, Jiahui Huang, Huan Ling,
+     Mukherjee, Hao Kang, Xiangrui Kong, Gang Hua, Tianyi                Yifan Lu, Merlin Nimier-David, Thomas Müller, Alexan-
+     Zhang, Bedrich Benes, and Aniket Bera. Dl3dv-10k: A                 der Keller, Sanja Fidler, and Jun Gao. Gen3c: 3d-informed
+
+
+
+
+                                                               25367
+     world-consistent video generation with precise camera con-           model for high-resolution 3d content creation. arXiv preprint
+     trol, 2025. 5, 6, 7                                                  arXiv:2402.05054, 2024. 3
+[51] Barbara Roessle, Norman Müller, Lorenzo Porzi, Samuel          [65] Aether Team, Haoyi Zhu, Yifan Wang, Jianjun Zhou,
+     Rota Bulò, Peter Kontschieder, Angela Dai, and Matthias             Wenzheng Chang, Yang Zhou, Zizun Li, Junyi Chen,
+     Nießner. L3dg: Latent 3d gaussian diffusion. In SIGGRAPH             Chunhua Shen, Jiangmiao Pang, and Tong He. Aether:
+     Asia 2024 Conference Papers, page 1–11. ACM, 2024. 2                 Geometric-aware unified world modeling. arXiv preprint
+[52] Robin Rombach, Andreas Blattmann, Dominik Lorenz,                    arXiv:2503.18945, 2025. 2, 4, 5, 6, 7, 8
+     Patrick Esser, and Björn Ommer. High-resolution image syn-     [66] Zachary Teed and Jia Deng. DROID-SLAM: Deep Visual
+     thesis with latent diffusion models, 2021. 2                         SLAM for Monocular, Stereo, and RGB-D Cameras. Ad-
+[53] Kyle Sargent, Zizhang Li, Tanmay Shah, Charles Herrmann,             vances in neural information processing systems, 2021. 2
+     Hong-Xing Yu, Yunzhi Zhang, Eric Ryan Chan, Dmitry La-          [67] S. Umeyama. Least-squares estimation of transformation pa-
+     gun, Li Fei-Fei, Deqing Sun, et al. Zeronvs: Zero-shot 360-          rameters between two point patterns. IEEE Transactions on
+     degree view synthesis from a single real image. 2023. 1,             Pattern Analysis and Machine Intelligence, 13(4):376–380,
+     2                                                                    1991. 6
+[54] Johannes L Schonberger and Jan-Michael Frahm. Structure-        [68] Team Wan, Ang Wang, Baole Ai, Bin Wen, Chaojie Mao,
+     from-motion revisited. In Proceedings of the IEEE con-               Chen-Wei Xie, Di Chen, Feiwu Yu, Haiming Zhao, Jianxiao
+     ference on computer vision and pattern recognition, pages            Yang, et al. Wan: Open and advanced large-scale video gen-
+     4104–4113, 2016. 2                                                   erative models. arXiv preprint arXiv:2503.20314, 2025. 3,
+[55] Katja Schwarz, Seung Wook Kim, Jun Gao, Sanja Fidler,                4, 5
+     Andreas Geiger, and Karsten Kreis. Wildfusion: Learning         [69] Chaoyang Wang, Ashkan Mirzaei, Vidit Goel, Willi
+     3d-aware latent diffusion models in view space. In Inter-            Menapace, Aliaksandr Siarohin, Avalon Vinella, Michael
+     national Conference on Learning Representations (ICLR),              Vasilkovsky, Ivan Skorokhodov, Vladislav Shakhrai, Sergey
+     2024. 2                                                              Korolev, Sergey Tulyakov, and Peter Wonka. 4real-video-
+[56] Katja Schwarz, Norman Mueller, and Peter Kontschieder.               v2: Fused view-time attention and feedforward reconstruc-
+     Generative gaussian splatting: Generating 3d scenes with             tion for 4d scene generation. ArXiv, abs/2506.18839, 2025.
+     video diffusion priors, 2025. 2                                      3
+[57] Katja Schwarz, Denys Rozumnyi, Samuel Rota Bulò,
+                                                                     [70] Jianyuan Wang, Nikita Karaev, Christian Rupprecht, and
+     Lorenzo Porzi, and Peter Kontschieder. A recipe for gen-
+                                                                          David Novotny. Vggsfm: Visual geometry grounded deep
+     erating 3d worlds from a single image, 2025. 2
+                                                                          structure from motion. In Proceedings of the IEEE/CVF
+[58] You Shen, Zhipeng Zhang, Yansong Qu, and Liujuan Cao.
+                                                                          Conference on Computer Vision and Pattern Recognition,
+     Fastvggt: Training-free acceleration of visual geometry
+                                                                          pages 21686–21697, 2024. 3
+     transformer. 2025. 3
+                                                                     [71] Jianyuan Wang, Minghao Chen, Nikita Karaev, Andrea
+[59] Yichun Shi, Peng Wang, Jianglong Ye, Mai Long, Kejie Li,
+                                                                          Vedaldi, Christian Rupprecht, and David Novotny. Vggt: Vi-
+     and Xiao Yang. Mvdream: Multi-view diffusion for 3d gen-
+                                                                          sual geometry grounded transformer. In Proceedings of the
+     eration, 2024. 1, 2
+                                                                          Computer Vision and Pattern Recognition Conference, pages
+[60] Pei Sun, Henrik Kretzschmar, Xerxes Dotiwalla, Aurelien
+                                                                          5294–5306, 2025. 2, 3, 6, 7, 8
+     Chouard, Vijaysai Patnaik, Paul Tsui, James Guo, Yin Zhou,
+                                                                     [72] Qianqian Wang, Yifei Zhang, Aleksander Holynski,
+     Yuning Chai, Benjamin Caine, Vijay Vasudevan, Wei Han,
+                                                                          Alexei A. Efros, and Angjoo Kanazawa. Continuous 3d per-
+     Jiquan Ngiam, Hang Zhao, Aleksei Timofeev, Scott Ettinger,
+                                                                          ception model with persistent state, 2025. 3
+     Maxim Krivokon, Amy Gao, Aditya Joshi, Sheng Zhao,
+     Shuyang Cheng, Yu Zhang, Jonathon Shlens, Zhifeng Chen,         [73] Shuzhe Wang, Vincent Leroy, Yohann Cabon, Boris
+     and Dragomir Anguelov. Scalability in perception for au-             Chidlovskii, and Jerome Revaud. Dust3r: Geometric 3d vi-
+     tonomous driving: Waymo open dataset, 2020. 5                        sion made easy, 2024. 2, 3
+[61] Wenqiang Sun, Shuo Chen, Fangfu Liu, Zilong Chen, Yueqi         [74] Wenshan Wang, Delong Zhu, Xiangwei Wang, Yaoyu Hu,
+     Duan, Jun Zhang, and Yikai Wang. Dimensionx: Create any              Yuheng Qiu, Chen Wang, Yafei Hu, Ashish Kapoor, and Se-
+     3d and 4d scenes from a single image with controllable video         bastian Scherer. Tartanair: A dataset to push the limits of
+     diffusion. In International Conference on Computer Vision            visual slam. 2020. 5, 6
+     (ICCV), 2025. 2                                                 [75] Yifan Wang, Jianjun Zhou, Haoyi Zhu, Wenzheng Chang,
+[62] Stanislaw Szymanowicz, Jason Y. Zhang, Pratul Srinivasan,            Yang Zhou, Zizun Li, Junyi Chen, Jiangmiao Pang, Chunhua
+     Ruiqi Gao, Arthur Brussee, Aleksander Holynski, Ricardo              Shen, and Tong He. π 3 : Scalable permutation-equivariant
+     Martin-Brualla, Jonathan T. Barron, and Philipp Henzler.             visual geometry learning, 2025. 3
+     Bolt3d: Generating 3d scenes in seconds, 2025. 1, 2             [76] Zhou Wang, Alan Conrad Bovik, Hamid R. Sheikh, and
+[63] Jiaxiang Tang, Jiawei Ren, Hang Zhou, Ziwei Liu, and Gang            Eero P. Simoncelli. Image quality assessment: from error
+     Zeng. Dreamgaussian: Generative gaussian splatting for effi-         visibility to structural similarity. IEEE Transactions on Im-
+     cient 3d content creation. arXiv preprint arXiv:2309.16653,          age Processing, 13:600–612, 2004. 6
+     2023. 1, 2                                                      [77] Zhengyi Wang, Cheng Lu, Yikai Wang, Fan Bao, Chongxuan
+[64] Jiaxiang Tang, Zhaoxi Chen, Xiaokang Chen, Tengfei Wang,             Li, Hang Su, and Jun Zhu. Prolificdreamer: High-fidelity and
+     Gang Zeng, and Ziwei Liu. Lgm: Large multi-view gaussian             diverse text-to-3d generation with variational score distilla-
+
+
+
+
+                                                                25368
+     tion. Advances in neural information processing systems, 36:           Guanying Chen, Shuguang Cui, and Xiaoguang Han.
+     8406–8441, 2023. 1, 2                                                  Mvimgnet: A large-scale dataset of multi-view images. In
+[78] Christopher Wewer, Kevin Raj, Eddy Ilg, Bernt Schiele,                 CVPR, 2023. 5
+     and Jan Eric Lenssen. latentsplat: Autoencoding variational       [92] Junyi Zhang, Charles Herrmann, Junhwa Hur, Varun Jam-
+     gaussians for fast generalizable 3d reconstruction, 2024. 2            pani, Trevor Darrell, Forrester Cole, Deqing Sun, and Ming-
+[79] Haoyu Wu, Diankun Wu, Tianyu He, Junliang Guo, Yang Ye,                Hsuan Yang. Monst3r: A simple approach for estimating
+     Yueqi Duan, and Jiang Bian. Geometry forcing: Marrying                 geometry in the presence of motion, 2025. 3
+     video diffusion and 3d representation for consistent world        [93] Kai Zhang, Sai Bi, Hao Tan, Yuanbo Xiangli, Nanxuan Zhao,
+     modeling, 2025. 5, 7                                                   Kalyan Sunkavalli, and Zexiang Xu. Gs-lrm: Large recon-
+[80] Rundi Wu, Ben Mildenhall, Philipp Henzler, Keunhong                    struction model for 3d gaussian splatting, 2024. 3
+     Park, Ruiqi Gao, Daniel Watson, Pratul P Srinivasan, Dor          [94] Longwen Zhang, Ziyu Wang, Qixuan Zhang, Qiwei Qiu,
+     Verbin, Jonathan T Barron, Ben Poole, et al. Reconfusion:              Anqi Pang, Haoran Jiang, Wei Yang, Lan Xu, and Jingyi
+     3d reconstruction with diffusion priors. In Proceedings of             Yu. Clay: A controllable large-scale generative model for
+     the IEEE/CVF conference on computer vision and pattern                 creating high-quality 3d assets, 2024. 2
+     recognition, pages 21551–21561, 2024. 1, 2                        [95] Qihang Zhang, Shuangfei Zhai, Miguel Angel Bautista Mar-
+[81] Tong Wu, Yu-Jie Yuan, Ling-Xiao Zhang, Jie Yang, Yan-                  tin, Kevin Miao, Alexander Toshev, Joshua Susskind, and
+     Pei Cao, Ling-Qi Yan, and Lin Gao. Recent advances in 3d               Jiatao Gu. World-consistent video diffusion with explicit 3d
+     gaussian splatting. Computational Visual Media, 10(4):613–             modeling. In Proceedings of the Computer Vision and Pat-
+     642, 2024. 2                                                           tern Recognition Conference, pages 21685–21695, 2025. 1,
+[82] Hongchi Xia, Yang Fu, Sifei Liu, and Xiaolong Wang. Rgbd               2, 4, 5, 6, 7, 8
+     objects in the wild: Scaling real-world 3d object learning        [96] Richard Zhang, Phillip Isola, Alexei A. Efros, Eli Shecht-
+     from rgb-d videos, 2024. 5, 6                                          man, and Oliver Wang. The unreasonable effectiveness of
+[83] Jianfeng Xiang, Zelong Lv, Sicheng Xu, Yu Deng, Ruicheng               deep features as a perceptual metric, 2018. 6
+     Wang, Bowen Zhang, Dong Chen, Xin Tong, and Jiaolong              [97] Yuyang Zhao, Chung-Ching Lin, Kevin Lin, Zhiwen Yan,
+     Yang. Structured 3d latents for scalable and versatile 3d gen-         Linjie Li, Zhengyuan Yang, Jianfeng Wang, Gim Hee Lee,
+     eration, 2025. 2                                                       and Lijuan Wang. Genxd: Generating any 3d and 4d scenes.
+[84] Haofei Xu, Songyou Peng, Fangjinhua Wang, Hermann                      In ICLR, 2025. 2
+     Blum, Daniel Barath, Andreas Geiger, and Marc Pollefeys.
+                                                                       [98] Tinghui Zhou, Richard Tucker, John Flynn, Graham Fyffe,
+     Depthsplat: Connecting gaussian splatting and depth, 2025.
+                                                                            and Noah Snavely. Stereo magnification: Learning view syn-
+     5, 6, 7
+                                                                            thesis using multiplane images, 2018. 5, 6
+[85] Lihe Yang, Bingyi Kang, Zilong Huang, Zhen Zhao, Xiao-
+                                                                       [99] Dong Zhuo, Wenzhao Zheng, Jiahe Guo, Yuqi Wu, Jie Zhou,
+     gang Xu, Jiashi Feng, and Hengshuang Zhao. Depth any-
+                                                                            and Jiwen Lu. Streaming 4d visual geometry transformer.
+     thing v2. arXiv:2406.09414, 2024. 3
+                                                                            arXiv preprint arXiv:2507.11539, 2025. 3
+[86] Yuanbo Yang, Jiahao Shao, Xinyang Li, Yujun Shen, An-
+     dreas Geiger, and Yiyi Liao. Prometheus: 3d-aware latent
+     diffusion models for feed-forward text-to-3d scene genera-
+     tion, 2025. 1, 2
+[87] Zhuoyi Yang, Jiayan Teng, Wendi Zheng, Ming Ding, Shiyu
+     Huang, Jiazheng Xu, Yuanming Yang, Wenyi Hong, Xiao-
+     han Zhang, Guanyu Feng, et al. Cogvideox: Text-to-video
+     diffusion models with an expert transformer. arXiv preprint
+     arXiv:2408.06072, 2024. 3
+[88] Keyang Ye, Tianjia Shao, and Kun Zhou. When gaussian
+     meets surfel: Ultra-fast high-fidelity radiance field render-
+     ing. ACM Trans. Graph., 44(4), 2025. 2
+[89] Hong-Xing Yu, Haoyi Duan, Junhwa Hur, Kyle Sargent,
+     Michael Rubinstein, William T Freeman, Forrester Cole, De-
+     qing Sun, Noah Snavely, Jiajun Wu, et al. Wonderjourney:
+     Going from anywhere to everywhere. In Proceedings of
+     the IEEE/CVF Conference on Computer Vision and Pattern
+     Recognition, pages 6658–6667, 2024. 1, 2
+[90] Hong-Xing Yu, Haoyi Duan, Charles Herrmann, William T
+     Freeman, and Jiajun Wu. Wonderworld: Interactive 3d
+     scene generation from a single image. In Proceedings of the
+     Computer Vision and Pattern Recognition Conference, pages
+     5916–5926, 2025. 1, 2
+[91] Xianggang Yu, Mutian Xu, Yidan Zhang, Haolin Liu,
+     Chongjie Ye, Yushuang Wu, Zizheng Yan, Tianyou Liang,
+
+
+
+
+                                                                  25369
+

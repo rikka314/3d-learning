@@ -1,0 +1,567 @@
+                                                                    A Comprehensive Survey on 3D Content Generation
+
+                                              Jian Liu1,2 , Xiaoshui Huang2∗ , Tianyu Huang1 , Lu Chen2,4 , Yuenan Hou2 , Shixiang Tang5
+                                                     Ziwei Liu3 , Wanli Ouyang2 , Wangmeng Zuo1 , Junjun Jiang1 , Xianming Liu1∗
+                                             1
+                                               Harbin Institute of Technology, 2 Shanghai AI Laboratory, 3 S-Lab,Nanyang Technological University
+                                                                   4
+                                                                     Zhejiang University, 5 The Chinese University of Hong Kong
+                                                               ziwei.liu@ntu.edu.sg, huangxiaoshui@pjlab.org.cn, csxm@hit.edu.cn
+arXiv:2402.01166v2 [cs.CV] 19 Mar 2024
+
+
+
+
+                                                                        Abstract                           The traditional design in game and entertainment, such as
+                                                                                                           roles and objects, requires multiple views concept design, 3D
+                                                 Recent years have witnessed remarkable advances           model creation and 3D model refinement. This process is
+                                                 in artificial intelligence generated content (AIGC),      labour-intensive and time-consuming. The 3D content gener-
+                                                 with diverse input modalities, e.g., text, image,         ation technology will largely reduce the time and labor cost.
+                                                 video, audio and 3D. The 3D is the most close vi-         Another application is the construction field. With the 3D
+                                                 sual modality to real-world 3D environment and            content generation methods, the designer can quickly gener-
+                                                 carries enormous knowledge. The 3D content gen-           ate the 3D concept models and communicate with the cus-
+                                                 eration shows both academic and practical values          tomer. This will narrow the gap between designer and cus-
+                                                 while also presenting formidable technical chal-          tomer, and will transform the construction design field. The
+                                                 lenges. This review aims to consolidate develop-          third application is the industrial design [Liu et al., 2023d].
+                                                 ments within the burgeoning domain of 3D con-             The current industrial design requires the 3D part model
+                                                 tent generation. Specifically, a new taxonomy             generation, then assemble them into an integrated model.
+                                                 is proposed that categorizes existing approaches          This process is time-consuming and may cost much material
+                                                 into three types: 3D native generative methods,           waste. The 3D content generation technology will produce all
+                                                 2D prior-based 3D generative methods and hybrid           the 3D models virtually and assemble them into an integrated
+                                                 3D generative methods. The survey covers ap-              model. If the model is not satisfied, the designer can quickly
+                                                 proximately 60 papers spanning the major tech-            revise the design without much cost.
+                                                 niques. Besides, we discuss limitations of cur-
+                                                 rent 3D content generation techniques, and point             The past several years have witnessed many advance-
+                                                 out open challenges as well as promising direc-           ments in the 3D native generative methods [Shi et al., 2022;
+                                                 tions for future work. Accompanied with this sur-         Li et al., 2023a]. The main idea of these methods is to
+                                                 vey, we have established a project website where          first train the network using 3D datasets and then gener-
+                                                 the resources on 3D content generation research           ate 3D assets in a feed-forward manner. One limitation of
+                                                 are provided. The project page is available at            this line of methods is the requirement of vast amount of
+                                                 https://github.com/hitcslj/Awesome-AIGC-3D.               3D datasets while the amount of 3D data is scarce. Since
+                                                                                                           the quantity of image-text pairs is much larger than the 3D
+                                                                                                           counterparts, there recently emerges a new research direc-
+                                         1       Introduction                                              tion by building 3D models upon 2D diffusion models that
+                                         The generative models have gained tremendous success in           are trained on large-scale paired image-text datasets. One
+                                         natural language processing (NLP) [Achiam et al., 2023] and       representative is DreamFusion [Poole et al., 2023], which
+                                         image generation [Betker et al., 2023]. The recent develop-       optimizes a NeRF by employing the score distillation sam-
+                                         ments, such as ChatGPT and Midjourney, have revolutionized        pling (SDS) loss. There recently also emerges hybrid 3D
+                                         many academic and industrial fields. For example, the artifi-     generative methods by combining the advantage of 3D na-
+                                         cial intellegence (AI) writing and designing assistants have      tive and 2D prior-based generative methods. The typical
+                                         remarkably shortened the duration of the paper writing and        example is one2345++[Liu et al., 2023a] which generates
+                                         image design, respectively. In the 3D field, the 3D genera-       3D model by training a 3D diffusion model with input of
+                                         tion technologies have also made significant strides with the     2D prior-based multi-view images. The recent two years
+                                         increasing amount of 3D data and the generation technology        have witnessed significant development in the 3D genera-
+                                         success of other fields.                                          tive technologies, especially in text-to-3D [Poole et al., 2023;
+                                            The research of 3D content generation is attracting increas-   Lin et al., 2023] and image-to-3D [Liu et al., 2023a; Liu et
+                                         ing interests due to its wide applications. The typical appli-    al., 2024] tasks. These developments have provided many
+                                         cation is game and entertainment design [Liu et al., 2021].       potential solutions in 3D content generation, such as 3D na-
+                                                                                                           tive generation, 2D prior-based 3D generation and hybrid 3D
+                                             ∗
+                                                 Corresponding author                                      generation.
+   Based on our best knowledge, there are only two surveys            with CNNs, voxels are also a frequent choice for generative
+relevant to ours [Shi et al., 2022; Li et al., 2023a]. [Shi et al.,   3D content techniques that leverage deep neural models.
+2022] barely covers early techniques in shape generation and          Mesh. The mesh representation models 3D shapes and scenes
+single view reconstruction. [Li et al., 2023a] only includes          using a collection of vertices, edges and faces. This al-
+partial 2D prior-based 3D generative methods and not cov-             lows meshes to encode both the 3D positional information
+ers most recently 3D native and hybrid generative methods.            and topological structure of surfaces. In contrast to voxels,
+However, this field has endured fast developments includ-             meshes exclusively focus on modeling surface geometries,
+ing 3D native, 2D prior-based and hybrid generative meth-             providing a more compact storage format. When compared
+ods. Therefore, there is an urgent need for a comprehensive           to point clouds, meshes furnish explicit connectivity between
+survey that consolidates these new developments and helps             surface elements, enabling the modeling of spatial relation-
+practitioners better navigate the expanding research frontier.        ships among points. Due to these advantages, meshes have
+   In this survey, we make the following contributions. First,        long been widely used in classic computer graphics domains
+we propose a new taxonomy to systematically categorize the            such as geometry processing, animation and rendering where
+most recent advances in the 3D content generation field. Sec-         accuracy, interoperability and efficiency are priorities. Strik-
+ond, we provide a comprehensive review that covers 60 pa-             ing a balance across these dimensions, meshes have emerged
+pers spanning the major techniques. Lastly, we discuss sev-           as a predominant representation in 3D content creation.
+eral promising future directions and open challenges. The
+survey caters to the requirement of both industrial and aca-          Implicit Representations
+demic communities.                                                    Implicit representation defines the 3D object or shape implic-
+   The paper is organized as follows: section 2 introduces pre-       itly. A level set or a function that represents the object’s sur-
+liminaries including 3D representation and diffusion models;          face is usually adopted. It offers a compact and flexible repre-
+section 3,4,5 introduce 3D generative methods covering 3D             sentation of 3D shapes, allowing for the modeling of objects,
+native, 2D prior-based, hybrid respectively. section 6 sum-           scenes, humans with sophisticated geometry and texture. The
+marizes future directions in this promising AIGC-3D field.            advantage of implicit representation lies in the flexible em-
+The last section concludes this survey.                               bedding with differential rendering pipeline.
+                                                                      NeRF. Neural Radiance Fields (NeRF) is an emerging neu-
+                                                                      ral rendering method that has achieved impressive results for
+2     Preliminaries                                                   novel view synthesis of complex scenes. NeRF consists of
+2.1    3D Representation                                              two primary components, including a volumetric ray tracer
+                                                                      and a Multi-Layer Perceptron (MLP). NeRF is commonly
+Effectively representing 3D geometric data is crucial for gen-
+                                                                      used as a global representation in AIGC-3D applications,
+erative 3D content. Introduce 3D representation is critical for
+                                                                      though it can be slow for rendering outputs.
+understanding generative 3D content. The current 3D repre-
+sentation is typically classified into two categories, i.e., ex-      3D Gaussian Splatting. The 3D Gaussian Splatting (3D
+plicit and implicit representations. This section provides an         GS) [Kerbl et al., 2023] introduces an effective approach
+overview of these representations.                                    for novel view synthesis that represents 3D scenes implic-
+                                                                      itly using a set of weighted Gaussian distributions located
+Explicit Representations                                              in the 3D space. By modeling surface elements or points as
+Explicit representation usually refers to the direct and explicit     Gaussian blobs, this method is able to capture complex scene
+representation of the geometry or structure of the 3D object.         structures with a sparse set of distributions. The ability to
+It involves explicitly defining the surface or volumetric rep-        encode rich scene information implicitly via a distribution-
+resentation of the object, such as through the use of point           based paradigm makes 3D Gaussian Splatting stand out as
+clouds, voxel grids or meshes. The advantage of explicit rep-         an innovative technique in novel view synthesis. 3D Gaus-
+resentation is that it enables more precise geometric control         sian Splatting has also recently seen application in AIGC-3D,
+and multi-scale editing.                                              though it produces results quickly but in an unstable manner.
+Point Cloud. A point cloud is a fundamental representation            Signed Distance Function. The Signed Distance Function
+for 3D data that involves sampling surface points from a 3D           (SDF), defines a 3D surface as the zero level set of a distance
+object or environment. Point clouds are often directly ob-            field, where each point in space is assigned a value corre-
+tained from depth sensors, resulting in their widespread ap-          sponding to its signed shortest distance to the surface. SDFs
+plication in diverse 3D scene understanding problems. Depth           allow for efficient operations like construted solid geometry
+maps and normal maps can be viewed as specific instances of           by utilizing distance values without requiring explicit mesh
+the point cloud paradigm. Given the ease of acquiring point           representations. They enable smooth surface reconstruction
+cloud data, this representation sees extensive usage in the do-       and support advanced simulations through level set methods.
+main of AIGC-3D.                                                      DMTet employs a hybrid representation combining Signed
+Voxel. The voxel is another common 3D representation that             Distance Functions (SDFs) and meshes which is commonly
+involves assigning values on a regular, grid-based volumetric         used to refine and optimize generated 3D geometries.
+structure. This allows a voxel to encode a 3D shape or scene.
+Due to the regular nature of voxels, they integrate well with         2.2   2D Diffusion Models
+convolutional neural networks and see extensive application           Diffusion models refer to a class of generative tech-
+in deep geometry learning tasks. Owing to this compatibility          niques based on the Denoising Diffusion Probabilistic Model
+                                                                                                       NeuralField-
+                                             GRAF                             gDNA      GUADI Rodin                   XCube
+          Object                                                                                          LDM
+          Scene
+          Human
+
+
+                   19/4   19/8 19/12 20/4      20/8 20/12 21/4       21/8 21/12 22/4      22/8 22/12 23/4        23/8 23/12 24/4
+
+                                                                         HeadNeRF                              LRM,DMV3D
+                  PIFu
+    SMPL Text2Shape                                     SMPLicit                 ShapeCrafter Point-E Shap-E
+                                                                                                          TextField3d
+
+
+                           Figure 1: Chronological overview of the most relevant 3D native generative methods.
+
+
+(DDPM) framework. DDPM trains a model to perform the                  released to the public. Instead, recent works have to con-
+reverse diffusion process - starting from a noisy signal and          duct experiments based on a relatively smaller dataset Obja-
+applying iterative denoising steps to recover the original data       verse. LRM [Hong et al., 2024] proposed to learn an image-
+distribution. Mathematically, this process can be represented         to-triplane latent space and then reshape the latent feature
+as xt ∼ p(xt |xt−1 ), where xt is a noisy version of the origi-       for reconstructing the triplane-based implicit representation.
+nal signal x0 after t diffusion steps with added Gaussian noise       DMV3D [Xu et al., 2024] treated LRM as a denoising layer,
+ϵt ∼ N (0, σt2 I). By learning to denoise across different noise      further proposing a T -step diffusion model to generate high-
+levels, the model can generate new samples by starting with           quality results based on LRM. TextField3D [Huang et al.,
+random noise and applying the reverse diffusion process.              2023a] is proposed for open-vocabulary generation, where a
+                                                                      text latent space is injected with dynamic noise to expand the
+3     3D Native Generative Methods                                    expression range of latent features.
+
+The 3D native generative methods directly generate 3D rep-            3.2    Scene
+resentations after the supervision of 3D data, in which repre-        Early approach [Schwarz et al., 2020] utilize a Generative
+sentation and supervision are two crucial components for the          Adversarial Network (GAN) that explicitly incorporates a
+generation quality. Existing 3D native generative methods             parametric function, known as radiance fields. This func-
+can be classified three categories: object, scene and human.          tion takes the 3D coordinates and camera pose as input and
+Several milestone methods are presented in Figure 1.                  generates corresponding density scalar and RGB values for
+                                                                      each point in 3D space. However, GANs suffer from train-
+3.1    Object                                                         ing pathologies including mode collapse and are difficult to
+With proper conditional input, 3D native generators can be            train on data for which a canonical coordinate system does
+trained for object-level generation. The early attempt, such          not exist, as is the case for 3D scenes [Bautista et al., 2022].
+as Text2Shape [Chen et al., 2019] constructed many-to-many            To overcome the problems, GAUDI [Bautista et al., 2022]
+relations between language and 3D physical properties, en-            learns a denoising diffusion model that is fit to a set of scene
+abling the generation control of color and shape. How-                latents learned using an autodecoder. However, these models
+ever, Text2Shape only collected 75K language descriptions             [Bautista et al., 2022] all have an inherent weakness of at-
+for 15K chairs and tables. ShapeCraft [Fu et al., 2022]               tempting to capture the entire scene into a single vector that
+gradually evolved more phrases, constructing a dataset with           conditions a neural radiance field. This limits the ability to
+369K shape-text pairs, named Text2Shape++. To support                 fit complex scene distributions. NeuralField-LDM [Kim et
+recursive generation, ShapeCraft captured local details with          al., 2023] first expresses the image and pose pairs as a la-
+vector-quantized deep implicit functions. Recently, SDFu-             tent code and learns the hierarchical diffusion model to com-
+sion [Cheng et al., 2023] proposed to embed conditional fea-          plete the scene generation. However, the current method is
+tures to the denoising layer of diffusion training, allowing          time-consuming and resolution is relatively low. The recent
+multi-modal input conditions.                                         X 3 employs a hierarchical voxel latent diffusion to generate
+   However, restricted by available 3D data and correspond-           a higher resolution 3D representation in a coarse-to-fine man-
+ing captions, previous 3D native generative models can only           ner.
+handle limited categories. To support large-vocabulary 3D
+generation, pioneering works Point-E [Nichol et al., 2022]            3.3    Human Avatar
+and Shap-E [Jun and Nichol, 2023] collected several millions          Early approaches of 3D human avatar generation rely on para-
+of 3D assets and corresponding text captions. Point-E trained         metric models, which use a set of predefined parameters to
+an image-to-point diffusion model, in which a CLIP visual             create a 3D mesh of expressive human face or body. 3D
+latent code is fed into the transformer. Shap-E further in-           morphable model (3DMM) [Blanz and Vetter, 2003] is a sta-
+troduced a latent projection to enable the reconstruction of          tistical model that decomposes the intrinsic attributes of hu-
+SDF representation. Nonetheless, the proposed dataset is not          man face into identity, expression, and reflectance. These at-
+           Object                            SceneDreamer                       DreamHuman                              SceneTex
+            Scene
+                              AvatarCLIP                Text2Room              HeadSculpt            CityDreamer     LucidDreamer
+           Human
+
+
+
+
+         22/9   22/10 22/11   22/12   23/1     23/2     23/3   23/4     23/5    23/6   23/7   23/8    23/9   23/10    23/11 23/12   24/1
+                                                      Fantasia3d
+
+          DreamFusion     Magic3d                TEXTure                                        DreamGaussian              DreamControl
+                                                                   ProlificDreamer
+                                                                                                             TEXFusion
+
+                     Figure 2: Chronological overview of the most relevant 2D prior-based 3D generative methods.
+
+
+tributes are encoded as low-dimensional vectors and can be                ity in resolution, geometric detail and texture fidelity; ensur-
+used to generate realistic 3D faces from 2D images or video               ing consistent generation across diverse views, known as the
+footage. For human bodies, one of the most widely used para-              ”multi-face Janus problem”; and optimizing synthesis speed
+metric models is the Skinned Multi-Person Linear (SMPL)                   for interactive applications.
+model [Loper et al., 2015], which uses a combination of lin-                 To achieve high-fidelity quality, Magic3D [Lin et al., 2023]
+ear and non-linear transformations to create a realistic 3D               introduced a coarse-to-fine optimization strategy with two
+mesh of a human body. SMPL is based on a statistical body                 stages. This approach improved both speed and quality. Fan-
+shape and pose model that was learned from a large dataset of             tasia3D [Chen et al., 2023b] disentangled geometry and ap-
+body scans. Despite the success of parametric models, they                pearance modeling, advancing text-to-3D quality. For geom-
+have several limitations, especially in modeling complex ge-              etry, it relied on a hybrid scene representation and encoded
+ometries such as hair and loose clothing.                                 extracted surface normals into the input of an image diffu-
+   Recent years have witnessed a significant shift towards                sion model. Regarding appearance, Fantasia3D introduced
+learning-based methods for modeling 3D humans [Chen et                    spatially-varying bidirectional reflectance distribution func-
+al., 2021]. These methods use deep learning algorithms to                 tions to learn surface materials for photorealistic rendering of
+learn realistic and detailed human avatars from datasets of 3D            generated geometry. While early methods suffered from over-
+scans or multi-view images. PIFu [Saito et al., 2019] intro-              saturation and low diversity issues, ProlificDreamer [Wang et
+duce pixel-aligned implicit function that can generate highly             al., 2023b] introduced variational score distillation to address
+detailed 3D clothed humans with intricate shapes from a sin-              these challenges.
+gle image. HeadNeRF [Hong et al., 2022b] proposes a NeRF-                    However, due to Stable Diffusion’s bias towards 2D front
+based parametric head model that can generate high-fidelity               views, its 3D outputs tended to repeat front views from dif-
+head images with the ability to manipulate rendering pose and             ferent angles rather than generating coherent 3D objects. In
+various semantic attributes. SMPLicit [Corona et al., 2021]               contrast to fine-tuning on multi-view 3D data to alleviate the
+and gDNA [Chen et al., 2022b] train 3D generative models                  Janus problem, some works explored alternative approaches
+of clothed humans using implicit functions from registered                - for example, DreamControl [Huang et al., 2023b] utilized
+3D scans. Recently, Rodin [Wang et al., 2023a] presents a                 adaptive viewpoint sampling and boundary integrity metrics.
+roll-out diffusion network based on tri-plane representation to              While previous per-sample optimization methods based on
+learn detailed 3D head avatars from a large synthetic multi-              NeRF suffered from slow speeds for 3D generative tasks, the
+view dataset.                                                             rapid development of 3DGS enabled a breakthrough. Dream-
+                                                                          Gaussian [Tang et al., 2024] incorporated 3DGS into gener-
+4     2D Prior-based 3D Generative Methods                                ative 3D content creation, achieving around 10x acceleration
+                                                                          compared to NeRF-based approaches. In contrast to the oc-
+Previously, most 3D native generative methods were confined               cupancy pruning utilized in NeRF, the progressive densifica-
+to constrained datasets like ShapeNet containing only fixed               tion of 3D Gaussians converges significantly faster for these
+object categories. Recent advances in text-to-image diffusion             3D generation problems. DreamGaussian introduced an ef-
+models and gan offer new possibilities. Several milestone                 ficient algorithm to convert the resulting Gaussians into tex-
+methods are presented in Figure 2.                                        tured meshes. This pioneering work demonstrated how 3DGS
+                                                                          can enable much faster training for AIGC-3D.
+4.1    Object                                                                In addition to joint geometry and texture generation, an-
+DreamFusion [Poole et al., 2023] pioneered the paradigm of                other paradigm involves texture mapping given predefined
+optimizing a unique 3D representation per text input or per               geometry, referred to as ”texture painting” - also a form of
+image, guided by powerful pretrained 2D diffusion models.                 content creation. Representative works in this area include
+This approach established a new foundation but also revealed              TEXTure [Richardson et al., 2023] and TexFusion [Cao et al.,
+key challenges ahead - namely, achieving high-fidelity qual-              2023], which leverage pretrained depth-to-image diffusion
+models and apply iterative schemes to paint textures onto 3D      5     Hybrid 3D Generative Methods
+models from multiple viewpoints. By disentangling texture         While early 3D native generative methods were limited by
+generation from the separate challenge of geometric model-        scarce 3D datasets, and 2D prior methods could only distill
+ing, such approaches provide an alternative research direction    limited 3D geometric knowledge, researchers explored inject-
+worthy of exploration.                                            ing 3D information into pretrained 2D models. Emerging ap-
+                                                                  proaches included fine-tuning Stable Diffusion on multi-view
+4.2   Scene                                                       object images to generate consistent perspectives, as well as
+                                                                  3D reconstruction and generation from multiple views.
+In most 2D prior-based scene generation approaches, the pri-         This paradigm shift addressed the above shortcomings, by
+mary method is to utilize pretrained large models to generate     leveraging both abundant 2D visual resources and targeted
+partial scenes. Subsequently, an inpainting strategy is em-       3D supervision to move beyond the separate limitations of
+ployed to generate large-scale scenes. Text2room [Höllein et     each individual approach. Several milestone methods are pre-
+al., 2023] is a typical example of using 2D pretrained model      sented in Figure 3.
+to generate depth of 2D image. Then, the image is inpainted
+with more depths. These depths are merged to generate large       5.1    Object
+scale scene. LucidDreamer [Chung et al., 2023] first gener-       The first attempt is Zero123 [Liu et al., 2023c], which ap-
+ates multi-view consistent images from inputs by using in-        plies 3D data to fine-tune pre-trained 2D diffusion models,
+paiting strategy. Then, the inpainted images are lifted to 3D     enabling the generation of novel views conditioned on a sin-
+space with estimated depth maps and aggregate the new depth       gle input view. This insightful work demonstrated that Sta-
+maps into the 3D scene. SceneTex [Chen et al., 2023a] gen-        ble Diffusion inherently contained extensive 3D knowledge,
+erates scene textures for indoor scenes using depth-to-image      which could be unlocked through multi-view fine-tuning.
+diffusion priors. The core of this method lies in the proposal    Building on this, One-2-3-45 [Liu et al., 2023b] leveraged
+of a multiresolution texture field that implicitly encodes the    Zero123 to produce multiple views. It then connected a re-
+appearance of the mesh. The target texture is then optimized      construction model, achieving 3D mesh generation from a
+using VSD loss in respective RGB renderings. Additionally,        single image in just 45 seconds with promising results. This
+SceneDreamer [Chen et al., 2023c] introduces a Bird’s Eye         approach moved past prior optimization relying on 2D priors,
+View (BEV) scene representation and a neural volumetric           significantly increasing the speed of 3D generation.
+renderer. This framework learns an unconditional generative          While the newly generated views in Zero123 were con-
+model from 2D image collections. CityDreamer [Xie et al.,         sistent with the given view, consistency was not maintained
+2024]brings nature scene generation to the city level, enhanc-    between generated novel views. In response, several works
+ing the realism of city generation by decoupling buildings and    aimed to produce multiple views simultaneously with inter-
+background generation.                                            view consistency. SyncDreamer [Liu et al., 2024], MV-
+                                                                  Dream [Shi et al., 2024] all enabled generating multiple per-
+4.3   Human Avatar                                                spectives at once, with information exchange between views
+                                                                  to ensure consistency. Wonder3D [Long et al., 2023] in-
+In the field of text-guided 3D human generation, paramet-         troduced a normal modal and fine-tuned a multi-view Sta-
+ric models (see Section 3.3) are extensively used as fun-         ble Diffusion model to concurrently output RGB and nor-
+damental 3D priors, for they can provide accurate geomet-         mal maps across perspectives. One-2-3-45++ [Liu et al.,
+ric initialization and reduce optimization difficulty consider-   2023a] advanced multi-view 3D generation via an enhanced
+ably. AvatarCLIP [Hong et al., 2022a] is the first to com-        Zero123 module enabling simultaneous cross-view attention,
+bine vision-language models with implicit 3D representations      alongside a multi-view conditioned 3D diffusion module per-
+derived from a parametric model to achieve zero-shot text-        forming coarse-to-fine textured mesh prediction over time.
+driven generation of full-body human avatars. Following the       UniDream [Liu et al., 2023f] incorporates diffusion priors to
+success of generating 3D objects using SDS powered by pre-        generate multi-view albedo-normal information, which is fur-
+trained 2D latent diffusion models, recent works also extend      ther processed by a trained reconstruction model to produce
+such methods to human generation. HeadSculpt [Han et al.,         3D representations.
+2023] generates consistent 3D head avatars by conditioning           Several subsequent works introduced 3D prior initializa-
+the pre-trained diffusion model on multi-view landmark maps       tion to improve quality of 3D generative content. Dream-
+obtained from a 3D parametric head model.                         craft3d [Sun et al., 2023] initialized a DMTet representation
+   Following this scheme, DreamWaltz [Huang et al., 2023d]        using score distillation sampling from a view-dependent dif-
+proposes occlusion-aware SDS and skeleton conditioning to         fusion model. Gsgen [Chen et al., 2023d] utilized Point-E to
+maintain 3D consistency and reduce artifacts during opti-         initialize 3D Gaussian positions for generation. By incorpo-
+mization. By optimizing a NeRF in the semantic signed dis-        rating different forms of 3D structural information upfront,
+tance space of imGHUM with multiple fine-grained losses,          these papers produced more coherent 3D outputs compared
+DreamHuman [Kolotouros et al., 2023] generates animatable         to prior approaches lacking initialization techniques.
+3D humans with instance-specific surface deformations. Hu-           Following the success of large-scale reconstruction mod-
+manGaussian [Liu et al., 2023e] incorporates SDS with SoTA        els like LRM, Instant3d [Li et al., 2023b] also utilized a
+3DGS representation to achieve more efficient text-driven         two-stage approach. In the first stage, it performed multi-
+generation of 3D human avatars.                                   view generation. The second stage then directly regressed
+                                                                                                    Consistent4D,Animate124
+                                                                                                  HumanNorm
+SofGAN                              MAV3D              DreamFace                                       DreamCraft3D
+                                                                                                           DreamGaussian4D
+                                                                             MVDiffusion
+                                                                                                          ControlRoom3D,SceneWiz3D
+
+
+
+      22/9   22/10 22/11 22/12 23/1     23/2    23/3     23/4   23/5    23/6   23/7    23/8    23/9 23/10 23/11 23/12   24/1
+
+              Object                                                                              GSGEN
+                                                                                                            One-2-3-45++
+              Scene                             Zero123                One-2-3-45     MVDream         Wonder3D
+              Human                                                                                               4DGen
+                                                                                              SyncDreamer Instant3D
+              Dynamic
+
+                         Figure 3: Chronological overview of the most relevant hybrid 3D generative methods.
+
+
+the NeRF from the generated images via a novel sparse-view             al., 2023] also presents an unpaired learning procedure to
+reconstructor based on transformers. Combining multi-view              effectively learn from medium-sized 3D scan datasets and
+Stable Diffusion and large-scale reconstruction models can             large-scale 2D image datasets to learn disentangled distribu-
+effectively solve the problems of multi-face and generation            tion of geometry and texture of full-body clothed humans.
+speed.                                                                 Get3DHuman [Xiong et al., 2023] circumvent the require-
+                                                                       ment of 3D training data by combining two pre-trained net-
+5.2   Scene                                                            works, a StyleGAN-Human image generator and a 3D recon-
+There are recently several proposed methods on 3D scene                structor.
+generation. MVDiffusion [Tang et al., 2023] simultaneously                Driven by the significant progress of recent text-to-image
+generates all images with global awareness, effectively ad-            synthesis models, researchers have begun to use 3D human
+dressing the common issue of error accumulation. The main              datasets to enhance the powerful 2D diffusion models to syn-
+feature of MVDiffusion is its ability to process perspective           thesize photorealistic 3D human avatars with high-frequency
+images in parallel using a pre-trained text-to-image diffusion         details. DreamFace [Zhang et al., 2023a] generates pho-
+model, while incorporating novel correspondence-aware at-              torealistic animatable 3D head avatars by bridging vision-
+tention layers to enhance cross-view interactions. Control-            language models with animatable and physically-based fa-
+Room3D [Schult et al., 2023] is a method to generate high-             cial assets. The realistic rendering quality is achieved by a
+quality 3D room meshes with only a user-given textual de-              dual-path appearance generation process, which combines a
+scription of the room style and a user-defined room layout.            novel texture diffusion model trained on a carefully-collected
+The naive layout-based 3D room generation method does not              physically-based texture dataset with the pre-trained diffu-
+produce plausible meshes. To address the bad geometry prob-            sion prior. HumanNorm [Huang et al., 2023c] proposes a
+lem and ensure consistent style, ControRoom3D leverages a              two-stage diffusion pipeline for 3D human generation, which
+guided panorama generation and geometry alignment mod-                 first generates detailed geometry by a normal-adapted diffu-
+ules. SceneWiz3D [Zhang et al., 2023b] introduces a method             sion model and then synthesizes photorealistic texture based
+to synthesize high-fidelity 3D scenes from text. Given a text,         on the generated geometry using a normal-aligned diffusion
+a layout is first generated. Then, the Particle Swarm Opti-            model. Both two diffusion models are fine-tuned on a dataset
+mization technique is applied to automatically place the 3D            of 2.9K 3D human models.
+objects based on the layout and optimize the 3D scenes im-
+plicitly. The SceneWiz3D also leverage a RGBD panorama                 5.4     Dynamic
+diffusion model to further improve the scene geometry.                 Jointly optimized by 2D, 3D, as well as video prior, dynamic
+                                                                       3D generation is gaining significant attention recently. The
+5.3   Human Avatar                                                     pioneering work MAV3D [Singer et al., 2023] proposed to
+Several studies on 3D human generation have been lever-                generate a static 3D asset and then animate it with text-to-
+aging both 2D and 3D datasets/priors to achieve more au-               video diffusion, in which a 4D representation named hex-
+thentic and general synthesis of 3D humans, where 3D data              plane is introduced to expand 3D space with temporal dimen-
+provides accurate geometry and 2D data offers diverse ap-              sion. Following MAV3D, a series of works created dynamic
+pearance. SofGAN [Chen et al., 2022a] proposes a control-              3D content based on a static-to-dynamic pipeline, while dif-
+lable human face generator with a decoupled latent space of            ferent 4D representations and supervisions are proposed to
+geometry and texture learned from unpaired datasets of 2D              improve generation quality. Animate124 [Zhao et al., 2023]
+images and 3D facial scans. The 3D geometry is encoded                 introduced an image-to-4D framework, in which hex-plane is
+to a semantic occupancy field to facilitate consistent free-           replaced with 4D grid encoding. Except for static and dy-
+viewpoint image generation. Similarly, SCULPT [Sanyal et               namic stages, a refinement stage is further proposed to guide
+the semantic alignment of image input and 4D creation with       models achieving high levels of multimodal intelligence, such
+ControlNet. 4D-fy [Bahmani et al., 2023] proposed a multi-       as GPT-5/6, could theoretically understand images, text, and
+resolution hash encoding that represents 3D and temporal         even programmatically operate 3D modeling software to an
+space separately. It highlighted the importance of 3D genera-    expert level. However, ensuring beneficial development of
+tion quality and leveraged 3D prior to guide the optimization    such powerful systems will require extensive research.
+of the static stage.
+   Recent works [Jiang et al., 2023] attempted to recon-         6.4    Benchmark
+struct 3D scenes based on generated videos, introducing a        Currently, 3D content quality evaluation mainly relies on hu-
+new 4D pipeline that generates a video and then comple-          man ratings. [Wu et al., 2024] introduced an automated
+ments its 3D representation. 4DGen [Yin et al., 2023] made       Human-Aligned Evaluator for text-to-3D generation. How-
+pseudo multi-view videos via multi-view diffusion prior and      ever, fully assessing 3D outputs is challenging since it re-
+optimized the reconstruction of gaussian splattings based on     quires comprehending both physical 3D properties and in-
+multi-resolution hex-plane. DreamGaussian4d [Ren et al.,         tended designs. Benchmarking 3D generation has lagged
+2023] deployed 3D-aware diffusion prior to supervise the         progress in 2D image generation benchmarks. Developing
+multi-view reconstruction of a given video and refined the       robust metrics that holistically gauge geometric and textural
+corresponding scene with video diffusion prior.                  fidelity based on photorealism standards could advance the
+                                                                 field.
+6     Future Direction
+Despite the recent progress in 3D content generation, there      7     Conclusion
+are still many problems unsolved that will significantly im-
+pact the quality, efficiency and controllability of 3D cone-     In this survey, we have conducted a comprehensive analy-
+tent generation methods. In this section, we summarize these     sis of 3D generative content techniques, encompassing 3D
+challenges and propose several future directions.                native generation, 2D prior-based 3D generation, and hybrid
+                                                                 3D generation. We have introduced a novel taxonomy to suc-
+6.1    Challenges                                                cinctly summarize the advancements made in recent meth-
+                                                                 ods for generating 3D content. Additionally, we have identi-
+In terms of quality, current AIGC-3D methods have some           fied and summarized the unresolved challenges in this field,
+limitations. For geometry, they cannot generate compact          while also proposing several promising research directions.
+meshes and fail to model reasonable wiring. For textures,        We firmly believe that this study will serve as an invalu-
+they lack the ability to produce rich detail maps and it is      able resource, guiding further advancements in the field as
+difficult to eliminate the effects of lighting and shadows.      researchers tackle intriguing open problems by drawing in-
+Material properties are also not well supported. Regarding       spiration from the ideas presented in this work.
+controllability, existing text/image/sketch to 3D approaches
+cannot precisely output 3D assets that meet conditional re-
+quirements. Editing capabilities are also insufficient. For      References
+speed, feed-forward and SDS methods based on GS are faster       [Achiam et al., 2023] Josh Achiam, Steven Adler, Sandhini Agar-
+but offer lower quality than optimization approaches based         wal, Lama Ahmad, Ilge Akkaya, Florencia Leoni Aleman, Diogo
+on NeRF. Overall, generating 3D content at production-level        Almeida, Janko Altenschmidt, Sam Altman, Shyamal Anadkat,
+quality, scale and precision remains unresolved.                   et al. Gpt-4 technical report. arXiv preprint arXiv:2303.08774,
+                                                                   2023.
+6.2    Data                                                      [Bahmani et al., 2023] Sherwin Bahmani, Ivan Skorokhodov, Vic-
+Regarding data, one challenge lies in collecting datasets con-     tor Rong, Gordon Wetzstein, Leonidas Guibas, Peter Wonka,
+taining billions of 3D objects, scenes and humans. This could      Sergey Tulyakov, Jeong Joon Park, Andrea Tagliasacchi, and
+potentially be achieved through an open-world 3D gaming            David B. Lindell. 4d-fy: Text-to-4d generation using hybrid score
+platform, where users can freely create and upload their own       distillation sampling. arXiv preprint arXiv:2311.17984, 2023.
+custom 3D models.Additionally, it would be valuable to ex-       [Bautista et al., 2022] Miguel Angel Bautista, Pengsheng Guo,
+tract rich implicit 3D knowledge from multi-view images and        Samira Abnar, Walter Talbott, Alexander Toshev, Zhuoyuan
+videos. Large-scale datasets with such diverse, unlabeled          Chen, Laurent Dinh, Shuangfei Zhai, Hanlin Goh, Daniel Ul-
+3D data hold great potential to advance unsupervised and           bricht, et al. Gaudi: A neural architect for immersive 3d scene
+self-supervised learning approaches for generative 3D con-         generation. NeurIPS, 2022.
+tent creation.                                                   [Betker et al., 2023] James Betker, Gabriel Goh, Li Jing, Tim
+                                                                   Brooks, Jianfeng Wang, Linjie Li, Long Ouyang, Juntang
+6.3    Model                                                       Zhuang, Joyce Lee, Yufei Guo, et al. Improving image gener-
+                                                                   ation with better captions. Computer Science, 2023.
+There is a need to explore more effective 3D representa-
+tions and model architectures capable of exhibiting scale-       [Blanz and Vetter, 2003] Volker Blanz and Thomas Vetter. Face
+up performance alongside growing datasets. This presents            recognition based on fitting a 3d morphable model. TPAMI, 2003.
+an promising research avenue. Over the coming years, we          [Cao et al., 2023] Tianshi Cao, Karsten Kreis, Sanja Fidler,
+may see the emergence of foundation models specialized for         Nicholas Sharp, and Kangxue Yin. Texfusion: Synthesizing 3d
+3D content generatoin. Additionally, future large language         textures with text-guided image diffusion models. In ICCV, 2023.
+[Chen et al., 2019] Kevin Chen, Christopher B Choy, Manolis           [Hong et al., 2024] Yicong Hong, Kai Zhang, Jiuxiang Gu, Sai Bi,
+  Savva, Angel X Chang, Thomas Funkhouser, and Silvio                    Yang Zhou, Difan Liu, Feng Liu, Kalyan Sunkavalli, Trung Bui,
+  Savarese. Text2shape: Generating shapes from natural language          and Hao Tan. Lrm: Large reconstruction model for single image
+  by learning joint embeddings. In ACCV, 2019.                           to 3d. ICLR, 2024.
+[Chen et al., 2021] Lu Chen, Sida Peng, and Xiaowei Zhou. To-         [Huang et al., 2023a] Tianyu Huang, Yihan Zeng, Bowen Dong,
+  wards efficient and photorealistic 3d human reconstruction: a          Hang Xu, Songcen Xu, Rynson WH Lau, and Wangmeng Zuo.
+  brief survey. Visual Informatics, 2021.                                Textfield3d: Towards enhancing open-vocabulary 3d generation
+                                                                         with noisy text fields. arXiv preprint arXiv:2309.17175, 2023.
+[Chen et al., 2022a] Anpei Chen, Ruiyang Liu, Ling Xie, Zhang
+  Chen, Hao Su, and Jingyi Yu. Sofgan: A portrait image generator     [Huang et al., 2023b] Tianyu Huang, Yihan Zeng, Zhilu Zhang,
+  with dynamic styling. TOG, 2022.                                       Wan Xu, Hang Xu, Songcen Xu, Rynson WH Lau, and Wang-
+                                                                         meng Zuo. Dreamcontrol: Control-based text-to-3d generation
+[Chen et al., 2022b] Xu Chen, Tianjian Jiang, Jie Song, Jinlong          with 3d self-prior. arXiv preprint arXiv:2312.06439, 2023.
+  Yang, Michael J Black, Andreas Geiger, and Otmar Hilliges.          [Huang et al., 2023c] Xin Huang, Ruizhi Shao, Qi Zhang, Hong-
+  gDNA: Towards generative detailed neural avatars. In CVPR,
+                                                                         wen Zhang, Ying Feng, Yebin Liu, and Qing Wang. Humannorm:
+  2022.
+                                                                         Learning normal diffusion model for high-quality and realistic 3d
+[Chen et al., 2023a] Dave Zhenyu Chen, Haoxuan Li, Hsin-Ying             human generation. arXiv preprint arXiv:2310.01406, 2023.
+  Lee, Sergey Tulyakov, and Matthias Nießner. Scenetex: High-         [Huang et al., 2023d] Yukun Huang, Jianan Wang, Ailing Zeng,
+  quality texture synthesis for indoor scenes via diffusion priors.      He Cao, Xianbiao Qi, Yukai Shi, Zheng-Jun Zha, and Lei Zhang.
+  arXiv preprint arXiv:2311.17261, 2023.                                 Dreamwaltz: Make a scene with complex 3d animatable avatars.
+[Chen et al., 2023b] Rui Chen, Yongwei Chen, Ningxin Jiao, and           arXiv preprint arXiv:2305.12529, 2023.
+  Kui Jia. Fantasia3d: Disentangling geometry and appearance for      [Jiang et al., 2023] Yanqin Jiang, Li Zhang, Jin Gao, Weimin Hu,
+  high-quality text-to-3d content creation. In ICCV, 2023.               and Yao Yao. Consistent4d: Consistent 360 {\deg} dy-
+[Chen et al., 2023c] Zhaoxi Chen, Guangcong Wang, and Ziwei              namic object generation from monocular video. arXiv preprint
+  Liu. Scenedreamer: Unbounded 3d scene generation from 2d               arXiv:2311.02848, 2023.
+  image collections. TPAMI, 2023.                                     [Jun and Nichol, 2023] Heewoo Jun and Alex Nichol. Shap-e:
+                                                                         Generating conditional 3d implicit functions. arXiv preprint
+[Chen et al., 2023d] Zilong Chen, Feng Wang, and Huaping
+                                                                         arXiv:2305.02463, 2023.
+  Liu. Text-to-3d using gaussian splatting. arXiv preprint
+  arXiv:2309.16585, 2023.                                             [Kerbl et al., 2023] Bernhard Kerbl, Georgios Kopanas, Thomas
+                                                                         Leimkühler, and George Drettakis. 3d gaussian splatting for real-
+[Cheng et al., 2023] Yen-Chi Cheng, Hsin-Ying Lee, Sergey                time radiance field rendering. TOG, 2023.
+  Tulyakov, Alexander G Schwing, and Liang-Yan Gui. Sdfusion:
+                                                                      [Kim et al., 2023] Seung Wook Kim, Bradley Brown, Kangxue
+  Multimodal 3d shape completion, reconstruction, and generation.
+  In CVPR, 2023.                                                         Yin, Karsten Kreis, Katja Schwarz, Daiqing Li, Robin Rombach,
+                                                                         Antonio Torralba, and Sanja Fidler. Neuralfield-ldm: Scene gen-
+[Chung et al., 2023] Jaeyoung Chung, Suyoung Lee, Hyeongjin              eration with hierarchical latent diffusion models. In CVPR, 2023.
+  Nam, Jaerin Lee, and Kyoung Mu Lee. Luciddreamer: Domain-           [Kolotouros et al., 2023] Nikos Kolotouros, Thiemo Alldieck, An-
+  free generation of 3d gaussian splatting scenes. arXiv preprint        drei Zanfir, Eduard Gabriel Bazavan, Mihai Fieraru, and Cristian
+  arXiv:2311.13384, 2023.                                                Sminchisescu. Dreamhuman: Animatable 3d avatars from text.
+[Corona et al., 2021] Enric Corona, Albert Pumarola, Guillem             arXiv preprint arXiv:2306.09329, 2023.
+  Alenya, Gerard Pons-Moll, and Francesc Moreno-Noguer. Sm-           [Li et al., 2023a] Chenghao Li, Chaoning Zhang, Atish Waghwase,
+  plicit: Topology-aware generative model for clothed people. In         Lik-Hang Lee, Francois Rameau, Yang Yang, Sung-Ho Bae, and
+  CVPR, 2021.                                                            Choong Seon Hong. Generative ai meets 3d: A survey on text-
+[Fu et al., 2022] Rao Fu, Xiao Zhan, Yiwen Chen, Daniel Ritchie,         to-3d in aigc era. arXiv preprint arXiv:2305.06131, 2023.
+   and Srinath Sridhar. Shapecrafter: A recursive text-conditioned    [Li et al., 2023b] Jiahao Li, Hao Tan, Kai Zhang, Zexiang Xu, Fu-
+   3d shape generation model. NeurIPS, 2022.                             jun Luan, Yinghao Xu, Yicong Hong, Kalyan Sunkavalli, Greg
+[Han et al., 2023] Xiao Han, Yukang Cao, Kai Han, Xiatian Zhu,           Shakhnarovich, and Sai Bi. Instant3d: Fast text-to-3d with
+                                                                         sparse-view generation and large reconstruction model. arXiv
+  Jiankang Deng, Yi-Zhe Song, Tao Xiang, and Kwan-Yee K
+                                                                         preprint arXiv:2311.06214, 2023.
+  Wong. Headsculpt: Crafting 3d head avatars with text. In
+  NeurIPS, 2023.                                                      [Lin et al., 2023] Chen-Hsuan Lin, Jun Gao, Luming Tang, Towaki
+                                                                         Takikawa, Xiaohui Zeng, Xun Huang, Karsten Kreis, Sanja Fi-
+[Höllein et al., 2023] Lukas Höllein, Ang Cao, Andrew Owens,           dler, Ming-Yu Liu, and Tsung-Yi Lin. Magic3d: High-resolution
+   Justin Johnson, and Matthias Nießner. Text2room: Extracting           text-to-3d content creation. In CVPR, 2023.
+   textured 3d meshes from 2d text-to-image models. arXiv preprint
+   arXiv:2303.11989, 2023.                                            [Liu et al., 2021] Jialin Liu, Sam Snodgrass, Ahmed Khalifa, Se-
+                                                                         bastian Risi, Georgios N Yannakakis, and Julian Togelius. Deep
+[Hong et al., 2022a] Fangzhou Hong, Mingyuan Zhang, Liang Pan,           learning for procedural content generation. Neural Computing
+  Zhongang Cai, Lei Yang, and Ziwei Liu. Avatarclip: Zero-               and Applications, 2021.
+  shot text-driven generation and animation of 3d avatars. arXiv
+                                                                      [Liu et al., 2023a] Minghua Liu, Ruoxi Shi, Linghao Chen,
+  preprint arXiv:2205.08535, 2022.
+                                                                         Zhuoyang Zhang, Chao Xu, Xinyue Wei, Hansheng Chen, Chong
+[Hong et al., 2022b] Yang Hong, Bo Peng, Haiyao Xiao, Ligang             Zeng, Jiayuan Gu, and Hao Su. One-2-3-45++: Fast single im-
+  Liu, and Juyong Zhang. Headnerf: A real-time nerf-based para-          age to 3d objects with consistent multi-view generation and 3d
+  metric head model. In CVPR, 2022.                                      diffusion. arXiv preprint arXiv:2311.07885, 2023.
+[Liu et al., 2023b] Minghua Liu, Chao Xu, Haian Jin, Linghao           [Schwarz et al., 2020] Katja Schwarz, Yiyi Liao, Michael
+   Chen, Zexiang Xu, Hao Su, et al. One-2-3-45: Any single im-            Niemeyer, and Andreas Geiger. Graf: Generative radiance
+   age to 3d mesh in 45 seconds without per-shape optimization. In        fields for 3d-aware image synthesis. NeurIPS, 2020.
+   NeurIPS, 2023.                                                      [Shi et al., 2022] Zifan Shi, Sida Peng, Yinghao Xu, Andreas
+[Liu et al., 2023c] Ruoshi Liu, Rundi Wu, Basile Van Hoorick,             Geiger, Yiyi Liao, and Yujun Shen. Deep generative models on
+   Pavel Tokmakov, Sergey Zakharov, and Carl Vondrick. Zero-              3d representations: A survey. arXiv preprint arXiv:2210.15663,
+   1-to-3: Zero-shot one image to 3d object. In ICCV, 2023.               2022.
+[Liu et al., 2023d] Vivian Liu, Jo Vermeulen, George Fitzmaurice,      [Shi et al., 2024] Yichun Shi, Peng Wang, Jianglong Ye, Mai Long,
+   and Justin Matejka. 3dall-e: Integrating text-to-image ai in 3d        Kejie Li, and Xiao Yang. Mvdream: Multi-view diffusion for 3d
+   design workflows. In ACM DIS, 2023.                                    generation. ICLR, 2024.
+[Liu et al., 2023e] Xian Liu, Xiaohang Zhan, Jiaxiang Tang, Ying       [Singer et al., 2023] Uriel Singer, Shelly Sheynin, Adam Polyak,
+   Shan, Gang Zeng, Dahua Lin, Xihui Liu, and Ziwei Liu. Human-           Oron Ashual, Iurii Makarov, Filippos Kokkinos, Naman Goyal,
+   gaussian: Text-driven 3d human generation with gaussian splat-         Andrea Vedaldi, Devi Parikh, Justin Johnson, et al. Text-to-4d
+   ting. arXiv preprint arXiv:2311.17061, 2023.                           dynamic scene generation. arXiv preprint arXiv:2301.11280,
+[Liu et al., 2023f] Zexiang Liu, Yangguang Li, Youtian Lin, Xin           2023.
+   Yu, Sida Peng, Yan-Pei Cao, Xiaojuan Qi, Xiaoshui Huang,            [Sun et al., 2023] Jingxiang Sun, Bo Zhang, Ruizhi Shao, Lizhen
+   Ding Liang, and Wanli Ouyang. Unidream: Unifying diffu-                Wang, Wen Liu, Zhenda Xie, and Yebin Liu. Dreamcraft3d: Hi-
+   sion priors for relightable text-to-3d generation. arXiv preprint      erarchical 3d generation with bootstrapped diffusion prior. arXiv
+   arXiv:2312.08754, 2023.                                                preprint arXiv:2310.16818, 2023.
+[Liu et al., 2024] Yuan Liu, Cheng Lin, Zijiao Zeng, Xiaoxiao          [Tang et al., 2023] Shitao Tang, Fuyang Zhang, Jiacheng Chen,
+   Long, Lingjie Liu, Taku Komura, and Wenping Wang. Sync-                Peng Wang, and Yasutaka Furukawa. Mvdiffusion: Enabling
+   dreamer: Generating multiview-consistent images from a single-         holistic multi-view image generation with correspondence-aware
+   view image. ICLR, 2024.                                                diffusion, 2023.
+[Long et al., 2023] Xiaoxiao Long, Yuan-Chen Guo, Cheng Lin,           [Tang et al., 2024] Jiaxiang Tang, Jiawei Ren, Hang Zhou, Ziwei
+   Yuan Liu, Zhiyang Dou, Lingjie Liu, Yuexin Ma, Song-Hai                Liu, and Gang Zeng. Dreamgaussian: Generative gaussian splat-
+   Zhang, Marc Habermann, Christian Theobalt, et al. Wonder3d:            ting for efficient 3d content creation. ICLR, 2024.
+   Single image to 3d using cross-domain diffusion. arXiv preprint     [Wang et al., 2023a] Tengfei Wang, Bo Zhang, Ting Zhang,
+   arXiv:2310.15008, 2023.                                               Shuyang Gu, Jianmin Bao, Tadas Baltrusaitis, Jingjing Shen,
+[Loper et al., 2015] Matthew Loper, Naureen Mahmood, Javier              Dong Chen, Fang Wen, Qifeng Chen, et al. Rodin: A gener-
+   Romero, Gerard Pons-Moll, and Michael J Black. SMPL: A                ative model for sculpting 3d digital avatars using diffusion. In
+   skinned multi-person linear model. In ACM Trans. Graph. 2015.         CVPR, 2023.
+[Nichol et al., 2022] Alex Nichol, Heewoo Jun, Prafulla Dhariwal,      [Wang et al., 2023b] Zhengyi Wang, Cheng Lu, Yikai Wang, Fan
+   Pamela Mishkin, and Mark Chen. Point-e: A system for gen-             Bao, Chongxuan Li, Hang Su, and Jun Zhu. Prolificdreamer:
+   erating 3d point clouds from complex prompts. arXiv preprint          High-fidelity and diverse text-to-3d generation with variational
+   arXiv:2212.08751, 2022.                                               score distillation. In NeurIPS, 2023.
+[Poole et al., 2023] Ben Poole, Ajay Jain, Jonathan T. Barron, and     [Wu et al., 2024] Tong Wu, Guandao Yang, Zhibing Li, Kai Zhang,
+   Ben Mildenhall. Dreamfusion: Text-to-3d using 2d diffusion. In        Ziwei Liu, Leonidas Guibas, Dahua Lin, and Gordon Wetzstein.
+   ICLR, 2023.                                                           Gpt-4v (ision) is a human-aligned evaluator for text-to-3d gener-
+[Ren et al., 2023] Jiawei Ren, Liang Pan, Jiaxiang Tang, Chi             ation. arXiv preprint arXiv:2401.04092, 2024.
+  Zhang, Ang Cao, Gang Zeng, and Ziwei Liu. Dreamgaus-                 [Xie et al., 2024] Haozhe Xie, Zhaoxi Chen, Fangzhou Hong, and
+  sian4d: Generative 4d gaussian splatting.     arXiv preprint            Ziwei Liu. CityDreamer: Compositional generative model of un-
+  arXiv:2312.17142, 2023.                                                 bounded 3D cities. In CVPR, 2024.
+[Richardson et al., 2023] Elad Richardson, Gal Metzer, Yuval           [Xiong et al., 2023] Zhangyang Xiong, Di Kang, Derong Jin,
+   Alaluf, Raja Giryes, and Daniel Cohen-Or. Texture: Text-guided         Weikai Chen, Linchao Bao, Shuguang Cui, and Xiaoguang Han.
+   texturing of 3d shapes. In SIGGRAPH, 2023.                             Get3DHuman: Lifting StyleGAN-Human into a 3D generative
+[Saito et al., 2019] Shunsuke Saito, Zeng Huang, Ryota Natsume,           model using pixel-aligned reconstruction priors. In ICCV, 2023.
+   Shigeo Morishima, Angjoo Kanazawa, and Hao Li. PIFu: Pixel-         [Xu et al., 2024] Yinghao Xu, Hao Tan, Fujun Luan, Sai Bi, Peng
+   aligned implicit function for high-resolution clothed human digi-     Wang, Jiahao Li, Zifan Shi, Kalyan Sunkavalli, Gordon Wet-
+   tization. In ICCV, 2019.                                              zstein, Zexiang Xu, et al. Dmv3d: Denoising multi-view dif-
+[Sanyal et al., 2023] Soubhik Sanyal, Partha Ghosh, Jinlong Yang,        fusion using 3d large reconstruction model. ICLR, 2024.
+   Michael J Black, Justus Thies, and Timo Bolkart. SCULPT:            [Yin et al., 2023] Yuyang Yin, Dejia Xu, Zhangyang Wang, Yao
+   Shape-conditioned unpaired learning of pose-dependent clothed          Zhao, and Yunchao Wei.        4dgen: Grounded 4d content
+   and textured human meshes. arXiv preprint arXiv:2308.10638,            generation with spatial-temporal consistency. arXiv preprint
+   2023.                                                                  arXiv:2312.17225, 2023.
+[Schult et al., 2023] Jonas Schult, Sam Tsai, Lukas Höllein, Bichen   [Zhang et al., 2023a] Longwen Zhang, Qiwei Qiu, Hongyang Lin,
+   Wu, Jialiang Wang, Chih-Yao Ma, Kunpeng Li, Xiaofang                   Qixuan Zhang, Cheng Shi, Wei Yang, Ye Shi, Sibei Yang,
+   Wang, Felix Wimbauer, Zijian He, et al. Controlroom3d:                 Lan Xu, and Jingyi Yu. Dreamface: Progressive generation
+   Room generation using semantic proxy rooms. arXiv preprint             of animatable 3d faces under text guidance. arXiv preprint
+   arXiv:2312.05208, 2023.                                                arXiv:2304.03117, 2023.
+[Zhang et al., 2023b] Qihang Zhang, Chaoyang Wang, Aliaksandr
+   Siarohin, Peiye Zhuang, Yinghao Xu, Ceyuan Yang, Dahua
+   Lin, Bolei Zhou, Sergey Tulyakov, and Hsin-Ying Lee. Sce-
+   newiz3d: Towards text-guided 3d scene composition. arXiv
+   preprint arXiv:2312.08885, 2023.
+[Zhao et al., 2023] Yuyang Zhao, Zhiwen Yan, Enze Xie, Lan-
+   qing Hong, Zhenguo Li, and Gim Hee Lee. Animate124:
+   Animating one image to 4d dynamic scene. arXiv preprint
+   arXiv:2311.14603, 2023.
+

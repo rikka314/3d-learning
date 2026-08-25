@@ -1,0 +1,38 @@
+{
+  "title": "Hunyuan3D 2.1: From Images to High-Fidelity 3D Assets with Production-Ready PBR Material",
+  "subtitle": "Trace grounded claims, inspect evidence, and mine reusable research patterns.",
+  "default_doc": "hunyuan3d_2_1",
+  "documents": {
+    "hunyuan3d_2_1": {
+      "label": "Hunyuan3D_2_1",
+      "pdf": "./docs/hunyuan3d_2_1.pdf"
+    }
+  },
+  "links": [
+    {
+      "label": "Report Markdown",
+      "href": "./report.md"
+    },
+    {
+      "label": "Traceability JSON",
+      "href": "./traceability.json"
+    },
+    {
+      "label": "Paragraph Index",
+      "href": "./latex-paragraphs.json"
+    },
+    {
+      "label": "Research Lens",
+      "href": "./research-lens.json"
+    },
+    {
+      "label": "Reader Artifacts",
+      "href": "./reader-artifacts.json"
+    },
+    {
+      "label": "Hunyuan3D_2_1 PDF",
+      "href": "./docs/hunyuan3d_2_1.pdf"
+    }
+  ],
+  "research_lens": "./research-lens.json"
+}

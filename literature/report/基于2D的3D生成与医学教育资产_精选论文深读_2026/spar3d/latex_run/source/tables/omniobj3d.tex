@@ -1,0 +1,22 @@
+\begin{table*}[h]
+\begin{center}
+\scriptsize
+\resizebox{1.0\linewidth}{!}{\begin{tabular}{l c c c c c c c c}
+\hline
+Method & CD$\downarrow$ & FS@0.1$\uparrow$ & FS@0.2$\uparrow$ & FS@0.5$\uparrow$ & PSNR$\uparrow$ & SSIM$\uparrow$ & LPIPS$\downarrow$ & Time (s)$\downarrow$ \\
+\hline
+Shap-E~\cite{jun2023shap}               & 0.212 & 0.349 & 0.624 & 0.909 & 14.8 & 0.8006 & 0.205 & 3.1    \\
+LN3Diff~\cite{lan2024ln3diff}              & 0.160 & 0.480 & 0.744 & 0.957 & 16.7 & 0.819 & 0.161 & 5.0    \\
+LGM~\cite{tang2024lgm}                  & 0.200 & 0.366 & 0.638 & 0.924 & 16.1 & 0.810 & 0.188 & 42.0    \\
+CRM~\cite{wang2024crm}                  & 0.155 & 0.482 & 0.765 & 0.962 & 17.0 & 0.828 & 0.162 & 7.0    \\
+TripoSR~\cite{TripoSR2024}              & 0.144 & 0.537 & 0.785 & 0.963 & \textbf{18.0} & \underline{0.835} & 0.147 & \textbf{0.2}    \\
+InstantMesh~\cite{xu2024instantmesh}    & 0.145 & 0.546 & 0.790 & 0.962 & 17.2 & 0.832 & 0.150 & 34.7    \\
+SF3D~\cite{sf3d2024}                    & \underline{0.138} & \underline{0.554} & \underline{0.800} & \underline{0.967} & 17.4 & \textbf{0.836} & \underline{0.145} & \underline{0.3}    \\
+\method (ours)                          & \textbf{0.122} & \textbf{0.587} & \textbf{0.845} & \textbf{0.978} & \underline{17.9} & 0.832 & \textbf{0.140} & \underline{0.7}    \\
+\hline
+\end{tabular}}
+\caption{\textbf{Quantitative Comparisons on OmniObject3D~\cite{wu2023omniobject3d}.} \method performs favorably to other state-of-the-art methods.}
+\label{tab:omni}
+\vspace{-8mm}
+\end{center}
+\end{table*}

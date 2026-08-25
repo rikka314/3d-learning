@@ -1,0 +1,260 @@
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex)
+ restricted \write18 enabled.
+entering extended mode
+(./main.tex
+LaTeX2e <2024-11-01> patch level 2
+L3 programming layer <2025-01-18>
+(d:/texlive/2025/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2024/06/29 v1.4n Standard LaTeX document class
+(d:/texlive/2025/texmf-dist/tex/latex/base/size10.clo)) (./cvpr.sty
+(d:/texlive/2025/texmf-dist/tex/latex/psnfss/times.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/tools/xspace.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/xcolor/xcolor.sty
+(d:/texlive/2025/texmf-dist/tex/latex/graphics-cfg/color.cfg)
+(d:/texlive/2025/texmf-dist/tex/latex/graphics-def/pdftex.def)
+(d:/texlive/2025/texmf-dist/tex/latex/graphics/mathcolor.ltx))
+(d:/texlive/2025/texmf-dist/tex/latex/graphics/dvipsnam.def)
+(d:/texlive/2025/texmf-dist/tex/latex/graphics/graphicx.sty
+(d:/texlive/2025/texmf-dist/tex/latex/graphics/keyval.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/graphics/graphics.sty
+(d:/texlive/2025/texmf-dist/tex/latex/graphics/trig.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/graphics-cfg/graphics.cfg)))
+(d:/texlive/2025/texmf-dist/tex/latex/amsmath/amsmath.sty
+For additional information on amsmath, use the `?' option.
+(d:/texlive/2025/texmf-dist/tex/latex/amsmath/amstext.sty
+(d:/texlive/2025/texmf-dist/tex/latex/amsmath/amsgen.sty))
+(d:/texlive/2025/texmf-dist/tex/latex/amsmath/amsbsy.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/amsmath/amsopn.sty))
+(d:/texlive/2025/texmf-dist/tex/latex/amsfonts/amssymb.sty
+(d:/texlive/2025/texmf-dist/tex/latex/amsfonts/amsfonts.sty))
+(d:/texlive/2025/texmf-dist/tex/latex/booktabs/booktabs.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/natbib/natbib.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/silence/silence.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/etoolbox/etoolbox.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/caption/caption.sty
+(d:/texlive/2025/texmf-dist/tex/latex/caption/caption3.sty))
+(d:/texlive/2025/texmf-dist/tex/latex/caption/subcaption.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/url/url.sty)
+CVPR 8.5 x 11-Inch Proceedings Style `cvpr.sty'.
+(d:/texlive/2025/texmf-dist/tex/latex/enumitem/enumitem.sty))
+(d:/texlive/2025/texmf-dist/tex/latex/hyperref/hyperref.sty
+(d:/texlive/2025/texmf-dist/tex/generic/iftex/iftex.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty)
+(d:/texlive/2025/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty)
+(d:/texlive/2025/texmf-dist/tex/generic/pdfescape/pdfescape.sty
+(d:/texlive/2025/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty)
+(d:/texlive/2025/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+(d:/texlive/2025/texmf-dist/tex/generic/infwarerr/infwarerr.sty)))
+(d:/texlive/2025/texmf-dist/tex/latex/hycolor/hycolor.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/hyperref/nameref.sty
+(d:/texlive/2025/texmf-dist/tex/latex/refcount/refcount.sty)
+(d:/texlive/2025/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
+(d:/texlive/2025/texmf-dist/tex/latex/kvoptions/kvoptions.sty)))
+(d:/texlive/2025/texmf-dist/tex/generic/stringenc/stringenc.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/hyperref/pd1enc.def)
+(d:/texlive/2025/texmf-dist/tex/generic/intcalc/intcalc.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/hyperref/puenc.def)
+(d:/texlive/2025/texmf-dist/tex/latex/hyperref/backref.sty
+(d:/texlive/2025/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+(d:/texlive/2025/texmf-dist/tex/latex/base/atveryend-ltx.sty)
+(d:/texlive/2025/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
+(d:/texlive/2025/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty))))
+(d:/texlive/2025/texmf-dist/tex/generic/bitset/bitset.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/base/atbegshi-ltx.sty))
+(d:/texlive/2025/texmf-dist/tex/latex/hyperref/hpdftex.def)
+(d:/texlive/2025/texmf-dist/tex/latex/comment/comment.sty
+Excluding comment 'comment')
+(d:/texlive/2025/texmf-dist/tex/latex/cleveref/cleveref.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/psnfss/ot1ptm.fd)
+(d:/texlive/2025/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def)
+(./main.aux) (d:/texlive/2025/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+) (d:/texlive/2025/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+(d:/texlive/2025/texmf-dist/tex/latex/grfext/grfext.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg))
+ABD: EveryShipout initializing macros (./main.out) (./main.out)
+(d:/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd)
+(d:/texlive/2025/texmf-dist/tex/latex/amsfonts/umsb.fd)
+
+Package hyperref Warning: Ignoring empty anchor on input line 46.
+
+(./sec/0_abstract.tex (d:/texlive/2025/texmf-dist/tex/latex/psnfss/ot1pcr.fd))
+(./sec/1_intro.tex
+
+[1{d:/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{d:/texlive/202
+5/texmf-dist/fonts/enc/dvips/base/8r.enc} <./figures/teaser.pdf>]
+) (./sec/2_related.tex
+[2]) (./sec/3_method.tex
+
+[3 <./figures/overview.pdf>]
+
+[4]) (./sec/4_experiments.tex
+(./tables/gso.tex
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+) (./tables/omniobj3d.tex
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+)
+[5 <./figures/rendering.pdf> <./figures/shadow_test.pdf
+
+pdfTeX warning: pdflatex.exe (file ./figures/shadow_test.pdf): PDF inclusion: m
+ultiple pdfs with page group included in a single page
+>]
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 14.
+
+
+LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <> not available
+(Font)              size <5> substituted on input line 17.
+
+
+LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <0.7> not available
+(Font)              size <5> substituted on input line 17.
+
+
+LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <0.5> not available
+(Font)              size <5> substituted on input line 17.
+
+
+LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <> not available
+(Font)              size <5> substituted on input line 17.
+
+
+LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <0.7> not available
+(Font)              size <5> substituted on input line 17.
+
+
+LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <0.5> not available
+(Font)              size <5> substituted on input line 17.
+
+
+LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <> not available
+(Font)              size <5> substituted on input line 17.
+
+
+LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <0.7> not available
+(Font)              size <5> substituted on input line 17.
+
+
+LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <0.5> not available
+(Font)              size <5> substituted on input line 17.
+
+
+LaTeX Font Warning: Font shape `OT1/cmr/bx/n' in size <> not available
+(Font)              size <5> substituted on input line 17.
+
+
+LaTeX Font Warning: Font shape `OT1/cmr/bx/n' in size <0.7> not available
+(Font)              size <5> substituted on input line 17.
+
+
+LaTeX Font Warning: Font shape `OT1/cmr/bx/n' in size <0.5> not available
+(Font)              size <5> substituted on input line 17.
+
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+[6]
+
+[7 <./figures/qualitative_compare.pdf> <./figures/qualitative_wild.pdf
+
+pdfTeX warning: pdflatex.exe (file ./figures/qualitative_wild.pdf): PDF inclusi
+on: multiple pdfs with page group included in a single page
+>] (./tables/ablation.tex)
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+) (./sec/5_conclusion.tex
+) (./main.bbl (./main.brf)
+[8 <./figures/qualitative_edit.pdf> <./figures/qualitative-conflict.pdf
+
+pdfTeX warning: pdflatex.exe (file ./figures/qualitative-conflict.pdf): PDF inc
+lusion: multiple pdfs with page group included in a single page
+>]
+
+[9]
+
+[10]
+) (./sec/X_suppl.tex
+[11]
+
+Overfull \hbox (1.35292pt too wide) in paragraph at lines 33--34
+ [][] 
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+Overfull \hbox (1.35292pt too wide) in paragraph at lines 40--41
+ [][] 
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+
+pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
+been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.48 
+      [1 <./figures/supp-qualidecomp.pdf> <./figures/supp-qualiwild.pdf
+
+pdfTeX warning: pdflatex.exe (file ./figures/supp-qualiwild.pdf): PDF inclusion
+: multiple pdfs with page group included in a single page
+>])
+
+
+pdfTeX warning (ext4): destination with the same identifier (name{page.2}) has 
+been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.60 \end{document}
+                    [2 <./figures/supp-denoiser.pdf> <./figures/supp-meshing.pd
+f
+
+pdfTeX warning: pdflatex.exe (file ./figures/supp-meshing.pdf): PDF inclusion: 
+multiple pdfs with page group included in a single page
+>] (./main.aux)
+
+LaTeX Font Warning: Size substitutions with differences
+(Font)              up to 4.5pt have occurred.
+
+
+Package rerunfilecheck Warning: File `main.brf' has changed.
+(rerunfilecheck)                Rerun to get bibliographical references right.
+
+ )
+(see the transcript file for additional information)<d:/texlive/2025/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmbx10.pfb><d:/texlive/2025/texmf-dist/fonts/ty
+pe1/public/amsfonts/cmextra/cmex9.pfb><d:/texlive/2025/texmf-dist/fonts/type1/p
+ublic/amsfonts/cm/cmmi10.pfb><d:/texlive/2025/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmmi6.pfb><d:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/c
+mmi7.pfb><d:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb><
+d:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb><d:/texlive
+/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb><d:/texlive/2025/te
+xmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib7.pfb><d:/texlive/2025/texmf-
+dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><d:/texlive/2025/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmr5.pfb><d:/texlive/2025/texmf-dist/fonts/type1/publ
+ic/amsfonts/cm/cmr6.pfb><d:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmr7.pfb><d:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pf
+b><d:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb><d:/texli
+ve/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><d:/texlive/2025/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb><d:/texlive/2025/texmf-dist/
+fonts/type1/public/amsfonts/cm/cmsy7.pfb><d:/texlive/2025/texmf-dist/fonts/type
+1/public/amsfonts/cm/cmsy8.pfb><d:/texlive/2025/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmsy9.pfb><d:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/sy
+mbols/msbm10.pfb><d:/texlive/2025/texmf-dist/fonts/type1/urw/courier/ucrro8a.pf
+b><d:/texlive/2025/texmf-dist/fonts/type1/urw/times/utmb8a.pfb><d:/texlive/2025
+/texmf-dist/fonts/type1/urw/times/utmr8a.pfb><d:/texlive/2025/texmf-dist/fonts/
+type1/urw/times/utmri8a.pfb>
+Output written on main.pdf (13 pages, 6349621 bytes).
+SyncTeX written on main.synctex.gz.
+
+Transcript written on main.log.

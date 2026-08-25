@@ -1,0 +1,840 @@
+                         This CVPR paper is the Open Access version, provided by the Computer Vision Foundation.
+                                      Except for this watermark, it is identical to the accepted version;
+                                the final published version of the proceedings is available on IEEE Xplore.
+
+
+
+
+           MeshGen: Generating PBR Textured Mesh with Render-Enhanced
+                 Auto-Encoder and Generative Data Augmentation
+
+         Zilong Chen1 , Yikai Wang2† , Wenqiang Sun3 , Feng Wang1 , Yiwen Chen4 , Huaping Liu1†
+                          1
+                       Beijing National Research Center for Information Science and Technology (BNRist),
+                             Department of Computer Science and Technology, Tsinghua University
+                            2
+                              School of Artificial Intelligence, Beijing Normal University 3 HKUST
+                    4
+                      S-Lab, School of Computer Science and Engineering, Nanyang Technological University
+              chenzl22@mails.tsinghua.edu.cn, yikaiw@outlook.com, hpliu@tsinghua.edu.cn
+                                  Project page: https://heheyas.github.io/MeshGen
+
+
+
+                              Abstract                                 progress in automatic 3D generation. In particular, methods
+                                                                       utilizing score distillation sampling [50] have demonstrated
+    In this paper, we introduce MeshGen, an advanced                   breakthroughs by leveraging priors from text-to-image dif-
+image-to-3D pipeline that generates high-quality 3D                    fusion models. However, these optimization-based meth-
+meshes with detailed geometry and physically based render-             ods are relatively slow and face challenges such as mode
+ing (PBR) textures. Addressing the challenges faced by ex-             collapse [73, 75] and the Janus problem [1, 59] due to
+isting 3D native diffusion models, such as suboptimal auto-            the lack of inherent 3D information. Subsequent strate-
+encoder performance, limited controllability, poor general-            gies tackle these challenges by focusing on multi-view
+ization, and inconsistent image-based PBR texturing, Mesh-             generation [13, 42, 44, 71] and large reconstruction mod-
+Gen employs several key innovations to overcome these                  els [24, 30, 39, 68, 78, 83, 101]. The former generates
+limitations. We pioneer a render-enhanced point-to-shape               multi-views for 3D reconstruction, while the latter maps
+auto-encoder that compresses meshes into a compact latent              sparse-view images to compact neural 3D representations
+space by designing perceptual optimization with ray-based              like triplane NeRF [6] or 3D Gaussians [68, 101]. Al-
+regularization. This ensures that the 3D shapes are accu-              though these methods enhance 3D generation quality and
+rately represented and reconstructed to preserve geometric             speed, they often use volumetric representations like NeRF
+details within the latent space. To address data scarcity and          or Gaussian instead of meshes, leading to quality loss dur-
+image-shape misalignment, we further propose geometric                 ing conversion [12, 24, 67]. Additionally, relying solely on
+augmentation and generative rendering augmentation tech-               multi-views for supervision makes them prone to inconsis-
+niques, which enhance the model’s controllability and gen-             tencies and challenges in reconstructing objects with com-
+eralization ability, allowing it to perform well even with             plex geometry [65].
+limited public datasets. For the texture generation, Mesh-
+                                                                           Recently, 3D native diffusion models have garnered sig-
+Gen employs a reference attention-based multi-view Con-
+                                                                       nificant attention as a promising paradigm toward mesh-
+trolNet for consistent appearance synthesis. This is further
+                                                                       oriented generation [11, 22, 23, 34, 74, 80, 95]. By mapping
+complemented by our multi-view PBR decomposer that es-
+                                                                       meshes into a compact latent space using 3D auto-encoders,
+timates PBR components and a UV inpainter that fills in-
+                                                                       these methods directly learn the distribution of 3D shapes
+visible areas, ensuring a seamless and consistent texture
+                                                                       instead of reconstructing from generated multi-views. De-
+across the 3D mesh. Our extensive experiments demon-
+                                                                       spite considerable progress that has been made, several
+strate that MeshGen largely outperforms previous methods
+                                                                       challenges remain unresolved. Firstly, due to the lack of
+in both shape and texture generation, setting a new standard
+                                                                       perceptual loss, existing 3D auto-encoders have limited ca-
+for the quality of 3D meshes generated with PBR textures.
+                                                                       pacity, making it difficult to capture rich surface details and
+                                                                       high-frequency information. Moreover, existing 3D native
+                                                                       diffusion models typically generate simple and symmetric
+1. Introduction                                                        shapes that differ significantly from the reference image,
+With the rapid advancement of diffusion-based image gen-               and the scarcity and poor quality of public datasets further
+eration models [56, 97–99], there has been significant                 limit the generalization ability of current open-source mod-
+                                                                       els. In addition, existing image-conditioned texture gener-
+   † Corresponding authors.                                            ation methods struggle to produce appearances consistent
+
+
+
+                                                                5835
+with the reference images and can only generate textures                 score distillation sampling [50]. By utilizing powerful pre-
+with light baked in, rather than the physically based render-            trained image diffusion models, these methods soon ex-
+ing (PBR) materials required in practical applications.                  cel in various 3D generation tasks [8, 9, 12, 33, 36, 62,
+    In response to these challenges, we introduce MeshGen,               64, 67, 72, 75]. Despite great success has been achieved,
+a novel image-to-3D pipeline specially designed to gener-                optimization-based methods still suffer from slow gener-
+ate PBR textured meshes that closely resemble the refer-                 ation speed and low success rates. To overcome these
+ence image in both geometry and appearance. Specifically,                challenges, researchers have explored multi-view genera-
+to enhance the expressiveness of the point-to-shape auto-                tion [13, 32, 38, 42, 44, 45, 69, 71, 79] and large reconstruc-
+encoder, we propose a coarse-to-fine optimization strategy               tion models [3, 24, 30, 31, 43, 66, 68, 70, 76, 78, 82, 84].
+that initially reconstructs the coarse shape using only oc-              InstantMesh [83] adopts a two-stage optimization strategy
+cupancy supervision and then refines by incorporating ad-                that firstly trains a multi-view to triplane NeRF model, then
+ditional render-based perceptual loss. Next, based on the                uses this model as initialization for FlexiCubes [60], thus
+geometrical covariant property of the point-to-shape auto-               yielding direct textured mesh reconstruction from images.
+encoder and the appearance-invariant nature of image-to-                 MeshFormer [39] utilizes a hierarchical voxel structure for
+shape diffusion, we establish a single-image-to-shape diffu-             efficient large reconstruction model training. Although
+sion model with geometric alignment and generative render-               these methods have advanced 3D generation in speed and
+ing augmentation to enhance controllability and generaliza-              quality, the unsatisfying performance of multi-view genera-
+tion ability. For texture generation, we propose a geometry-             tion and the growing demands for higher mesh quality have
+conditioned ControlNet with reference attention fine-tuning              led researchers to focus increasingly on the development
+that first generates multi-views consistent with the input               of native 3D generation methods [11, 22, 23, 37, 54, 74].
+image in both appearance and lighting. The correspond-                   3DShape2Vecset [91] and CLAY [95] exploit latent vec-
+ing PBR channels are estimated using our proposed multi-                 tor sets as representation, significantly enhancing the ex-
+view PBR decomposer, then back-projected to UV space                     pressiveness of the latent space. CraftsMan [34] improves
+and processed through a UV-space inpainter to fill the invis-            3DShape2Vecset by incorporating point normal as input to
+ible faces. As a result of these advancements, MeshGen can               the auto-encoder and proposes a normal enhancement pro-
+generate PBR-textured 3D meshes with consistent geome-                   cess for finer details. Direct3D [80] exploits triplane as rep-
+try and exceptional fidelity within 30 seconds. In summary,              resentation for capturing the structural 3D information.
+we introduce MeshGen, a novel pipeline for generating 3D
+meshes with geometric details and high-quality PBR tex-
+                                                                         2.2. Texture Generation
+tures. Key innovations of MeshGen include:                               Initial efforts in mesh texturing have focused on only utiliz-
+• Render-enhanced auto-encoder. Our auto-encoder                         ing image diffusion models through iterative inpainting and
+   leverages a coarse-to-fine optimization with perceptual               optimization [5, 7, 27]. TEXTure [55] presents an iterative
+   loss to incorporate surface information during training,              texturing method that employs a pre-trained depth-to-image
+   which, combined with the designed ray-based regulariza-               diffusion model to progressively refine a 3D model’s tex-
+   tion, ensures stability and substantially improves the qual-          ture map from various views. FlashTex [18] proposes a light
+   ity of geometric representation.                                      ControlNet for text-to-PBR generation. In addition to meth-
+• Generative data augmentation. Based on the analy-                      ods that use only image diffusion, various learning-based
+   sis of geometry-texture disentangled frameworks, we in-               strategies initiate the training of generative texturing mod-
+   troduce geometric alignment and generative rendering                  els using 3D textured mesh data [10, 14, 15, 17, 28, 35, 46,
+   augmentation to image-to-shape diffusion training. The                47, 87, 88]. Texturify [63] proposes a GAN-based pipeline
+   resulting model demonstrates strong controllability and               with face convolution to colorize meshes without direct su-
+   generalization ability even with limited public datasets.             pervision. Paint3D [89] proposes a coarse-to-fine strategy
+• Consistent PBR-texture generator. We design a texture                  that firstly colorizes sparse views with depth-based inpaint-
+   generator that integrates multi-view geometric informa-               ing and then improves texture quality within the UV space.
+   tion while maintaining the visual fidelity of the reference           Meta 3D TextureGen [2] exploits a geometry-conditioned
+   image. When combined with our PBR decomposer, it ef-                  multi-view generator for text-to-texture generation.
+   ficiently produces highly consistent PBR materials.
+                                                                         3. Method
+2. Related Work                                                          The overall pipeline of MeshGen is demonstrated in Fig. 1.
+                                                                         We first train a render-enhanced auto-encoder to compress
+2.1. 3D Generation
+                                                                         the 3D meshes into compact triplanes. A single-image-
+Early efforts in 3D generation focus on per-scene optimiza-              to-shape diffusion model is then established based on the
+tion methods based on CLIP similarity [26, 52, 57] and                   proposed geometric alignment and generative rendering
+
+
+
+                                                                  5836
+  (a) Render-enhanced auto-encoder                                                                                                                          (b) Image-to-shape diffusion model with tailored augmentation
+
+
+
+
+                                                                                                                                  Marching Cubes
+                                                                                                                                   Differentiable
+                                                                                                                                                                                                        Augmented images
+                                                                                                                                                                                                                                            DINOv2
+
+    Input                                         Ground truth                                            Output
+
+
+
+
+                                                                                                                                                                                                                         Render-enhanced
+ poind cloud
+
+
+
+
+                                                                                                                                                                                                                           Auto-Encoder
+               Cross-Attention
+
+                                 Self-Attention
+
+
+
+                                                        Self-Attention
+
+
+
+
+                                                                                                                                        MLP Decoder
+                                                                                           Decoder
+                                                                                            Conv
+
+
+
+
+                                                                                                                                                                                                                                           Add noise
+                                                                         Latent                                                                                                                          Input                                            Diffusion UNet
+                                             Encoder                                                                                                          Geometric                  Generative
+   (c) Image-conditioned PBR texture generation                                                                                                               alignment                   rendering
+
+
+
+
+                                                                                                                                                                            Weighted back project
+                                                                            Mult-view diffusion
+
+
+
+
+                                                                                                                       PBR Decomposer
+                                                                             Geometry-cond
+
+
+
+
+                                                                                                                                                                                                            UV-space
+                                                                                                                                                                                                            Inpainter
+
+   Reference
+   Attention
+                                                                                                                                                                                                                                                       PBR relightable mesh
+                                                                                                  Shaded multi-views                                  PBR components
+
+Figure 1. Overview of MeshGen. We first train a render-enhanced auto-encoder to compress meshes to more compact latent space (Sec-
+tion. 3.1). We establish an image-to-shape diffusion model based on our tailored generative augmentations for improving controllability and
+generalization ability (Section. 3.2). The obtained mesh undergoes a reference attention-based multi-view synthesis and a PBR decomposer
+to obtain multi-view PBR channels. A UV-space inpainter is then exploited to fill the areas invisible in multi-view images (Section. 3.3).
+
+augmentation to enhance controllability and generalization                                                                                                         a convolutional decoder is applied to upsample the encoded
+ability. The decoded 3D mesh then undergoes our texturing                                                                                                          latent to a higher resolution to represent finer details. As
+pipeline for PBR material generation. The detailed Mesh-                                                                                                           analyzed in [74, 80], we concatenate the three planes in the
+Gen methodology is presented as follows.                                                                                                                           height dimension instead of the channel dimension to avoid
+                                                                                                                                                                   artifacts caused by spatial misalignment. The occupancy of
+3.1. Render-enhanced auto-encoder                                                                                                                                  point x can be formulated as
+Transformer-based point-to-shape auto-encoder. To
+compress the discrete triangle meshes into a continuous la-                                                                                                                 \text {Occupancy}(\mathbf {x}) = \text {MLP}(\texttt {UpSample}(\mathbf {z}_{\text {tile}}), \mathbf {x}),    (2)
+tent space, we adopted the same encoder as used in prior                                                                                                           where Upsample denotes the convolution-based upsam-
+native 3D generation approaches [34, 91, 95], namely the                                                                                                           pling network, MLP refers to the occupancy decoder, ztile
+point-to-shape encoder. For a given 3D object, we uni-                                                                                                             represents the height-concatenated triplane.
+formly sample NP points from its surface and encode them                                                                                                           Perceptual loss with ray-based regularization and
+using Fourier positional encoding [53]. We then introduce                                                                                                          coarse-to-fine optimization. Previous point-to-shape auto-
+learnable queries to extract information via cross-attention,                                                                                                      encoders rely solely on occupancy, which results in poor
+followed by self-attentions to refine the representation. The                                                                                                      performance when reconstructing high-frequency details.
+complete encoding process can be formulated as                                                                                                                     To address this, we propose enhancing the auto-encoder us-
+           \mathbf {z} = \texttt {SelfAttn}^{n}(\texttt {CrossAttn}(Q, \texttt {PE}(P))),                                                             (1)          ing normal maps with perceptual loss as additional super-
+                                                                                                                                                                   vision. During training, we query the occupancy of a 256^3
+where n refers to the number of self-attention layers,                                                                                                             grid and extract the iso-surface differentiably [77]. How-
+SelfAttn, CrossAttn and PE represents self-, cross-                                                                                                                ever, early experiments show that simply incorporating ren-
+attention, and Fourier positional encoding. Here Q ∈                                                                                                               der loss will cause severe floaters in the final output mesh
+RNz ×dz and P ∈ RNP ×3 represent the learnable query                                                                                                               (see appendix B.1), a problem also noted in previous re-
+set and the sampled point cloud respectively, Nz and dz                                                                                                            search [78]. To mitigate this, we propose a ray-based regu-
+refer to the number of learnable queries and the dimen-                                                                                                            larization that forces the occupancy in empty spaces to ap-
+sion of the latent space. To incorporate render-based per-                                                                                                         proach zero. As illustrated in the left part of Fig. 2, for
+ceptual loss during auto-encoder training, we opt for tri-                                                                                                         each camera ray, we uniformly sample N_s points between
+plane as the latent representation [80] over the latent vec-                                                                                                       the ray-bounding box intersection and the surface point, en-
+tor set from 3DShape2Vecset [91], as it facilitates higher-                                                                                                        forcing their occupancy to be near zero. Due to the local-
+resolution surface extraction by requiring only an MLP de-                                                                                                         ity of differentiable marching cubes, the gradients of the
+coder for querying occupancy, rather than cross-attention                                                                                                          render loss can only propagate to points near surface ver-
+with all latents. To obtain the occupancy of a specific point,                                                                                                     tices. Therefore, a coarse-to-fine training process is nec-
+
+
+
+                                                                                                                                                            5837
+                                                                                              Bounding box
+
+
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                             Normal + Depth ControlNet w. IP-Adapter
+
+
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       Relighting Diffusion Model
+                                                                                                                                                                     Surface
+
+
+
+                                   Ray-based regularization               Geometric alignment augmentation               Generative Rendering augmentation
+                                                   Figure 2. Illustration of the proposed ray-based regularization and two data augmentations.
+
+essary to ensure the effectiveness of the render loss. Dur-                                                                                                                                                                                                                                                                                                                                                       pre-computing and storing numerous latents and lacks ge-
+ing the coarse stage, we apply standard binary cross-entropy                                                                                                                                                                                                                                                                                                                                                      ometric covariance, as it necessitates re-optimizing the ra-
+(BCE) loss for the point-to-shape auto-encoder, along with                                                                                                                                                                                                                                                                                                                                                        diance field to obtain triplane latent variables after apply-
+a KL loss to regularize the latent space and a total variation                                                                                                                                                                                                                                                                                                                                                    ing a transformation to the object. In contrast, the point-
+loss [86] to reduce floaters, i.e.                                                                                                                                                                                                                                                                                                                                                                                to-shape auto-encoder takes point clouds as input and does
+                                                                                                                                                                                                                                                                                                                                                                                                                  not require per-object optimization, it naturally achieves ge-
+                                                                                         \mathcal {L}_{\text {coarse}}=\mathcal {L}_{\text {BCE}} + \lambda _{\text {KL}}\mathcal {L}_{\text {KL}} + \lambda _{\text {TV}}\mathcal {L}_{\text {TV}},                                                                                                                                                 (3)          ometric covariance for transformations such as rotations by
+where LBCE , LKL and LTV denote the BCE loss, the KL                                                                                                                                                                                                                                                                                                                                                              directly manipulating the point cloud. (2) Appearance in-
+loss and the total variation loss respectively, λKL and λTV                                                                                                                                                                                                                                                                                                                                                       variant image-to-shape modeling. Previous NeRF-based
+refer to the loss weights. After the coarse stage training, the                                                                                                                                                                                                                                                                                                                                                   methods generate textured assets, causing entanglement be-
+model is capable of reconstructing a coarse mesh from the                                                                                                                                                                                                                                                                                                                                                         tween input images and textures. In contrast, our image-to-
+input point cloud. In the refinement stage, we exploit render                                                                                                                                                                                                                                                                                                                                                     shape diffusion model maps images solely to shapes, mean-
+loss with ray-based regularization to enhance the details of                                                                                                                                                                                                                                                                                                                                                      ing renderings under reasonable texture or lighting condi-
+the reconstructed mesh:                                                                                                                                                                                                                                                                                                                                                                                           tions should correspond to the same shape.
+                                                                                                                                                                                                                                                                                                                                                                                                                     Based on both insights, we propose two data augmenta-
+    \begin {aligned} \mathcal {L}_{\text {refine}}=&\mathcal {L}_{\text {BCE}} + \lambda _{\text {KL}}\mathcal {L}_{\text {KL}} + \lambda _{\text {TV}}\mathcal {L}_{\text {TV}} + \lambda _{\text {MSE}}\mathcal {L}_{\text {normal}}^{\text {MSE}}\\ &+\lambda _{\text {LPIPS}}\mathcal {L}_{\text {normal}}^{\text {LPIPS}} + \lambda _{\text {reg}}\mathcal {L}_{\text {reg}}, \end {aligned} 
+                                                                                                                                                                                                                                                                                                                                                                                                     (4)          tions that are critical for training the image-to-shape model.
+                                                                                                                                                                                                                                                                                                                                                                                                                  Geometric alignment augmentation. To enhance image-
+where LMSE         LPIPS                                                                                                                                                                                                                                                                                                                                                                                          shape correspondence during training, we propose utiliz-
+       normal and Lnormal denotes the MSE and LPIPS [96]
+loss for rendered normal, λMSE , λLPIPS , and λreg refers to the                                                                                                                                                                                                                                                                                                                                                  ing the geometric covariance property of our point-to-shape
+corresponding loss weight. The concrete hyper-parameter                                                                                                                                                                                                                                                                                                                                                           auto-encoder to ensure that different views of the same ob-
+settings are presented in appendix A.                                                                                                                                                                                                                                                                                                                                                                             ject correspond to different latents. Specifically, for each
+                                                                                                                                                                                                                                                                                                                                                                                                                  object in the dataset, we select one view from multi-view
+3.2. Image-to-shape diffusion model with genera-                                                                                                                                                                                                                                                                                                                                                                  images as the condition and rotate the point cloud’s azimuth
+      tive data augmentation                                                                                                                                                                                                                                                                                                                                                                                      to align the object’s orientation with the selected image as
+As shown in Fig. 4, compared to large reconstruction mod-                                                                                                                                                                                                                                                                                                                                                         the target (see the middle part of Fig. 2 for a simple demon-
+els, existing native 3D generation models tend to generate                                                                                                                                                                                                                                                                                                                                                        stration). The aligned image-shape pairs are then used as
+simple and symmetrical shapes that differ significantly from                                                                                                                                                                                                                                                                                                                                                      training data for the diffusion model. Our experiments re-
+the reference images. We believe this phenomenon arises                                                                                                                                                                                                                                                                                                                                                           veal that geometric alignment not only expands the train-
+because the training of existing models predominantly re-                                                                                                                                                                                                                                                                                                                                                         ing dataset but also significantly improves the alignment
+lies on the Objaverse dataset [16], and a considerable por-                                                                                                                                                                                                                                                                                                                                                       between generated shapes and images. We present the cor-
+tion of the objects in Objaverse have symmetrical geometry                                                                                                                                                                                                                                                                                                                                                        responding ablation study in Fig. 6.
+and lack realistic textures. Therefore, the diffusion models                                                                                                                                                                                                                                                                                                                                                      Generative rendering augmentation. To enhance the gen-
+trained on it tend to replicate simple geometries and strug-                                                                                                                                                                                                                                                                                                                                                      eralization ability of the image-to-shape diffusion, we pro-
+gle to generalize to images with complex textures or light-                                                                                                                                                                                                                                                                                                                                                       pose leveraging the appearance-invariant property by utiliz-
+ing. To obtain a diffusion model with strong generaliza-                                                                                                                                                                                                                                                                                                                                                          ing generative rendering to synthesize images with realistic
+tion capabilities on limited public data, we identify two key                                                                                                                                                                                                                                                                                                                                                     textures and rich lighting based on the geometry of the ob-
+differences between the point-to-shape auto-encoder based                                                                                                                                                                                                                                                                                                                                                         ject. Concretely, for each rendered image in the dataset,
+and the previous NeRF-based native 3D generation pipeline                                                                                                                                                                                                                                                                                                                                                         we utilize the corresponding normal map and depth map as
+(typical methods include Rodin [74], 3DTopia [23], etc):                                                                                                                                                                                                                                                                                                                                                          control signals to synthesize realistic renderings with Con-
+(1) Geometrical covariant auto-encoder. Previous NeRF-                                                                                                                                                                                                                                                                                                                                                            trolNet [93]. We then use IC-light [94] to generate render-
+based native 3D generation methods utilize a per-object op-                                                                                                                                                                                                                                                                                                                                                       ings under various lighting conditions. Experiments show
+timized NeRF as the latent representation, which requires                                                                                                                                                                                                                                                                                                                                                         that generative rendering augmentation is highly beneficial
+
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                           5838
+       Input       w. ref attn f.t.   w/o. ref attn f.t.   full f.t.
+
+                                                                              the base model, enabling it to generate multi-view images
+                                                                              according to multi-view normal and depth maps. However,
+                                                                              applying this method alone does not yield satisfactory re-
+                                                                              sults(see “w/o. ref attn f.t.” in Fig. 3). This is because the
+                                                                              model prioritizes geometric correspondence over semantic
+                                                                              information since the reference image and the geometry are
+                                                                              perfectly aligned during training. To address this, we in-
+                                                                              troduce a reference fine-tuning stage after ControlNet train-
+                                                                              ing to enhance focus on semantic information. We simu-
+Figure 3. The effectiveness of the proposed reference attention               late imperfect matches by randomly translating and rotating
+fine-tuning. Here “ref attn” stands for reference attention, “f.t.”           condition images, then fine-tune only the projection ma-
+denotes fine-tuning.                                                          trices of the reference attention’s keys and values on the
+                                                                              augmented dataset. As shown in Fig. 3, this lightweight
+for helping diffusion models understand lighting effects and
+                                                                              fine-tuning compensates for performance loss from imper-
+generalize to real-world images (see Fig. 6 for the corre-
+                                                                              fect matches without affecting generative capability, unlike
+sponding ablation study).
+                                                                              full fine-tuning, which results in overly smooth textures, or
+Image-to-3D diffusion UNet. Based on the proposed two
+                                                                              the original model, which struggles with inconsistency.
+augmentations, we train a single-image-to-shape diffusion
+                                                                              Multi-view PBR decomposition. In order to generate re-
+UNet on a filtered subset of GObjaverse [51]. Our diffu-
+                                                                              lightable PBR textures, we propose a diffusion-based multi-
+sion UNet is similar to Stable Diffusion [56], consisting
+                                                                              view PBR decomposer, aiming to decompose the shaded
+of interleaved convolution and attention layers. Following
+                                                                              multi-view image to PBR components with multi-view in-
+Rodin [74], we concatenate triplanes along the height di-
+                                                                              formation. Specifically, inspired by [90], our PBR decom-
+mension as input to the UNet to avoid spatial mismatches.
+                                                                              poser employs an InstructPix2Pix-based [4] architecture,
+Interactions between different planes are handled via self-
+                                                                              concatenating the shaded image latent and the noisy la-
+attention layers. The input reference image is encoded using
+                                                                              tent along the channel dimension to output the desired PBR
+pre-trained DINOv2 [48] and injected with cross-attention.
+                                                                              components, i.e.
+Following SD3 [21], we adopt rectified flow [40] with log-
+norm timestep sampling as the training schedule. For more                               \mathbf {I}^{MV}_{i}(y)=g_{\phi }(\mathbf {I}^{MV}_{i-1}(y);\mathbf {I}^{MV},\mathbf {I}^{\text {ref}},i,\tau (y)),    (5)
+details on the training and inference of our diffusion UNet,
+please refer to appendix A.                                                   where gϕ represents the denoising UNet for PBR decom-
+                                                                              poser, τ denotes the pre-trained CLIP [52] text encoder,
+3.3. Texture Generation                                                       y ∈ {"metallic", "roughness", "albedo"} de-
+Our texturing pipeline starts by generating multi-view                        notes the component prompt for PBR texture, IM           i
+                                                                                                                                         V
+                                                                                                                                           (y)
+shaded images using a geometry-conditioned ControlNet                         refers to the denoised y component at denoise step i, IM V
+with reference attention. The corresponding PBR compo-                        and Iref denote the multi-view shaded image and the ref-
+nents are estimated using a PBR decomposer, then back-                        erence image respectively. After generating multi-view
+projected to UV space and inpainted to fill invisible areas.                  PBR components, we use a view-weighted approach to
+The detailed pipeline is as follows.                                          P the multi-view
+                                                                              fuse                     textures in UV space, i.e. UV =
+                                                                                                   (i)
+Geometry-conditioned multi-view generation with ref-                             i Softmax i (BP(I     ), BP(w(i) )) , where BP refers to
+erence attention. The main challenge in our textur-                           back-projecting the rendered image to UV space, I(i) de-
+ing pipeline is the imperfect alignment between generated                     note the target image for the i-th view and w(i) represents
+shapes and input images, preventing direct back-projection                    the pixel-wise weight calculated as the cosine of the view-
+or texture optimization. Previous methods resolve by us-                      ing angle to the point.
+ing IP-adapter [85] to incorporate reference image informa-                   UV-space texture inpainting. For meshes with compli-
+tion, but this often fails to accurately resemble the refer-                  cated topology, the generated views are not adequate to
+ence image. In response, we propose using reference atten-                    cover the entire surface of the mesh. We propose a UV-
+tion to inject information from the reference image. Com-                     space texture inpainter to fill the invisible part of the multi-
+pared with IP-Adapter who exploit pre-trained CLIP fea-                       views. Specifically, due to the significant gap between ca-
+tures, reference attention [92] integrates the keys and val-                  sual images and texture maps, we first train a LoRA on
+ues from self-attention layers corresponding to the refer-                    the texture maps in Objaverse. Subsequently, we merge
+ence image into the denoising process, thus enhancing the                     the LoRA into the original UNet and train an inpainting
+consistency between the generated and original images (see                    ControlNet on top of it. To let the texture map perceive
+appendix A.3 for detailed illustration). To make the genera-                  spatial information, our control signal includes not only the
+tion geometry-aware, we build a ControlNet [93] on top of                     masked image but also the normal and position maps in UV
+
+
+
+                                                                       5839
+      Input                    TripoSR                  InstantMesh                MeshFormer                     Ours
+
+
+
+
+        Input                   LN3Diff                3DTopia-XL                   CraftsMan                    Ours
+
+
+
+
+Figure 4. Qualitative comparison on in-the-wild images with state-of-the-art large reconstruction models (upper part, including In-
+stantMesh [83], TripoSR [70] and MeshFormer [39]) and 3D native diffusion models (lower part, including CraftsMan [34], LN3Diff [29],
+and 3DTopia-XL [11]). More comparisons and results are presented in the appendix B.2 and supplement video.
+
+space. We present more details about the texturing pipeline            compress discrete 3D meshes into a continuous and com-
+in appendix A.3.                                                       pact latent space using a 3D auto-encoder, followed by a
+                                                                       diffusion model trained on this latent space to achieve 3D
+4. Experiments                                                         generation, including LN3Diff [29], 3DTopia-XL [11], and
+                                                                       CraftsMan [34].
+4.1. Mesh Generation
+In our experiments, we compare our method with state-                  Qualitative results. We present a qualitative comparison
+of-the-art image-to-3D methods from two categories. (1)                between our method and large reconstruction models in the
+Large reconstruction models [24, 30, 31, 68, 76] exploit               upper part of Fig. 4. Our approach significantly outperforms
+a neural network to map sparse views into 3D representa-               others in generating high-quality geometry. Specifically,
+tions, including InstantMesh [83], TripoSR [70] and Mesh-              our method excels at producing complex structures from
+Former [39]. To be clear, the results of MeshFormer are ob-            images, such as the mouth of the alien and the file sorter,
+tained through their official demo, since has not been open-           where large reconstruction models struggle. Additionally,
+sourced. (2) Native 3D generation models [37, 91, 95]                  large reconstruction models often suffer from poor multi-
+
+
+
+                                                                5840
+           Input                    EASI-Tex (~ 30 min)            Paint3D (10 s)        Ours (light baked-in, 10 s)      Ours (albedo, 15 s)
+
+
+
+
+          Figure 5. Qualitative comparison with previous mesh texturing methods, including EASI-Tex [49] and Paint3D [89].
+
+view generation outcomes, resulting in lower quality when                       (with a threshold of 0.2) and Chamfer distance on GSO [19]
+reconstructing details that require multi-view consistency.                     and OmniObject3D [81]. As a generative model, our results
+In the lower part of Fig. 4, we provide a qualitative compar-                   include a certain degree of diversity, so we report the mean
+ison with 3D native generation methods. As we mentioned                         and variance of the model’s performance across five ran-
+earlier, previous native 3D generation models are limited                       dom seeds. MeshGen outperforms others in both metrics,
+by data and the expressive power of the autoencoder, often                      demonstrating the effectiveness of our method.
+resulting in overly simple and symmetrical geometries that
+significantly differ from the reference images. Our method,                     4.2. Texture Generation
+leveraging the proposed two data augmentations, effectively                     We first qualitatively compare our method with state-of-the-
+addresses this issue. This image-shape alignment enhances                       art image-conditioned mesh texturing approaches, includ-
+the controllability of shape generation and simplifies subse-                   ing EASI-Tex [49] and Paint3D [89]. Fig. 5 demonstrates
+quent texturing.                                                                the texturing results on meshes generated by our image-
+Quantitative results. In Tab. 1, we demonstrate quantita-                       to-shape diffusion model. Our method significantly out-
+tive comparisons with previous methods. For the evalua-                         performs previous approaches in quality and texture-image
+tion setting, we follow MeshFormer [39], calculate F-Score                      consistency, even when the shape and image do not per-
+                                                                                fectly align. In contrast, despite using image inversion
+Table 1. Quantitative comparison with previous methods on                       which requires additional per-input optimization, EASI-Tex
+GSO [19] and OmniObject3D [81]. Here CD denotes Chamfer                         still struggles to maintain consistency with the original im-
+Distance and FS stands for F-Score. The best result is highlighted              age and takes dozens of times longer than our approach.
+in bold, while the second-best result is underscored. As MeshGen                Paint3D, which uses simple back projection and inpaint-
+is a generative model, we report the mean and standard deviation                ing, exhibits noticeable seams in the generated textures and
+across five different random seeds in the “Ours” row.                           is prone to the Janus problem. To quantitatively compare
+                              GSO                OmniObject3D                   MeshGen texturing pipeline with previous methods, we
+ Method
+                       FS ↑         CD ↓         FS ↑    CD ↓                   conduct a user study to assess the performance with human
+ One2345++ [37]       0.936         0.039       0.871        0.054              ratings. Specifically, we ask 52 volunteers to choose the
+ TripoSR [70]         0.896         0.047       0.895        0.048              best method from TEXTure, EASI-Tex, Paint3D and ours
+ CRM [76]             0.886         0.051       0.821        0.065              in (a) Image alignment: how well does the texture align
+ LGM [68]             0.776         0.074       0.635        0.114
+ InstantMesh [83]     0.934         0.037       0.889        0.049              Table 2. User study results on image-conditioned texture genera-
+ MeshLRM [78]         0.956         0.033        0.91        0.045              tion, the value refers to the win rate in percentage.
+ MeshFormer [39]      0.963         0.031       0.914        0.043
+ CraftsMan [34]       0.702         0.088       0.599        0.143                      Metric          TEXTure        EASI-Tex   Paint3D   Ours
+ LN3Diff [29]         0.647         0.102       0.534        0.168
+                                                                                 Image Alignment (%)      1.92           3.85      1.92     92.31
+ Ours                0.971±.014   0.028±.005   0.918±.010   0.040±.004            Overall Quality (%)     3.85           7.69      5.77     82.69
+
+
+
+
+                                                                         5841
+        w. render-enhance w/o. render-enhance
+
+
+
+
+                                        Input       w. geometric alignment   w/o. geometric alignment          Input    w. generative rendering aug.   w/o. generative rendering aug.
+    Figure 6. Ablation study results on render-enhanced auto-encoder, geometric alignment, and generative rendering augmentation.
+
+with the reference image; (b) Overal quality: the clarity,                                                     that align well with the input images, significantly enhanc-
+detail, and aesthetic appeal of the generated texture. Tab. 2                                                  ing the model’s controllability.
+demonstrates the win rate of each method in the two crite-                                                     Generative rendering augmentation. To assess the im-
+ria. MeshGen is regarded as the most convincing model of                                                       pact of generative rendering augmentation on image-to-
+all and significantly outperforms previous methods in both                                                     shape diffusion training, we trained a smaller model with-
+alignment and fidelity.                                                                                        out this augmentation, as depicted in the lower right part
+                                                                                                               of Fig. 6. The model trained without generative rendering
+4.3. Ablations                                                                                                 augmentation exhibits poor performance in handling light-
+Render-enhanced auto-encoder. To evaluate the signif-                                                          ing effects in images and struggles to infer the geometric
+icance of incorporating render loss in the point-to-shape                                                      structure based on lighting cues, which suggests that gen-
+auto-encoder, we trained a variant without render-based per-                                                   erative rendering augmentation significantly enhances the
+ceptual loss and compared it to our render-enhanced ver-                                                       model’s ability to understand lighting effects and interpret
+sion, as illustrated in the upper part of Fig. 6. The render-                                                  real-world images.
+enhanced auto-encoder performs markedly better, particu-                                                          More ablations regarding the auto-encoder, image-to-
+larly in capturing high-frequency details such as the suck-                                                    shape diffusion model, and texture generation model are
+ers on tentacles and the gaps in watch bands. In Tab. 3,                                                       presented in appendix B.1.
+we also demonstrate through quantitative results the supe-
+riority of the render-enhanced auto-encoder compared to                                                        5. Conclusion and Limitation
+3DShape2VecSet and the no-render-loss variant.
+                                                                                                               Conclusion. In this paper, we propose MeshGen, a novel
+Geomtric alignment augmentation. To validate the im-
+                                                                                                               pipeline for generating delicate PBR textured mesh given a
+pact of geometric alignment augmentation, we trained a
+                                                                                                               single image. MeshGen encodes 3D meshes with a render-
+variant without this augmentation for 300 epochs as an ab-
+                                                                                                               enhanced auto-encoder. Based on the analysis of auto-
+lation study. The comparison is presented in the lower
+                                                                                                               encoder and image-to-shape diffusion, we propose to train
+left part of Fig. 6. Evidently, the diffusion model trained
+                                                                                                               the diffusion model with geometric alignment and genera-
+without geometric alignment augmentation tends to gener-
+                                                                                                               tive rendering augmentation to enhance controllability and
+ate symmetric objects, whereas our model produces shapes
+                                                                                                               generalization ability. To generate PBR texture consistent
+                                                                                                               with the image, we establish a reference attention-based
+Table 3. Quantitative ablation study on 3D auto-encoder. Here
+Acc, VIoU refer to accuracy and VolumeIoU on Objaverse test                                                    multi-view generator followed by a PBR decomposer to ob-
+set. “Ours(w/o. refine)” denotes the no-render-loss variant.                                                   tain PBR components and a UV-space inpainter to fill the
+                                                                                                               invisible part. Extensive experiments have demonstrated the
+    Metric                                      Vecset [91]      Ours(w/o. refine)       Ours                  effectiveness of our method.
+  Acc (%)                                         94.844                94.745          96.987                 Limitation. MeshGen demonstrates several limitations re-
+  VIoU (%)                                        87.426                87.164          91.045                 garding texture quality and handling transparent objects.
+                                                                                                               Concrete failure cases are shown in appendix C.
+
+
+
+                                                                                                        5842
+6. Acknowledgment
+The author would like to thank Min Zhao for her help in the
+rebuttal phase. This work was jointly supported by National
+Natural Science Fund for Distinguished Young Scholars un-
+der Grant 62025304, Youth Fund of the National Natural
+Science Foundation of China under Grant 62306163, and
+was also supported by the Seed Funding Project of the sec-
+ond phase of the Tsinghua University (Department of Com-
+puter Science and Technology)-Siemens Ltd., China Joint
+Research Center for Industrial Intelligence and Internet of
+Things (JCIIOT).
+
+
+
+
+                                                              5843
+References                                                                 [13] Zilong Chen, Yikai Wang, Feng Wang, Zhengyi Wang, and
+                                                                                Huaping Liu. V3d: Video diffusion models are effective 3d
+ [1] Mohammadreza Armandpour, Huangjie Zheng, Ali                               generators. arXiv preprint arXiv:2403.06738, 2024. 1, 2
+     Sadeghian, Amir Sadeghian, and Mingyuan Zhou. Re-
+                                                                           [14] An-Chieh Cheng, Xueting Li, Sifei Liu, and Xiaolong
+     imagine the negative prompt algorithm: Transform 2d
+                                                                                Wang. Tuvf: Learning generalizable texture uv radiance
+     diffusion into 3d, alleviate janus problem and beyond.
+                                                                                fields. arXiv preprint arXiv:2305.03040, 2023. 2
+     arXiv preprint arXiv:2304.04968, 2023. 1
+                                                                           [15] Jasmine Collins, Shubham Goel, Kenan Deng, Achlesh-
+ [2] Raphael Bensadoun, Yanir Kleiman, Idan Azuri, Omri
+                                                                                war Luthra, Leon Xu, Erhan Gundogdu, Xi Zhang, Tomas
+     Harosh, Andrea Vedaldi, Natalia Neverova, and Oran
+                                                                                F Yago Vicente, Thomas Dideriksen, Himanshu Arora,
+     Gafni. Meta 3d texturegen: Fast and consistent texture gen-
+                                                                                et al. Abo: Dataset and benchmarks for real-world 3d ob-
+     eration for 3d objects. arXiv preprint arXiv: 2407.02430,
+                                                                                ject understanding. In Proceedings of the IEEE/CVF Con-
+     2024. 2
+                                                                                ference on Computer Vision and Pattern Recognition, pages
+ [3] Mark Boss, Zixuan Huang, Aaryaman Vasishta, and Varun
+                                                                                21126–21136, 2022. 2
+     Jampani. Sf3d: Stable fast 3d mesh reconstruction with
+     uv-unwrapping and illumination disentanglement. arXiv                 [16] Matt Deitke, Dustin Schwenk, Jordi Salvador, Luca Weihs,
+     preprint, 2024. 2                                                          Oscar Michel, Eli VanderBilt, Ludwig Schmidt, Kiana
+                                                                                Ehsani, Aniruddha Kembhavi, and Ali Farhadi. Obja-
+ [4] Tim Brooks, Aleksander Holynski, and Alexei A. Efros.
+                                                                                verse: A universe of annotated 3d objects. arXiv preprint
+     Instructpix2pix: Learning to follow image editing instruc-
+                                                                                arXiv:2212.08051, 2022. 4, 1
+     tions. In CVPR, 2023. 5
+ [5] Tianshi Cao, Karsten Kreis, Sanja Fidler, Nicholas Sharp,             [17] Matt Deitke, Dustin Schwenk, Jordi Salvador, Luca Weihs,
+     and Kangxue Yin. Texfusion: Synthesizing 3d textures with                  Oscar Michel, Eli VanderBilt, Ludwig Schmidt, Kiana
+     text-guided image diffusion models. In Proceedings of the                  Ehsani, Aniruddha Kembhavi, and Ali Farhadi. Objaverse:
+     IEEE/CVF International Conference on Computer Vision,                      A universe of annotated 3d objects. In Proceedings of
+     pages 4169–4181, 2023. 2                                                   the IEEE/CVF Conference on Computer Vision and Pattern
+                                                                                Recognition, pages 13142–13153, 2023. 2
+ [6] Eric Chan, Connor Z. Lin, Matthew Chan, Koki Nagano,
+     Boxiao Pan, Shalini De Mello, Orazio Gallo, Leonidas J.               [18] Kangle Deng, Timothy Omernick, Alexander Weiss, Deva
+     Guibas, Jonathan Tremblay, S. Khamis, Tero Karras, and                     Ramanan, Jun-Yan Zhu, Tinghui Zhou, and Maneesh
+     Gordon Wetzstein. Efficient geometry-aware 3d genera-                      Agrawala. Flashtex: Fast relightable mesh texturing with
+     tive adversarial networks. 2022 IEEE/CVF Conference on                     lightcontrolnet. arXiv preprint arXiv: 2402.13251, 2024. 2
+     Computer Vision and Pattern Recognition (CVPR), pages                 [19] Laura Downs, Anthony Francis, Nate Koenig, Bran-
+     16102–16112, 2021. 1                                                       don Kinman, Ryan Michael Hickman, Krista Reymann,
+ [7] Dave Zhenyu Chen, Yawar Siddiqui, Hsin-Ying Lee,                           Thomas Barlow McHugh, and Vincent Vanhoucke. Google
+     Sergey Tulyakov, and Matthias Nießner. Text2tex: Text-                     scanned objects: A high-quality dataset of 3d scanned
+     driven texture synthesis via diffusion models. In Proceed-                 household items.       2022 International Conference on
+     ings of the IEEE/CVF International Conference on Com-                      Robotics and Automation (ICRA), pages 2553–2560, 2022.
+     puter Vision (ICCV), pages 18558–18568, 2023. 2                            7
+ [8] Rui Chen, Yongwei Chen, Ningxin Jiao, and Kui Jia. Fan-               [20] eliphatfs. Mesh to sdf implemented with cuda. https:
+     tasia3d: Disentangling geometry and appearance for high-                   //github.com/eliphatfs/cumesh2sdf, 2023. 1
+     quality text-to-3d content creation. In Proceedings of the            [21] Patrick Esser, Sumith Kulal, Andreas Blattmann, Rahim
+     IEEE/CVF International Conference on Computer Vision                       Entezari, Jonas Müller, Harry Saini, Yam Levi, Dominik
+     (ICCV), 2023. 2                                                            Lorenz, Axel Sauer, Frederic Boesel, Dustin Podell, Tim
+ [9] Yiwen Chen, Zilong Chen, Chi Zhang, Feng Wang, Xi-                         Dockhorn, Zion English, Kyle Lacey, Alex Goodwin, Yan-
+     aofeng Yang, Yikai Wang, Zhongang Cai, Lei Yang, Huap-                     nik Marek, and Robin Rombach. Scaling rectified flow
+     ing Liu, and Guosheng Lin. Gaussianeditor: Swift and                       transformers for high-resolution image synthesis. arXiv
+     controllable 3d editing with gaussian splatting. CoRR,                     preprint arXiv: 2403.03206, 2024. 5, 1
+     abs/2311.14521, 2023. 2                                               [22] Anchit Gupta, Wenhan Xiong, Yixin Nie, Ian Jones, and
+[10] Zhiqin Chen, Kangxue Yin, and Sanja Fidler. Auv-net:                       Barlas Oğuz. 3dgen: Triplane latent diffusion for textured
+     Learning aligned uv maps for texture transfer and synthesis.               mesh generation. arXiv preprint arXiv:2303.05371, 2023.
+     In Proceedings of the IEEE/CVF Conference on Computer                      1, 2
+     Vision and Pattern Recognition, pages 1465–1474, 2022. 2              [23] Fangzhou Hong, Jiaxiang Tang, Ziang Cao, Min Shi,
+[11] Zhaoxi Chen, Jiaxiang Tang, Yuhao Dong, Ziang Cao,                         Tong Wu, Zhaoxi Chen, Tengfei Wang, Liang Pan, Dahua
+     Fangzhou Hong, Yushi Lan, Tengfei Wang, Haozhe Xie,                        Lin, and Ziwei Liu. 3dtopia: Large text-to-3d genera-
+     Tong Wu, Shunsuke Saito, Liang Pan, Dahua Lin, and Zi-                     tion model with hybrid diffusion priors. arXiv preprint
+     wei Liu. 3dtopia-xl: High-quality 3d pbr asset generation                  arXiv:2403.02234, 2024. 1, 2, 4
+     via primitive diffusion. arXiv preprint arXiv:2409.12957,             [24] Yicong Hong, Kai Zhang, Jiuxiang Gu, Sai Bi, Yang Zhou,
+     2024. 1, 2, 6, 3, 9                                                        Difan Liu, Feng Liu, Kalyan Sunkavalli, Trung Bui, and
+[12] Zilong Chen, Feng Wang, Yikai Wang, and Huaping Liu.                       Hao Tan. LRM: large reconstruction model for single image
+     Text-to-3d using gaussian splatting. In CVPR, 2024. 1, 2                   to 3d. CoRR, abs/2311.04400, 2023. 1, 2, 6
+
+
+
+
+                                                                    5844
+[25] Li Hu, Xin Gao, Peng Zhang, Ke Sun, Bang Zhang, and                        ayuan Gu, and Hao Su. One-2-3-45++: Fast single image
+     Liefeng Bo. Animate anyone: Consistent and controllable                    to 3d objects with consistent multi-view generation and 3d
+     image-to-video synthesis for character animation. arXiv                    diffusion. arXiv preprint arXiv:2311.07885, 2023. 2, 6, 7
+     preprint arXiv:2311.17117, 2023. 2                                    [38] Minghua Liu, Chao Xu, Haian Jin, Linghao Chen, Zexiang
+[26] Ajay Jain, Ben Mildenhall, Jonathan T. Barron, Pieter                      Xu, Hao Su, et al. One-2-3-45: Any single image to 3d
+     Abbeel, and Ben Poole. Zero-shot text-guided object gener-                 mesh in 45 seconds without per-shape optimization. arXiv
+     ation with dream fields. In IEEE/CVF Conference on Com-                    preprint arXiv:2306.16928, 2023. 2
+     puter Vision and Pattern Recognition, CVPR 2022, New Or-              [39] Minghua Liu, Chong Zeng, Xinyue Wei, Ruoxi Shi, Ling-
+     leans, LA, USA, June 18-24, 2022, pages 857–866. IEEE,                     hao Chen, Chao Xu, Mengqi Zhang, Zhaoning Wang, Xi-
+     2022. 2                                                                    aoshuai Zhang, Isabella Liu, Hongzhi Wu, and Hao Su.
+[27] DaDong Jiang, Xianghui Yang, Zibo Zhao, Sheng Zhang,                       Meshformer: High-quality mesh generation with 3d-guided
+     Jiaao Yu, Zeqiang Lai, Shaoxiong Yang, Chunchao Guo,                       reconstruction model. arXiv preprint arXiv:2408.10198,
+     Xiaobo Zhou, and Zhihui Ke. Flexitex: Enhancing tex-                       2024. 1, 2, 6, 7, 3, 8
+     ture generation with visual guidance. arXiv preprint arXiv:           [40] Xingchao Liu, Chengyue Gong, and Qiang Liu. Flow
+     2409.12431, 2024. 2                                                        straight and fast: Learning to generate and transfer data
+[28] Heewoo Jun and Alex Nichol.             Shap-e: Generat-                   with rectified flow. arXiv preprint arXiv:2209.03003, 2022.
+     ing conditional 3d implicit functions. arXiv preprint                      5, 1
+     arXiv:2305.02463, 2023. 2                                             [41] Xian Liu, Jian Ren, Aliaksandr Siarohin, Ivan Sko-
+[29] Yushi Lan, Fangzhou Hong, Shuai Yang, Shangchen Zhou,                      rokhodov, Yanyu Li, Dahua Lin, Xihui Liu, Ziwei Liu,
+     Xuyi Meng, Bo Dai, Xingang Pan, and Chen Change Loy.                       and Sergey Tulyakov. Hyperhuman: Hyper-realistic hu-
+     Ln3diff: Scalable latent neural fields diffusion for speedy                man generation with latent structural diffusion. In The
+     3d generation. In ECCV, 2024. 6, 7                                         Twelfth International Conference on Learning Representa-
+[30] Jiahao Li, Hao Tan, Kai Zhang, Zexiang Xu, Fujun                           tions, ICLR 2024, Vienna, Austria, May 7-11, 2024. Open-
+     Luan, Yinghao Xu, Yicong Hong, Kalyan Sunkavalli, Greg                     Review.net, 2024. 3
+     Shakhnarovich, and Sai Bi. Instant3d: Fast text-to-3d with            [42] Yuan Liu, Cheng Lin, Zijiao Zeng, Xiaoxiao Long, Lingjie
+     sparse-view generation and large reconstruction model.                     Liu, Taku Komura, and Wenping Wang. Syncdreamer:
+     CoRR, abs/2311.06214, 2023. 1, 2, 6                                        Generating multiview-consistent images from a single-view
+[31] Jiahao Li, Hao Tan, Kai Zhang, Zexiang Xu, Fujun                           image. arXiv preprint arXiv:2309.03453, 2023. 1, 2
+     Luan, Yinghao Xu, Yicong Hong, Kalyan Sunkavalli, Greg                [43] Zexiang Liu, Yangguang Li, Youtian Lin, Xin Yu, Sida
+     Shakhnarovich, and Sai Bi. Instant3d: Fast text-to-3d with                 Peng, Yan-Pei Cao, Xiaojuan Qi, Xiaoshui Huang, Ding
+     sparse-view generation and large reconstruction model.                     Liang, and Wanli Ouyang. Unidream: Unifying diffusion
+     CoRR, abs/2311.06214, 2023. 2, 6                                           priors for relightable text-to-3d generation, 2023. 2
+[32] Peng Li, Yuan Liu, Xiaoxiao Long, Feihu Zhang, Cheng                  [44] Xiaoxiao Long, Yuan-Chen Guo, Cheng Lin, Yuan Liu,
+     Lin, Mengfei Li, Xingqun Qi, Shanghang Zhang, Wenhan                       Zhiyang Dou, Lingjie Liu, Yuexin Ma, Song-Hai Zhang,
+     Luo, Ping Tan, et al. Era3d: High-resolution multiview                     Marc Habermann, Christian Theobalt, et al. Wonder3d:
+     diffusion using efficient row-wise attention. arXiv preprint               Single image to 3d using cross-domain diffusion. arXiv
+     arXiv:2405.11616, 2024. 2                                                  preprint arXiv:2310.15008, 2023. 1, 2
+[33] Weiyu Li, Rui Chen, Xuelin Chen, and Ping Tan. Sweet-                 [45] Yuanxun Lu, Jingyang Zhang, Shiwei Li, Tian Fang, David
+     dreamer: Aligning geometric priors in 2d diffusion for con-                McKinnon, Yanghai Tsin, Long Quan, Xun Cao, and Yao
+     sistent text-to-3d. arxiv:2310.02596, 2023. 2                              Yao. Direct2.5: Diverse text-to-3d generation via multi-
+[34] Weiyu Li, Jiarui Liu, Rui Chen, Yixun Liang, Xuelin Chen,                  view 2.5d diffusion. ArXiv, abs/2311.15980, 2023. 2
+     Ping Tan, and Xiaoxiao Long. Craftsman: High-fidelity                 [46] Tiange Luo, Chris Rockwell, Honglak Lee, and Justin John-
+     mesh generation with 3d native generation and interactive                  son. Scalable 3d captioning with pretrained models. arXiv
+     geometry refiner. arXiv preprint arXiv:2405.14979, 2024.                   preprint arXiv:2306.07279, 2023. 2
+     1, 2, 3, 6, 7, 9                                                      [47] Alex Nichol, Heewoo Jun, Prafulla Dhariwal, Pamela
+[35] Yuchen Li, Ujjwal Upadhyay, Habib Slim, Ahmed Abdelre-                     Mishkin, and Mark Chen. Point-e: A system for generat-
+     heem, Arpit Prajapati, Suhail Pothigara, Peter Wonka, and                  ing 3d point clouds from complex prompts. arXiv preprint
+     Mohamed Elhoseiny. 3d compat: Composition of materials                     arXiv:2212.08751, 2022. 2
+     on parts of 3d things. In European Conference on Computer             [48] Maxime Oquab, Timothée Darcet, Théo Moutakanni,
+     Vision, pages 110–127. Springer, 2022. 2                                   Huy V. Vo, Marc Szafraniec, Vasil Khalidov, Pierre Fer-
+[36] Chen-Hsuan Lin, Jun Gao, Luming Tang, Towaki                               nandez, Daniel HAZIZA, Francisco Massa, Alaaeldin El-
+     Takikawa, Xiaohui Zeng, Xun Huang, Karsten Kreis, Sanja                    Nouby, Mido Assran, Nicolas Ballas, Wojciech Galuba,
+     Fidler, Ming-Yu Liu, and Tsung-Yi Lin. Magic3d: High-                      Russell Howes, Po-Yao Huang, Shang-Wen Li, Ishan
+     resolution text-to-3d content creation. In IEEE Confer-                    Misra, Michael Rabbat, Vasu Sharma, Gabriel Synnaeve,
+     ence on Computer Vision and Pattern Recognition (CVPR),                    Hu Xu, Herve Jegou, Julien Mairal, Patrick Labatut, Ar-
+     2023. 2                                                                    mand Joulin, and Piotr Bojanowski. DINOv2: Learning
+[37] Minghua Liu, Ruoxi Shi, Linghao Chen, Zhuoyang Zhang,                      robust visual features without supervision. Transactions on
+     Chao Xu, Xinyue Wei, Hansheng Chen, Chong Zeng, Ji-                        Machine Learning Research, 2024. 5, 1
+
+
+
+
+                                                                    5845
+[49] Sai Raj Kishore Perla, Yizhi Wang, Ali Mahdavi-Amiri,                      consistency for robust text-to-3d generation. arXiv preprint
+     and Hao Zhang. Easi-tex: Edge-aware mesh texturing from                    arXiv:2303.07937, 2023. 1
+     single image. ACM Transactions on Graphics (Proceedings               [60] Tianchang Shen, Jacob Munkberg, Jon Hasselgren,
+     of SIGGRAPH), 43(4), 2024. 7                                               Kangxue Yin, Zian Wang, Wenzheng Chen, Zan Gojcic,
+[50] Ben Poole, Ajay Jain, Jonathan T. Barron, and Ben Milden-                  Sanja Fidler, Nicholas Sharp, and Jun Gao. Flexible isosur-
+     hall. Dreamfusion: Text-to-3d using 2d diffusion. In The                   face extraction for gradient-based mesh optimization. ACM
+     Eleventh International Conference on Learning Represen-                    Trans. Graph., 42(4), 2023. 2
+     tations, ICLR 2023, Kigali, Rwanda, May 1-5, 2023. Open-              [61] Ruoxi Shi, Hansheng Chen, Zhuoyang Zhang, Minghua
+     Review.net, 2023. 1, 2                                                     Liu, Chao Xu, Xinyue Wei, Linghao Chen, Chong Zeng,
+[51] Lingteng Qiu, Guanying Chen, Xiaodong Gu, Qi Zuo,                          and Hao Su. Zero123++: a single image to consistent multi-
+     Mutian Xu, Yushuang Wu, Weihao Yuan, Zilong Dong,                          view diffusion base model, 2023. 2
+     Liefeng Bo, and Xiaoguang Han. Richdreamer: A gen-                    [62] Yichun Shi, Peng Wang, Jianglong Ye, Long Mai, Kejie
+     eralizable normal-depth diffusion model for detail richness                Li, and Xiao Yang. Mvdream: Multi-view diffusion for 3d
+     in text-to-3d. In Proceedings of the IEEE/CVF Conference                   generation. arXiv:2308.16512, 2023. 2
+     on Computer Vision and Pattern Recognition, pages 9914–               [63] Yawar Siddiqui, Justus Thies, Fangchang Ma, Qi Shan,
+     9925, 2024. 5, 1                                                           Matthias Nießner, and Angela Dai. Texturify: Generating
+[52] Alec Radford, Jong Wook Kim, Chris Hallacy, Aditya                         textures on 3d shape surfaces. In European Conference on
+     Ramesh, Gabriel Goh, Sandhini Agarwal, Girish Sastry,                      Computer Vision, pages 72–88. Springer, 2022. 2
+     Amanda Askell, Pamela Mishkin, Jack Clark, Gretchen                   [64] Jingxiang Sun, Bo Zhang, Ruizhi Shao, Lizhen Wang, Wen
+     Krueger, and Ilya Sutskever. Learning transferable visual                  Liu, Zhenda Xie, and Yebin Liu. Dreamcraft3d: Hierarchi-
+     models from natural language supervision. In Proceedings                   cal 3d generation with bootstrapped diffusion prior. arXiv
+     of the 38th International Conference on Machine Learning,                  preprint arXiv:2310.16818, 2023. 2
+     ICML 2021, 18-24 July 2021, Virtual Event, pages 8748–                [65] Wenqiang Sun, Zhengyi Wang, Shuo Chen, Yikai Wang,
+     8763. PMLR, 2021. 2, 5                                                     Zilong Chen, Jun Zhu, and Jun Zhang. Freeplane: Unlock-
+[53] Nasim Rahaman, Aristide Baratin, Devansh Arpit, Felix                      ing free lunch in triplane-based sparse-view reconstruction
+     Draxler, Min Lin, Fred Hamprecht, Yoshua Bengio, and                       models. arXiv preprint arXiv:2406.00750, 2024. 1
+     Aaron Courville. On the spectral bias of neural networks. In          [66] Stanislaw Szymanowicz, Christian Rupprecht, and Andrea
+     International conference on machine learning, pages 5301–                  Vedaldi. Splatter image: Ultra-fast single-view 3d recon-
+     5310. PMLR, 2019. 3                                                        struction. In arXiv, 2023. 2
+[54] Xuanchi Ren, Jiahui Huang, Xiaohui Zeng, Ken Museth,                  [67] Jiaxiang Tang, Jiawei Ren, Hang Zhou, Ziwei Liu, and
+     Sanja Fidler, and Francis Williams. Xcube: Large-scale 3d                  Gang Zeng. Dreamgaussian: Generative gaussian splat-
+     generative modeling using sparse voxel hierarchies. In Pro-                ting for efficient 3d content creation. arXiv preprint
+     ceedings of the IEEE/CVF Conference on Computer Vision                     arXiv:2309.16653, 2023. 1, 2
+     and Pattern Recognition, 2024. 2                                      [68] Jiaxiang Tang, Zhaoxi Chen, Xiaokang Chen, Tengfei
+[55] Elad Richardson, Gal Metzer, Yuval Alaluf, Raja Giryes,                    Wang, Gang Zeng, and Ziwei Liu. Lgm: Large multi-
+     and Daniel Cohen-Or. Texture: Text-guided texturing of                     view gaussian model for high-resolution 3d content cre-
+     3d shapes. In ACM SIGGRAPH 2023 Conference Proceed-                        ation. arXiv preprint arXiv:2402.05054, 2024. 1, 2, 6, 7
+     ings, SIGGRAPH 2023, Los Angeles, CA, USA, August 6-                  [69] Shitao Tang, Jiacheng Chen, Dilin Wang, Chengzhou
+     10, 2023, pages 54:1–54:11. ACM, 2023. 2                                   Tang, Fuyang Zhang, Yuchen Fan, Vikas Chandra, Yasu-
+[56] Robin Rombach, Andreas Blattmann, Dominik Lorenz,                          taka Furukawa, and Rakesh Ranjan. Mvdiffusion++: A
+     Patrick Esser, and Björn Ommer. High-resolution im-                       dense high-resolution multi-view diffusion model for sin-
+     age synthesis with latent diffusion models. In IEEE/CVF                    gle or sparse-view 3d object reconstruction. arXiv preprint
+     Conference on Computer Vision and Pattern Recognition,                     arXiv:2402.12712, 2024. 2
+     CVPR 2022, New Orleans, LA, USA, June 18-24, 2022,                    [70] Dmitry Tochilkin, David Pankratz, Zexiang Liu, Zixuan
+     pages 10674–10685. IEEE, 2022. 1, 5, 2                                     Huang, , Adam Letts, Yangguang Li, Ding Liang, Christian
+[57] Aditya Sanghi, Hang Chu, Joseph G Lambourne, Ye Wang,                      Laforte, Varun Jampani, and Yan-Pei Cao. Triposr: Fast 3d
+     Chin-Yi Cheng, and Marco Fumero. Clip-forge: To-                           object reconstruction from a single image. arXiv preprint
+     wards zero-shot text-to-shape generation. arXiv preprint                   arXiv:2403.02151, 2024. 2, 6, 7
+     arXiv:2110.02624, 2021. 2                                             [71] Vikram Voleti, Chun-Han Yao, Mark Boss, Adam Letts,
+[58] Aditya Sanghi, Aliasghar Khani, Pradyumna Reddy, Ari-                      David Pankratz, Dmitry Tochilkin, Christian Laforte, Robin
+     anna Rampini, Derek Cheung, Kamal Rahimi Malekshan,                        Rombach, and Varun Jampani. Sv3d: Novel multi-view
+     Kanika Madan, and Hooman Shayani. Wavelet latent dif-                      synthesis and 3d generation from a single image using la-
+     fusion (wala): Billion-parameter 3d generative model with                  tent video diffusion. arXiv preprint arXiv: 2403.12008,
+     compact wavelet encodings, 2024. 3, 9                                      2024. 1, 2
+[59] Junyoung Seo, Wooseok Jang, Min-Seop Kwak, Jaehoon                    [72] Peng Wang and Yichun Shi. Imagedream: Image-prompt
+     Ko, Hyeonsu Kim, Junho Kim, Jin-Hwa Kim, Jiyoung Lee,                      multi-view diffusion for 3d generation. arXiv preprint
+     and Seungryong Kim. Let 2d diffusion model know 3d-                        arXiv:2312.02201, 2023. 2
+
+
+
+
+                                                                    5846
+[73] Peihao Wang, Dejia Xu, Zhiwen Fan, Dilin Wang, Sreyas                         Zexiang Xu, and Kai Zhang. Dmv3d: Denoising multi-
+     Mohan, Forrest Iandola, Rakesh Ranjan, Yilei Li, Qiang                        view diffusion using 3d large reconstruction model. ArXiv,
+     Liu, Zhangyang Wang, and Vikas Chandra. Taming mode                           abs/2311.09217, 2023. 2
+     collapse in score distillation for text-to-3d generation. arXiv          [85] Hu Ye, Jun Zhang, Sibo Liu, Xiao Han, and Wei Yang. Ip-
+     preprint: 2401.00909, 2023. 1                                                 adapter: Text compatible image prompt adapter for text-to-
+[74] Tengfei Wang, Bo Zhang, Ting Zhang, Shuyang Gu, Jian-                         image diffusion models. 2023. 5
+     min Bao, Tadas Baltrusaitis, Jingjing Shen, Dong Chen,                   [86] Alex Yu, Sara Fridovich-Keil, Matthew Tancik, Qinhong
+     Fang Wen, Qifeng Chen, and Baining Guo. RODIN: A                              Chen, Benjamin Recht, and Angjoo Kanazawa. Plenoxels:
+     generative model for sculpting 3d digital avatars using dif-                  Radiance fields without neural networks. arXiv preprint
+     fusion. In IEEE/CVF Conference on Computer Vision and                         arXiv:2112.05131, 2021. 4
+     Pattern Recognition, CVPR 2023, Vancouver, BC, Canada,                   [87] Rui Yu, Yue Dong, Pieter Peers, and Xin Tong. Learning
+     June 17-24, 2023, pages 4563–4573. IEEE, 2023. 1, 2, 3,                       texture generators for 3d shape collections from internet
+     4, 5                                                                          photo sets. In British Machine Vision Conference, 2021.
+[75] Zhengyi Wang, Cheng Lu, Yikai Wang, Fan Bao, Chongx-                          2
+     uan Li, Hang Su, and Jun Zhu. Prolificdreamer: High-                     [88] Xin Yu, Peng Dai, Wenbo Li, Lan Ma, Zhengzhe Liu, and
+     fidelity and diverse text-to-3d generation with variational                   Xiaojuan Qi. Texture generation on 3d meshes with point-
+     score distillation. arXiv preprint arXiv:2305.16213, 2023.                    uv diffusion. In Proceedings of the IEEE/CVF International
+     1, 2                                                                          Conference on Computer Vision, pages 4206–4216, 2023. 2
+[76] Zhengyi Wang, Yikai Wang, Yifei Chen, Chendong Xi-
+                                                                              [89] Xianfang Zeng, Xin Chen, Zhongqi Qi, Wen Liu, Zibo
+     ang, Shuo Chen, Dajiang Yu, Chongxuan Li, Hang Su,
+                                                                                   Zhao, Zhibin Wang, BIN FU, Yong Liu, and Gang Yu.
+     and Jun Zhu. Crm: Single image to 3d textured mesh
+                                                                                   Paint3d: Paint anything 3d with lighting-less texture dif-
+     with convolutional reconstruction model. arXiv preprint
+                                                                                   fusion models, 2023. 2, 7
+     arXiv:2403.05034, 2024. 2, 6, 7
+                                                                              [90] Zheng Zeng, Valentin Deschaintre, Iliyan Georgiev, Yan-
+[77] Xinyue Wei, Fanbo Xiang, Sai Bi, Anpei Chen, Kalyan
+                                                                                   nick Hold-Geoffroy, Yiwei Hu, Fujun Luan, Ling-Qi Yan,
+     Sunkavalli, Zexiang Xu, and Hao Su. Neumanifold:
+                                                                                   and Miloš Hašan. Rgb¡-¿x: Image decomposition and syn-
+     Neural watertight manifold reconstruction with efficient
+                                                                                   thesis using material- and lighting-aware diffusion models.
+     and high-quality rendering support.             arXiv preprint
+                                                                                   In ACM SIGGRAPH 2024 Conference Papers, New York,
+     arXiv:2305.17134, 2023. 3
+                                                                                   NY, USA, 2024. Association for Computing Machinery. 5
+[78] Xinyue Wei, Kai Zhang, Sai Bi, Hao Tan, Fujun Luan,
+                                                                              [91] Biao Zhang, Jiapeng Tang, Matthias Nießner, and Peter
+     Valentin Deschaintre, Kalyan Sunkavalli, Hao Su, and Zex-
+                                                                                   Wonka. 3dshape2vecset: A 3d shape representation for
+     iang Xu. Meshlrm: Large reconstruction model for high-
+                                                                                   neural fields and generative diffusion models. ACM Trans.
+     quality mesh. arXiv preprint arXiv: 2404.12385, 2024. 1,
+                                                                                   Graph., 42(4), 2023. 2, 3, 6, 8, 1
+     2, 3, 7, 6, 8
+[79] Kailu Wu, Fangfu Liu, Zhihan Cai, Runjie Yan, Hanyang                    [92] Lyumin Zhang.         Reference-only control.     https :
+     Wang, Yating Hu, Yueqi Duan, and Kaisheng Ma.                                 / / github . com / Mikubill / sd - webui -
+     Unique3d: High-quality and efficient 3d mesh generation                       controlnet / discussions / 1236, 2023.                    5,
+     from a single image, 2024. 2                                                  2
+[80] Shuang Wu, Youtian Lin, Feihu Zhang, Yifei Zeng, Jingxi                  [93] Lvmin Zhang, Anyi Rao, and Maneesh Agrawala. Adding
+     Xu, Philip Torr, Xun Cao, and Yao Yao. Direct3d: Scalable                     conditional control to text-to-image diffusion models, 2023.
+     image-to-3d generation via 3d latent diffusion transformer.                   4, 5, 2, 3
+     arXiv preprint arXiv: 2405.14832, 2024. 1, 2, 3                          [94] Lvmin Zhang, Anyi Rao, and Maneesh Agrawala. Ic-light
+[81] Tong Wu, Jiarui Zhang, Xiao Fu, Yuxin Wang, Liang Pan                         github page, 2024. 4, 1
+     Jiawei Ren, Wayne Wu, Lei Yang, Jiaqi Wang, Chen                         [95] Longwen Zhang, Ziyu Wang, Qixuan Zhang, Qiwei Qiu,
+     Qian, Dahua Lin, and Ziwei Liu. Omniobject3d: Large-                          Anqi Pang, Haoran Jiang, Wei Yang, Lan Xu, and Jingyi
+     vocabulary 3d object dataset for realistic perception, re-                    Yu. Clay: A controllable large-scale generative model
+     construction and generation. In IEEE/CVF Conference on                        for creating high-quality 3d assets. ACM Transactions on
+     Computer Vision and Pattern Recognition (CVPR), 2023. 7                       Graphics (TOG), 43(4):1–20, 2024. 1, 2, 3, 6
+[82] Dejia Xu, Ye Yuan, Morteza Mardani, Sifei Liu, Jiaming                   [96] Richard Zhang, Phillip Isola, Alexei A. Efros, Eli Shecht-
+     Song, Zhangyang Wang, and Arash Vahdat. Agg: Amor-                            man, and Oliver Wang. The unreasonable effectiveness of
+     tized generative 3d gaussians for single image to 3d. arXiv                   deep features as a perceptual metric. In 2018 IEEE Confer-
+     preprint arXiv: 2401.04099, 2024. 2                                           ence on Computer Vision and Pattern Recognition, CVPR
+[83] Jiale Xu, Weihao Cheng, Yiming Gao, Xintao Wang,                              2018, Salt Lake City, UT, USA, June 18-22, 2018, pages
+     Shenghua Gao, and Ying Shan. Instantmesh: Efficient 3d                        586–595. Computer Vision Foundation / IEEE Computer
+     mesh generation from a single image with sparse-view large                    Society, 2018. 4
+     reconstruction models. arXiv preprint arXiv:2404.07191,                  [97] Min Zhao, Fan Bao, Chongxuan Li, and Jun Zhu. Egsde:
+     2024. 1, 2, 6, 7, 3, 8                                                        Unpaired image-to-image translation via energy-guided
+[84] Yinghao Xu, Hao Tan, Fujun Luan, Sai Bi, Peng Wang,                           stochastic differential equations. Advances in Neural In-
+     Jiahao Li, Zifan Shi, Kalyan Sunkavalli, Gordon Wetzstein,                    formation Processing Systems, 35:3609–3623, 2022. 1
+
+
+
+
+                                                                       5847
+ [98] Min Zhao, Hongzhou Zhu, Chendong Xiang, Kaiwen
+      Zheng, Chongxuan Li, and Jun Zhu. Identifying and solv-
+      ing conditional image leakage in image-to-video diffusion
+      model. arXiv preprint arXiv:2406.15735, 2024.
+ [99] Min Zhao, Guande He, Yixiao Chen, Hongzhou Zhu,
+      Chongxuan Li, and Jun Zhu. Riflex: A free lunch for
+      length extrapolation in video diffusion transformers. arXiv
+      preprint arXiv:2502.15894, 2025. 1
+[100] Xin-Yang Zheng, Yang Liu, Peng-Shuai Wang, and Xin
+      Tong. Sdf-stylegan: Implicit sdf-based stylegan for 3d
+      shape generation. In Comput. Graph. Forum (SGP), 2022.
+      3
+[101] Zi-Xin Zou, Zhipeng Yu, Yuan-Chen Guo, Yangguang Li,
+      Ding Liang, Yan-Pei Cao, and Song-Hai Zhang. Triplane
+      meets gaussian splatting: Fast and generalizable single-
+      view 3d reconstruction with transformers. arXiv preprint
+      arXiv:2312.09147, 2023. 1
+[102] zsef123. Connected components labeling for pytorch.
+      https : / / github . com / zsef123 / Connected _
+      components_PyTorch, 2022. 1
+
+
+
+
+                                                                    5848
+

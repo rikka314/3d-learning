@@ -1,0 +1,252 @@
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex)
+ restricted \write18 enabled.
+entering extended mode
+(./main.tex
+LaTeX2e <2024-11-01> patch level 2
+L3 programming layer <2025-01-18>
+(./google.cls
+Document Class: google 
+(d:/texlive/2025/texmf-dist/tex/latex/xifthen/xifthen.sty
+(d:/texlive/2025/texmf-dist/tex/latex/tools/calc.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/base/ifthen.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/ifmtarg/ifmtarg.sty))
+(d:/texlive/2025/texmf-dist/tex/latex/extsizes/extarticle.cls
+Document Class: extarticle 1996/10/08 v1.0 Non Standard LaTeX document class
+(d:/texlive/2025/texmf-dist/tex/latex/base/size11.clo)
+(d:/texlive/2025/texmf-dist/tex/latex/base/exscale.sty))
+(d:/texlive/2025/texmf-dist/tex/latex/base/inputenc.sty)
+(d:/texlive/2025/texmf-dist/tex/generic/babel/babel.sty
+(d:/texlive/2025/texmf-dist/tex/generic/babel/txtbabel.def)
+(d:/texlive/2025/texmf-dist/tex/generic/babel-english/english.ldf))
+(d:/texlive/2025/texmf-dist/tex/generic/babel/locale/en/babel-english.tex)
+(d:/texlive/2025/texmf-dist/tex/latex/amscls/amsthm.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/amsmath/amsmath.sty
+For additional information on amsmath, use the `?' option.
+(d:/texlive/2025/texmf-dist/tex/latex/amsmath/amstext.sty
+(d:/texlive/2025/texmf-dist/tex/latex/amsmath/amsgen.sty))
+(d:/texlive/2025/texmf-dist/tex/latex/amsmath/amsbsy.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/amsmath/amsopn.sty))
+(d:/texlive/2025/texmf-dist/tex/latex/amsfonts/amsfonts.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/amsfonts/amssymb.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/cmap/cmap.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/base/fontenc.sty<<t1.cmap>>)
+(d:/texlive/2025/texmf-dist/tex/latex/url/url.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/hyperref/hyperref.sty
+(d:/texlive/2025/texmf-dist/tex/generic/iftex/iftex.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/graphics/keyval.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty)
+(d:/texlive/2025/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty)
+(d:/texlive/2025/texmf-dist/tex/generic/pdfescape/pdfescape.sty
+(d:/texlive/2025/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty)
+(d:/texlive/2025/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+(d:/texlive/2025/texmf-dist/tex/generic/infwarerr/infwarerr.sty)))
+(d:/texlive/2025/texmf-dist/tex/latex/hycolor/hycolor.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/hyperref/nameref.sty
+(d:/texlive/2025/texmf-dist/tex/latex/refcount/refcount.sty)
+(d:/texlive/2025/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
+(d:/texlive/2025/texmf-dist/tex/latex/kvoptions/kvoptions.sty)))
+(d:/texlive/2025/texmf-dist/tex/latex/etoolbox/etoolbox.sty)
+(d:/texlive/2025/texmf-dist/tex/generic/stringenc/stringenc.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/hyperref/pd1enc.def)
+(d:/texlive/2025/texmf-dist/tex/generic/intcalc/intcalc.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/hyperref/puenc.def)
+(d:/texlive/2025/texmf-dist/tex/generic/bitset/bitset.sty
+(d:/texlive/2025/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty))
+(d:/texlive/2025/texmf-dist/tex/latex/base/atbegshi-ltx.sty))
+(d:/texlive/2025/texmf-dist/tex/latex/hyperref/hpdftex.def
+(d:/texlive/2025/texmf-dist/tex/latex/base/atveryend-ltx.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+(d:/texlive/2025/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty)))
+(d:/texlive/2025/texmf-dist/tex/latex/psnfss/pifont.sty
+(d:/texlive/2025/texmf-dist/tex/latex/psnfss/upzd.fd)
+(d:/texlive/2025/texmf-dist/tex/latex/psnfss/upsy.fd))
+(d:/texlive/2025/texmf-dist/tex/latex/xcolor/xcolor.sty
+(d:/texlive/2025/texmf-dist/tex/latex/graphics-cfg/color.cfg)
+(d:/texlive/2025/texmf-dist/tex/latex/graphics-def/pdftex.def)
+(d:/texlive/2025/texmf-dist/tex/latex/graphics/mathcolor.ltx))
+(d:/texlive/2025/texmf-dist/tex/latex/graphics/dvipsnam.def)
+(d:/texlive/2025/texmf-dist/tex/latex/base/textcomp.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/textcase/textcase.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/graphics/graphicx.sty
+(d:/texlive/2025/texmf-dist/tex/latex/graphics/graphics.sty
+(d:/texlive/2025/texmf-dist/tex/latex/graphics/trig.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/graphics-cfg/graphics.cfg)))
+(d:/texlive/2025/texmf-dist/tex/latex/colortbl/colortbl.sty
+(d:/texlive/2025/texmf-dist/tex/latex/tools/array.sty))
+(d:/texlive/2025/texmf-dist/tex/latex/booktabs/booktabs.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/changepage/changepage.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/enumitem/enumitem.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/tools/tabularx.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/datetime/datetime.sty
+(d:/texlive/2025/texmf-dist/tex/latex/fmtcount/fmtcount.sty
+(d:/texlive/2025/texmf-dist/tex/latex/xkeyval/xkeyval.sty
+(d:/texlive/2025/texmf-dist/tex/generic/xkeyval/xkeyval.tex
+(d:/texlive/2025/texmf-dist/tex/generic/xkeyval/xkvutils.tex)))
+(d:/texlive/2025/texmf-dist/tex/latex/fmtcount/fcprefix.sty
+(d:/texlive/2025/texmf-dist/tex/latex/fmtcount/fcnumparser.sty))
+(d:/texlive/2025/texmf-dist/tex/latex/fmtcount/fc-english.def))
+(d:/texlive/2025/texmf-dist/tex/latex/datetime/datetime-defaults.sty))
+(d:/texlive/2025/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/lastpage/lastpage.sty
+(d:/texlive/2025/texmf-dist/tex/latex/lastpage/lastpage2e.sty
+(d:/texlive/2025/texmf-dist/tex/latex/lastpage/lastpagemodern.sty) 
+)) (d:/texlive/2025/texmf-dist/tex/latex/titlesec/titlesec.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/natbib/bibentry.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/mdframed/mdframed.sty
+(d:/texlive/2025/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
+(d:/texlive/2025/texmf-dist/tex/latex/l3kernel/expl3.sty
+(d:/texlive/2025/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def)))
+(d:/texlive/2025/texmf-dist/tex/latex/zref/zref-abspage.sty
+(d:/texlive/2025/texmf-dist/tex/latex/zref/zref-base.sty
+(d:/texlive/2025/texmf-dist/tex/generic/etexcmds/etexcmds.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/auxhook/auxhook.sty)))
+(d:/texlive/2025/texmf-dist/tex/latex/needspace/needspace.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/mdframed/md-frame-0.mdf))
+(d:/texlive/2025/texmf-dist/tex/latex/caption/caption.sty
+(d:/texlive/2025/texmf-dist/tex/latex/caption/caption3.sty))
+(d:/texlive/2025/texmf-dist/tex/generic/soul/soul.sty
+(d:/texlive/2025/texmf-dist/tex/generic/soul/soul-ori.sty))
+(d:/texlive/2025/texmf-dist/tex/latex/xcharter/XCharter.sty
+`XCharter' v1.25, 2023/07/21 Text macros for XCharter, an extension of Charter 
+(msharpe) (d:/texlive/2025/texmf-dist/tex/generic/xstring/xstring.sty
+(d:/texlive/2025/texmf-dist/tex/generic/xstring/xstring.tex))
+(d:/texlive/2025/texmf-dist/tex/latex/carlisle/scalefnt.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/base/fontenc.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/fontaxes/fontaxes.sty))
+(d:/texlive/2025/texmf-dist/tex/latex/newtx/newtxmath.sty
+`newtxmath' v1.754, 2024/09/22 Math macros based originally on txfonts (msharpe
+) (d:/texlive/2025/texmf-dist/tex/latex/oberdiek/centernot.sty)
+(d:/texlive/2025/texmf-dist/tex/generic/kastrup/binhex.tex)
+amsthm NOT loaded
+) (d:/texlive/2025/texmf-dist/tex/latex/zlmtt/zlmtt.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/geometry/geometry.sty
+(d:/texlive/2025/texmf-dist/tex/generic/iftex/ifvtex.sty))
+(d:/texlive/2025/texmf-dist/tex/latex/preprint/authblk.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/newfloat/newfloat.sty))
+(d:/texlive/2025/texmf-dist/tex/latex/microtype/microtype.sty
+(d:/texlive/2025/texmf-dist/tex/latex/microtype/microtype-pdftex.def)
+(d:/texlive/2025/texmf-dist/tex/latex/microtype/microtype.cfg))
+(d:/texlive/2025/texmf-dist/tex/latex/natbib/natbib.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/multirow/multirow.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/caption/subcaption.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/placeins/placeins.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/makecell/makecell.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/float/float.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/cleveref/cleveref.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/xfrac/xfrac.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/lineno/lineno.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/xcharter/T1XCharter-TLF.fd) (./main.aux)
+(d:/texlive/2025/texmf-dist/tex/latex/xcharter/omlzchmi.fd)
+(d:/texlive/2025/texmf-dist/tex/latex/newtx/untxexa.fd)
+(d:/texlive/2025/texmf-dist/tex/latex/newtx/lmsntxsy.fd)
+(d:/texlive/2025/texmf-dist/tex/latex/newtx/lmxntxexx.fd) (./main.out)
+(./main.out) (d:/texlive/2025/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+) (d:/texlive/2025/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+(d:/texlive/2025/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg))
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+(d:/texlive/2025/texmf-dist/tex/latex/microtype/mt-bch.cfg)
+(d:/texlive/2025/texmf-dist/tex/latex/xcharter/OT1XCharter-TLF.fd)<<ot1.cmap>><
+<oml.cmap>> (d:/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd)
+(d:/texlive/2025/texmf-dist/tex/latex/microtype/mt-msa.cfg)
+(d:/texlive/2025/texmf-dist/tex/latex/amsfonts/umsb.fd)
+(d:/texlive/2025/texmf-dist/tex/latex/microtype/mt-msb.cfg)
+(d:/texlive/2025/texmf-dist/tex/latex/newtx/untxmia.fd)
+(d:/texlive/2025/texmf-dist/tex/latex/newtx/untxsym.fd)
+(d:/texlive/2025/texmf-dist/tex/latex/newtx/untxsyc.fd)
+(d:/texlive/2025/texmf-dist/tex/latex/zlmtt/t1zlmtt.fd)
+Underfull \hbox (badness 10000) in paragraph at lines 110--111
+
+
+(d:/texlive/2025/texmf-dist/tex/latex/xcharter/TS1XCharter-TLF.fd) [1{d:/texliv
+e/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{d:/texlive/2025/texmf-dist
+/fonts/enc/dvips/xcharter/xch_rydp4l.enc}{d:/texlive/2025/texmf-dist/fonts/enc/
+dvips/lm/lm-ec.enc}{d:/texlive/2025/texmf-dist/fonts/enc/dvips/xcharter/xch1_co
+4ru4.enc} <./assets/logo_GoogleDeepmind_FullColor.png>]
+[2 <./assets/teaser_img_v6.pdf> <./assets/vb4.png>]
+[3{d:/texlive/2025/texmf-dist/fonts/enc/dvips/xcharter/xch_3gllts.enc}]
+[4]
+Overfull \hbox (36.72095pt too wide) in paragraph at lines 337--354
+ [][] 
+
+[5]
+[6 <./assets/v2_vis/semseg/image5.jpg> <./assets/v2_vis/semseg/image3.png (PNG 
+copy)> <./assets/v2_vis/semseg/image2.png> <./assets/v2_vis/semseg/image4.jpg> 
+<./assets/v2_vis/semseg/image6.png> <./assets/v2_vis/semseg/image1.png>]
+[7 <./assets/v2_vis/insseg/insseg4.jpg> <./assets/v2_vis/insseg/insseg4_pred1.p
+ng (PNG copy)> <./assets/v2_vis/insseg/insseg4_pred2.png (PNG copy)> <./assets/
+v2_vis/insseg/insseg1.jpg> <./assets/v2_vis/insseg/insseg1_1.png (PNG copy)> <.
+/assets/v2_vis/insseg/insseg1_2.png (PNG copy)> <./assets/v2_vis/insseg/insseg3
+.png> <./assets/v2_vis/insseg/insseg3_1.png (PNG copy)> <./assets/v2_vis/insseg
+/insseg3_2.png (PNG copy)>]
+[8 <./assets/v2_vis/refseg/refseg1.jpeg> <./assets/v2_vis/refseg/refseg1_pred.p
+ng> <./assets/v2_vis/refseg/refseg3.jpeg> <./assets/v2_vis/refseg/refseg3_pred.
+jpg> <./assets/v2_vis/refseg/refseg4_in.png> <./assets/v2_vis/refseg/refseg_4_p
+red1.png> <./assets/v2_vis/refseg/refseg5_in.png> <./assets/v2_vis/refseg/refse
+g5_out.png>]
+[9 <./assets/color_tubes.png>]
+[10]
+[11 <./assets/depth_demo/depth_3_0.png (PNG copy)> <./assets/depth_demo/depth_3
+_1.png (PNG copy)> <./assets/depth_demo/depth_3_2.png> <./assets/depth_demo/dep
+th_3_3.png> <./assets/depth_demo/depth_162_0.png (PNG copy)> <./assets/depth_de
+mo/depth_162_1.png (PNG copy)> <./assets/depth_demo/depth_162_2.png> <./assets/
+depth_demo/depth_162_3.png> <./assets/depth_demo/depth_eth3d_47_0.jpg> <./asset
+s/depth_demo/depth_eth3d_47_1.jpg> <./assets/depth_demo/depth_eth3d_47_2.png> <
+./assets/depth_demo/depth_eth3d_47_3.png> <./assets/depth_demo/depth_eth3d_205_
+0.jpeg> <./assets/depth_demo/depth_eth3d_205_1.png (PNG copy)> <./assets/depth_
+demo/depth_eth3d_205_2.png> <./assets/depth_demo/depth_eth3d_205_3.png> <./asse
+ts/depth_demo/depth_15_0.png (PNG copy)> <./assets/depth_demo/depth_15_1.png (P
+NG copy)> <./assets/depth_demo/depth_15_2.png> <./assets/depth_demo/depth_15_3.
+jpg>]
+[12 <./assets/depth_demo_real/depth_in.jpg> <./assets/depth_demo_real/depth_out
+.png> <./assets/depth_demo_real/depth_map.png>]
+[13 <./assets/surface_normal/sn_1_in.jpg> <./assets/surface_normal/sn_1_lotus.j
+pg> <./assets/surface_normal/sn_1_gpm.jpg> <./assets/surface_normal/sn_2_in.jpg
+> <./assets/surface_normal/sn_2_lotus.jpg> <./assets/surface_normal/sn_2_gpm.jp
+g> <./assets/surface_normal/sn_4_in.jpg> <./assets/surface_normal/sn_4_lotus.pn
+g (PNG copy)> <./assets/surface_normal/sn_4_gpm.png (PNG copy)>]
+[14] (./main.bbl
+[15]
+Underfull \hbox (badness 2126) in paragraph at lines 140--144
+[]\T1/XCharter-TLF/m/n/10.95 (+20) Google.  In-tro-duc-ing nano ba-nana pro.  [
+][]$\T1/zlmtt/m/n/10.95 https : / / blog . google / innovation-[]and-[]ai /
+
+[16]
+[17]
+[18]
+[19])
+[20]
+Overfull \hbox (17.11774pt too wide) in paragraph at lines 958--991
+ [][] 
+
+LaTeX Warning: Float too large for page by 1.7946pt on input line 995.
+
+
+[21 <./assets/T2I/demo_1_dp.jpg> <./assets/T2I/demo_1_nbp.jpg> <./assets/T2I/de
+mo_2_dp.jpg> <./assets/T2I/demo_2_nbp.jpg> <./assets/T2I/demo_3_dp.jpg> <./asse
+ts/T2I/demo_3_nbp.jpg> <./assets/T2I/demo_4_vb.jpg> <./assets/T2I/demo_4_nbp.jp
+g>]
+[22 <./assets/imgedit/sample.1.original.jpg> <./assets/imgedit/sample.1.vb.jpg>
+ <./assets/imgedit/sample.1.nbp.jpg> <./assets/imgedit/sample.2.original.jpg> <
+./assets/imgedit/sample.2.vb.jpg> <./assets/imgedit/sample.2.nbp.jpg> <./assets
+/imgedit/sample.3.original.jpg> <./assets/imgedit/sample.3.vb.jpg> <./assets/im
+gedit/sample.3.nbp.jpg> <./assets/imgedit/sample.4.original.jpg> <./assets/imge
+dit/sample.4.vb.jpg> <./assets/imgedit/sample.4.nbp.jpg>]
+
+enddocument/afterlastpage (AED): lastpage setting LastPage.
+(./main.aux) )
+(see the transcript file for additional information)<d:/texlive/2025/texmf-dist
+/fonts/type1/public/xcharter/XCharter-Bold.pfb><d:/texlive/2025/texmf-dist/font
+s/type1/public/xcharter/XCharter-BoldItalic.pfb><d:/texlive/2025/texmf-dist/fon
+ts/type1/public/xcharter/XCharter-Italic.pfb><d:/texlive/2025/texmf-dist/fonts/
+type1/public/xcharter/XCharter-Roman.pfb><d:/texlive/2025/texmf-dist/fonts/type
+1/public/xcharter/XCharterMathMI.pfb><d:/texlive/2025/texmf-dist/fonts/type1/pu
+blic/lm/lmtk10.pfb><d:/texlive/2025/texmf-dist/fonts/type1/public/lm/lmtt10.pfb
+><d:/texlive/2025/texmf-dist/fonts/type1/public/newtx/txmiaX.pfb><d:/texlive/20
+25/texmf-dist/fonts/type1/public/newtx/txsym.pfb><d:/texlive/2025/texmf-dist/fo
+nts/type1/public/newtx/txsys.pfb>
+Output written on main.pdf (22 pages, 38179772 bytes).
+SyncTeX written on main.synctex.gz.
+
+Transcript written on main.log.

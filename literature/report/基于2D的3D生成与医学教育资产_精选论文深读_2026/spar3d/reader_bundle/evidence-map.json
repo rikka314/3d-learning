@@ -1,0 +1,1073 @@
+{
+  "paper": {
+    "title": "SPAR3D: Stable Point-Aware Reconstruction of 3D Objects from Single Images",
+    "source_mode": "latex-primary",
+    "report_path": "report.md"
+  },
+  "claims": {
+    "C1.1": {
+      "claim_id": "C1.1",
+      "section_id": "1",
+      "section_title": "论文身份与证据包",
+      "claim_text": "SPAR3D 是 CVPR 2025 的单图 3D 重建论文；本包使用匹配的 arXiv LaTeX source 与 CVPR PDF。",
+      "claim_text_html": "SPAR3D 是 CVPR 2025 的单图 3D 重建论文；本包使用匹配的 arXiv LaTeX source 与 CVPR PDF。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C1.1-a",
+          "doc": "spar3d",
+          "quote": "We study the problem of single-image 3D object reconstruction",
+          "quote_html": "We study the problem of single-image 3D object reconstruction",
+          "relation": "direct",
+          "paragraph_id": "0_abstract.tex::p0001",
+          "tex_file": "sec/0_abstract.tex",
+          "section_path": [
+            "Abstract"
+          ],
+          "paragraph_text": "We study the problem of single-image 3D object reconstruction. Recent works have diverged into two directions: regression-based modeling and generative modeling. Regression methods efficiently infer visible surfaces, but struggle with occluded regions. Generative methods handle uncertain regions better by modeling distributions, but are computationally expensive and the generation is often misaligned with visible surfaces. In this paper, we present \\method, a novel two-stage approach aiming to take the best of both directions. The first stage of \\method generates sparse 3D point clouds using a lightweight point diffusion model, which has a fast sampling speed. The second stage uses both the sampled point cloud and the input image to create highly detailed meshes. Our two-stage design enables probabilistic modeling of the ill-posed single-image 3D task while maintaining high computational efficiency and great output fidelity. Using point clouds as an intermediate representation further allows for interactive user edits. Evaluated on diverse datasets, \\method demonstrates superior performance over previous state-of-the-art methods, at an inference speed of \\gentime seconds. Project page with code and model: \\url{https://spar3d.github.io}",
+          "paragraph_html": "We study the problem of single-image 3D object reconstruction. Recent works have diverged into two directions: regression-based modeling and generative modeling. Regression methods efficiently infer visible surfaces, but struggle with occluded regions. Generative methods handle uncertain regions better by modeling distributions, but are computationally expensive and the generation is often misaligned with visible surfaces. In this paper, we present , a novel two-stage approach aiming to take the best of both directions. The first stage of generates sparse 3D point clouds using a lightweight point diffusion model, which has a fast sampling speed. The second stage uses both the sampled point cloud and the input image to create highly detailed meshes. Our two-stage design enables probabilistic modeling of the ill-posed single-image 3D task while maintaining high computational efficiency and great output fidelity. Using point clouds as an intermediate representation further allows for interactive user edits. Evaluated on diverse datasets, demonstrates superior performance over previous state-of-the-art methods, at an inference speed of seconds. Project page with code and model: https://spar3d.github.io",
+          "line_start": 2,
+          "line_end": 3,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 1,
+              "rect": [
+                56.5,
+                553.06,
+                555.5,
+                714.93
+              ],
+              "granularity": "paragraph-block"
+            },
+            {
+              "page": 2,
+              "rect": [
+                56.5,
+                71.9,
+                273.49,
+                86.19
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C2.1": {
+      "claim_id": "C2.1",
+      "section_id": "2",
+      "section_title": "一句话论点与研究方程",
+      "claim_text": "论文把高分辨率扩散慢、前馈回归难处理遮挡面的矛盾，替换为“低分辨率生成 point cloud + 高保真条件 meshing”。",
+      "claim_text_html": "论文把高分辨率扩散慢、前馈回归难处理遮挡面的矛盾，替换为“低分辨率生成 point cloud + 高保真条件 meshing”。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C2.1-a",
+          "doc": "spar3d",
+          "quote": "Regression-based models are highly effective",
+          "quote_html": "Regression-based models are highly effective",
+          "relation": "direct",
+          "paragraph_id": "1_intro.tex::p0002",
+          "tex_file": "sec/1_intro.tex",
+          "section_path": [
+            "Introduction"
+          ],
+          "paragraph_text": "Regression-based models are highly effective in adhering to the visible surface in the image, and the inference speed is typically fast. However, they make the oversimplified assumption of bijective mapping between images and 3D. This assumption introduces ambiguity in the learning objective, leading to poorly estimated surfaces and textures in occluded regions. On the other hand, diffusion-based approaches are generative and do not predict the statistical mean. However, their iterative sampling at inference time is computationally inefficient when modeling high-resolution 3D. Additionally, previous studies such as~\\cite{huang2024zeroshape} indicate that diffusion-generated 3D models exhibit worse alignment to the surface visible in the input image. How can we take the best of both worlds while avoiding their limitations?",
+          "paragraph_html": "Regression-based models are highly effective in adhering to the visible surface in the image, and the inference speed is typically fast. However, they make the oversimplified assumption of bijective mapping between images and 3D. This assumption introduces ambiguity in the learning objective, leading to poorly estimated surfaces and textures in occluded regions. On the other hand, diffusion-based approaches are generative and do not predict the statistical mean. However, their iterative sampling at inference time is computationally inefficient when modeling high-resolution 3D. Additionally, previous studies such as~huang2024zeroshape indicate that diffusion-generated 3D models exhibit worse alignment to the surface visible in the input image. How can we take the best of both worlds while avoiding their limitations?",
+          "line_start": 6,
+          "line_end": 6,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 2,
+              "rect": [
+                56.5,
+                127.43,
+                296.75,
+                715.41
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C4.1": {
+      "claim_id": "C4.1",
+      "section_id": "4",
+      "section_title": "真正解决的问题",
+      "claim_text": "单图逆问题中，可见面由像素约束，遮挡面必须由 3D prior 猜测；SPAR3D 将两种不确定性放到不同阶段处理。",
+      "claim_text_html": "单图逆问题中，可见面由像素约束，遮挡面必须由 3D prior 猜测；SPAR3D 将两种不确定性放到不同阶段处理。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C4.1-a",
+          "doc": "spar3d",
+          "quote": "offload the uncertainty modeling to the point sampling stage",
+          "quote_html": "offload the uncertainty modeling to the point sampling stage",
+          "relation": "direct",
+          "paragraph_id": "1_intro.tex::p0003",
+          "tex_file": "sec/1_intro.tex",
+          "section_path": [
+            "Introduction"
+          ],
+          "paragraph_text": "In light of this, we propose \\method, which breaks the 3D reconstruction process down into two stages: the point sampling stage and the meshing stage. The point sampling stage uses diffusion models to generate sparse point clouds, followed by the meshing stage, transforming point clouds into highly detailed meshes. Our main idea is to offload the uncertainty modeling to the point sampling stage, where the low resolution of the point clouds allows rapid iterative sampling. The subsequent meshing stage leverages the local image features to transform the point cloud into a detailed mesh of high output fidelity. Reducing the meshing uncertainty with point clouds further facilitates unsupervised learning of inverse rendering, which reduces the baked-in lighting in the textures. Our two-stage design enables \\method to significantly outperform previous regressive methods, while preserving high computational efficiency and fidelity to input observation.",
+          "paragraph_html": "In light of this, we propose , which breaks the 3D reconstruction process down into two stages: the point sampling stage and the meshing stage. The point sampling stage uses diffusion models to generate sparse point clouds, followed by the meshing stage, transforming point clouds into highly detailed meshes. Our main idea is to offload the uncertainty modeling to the point sampling stage, where the low resolution of the point clouds allows rapid iterative sampling. The subsequent meshing stage leverages the local image features to transform the point cloud into a detailed mesh of high output fidelity. Reducing the meshing uncertainty with point clouds further facilitates unsupervised learning of inverse rendering, which reduces the baked-in lighting in the textures. Our two-stage design enables to significantly outperform previous regressive methods, while preserving high computational efficiency and fidelity to input observation.",
+          "line_start": 8,
+          "line_end": 8,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 2,
+              "rect": [
+                56.5,
+                127.43,
+                296.75,
+                715.41
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C9.1": {
+      "claim_id": "C9.1",
+      "section_id": "9",
+      "section_title": "核心方法",
+      "claim_text": "输入图像先条件化生成 512 个带 XYZ/RGB 通道的稀疏点，再与图像局部特征共同驱动 triplane mesh reconstruction。",
+      "claim_text_html": "输入图像先条件化生成 512 个带 XYZ/RGB 通道的稀疏点，再与图像局部特征共同驱动 triplane mesh reconstruction。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C9.1-a",
+          "doc": "spar3d",
+          "quote": "point clouds",
+          "quote_html": "point clouds",
+          "relation": "direct",
+          "paragraph_id": "3_method.tex::p0002",
+          "tex_file": "sec/3_method.tex",
+          "section_path": [
+            "Method",
+            "Point Sampling Stage"
+          ],
+          "paragraph_text": "\\paragraph{Overview.} The point sampling stage produces a sparse point cloud as the input to the meshing stage. The core of the point sampling stage is a point diffusion model, which generates point clouds $\\point_0 \\in \\mathbb{R}^{n \\times 6}$ conditioned on the input image $I$. The six channels include three XYZ channels and three RGB channels. In our work, the resolution of the point cloud $n$ is set to 512.",
+          "paragraph_html": "Overview. The point sampling stage produces a sparse point cloud as the input to the meshing stage. The core of the point sampling stage is a point diffusion model, which generates point clouds <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\point_0 \\in \\mathbb{R}^{n \\times 6}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msub><mi>\\point</mi><mn>0</mn></msub><mo>&#x02208;</mo><msup><mi>&#x0211D;</mi><mrow><mi>n</mi><mo>&#x000D7;</mo><mn>6</mn></mrow></msup></mrow></math></span> conditioned on the input image <span class=\"math-rendered math-rendered--inline\" data-latex=\"I\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mi>I</mi></mrow></math></span>. The six channels include three XYZ channels and three RGB channels. In our work, the resolution of the point cloud <span class=\"math-rendered math-rendered--inline\" data-latex=\"n\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mi>n</mi></mrow></math></span> is set to 512.",
+          "line_start": 8,
+          "line_end": 9,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 3,
+              "rect": [
+                315.25,
+                401.81,
+                555.5,
+                506.29
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C11.1": {
+      "claim_id": "C11.1",
+      "section_id": "11",
+      "section_title": "公式与表示",
+      "claim_text": "SPAR3D 的 point stage 采用 DDPM 噪声过程与噪声预测损失；其作用是在低维中显式保留多解，而非直接平均成一个遮挡面。",
+      "claim_text_html": "SPAR3D 的 point stage 采用 DDPM 噪声过程与噪声预测损失；其作用是在低维中显式保留多解，而非直接平均成一个遮挡面。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C11.1-a",
+          "doc": "spar3d",
+          "quote": "The diffusion process combines Gaussian noise",
+          "quote_html": "The diffusion process combines Gaussian noise",
+          "relation": "direct",
+          "paragraph_id": "3_method.tex::p0003",
+          "tex_file": "sec/3_method.tex",
+          "section_path": [
+            "Method",
+            "Point Sampling Stage"
+          ],
+          "paragraph_text": "\\paragraph{Point Diffusion Framework.} Our diffusion framework is based on DDPM~\\cite{ho2020denoising}, which consists of two processes: 1) the forward process which adds noise to the original point cloud, and 2) the backward process where the denoiser learns to remove the noise. At timestep $t \\in [0, T]$, the diffusion process combines Gaussian noise $\\boldsymbol{\\epsilon} \\sim \\mathcal{N}(\\mathbf{0},\\mathbf{I})$ with a point cloud $\\point_0$ as \\begin{equation} \\point_t = \\sqrt{\\bar{\\alpha_t}} \\point_0 + \\sqrt{1 - \\bar{\\alpha_t}} \\boldsymbol{\\epsilon}, \\end{equation} where $\\bar{\\alpha_t}$ denotes the noise schedule. We use the sigmoid noise schedule proposed in~\\cite{chen2023importance}, combined with input scaling and the renormalization trick. The denoiser $\\boldsymbol{\\epsilon}_\\theta (\\point_t, t; \\condition)$ then learns to recover the noise from $\\point_t$ and is supervised by \\begin{equation} L_{simple}(\\theta) = \\mathbb{E}_{t,\\point_0,\\boldsymbol{\\epsilon}} \\lVert \\boldsymbol{\\epsilon} - \\boldsymbol{\\epsilon}_\\theta (\\point_t, t; \\condition) \\rVert_2^2. \\end{equation} Here $\\condition$ denotes the image condition tokens. During inference, we use the DDIM sampler~\\cite{songdenoising} to generate point cloud samples. Samples generated directly often align poorly with the condition, hence we use the classifier-free guidance (CFG)~\\cite{ho2022classifier} to improve sampling fidelity.",
+          "paragraph_html": "Point Diffusion Framework. Our diffusion framework is based on DDPM~ho2020denoising, which consists of two processes: 1) the forward process which adds noise to the original point cloud, and 2) the backward process where the denoiser learns to remove the noise. At timestep <span class=\"math-rendered math-rendered--inline\" data-latex=\"t \\in [0, T]\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mi>t</mi><mo>&#x02208;</mo><mo stretchy=\"false\">[</mo><mn>0</mn><mo>&#x0002C;</mo><mi>T</mi><mo stretchy=\"false\">]</mo></mrow></math></span>, the diffusion process combines Gaussian noise <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\boldsymbol{\\epsilon} \\sim \\mathcal{N}(\\mathbf{0},\\mathbf{I})\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mrow><mi mathvariant=\"bold-italic\">&#x003F5;</mi></mrow><mi>&#x0007E;</mi><mi>&#x1D4A9;</mi><mo stretchy=\"false\">&#x00028;</mo><mrow><mn mathvariant=\"bold\">0</mn></mrow><mo>&#x0002C;</mo><mi>&#x1D408;</mi><mo stretchy=\"false\">&#x00029;</mo></mrow></math></span> with a point cloud <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\point_0\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msub><mi>\\point</mi><mn>0</mn></msub></mrow></math></span> as <span class=\"math-rendered math-rendered--block\" data-latex=\"\\point_t = \\sqrt{\\bar{\\alpha_t}} \\point_0 + \\sqrt{1 - \\bar{\\alpha_t}} \\boldsymbol{\\epsilon},\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><msub><mi>\\point</mi><mi>t</mi></msub><mo>&#x0003D;</mo><msqrt><mrow><mover><mrow><msub><mi>&#x003B1;</mi><mi>t</mi></msub></mrow><mo stretchy=\"true\">&#x000AF;</mo></mover></mrow></msqrt><msub><mi>\\point</mi><mn>0</mn></msub><mo>&#x0002B;</mo><msqrt><mrow><mn>1</mn><mo>&#x02212;</mo><mover><mrow><msub><mi>&#x003B1;</mi><mi>t</mi></msub></mrow><mo stretchy=\"true\">&#x000AF;</mo></mover></mrow></msqrt><mrow><mi mathvariant=\"bold-italic\">&#x003F5;</mi></mrow><mo>&#x0002C;</mo></mrow></math></span> where <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\bar{\\alpha_t}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mover><mrow><msub><mi>&#x003B1;</mi><mi>t</mi></msub></mrow><mo stretchy=\"true\">&#x000AF;</mo></mover></mrow></math></span> denotes the noise schedule. We use the sigmoid noise schedule proposed in~chen2023importance, combined with input scaling and the renormalization trick. The denoiser <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\boldsymbol{\\epsilon}_\\theta (\\point_t, t; \\condition)\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msub><mrow><mi mathvariant=\"bold-italic\">&#x003F5;</mi></mrow><mi>&#x003B8;</mi></msub><mo stretchy=\"false\">&#x00028;</mo><msub><mi>\\point</mi><mi>t</mi></msub><mo>&#x0002C;</mo><mi>t</mi><mi>;</mi><mi>\\condition</mi><mo stretchy=\"false\">&#x00029;</mo></mrow></math></span> then learns to recover the noise from <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\point_t\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msub><mi>\\point</mi><mi>t</mi></msub></mrow></math></span> and is supervised by <span class=\"math-rendered math-rendered--block\" data-latex=\"L_{simple}(\\theta) = \\mathbb{E}_{t,\\point_0,\\boldsymbol{\\epsilon}} \\lVert \\boldsymbol{\\epsilon} - \\boldsymbol{\\epsilon}_\\theta (\\point_t, t; \\condition) \\rVert_2^2.\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><msub><mi>L</mi><mrow><mi>s</mi><mi>i</mi><mi>m</mi><mi>p</mi><mi>l</mi><mi>e</mi></mrow></msub><mo stretchy=\"false\">&#x00028;</mo><mi>&#x003B8;</mi><mo stretchy=\"false\">&#x00029;</mo><mo>&#x0003D;</mo><msub><mi>&#x1D53C;</mi><mrow><mi>t</mi><mo>&#x0002C;</mo><msub><mi>\\point</mi><mn>0</mn></msub><mo>&#x0002C;</mo><mrow><mi mathvariant=\"bold-italic\">&#x003F5;</mi></mrow></mrow></msub><mo>&#x02016;</mo><mrow><mi mathvariant=\"bold-italic\">&#x003F5;</mi></mrow><mo>&#x02212;</mo><msub><mrow><mi mathvariant=\"bold-italic\">&#x003F5;</mi></mrow><mi>&#x003B8;</mi></msub><mo stretchy=\"false\">&#x00028;</mo><msub><mi>\\point</mi><mi>t</mi></msub><mo>&#x0002C;</mo><mi>t</mi><mi>;</mi><mi>\\condition</mi><mo stretchy=\"false\">&#x00029;</mo><msubsup><mo>&#x02016;</mo><mn>2</mn><mn>2</mn></msubsup><mo>&#x0002E;</mo></mrow></math></span> Here <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\condition\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mi>\\condition</mi></mrow></math></span> denotes the image condition tokens. During inference, we use the DDIM sampler~songdenoising to generate point cloud samples. Samples generated directly often align poorly with the condition, hence we use the classifier-free guidance (CFG)~ho2022classifier to improve sampling fidelity.",
+          "line_start": 11,
+          "line_end": 20,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 3,
+              "rect": [
+                315.25,
+                420.51,
+                555.5,
+                715.41
+              ],
+              "granularity": "paragraph-block"
+            },
+            {
+              "page": 4,
+              "rect": [
+                56.5,
+                72.41,
+                296.75,
+                110.28
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C14.1": {
+      "claim_id": "C14.1",
+      "section_id": "14",
+      "section_title": "模块思维",
+      "claim_text": "point cloud 是论文的替代机制：它以低成本样本表达背面假设，同时因无连接约束允许后续局部编辑。",
+      "claim_text_html": "point cloud 是论文的替代机制：它以低成本样本表达背面假设，同时因无连接约束允许后续局部编辑。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C14.1-a",
+          "doc": "spar3d",
+          "quote": "lack of connectivity",
+          "quote_html": "lack of connectivity",
+          "relation": "inference",
+          "paragraph_id": "1_intro.tex::p0004",
+          "tex_file": "sec/1_intro.tex",
+          "section_path": [
+            "Introduction"
+          ],
+          "paragraph_text": "A key design choice of our method is the usage of point clouds to connect the two stages. To ensure fast reconstruction, our intermediate representation needs to be lightweight so it can be efficiently generated. However, it should provide enough guidance to the meshing stage. This inspires us to use point clouds, which are perhaps the most computationally efficient 3D representation because all information bits are used to represent the surface. Moreover, the lack of connectivity, typically considered as the drawback of point clouds, now turns into an advantage with our two-stage approach for editing purposes. When the back surface does not align with user expectations, local edits can be easily made on the low-resolution point clouds without worrying about topologies (see~\\cref{fig:teaser} bottom). Feeding edited point clouds into the meshing stage produces better meshes tailored towards user requirements.",
+          "paragraph_html": "A key design choice of our method is the usage of point clouds to connect the two stages. To ensure fast reconstruction, our intermediate representation needs to be lightweight so it can be efficiently generated. However, it should provide enough guidance to the meshing stage. This inspires us to use point clouds, which are perhaps the most computationally efficient 3D representation because all information bits are used to represent the surface. Moreover, the lack of connectivity, typically considered as the drawback of point clouds, now turns into an advantage with our two-stage approach for editing purposes. When the back surface does not align with user expectations, local edits can be easily made on the low-resolution point clouds without worrying about topologies (see~fig:teaser bottom). Feeding edited point clouds into the meshing stage produces better meshes tailored towards user requirements.",
+          "line_start": 10,
+          "line_end": 10,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 2,
+              "rect": [
+                56.5,
+                71.9,
+                555.5,
+                715.41
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C16.1": {
+      "claim_id": "C16.1",
+      "section_id": "16",
+      "section_title": "实验设计",
+      "claim_text": "论文在 GSO 与 OmniObject3D 的约 250-object 测试集上，用统一旋转搜索与 ICP 对齐后报告 Chamfer Distance 与 F-score。",
+      "claim_text_html": "论文在 GSO 与 OmniObject3D 的约 250-object 测试集上，用统一旋转搜索与 ICP 对齐后报告 Chamfer Distance 与 F-score。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C16.1-a",
+          "doc": "spar3d",
+          "quote": "GSO",
+          "quote_html": "GSO",
+          "relation": "direct",
+          "paragraph_id": "4_experiments.tex::p0003",
+          "tex_file": "sec/4_experiments.tex",
+          "section_path": [
+            "Experiments",
+            "Evaluation"
+          ],
+          "paragraph_text": "\\paragraph{Datasets.} We used two datasets for evaluation, GSO~\\cite{downs2022google} and OmniObject3D~\\cite{wu2023omniobject3d}. We follow TripoSR~\\cite{TripoSR2024} and remove simple box or cylindrical objects to avoid bias on simple geometries. Each of the evaluation sets consists of around 250 objects. We render the objects with diverse azimuth angles at different elevations, with randomly sampled HDRI environment maps. We also vary the focal length of the camera to create more diverse test cases.",
+          "paragraph_html": "Datasets. We used two datasets for evaluation, GSO~downs2022google and OmniObject3D~wu2023omniobject3d. We follow TripoSR~TripoSR2024 and remove simple box or cylindrical objects to avoid bias on simple geometries. Each of the evaluation sets consists of around 250 objects. We render the objects with diverse azimuth angles at different elevations, with randomly sampled HDRI environment maps. We also vary the focal length of the camera to create more diverse test cases.",
+          "line_start": 8,
+          "line_end": 9,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 5,
+              "rect": [
+                315.25,
+                596.47,
+                555.5,
+                715.41
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C17.1": {
+      "claim_id": "C17.1",
+      "section_id": "17",
+      "section_title": "实验—主张对齐",
+      "claim_text": "SPAR3D 的实验主要检验 mesh 几何对齐与视觉质量；它们支持工程可用性，但不能证明医学隐藏结构真实。",
+      "claim_text_html": "SPAR3D 的实验主要检验 mesh 几何对齐与视觉质量；它们支持工程可用性，但不能证明医学隐藏结构真实。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C17.1-a",
+          "doc": "spar3d",
+          "quote": "Chamfer Distance",
+          "quote_html": "Chamfer Distance",
+          "relation": "direct",
+          "paragraph_id": "4_experiments.tex::p0004",
+          "tex_file": "sec/4_experiments.tex",
+          "section_path": [
+            "Experiments",
+            "Evaluation"
+          ],
+          "paragraph_text": "\\paragraph{Metrics.} To evaluate the geometry quality of the reconstructed meshes, we use follow prior works~\\cite{TripoSR2024,xu2024instantmesh} and use Chamfer Distance (CD) and F-score (FS) as our evaluation metrics. CD measures the alignment between two point clouds and is defined as the average of accuracy and completeness: \\begin{equation} \\small d(S_1, S_2) = \\frac{1}{2|S_1|}\\sum_{x \\in S_1} \\min_{y \\in S_2} \\|x-y\\|_2 + \\frac{1}{2|S_2|}\\sum_{y \\in S_2} \\min_{x \\in S_1} \\|x-y\\|_2 \\label{eq:chamfer} \\end{equation} FS evaluates point cloud alignment by calculating the F-score with a predefined threshold. Predicted points that lie within the distance threshold are considered as correct predictions. A higher FS means better alignment between the reconstructed shape and the groundtruth. To evaluate the texture quality, we compute standard image metrics, including PSNR, SSIM and LPIPS, between images rendered from the predicted mesh and the groundtruth images.",
+          "paragraph_html": "Metrics. To evaluate the geometry quality of the reconstructed meshes, we use follow prior works~TripoSR2024,xu2024instantmesh and use Chamfer Distance (CD) and F-score (FS) as our evaluation metrics. CD measures the alignment between two point clouds and is defined as the average of accuracy and completeness: <span class=\"math-rendered math-rendered--block\" data-latex=\"\\small d(S_1, S_2) = \\frac{1}{2|S_1|}\\sum_{x \\in S_1} \\min_{y \\in S_2} \\|x-y\\|_2 + \\frac{1}{2|S_2|}\\sum_{y \\in S_2} \\min_{x \\in S_1} \\|x-y\\|_2\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mstyle mathsize=\"0.85em\"><mi>d</mi><mo stretchy=\"false\">&#x00028;</mo><msub><mi>S</mi><mn>1</mn></msub><mo>&#x0002C;</mo><msub><mi>S</mi><mn>2</mn></msub><mo stretchy=\"false\">&#x00029;</mo><mo>&#x0003D;</mo><mfrac><mrow><mn>1</mn></mrow><mrow><mn>2</mn><mo stretchy=\"false\">&#x0007C;</mo><msub><mi>S</mi><mn>1</mn></msub><mo stretchy=\"false\">&#x0007C;</mo></mrow></mfrac><munder><mo>&#x02211;</mo><mrow><mi>x</mi><mo>&#x02208;</mo><msub><mi>S</mi><mn>1</mn></msub></mrow></munder><msub><mo>min</mo><mrow><mi>y</mi><mo>&#x02208;</mo><msub><mi>S</mi><mn>2</mn></msub></mrow></msub><mo fence=\"false\" stretchy=\"false\">&#x02016;</mo><mi>x</mi><mo>&#x02212;</mo><mi>y</mi><msub><mo fence=\"false\" stretchy=\"false\">&#x02016;</mo><mn>2</mn></msub><mo>&#x0002B;</mo><mfrac><mrow><mn>1</mn></mrow><mrow><mn>2</mn><mo stretchy=\"false\">&#x0007C;</mo><msub><mi>S</mi><mn>2</mn></msub><mo stretchy=\"false\">&#x0007C;</mo></mrow></mfrac><munder><mo>&#x02211;</mo><mrow><mi>y</mi><mo>&#x02208;</mo><msub><mi>S</mi><mn>2</mn></msub></mrow></munder><msub><mo>min</mo><mrow><mi>x</mi><mo>&#x02208;</mo><msub><mi>S</mi><mn>1</mn></msub></mrow></msub><mo fence=\"false\" stretchy=\"false\">&#x02016;</mo><mi>x</mi><mo>&#x02212;</mo><mi>y</mi><msub><mo fence=\"false\" stretchy=\"false\">&#x02016;</mo><mn>2</mn></msub></mstyle></mrow></math></span> FS evaluates point cloud alignment by calculating the F-score with a predefined threshold. Predicted points that lie within the distance threshold are considered as correct predictions. A higher FS means better alignment between the reconstructed shape and the groundtruth. To evaluate the texture quality, we compute standard image metrics, including PSNR, SSIM and LPIPS, between images rendered from the predicted mesh and the groundtruth images.",
+          "line_start": 11,
+          "line_end": 19,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 6,
+              "rect": [
+                56.5,
+                344.72,
+                299.22,
+                558.42
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C21.1": {
+      "claim_id": "C21.1",
+      "section_id": "21",
+      "section_title": "局限",
+      "claim_text": "论文自身承认不可见面主要受 sampled point cloud 决定；这正是医学教育中不能把生成 mesh 当作不可见解剖真值的原因。",
+      "claim_text_html": "论文自身承认不可见面主要受 sampled point cloud 决定；这正是医学教育中不能把生成 mesh 当作不可见解剖真值的原因。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C21.1-a",
+          "doc": "spar3d",
+          "quote": "unseen surface",
+          "quote_html": "unseen surface",
+          "relation": "inference",
+          "paragraph_id": "3_method.tex::p0013",
+          "tex_file": "sec/3_method.tex",
+          "section_path": [
+            "Method",
+            "Interactive Editing"
+          ],
+          "paragraph_text": "A unique advantage of our two-stage design is that it naturally supports interactive editing of unseen regions in our produced mesh. In most circumstances, the visible surface is determined by the input image and remains highly accurate, while the unseen surface is mainly based on the sampled point cloud, which might not align with user intention. In this case, editing the unseen surface of the mesh is feasible by altering the point cloud. Point clouds are perhaps one of the most flexible 3D representation for editing purposes because there are no topology constraints. Given the low resolution of our point clouds, editing the point cloud is fairly efficient and intuitive. Users can easily delete, duplicate, stretch or recolor points in the point cloud. Our efficient meshing model is able to produce the adjusted mesh in 0.3 seconds, which makes this process fairly interactive.",
+          "paragraph_html": "A unique advantage of our two-stage design is that it naturally supports interactive editing of unseen regions in our produced mesh. In most circumstances, the visible surface is determined by the input image and remains highly accurate, while the unseen surface is mainly based on the sampled point cloud, which might not align with user intention. In this case, editing the unseen surface of the mesh is feasible by altering the point cloud. Point clouds are perhaps one of the most flexible 3D representation for editing purposes because there are no topology constraints. Given the low resolution of our point clouds, editing the point cloud is fairly efficient and intuitive. Users can easily delete, duplicate, stretch or recolor points in the point cloud. Our efficient meshing model is able to produce the adjusted mesh in 0.3 seconds, which makes this process fairly interactive.",
+          "line_start": 66,
+          "line_end": 66,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 5,
+              "rect": [
+                56.5,
+                356.7,
+                296.75,
+                538.03
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C20.1": {
+      "claim_id": "C20.1",
+      "section_id": "20",
+      "section_title": "可复用论文模式",
+      "claim_text": "SPAR3D 展示了“把不可见面不确定性下沉到低成本、可编辑中间表示，再用观测图像恢复局部细节”的可复用设计模式。",
+      "claim_text_html": "SPAR3D 展示了“把不可见面不确定性下沉到低成本、可编辑中间表示，再用观测图像恢复局部细节”的可复用设计模式。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C20.1-a",
+          "doc": "spar3d",
+          "quote": "offload the uncertainty modeling",
+          "quote_html": "offload the uncertainty modeling",
+          "relation": "inference",
+          "paragraph_id": "1_intro.tex::p0003",
+          "tex_file": "sec/1_intro.tex",
+          "section_path": [
+            "Introduction"
+          ],
+          "paragraph_text": "In light of this, we propose \\method, which breaks the 3D reconstruction process down into two stages: the point sampling stage and the meshing stage. The point sampling stage uses diffusion models to generate sparse point clouds, followed by the meshing stage, transforming point clouds into highly detailed meshes. Our main idea is to offload the uncertainty modeling to the point sampling stage, where the low resolution of the point clouds allows rapid iterative sampling. The subsequent meshing stage leverages the local image features to transform the point cloud into a detailed mesh of high output fidelity. Reducing the meshing uncertainty with point clouds further facilitates unsupervised learning of inverse rendering, which reduces the baked-in lighting in the textures. Our two-stage design enables \\method to significantly outperform previous regressive methods, while preserving high computational efficiency and fidelity to input observation.",
+          "paragraph_html": "In light of this, we propose , which breaks the 3D reconstruction process down into two stages: the point sampling stage and the meshing stage. The point sampling stage uses diffusion models to generate sparse point clouds, followed by the meshing stage, transforming point clouds into highly detailed meshes. Our main idea is to offload the uncertainty modeling to the point sampling stage, where the low resolution of the point clouds allows rapid iterative sampling. The subsequent meshing stage leverages the local image features to transform the point cloud into a detailed mesh of high output fidelity. Reducing the meshing uncertainty with point clouds further facilitates unsupervised learning of inverse rendering, which reduces the baked-in lighting in the textures. Our two-stage design enables to significantly outperform previous regressive methods, while preserving high computational efficiency and fidelity to input observation.",
+          "line_start": 8,
+          "line_end": 8,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 2,
+              "rect": [
+                56.5,
+                127.43,
+                296.75,
+                715.41
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C22.1": {
+      "claim_id": "C22.1",
+      "section_id": "22",
+      "section_title": "创新边界判断",
+      "claim_text": "对医学教育，SPAR3D 的点云编辑性是有价值的工程增量，但它不提供解剖语义或隐藏结构真值保证。",
+      "claim_text_html": "对医学教育，SPAR3D 的点云编辑性是有价值的工程增量，但它不提供解剖语义或隐藏结构真值保证。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C22.1-a",
+          "doc": "spar3d",
+          "quote": "unseen surface",
+          "quote_html": "unseen surface",
+          "relation": "inference",
+          "paragraph_id": "3_method.tex::p0013",
+          "tex_file": "sec/3_method.tex",
+          "section_path": [
+            "Method",
+            "Interactive Editing"
+          ],
+          "paragraph_text": "A unique advantage of our two-stage design is that it naturally supports interactive editing of unseen regions in our produced mesh. In most circumstances, the visible surface is determined by the input image and remains highly accurate, while the unseen surface is mainly based on the sampled point cloud, which might not align with user intention. In this case, editing the unseen surface of the mesh is feasible by altering the point cloud. Point clouds are perhaps one of the most flexible 3D representation for editing purposes because there are no topology constraints. Given the low resolution of our point clouds, editing the point cloud is fairly efficient and intuitive. Users can easily delete, duplicate, stretch or recolor points in the point cloud. Our efficient meshing model is able to produce the adjusted mesh in 0.3 seconds, which makes this process fairly interactive.",
+          "paragraph_html": "A unique advantage of our two-stage design is that it naturally supports interactive editing of unseen regions in our produced mesh. In most circumstances, the visible surface is determined by the input image and remains highly accurate, while the unseen surface is mainly based on the sampled point cloud, which might not align with user intention. In this case, editing the unseen surface of the mesh is feasible by altering the point cloud. Point clouds are perhaps one of the most flexible 3D representation for editing purposes because there are no topology constraints. Given the low resolution of our point clouds, editing the point cloud is fairly efficient and intuitive. Users can easily delete, duplicate, stretch or recolor points in the point cloud. Our efficient meshing model is able to produce the adjusted mesh in 0.3 seconds, which makes this process fairly interactive.",
+          "line_start": 66,
+          "line_end": 66,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 5,
+              "rect": [
+                56.5,
+                356.7,
+                296.75,
+                538.03
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C23.1": {
+      "claim_id": "C23.1",
+      "section_id": "23",
+      "section_title": "医学教育路线",
+      "claim_text": "SPAR3D 最适合作为低显存 GLB 基线和人工修订入口；应让 canonical anatomy mesh、landmark 与 part graph 决定发布资格。",
+      "claim_text_html": "SPAR3D 最适合作为低显存 GLB 基线和人工修订入口；应让 canonical anatomy mesh、landmark 与 part graph 决定发布资格。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C23.1-a",
+          "doc": "spar3d",
+          "quote": "editing the unseen surface",
+          "quote_html": "editing the unseen surface",
+          "relation": "inference",
+          "paragraph_id": "3_method.tex::p0013",
+          "tex_file": "sec/3_method.tex",
+          "section_path": [
+            "Method",
+            "Interactive Editing"
+          ],
+          "paragraph_text": "A unique advantage of our two-stage design is that it naturally supports interactive editing of unseen regions in our produced mesh. In most circumstances, the visible surface is determined by the input image and remains highly accurate, while the unseen surface is mainly based on the sampled point cloud, which might not align with user intention. In this case, editing the unseen surface of the mesh is feasible by altering the point cloud. Point clouds are perhaps one of the most flexible 3D representation for editing purposes because there are no topology constraints. Given the low resolution of our point clouds, editing the point cloud is fairly efficient and intuitive. Users can easily delete, duplicate, stretch or recolor points in the point cloud. Our efficient meshing model is able to produce the adjusted mesh in 0.3 seconds, which makes this process fairly interactive.",
+          "paragraph_html": "A unique advantage of our two-stage design is that it naturally supports interactive editing of unseen regions in our produced mesh. In most circumstances, the visible surface is determined by the input image and remains highly accurate, while the unseen surface is mainly based on the sampled point cloud, which might not align with user intention. In this case, editing the unseen surface of the mesh is feasible by altering the point cloud. Point clouds are perhaps one of the most flexible 3D representation for editing purposes because there are no topology constraints. Given the low resolution of our point clouds, editing the point cloud is fairly efficient and intuitive. Users can easily delete, duplicate, stretch or recolor points in the point cloud. Our efficient meshing model is able to produce the adjusted mesh in 0.3 seconds, which makes this process fairly interactive.",
+          "line_start": 66,
+          "line_end": 66,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 5,
+              "rect": [
+                56.5,
+                356.7,
+                296.75,
+                538.03
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C3.1": {
+      "claim_id": "C3.1",
+      "section_id": "3",
+      "section_title": "标题解读",
+      "claim_text": "标题把论文的对象、条件或关键 representation 准确地压缩成一个技术承诺；此处的逐词解读是基于论文摘要与方法的推断。",
+      "claim_text_html": "标题把论文的对象、条件或关键 representation 准确地压缩成一个技术承诺；此处的逐词解读是基于论文摘要与方法的推断。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C3.1-a",
+          "doc": "spar3d",
+          "quote": "Regression-based models are highly effective",
+          "quote_html": "Regression-based models are highly effective",
+          "relation": "inference",
+          "paragraph_id": "1_intro.tex::p0002",
+          "tex_file": "sec/1_intro.tex",
+          "section_path": [
+            "Introduction"
+          ],
+          "paragraph_text": "Regression-based models are highly effective in adhering to the visible surface in the image, and the inference speed is typically fast. However, they make the oversimplified assumption of bijective mapping between images and 3D. This assumption introduces ambiguity in the learning objective, leading to poorly estimated surfaces and textures in occluded regions. On the other hand, diffusion-based approaches are generative and do not predict the statistical mean. However, their iterative sampling at inference time is computationally inefficient when modeling high-resolution 3D. Additionally, previous studies such as~\\cite{huang2024zeroshape} indicate that diffusion-generated 3D models exhibit worse alignment to the surface visible in the input image. How can we take the best of both worlds while avoiding their limitations?",
+          "paragraph_html": "Regression-based models are highly effective in adhering to the visible surface in the image, and the inference speed is typically fast. However, they make the oversimplified assumption of bijective mapping between images and 3D. This assumption introduces ambiguity in the learning objective, leading to poorly estimated surfaces and textures in occluded regions. On the other hand, diffusion-based approaches are generative and do not predict the statistical mean. However, their iterative sampling at inference time is computationally inefficient when modeling high-resolution 3D. Additionally, previous studies such as~huang2024zeroshape indicate that diffusion-generated 3D models exhibit worse alignment to the surface visible in the input image. How can we take the best of both worlds while avoiding their limitations?",
+          "line_start": 6,
+          "line_end": 6,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 2,
+              "rect": [
+                56.5,
+                127.43,
+                296.75,
+                715.41
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C5.1": {
+      "claim_id": "C5.1",
+      "section_id": "5",
+      "section_title": "科学问题阶梯",
+      "claim_text": "直接任务只是单图或条件 3D 生成；更上层的问题是如何在不完整观测下表达不确定性，同时把可发布资产的几何事实与视觉呈现分开。",
+      "claim_text_html": "直接任务只是单图或条件 3D 生成；更上层的问题是如何在不完整观测下表达不确定性，同时把可发布资产的几何事实与视觉呈现分开。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C5.1-a",
+          "doc": "spar3d",
+          "quote": "offload the uncertainty modeling to the point sampling stage",
+          "quote_html": "offload the uncertainty modeling to the point sampling stage",
+          "relation": "inference",
+          "paragraph_id": "1_intro.tex::p0003",
+          "tex_file": "sec/1_intro.tex",
+          "section_path": [
+            "Introduction"
+          ],
+          "paragraph_text": "In light of this, we propose \\method, which breaks the 3D reconstruction process down into two stages: the point sampling stage and the meshing stage. The point sampling stage uses diffusion models to generate sparse point clouds, followed by the meshing stage, transforming point clouds into highly detailed meshes. Our main idea is to offload the uncertainty modeling to the point sampling stage, where the low resolution of the point clouds allows rapid iterative sampling. The subsequent meshing stage leverages the local image features to transform the point cloud into a detailed mesh of high output fidelity. Reducing the meshing uncertainty with point clouds further facilitates unsupervised learning of inverse rendering, which reduces the baked-in lighting in the textures. Our two-stage design enables \\method to significantly outperform previous regressive methods, while preserving high computational efficiency and fidelity to input observation.",
+          "paragraph_html": "In light of this, we propose , which breaks the 3D reconstruction process down into two stages: the point sampling stage and the meshing stage. The point sampling stage uses diffusion models to generate sparse point clouds, followed by the meshing stage, transforming point clouds into highly detailed meshes. Our main idea is to offload the uncertainty modeling to the point sampling stage, where the low resolution of the point clouds allows rapid iterative sampling. The subsequent meshing stage leverages the local image features to transform the point cloud into a detailed mesh of high output fidelity. Reducing the meshing uncertainty with point clouds further facilitates unsupervised learning of inverse rendering, which reduces the baked-in lighting in the textures. Our two-stage design enables to significantly outperform previous regressive methods, while preserving high computational efficiency and fidelity to input observation.",
+          "line_start": 8,
+          "line_end": 8,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 2,
+              "rect": [
+                56.5,
+                127.43,
+                296.75,
+                715.41
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C6.1": {
+      "claim_id": "C6.1",
+      "section_id": "6",
+      "section_title": "作者可能的发现路径",
+      "claim_text": "一种合理的作者侧路径是先发现已有范式的隐藏假设，再保留其强项并把失败环节替换为新的中间表示、模块或条件机制。",
+      "claim_text_html": "一种合理的作者侧路径是先发现已有范式的隐藏假设，再保留其强项并把失败环节替换为新的中间表示、模块或条件机制。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C6.1-a",
+          "doc": "spar3d",
+          "quote": "offload the uncertainty modeling to the point sampling stage",
+          "quote_html": "offload the uncertainty modeling to the point sampling stage",
+          "relation": "inference",
+          "paragraph_id": "1_intro.tex::p0003",
+          "tex_file": "sec/1_intro.tex",
+          "section_path": [
+            "Introduction"
+          ],
+          "paragraph_text": "In light of this, we propose \\method, which breaks the 3D reconstruction process down into two stages: the point sampling stage and the meshing stage. The point sampling stage uses diffusion models to generate sparse point clouds, followed by the meshing stage, transforming point clouds into highly detailed meshes. Our main idea is to offload the uncertainty modeling to the point sampling stage, where the low resolution of the point clouds allows rapid iterative sampling. The subsequent meshing stage leverages the local image features to transform the point cloud into a detailed mesh of high output fidelity. Reducing the meshing uncertainty with point clouds further facilitates unsupervised learning of inverse rendering, which reduces the baked-in lighting in the textures. Our two-stage design enables \\method to significantly outperform previous regressive methods, while preserving high computational efficiency and fidelity to input observation.",
+          "paragraph_html": "In light of this, we propose , which breaks the 3D reconstruction process down into two stages: the point sampling stage and the meshing stage. The point sampling stage uses diffusion models to generate sparse point clouds, followed by the meshing stage, transforming point clouds into highly detailed meshes. Our main idea is to offload the uncertainty modeling to the point sampling stage, where the low resolution of the point clouds allows rapid iterative sampling. The subsequent meshing stage leverages the local image features to transform the point cloud into a detailed mesh of high output fidelity. Reducing the meshing uncertainty with point clouds further facilitates unsupervised learning of inverse rendering, which reduces the baked-in lighting in the textures. Our two-stage design enables to significantly outperform previous regressive methods, while preserving high computational efficiency and fidelity to input observation.",
+          "line_start": 8,
+          "line_end": 8,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 2,
+              "rect": [
+                56.5,
+                127.43,
+                296.75,
+                715.41
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C7.1": {
+      "claim_id": "C7.1",
+      "section_id": "7",
+      "section_title": "论文叙事构造",
+      "claim_text": "论文的叙事闭环是“明确失败模式 → 给出设计原则 → 放入模块 → 用主表、图或消融检验”；这是证据支持的结构性解读。",
+      "claim_text_html": "论文的叙事闭环是“明确失败模式 → 给出设计原则 → 放入模块 → 用主表、图或消融检验”；这是证据支持的结构性解读。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C7.1-a",
+          "doc": "spar3d",
+          "quote": "point clouds",
+          "quote_html": "point clouds",
+          "relation": "inference",
+          "paragraph_id": "3_method.tex::p0002",
+          "tex_file": "sec/3_method.tex",
+          "section_path": [
+            "Method",
+            "Point Sampling Stage"
+          ],
+          "paragraph_text": "\\paragraph{Overview.} The point sampling stage produces a sparse point cloud as the input to the meshing stage. The core of the point sampling stage is a point diffusion model, which generates point clouds $\\point_0 \\in \\mathbb{R}^{n \\times 6}$ conditioned on the input image $I$. The six channels include three XYZ channels and three RGB channels. In our work, the resolution of the point cloud $n$ is set to 512.",
+          "paragraph_html": "Overview. The point sampling stage produces a sparse point cloud as the input to the meshing stage. The core of the point sampling stage is a point diffusion model, which generates point clouds <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\point_0 \\in \\mathbb{R}^{n \\times 6}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msub><mi>\\point</mi><mn>0</mn></msub><mo>&#x02208;</mo><msup><mi>&#x0211D;</mi><mrow><mi>n</mi><mo>&#x000D7;</mo><mn>6</mn></mrow></msup></mrow></math></span> conditioned on the input image <span class=\"math-rendered math-rendered--inline\" data-latex=\"I\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mi>I</mi></mrow></math></span>. The six channels include three XYZ channels and three RGB channels. In our work, the resolution of the point cloud <span class=\"math-rendered math-rendered--inline\" data-latex=\"n\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mi>n</mi></mrow></math></span> is set to 512.",
+          "line_start": 8,
+          "line_end": 9,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 3,
+              "rect": [
+                315.25,
+                401.81,
+                555.5,
+                506.29
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C8.1": {
+      "claim_id": "C8.1",
+      "section_id": "8",
+      "section_title": "相关工作与关键引用",
+      "claim_text": "相关工作在本文中承担方法祖先、对照压力或局限性证据的角色，而不是可直接横向排名的列表。",
+      "claim_text_html": "相关工作在本文中承担方法祖先、对照压力或局限性证据的角色，而不是可直接横向排名的列表。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C8.1-a",
+          "doc": "spar3d",
+          "quote": "offload the uncertainty modeling to the point sampling stage",
+          "quote_html": "offload the uncertainty modeling to the point sampling stage",
+          "relation": "inference",
+          "paragraph_id": "1_intro.tex::p0003",
+          "tex_file": "sec/1_intro.tex",
+          "section_path": [
+            "Introduction"
+          ],
+          "paragraph_text": "In light of this, we propose \\method, which breaks the 3D reconstruction process down into two stages: the point sampling stage and the meshing stage. The point sampling stage uses diffusion models to generate sparse point clouds, followed by the meshing stage, transforming point clouds into highly detailed meshes. Our main idea is to offload the uncertainty modeling to the point sampling stage, where the low resolution of the point clouds allows rapid iterative sampling. The subsequent meshing stage leverages the local image features to transform the point cloud into a detailed mesh of high output fidelity. Reducing the meshing uncertainty with point clouds further facilitates unsupervised learning of inverse rendering, which reduces the baked-in lighting in the textures. Our two-stage design enables \\method to significantly outperform previous regressive methods, while preserving high computational efficiency and fidelity to input observation.",
+          "paragraph_html": "In light of this, we propose , which breaks the 3D reconstruction process down into two stages: the point sampling stage and the meshing stage. The point sampling stage uses diffusion models to generate sparse point clouds, followed by the meshing stage, transforming point clouds into highly detailed meshes. Our main idea is to offload the uncertainty modeling to the point sampling stage, where the low resolution of the point clouds allows rapid iterative sampling. The subsequent meshing stage leverages the local image features to transform the point cloud into a detailed mesh of high output fidelity. Reducing the meshing uncertainty with point clouds further facilitates unsupervised learning of inverse rendering, which reduces the baked-in lighting in the textures. Our two-stage design enables to significantly outperform previous regressive methods, while preserving high computational efficiency and fidelity to input observation.",
+          "line_start": 8,
+          "line_end": 8,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 2,
+              "rect": [
+                56.5,
+                127.43,
+                296.75,
+                715.41
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C10.1": {
+      "claim_id": "C10.1",
+      "section_id": "10",
+      "section_title": "符号、概念与记号",
+      "claim_text": "本报告只将符号解释为算法中实际使用的对象；任何符号都不应被误读为输入图像已提供的医学事实。",
+      "claim_text_html": "本报告只将符号解释为算法中实际使用的对象；任何符号都不应被误读为输入图像已提供的医学事实。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C10.1-a",
+          "doc": "spar3d",
+          "quote": "The diffusion process combines Gaussian noise",
+          "quote_html": "The diffusion process combines Gaussian noise",
+          "relation": "inference",
+          "paragraph_id": "3_method.tex::p0003",
+          "tex_file": "sec/3_method.tex",
+          "section_path": [
+            "Method",
+            "Point Sampling Stage"
+          ],
+          "paragraph_text": "\\paragraph{Point Diffusion Framework.} Our diffusion framework is based on DDPM~\\cite{ho2020denoising}, which consists of two processes: 1) the forward process which adds noise to the original point cloud, and 2) the backward process where the denoiser learns to remove the noise. At timestep $t \\in [0, T]$, the diffusion process combines Gaussian noise $\\boldsymbol{\\epsilon} \\sim \\mathcal{N}(\\mathbf{0},\\mathbf{I})$ with a point cloud $\\point_0$ as \\begin{equation} \\point_t = \\sqrt{\\bar{\\alpha_t}} \\point_0 + \\sqrt{1 - \\bar{\\alpha_t}} \\boldsymbol{\\epsilon}, \\end{equation} where $\\bar{\\alpha_t}$ denotes the noise schedule. We use the sigmoid noise schedule proposed in~\\cite{chen2023importance}, combined with input scaling and the renormalization trick. The denoiser $\\boldsymbol{\\epsilon}_\\theta (\\point_t, t; \\condition)$ then learns to recover the noise from $\\point_t$ and is supervised by \\begin{equation} L_{simple}(\\theta) = \\mathbb{E}_{t,\\point_0,\\boldsymbol{\\epsilon}} \\lVert \\boldsymbol{\\epsilon} - \\boldsymbol{\\epsilon}_\\theta (\\point_t, t; \\condition) \\rVert_2^2. \\end{equation} Here $\\condition$ denotes the image condition tokens. During inference, we use the DDIM sampler~\\cite{songdenoising} to generate point cloud samples. Samples generated directly often align poorly with the condition, hence we use the classifier-free guidance (CFG)~\\cite{ho2022classifier} to improve sampling fidelity.",
+          "paragraph_html": "Point Diffusion Framework. Our diffusion framework is based on DDPM~ho2020denoising, which consists of two processes: 1) the forward process which adds noise to the original point cloud, and 2) the backward process where the denoiser learns to remove the noise. At timestep <span class=\"math-rendered math-rendered--inline\" data-latex=\"t \\in [0, T]\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mi>t</mi><mo>&#x02208;</mo><mo stretchy=\"false\">[</mo><mn>0</mn><mo>&#x0002C;</mo><mi>T</mi><mo stretchy=\"false\">]</mo></mrow></math></span>, the diffusion process combines Gaussian noise <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\boldsymbol{\\epsilon} \\sim \\mathcal{N}(\\mathbf{0},\\mathbf{I})\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mrow><mi mathvariant=\"bold-italic\">&#x003F5;</mi></mrow><mi>&#x0007E;</mi><mi>&#x1D4A9;</mi><mo stretchy=\"false\">&#x00028;</mo><mrow><mn mathvariant=\"bold\">0</mn></mrow><mo>&#x0002C;</mo><mi>&#x1D408;</mi><mo stretchy=\"false\">&#x00029;</mo></mrow></math></span> with a point cloud <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\point_0\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msub><mi>\\point</mi><mn>0</mn></msub></mrow></math></span> as <span class=\"math-rendered math-rendered--block\" data-latex=\"\\point_t = \\sqrt{\\bar{\\alpha_t}} \\point_0 + \\sqrt{1 - \\bar{\\alpha_t}} \\boldsymbol{\\epsilon},\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><msub><mi>\\point</mi><mi>t</mi></msub><mo>&#x0003D;</mo><msqrt><mrow><mover><mrow><msub><mi>&#x003B1;</mi><mi>t</mi></msub></mrow><mo stretchy=\"true\">&#x000AF;</mo></mover></mrow></msqrt><msub><mi>\\point</mi><mn>0</mn></msub><mo>&#x0002B;</mo><msqrt><mrow><mn>1</mn><mo>&#x02212;</mo><mover><mrow><msub><mi>&#x003B1;</mi><mi>t</mi></msub></mrow><mo stretchy=\"true\">&#x000AF;</mo></mover></mrow></msqrt><mrow><mi mathvariant=\"bold-italic\">&#x003F5;</mi></mrow><mo>&#x0002C;</mo></mrow></math></span> where <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\bar{\\alpha_t}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mover><mrow><msub><mi>&#x003B1;</mi><mi>t</mi></msub></mrow><mo stretchy=\"true\">&#x000AF;</mo></mover></mrow></math></span> denotes the noise schedule. We use the sigmoid noise schedule proposed in~chen2023importance, combined with input scaling and the renormalization trick. The denoiser <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\boldsymbol{\\epsilon}_\\theta (\\point_t, t; \\condition)\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msub><mrow><mi mathvariant=\"bold-italic\">&#x003F5;</mi></mrow><mi>&#x003B8;</mi></msub><mo stretchy=\"false\">&#x00028;</mo><msub><mi>\\point</mi><mi>t</mi></msub><mo>&#x0002C;</mo><mi>t</mi><mi>;</mi><mi>\\condition</mi><mo stretchy=\"false\">&#x00029;</mo></mrow></math></span> then learns to recover the noise from <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\point_t\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msub><mi>\\point</mi><mi>t</mi></msub></mrow></math></span> and is supervised by <span class=\"math-rendered math-rendered--block\" data-latex=\"L_{simple}(\\theta) = \\mathbb{E}_{t,\\point_0,\\boldsymbol{\\epsilon}} \\lVert \\boldsymbol{\\epsilon} - \\boldsymbol{\\epsilon}_\\theta (\\point_t, t; \\condition) \\rVert_2^2.\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><msub><mi>L</mi><mrow><mi>s</mi><mi>i</mi><mi>m</mi><mi>p</mi><mi>l</mi><mi>e</mi></mrow></msub><mo stretchy=\"false\">&#x00028;</mo><mi>&#x003B8;</mi><mo stretchy=\"false\">&#x00029;</mo><mo>&#x0003D;</mo><msub><mi>&#x1D53C;</mi><mrow><mi>t</mi><mo>&#x0002C;</mo><msub><mi>\\point</mi><mn>0</mn></msub><mo>&#x0002C;</mo><mrow><mi mathvariant=\"bold-italic\">&#x003F5;</mi></mrow></mrow></msub><mo>&#x02016;</mo><mrow><mi mathvariant=\"bold-italic\">&#x003F5;</mi></mrow><mo>&#x02212;</mo><msub><mrow><mi mathvariant=\"bold-italic\">&#x003F5;</mi></mrow><mi>&#x003B8;</mi></msub><mo stretchy=\"false\">&#x00028;</mo><msub><mi>\\point</mi><mi>t</mi></msub><mo>&#x0002C;</mo><mi>t</mi><mi>;</mi><mi>\\condition</mi><mo stretchy=\"false\">&#x00029;</mo><msubsup><mo>&#x02016;</mo><mn>2</mn><mn>2</mn></msubsup><mo>&#x0002E;</mo></mrow></math></span> Here <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\condition\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mi>\\condition</mi></mrow></math></span> denotes the image condition tokens. During inference, we use the DDIM sampler~songdenoising to generate point cloud samples. Samples generated directly often align poorly with the condition, hence we use the classifier-free guidance (CFG)~ho2022classifier to improve sampling fidelity.",
+          "line_start": 11,
+          "line_end": 20,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 3,
+              "rect": [
+                315.25,
+                420.51,
+                555.5,
+                715.41
+              ],
+              "granularity": "paragraph-block"
+            },
+            {
+              "page": 4,
+              "rect": [
+                56.5,
+                72.41,
+                296.75,
+                110.28
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C12.1": {
+      "claim_id": "C12.1",
+      "section_id": "12",
+      "section_title": "理论、证明与实践映射",
+      "claim_text": "论文的训练目标或表示公式说明优化对象与实现步骤，但通常不是医学拓扑正确性的证明。",
+      "claim_text_html": "论文的训练目标或表示公式说明优化对象与实现步骤，但通常不是医学拓扑正确性的证明。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C12.1-a",
+          "doc": "spar3d",
+          "quote": "The diffusion process combines Gaussian noise",
+          "quote_html": "The diffusion process combines Gaussian noise",
+          "relation": "inference",
+          "paragraph_id": "3_method.tex::p0003",
+          "tex_file": "sec/3_method.tex",
+          "section_path": [
+            "Method",
+            "Point Sampling Stage"
+          ],
+          "paragraph_text": "\\paragraph{Point Diffusion Framework.} Our diffusion framework is based on DDPM~\\cite{ho2020denoising}, which consists of two processes: 1) the forward process which adds noise to the original point cloud, and 2) the backward process where the denoiser learns to remove the noise. At timestep $t \\in [0, T]$, the diffusion process combines Gaussian noise $\\boldsymbol{\\epsilon} \\sim \\mathcal{N}(\\mathbf{0},\\mathbf{I})$ with a point cloud $\\point_0$ as \\begin{equation} \\point_t = \\sqrt{\\bar{\\alpha_t}} \\point_0 + \\sqrt{1 - \\bar{\\alpha_t}} \\boldsymbol{\\epsilon}, \\end{equation} where $\\bar{\\alpha_t}$ denotes the noise schedule. We use the sigmoid noise schedule proposed in~\\cite{chen2023importance}, combined with input scaling and the renormalization trick. The denoiser $\\boldsymbol{\\epsilon}_\\theta (\\point_t, t; \\condition)$ then learns to recover the noise from $\\point_t$ and is supervised by \\begin{equation} L_{simple}(\\theta) = \\mathbb{E}_{t,\\point_0,\\boldsymbol{\\epsilon}} \\lVert \\boldsymbol{\\epsilon} - \\boldsymbol{\\epsilon}_\\theta (\\point_t, t; \\condition) \\rVert_2^2. \\end{equation} Here $\\condition$ denotes the image condition tokens. During inference, we use the DDIM sampler~\\cite{songdenoising} to generate point cloud samples. Samples generated directly often align poorly with the condition, hence we use the classifier-free guidance (CFG)~\\cite{ho2022classifier} to improve sampling fidelity.",
+          "paragraph_html": "Point Diffusion Framework. Our diffusion framework is based on DDPM~ho2020denoising, which consists of two processes: 1) the forward process which adds noise to the original point cloud, and 2) the backward process where the denoiser learns to remove the noise. At timestep <span class=\"math-rendered math-rendered--inline\" data-latex=\"t \\in [0, T]\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mi>t</mi><mo>&#x02208;</mo><mo stretchy=\"false\">[</mo><mn>0</mn><mo>&#x0002C;</mo><mi>T</mi><mo stretchy=\"false\">]</mo></mrow></math></span>, the diffusion process combines Gaussian noise <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\boldsymbol{\\epsilon} \\sim \\mathcal{N}(\\mathbf{0},\\mathbf{I})\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mrow><mi mathvariant=\"bold-italic\">&#x003F5;</mi></mrow><mi>&#x0007E;</mi><mi>&#x1D4A9;</mi><mo stretchy=\"false\">&#x00028;</mo><mrow><mn mathvariant=\"bold\">0</mn></mrow><mo>&#x0002C;</mo><mi>&#x1D408;</mi><mo stretchy=\"false\">&#x00029;</mo></mrow></math></span> with a point cloud <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\point_0\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msub><mi>\\point</mi><mn>0</mn></msub></mrow></math></span> as <span class=\"math-rendered math-rendered--block\" data-latex=\"\\point_t = \\sqrt{\\bar{\\alpha_t}} \\point_0 + \\sqrt{1 - \\bar{\\alpha_t}} \\boldsymbol{\\epsilon},\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><msub><mi>\\point</mi><mi>t</mi></msub><mo>&#x0003D;</mo><msqrt><mrow><mover><mrow><msub><mi>&#x003B1;</mi><mi>t</mi></msub></mrow><mo stretchy=\"true\">&#x000AF;</mo></mover></mrow></msqrt><msub><mi>\\point</mi><mn>0</mn></msub><mo>&#x0002B;</mo><msqrt><mrow><mn>1</mn><mo>&#x02212;</mo><mover><mrow><msub><mi>&#x003B1;</mi><mi>t</mi></msub></mrow><mo stretchy=\"true\">&#x000AF;</mo></mover></mrow></msqrt><mrow><mi mathvariant=\"bold-italic\">&#x003F5;</mi></mrow><mo>&#x0002C;</mo></mrow></math></span> where <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\bar{\\alpha_t}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mover><mrow><msub><mi>&#x003B1;</mi><mi>t</mi></msub></mrow><mo stretchy=\"true\">&#x000AF;</mo></mover></mrow></math></span> denotes the noise schedule. We use the sigmoid noise schedule proposed in~chen2023importance, combined with input scaling and the renormalization trick. The denoiser <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\boldsymbol{\\epsilon}_\\theta (\\point_t, t; \\condition)\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msub><mrow><mi mathvariant=\"bold-italic\">&#x003F5;</mi></mrow><mi>&#x003B8;</mi></msub><mo stretchy=\"false\">&#x00028;</mo><msub><mi>\\point</mi><mi>t</mi></msub><mo>&#x0002C;</mo><mi>t</mi><mi>;</mi><mi>\\condition</mi><mo stretchy=\"false\">&#x00029;</mo></mrow></math></span> then learns to recover the noise from <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\point_t\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msub><mi>\\point</mi><mi>t</mi></msub></mrow></math></span> and is supervised by <span class=\"math-rendered math-rendered--block\" data-latex=\"L_{simple}(\\theta) = \\mathbb{E}_{t,\\point_0,\\boldsymbol{\\epsilon}} \\lVert \\boldsymbol{\\epsilon} - \\boldsymbol{\\epsilon}_\\theta (\\point_t, t; \\condition) \\rVert_2^2.\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><msub><mi>L</mi><mrow><mi>s</mi><mi>i</mi><mi>m</mi><mi>p</mi><mi>l</mi><mi>e</mi></mrow></msub><mo stretchy=\"false\">&#x00028;</mo><mi>&#x003B8;</mi><mo stretchy=\"false\">&#x00029;</mo><mo>&#x0003D;</mo><msub><mi>&#x1D53C;</mi><mrow><mi>t</mi><mo>&#x0002C;</mo><msub><mi>\\point</mi><mn>0</mn></msub><mo>&#x0002C;</mo><mrow><mi mathvariant=\"bold-italic\">&#x003F5;</mi></mrow></mrow></msub><mo>&#x02016;</mo><mrow><mi mathvariant=\"bold-italic\">&#x003F5;</mi></mrow><mo>&#x02212;</mo><msub><mrow><mi mathvariant=\"bold-italic\">&#x003F5;</mi></mrow><mi>&#x003B8;</mi></msub><mo stretchy=\"false\">&#x00028;</mo><msub><mi>\\point</mi><mi>t</mi></msub><mo>&#x0002C;</mo><mi>t</mi><mi>;</mi><mi>\\condition</mi><mo stretchy=\"false\">&#x00029;</mo><msubsup><mo>&#x02016;</mo><mn>2</mn><mn>2</mn></msubsup><mo>&#x0002E;</mo></mrow></math></span> Here <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\condition\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mi>\\condition</mi></mrow></math></span> denotes the image condition tokens. During inference, we use the DDIM sampler~songdenoising to generate point cloud samples. Samples generated directly often align poorly with the condition, hence we use the classifier-free guidance (CFG)~ho2022classifier to improve sampling fidelity.",
+          "line_start": 11,
+          "line_end": 20,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 3,
+              "rect": [
+                315.25,
+                420.51,
+                555.5,
+                715.41
+              ],
+              "granularity": "paragraph-block"
+            },
+            {
+              "page": 4,
+              "rect": [
+                56.5,
+                72.41,
+                296.75,
+                110.28
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C13.1": {
+      "claim_id": "C13.1",
+      "section_id": "13",
+      "section_title": "算法/模块 walkthrough",
+      "claim_text": "把论文实现成可复现实验时，应按输入条件、latent/中间状态、decoder、输出 artifact 与 QC 依次展开，而不能只复刻最终截图。",
+      "claim_text_html": "把论文实现成可复现实验时，应按输入条件、latent/中间状态、decoder、输出 artifact 与 QC 依次展开，而不能只复刻最终截图。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C13.1-a",
+          "doc": "spar3d",
+          "quote": "point clouds",
+          "quote_html": "point clouds",
+          "relation": "inference",
+          "paragraph_id": "3_method.tex::p0002",
+          "tex_file": "sec/3_method.tex",
+          "section_path": [
+            "Method",
+            "Point Sampling Stage"
+          ],
+          "paragraph_text": "\\paragraph{Overview.} The point sampling stage produces a sparse point cloud as the input to the meshing stage. The core of the point sampling stage is a point diffusion model, which generates point clouds $\\point_0 \\in \\mathbb{R}^{n \\times 6}$ conditioned on the input image $I$. The six channels include three XYZ channels and three RGB channels. In our work, the resolution of the point cloud $n$ is set to 512.",
+          "paragraph_html": "Overview. The point sampling stage produces a sparse point cloud as the input to the meshing stage. The core of the point sampling stage is a point diffusion model, which generates point clouds <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\point_0 \\in \\mathbb{R}^{n \\times 6}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msub><mi>\\point</mi><mn>0</mn></msub><mo>&#x02208;</mo><msup><mi>&#x0211D;</mi><mrow><mi>n</mi><mo>&#x000D7;</mo><mn>6</mn></mrow></msup></mrow></math></span> conditioned on the input image <span class=\"math-rendered math-rendered--inline\" data-latex=\"I\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mi>I</mi></mrow></math></span>. The six channels include three XYZ channels and three RGB channels. In our work, the resolution of the point cloud <span class=\"math-rendered math-rendered--inline\" data-latex=\"n\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mi>n</mi></mrow></math></span> is set to 512.",
+          "line_start": 8,
+          "line_end": 9,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 3,
+              "rect": [
+                315.25,
+                401.81,
+                555.5,
+                506.29
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C15.1": {
+      "claim_id": "C15.1",
+      "section_id": "15",
+      "section_title": "图表解读",
+      "claim_text": "论文中的 pipeline、主表与消融图支持其具体通用资产主张；图中可见的质量不自动扩展为看不见的结构真实性。",
+      "claim_text_html": "论文中的 pipeline、主表与消融图支持其具体通用资产主张；图中可见的质量不自动扩展为看不见的结构真实性。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C15.1-a",
+          "doc": "spar3d",
+          "quote": "Chamfer Distance",
+          "quote_html": "Chamfer Distance",
+          "relation": "inference",
+          "paragraph_id": "4_experiments.tex::p0004",
+          "tex_file": "sec/4_experiments.tex",
+          "section_path": [
+            "Experiments",
+            "Evaluation"
+          ],
+          "paragraph_text": "\\paragraph{Metrics.} To evaluate the geometry quality of the reconstructed meshes, we use follow prior works~\\cite{TripoSR2024,xu2024instantmesh} and use Chamfer Distance (CD) and F-score (FS) as our evaluation metrics. CD measures the alignment between two point clouds and is defined as the average of accuracy and completeness: \\begin{equation} \\small d(S_1, S_2) = \\frac{1}{2|S_1|}\\sum_{x \\in S_1} \\min_{y \\in S_2} \\|x-y\\|_2 + \\frac{1}{2|S_2|}\\sum_{y \\in S_2} \\min_{x \\in S_1} \\|x-y\\|_2 \\label{eq:chamfer} \\end{equation} FS evaluates point cloud alignment by calculating the F-score with a predefined threshold. Predicted points that lie within the distance threshold are considered as correct predictions. A higher FS means better alignment between the reconstructed shape and the groundtruth. To evaluate the texture quality, we compute standard image metrics, including PSNR, SSIM and LPIPS, between images rendered from the predicted mesh and the groundtruth images.",
+          "paragraph_html": "Metrics. To evaluate the geometry quality of the reconstructed meshes, we use follow prior works~TripoSR2024,xu2024instantmesh and use Chamfer Distance (CD) and F-score (FS) as our evaluation metrics. CD measures the alignment between two point clouds and is defined as the average of accuracy and completeness: <span class=\"math-rendered math-rendered--block\" data-latex=\"\\small d(S_1, S_2) = \\frac{1}{2|S_1|}\\sum_{x \\in S_1} \\min_{y \\in S_2} \\|x-y\\|_2 + \\frac{1}{2|S_2|}\\sum_{y \\in S_2} \\min_{x \\in S_1} \\|x-y\\|_2\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mstyle mathsize=\"0.85em\"><mi>d</mi><mo stretchy=\"false\">&#x00028;</mo><msub><mi>S</mi><mn>1</mn></msub><mo>&#x0002C;</mo><msub><mi>S</mi><mn>2</mn></msub><mo stretchy=\"false\">&#x00029;</mo><mo>&#x0003D;</mo><mfrac><mrow><mn>1</mn></mrow><mrow><mn>2</mn><mo stretchy=\"false\">&#x0007C;</mo><msub><mi>S</mi><mn>1</mn></msub><mo stretchy=\"false\">&#x0007C;</mo></mrow></mfrac><munder><mo>&#x02211;</mo><mrow><mi>x</mi><mo>&#x02208;</mo><msub><mi>S</mi><mn>1</mn></msub></mrow></munder><msub><mo>min</mo><mrow><mi>y</mi><mo>&#x02208;</mo><msub><mi>S</mi><mn>2</mn></msub></mrow></msub><mo fence=\"false\" stretchy=\"false\">&#x02016;</mo><mi>x</mi><mo>&#x02212;</mo><mi>y</mi><msub><mo fence=\"false\" stretchy=\"false\">&#x02016;</mo><mn>2</mn></msub><mo>&#x0002B;</mo><mfrac><mrow><mn>1</mn></mrow><mrow><mn>2</mn><mo stretchy=\"false\">&#x0007C;</mo><msub><mi>S</mi><mn>2</mn></msub><mo stretchy=\"false\">&#x0007C;</mo></mrow></mfrac><munder><mo>&#x02211;</mo><mrow><mi>y</mi><mo>&#x02208;</mo><msub><mi>S</mi><mn>2</mn></msub></mrow></munder><msub><mo>min</mo><mrow><mi>x</mi><mo>&#x02208;</mo><msub><mi>S</mi><mn>1</mn></msub></mrow></msub><mo fence=\"false\" stretchy=\"false\">&#x02016;</mo><mi>x</mi><mo>&#x02212;</mo><mi>y</mi><msub><mo fence=\"false\" stretchy=\"false\">&#x02016;</mo><mn>2</mn></msub></mstyle></mrow></math></span> FS evaluates point cloud alignment by calculating the F-score with a predefined threshold. Predicted points that lie within the distance threshold are considered as correct predictions. A higher FS means better alignment between the reconstructed shape and the groundtruth. To evaluate the texture quality, we compute standard image metrics, including PSNR, SSIM and LPIPS, between images rendered from the predicted mesh and the groundtruth images.",
+          "line_start": 11,
+          "line_end": 19,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 6,
+              "rect": [
+                56.5,
+                344.72,
+                299.22,
+                558.42
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C18.1": {
+      "claim_id": "C18.1",
+      "section_id": "18",
+      "section_title": "Reviewer-lens audit",
+      "claim_text": "从审稿视角，应把作者协议内的优越性、训练/依赖门槛、数据/许可不确定性以及医学迁移缺口分开评价。",
+      "claim_text_html": "从审稿视角，应把作者协议内的优越性、训练/依赖门槛、数据/许可不确定性以及医学迁移缺口分开评价。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C18.1-a",
+          "doc": "spar3d",
+          "quote": "GSO",
+          "quote_html": "GSO",
+          "relation": "inference",
+          "paragraph_id": "4_experiments.tex::p0003",
+          "tex_file": "sec/4_experiments.tex",
+          "section_path": [
+            "Experiments",
+            "Evaluation"
+          ],
+          "paragraph_text": "\\paragraph{Datasets.} We used two datasets for evaluation, GSO~\\cite{downs2022google} and OmniObject3D~\\cite{wu2023omniobject3d}. We follow TripoSR~\\cite{TripoSR2024} and remove simple box or cylindrical objects to avoid bias on simple geometries. Each of the evaluation sets consists of around 250 objects. We render the objects with diverse azimuth angles at different elevations, with randomly sampled HDRI environment maps. We also vary the focal length of the camera to create more diverse test cases.",
+          "paragraph_html": "Datasets. We used two datasets for evaluation, GSO~downs2022google and OmniObject3D~wu2023omniobject3d. We follow TripoSR~TripoSR2024 and remove simple box or cylindrical objects to avoid bias on simple geometries. Each of the evaluation sets consists of around 250 objects. We render the objects with diverse azimuth angles at different elevations, with randomly sampled HDRI environment maps. We also vary the focal length of the camera to create more diverse test cases.",
+          "line_start": 8,
+          "line_end": 9,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 5,
+              "rect": [
+                315.25,
+                596.47,
+                555.5,
+                715.41
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C19.1": {
+      "claim_id": "C19.1",
+      "section_id": "19",
+      "section_title": "创新点与支持审计",
+      "claim_text": "贡献应逐条绑定其对应的表示、模块、消融或 benchmark，而不能把系统总结果一概归因给单一新意。",
+      "claim_text_html": "贡献应逐条绑定其对应的表示、模块、消融或 benchmark，而不能把系统总结果一概归因给单一新意。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C19.1-a",
+          "doc": "spar3d",
+          "quote": "Chamfer Distance",
+          "quote_html": "Chamfer Distance",
+          "relation": "inference",
+          "paragraph_id": "4_experiments.tex::p0004",
+          "tex_file": "sec/4_experiments.tex",
+          "section_path": [
+            "Experiments",
+            "Evaluation"
+          ],
+          "paragraph_text": "\\paragraph{Metrics.} To evaluate the geometry quality of the reconstructed meshes, we use follow prior works~\\cite{TripoSR2024,xu2024instantmesh} and use Chamfer Distance (CD) and F-score (FS) as our evaluation metrics. CD measures the alignment between two point clouds and is defined as the average of accuracy and completeness: \\begin{equation} \\small d(S_1, S_2) = \\frac{1}{2|S_1|}\\sum_{x \\in S_1} \\min_{y \\in S_2} \\|x-y\\|_2 + \\frac{1}{2|S_2|}\\sum_{y \\in S_2} \\min_{x \\in S_1} \\|x-y\\|_2 \\label{eq:chamfer} \\end{equation} FS evaluates point cloud alignment by calculating the F-score with a predefined threshold. Predicted points that lie within the distance threshold are considered as correct predictions. A higher FS means better alignment between the reconstructed shape and the groundtruth. To evaluate the texture quality, we compute standard image metrics, including PSNR, SSIM and LPIPS, between images rendered from the predicted mesh and the groundtruth images.",
+          "paragraph_html": "Metrics. To evaluate the geometry quality of the reconstructed meshes, we use follow prior works~TripoSR2024,xu2024instantmesh and use Chamfer Distance (CD) and F-score (FS) as our evaluation metrics. CD measures the alignment between two point clouds and is defined as the average of accuracy and completeness: <span class=\"math-rendered math-rendered--block\" data-latex=\"\\small d(S_1, S_2) = \\frac{1}{2|S_1|}\\sum_{x \\in S_1} \\min_{y \\in S_2} \\|x-y\\|_2 + \\frac{1}{2|S_2|}\\sum_{y \\in S_2} \\min_{x \\in S_1} \\|x-y\\|_2\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mstyle mathsize=\"0.85em\"><mi>d</mi><mo stretchy=\"false\">&#x00028;</mo><msub><mi>S</mi><mn>1</mn></msub><mo>&#x0002C;</mo><msub><mi>S</mi><mn>2</mn></msub><mo stretchy=\"false\">&#x00029;</mo><mo>&#x0003D;</mo><mfrac><mrow><mn>1</mn></mrow><mrow><mn>2</mn><mo stretchy=\"false\">&#x0007C;</mo><msub><mi>S</mi><mn>1</mn></msub><mo stretchy=\"false\">&#x0007C;</mo></mrow></mfrac><munder><mo>&#x02211;</mo><mrow><mi>x</mi><mo>&#x02208;</mo><msub><mi>S</mi><mn>1</mn></msub></mrow></munder><msub><mo>min</mo><mrow><mi>y</mi><mo>&#x02208;</mo><msub><mi>S</mi><mn>2</mn></msub></mrow></msub><mo fence=\"false\" stretchy=\"false\">&#x02016;</mo><mi>x</mi><mo>&#x02212;</mo><mi>y</mi><msub><mo fence=\"false\" stretchy=\"false\">&#x02016;</mo><mn>2</mn></msub><mo>&#x0002B;</mo><mfrac><mrow><mn>1</mn></mrow><mrow><mn>2</mn><mo stretchy=\"false\">&#x0007C;</mo><msub><mi>S</mi><mn>2</mn></msub><mo stretchy=\"false\">&#x0007C;</mo></mrow></mfrac><munder><mo>&#x02211;</mo><mrow><mi>y</mi><mo>&#x02208;</mo><msub><mi>S</mi><mn>2</mn></msub></mrow></munder><msub><mo>min</mo><mrow><mi>x</mi><mo>&#x02208;</mo><msub><mi>S</mi><mn>1</mn></msub></mrow></msub><mo fence=\"false\" stretchy=\"false\">&#x02016;</mo><mi>x</mi><mo>&#x02212;</mo><mi>y</mi><msub><mo fence=\"false\" stretchy=\"false\">&#x02016;</mo><mn>2</mn></msub></mstyle></mrow></math></span> FS evaluates point cloud alignment by calculating the F-score with a predefined threshold. Predicted points that lie within the distance threshold are considered as correct predictions. A higher FS means better alignment between the reconstructed shape and the groundtruth. To evaluate the texture quality, we compute standard image metrics, including PSNR, SSIM and LPIPS, between images rendered from the predicted mesh and the groundtruth images.",
+          "line_start": 11,
+          "line_end": 19,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 6,
+              "rect": [
+                56.5,
+                344.72,
+                299.22,
+                558.42
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C24.1": {
+      "claim_id": "C24.1",
+      "section_id": "24",
+      "section_title": "通俗故事",
+      "claim_text": "把论文记成“用一个被约束的代理机制处理 2D 中缺失的 3D 信息”，比把它记成模型名或单一分数更接近其可复用洞见。",
+      "claim_text_html": "把论文记成“用一个被约束的代理机制处理 2D 中缺失的 3D 信息”，比把它记成模型名或单一分数更接近其可复用洞见。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C24.1-a",
+          "doc": "spar3d",
+          "quote": "Regression-based models are highly effective",
+          "quote_html": "Regression-based models are highly effective",
+          "relation": "inference",
+          "paragraph_id": "1_intro.tex::p0002",
+          "tex_file": "sec/1_intro.tex",
+          "section_path": [
+            "Introduction"
+          ],
+          "paragraph_text": "Regression-based models are highly effective in adhering to the visible surface in the image, and the inference speed is typically fast. However, they make the oversimplified assumption of bijective mapping between images and 3D. This assumption introduces ambiguity in the learning objective, leading to poorly estimated surfaces and textures in occluded regions. On the other hand, diffusion-based approaches are generative and do not predict the statistical mean. However, their iterative sampling at inference time is computationally inefficient when modeling high-resolution 3D. Additionally, previous studies such as~\\cite{huang2024zeroshape} indicate that diffusion-generated 3D models exhibit worse alignment to the surface visible in the input image. How can we take the best of both worlds while avoiding their limitations?",
+          "paragraph_html": "Regression-based models are highly effective in adhering to the visible surface in the image, and the inference speed is typically fast. However, they make the oversimplified assumption of bijective mapping between images and 3D. This assumption introduces ambiguity in the learning objective, leading to poorly estimated surfaces and textures in occluded regions. On the other hand, diffusion-based approaches are generative and do not predict the statistical mean. However, their iterative sampling at inference time is computationally inefficient when modeling high-resolution 3D. Additionally, previous studies such as~huang2024zeroshape indicate that diffusion-generated 3D models exhibit worse alignment to the surface visible in the input image. How can we take the best of both worlds while avoiding their limitations?",
+          "line_start": 6,
+          "line_end": 6,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 2,
+              "rect": [
+                56.5,
+                127.43,
+                296.75,
+                715.41
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C25.1": {
+      "claim_id": "C25.1",
+      "section_id": "25",
+      "section_title": "来源使用说明",
+      "claim_text": "本报告使用与目标版本匹配的官方 LaTeX source 作为结构化证据，并用官方 PDF 检查页码、表格和图形。",
+      "claim_text_html": "本报告使用与目标版本匹配的官方 LaTeX source 作为结构化证据，并用官方 PDF 检查页码、表格和图形。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C25.1-a",
+          "doc": "spar3d",
+          "quote": "We study the problem of single-image 3D object reconstruction",
+          "quote_html": "We study the problem of single-image 3D object reconstruction",
+          "relation": "direct",
+          "paragraph_id": "0_abstract.tex::p0001",
+          "tex_file": "sec/0_abstract.tex",
+          "section_path": [
+            "Abstract"
+          ],
+          "paragraph_text": "We study the problem of single-image 3D object reconstruction. Recent works have diverged into two directions: regression-based modeling and generative modeling. Regression methods efficiently infer visible surfaces, but struggle with occluded regions. Generative methods handle uncertain regions better by modeling distributions, but are computationally expensive and the generation is often misaligned with visible surfaces. In this paper, we present \\method, a novel two-stage approach aiming to take the best of both directions. The first stage of \\method generates sparse 3D point clouds using a lightweight point diffusion model, which has a fast sampling speed. The second stage uses both the sampled point cloud and the input image to create highly detailed meshes. Our two-stage design enables probabilistic modeling of the ill-posed single-image 3D task while maintaining high computational efficiency and great output fidelity. Using point clouds as an intermediate representation further allows for interactive user edits. Evaluated on diverse datasets, \\method demonstrates superior performance over previous state-of-the-art methods, at an inference speed of \\gentime seconds. Project page with code and model: \\url{https://spar3d.github.io}",
+          "paragraph_html": "We study the problem of single-image 3D object reconstruction. Recent works have diverged into two directions: regression-based modeling and generative modeling. Regression methods efficiently infer visible surfaces, but struggle with occluded regions. Generative methods handle uncertain regions better by modeling distributions, but are computationally expensive and the generation is often misaligned with visible surfaces. In this paper, we present , a novel two-stage approach aiming to take the best of both directions. The first stage of generates sparse 3D point clouds using a lightweight point diffusion model, which has a fast sampling speed. The second stage uses both the sampled point cloud and the input image to create highly detailed meshes. Our two-stage design enables probabilistic modeling of the ill-posed single-image 3D task while maintaining high computational efficiency and great output fidelity. Using point clouds as an intermediate representation further allows for interactive user edits. Evaluated on diverse datasets, demonstrates superior performance over previous state-of-the-art methods, at an inference speed of seconds. Project page with code and model: https://spar3d.github.io",
+          "line_start": 2,
+          "line_end": 3,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 1,
+              "rect": [
+                56.5,
+                553.06,
+                555.5,
+                714.93
+              ],
+              "granularity": "paragraph-block"
+            },
+            {
+              "page": 2,
+              "rect": [
+                56.5,
+                71.9,
+                273.49,
+                86.19
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

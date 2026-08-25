@@ -1,0 +1,1454 @@
+                                            AssetGen: Deployable 3D Asset Generation at
+                                            Interactive Speed
+                                             Dilin Wang† , Xiaoyu Xiang , Kihyuk Sohn , Tom Monnier , Yu-Ying Yeh , Thu Nguyen-Phuoc , Jiawen Zhang ,
+                                             Yuchen Fan , Antoine Toisoul , Hyunyoung Jung , Prithviraj Dhar , Michael Bunnell , Nikolaos Sarafianos ,
+                                             Chuhang Zou , Roman Shapovalov , Andrea Vedaldi† , Rakesh Ranjan†
+
+                                             Reality Labs, Meta
+                                             †
+                                                 Project Lead
+
+                                            While 3D generation is progressing rapidly, recent work has often focused on obtaining high-resolution
+arXiv:2605.26137v1 [cs.GR] 22 May 2026
+
+
+
+
+                                            assets, leaving user experience and deployability as afterthoughts. We present AssetGen, a 3D
+                                            generator that focuses instead on these two aspects. Given one reference image, in 30 seconds it
+                                            produces a high-quality mesh with baked normals, a color texture, and a controlled polygon budget
+                                            suitable for real-time rendering, including mobile use cases. The AssetGen Flash variant further
+                                            reduces latency to 14 seconds for interactive and agentic creation loops. Our model generates the
+                                            object geometry with a coarse-to-refine VecSet framework, which implements mesh simplification,
+                                            cleaning, and normal baking on the GPU, and a fast parallel UV unwrapping. It then generates
+                                            textures in a multi-view fashion, followed by backprojection and 3D inpainting. Model distillation,
+                                            kernel optimization, and pipeline parallelization are co-designed to accelerate the system end-to-end.
+                                            We introduce numerous automated and blind human evaluations and demonstrate competitive visual
+                                            quality against leading commercial solutions in 30 seconds and preview-quality results in less than 15
+                                            seconds. The final result is a system that supports AI-assisted, deployable 3D content creation in
+                                            interactive workflows.
+
+                                             Date: May 27, 2026
+
+
+
+
+                                         Figure 1 AssetGen. Our system generates high-fidelity, UV-unwrapped, and normal-baked textured 3D meshes optimized
+                                         for real-time rendering, delivering production-ready assets in approximately 30 seconds on H100 GPUs.
+
+
+                                                                                                 1
+Contents
+
+1 Introduction                                                                                                  2
+
+2 Related Work                                                                                                  4
+
+3 System Overview                                                                                               5
+
+4 Data Filtering and Curation                                                                                   5
+
+5 MeshGen                                                                                                       6
+  5.1 MeshGen Data Preparation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .        6
+  5.2 MeshGen Architecture . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .      7
+  5.3 MeshGen Distillation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .    9
+
+6 Geometry Post-Processing for Runtime Assets                                                                    9
+  6.1 Mesh Simplification . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   10
+  6.2 Hidden Face Removal . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .       11
+  6.3 UV Unwrapping . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .       11
+  6.4 Normal Map Baking . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .       12
+
+7 TextureGen                                                                                                    13
+  7.1 TextureGen Data Preparation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .       13
+  7.2 TextureGen Architecture . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .     14
+  7.3 TextureGen Distillation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .     15
+  7.4 TextureGen Postprocessing . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .       15
+  7.5 Geometric Condition Rendering . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .       16
+
+8 Latency Optimization                                                                                          16
+  8.1 Kernel and Precision Optimization . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .       16
+  8.2 Pipeline Optimization . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .     16
+  8.3 Latency Results . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   18
+
+9 Evaluation                                                                                                    18
+  9.1 AssetBench: General Object Generation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .         18
+  9.2 CharacterBench: Character Generation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .          19
+  9.3 Human Evaluation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .      21
+
+10 Qualitative Results                                                                                          23
+
+11 Conclusion and Limitations                                                                                   23
+
+
+1   Introduction
+3D assets are a key part of games, AR/VR, robotic simulation, and more. Yet, producing them remains a
+slow, manual process: artists must shape the geometry of the assets, optimize the mesh and polygon count to
+stay within a certain budget, unwrap the mesh for texturing, bake normals, and author the texture. The
+resulting assets can be excellent, but the workflow is slow and difficult to scale to the volume of content
+needed by existing and future applications.
+Image-to-3D generation has the potential to change the economics of 3D content creation. In particular, recent
+work has made significant progress on the quality of generated 3D assets. Geometry models have improved
+shape fidelity and detail (Li et al., 2025; Zhao et al., 2025b; Xiang et al., 2025b; Lai et al., 2025b), while
+multi-view texture models have improved artistic quality and view consistency (Bensadoun et al., 2024; Cheng
+et al., 2025). However, while the generated assets may look good at a glance, they are often too complex to
+use in real-time applications, particularly on mobile devices. Generation speed can also frustrate users. A
+
+
+                                                        2
+useful generator must have a latency in the tens of seconds to support workflows where assets are proposed,
+assessed, and revised iteratively by creators.
+We therefore consider the problem of generating application-ready 3D asset in interactive creative workflows.
+To be deployable, the assets must satisfy quality and efficiency bars sufficient for use in real-time applications,
+including mobile ones. To be useful in interactive workflows, the assets must be generated in seconds rather
+than minutes.
+To this end, we introduce AssetGen, an image-to-3D system designed to meet these goals. As shown in figure 1,
+AssetGen delivers a high-quality textured mesh with a controlled polygon budget, UV coordinates, and baked
+normals in approximately 30 seconds on H100 GPUs. A fast variant, AssetGen Flash, reduces latency to
+approximately 14 seconds to support previews in faster interactive and agentic creation loops.
+The system consists of three stages. First, MeshGen predicts a dense, highly detailed 3D shape using a
+two-stage coarse-to-refine diffusion model. Second, a GPU-based post-processing stack converts the dense
+shape into a deployable mesh by simplifying and cleaning the geometry, removing hidden faces, unwrapping
+UVs, and baking tangent-space normals to preserve high-frequency surface details. Finally, TextureGen
+synthesizes several views of the textured appearance of the processed mesh and fuses them into a 2048px
+texture atlas using GPU-based upsampling, backprojection, blending, and 3D-aware inpainting.
+A key novelty of AssetGen is that inference is optimized end-to-end. First, latency is reduced through model
+distillation in both the geometry and texture generation stages. For example, diffusion sampling in MeshGen
+is progressively distilled from 120 denoising steps down to just 30 steps, further doubling speed by also
+distilling Classifier-Free Guidance (CFG) in a single forward pass. TextureGen is accelerated in a similar
+manner. Several other engineering decisions remove further bottlenecks, including FlashAttention-3, graph
+compilation, selective low-precision execution, non-blocking transfers, GPU-resident geometry operations, and
+asynchronous serving, all reducing wall-clock latency without regressing asset quality. The result is a practical
+image-to-3D pipeline whose output is competitive with leading commercial systems while running at a latency
+suitable for creative iteration.
+The faster version AssetGen Flash skips the MeshGen refinement step, reduces the texture resolution to
+1024px omitting upsampling and using more aggressive distillation, including CFG distillation. While the
+visual quality is slightly reduced, the much faster generation speed makes interactive creation more fluid and
+enjoyable.
+We validate AssetGen using quantitative benchmarks, qualitative comparisons, and blind human evaluations.
+In particular, we introduce new benchmarks and evaluation metrics that measure specific aspects of 3D
+generation, including, for example, how certain details such as faces and hands are reconstructed in 3D
+characters—something that was not assessed systematically before to the best of our knowledge. With this, we
+show that AssetGen achieves competitive asset quality against leading commercial systems while substantially
+reducing latency. To summarize, our contributions are threefold:
+Deployable 3D asset generation at interactive rates. We refocus image-to-3D as the task of generating 3D assets
+that can be deployed as-is in real-time rendering engines, including on mobile platforms, while also meeting
+strict latency constraints to support iterative creative workflows.
+End-to-end system optimization. To achieve these goals, we re-engineer the system as a whole. We optimize each
+component of the pipeline, including MeshGen and TextureGen distillation, mesh simplification, hidden-face
+removal, UV unwrapping, normal baking and texture backprojection, and inpainting. We introduce system
+optimizations, including minimizing I/O by running most operations on the same GPU and masking latency
+via parallelism whenever possible. We optimize for speed while maintaining the quality of the asset.
+Asset-level quality-latency Pareto design. We introduce two practical configurations: the default AssetGen
+prioritizes visual quality with an end-to-end runtime of approximately 30 seconds, while AssetGen Flash
+prioritizes responsiveness and reaches sub-15-second latency.
+
+
+
+
+                                                        3
+Figure 2 AssetGen converts a single input image into an export-ready textured mesh with two operating modes:
+AssetGen denotes the quality-oriented configuration that runs in ∼ 30 seconds, and AssetGen (Flash) denotes the
+latency-oriented configuration that runs in approximately 14 seconds. Both produce the same asset contract: a
+simplified mesh with UVs, baked normals, and a texture atlas.
+
+
+2    Related Work
+3D Shape Generation. Neural 3D representations trade off rendering quality, extraction cost, and generative
+scalability. While radiance fields (Mildenhall et al., 2021; Müller et al., 2022), Gaussian splatting (Kerbl
+et al., 2023), and optimization-based lifting (Poole et al., 2022; Wang et al., 2023) prioritize high-quality view
+synthesis, interactive pipelines require fast, feed-forward geometric prediction (Tochilkin et al., 2024; Xu et al.,
+2024; Wang et al., 2024; Huang et al., 2025b). To balance generative scalability with straightforward mesh
+extraction, recent methods compress 3D data into compact latents like triplanes (Chan et al., 2022), wavelet
+features (Sanghi et al., 2024), primitives (Chen et al., 2025b), structured coordinates (Xiang et al., 2025a),
+and unordered vector sets (Zhang et al., 2023).
+Building on native 3D diffusion models that learn robust priors directly in these spaces (Zhao et al., 2023;
+Zhang et al., 2024; Wu et al., 2024; Xiang et al., 2025b; Li et al., 2025; Zhao et al., 2025b), AssetGen adopts
+a distilled (Lai et al., 2025b), two-stage coarse-to-refine VecSet architecture (Lai et al., 2025a). This design
+provides a compact target for rapid diffusion while supporting the extraction of dense implicit surfaces (Park
+et al., 2019; Mescheder et al., 2019) necessary for normal baking. While an emerging family of approaches
+predicts mesh topology and edge flow directly (Siddiqui et al., 2024; Zhao et al., 2025a; Hao et al., 2024; Li
+et al., 2026; Xu et al., 2026; Wang et al., 2026; Lei et al., 2026; Lionar et al., 2025; Luo et al., 2026; He et al.,
+2025), our system focuses on the pipeline of dense implicit generation followed by explicit processing. Finally,
+to ensure high-quality geometry extraction and reliable SDF supervision from curated datasets (Li et al., 2025;
+ByteDance Seed3D Team, 2026), our data pipeline extends established sign-estimation techniques (Newcombe
+et al., 2011; Huang et al., 2020; Barill et al., 2018) with a boundary-aware flood-fill formulation to handle the
+open boundaries and inconsistent winding common in real-world assets.
+
+Multi-View Texture Synthesis and Acceleration. Texture generation has evolved from sequential painting (Richard-
+son et al., 2023; Chen et al., 2023; Zeng et al., 2024) to synchronized multi-view synthesis (Liu et al., 2023a,
+2024; Shi et al., 2024; Long et al., 2024; Voleti et al., 2024; Li et al., 2024; Tang et al., 2023, 2024; Cheng
+et al., 2025; Bensadoun et al., 2024; Shao et al., 2025). In recent pipelines, these synchronized views are
+mapped onto explicit surfaces via geometric conditioning and specialized attention mechanisms (Xiang et al.,
+2025c; Sarafianos et al., 2025; Huang et al., 2025a; Hasselgren et al., 2026; Hunyuan3D et al., 2025; He et al.,
+2020; Ye et al., 2023). However, deploying the underlying diffusion transformers (Peebles and Xie, 2023; Bao
+et al., 2023; Esser et al., 2024; Liu et al., 2022) interactively requires extensive step distillation, guidance
+
+
+                                                         4
+optimization (Salimans and Ho, 2022; Song et al., 2023; Sauer et al., 2024; Yin et al., 2024b,a; Liu et al.,
+2023b; Fan et al., 2026; Ho and Salimans, 2022; Meng et al., 2023; Fan et al., 2025; Zhou et al., 2026), and
+kernel-level improvements (Dao et al., 2022; Dao, 2024; Shah et al., 2024; Ansel et al., 2024; Chen et al., 2025a;
+Zhu et al., 2026; Yang et al., 2025). AssetGen co-designs synthesis and acceleration: rather than texturing
+abstract latents, we condition a synchronized model directly on the deployable, normal-baked mesh. By
+combining view-selective attention with distillation and global pipeline optimizations, we achieve high-fidelity
+texturing within real-time deployment constraints.
+
+Mesh Processing and Production Pipelines. To satisfy rendering constraints, asset generation relies on foun-
+dational geometry processing, including mesh simplification (Garland and Heckbert, 1997; Hoppe, 2023;
+Lindstrom and Turk, 1998; DeCoro and Tatarchuk, 2007), UV parameterization and seam placement (Lévy
+et al., 2023; Sheffer et al., 2005; Young, 2023; Xu et al., 2025), and normal baking (Cohen et al., 1998),
+supported by efficient GPU rendering libraries (Laine et al., 2020; Ravi et al., 2020; Pidhorskyi et al., 2024;
+Parker et al., 2010). Building on these primitives, complete 3D generation systems increasingly integrate
+geometry, texture, and export stages (Bensadoun et al., 2024; Zhao et al., 2025b; Hunyuan3D et al., 2025; Lei
+et al., 2025; Boss et al., 2025; Xiang et al., 2025b,a; ByteDance Seed3D Team, 2026). AssetGen contributes
+a complementary system perspective to this design space: rather than treating model inference, geometry
+processing, and texture fusion as independent modules, we co-design and globally optimize the full pipeline.
+This approach yields an application-ready, UV-unwrapped, and normal-baked mesh while exposing distinct
+latency-quality operating points for interactive deployment.
+
+
+3    System Overview
+AssetGen takes a single image as input and generates a textured 3D mesh optimized for real-time rendering.
+The system consists of three major stages: geometry generation (MeshGen), geometry processing, and texture
+generation (TextureGen). We illustrate this workflow in figure 2. In particular, we use an explicit geometry-first
+pipeline, in which MeshGen predicts a dense 3D surface that captures global shape and local structure. The
+geometry processing stage then converts this dense surface into a lightweight asset through simplification,
+hidden-face culling, UV unwrapping, and tangent-space normal baking. TextureGen renders normal and
+position maps from the processed asset, synthesizes multi-view color images conditioned on those maps and
+the reference image, and fuses the generated views into the UV atlas through visibility- and incidence-weighted
+backprojection, with 3D-aware inpainting for regions not observed by any view. The final output is an explicit
+textured mesh with a small triangle count, UV coordinates, and a diffuse texture atlas.
+We expose two inference configurations with different quality vs. latency trade-offs. The default AssetGen
+configuration uses two-stage coarse-to-refine MeshGen, runs TextureGen at 1024px per view with inference-
+time CFG, and applies per-view super-resolution before atlas fusion. This configuration prioritizes visual
+quality and runs in approximately 30 seconds end to end when deployed on H100 GPUs. AssetGen Flash
+skips MeshGen refinement, runs TextureGen at 768px per view, uses a guidance-distilled conditional-only
+TextureGen model, omits per-view super-resolution, and exports a 1K atlas, reducing end-to-end latency to
+approximately 14 seconds.
+Next, we describe data curation (section 4), geometry generation (section 5), geometry post-processing
+(section 6), texture generation (section 7), inference acceleration (section 8), evaluation (section 9), qualitative
+results (section 10), conclusion and limitations (section 11).
+
+
+4    Data Filtering and Curation
+The quality of a 3D generator depends strongly on the quality of the training data, which we enforce via
+rigorous curation. We started from a large collection of in-house licensed datasets, but identified issues such as
+duplicates, background presence, 3D scans with degenerate geometry, inconsistent orientation and low mesh
+quality, as shown in Fig. 3. We filtered out problematic assets using geometric rules and a Vision-Language
+Model (VLM).
+
+
+
+
+                                                         5
+          Background                   3D scan                Wrong orientation              Low quality
+
+Figure 3 Examples of assets removed during semantic filtering: background geometry, 3D scans, incorrect orientation,
+and low mesh quality.
+
+
+Geometric Filtering We started by identifying and removing duplicates (e.g., objects that only had minor
+texture or geometric differences), using metadata and vertex count to identify them and retaining only the
+variant with the largest file size. We also removed meshes with very low or very large polygon counts, often
+corresponding to placeholders or 3D scans. This filtered around 30% of the assets. Approximately 3% of the
+assets contained animations. From these, we selected the rest pose and some additional representative poses
+using max-distance sampling to encourage diversity.
+
+Semantic Filtering The remaining assets underwent a multi-stage, VLM-driven semantic filtering process.
+Each stage targets a specific failure mode, removing roughly 30% assets in total. First, artist-created models
+often include background geometry (e.g., skydomes, ground planes, and surrounding cylinders) that interferes
+with object-centric generation. We employ a two-stage detection mechanism: a lightweight heuristic detector
+first flags candidates based on geometric properties (e.g., outlier size, detached planar components), followed
+by a VLM classifier to filter false positives. Second, photogrammetric 3D scans and satellite imagery, which
+typically exhibit jagged boundaries, noisy surfaces, and non-manifold topology, are identified and removed
+via a dedicated VLM pass, filtering roughly 4% assets. Third, a large fraction of meshes exhibit incorrect
+3D orientation, appearing upside-down or sideways. We render four canonical views at a fixed elevation
+and apply an orientation predictor using majority voting to determine the 3D orientation. A VLM then
+verifies predictions falling outside a plausible elevation range. Objects with confirmed incorrect gravity are
+first removed (approximately 2%). Then, all retained meshes whose predicted frontal view deviates from
+the canonical forward direction are re-aligned, ensuring global orientation consistency across the training set.
+Finally, the VLM was used to score each asset based on geometric fidelity and texture quality (both on a 0–10
+scale) and to flag visual artifacts such as rendering glitches, anomalous viewing angles, transparency errors, or
+residual backdrops. Assets with severe geometric degradation (score ≤ 2) or flagged artifacts were excluded.
+This step removed approximately 20% assets.
+
+
+5     MeshGen
+Given a single input image, MeshGen reconstructs the object 3D shape in the form of a mesh. This section
+details the training data, model architecture, and distillation strategy to accelerate inference.
+
+5.1   MeshGen Data Preparation
+MeshGen relies on signed distance functions (SDFs), which require the identification of interior and exterior
+volumes to be well-defined. To do so, we first convert raw 3D assets into watertight meshes.
+We found standard methods employing ray tracing (Zhang et al., 2024) or winding numbers (Zhao et al.,
+2025b) to be unreliable; ray tracing is slow and fails near holes and slits, while winding numbers degrade with
+inconsistent face orientations. Therefore, we use an adaptation of the flood-fill algorithm (Smith, 1979) that is
+robust to these defects. We identify the exterior with voxel-grid flood filling, accelerated by a GPU Bounding
+Volume Hierarchy (BVH). First, we mark a narrow surface band: voxels whose unsigned distance to the input
+
+
+                                                         6
+Figure 4 Overview of the flood-fill-based voxel sign estimation algorithm (shown in 2D cross-section). See the text for
+details.
+
+
+surface is below a fixed threshold. We then flood fill from the grid boundary, stopping at this band. Small
+gaps in the band can cause leakage into the interior. Dilation seals these gaps but shifts the surface boundary,
+which cannot be compensated by erosion without removing high-frequency boundary detail.
+We address this issue with a three-stage algorithm, illustrated in figure 4. First, we dilate the surface band
+(gray) to close the gaps in the input mesh, producing an expanded band (pink). Second, we flood fill from
+the voxel-grid boundary: flooded voxels are exterior (blue), dry voxels are interior (green), and voxels in the
+dilated band remain undetermined (pink). Third, we resolve undetermined voxels by assigning the label that
+best agrees with their neighbors. This replaces naïve erosion, while preserving high-frequency boundary detail.
+Since dilation can create small artificial cavities in concave regions or between nearby parts, we identify them
+as small connected components from the inferred interior and return them to the unknown set before final
+relabeling.
+After labeling, we extract a watertight mesh with marching cubes and compute SDF supervision from the
+resulting surface for training.
+
+5.2    MeshGen Architecture
+MeshGen generates 3D shapes from a single image using a latent diffusion transformer operating on the
+VecSet (Zhang et al., 2023) representation. The model employs a coarse-to-refine architecture: an initial stage
+establishes the rough shape and topology of the object, and a refinement stage adds higher-resolution detail.
+
+Formulation MeshGen follows a standard conditional latent diffusion formulation over VecSet shape latents.
+We summarize the formulation briefly, as the main system contribution lies in converting dense 3D generation
+into a latency-constrained, exportable asset pipeline. Given an image I, we generate a 3D shape with a diffusion
+transformer (DiT) (Peebles and Xie, 2023) operating in the VecSet latent space. The VecSet Variational
+Auto-Encoder (VAE) encodes the input shape (initially represented as a set of 3D points with normals) into a
+compact set of N latent tokens z ∈ RN ×D ; the decoder maps z to a corresponding SDF function, which can
+be queried at any spatial location to recover the shape. For generation, we train a denoising model ϕθ to
+reverse a forward diffusion process that progressively corrupts a clean latent code z0 ∼ q(z) into Gaussian
+noise. We adopt the v-prediction (Salimans and Ho, 2022) parameterization with a scaled-linear beta schedule
+and zero-SNR rescaling (Lin et al., 2024). At each timestep t, the noisy latent zt = αt z0 + σt ϵ is constructed
+from the noise schedule coefficients
+                            h         αt , σt , and ithe model predicts the velocity vt = αt ϵ − σt z0 . The training
+                                                  2
+objective is LDM = Et,ϵ,z0 ∥ϕθ (zt , t, c) − vt ∥ where c denotes the image conditioning.
+
+Classifier-free guidance (CFG) (Ho and Salimans, 2022) is used to improve sample quality. During training,
+the conditioning c is randomly dropped with probability pcfg . At inference, the guided prediction is computed
+as ṽt = vtuncond + s · (vtcond − vtuncond ) where s is the guidance scale. This requires two forward passes per
+denoising step (conditional and unconditional), which is subsequently eliminated via progressive distillation
+(section 5.3).
+
+
+                                                          7
+Figure 5 Visualization of the dense meshes predicted by our two-stage coarse-to-refine MeshGen, prior to geometry
+processing and simplification.
+
+
+Architecture The backbone follows the DiT design (Peebles and Xie, 2023) with skip connections and AdaLN
+modulation. It maps the noisy latent code zt to the predicted velocity vt = ϕθ (zt , t, c) through an input
+projection, a stack of DiT blocks, and an output projection. A linear layer projects the N × D noisy
+latent tokens to the transformer hidden dimension DT , where N denotes the number of latents. The input
+image I is encoded by a frozen DINOv2 ViT-G/14 with registers (Oquab et al., 2023; Darcet et al., 2024),
+producing a sequence of patch tokens c ∈ RL×Dc at resolution 518px. The transformer uses n blocks, each
+consisting of three sub-layers with residual connections: (i) self-attention among latent tokens with AdaLN
+and query-key normalization, (ii) cross-attention to the image condition tokens c with AdaLN, and (iii) a
+SwiGLU feed-forward network (Shazeer, 2020) with gated activation. The final token representations are
+layer-normalized and linearly projected back to N × D, predicting the velocity vt .
+Our DiT is a 2.3B parameter model, it uses n = 24 blocks with hidden dimension DT = 2048, 16 attention
+heads and skip connecting the first/last 11 blocks. The latent code at this coarse stage uses N = 4096 tokens
+of dimension D = 64.
+
+Implementation details For training stability and efficiency, we train our model in three stages by gradually
+increasing the number of latent tokens N from 512 to 4096. In the first stage, we use N = 512 tokens and
+train for 750K iterations with a learning rate of 1 × 10−4 and a batch size of 2048 samples. In the second
+stage, we use N = 2048 and train for 500K iterations with a learning rate of 2 × 10−5 and a batch size of
+1280. In the third stage, we use N = 4096 and train for 250K iterations with a learning rate of 1 × 10−5 and
+a batch size of 1024. For all stages, similar to the VAE training, we use AdamW (Loshchilov and Hutter,
+2017), a weight decay of 0.01, β = (0.9, 0.95), and bfloat16 mixed precision.
+
+Coarse-to-refine generation A single-stage model with N = 4096 latent tokens captures the overall shape but
+often lacks the resolution needed for fine geometric detail. We recover them by introducing a second stage
+inspired by LATTICE (Lai et al., 2025a).
+The refinement model takes the coarse mesh as input and predicts a higher-resolution latent code with
+Nrefine = 16,384 tokens. To construct the refinement tokens, we sample surface points from the coarse mesh
+and voxelize them to produce Nrefine 3D positions xi ∈ R3 for each latent token. These positions serve as
+
+
+                                                       8
+RoPE input in the refinement transformer’s self-attention layers, anchoring each latent token to a specific
+location on the coarse geometry. This is different from the coarse stage, where tokens have no preferential
+spatial association a priori, and allows the model to focus more easily on local details rather than the global
+structure.
+The refinement stage also uses higher-resolution image conditioning: the DINOv2 encoder operates at 1022px
+resolution, producing 4× more patch tokens than in the coarse stage. The predicted refined latent code is
+decoded through a dedicated refinement VAE trained with point jittering to make it robust to voxelization.
+The decoder shares the coarse VAE interface—querying an implicit field and extracting the final surface via
+marching cubes—but uses the denser, spatially anchored token set to recover local surface detail around the
+coarse prediction. Because the refinement stage is guided by the coarse geometry rather than solving global
+structure from scratch, it converges in fewer diffusion steps.
+
+5.3   MeshGen Distillation
+At inference, the default MeshGen configuration uses 100 denoising steps for the coarse stage and 20 steps for
+the refinement stage, both with CFG, which further doubles the number of forward passes of the DiT. We
+distill both models to accelerate inference while preserving quality.
+We apply progressive distillation (Salimans and Ho, 2022) to each stage, reducing iterations from 100 to 25
+and from 20 to 5 respectively (a 4× reduction in denoising steps). We also fold CFG into the distilled model
+to reduce compute and maximize speed: during training, the teacher uses guided sampling, and the student
+learns to reproduce the guided output in a single conditional forward pass. To train the student, we use a
+DDIM-based target-inversion objective. At each training step, the teacher starts from a randomly sampled
+student timestep and runs N deterministic DDIM steps to produce a multi-step target. The student is trained
+with an MSE loss to match this multi-step teacher output in a single step, using an inverted v-prediction
+target. Optionally, we add an auxiliary x0 reconstruction loss that penalizes deviation between the student’s
+predicted clean latent and the ground truth, providing light regularization without changing the primary
+distillation objective.
+Overall, on a single NVIDIA A100 80GB GPU, distillation reduces latency from 13.9 to 1.9 seconds for the
+coarse stage, and from 14.3 to 1.9 seconds for the refinement stage. To validate the distillation quality, we use
+human evaluation as well as quantitative metrics such as Chamfer distance do not sufficiently capture perceptual
+fidelity. We curate 200 teacher-student output pairs spanning diverse categories (objects, characters, and
+environmental elements) and representative image-to-3D benchmark inputs, and present them in a randomized,
+blind side-by-side comparison. As summarized in table 1, evaluators prefer the teacher in 32.9% of comparisons,
+the student in 30.5%, and judge 36.6% as similar, suggesting that a 4× reduction in sampling steps incurs
+negligible perceptible quality loss. See figure 5 for example MeshGen meshes.
+
+Table 1 Human evaluation of quality across 200 pairs (1018 total votes). The 4×-distilled student closely matches the
+teacher in perceptual quality. Latency is measured on A100 GPU.
+
+                            Model     Steps Sec./sample Wins Similar Win Rate
+                            Teacher    120       28.20        335     373       32.9%
+                            Student     30       3.78         310     373       30.5%
+
+
+
+6     Geometry Post-Processing for Runtime Assets
+The output of MeshGen is an SDF, from which we extract an explicit surface mesh. We first run marching
+cubes at a high resolution (5123 ) to obtain a dense mesh with roughly one million faces. This dense extraction
+preserves the high-frequency geometry and serves as the source geometry for subsequent processing. However,
+it is not directly suitable as a deployable asset: it is too dense for real-time rendering, may contain hidden
+interior surfaces, and does not provide the UV parameterization required for texture mapping. We therefore
+convert it into a texture-ready asset through mesh simplification, visibility pruning, UV unwrapping, and
+
+
+
+                                                         9
+Table 2 Mesh simplification performance on 200 benchmark assets at 5K and 10K face targets. We evaluate geometric
+deviation (Chamfer, Hausdorff), orientation consistency (Flipped Normals across 24 views), and the mean angular
+error of both baked and unbaked geometric normals (Baked Mean, Geo Mean). All metrics are averaged over the
+benchmark (↓ lower is better).
+
+  Target Method              Latency (s) Chamfer (×10−5 ) ↓ Hausdorff (×10−3 ) ↓ Flipped Normals ↓ Baked Mean (◦ ) ↓ Geo Mean (◦ ) ↓
+         Houdini               14.64            36.5                  5.19             3956              9.02             12.39
+  5k     CuMesh (original)     0.437            29.6                  6.57             1593              10.58            14.94
+         CuMesh (ours)         0.469            13.3                  4.59             1126              9.39             11.94
+         Houdini               11.58            29.7                  3.87             997               6.60             9.39
+  10k    CuMesh (original)     0.429            8.70                  1.90             454               7.02             10.78
+         CuMesh (ours)         0.457            3.01                  0.97             268               6.47             8.66
+
+
+
+
+tangent-space normal baking. The normal map transfers high-frequency surface detail from the dense source
+mesh onto the simplified mesh, yielding a compact representation suitable for real-time rendering on mobile.
+
+6.1     Mesh Simplification
+We considered using production-grade mesh simplification software, but found existing solutions too slow for
+our purposes. We therefore develop our own solution.
+We build on CuMesh∗ , a library that implements parallel edge collapse with quadric error metrics (QEM) (Gar-
+land and Heckbert, 1997; Oh et al., 2025) that runs in less than one second on a GPU for our target mesh size.
+The algorithm maintains a quadric Qv for each vertex v, encoding the squared distance E(v) = [v; 1]⊤ Qv [v; 1]
+of a point v to all incident face planes. The cost minv E(v) of collapsing an edge (v0 , v1 ) is computed from
+the combination Q = Qv0 + Qv1 of the quadrics of its two endpoints.
+The baseline CuMesh implementation does not solve for the QEM-optimal position; it uses Q only to rank
+candidate collapses, then places the contracted vertex at the midpoint (interior edges) or an endpoint (boundary
+edges). This means the collapse ordering reflects the QEM objective, but the actual vertex positions do not,
+leading to systematic geometric degradation under aggressive polygon reduction. We compute the contraction
+position from the merged quadric directly, with an edge-constrained projection for stability. For interior edges,
+we compute the unconstrained QEM minimizer vopt of the energy E(v).† We then project vopt onto the edge
+segment v(t) = (1−t) v0 + t v1 by computing t = ⟨vopt − v0 , v1 − v0 ⟩/∥v1 − v0 ∥2 and clamping t ∈ [0, 1].
+This bounds vertex displacement to the edge length while following the QEM objective. When the quadric is
+singular, we fall back to the midpoint. For boundary edges, we keep boundary vertices fixed or select the
+lower-error endpoint. The same placement logic is used for both cost evaluation and actual collapse, ensuring
+the ordering reflects the true geometric cost.
+
+Mesh simplification results We evaluate the impact of optimal placement on a benchmark of 200 meshes gener-
+ated by our image-to-3D pipeline, comparing three configurations: Houdini’s PolyReduce as a representative
+production-quality CPU solver, CuMesh with the baseline midpoint placement (original), and CuMesh with
+our optimal placement strategy (ours). Each mesh is simplified to two target face counts (5k and 10k) and
+compared against the raw mesh.
+We measure the following metrics: The Chamfer distance samples 256k surface points from the original and
+simplified meshes and reports the average minimum distance of points in one set against the other, in both
+directions. The Hausdorff distance does the same but reports the maximum minimum distance. The Flipped
+normal metric renders the simplified mesh from 24 viewpoints with and without backface culling at resolution
+of 1024 and reports the number of pixels where the two renderings disagree, caused by a flipped normal.
+Baked mean bakes the normals from the original mesh to the simplified one and reports the average angular
+error in degrees of the approximation.‡ Geo mean reports the average angular error between the simplified
+   ∗ https://github.com/visualbruno/CuMesh
+   † I.e., we solve Ax = −b (where A is the upper-left 3×3 block of Q and b its upper-right 3×1 column).
+   ‡ The simplified mesh is UV-unwrapped via xatlas, and a normal map is baked from the raw mesh onto the simplified mesh’s
+
+UV layout. Surface points are then sampled uniformly on the simplified mesh, and the angular error between the baked normal
+and the true raw-mesh normal is computed at each sample. The metric reports the mean error in degrees across all samples.
+
+
+
+                                                                 10
+and original mesh true normals.
+Results are summarized in table 2. The optimized placement improves over the CuMesh baseline across
+all metrics. Compared with Houdini, the optimized CuMesh achieves better geometric fidelity on most
+measures—Chamfer distance, Hausdorff distance, flipped normals, and geometric-normal error—with Houdini
+slightly ahead only on baked-normal error at the 5k-face target.
+
+6.2   Hidden Face Removal
+Generated meshes can contain interior faces that are invisible from any exterior viewpoint. Such faces waste
+polygon and texture budget, complicate UV unwrapping, and may create downstream artifacts in rendering
+or rigging. We remove them with a GPU-accelerated visibility pass followed by topology-aware cleanup.
+The visibility pass builds a BVH over the mesh and casts rays from 512 viewpoints distributed on a surrounding
+sphere at 1024-pixel resolution. A face is marked visible if at least one ray reaches it without occlusion. The
+BVH is constructed once and reused across all viewpoints, and the result is accumulated directly into a
+per-face visibility mask.
+Pure visibility classification produces fragile results under self-occlusion: rays can miss faces that belong to
+the exterior surface but are shadowed by other geometry, leaving isolated floating triangles or holes in the
+visible shell. A topology-aware flood-fill step addresses this by propagating exterior classification across the
+mesh’s connectivity. The flood fill is seeded from faces already classified as visible by ray tracing. Propagation
+proceeds via breadth-first traversal across edges, gated by a normal consistency check: an adjacent face is
+promoted to exterior only if its normal agrees in direction with the seed face, preserving winding consistency
+and preventing propagation through the interior.
+
+Results We evaluate the pipeline on 100 meshes produced by our generation model, each containing approxi-
+mately 22K faces after simplification. The core hidden-face-removal kernel runs in 0.179 seconds per mesh on
+average on a single GPU. In the production pipeline, the corresponding stage averages 0.362 seconds once
+staging and scheduling overhead are included.
+
+6.3   UV Unwrapping
+After simplification and hidden face removal, we construct a UV atlas for the mesh to support normal baking
+and texturing in subsequent stages. We use xatlas § for UV unwrapping. It operates in three stages: chart
+segmentation, which partitions the mesh surface into regions suitable for planar mapping; LSCM-based
+parameterization, which computes low-distortion 2D coordinates for each chart; and atlas packing, which
+arranges charts into a texture atlas.
+Of these, chart segmentation dominates runtime because it grows charts one face at a time with a greedy
+priority queue over normal-compatibility costs, serially. We first evaluated CuMesh’s GPU-based chart
+segmentation¶ , which uses parallel edge collapse with normal-cone merging. However, this rebuilds the graph
+after each round of edge collapse, causing frequent synchronization across small GPU kernels and leads to no
+acceleration for meshes with fewer than 30k faces as the kernel launches become the bottleneck.
+We instead introduce a parallel chart segmentation pipeline that partitions the mesh spatially, runs segmentation
+on each partition with boundary overlap, and reconciles the results through a merge pass. The approach follows
+a four-phase partition-with-overlap strategy. First, we recursively bisect the mesh into spatially balanced
+regions using median-area splits along the axis of maximum centroid spread, producing a set of compact
+macro-partitions. Second, we extract an N-ring halo of neighboring faces around each partition boundary via
+breadth-first traversal, so that each partition’s segmentation has geometric context about adjacent regions and
+does not produce arbitrary chart boundaries at partition edges. Third, we run the full xatlas segmentation
+pipeline independently on each partition (core faces plus halo) in parallel using the existing task scheduler.
+Fourth, we reconcile the per-partition results into a unified chart assignment through a three-step boundary
+reconciliation: core faces are assigned to charts from their owning partition, orphan faces (those in halo zones
+   § https://github.com/jpcy/xatlas
+   ¶ https://github.com/visualbruno/CuMesh
+
+
+
+
+                                                       11
+that were not claimed) are assigned to the neighboring chart with the best normal compatibility, and a final
+pairwise merge pass—ported from xatlas’s serial merge logic with the same five merge criteria (single-face
+absorption, quad absorption, enclosed chart, significant shared boundary, and normal gate)—consolidates
+fragmented charts at partition boundaries while validating that merged normals remain coherent.
+
+Human Evaluation We conducted a human evaluation of final texture quality, where the only variable between
+conditions is the UV unwrapping algorithm—all other pipeline stages (mesh generation, simplification, and
+texture synthesis) are held constant. Across two evaluation rounds totaling 604 pairwise comparisons, the
+combined results are summarized in table 3. The serial baseline holds a marginal advantage at 51.9% win
+rate, while the parallel unwrap provides a 1.9× speedup on average. Annotators reported that distinguishing
+the two methods required zooming in to inspect seam boundaries, and that the differences were not visible on
+mobile devices. This makes UV parameterization a good Pareto trade: a visible latency reduction with no
+practically observable degradation for interactive use.
+
+Table 3 Human evaluation of UV unwrapping quality comparing serial and parallel xatlas across 604 pairwise comparisons.
+Processing speed is normalized to the serial baseline.
+
+                              Xatlas     Speed (s) Wins Losses Ties Total               Win
+                              Serial       4.70      241        217      146     604    51.9%
+                              Parallel     2.56      217        241      146     604    48.1%
+
+
+
+6.4   Normal Map Baking
+The simplification stage retains the raw high-poly mesh alongside the simplified output. We bake a tangent-
+space normal map that transfers high-poly surface detail onto the simplified mesh’s UV layout, recovering
+geometric fidelity that would otherwise be lost to polygon reduction.
+Blender’s Cycles renderer produces high-quality normal maps but averages 2.92s per mesh in our benchmark
+and can take up to 25.85s in the worst case. It also incurs data-conversion overhead: the mesh must be
+exported for Blender to load, and the baked output must be saved and read back, adding further latency.
+We replace Blender with a GPU-resident pipeline that keeps all data in memory, eliminating inter-process
+overhead. The pipeline has four stages.
+The pipeline rasterizes the low-poly mesh into its own UV space using DRTK (Pidhorskyi et al., 2024)‖ ,
+producing a G-buffer with world-space position, smooth normal, tangent, and bitangent for each valid texel.
+A GPU BVH built on the high-poly mesh then locates, for each texel’s world-space position, the closest point
+on the high-poly surface and retrieves its interpolated smooth normal via barycentric weighting. Two filters
+reject erroneous correspondences: a distance filter discards hits beyond 1% of the bounding-box diagonal, and
+a UV-reliability filter marks texels on faces with degenerate UV parameterization as unreliable, assigning
+them a neutral tangent-space normal (0, 0, 1). The hit normal is projected into the texel’s tangent frame,
+encoded as RGB8, and dilated at UV seam boundaries to prevent mipmap bleed. The entire pipeline runs on
+the GPU with no disk I/O.
+
+Table 4 Comparison of normal baking performance between our GPU-resident implementation and Blender. Evaluated
+across 50 benchmark assets at a target of 5K faces and 1024 × 1024 texture resolution.
+
+                            Metric                 Method        Mean          Median    Max
+                                                   Blender       2,920         1,842     25,854
+                            Bake latency (ms)
+                                                   GPU            271           188      1,147
+                                                   Blender        9.89          6.98     54.39
+                            Baked mean (◦ )
+                                                   GPU            9.66          7.14     50.35
+
+
+   ‖ https://github.com/facebookresearch/DRTK
+
+
+
+
+                                                           12
+Evaluation. We evaluate normal baking on 50 meshes, each simplified to 5k faces and paired with a raw
+high-poly source, as shown in Table 4. All methods use xatlas UVs and 1024 × 1024 tangent-space normal
+maps. Our GPU baker achieves comparable quality to Blender while substantially reducing latency. It runs
+10.8× faster on average (271 ms vs. 2,920 ms) and 22.5× faster in the worst case (1,147 ms vs. 25,854 ms).
+The mean angular error is slightly lower than Blender (9.66◦ vs. 9.89◦ ), while Blender has a small median
+advantage (6.98◦ vs. 7.14◦ ).
+
+
+7     TextureGen
+The geometry stage outputs a simplified mesh, a UV atlas, and a tangent-space normal map that transfers
+high-frequency detail from the dense source. The next step is TextureGen, which generates a UV texture for
+the object.
+TextureGen decomposes the problem into two stages: image-space appearance synthesis and UV-space
+geometric fusion. First, a multi-view diffusion transformer generates a coherent set of textured views
+conditioned on rendered geometry, the reference image, and text. Second, a projection module fuses these views
+into the UV atlas and completes unobserved regions. This separation leverages strong image-space diffusion
+priors while keeping the final texture geometrically aligned to the mesh, following recent work (Bensadoun et al.,
+2024; Cheng et al., 2025). For interactive production use, we combine multimodal conditioning with efficient
+multi-view attention (Section 7.2), progressive distillation from a 32-step teacher to 4 steps (Section 7.3), and
+fast UV backprojection and completion (Section 7.4). See figure 8 for example TextureGen results.
+
+7.1   TextureGen Data Preparation
+The TextureGen generator takes as input the 3D mesh and several target viewpoints, encoded as set of normal
+and position map renders, along with a reference image capturing the object appearance, and text prompt
+describing the object. It generates as output several images of the textured object, one for each target view.
+We explain below how the training data is obtained from each 3D asset.
+
+Images. To obtain the reference image, we render the 3D assets from a random camera viewpoint with azimuth
+and elevation in the range −45◦ to 45◦ sampled in five discrete increments. For each viewpoint, we render
+the mesh in two variants, one illuminated by a randomly selected and oriented HDRI image from a set of
+HDRI images with varying degrees of directional strengths, and one by a relatively diffuse HDRI image. This
+makes the model robust to passing reference images that range from harsh directional lighting to flat diffuse
+appearance.
+To obtain the target images, we render the 3D asset from ten fixed viewpoints: 8 side views at 45◦ azimuth
+increments, along with top and bottom views. We use orthographic projection because it decouples projection
+scale from depth, yielding predictable foreground coverage for normalized assets. It also gives side views a
+shared vertical coordinate: pixels in the same image row correspond to the same 3D height, which simplifies
+learning cross-view consistency.
+We scale the mesh to fit in a fixed sphere and render world-space normals and positions for each view. We
+apply normal maps that come with the asset so the conditioning signal retains micro-surface details. Position
+maps store the visible 3D coordinate at each pixel.
+We task TextureGen with generating a color texture (instead of PBR materials) as this is more friendly
+with runtime rendering on mobile devices. We thus optimize the color targets to be visually appealing and
+informative, including soft shadows, ambient occlusion, and surface gradients, while avoiding view-dependent
+effects, such as specular reflections, that cannot be represented by a color texture.
+Rendering the asset using a softly-lit environment is visually appealing, but results in view-dependent effects.
+Those are removed by using diffuse illumination, but the latter results in a flat appearance that does not
+capture well the object shape and material. We thus randomly blend these two renders, where the same
+weights are used across all 10 views and are sampled in the range from 0.2 (i.e., 20% diffuse image) to 0.5 for
+each training step.
+
+
+
+                                                       13
+Text Prompts We use a Vision-Language Model (VLM) to caption the asset and obtain a corresponding text
+prompt. To do so, we compose four renders into a 2 × 2 grid and feed it to the VLM, prompting it to describe
+the object as a whole. Then, we flag poor descriptions that contain refusals, prompt echoes, meta-references,
+or insufficient content and ask an LLM to rewrite those preserving only factual object descriptions. Finally,
+we task the LLM with summarising captions to a length of at most 128 tokens.
+
+7.2   TextureGen Architecture
+The core of TextureGen is a multi-view diffusion transformer that synthesizes a coherent set of color images
+from a reference image, text prompt, and per-view geometric renderings. Let I ∈ RH×W ×3 denote the
+reference image, M the processed mesh, and {Nk , Pk }K  k=1 the normal and position maps rendered from K
+views. Given these inputs, the model generates textured views {Vk }K   k=1 simultaneously. We describe its
+latent formulation, conditioning design, and structured multi-view attention.
+
+Formulation. TextureGen operates in the latent space of a pretrained image VAE. Each 1024 × 1024 view
+is encoded as a 64 × 64 latent. The reference image and the K target views are arranged into a 1 × (1+K)
+latent grid: the first slot contains the reference image, and the rest are reserved for noisy target-view latents.
+The latent in the reference slot is pinned throughout denoising, so the model treats it as a fixed appearance
+anchor. The training loss is applied only to the K target-view slots.
+We train the model with optimal-transport conditional flow matching (Tong et al., 2023; Kornilov et al.,
+2024) and a uniform timestep schedule. The model predicts a velocity field vθ (zt , t, c), where zt is the noisy
+multi-view latent at time t and c collects the geometric renders, pinned reference image, and text conditioning.
+
+Architecture. The backbone is a diffusion transformer with 30 layers, hidden dimension 3072, 24 attention
+heads, and SwiGLU feed-forward layers with 4× expansion. Each block applies AdaLN-Zero modulation from
+the diffusion timestep, followed by self-attention, cross-attention to text embeddings, and a feed-forward layer.
+The transformer processes the reference and target-view latents jointly, allowing appearance cues from the
+reference slot and geometric cues from each target view to interact during denoising.
+For each target viewpoint, the rendered normal map Nk and position map Pk are encoded at the latent
+resolution and concatenated with the noisy target-view latent along the channel dimension. This provides
+dense geometric context: surface orientation from normals and surface correspondence from world-space
+positions.
+The pinned reference slot provides the main appearance signal, including color, material, and style. Because it
+is part of the same latent grid as the generated views, the model can propagate reference appearance through
+self-attention. For CFG, the unconditional branch replaces the reference image with a uniform-white latent,
+allowing the guidance scale to control adherence to the visual reference.
+Text prompts provide complementary semantic information that may be ambiguous from the reference image
+alone. Text embeddings from T5 and CLIP are injected through cross-attention in each transformer block.
+
+Structured multi-view attention. Full self-attention over (1+K) latent slots is expensive when K=10 and each
+slot contains 64 × 64 tokens. Instead, we use a sparse attention pattern matched to the camera layout. Each
+target view attends to the reference slot and a small set of adjacent views. Cardinal side views attend to the
+reference and their two neighboring views; diagonal views attend to the reference and neighboring cardinal
+views; top and bottom views attend to the reference and all four cardinal views. Learned per-slot positional
+offsets identify each view within the grid.
+For K=10, full attention would involve 45,056 tokens across the reference and target views. The structured
+pattern reduces the per-view attention context by roughly 4× while preserving the connections needed for
+cross-view consistency: every view sees the reference image, and neighboring views share overlapping surface
+regions.
+
+
+
+
+                                                       14
+7.3   TextureGen Distillation
+Similarly to Section 5.3, we use progressive distillation Salimans and Ho (2022) for TextureGen that pro-
+gressively reduces denoising steps 32→16→8→4. We apply this to two model configurations: the default,
+AssetGen, uses a 4-step sampler (with CFG during sampling) to produce highest-fidelity textures at 1024×1024
+resolution. AssetGen Flash takes an extra stage to fold CFG into the distilled model to generate per-view at
+768×768 resolution.
+
+Progressive Distillation. The training objective combines velocity matching with an auxiliary denoised-image
+prediction loss. After each stage, we select the best student checkpoint using pixel-level fidelity metrics,
+including PSNR and SSIM, against the immediate teacher on a benchmark suite.
+
+CFG Distillation. Following the same protocol as progressive distillation above, we select the best student
+checkpoint via PSNR against the 4-step CFG teacher. We find that CFG distillation is particularly sensitive
+to the loss function. The baseline MSE loss establishes 30.93 dB. Switching to a Pseudo-Huber loss leads to a
++1.08 dB improvement. Adding channel-wise statistics matching and timestep importance sampling reduces
+color drift and stabilizes early training, though it does not improve PSNR. Combining these with dynamic
+thresholding and a guidance-scale curriculum gives a further +0.13 dB, reaching 32.14 dB.
+
+7.4   TextureGen Postprocessing
+Given the K texture views generated by TextureGen, the next step is to transfer them onto a single UV
+texture map via backprojection and blending followed by inpainting to fill unobserved regions.
+
+Backprojection We first project the K generated views to the texture UV atlas using backward projection∗∗ .
+We consider each texel in the atlas, recover its corresponding 3D surface position and project that point into
+each of the K generated views, reading off the corresponding color.
+Pixels near object boundaries or depth discontinuities are often unreliable, since small projection errors can
+sample background colors or colors from the wrong surface. We therefore compute an edge mask by detecting
+large differences between neighboring pixels in the point coordinate maps, excluding them from backprojection.
+A single bilinear sample per texel can undersample the generated view, especially at grazing angles and near
+UV seams where the UV-to-image mapping is highly anisotropic. We address this issue by using per-texel
+anisotropic filtering. For each atlas texel, we estimate its image-space footprint using finite-difference Jacobians
+of the UV-to-image mapping. An SVD of this footprint gives the major and minor axes: the minor axis
+selects the mip level, while the major axis defines a multi-sampling direction with up to 8 taps. The mip chain
+is built using a Lanczos-2 downsampler. We apply a small negative LOD bias (−0.5), per-level sharpening,
+trilinear blending between adjacent mip levels, and anisotropy-aware mip compensation to retain detail along
+elongated footprints.
+
+Blending. At this point, each texel has zero, one, or more candidate colors from the K backprojected views.
+For each texel with at least one candidate, we blend the contributions using an incidence-weighted scheme.
+For each view k, we compute an incidence map Ik ∈ [0, 1]Huv ×Wuv in UV space. Each texel is assigned a
+reliability score based on its surface orientation and visibility from the camera. The raw incidence is the
+clamped dot product between the surface normal n and the viewing direction dk : Ikraw = max(0, n · dk ). We
+then apply a depth-buffer visibility test. The texel’s 3D position is projected into view k, and its projected
+depth is compared against the rasterized depth buffer. If the texel is occluded beyond a fixed tolerance, its
+incidence is set to zero. Thus, Ik is nonzero only for texels that are both front-facing and visible in view k.
+
+                             PK a partial atlasAP
+Backprojecting view k produces                     k . We blend the partial atlases using the incidence maps
+                                                      K
+and a per-view prior: T = k=1 wk Ikα ⊙ Ak                      α
+                                                      k=1 wk Ik + ϵ , where α controls the sharpness of the
+blend and wk encodes a view prior. We assign higher weights to perceptually important views: wk = 1
+for the front and rear views, 0.3 for top and bottom, 0.1 for the ±45◦ frontal side views, 0.01 for left and
+right side views, and 0.001 for the ±45◦ rear side views. Together, the incidence term and view prior favor
+visible, near-orthogonal observations from salient viewpoints while suppressing grazing and less informative
+  ∗∗ Forward projection tends to leave holes and be inaccurate, particularly for grazing angles.
+
+
+
+
+                                                              15
+contributions. We implement the reduction in log space using logsumexp for numerical stability when α is
+large.
+
+Inpainting Texels that are not reliably observed from any generated view remain unfilled after blending.
+
+Following MVPaint (Cheng et al., 2025), we use the 3D geometry to guide texture completion in UV space.
+Given the blended atlas, a binary missing-region mask, and per-texel position and normal maps, we build a
+KD-tree over known texels in 3D position space. For each unknown texel, nearest-neighbor candidates are
+retrieved in 3D and weighted by spatial proximity and normal alignment. Colors are then propagated from
+known to unknown texels using these geometry-aware affinities. This step fills in occluded regions using texels
+that are nearby on the object surface, rather than merely nearby in UV space.
+
+7.5   Geometric Condition Rendering
+One large remaining latency source for TextureGen is multi-view geometric condition rendering. During
+training, we use Blender to render both geometric conditions and color targets from a shared scene setup.
+However, Blender takes approximately 5 s to render 10 views. At inference, we replace Blender with
+DRTK (Pidhorskyi et al., 2024), a GPU-accelerated rasterizer that renders all 10 views directly as GPU-
+resident tensors in approximately 500 ms. In a blind evaluation, these two rendering methods produce no
+visible difference in the final generated textures; DRTK-based results are preferred 54.3% of the time over
+Blender-based results on 100 pairs.
+
+
+8     Latency Optimization
+We have explained how distillation reduces the cost of sampling geometry and texture, but many other factors
+determine end-to-end latency: surface extraction, simplification, hidden-face removal, UV parameterization,
+normal baking, multi-view condition rendering, backprojection, inpainting, asset serialization, and I/O. These
+stages stress different parts of the system: diffusion sampling saturates GPU tensor cores; geometry and
+texture preparation mix GPU kernels with CPU-side scheduling, KD-tree construction, and UV bookkeeping;
+and input download, output upload, image encoding, and asset serialization are I/O-bound.
+We therefore optimize the system at two levels.
+First, kernel- and precision-level optimizations reduce the cost of individual model inferences (section 8.1).
+Second, pipeline-level scheduling overlaps independent CPU, GPU, and I/O work so that request latency is
+closer to the critical path than to the sum of all stages (section 8.2). With these optimizations, AssetGen
+runs in approximately 30 seconds end to end, and AssetGen Flash in 14 seconds end to end (tables 5 and 6).
+
+8.1   Kernel and Precision Optimization
+We apply three optimizations to reduce latency. First, FlashAttention 3 (Shah et al., 2024) is used in both
+diffusion transformers, reducing latency by 20% with no observed quality change. Second, non-blocking host-
+to-device transfers overlap data copies with kernel execution, saving an additional 11%. Third, default-mode
+graph compilation (Ansel et al., 2024) is applied to the diffusion transformers and backprojection kernels,
+fusing element-wise operations and reducing kernel-launch overhead.
+We also reduce numerical precision where possible, applying FP8 and INT8 quantization in both diffusion
+transformers, with precision assignments determined by sensitivity analysis. For TextureGen, embedding
+layers, the first and last transformer blocks, and output projections remain in higher precision, as these
+components are visibly sensitive to quantization.
+
+8.2   Pipeline Optimization
+We can hide most of the latency of other steps by running them in parallel. We parallelize independent work
+within a request.
+
+
+
+
+                                                      16
+Table 5 Latency breakdown of the MeshGen and geometry processing stages for AssetGen and AssetGen Flash. Values
+are averaged over 100 benchmark images. A dash (–) indicates a stage skipped by the Flash configuration. Row
+values represent individual stage runtimes; the reported total reflects the measured critical-path latency rather than an
+arithmetic sum.
+
+                           Module                                        AssetGen (s) Flash (s)
+
+                           Preprocess                                       0.227          0.227
+                           Coarse conditioning                              0.044          0.044
+                           Coarse diffusion                                 1.193          1.193
+                           Coarse mesh decoding                             1.414          1.414
+                           Coarse surface sampling                          0.636            —
+                           Refine conditioning                              0.054            —
+                           Refine diffusion                                 1.671            —
+                           Refine mesh decoding                             1.704            —
+                           Floater removal + simplification                 0.654          0.654
+                           Hidden-face removal                              0.362          0.362
+                           UV unwrapping                                    2.561          2.561
+                           Tangent normal baking                            0.265          0.265
+                           Total MeshGen + geometry critical path          10.829          6.768
+
+
+Table 6 Latency breakdown of the TextureGen stage. Values are averaged over 100 benchmark images. The default
+AssetGen configuration uses 1024px diffusion with inference-time CFG (split across two GPUs), per-view super-
+resolution, and a 2K texture atlas. AssetGen Flash uses 768px diffusion with a guidance-distilled conditional-only
+model, omits super-resolution, and exports a 1K atlas. Row values represent individual stage runtimes, while the
+reported total reflects the measured critical-path latency rather than an arithmetic sum.
+
+                           Module                             AssetGen (s) AssetGen Flash (s)
+
+                           Preprocess                           0.346               0.228
+                           Render conditions                    0.642               0.394
+                           Diffusion                            10.455              4.420
+                           Precompute backproject data          1.455               0.570
+                           Build KD tree                         0.908              0.274
+                           Per-view super-resolution            3.112                 —
+                           Backprojection and inpainting        0.801               0.246
+                           Export textured mesh                 0.845               0.325
+                           Total TextureGen critical path        18.01              6.62
+
+
+
+Within each stage, we identify operations that have no data or resource dependency and schedule them
+concurrently. In TextureGen, several expensive preprocessing tasks depend only on the processed mesh
+and camera layout, not on the generated colors. These include UV-to-image sampling maps, visibility and
+incidence masks, anisotropic filter parameters, and KD-tree neighbor structures for inpainting. Because the
+processed mesh is fixed before texture diffusion begins, these geometry-dependent computations run in a
+separate worker process while diffusion sampling runs on the GPU.
+Irreducible dependencies increase latency. In our design, TextureGen needs to wait for mesh simplification
+and normal baking to be complete, adding to the critical path.
+MeshGen and TextureGen are implemented as separate services. MeshGen runs on one H100 GPU and writes
+the simplified mesh, UV layout, baked normal map, and associated metadata to shared storage, which is read
+by TextureGen to generate the texture map. For AssetGen, TextureGen uses two H100 GPUs to split the
+conditional and unconditional CFG branches, whereas AssetGen Flash uses only one as CFG is distilled. The
+data transfer cost adds roughly 1–2 seconds compared to an ideal in-process handoff, and this overhead is
+included in the reported results.
+
+
+
+
+                                                           17
+8.3    Latency Results
+We report latency in three ways. First, tables 5 and 6 break down the major MeshGen, geometry processing,
+and TextureGen stages. These values are averaged over 100 benchmark images and are intended to show where
+time is spent in the system. These timings should not be summed to obtain the total system latency as many
+of these steps run in parallel. Conversely, these timings do not account for the cost of synchronization, tensor
+handoff, worker scheduling, service-to-service transfer, and serialization overheads that are not always assigned
+to a single row. The “Total” rows report measured module-level critical-path latency (not the numerical sum
+of the rows), while the final end-to-end numbers are measured directly from input image to exported asset.
+Second, table 7 reports the time required to serve a user request end-to-end, including an additional 0.65
+seconds required to segment out the object in the user-provided image. These numbers account for details of
+our hosted infrastructure and therefore should be interpreted as representative user-visible latency, not as a
+hardware-normalized benchmark.
+Table 7 End-to-end wall-clock latency comparison. AssetGen measurements capture the complete pipeline from input
+image to exported textured mesh, averaged across 100 benchmark assets, and include a shared 0.65s image-segmentation
+stage. Baseline latencies reflect the time from web submission to result availability averaged over five trials, excluding
+export and download overhead. Because these baselines operate on unknown hosted infrastructure, the values serve as
+operational latency references rather than hardware-normalized benchmarks.
+Method                AssetGen       AssetGen Flash     Commercial       Commercial        Commercial       Commercial
+                                                         Model A          Model B           Model C          Model D
+
+Wall-clock latency      ∼30s              ∼14s             ∼180s            ∼125s            ∼100s             ∼130s
+
+
+For AssetGen, latency is measured from input image to exported textured mesh and includes image segmen-
+tation, service orchestration, serialization, and asset export. For commercial baselines, we measure website
+wall-clock time over five generations, from submitting the image to the point where the generated result
+becomes available in the web interface; we do not include additional export or download time. Because
+these systems run on unknown hosted infrastructure and may include website-side scheduling or queueing,
+these measurements should be interpreted as operational latency references rather than controlled hardware-
+normalized comparisons. In our measurements, hosted high-quality image-to-3D systems operate around the
+near-minute to two-minute regime, while AssetGen achieves similar quality in just 30 seconds, and AssetGen
+Flash generates a preview in less than 15.
+Third, table 8 provides a ladder analysis of our acceleration techniques. Unlike tables 5 and 6, which average
+timings over 100 benchmark images, here we evaluate variants of the system on one fixed input and measure
+the cumulative effects of the optimizations. For MeshGen, replacing CPU-bound geometry processing and then
+applying progressive distillation, Flash Attention 3, graph compilation, I/O overlap, parallel UV segmentation,
+and DRTK normal baking reduces the fixed-sample latency from 103.15s to 12.25s. For TextureGen, progressive
+distillation provides the largest single reduction, while kernel optimizations, precomputed backprojection data,
+rendering optimizations, and the two-GPU CFG branch split further reduce the default quality path.
+
+
+9     Evaluation
+This section evaluates the quality of the assets produced by AssetGen against leading image-to-3D generators.
+We introduce two benchmarks assessing generation quality for general objects (section 9.1) and for characters
+(section 9.2), respectively. We further conduct blind human evaluation in section 9.3.
+
+Baselines. We compare AssetGen and AssetGen Flash against Commercial Model A, Commercial Model B,
+Commercial Model C, and Commercial Model D. We pass the same reference image to each system and obtain
+the corresponding assets. We use a target polygon count of 23K.
+
+9.1   AssetBench: General Object Generation
+To assess the quality of generated assets across diverse categories, we introduce AssetBench, a benchmark of
+101 high-quality 3D assets manually curated and reviewed by technical artists. The dataset spans diverse
+
+
+                                                           18
+Table 8 Ablation study of latency improvements evaluated on a representative test asset. Each row reports the latency
+after cumulatively applying the corresponding optimization.
+                             MeshGen + Geometry                                TextureGen
+
+                    Stage                      Lat. (s)       Stage                              Lat. (s)
+                    Baseline                      103.15      Baseline                           117.68
+                    + CuMesh                       78.15      + Prog. Distillation                41.42
+                    + Prog. Distillation           53.10      + FA3 + compile                     31.21
+                    + FA3 + compile                32.79      + Precompute backproject data       27.11
+                    + I/O optimization             27.97      + Rendering optimization            23.23
+                    + Parallel UV unwrap           21.09      + Dual-GPU CFG branch split            17.85
+                    + DRTK normal baking           12.25
+
+
+
+categories including vehicles, daily-use objects, animals, and some characters. For each sample, we render
+an isometric/frontal reference view of the ground-truth 3D asset, which serves as the image prompt for all
+evaluated methods.
+We evaluate image-to-3D generation along two axes. Shape quality is measured using Chamfer Distance (CD),
+the symmetric Chamfer Distance between uniformly sampled surface points after unit-cube normalization
+and ICP alignment over 24 canonical orientations with gradient-based refinement, and Volumetric IoU, the
+occupancy IoU estimated from 105 uniformly sampled points in [−0.5, 0.5]3 after the same ICP alignment.
+Faithfulness to the image prompt is measured using VLM-as-a-Judge, where a VLM extracts attribute-value
+pairs from the reference image, converts them into binary verification questions, and answers each question for
+9 rendered views; we score yes/partially/no as 1/0.5/0 and average over questions and views (Duggal et al.,
+2025; Hu et al., 2023), and CLIP Similarity, the mean CLIP ViT-L/14 cosine similarity between generated
+and ground-truth renders from 9 uniformly spaced rendered views of the generated mesh.
+
+Table 9 Quantitative results on AssetBench. The best values are highlighted in bold and the second-best are underlined.
+Arrows indicate whether higher (↑) or lower (↓) values are optimal.
+
+                                                           Shape Quality              Fidelity
+                            Method                     IoU ↑          CD ↓       VLM ↑      CLIP ↑
+                            AssetGen                   0.4985         0.0098     0.7048     0.8993
+                            AssetGen Flash             0.4997         0.0098     0.6977     0.8978
+                            Commercial Model A         0.4993         0.0102     0.6921     0.8826
+                            Commercial Model B        0.5298          0.0087     0.6500     0.8610
+                            Commercial Model C         0.4522         0.0103     0.6482     0.8528
+                            Commercial Model D         0.4849         0.0119     0.6905     0.8869
+
+
+Results. Table 9 shows a clear split between geometry and appearance/reference fidelity. Commercial Model
+B leads the volumetric geometry metrics, with the best IoU and Chamfer Distance, indicating the strongest
+geometric reconstruction among the evaluated baselines. AssetGen is close on geometry while leading the
+reference-fidelity metrics, achieving the highest VLM verification score and GT-CLIP similarity. This suggests
+that AssetGen’s main advantage is not a uniformly stronger geometry prior, but a stronger end-to-end asset
+pipeline for preserving reference appearance and producing textured assets at much lower latency.
+
+9.2   CharacterBench: Character Generation
+CharacterBench is a benchmark of 100 character reference images designed to evaluate image-to-3D generation
+for characters. Unlike AssetBench, no ground-truth meshes are provided. Instead, the evaluation focuses on
+perceptual quality dimensions uniquely challenging for character generation—facial likeness, anatomical hand
+correctness, and full-body fidelity to the reference—using specialized VLM-based and CLIP-based protocols.
+
+Metrics. We evaluate along four character-specific axes. First, we assess the quality of the generated face. We
+first select a VLM-verified camera distance that keeps the full face visible, then evaluate frontal and profile
+
+
+                                                              19
+  Input Image              AssetGen             Commercial           Commercial        Commercial              Commercial
+                                                 Model A              Model B           Model C                 Model D
+
+Figure 6 Qualitative comparison against commercial baselines. From left to right: the input image, AssetGen,
+Commercial Model A, Commercial Model B, Commercial Model C, and Commercial Model D.
+
+Table 10 Quantitative results for character generation on CharacterBench. The best value in each column is highlighted
+in bold and the second-best are underlined. All metrics favor higher values (↑).
+
+                                       Face Quality           Face Fidelity        Hand     Overall Fidelity
+                Method                Frontal    Profile   Face CLIP    Face Ref   Finger   Ref Fid   CLIP
+                AssetGen              0.748       0.196      0.838       0.893     0.784    0.903     0.777
+                AssetGen Flash         0.554      0.191      0.822       0.888     0.773     0.901    0.780
+
+                Commercial Model A     0.558      0.219      0.812       0.882     0.732     0.895    0.772
+                Commercial Model B     0.695     0.230       0.832       0.890     0.948     0.901    0.767
+                Commercial Model C     0.590     0.230       0.814       0.879     0.928     0.891    0.761
+
+
+
+renders of the face. Frontal Face Score uses a VLM to check frontal renders for symmetry, natural expression,
+correct eye count and placement, mouth-nose alignment, and absence of blurred facial regions. A separate
+eye-quality rubric evaluates each eye for asymmetry and blur. The final score averages the normalized QA
+score and the eye score. Profile Face Score evaluates left and right profile renders for texture artifacts, ear
+visibility, and clean face/non-face boundaries. Scores are averaged across both profiles, and eye evaluation is
+omitted because profile occlusion makes it unreliable.
+Next, we evaluate face fidelity relative to the reference identity. Face CLIP Similarity segments the reference
+face with SAM3 (Carion et al., 2025), crops rendered frontal faces from three views using per-pixel face-index
+maps, and averages CLIP ViT-L/14 cosine similarity between the reference crop and rendered crops. Face
+Reference Fidelity uses VLM-generated verification questions to assess facial attributes such as features, colors,
+proportions, and markings. The VLM verifies these questions on rendered views.
+We also evaluate the quality of the generated hands. Finger Score renders each hand from multiple views,
+segments candidate regions, and uses a VLM to classify each region as finger or non-finger. View counts are
+aggregated by majority vote when the palm faces the camera, and by maximum count otherwise to account
+for occlusion. The score penalizes missing and hallucinated fingers symmetrically.
+
+
+                                                            20
+Figure 7 Qualitative comparison between AssetGen and Trellis 2. AssetGen preserves fine details more faithfully, as
+shown by the legible texts on the gas pump (“GAS” “DANGE” ) and intricate details of the character’s body and facial
+components.
+
+
+
+
+Figure 8 AssetGen qualitative gallery featuring sand-themed assets. This default configuration utilizes the two-stage
+MeshGen pipeline and high-fidelity TextureGen to prioritize visual quality, delivering production-ready assets in
+approximately 30 seconds end-to-end.
+
+
+Finally, we evaluate full-body correspondence to the input reference. Reference Fidelity applies the same
+verification-question protocol to clothing, proportions, accessories, materials, and markings, reporting the
+fraction of correctly answered questions. Questions are generated by a VLM. CLIP Image Similarity computes
+the mean CLIP ViT-L/14 cosine similarity between the input reference image and 24 rendered views, excluding
+top and bottom views.
+
+Results. Table 10 reports character-specific metrics on CharacterBench. AssetGen achieves the best frontal
+face quality (0.748) and leads both face-fidelity metrics, Face CLIP (0.838) and Face Ref (0.893), indicating
+strong preservation of the reference identity. AssetGen also obtains the highest overall reference-fidelity
+score (0.903), reflecting better consistency in clothing, accessories, proportions, and markings. The clearest
+remaining gap is hand structure: Commercial Model B achieves the highest finger score, showing a stronger
+hand-geometry prior. AssetGen (Flash) remains close to the default configuration on reference-fidelity metrics
+and slightly improves full-body CLIP similarity, consistent with its role as a faster configuration that preserves
+usable visual quality.
+
+9.3   Human Evaluation
+We further conduct a blind human evaluation on 195 image-conditioned assets spanning general objects,
+characters, buildings, and other common asset categories. To reduce bias from benchmark construction, the
+input images were collected by artists, who were asked to provide diverse concept images they considered useful
+for 3D asset creation. We did not select or inspect these images during benchmark construction. Evaluators
+inspect each generated result in an interactive 3D viewer with access to the final mesh, texture, UV layout,
+
+
+                                                         21
+Figure 9 AssetGen qualitative gallery featuring ice-themed assets.
+
+
+
+
+Figure 10 AssetGen (Flash) qualitative gallery featuring magic forest assets.
+
+
+
+and wireframe. We do not use turntable videos or fixed rendered views for this study; the goal is to evaluate
+the asset itself under direct inspection. Method identity is hidden from annotators.
+Each asset is scored on an absolute 1–5 scale, where 1 indicates a severe failure and 5 indicates an excellent
+result. We group the rubric into three categories. General quality averages prompt adherence, style adherence,
+usability, and aesthetic quality. Geometry quality averages distortion, proportion, contiguity, accuracy, scale,
+alignment, topology, and UV layout. Geometry is evaluated on the final simplified mesh for all methods,
+matching the representation that would be used downstream. Texture quality averages consistency, accuracy
+of materials and shapes, clarity of details and patterns, and visible artifacts. Category scores are computed as
+the mean over their respective sub-criteria.
+Table 11 shows that AssetGen receives the highest average score in all three categories. The margins are
+modest rather than overwhelming, which is the right interpretation for a strong commercial baseline: the main
+result is that the default AssetGen path reaches comparable-to-better inspected asset quality while operating
+at much lower end-to-end latency. Flash remains close to Commercial Model A on general and geometry
+quality while trailing the full AssetGen model, reflecting the intended quality-responsiveness trade-off.
+
+
+
+
+                                                         22
+Table 11 Blind human evaluation across 195 assets. All scores are reported on an absolute 1–5 scale (↑ higher is better).
+The general, geometry, and texture ratings represent averages over the specific subcriteria defined in section 9.3. Note
+that geometry quality is evaluated directly on each method’s final simplified mesh.
+
+                             Method                   General ↑    Geometry ↑    Texture ↑
+
+                             AssetGen                    2.80         2.96          2.68
+                             AssetGen Flash              2.63         2.88          2.55
+                             Commercial Model A          2.61         2.86          2.58
+
+
+
+10     Qualitative Results
+In this section, we present qualitative results that complement the quantitative evaluation. We include
+matched comparisons with commercial systems, a comparison with Trellis 2 (Xiang et al., 2025a), galleries
+from the default AssetGen configuration and the faster AssetGen (Flash) configuration, and examples on
+real-world images.
+
+Qualitative comparison. figure 6 compares AssetGen against Commercial Model A, Commercial Model B,
+Commercial Model C, and Commercial Model D under matched input and rendering conditions. All methods
+are evaluated without PBR materials. Overall, the commercial baselines are strong and produce compelling
+assets. Commercial Model B often produces the strongest geometry, consistent with our quantitative results.
+AssetGen produces competitive geometry while generally showing cleaner and richer textures, and stronger
+reference-image fidelity.
+
+Comparison with Trellis 2. figure 7 compares AssetGen with Trellis 2, a strong open-source image-to-3D baseline.
+We use the Trellis 2 output as recommended and keep its final mesh at one million polygons. This is a much
+denser representation than AssetGen, whose outputs are simplified to about 23K. At the Trellis 2 scale, UV
+unwrapping alone can take close to a minute. Qualitatively, Trellis 2 is less robust than AssetGen and the
+commercial baselines on complex inputs. For example, in the second example, Trellis 2 fails to recover the
+letters cleanly; and in the third example, the fingers are distorted despite the high polygon count.
+
+AssetGen gallery. figure 8 and figure 9 show generations from the default AssetGen configuration. Both the
+input images and the 3D meshes are single-shot generations without cherry picking.
+
+AssetGen (Flash) gallery. figure 10 shows results from AssetGen (Flash). Both the input images and the 3D
+meshes are single-shot generations without cherry picking.
+
+Real-World Inputs figure 11 shows qualitative examples on real-world photographs. These examples suggest
+that the same image-to-asset pipeline can also produce plausible textured meshes from real-world inputs, even
+though the model is trained primarily on synthetic 3D data. For example, in the second column, AssetGen
+recovers a complete bucket shape despite partial occlusion, illustrating how its learned shape prior can
+plausibly complete unseen regions.
+
+
+11    Conclusion and Limitations
+AssetGen provides a practical path from a single reference image to an explicit textured 3D asset. The default
+AssetGen configuration produces a simplified, UV-unwrapped, normal-baked textured mesh in approximately
+30 seconds on H100 GPUs. AssetGen (Flash) runs in approximately 14 seconds in our measured deployment,
+providing a faster operating point for rapid exploration, preview, and agentic workflows. Through extensive
+quantitative evaluation, qualitative comparison, and blind human inspection, we show that AssetGen is
+competitive in asset quality with leading commercial image-to-3D systems while substantially reducing
+user-facing generation time.
+While our results demonstrate a fast and deployable asset generation pipeline, several limitations remain:
+Single-image ambiguity. Single-image 3D generation is inherently underconstrained. The model must infer
+
+
+                                                           23
+Figure 11 Asset generation from real-world images. Each column displays an in-the-wild input photograph alongside
+two rendered views of the resulting AssetGen mesh. These examples demonstrate the pipeline’s robustness to natural
+lighting, background clutter, and partial occlusion.
+
+
+occluded surfaces, which can fail for rare categories, unusual viewpoints, asymmetric objects, or complex
+back-side structure. Symmetric objects are generally more reliable; irregular chairs, sculptures, and objects
+with hidden mechanical parts remain more challenging.
+Topology constraints. Marching-cubes extraction produces arbitrary triangle meshes. The simplification
+pipeline preserves surface fidelity and keeps assets lightweight, but it does not enforce clean topology, artist-
+friendly edge flow, skeletal rigging constraints, or animation-ready deformation behavior. Assets intended for
+rigged characters may still require retopology.
+Rigging and animation. Static textured meshes are only one step toward interactive characters. Integrating
+auto-rigging, skin-weight prediction, blend-shape generation, and motion synthesis would close the gap between
+generated assets and animated avatars, but these tasks require topology-aware reasoning and scarce rigged
+training data.
+
+
+
+
+                                                       24
+References
+Jason Ansel, Edward Yang, Horace He, Natalia Gimelshein, Animesh Jain, Michael Voznesensky, Bin Bao, Peter
+  Bell, David Berard, Evgeni Burovski, et al. Pytorch 2: Faster machine learning through dynamic python bytecode
+  transformation and graph compilation. In Proceedings of the 29th ACM international conference on architectural
+  support for programming languages and operating systems, volume 2, pages 929–947, 2024.
+Fan Bao, Shen Nie, Kaiwen Xue, Yue Cao, Chongxuan Li, Hang Su, and Jun Zhu. All are worth words: A vit backbone
+  for diffusion models. In Proc. CVPR, pages 22669–22679, 2023.
+Gavin Barill, Neil G Dickson, Ryan Schmidt, David IW Levin, and Alec Jacobson. Fast winding numbers for soups
+  and clouds. ACM Trans. on Graphics (TOG), 37(4):1–12, 2018.
+Raphael Bensadoun, Yanir Kleiman, Idan Azuri, Omri Harosh, Andrea Vedaldi, Natalia Neverova, and Oran Gafni.
+  Meta 3d texturegen: Fast and consistent texture generation for 3d objects. arXiv preprint arXiv:2407.02430, 2024.
+Mark Boss, Zixuan Huang, Aaryaman Vasishta, and Varun Jampani. Sf3d: Stable fast 3d mesh reconstruction with
+ uv-unwrapping and illumination disentanglement. In Proc. CVPR, pages 16240–16250, 2025.
+ByteDance Seed3D Team. Seed3d 2.0: Advancing high-fidelity simulation-ready 3D content generation. 2026.
+Nicolas Carion, Laura Gustafson, Yuan-Ting Hu, Shoubhik Debnath, Ronghang Hu, Didac Suris, Chaitanya Ryali,
+  Kalyan Vasudev Alwala, Haitham Khedr, Andrew Huang, et al. Sam 3: Segment anything with concepts. arXiv
+  preprint arXiv:2511.16719, 2025.
+Eric R Chan, Connor Z Lin, Matthew A Chan, Koki Nagano, Boxiao Pan, Shalini De Mello, Orazio Gallo, Leonidas J
+  Guibas, Jonathan Tremblay, Sameh Khamis, et al. Efficient geometry-aware 3d generative adversarial networks. In
+  Proc. CVPR, pages 16123–16133, 2022.
+Dave Zhenyu Chen, Yawar Siddiqui, Hsin-Ying Lee, Sergey Tulyakov, and Matthias Nießner. Text2tex: Text-driven
+  texture synthesis via diffusion models. In Proc. ICCV, pages 18558–18568, 2023.
+Lei Chen, Yuan Meng, Chen Tang, Xinzhu Ma, Jingyan Jiang, Xin Wang, Zhi Wang, and Wenwu Zhu. Q-dit: Accurate
+  post-training quantization for diffusion transformers. In Proc. CVPR, pages 28306–28315, 2025a.
+Zhaoxi Chen, Jiaxiang Tang, Yuhao Dong, Ziang Cao, Fangzhou Hong, Yushi Lan, Tengfei Wang, Haozhe Xie, Tong
+  Wu, Shunsuke Saito, et al. 3dtopia-xl: Scaling high-quality 3d asset generation via primitive diffusion. In Proc.
+  CVPR, pages 26576–26586, 2025b.
+Wei Cheng, Juncheng Mu, Xianfang Zeng, Xin Chen, Anqi Pang, Chi Zhang, Zhibin Wang, Bin Fu, Gang Yu, Ziwei
+ Liu, et al. Mvpaint: Synchronized multi-view diffusion for painting anything 3d. In Proc. CVPR, pages 585–594,
+ 2025.
+Jonathan Cohen, Marc Olano, and Dinesh Manocha. Appearance-preserving simplification. In Proceedings of the 25th
+  annual conference on Computer graphics and interactive techniques, pages 115–122, 1998.
+Tri Dao. Flashattention-2: Faster attention with better parallelism and work partitioning. In Proc. ICLR, 2024.
+Tri Dao, Dan Fu, Stefano Ermon, Atri Rudra, and Christopher Ré. Flashattention: Fast and memory-efficient exact
+  attention with io-awareness. In Proc. NeurIPS, 2022.
+Timothée Darcet, Maxime Oquab, Julien Mairal, and Piotr Bojanowski. Vision transformers need registers. In Proc.
+  ICLR, 2024.
+Christopher DeCoro and Natalya Tatarchuk. Real-time mesh simplification using the gpu. In Proceedings of the 2007
+  symposium on Interactive 3D graphics and games, pages 161–166, 2007.
+Shivam Duggal, Yushi Hu, Oscar Michel, Aniruddha Kembhavi, William T Freeman, Noah A Smith, Ranjay Krishna,
+  Antonio Torralba, Ali Farhadi, and Wei-Chiu Ma. Eval3d: Interpretable and fine-grained evaluation for 3d generation.
+  In Proc. CVPR, pages 13326–13336, 2025.
+Patrick Esser, Sumith Kulal, Andreas Blattmann, Rahim Entezari, Jonas Müller, Harry Saini, Yam Levi, Dominik
+  Lorenz, Axel Sauer, Frederic Boesel, et al. Scaling rectified flow transformers for high-resolution image synthesis. In
+  Proc. ICML, 2024.
+Weichen Fan, Amber Yijia Zheng, Raymond A. Yeh, and Ziwei Liu. CFG-Zero*: Improved classifier-free guidance for
+ flow matching models. arXiv preprint arXiv:2503.18886, 2025.
+
+
+
+
+                                                           25
+Xuhui Fan, Hongyu Wu, Longbing Cao, et al. Scot: Unifying consistency models and rectified flows via straight-
+  consistent trajectories. Proc. NeurIPS, 38:141438–141465, 2026.
+Michael Garland and Paul S. Heckbert. Surface simplification using quadric error metrics. In Proceedings of the 24th
+ Annual Conference on Computer Graphics and Interactive Techniques, pages 209–216, 1997.
+Zekun Hao, David W. Romero, Tsung-Yi Lin, and Ming-Yu Liu. Meshtron: High-fidelity, artist-like 3D mesh generation
+  at scale. arXiv preprint arXiv:2412.09548, 2024.
+Jon Hasselgren, Zheng Zeng, Milos Hasan, and Jacob Munkberg. VideoMatGen: PBR materials through joint
+  generative modeling. arXiv preprint arXiv:2603.16566, 2026.
+Xianglong He, Zi-Xin Zou, Chia-Hao Chen, Yuan-Chen Guo, Ding Liang, Chun Yuan, Wanli Ouyang, Yan-Pei Cao,
+  and Yangguang Li. Sparseflex: High-resolution and arbitrary-topology 3d shape modeling. In Proc. ICCV, pages
+  14822–14833, 2025.
+Yihui He, Rui Yan, Katerina Fragkiadaki, and Shoou-I Yu. Epipolar transformers. In Proc. CVPR, pages 7779–7788,
+  2020.
+Jonathan Ho and Tim Salimans. Classifier-free diffusion guidance. arXiv preprint arXiv:2207.12598, 2022.
+Hugues Hoppe. Progressive meshes. In Seminal Graphics Papers: Pushing the Boundaries, Volume 2, pages 111–120,
+  2023.
+Yushi Hu, Benlin Liu, Jungo Kasai, Yizhong Wang, Mari Ostendorf, Ranjay Krishna, and Noah A Smith. Tifa:
+  Accurate and interpretable text-to-image faithfulness evaluation with question answering. In Proc. ICCV, pages
+  20406–20417, 2023.
+Jingwei Huang, Yichao Zhou, and Leonidas Guibas. Manifoldplus: A robust and scalable watertight manifold surface
+   generation method for triangle soups. arXiv preprint arXiv:2005.11621, 2020.
+Xin Huang, Tengfei Wang, Ziwei Liu, and Qing Wang. Material anything: Generating materials for any 3d object via
+  diffusion. In Proc. CVPR, pages 26556–26565, 2025a.
+Zixuan Huang, Mark Boss, Aaryaman Vasishta, James M Rehg, and Varun Jampani. Spar3d: Stable point-aware
+  reconstruction of 3d objects from single images. In Proc. CVPR, 2025b.
+Team Hunyuan3D, Shuhui Yang, Mingxin Yang, Yifei Feng, Xin Huang, Sheng Zhang, Zebin He, Di Luo, Haolin Liu,
+  Yunfei Zhao, et al. Hunyuan3d 2.1: From images to high-fidelity 3d assets with production-ready pbr material.
+  arXiv preprint arXiv:2506.15442, 2025.
+Bernhard Kerbl, Georgios Kopanas, Thomas Leimkühler, and George Drettakis. 3D gaussian splatting for real-time
+  radiance field rendering. ACM Trans. on Graphics (TOG), 42(4), 2023.
+Nikita Kornilov, Petr Mokrov, Alexander Gasnikov, and Alexander Korotin. Optimal flow matching: Learning straight
+  trajectories in just one step. Proc. NeurIPS, 37:104180–104204, 2024.
+Zeqiang Lai, Yunfei Zhao, Zibo Zhao, Haolin Liu, Qingxiang Lin, Jingwei Huang, Chunchao Guo, and Xiangyu Yue.
+  Lattice: Democratize high-fidelity 3d generation at scale. arXiv preprint arXiv:2512.03052, 2025a.
+Zeqiang Lai, Yunfei Zhao, Zibo Zhao, Haolin Liu, Fuyun Wang, Huiwen Shi, Xianghui Yang, Qingxiang Lin, Jingwei
+  Huang, Yuhong Liu, et al. Unleashing vecset diffusion model for fast shape generation. In Proc. ICCV, pages
+  2523–2533, 2025b.
+Samuli Laine, Janne Hellsten, Tero Karras, Yeongho Seol, Jaakko Lehtinen, and Timo Aila. Modular primitives for
+  high-performance differentiable rendering. ACM Trans. on Graphics (TOG), 39(6), 2020.
+Biwen Lei, Yang Li, Xinhai Liu, Shuhui Yang, Lixin Xu, Jingwei Huang, Ruining Tang, Haohan Weng, Jian Liu,
+  Jing Xu, et al. Hunyuan3d studio: End-to-end ai pipeline for game-ready 3d asset generation. arXiv preprint
+  arXiv:2509.12815, 2025.
+Jiabao Lei, Kewei Shi, Zhihao Liang, and Kui Jia. Armesh: Autoregressive mesh generation via next-level-of-detail
+   prediction. Proc. NeurIPS, 38:161613–161633, 2026.
+Bruno Lévy, Sylvain Petitjean, Nicolas Ray, and Jérôme Maillot. Least squares conformal maps for automatic texture
+  atlas generation. In Seminal Graphics Papers: Pushing the Boundaries, Volume 2, pages 193–202, 2023.
+
+
+
+
+                                                        26
+Peng Li, Yuan Liu, Xiaoxiao Long, Feihu Zhang, Cheng Lin, Mengfei Li, Xingqun Qi, Shanghang Zhang, Wenhan Luo,
+  Ping Tan, et al. Era3d: High-resolution multiview diffusion using efficient row-wise attention. In Proc. NeurIPS,
+  2024.
+Yanfeng Li, Tao Tan, Qinquan Gao, Zhiwen Cao, Xiaohong Liu, and Yue Sun. Hifi-mesh: High-fidelity efficient 3d
+  mesh generation via compact autoregressive dependence. In Proc. AAAI, volume 40, pages 6566–6574, 2026.
+Yangguang Li, Zi-Xin Zou, Zexiang Liu, Dehu Wang, Yuan Liang, Zhipeng Yu, Xingchao Liu, Yuan-Chen Guo, Ding
+  Liang, Wanli Ouyang, et al. Triposg: High-fidelity 3d shape synthesis using large-scale rectified flow models. IEEE
+  Transactions on Pattern Analysis and Machine Intelligence, 2025.
+Shanchuan Lin, Bingchen Liu, Jiashi Li, and Xiao Yang. Common diffusion noise schedules and sample steps are
+  flawed. In Proc. WACV, pages 5404–5411, 2024.
+Peter Lindstrom and Greg Turk. Fast and memory efficient polygonal simplification. In Proceedings Visualization’98
+  (Cat. No. 98CB36276), pages 279–286. IEEE, 1998.
+Stefan Lionar, Jiabin Liang, and Gim Hee Lee. Treemeshgpt: Artistic mesh generation with autoregressive tree
+  sequencing. In Proc. CVPR, pages 26608–26617, 2025.
+Ruoshi Liu, Rundi Wu, Basile Van Hoorick, Pavel Tokmakov, Sergey Zakharov, and Carl Vondrick. Zero-1-to-3:
+  Zero-shot one image to 3d object. In Proc. ICCV, pages 9298–9309, 2023a.
+Xingchao Liu, Chengyue Gong, and Qiang Liu. Flow straight and fast: Learning to generate and transfer data with
+  rectified flow. arXiv preprint arXiv:2209.03003, 2022.
+Xingchao Liu, Xiwen Zhang, Jianzhu Ma, Jian Peng, et al. Instaflow: One step is enough for high-quality diffusion-based
+  text-to-image generation. In Proc. ICLR, 2023b.
+Yuan Liu, Cheng Lin, Zijiao Zeng, Xiaoxiao Long, Lingjie Liu, Taku Komura, and Wenping Wang. Syncdreamer:
+  Generating multiview-consistent images from a single-view image. In Proc. ICLR, 2024.
+Xiaoxiao Long, Yuan-Chen Guo, Cheng Lin, Yuan Liu, Zhiyang Dou, Lingjie Liu, Yuexin Ma, Song-Hai Zhang, Marc
+  Habermann, Christian Theobalt, et al. Wonder3d: Single image to 3d using cross-domain diffusion. In Proc. CVPR,
+  2024.
+Ilya Loshchilov and Frank Hutter. Decoupled weight decay regularization. arXiv preprint arXiv:1711.05101, 2017.
+Guan Luo, Xiu Li, Rui Chen, Xuanyu Yi, Jing Lin, Chia-Hao Chen, Jiahang Liu, Song-Hai Zhang, and Jianfeng Zhang.
+  Topomesh: High-fidelity mesh autoencoding via topological unification. arXiv preprint arXiv:2603.24278, 2026.
+Chenlin Meng, Robin Rombach, Ruiqi Gao, Diederik Kingma, Stefano Ermon, Jonathan Ho, and Tim Salimans. On
+  distillation of guided diffusion models. In Proc. CVPR, pages 14297–14306, 2023.
+Lars Mescheder, Michael Oechsle, Michael Niemeyer, Sebastian Nowozin, and Andreas Geiger. Occupancy networks:
+  Learning 3d reconstruction in function space. In Proc. CVPR, pages 4460–4470, 2019.
+Ben Mildenhall, Pratul P Srinivasan, Matthew Tancik, Jonathan T Barron, Ravi Ramamoorthi, and Ren Ng. Nerf:
+  Representing scenes as neural radiance fields for view synthesis. Commun. ACM, 65(1):99–106, 2021.
+Thomas Müller, Alex Evans, Christoph Schied, and Alexander Keller. Instant neural graphics primitives with a
+  multiresolution hash encoding. ACM Trans. on Graphics (TOG), 41(4):1–15, 2022.
+Richard A Newcombe, Shahram Izadi, Otmar Hilliges, David Molyneaux, David Kim, Andrew J Davison, Pushmeet
+  Kohi, Jamie Shotton, Steve Hodges, and Andrew Fitzgibbon. Kinectfusion: Real-time dense surface mapping and
+  tracking. In 2011 10th IEEE international symposium on mixed and augmented reality, pages 127–136. Ieee, 2011.
+Seonghun Oh, Xiaodi Yuan, Xinyue Wei, Ruoxi Shi, Fanbo Xiang, Minghua Liu, and Hao Su. Pamo: Parallel mesh
+  optimization for intersection-free low-poly modeling on the gpu. In Computer Graphics Forum, volume 44, page
+  e70267. Wiley Online Library, 2025.
+Maxime Oquab, Timothée Darcet, Théo Moutakanni, Huy Vo, Marc Szafraniec, Vasil Khalidov, Pierre Fernandez,
+ Daniel Haziza, Francisco Massa, Alaaeldin El-Nouby, et al. Dinov2: Learning robust visual features without
+ supervision. arXiv preprint arXiv:2304.07193, 2023.
+Jeong Joon Park, Peter Florence, Julian Straub, Richard Newcombe, and Steven Lovegrove. Deepsdf: Learning
+  continuous signed distance functions for shape representation. In Proc. CVPR, pages 165–174, 2019.
+
+
+
+
+                                                          27
+Steven G. Parker, James Bigler, Andreas Dietrich, Heiko Friedrich, Jared Hoberock, David Luebke, David McAllister,
+  Morgan McGuire, Keith Morley, Austin Robison, and Martin Stich. OptiX: A general purpose ray tracing engine.
+  ACM Trans. on Graphics (TOG), 29(4), 2010.
+William Peebles and Saining Xie. Scalable diffusion models with transformers. In Proc. ICCV, pages 4195–4205, 2023.
+Stanislav Pidhorskyi, Tomas Simon, Gabriel Schwartz, He Wen, Yaser Sheikh, and Jason Saragih. Rasterized edge
+  gradients: Handling discontinuities differentiably. In Proc. ECCV, pages 335–352. Springer, 2024.
+Ben Poole, Ajay Jain, Jonathan T Barron, and Ben Mildenhall. Dreamfusion: Text-to-3d using 2d diffusion. arXiv,
+  2022.
+Nikhila Ravi, Jeremy Reizenstein, David Novotny, Taylor Gordon, Wan-Yen Lo, Justin Johnson, and Georgia Gkioxari.
+  Accelerating 3d deep learning with pytorch3d. arXiv, 2020.
+Elad Richardson, Gal Metzer, Yuval Alaluf, Raja Giryes, and Daniel Cohen-Or. Texture: Text-guided texturing of 3d
+  shapes. In ACM SIGGRAPH 2023 conference proceedings, pages 1–11, 2023.
+Tim Salimans and Jonathan Ho. Progressive distillation for fast sampling of diffusion models. In Proc. ICLR, 2022.
+Aditya Sanghi, Aliasghar Khani, Pradyumna Reddy, Arianna Rampini, Derek Cheung, Kamal Rahimi Malekshan,
+  Kanika Madan, and Hooman Shayani. Wavelet latent diffusion (wala): Billion-parameter 3d generative model with
+  compact wavelet encodings. arXiv preprint arXiv:2411.08017, 2024.
+Nikolaos Sarafianos, Tuur Stuyck, Xiaoyu Xiang, Yilei Li, Jovan Popovic, and Rakesh Ranjan. Garment3dgen: 3d
+  garment stylization and texture generation. In 2025 International Conference on 3D Vision (3DV), pages 1382–1393.
+  IEEE, 2025.
+Axel Sauer, Dominik Lorenz, Andreas Blattmann, and Robin Rombach. Adversarial diffusion distillation. In Proc.
+ ECCV, pages 87–103. Springer, 2024.
+Jay Shah, Ganesh Bikshandi, Ying Zhang, Vijay Thakkar, Pradeep Ramani, and Tri Dao. Flashattention-3: Fast and
+  accurate attention with asynchrony and low-precision. Proc. NeurIPS, 37:68658–68685, 2024.
+Mingqi Shao, Feng Xiong, Zhaoxu Sun, and Mu Xu. Mvpainter: Accurate and detailed 3d texture generation via
+  multi-view diffusion with geometric control. arXiv preprint arXiv:2505.12635, 2025.
+Noam Shazeer. Glu variants improve transformer. arXiv preprint arXiv:2002.05202, 2020.
+Alla Sheffer, Bruno Lévy, Maxim Mogilnitsky, and Alexander Bogomyakov. ABF++: Fast and robust angle based
+  flattening. ACM Trans. on Graphics (TOG), 24(2):311–330, 2005.
+Yichun Shi, Peng Wang, Jianglong Ye, Long Mai, Kejie Li, and Xiao Yang. Mvdream: Multi-view diffusion for 3d
+  generation. In Proc. ICLR, 2024.
+Yawar Siddiqui, Antonio Alliegro, Alexey Artemov, Tatiana Tommasi, Daniele Sirigatti, Vladislav Rosov, Angela Dai,
+  and Matthias Nießner. Meshgpt: Generating triangle meshes with decoder-only transformers. In Proc. CVPR, pages
+  19615–19625, 2024.
+Alvy Ray Smith. Tint Fill. In Proc. SIGGRAPH, 1979.
+Yang Song, Prafulla Dhariwal, Mark Chen, and Ilya Sutskever. Consistency models. In Proc. ICML, pages 32211–32252,
+  2023.
+Shitao Tang, Fuyang Zhang, Jiacheng Chen, Peng Wang, and Yasutaka Furukawa. Mvdiffusion: Enabling holistic
+  multi-view image generation with correspondence-aware diffusion. Proc. NeurIPS, 2023.
+Shitao Tang, Jiacheng Chen, Dilin Wang, Chengzhou Tang, Fuyang Zhang, Yuchen Fan, Vikas Chandra, Yasutaka
+  Furukawa, and Rakesh Ranjan. Mvdiffusion++: A dense high-resolution multi-view diffusion model for single or
+  sparse-view 3d object reconstruction. In Proc. ECCV, pages 175–191. Springer, 2024.
+Dmitry Tochilkin, David Pankratz, Zexiang Liu, Zixuan Huang, Adam Letts, Yangguang Li, Ding Liang, Christian
+ Laforte, Varun Jampani, and Yan-Pei Cao. Triposr: Fast 3d object reconstruction from a single image. arXiv
+ preprint arXiv:2403.02151, 2024.
+Alexander Tong, Kilian Fatras, Nikolay Malkin, Guillaume Huguet, Yanlei Zhang, Jarrid Rector-Brooks, Guy Wolf,
+  and Yoshua Bengio. Improving and generalizing flow-based generative models with minibatch optimal transport.
+  arXiv preprint arXiv:2302.00482, 2023.
+
+
+
+
+                                                        28
+Vikram Voleti, Chun-Han Yao, Mark Boss, Adam Letts, David Pankratz, Dmitry Tochilkin, Christian Laforte, Robin
+  Rombach, and Varun Jampani. Sv3d: Novel multi-view synthesis and 3d generation from a single image using latent
+  video diffusion. In Proc. ECCV, pages 439–457. Springer, 2024.
+Hanxiao Wang, Yuan-Chen Guo, Ying-Tian Liu, Zi-Xin Zou, Biao Zhang, Weize Quan, Ding Liang, Yan-Pei Cao, and
+  Dong-Ming Yan. Face: A face-based autoregressive representation for high-fidelity and efficient mesh generation.
+  arXiv preprint arXiv:2603.01515, 2026.
+Zhengyi Wang, Cheng Lu, Yikai Wang, Fan Bao, Chongxuan Li, Hang Su, and Jun Zhu. Prolificdreamer: High-fidelity
+  and diverse text-to-3d generation with variational score distillation. In Proc. NeurIPS, 2023.
+Zhengyi Wang, Yikai Wang, Yifei Chen, Chendong Xiang, Shuo Chen, Dajiang Yu, Chongxuan Li, Hang Su, and Jun
+  Zhu. Crm: Single image to 3d textured mesh with convolutional reconstruction model. In Proc. ECCV, pages 57–74.
+  Springer, 2024.
+Shuang Wu, Youtian Lin, Feihu Zhang, Yifei Zeng, Jingxi Xu, Philip Torr, Xun Cao, and Yao Yao. Direct3d: Scalable
+  image-to-3d generation via 3d latent diffusion transformer. In Proc. NeurIPS, 2024.
+Jianfeng Xiang, Xiaoxue Chen, Sicheng Xu, Ruicheng Wang, Zelong Lv, Yu Deng, Hongyuan Zhu, Yue Dong, Hao
+   Zhao, Nicholas Jing Yuan, and Jiaolong Yang. Native and compact structured latents for 3d generation. arXiv
+   preprint arXiv: 2512.14692, 2025a.
+Jianfeng Xiang, Zelong Lv, Sicheng Xu, Yu Deng, Ruicheng Wang, Bowen Zhang, Dong Chen, Xin Tong, and Jiaolong
+   Yang. Structured 3d latents for scalable and versatile 3d generation. In Proc. CVPR, pages 21469–21480, 2025b.
+Xiaoyu Xiang, Liat Sless Gorelik, Yuchen Fan, Omri Armstrong, Forrest Iandola, Yilei Li, Ita Lifshitz, and Rakesh
+  Ranjan. Make-a-texture: Fast shape-aware texture generation in 3 seconds. In Proc. WACV, 2025c.
+Duoteng Xu, Yuguang Chen, Jing Li, Xinhai Liu, Xueqi Ma, Zhuo Chen, Dongyu Zhang, and Chunchao Guo.
+  Seamcrafter: Enhancing mesh seam generation for artist uv unwrapping via reinforcement learning. arXiv preprint
+ arXiv:2509.20725, 2025.
+Jiale Xu, Weihao Cheng, Yiming Gao, Xintao Wang, Shenghua Gao, and Ying Shan. Instantmesh: Efficient 3d mesh
+   generation from a single image with sparse-view large reconstruction models. arXiv preprint arXiv:2404.07191, 2024.
+Rui Xu, Dafei Qin, Kaichun Qiao, Qiujie Dong, Huaijin Pi, Qixuan Zhang, Longwen Zhang, Lan Xu, Jingyi Yu,
+ Wenping Wang, et al. Strips as tokens: Artist mesh generation with native uv segmentation. arXiv preprint
+ arXiv:2604.09132, 2026.
+Mengyu Yang, Yanming Yang, Chenyi Xu, Chenxi Song, Yufan Zuo, Tong Zhao, Ruibo Li, and Chi Zhang. Fast3dcache:
+ Training-free 3d geometry synthesis acceleration. arXiv preprint arXiv:2511.22533, 2025.
+Hu Ye, Jun Zhang, Sibo Liu, Xiao Han, and Wei Yang. Ip-adapter: Text compatible image prompt adapter for
+  text-to-image diffusion models. arXiv preprint arXiv:2308.06721, 2023.
+Tianwei Yin, Michaël Gharbi, Taesung Park, Richard Zhang, Eli Shechtman, Fredo Durand, and William T Freeman.
+  Improved distribution matching distillation for fast image synthesis. In Proc. NeurIPS, 2024a.
+Tianwei Yin, Michaël Gharbi, Richard Zhang, Eli Shechtman, Fredo Durand, William T Freeman, and Taesung Park.
+  One-step diffusion with distribution matching distillation. In Proc. CVPR, pages 6613–6623, 2024b.
+Jonathan Young. xatlas: Mesh parameterization / uv unwrapping library. https://github.com/jpcy/xatlas, 2023.
+Xianfang Zeng, Xin Chen, Zhongqi Qi, Wen Liu, Zibo Zhao, Zhibin Wang, Bin Fu, Yong Liu, and Gang Yu. Paint3d:
+  Paint anything 3d with lighting-less texture diffusion models. In Proc. CVPR, pages 4252–4262, 2024.
+Biao Zhang, Jiapeng Tang, Matthias Niessner, and Peter Wonka. 3dshape2vecset: A 3d shape representation for neural
+  fields and generative diffusion models. ACM Trans. on Graphics (TOG), 42(4):1–16, 2023.
+Longwen Zhang, Ziyu Wang, Qixuan Zhang, Qiwei Qiu, Anqi Pang, Haoran Jiang, Wei Yang, Lan Xu, and Jingyi Yu.
+  CLAY: A controllable large-scale generative model for creating high-quality 3D assets. ACM Trans. on Graphics
+  (TOG), 43(4), 2024.
+Ruowen Zhao, Junliang Ye, Zhengyi Wang, Guangce Liu, Yiwen Chen, Yikai Wang, and Jun Zhu. Deepmesh:
+  Auto-regressive artist-mesh creation with reinforcement learning. In Proc. ICCV, 2025a.
+Zibo Zhao, Wen Liu, Xin Chen, Xianfang Zeng, Rui Wang, Pei Cheng, Bin Fu, Tao Chen, Gang Yu, and Shenghua
+  Gao. Michelangelo: Conditional 3d shape generation based on shape-image-text aligned latent representation. In
+  Proc. NeurIPS, 2023.
+
+
+                                                         29
+Zibo Zhao, Zeqiang Lai, Qingxiang Lin, Yunfei Zhao, Haolin Liu, Shuhui Yang, Yifei Feng, Mingxin Yang, Sheng Zhang,
+  Xianghui Yang, et al. Hunyuan3d 2.0: Scaling diffusion models for high resolution textured 3d assets generation.
+  arXiv preprint arXiv:2501.12202, 2025b.
+Zhenyu Zhou, Defang Chen, Can Wang, Chun Chen, and Siwei Lyu. Dice: Distilling classifier-free guidance into text
+  embeddings. In Proc. AAAI, 2026.
+Haowei Zhu, Ji Liu, Ziqiong Liu, Dong Li, Junhai Yong, Bin Wang, and Emad Barsoum. Diffsparse: Accelerating
+  diffusion transformers with learned token sparsity. arXiv preprint arXiv:2604.03674, 2026.
+
+
+
+
+                                                        30
+

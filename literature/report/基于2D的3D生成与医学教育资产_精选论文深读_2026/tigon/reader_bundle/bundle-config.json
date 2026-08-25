@@ -1,0 +1,38 @@
+{
+  "title": "Text-Image Conditioned 3D Generation (TIGON)",
+  "subtitle": "Trace grounded claims, inspect evidence, and mine reusable research patterns.",
+  "default_doc": "tigon",
+  "documents": {
+    "tigon": {
+      "label": "Tigon",
+      "pdf": "./docs/tigon.pdf"
+    }
+  },
+  "links": [
+    {
+      "label": "Report Markdown",
+      "href": "./report.md"
+    },
+    {
+      "label": "Traceability JSON",
+      "href": "./traceability.json"
+    },
+    {
+      "label": "Paragraph Index",
+      "href": "./latex-paragraphs.json"
+    },
+    {
+      "label": "Research Lens",
+      "href": "./research-lens.json"
+    },
+    {
+      "label": "Reader Artifacts",
+      "href": "./reader-artifacts.json"
+    },
+    {
+      "label": "Tigon PDF",
+      "href": "./docs/tigon.pdf"
+    }
+  ],
+  "research_lens": "./research-lens.json"
+}

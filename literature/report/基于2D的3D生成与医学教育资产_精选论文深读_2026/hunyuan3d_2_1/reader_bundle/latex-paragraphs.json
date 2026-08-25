@@ -1,0 +1,1058 @@
+{
+  "schema_version": "paper-latex-paragraphs/1.0",
+  "tex_root": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source",
+  "paragraphs": [
+    {
+      "paragraph_id": "neurips_2025.tex::p0001",
+      "tex_file": "neurips_2025.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\neurips_2025.tex",
+      "section_path": [],
+      "block_type": "command-block",
+      "line_start": 1,
+      "line_end": 1,
+      "text": "\\documentclass{article}",
+      "normalized_text": "\\documentclass{article}"
+    },
+    {
+      "paragraph_id": "neurips_2025.tex::p0002",
+      "tex_file": "neurips_2025.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\neurips_2025.tex",
+      "section_path": [],
+      "block_type": "command-block",
+      "line_start": 19,
+      "line_end": 19,
+      "text": "\\usepackage[final]{neurips_2025}",
+      "normalized_text": "\\usepackage[final]{neurips_2025}"
+    },
+    {
+      "paragraph_id": "neurips_2025.tex::p0003",
+      "tex_file": "neurips_2025.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\neurips_2025.tex",
+      "section_path": [],
+      "block_type": "command-block",
+      "line_start": 28,
+      "line_end": 31,
+      "text": "\\usepackage[utf8]{inputenc} \\usepackage[T1]{fontenc} \\usepackage[table]{xcolor} \\usepackage{float}",
+      "normalized_text": "\\usepackage[utf8]{inputenc} \\usepackage[t1]{fontenc} \\usepackage[table]{xcolor} \\usepackage{float}"
+    },
+    {
+      "paragraph_id": "neurips_2025.tex::p0004",
+      "tex_file": "neurips_2025.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\neurips_2025.tex",
+      "section_path": [],
+      "block_type": "command-block",
+      "line_start": 33,
+      "line_end": 33,
+      "text": "\\usepackage{hyperref}",
+      "normalized_text": "\\usepackage{hyperref}"
+    },
+    {
+      "paragraph_id": "neurips_2025.tex::p0005",
+      "tex_file": "neurips_2025.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\neurips_2025.tex",
+      "section_path": [],
+      "block_type": "command-block",
+      "line_start": 35,
+      "line_end": 41,
+      "text": "\\hypersetup{ colorlinks=true, linkcolor=red, urlcolor=cyan, linktoc=all, citecolor=cyan }",
+      "normalized_text": "\\hypersetup{ colorlinks=true, linkcolor=red, urlcolor=cyan, linktoc=all, citecolor=cyan }"
+    },
+    {
+      "paragraph_id": "neurips_2025.tex::p0006",
+      "tex_file": "neurips_2025.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\neurips_2025.tex",
+      "section_path": [],
+      "block_type": "command-block",
+      "line_start": 43,
+      "line_end": 45,
+      "text": "\\usepackage{url} \\usepackage{booktabs} \\usepackage{booktabs}",
+      "normalized_text": "\\usepackage{url} \\usepackage{booktabs} \\usepackage{booktabs}"
+    },
+    {
+      "paragraph_id": "neurips_2025.tex::p0007",
+      "tex_file": "neurips_2025.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\neurips_2025.tex",
+      "section_path": [],
+      "block_type": "command-block",
+      "line_start": 47,
+      "line_end": 48,
+      "text": "\\usepackage{algorithm} \\usepackage{algpseudocode}",
+      "normalized_text": "\\usepackage{algorithm} \\usepackage{algpseudocode}"
+    },
+    {
+      "paragraph_id": "neurips_2025.tex::p0008",
+      "tex_file": "neurips_2025.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\neurips_2025.tex",
+      "section_path": [],
+      "block_type": "command-block",
+      "line_start": 50,
+      "line_end": 52,
+      "text": "\\usepackage{amsfonts} \\usepackage{nicefrac} \\usepackage{microtype}",
+      "normalized_text": "\\usepackage{amsfonts} \\usepackage{nicefrac} \\usepackage{microtype}"
+    },
+    {
+      "paragraph_id": "neurips_2025.tex::p0009",
+      "tex_file": "neurips_2025.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\neurips_2025.tex",
+      "section_path": [],
+      "block_type": "command-block",
+      "line_start": 56,
+      "line_end": 76,
+      "text": "\\usepackage{amsmath} \\usepackage{bm} \\usepackage{amssymb} \\usepackage{tabularx} \\usepackage{multirow} \\usepackage{times} \\usepackage{epsfig} \\usepackage{graphicx} \\usepackage{adjustbox} \\usepackage{tabularray} \\usepackage{xspace} \\usepackage{caption} \\usepackage{stackengine} \\usepackage{makecell} \\usepackage{array} \\usepackage{utfsym} \\usepackage{bbding} \\usepackage{subfig} \\usepackage{enumerate} \\usepackage{wrapfig} \\usepackage{float}",
+      "normalized_text": "\\usepackage{amsmath} \\usepackage{bm} \\usepackage{amssymb} \\usepackage{tabularx} \\usepackage{multirow} \\usepackage{times} \\usepackage{epsfig} \\usepackage{graphicx} \\usepackage{adjustbox} \\usepackage{tabularray} \\usepackage{xspace} \\usepackage{caption} \\usepackage{stackengine} \\usepackage{makecell} \\usepackage{array} \\usepackage{utfsym} \\usepackage{bbding} \\usepackage{subfig} \\usepackage{enumerate} \\usepackage{wrapfig} \\usepackage{float}"
+    },
+    {
+      "paragraph_id": "neurips_2025.tex::p0010",
+      "tex_file": "neurips_2025.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\neurips_2025.tex",
+      "section_path": [],
+      "block_type": "command-block",
+      "line_start": 78,
+      "line_end": 82,
+      "text": "\\usepackage{mathtools} \\usepackage{wrapfig} \\usepackage{caption} \\usepackage{enumitem} \\usepackage{cleveref}",
+      "normalized_text": "\\usepackage{mathtools} \\usepackage{wrapfig} \\usepackage{caption} \\usepackage{enumitem} \\usepackage{cleveref}"
+    },
+    {
+      "paragraph_id": "neurips_2025.tex::p0011",
+      "tex_file": "neurips_2025.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\neurips_2025.tex",
+      "section_path": [],
+      "block_type": "command-block",
+      "line_start": 84,
+      "line_end": 87,
+      "text": "\\usepackage{listings} \\definecolor{codegreen}{rgb}{0,0.6,0} \\definecolor{codepurple}{rgb}{0.58,0,0.82} \\definecolor{backcolour}{rgb}{0.95,0.95,0.92}",
+      "normalized_text": "\\usepackage{listings} \\definecolor{codegreen}{rgb}{0,0.6,0} \\definecolor{codepurple}{rgb}{0.58,0,0.82} \\definecolor{backcolour}{rgb}{0.95,0.95,0.92}"
+    },
+    {
+      "paragraph_id": "neurips_2025.tex::p0012",
+      "tex_file": "neurips_2025.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\neurips_2025.tex",
+      "section_path": [],
+      "block_type": "command-block",
+      "line_start": 109,
+      "line_end": 111,
+      "text": "\\definecolor{tabfirst}{rgb}{1, 0.7, 0.7} \\definecolor{tabsecond}{rgb}{1, 0.85, 0.7} \\definecolor{tabthird}{rgb}{1, 1, 0.7}",
+      "normalized_text": "\\definecolor{tabfirst}{rgb}{1, 0.7, 0.7} \\definecolor{tabsecond}{rgb}{1, 0.85, 0.7} \\definecolor{tabthird}{rgb}{1, 1, 0.7}"
+    },
+    {
+      "paragraph_id": "neurips_2025.tex::p0013",
+      "tex_file": "neurips_2025.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\neurips_2025.tex",
+      "section_path": [],
+      "block_type": "command-block",
+      "line_start": 113,
+      "line_end": 122,
+      "text": "\\makeatletter \\newcommand{\\ie}{ \\emph{i.e.}\\@ifnextchar.{\\@gobble}{} } \\newcommand{\\eg}{ \\emph{e.g.}\\@ifnextchar.{\\@gobble}{} } \\newcommand{\\etc}{ etc\\@ifnextchar.{}{\\@.} }",
+      "normalized_text": "\\makeatletter \\newcommand{\\ie}{ \\emph{i.e.}\\@ifnextchar.{\\@gobble}{} } \\newcommand{\\eg}{ \\emph{e.g.}\\@ifnextchar.{\\@gobble}{} } \\newcommand{\\etc}{ etc\\@ifnextchar.{}{\\@.} }"
+    },
+    {
+      "paragraph_id": "neurips_2025.tex::p0014",
+      "tex_file": "neurips_2025.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\neurips_2025.tex",
+      "section_path": [],
+      "block_type": "command-block",
+      "line_start": 124,
+      "line_end": 128,
+      "text": "\\definecolor{myRed}{rgb}{0.8, .2, .2} \\definecolor{myGreen}{rgb}{0, .8, .3} \\definecolor{myOrange}{rgb}{0.7, 0.45, 0.2} \\newcommand{\\hongyu}[1]{ \\noindent {\\color{myOrange} {[\\bf Hongyu:} {#1}]}} \\newcommand{\\todo}[1]{{\\color{myRed}[todo: #1]}}",
+      "normalized_text": "\\definecolor{myred}{rgb}{0.8, .2, .2} \\definecolor{mygreen}{rgb}{0, .8, .3} \\definecolor{myorange}{rgb}{0.7, 0.45, 0.2} \\newcommand{\\hongyu}[1]{ \\noindent {\\color{myorange} {[\\bf hongyu:} {#1}]}} \\newcommand{\\todo}[1]{{\\color{myred}[todo: #1]}}"
+    },
+    {
+      "paragraph_id": "neurips_2025.tex::p0015",
+      "tex_file": "neurips_2025.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\neurips_2025.tex",
+      "section_path": [],
+      "block_type": "command-block",
+      "line_start": 130,
+      "line_end": 130,
+      "text": "\\newcommand{\\methodName}{Hunyuan3D 2.1}",
+      "normalized_text": "\\newcommand{\\methodname}{hunyuan3d 2.1}"
+    },
+    {
+      "paragraph_id": "neurips_2025.tex::p0016",
+      "tex_file": "neurips_2025.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\neurips_2025.tex",
+      "section_path": [],
+      "block_type": "command-block",
+      "line_start": 132,
+      "line_end": 132,
+      "text": "\\title{Hunyuan3D 2.1: From Images to High-Fidelity 3D Assets with Production-Ready PBR Material}",
+      "normalized_text": "\\title{hunyuan3d 2.1: from images to high-fidelity 3d assets with production-ready pbr material}"
+    },
+    {
+      "paragraph_id": "neurips_2025.tex::p0017",
+      "tex_file": "neurips_2025.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\neurips_2025.tex",
+      "section_path": [],
+      "block_type": "paragraph",
+      "line_start": 150,
+      "line_end": 151,
+      "text": "Tencent Hunyuan \\\\ \\\\",
+      "normalized_text": "tencent hunyuan \\\\ \\\\"
+    },
+    {
+      "paragraph_id": "neurips_2025.tex::p0018",
+      "tex_file": "neurips_2025.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\neurips_2025.tex",
+      "section_path": [],
+      "block_type": "command-block",
+      "line_start": 153,
+      "line_end": 154,
+      "text": "\\url{https://github.com/Tencent-Hunyuan/Hunyuan3D-2.1} }",
+      "normalized_text": "\\url{https://github.com/tencent-hunyuan/hunyuan3d-2.1} }"
+    },
+    {
+      "paragraph_id": "neurips_2025.tex::p0019",
+      "tex_file": "neurips_2025.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\neurips_2025.tex",
+      "section_path": [],
+      "block_type": "command-block",
+      "line_start": 171,
+      "line_end": 176,
+      "text": "\\begin{figure}[h] \\centering \\includegraphics[width=\\linewidth]{fig/teaser.pdf} \\caption{Gallery of 3D assets generated by ~\\textbf{\\methodName{}.}} \\label{fig:teaser-top} \\end{figure}",
+      "normalized_text": "\\begin{figure}[h] \\centering \\includegraphics[width=\\linewidth]{fig/teaser.pdf} \\caption{gallery of 3d assets generated by ~\\textbf{\\methodname{}.}} \\label{fig:teaser-top} \\end{figure}"
+    },
+    {
+      "paragraph_id": "neurips_2025.tex::p0020",
+      "tex_file": "neurips_2025.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\neurips_2025.tex",
+      "section_path": [],
+      "block_type": "command-block",
+      "line_start": 187,
+      "line_end": 192,
+      "text": "\\input{doc/Abstract} \\input{doc/Intro} \\input{doc/Data} \\input{doc/Train} \\input{doc/Evaluation} \\input{doc/Conclusion}",
+      "normalized_text": "\\input{doc/abstract} \\input{doc/intro} \\input{doc/data} \\input{doc/train} \\input{doc/evaluation} \\input{doc/conclusion}"
+    },
+    {
+      "paragraph_id": "neurips_2025.tex::p0021",
+      "tex_file": "neurips_2025.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\neurips_2025.tex",
+      "section_path": [],
+      "block_type": "command-block",
+      "line_start": 194,
+      "line_end": 201,
+      "text": "\\clearpage \\input{doc/Contributors} \\clearpage {\\small \\bibliographystyle{unsrt} \\bibliography{neurips_2025} } \\clearpage",
+      "normalized_text": "\\clearpage \\input{doc/contributors} \\clearpage {\\small \\bibliographystyle{unsrt} \\bibliography{neurips_2025} } \\clearpage"
+    },
+    {
+      "paragraph_id": "Abstract.tex::p0001",
+      "tex_file": "doc/Abstract.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\doc\\Abstract.tex",
+      "section_path": [
+        "Abstract"
+      ],
+      "block_type": "paragraph",
+      "line_start": 2,
+      "line_end": 2,
+      "text": "3D AI-generated content (AIGC) is a passionate field that has significantly accelerated the creation of 3D models in gaming, film, and design. Despite the development of several groundbreaking models that have revolutionized 3D generation, the field remains largely accessible only to researchers, developers, and designers due to the complexities involved in collecting, processing, and training 3D models. To address these challenges, we introduce ~\\methodName{} as a case study in this tutorial. This tutorial offers a comprehensive, step-by-step guide on processing 3D data, training a 3D generative model, and evaluating its performance using ~\\methodName{}, an advanced system for producing high-resolution, textured 3D assets. The system comprises two core components: the Hunyuan3D-DiT for shape generation and the Hunyuan3D-Paint for texture synthesis. We will explore the entire workflow, including data preparation, model architecture, training strategies, evaluation metrics, and deployment. By the conclusion of this tutorial, you will have the knowledge to finetune or develop a robust 3D generative model suitable for applications in gaming, virtual reality, and industrial design.",
+      "normalized_text": "3d ai-generated content (aigc) is a passionate field that has significantly accelerated the creation of 3d models in gaming, film, and design. despite the development of several groundbreaking models that have revolutionized 3d generation, the field remains largely accessible only to researchers, developers, and designers due to the complexities involved in collecting, processing, and training 3d models. to address these challenges, we introduce ~\\methodname{} as a case study in this tutorial. this tutorial offers a comprehensive, step-by-step guide on processing 3d data, training a 3d generative model, and evaluating its performance using ~\\methodname{}, an advanced system for producing high-resolution, textured 3d assets. the system comprises two core components: the hunyuan3d-dit for shape generation and the hunyuan3d-paint for texture synthesis. we will explore the entire workflow, including data preparation, model architecture, training strategies, evaluation metrics, and deployment. by the conclusion of this tutorial, you will have the knowledge to finetune or develop a robust 3d generative model suitable for applications in gaming, virtual reality, and industrial design."
+    },
+    {
+      "paragraph_id": "Intro.tex::p0001",
+      "tex_file": "doc/Intro.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\doc\\Intro.tex",
+      "section_path": [
+        "Introduction"
+      ],
+      "block_type": "paragraph",
+      "line_start": 3,
+      "line_end": 3,
+      "text": "While recent breakthroughs in 2D image and video generation—powered by diffusion models~\\cite{ho2020denoising,rombach2022high,esser2024scaling,li2024hunyuandit,kong2024hunyuanvideo,wan2025}—have revolutionized content creation, the field of 3D generative modeling lags behind. Current methods for 3D asset synthesis remain fragmented, with incremental progress in foundational techniques such as latent representation learning~\\cite{zhang20233dshape2vecset}, geometric refinement~\\cite{zhao2023michelangelo,li2025triposg,weng2024scaling}, and texture synthesis~\\cite{zhang2024clay,jiang2024flexitex,liu2024text}. Among these, CLAY~\\cite{zhang2024clay} marks a milestone as the first framework to demonstrate the viability of diffusion models for high-quality 3D generation. Yet, unlike the thriving open-source ecosystems in image (~\\eg, Stable Diffusion~\\cite{rombach2022high}), language (~\\eg, LLaMA~\\cite{touvron2023llama}), and video (~\\eg, HunyuanVideo~\\cite{kong2024hunyuanvideo}, and Wan 2.1~\\cite{wan2025}), the 3D domain lacks a robust, scalable foundation model to drive widespread innovation.",
+      "normalized_text": "while recent breakthroughs in 2d image and video generation—powered by diffusion models~\\cite{ho2020denoising,rombach2022high,esser2024scaling,li2024hunyuandit,kong2024hunyuanvideo,wan2025}—have revolutionized content creation, the field of 3d generative modeling lags behind. current methods for 3d asset synthesis remain fragmented, with incremental progress in foundational techniques such as latent representation learning~\\cite{zhang20233dshape2vecset}, geometric refinement~\\cite{zhao2023michelangelo,li2025triposg,weng2024scaling}, and texture synthesis~\\cite{zhang2024clay,jiang2024flexitex,liu2024text}. among these, clay~\\cite{zhang2024clay} marks a milestone as the first framework to demonstrate the viability of diffusion models for high-quality 3d generation. yet, unlike the thriving open-source ecosystems in image (~\\eg, stable diffusion~\\cite{rombach2022high}), language (~\\eg, llama~\\cite{touvron2023llama}), and video (~\\eg, hunyuanvideo~\\cite{kong2024hunyuanvideo}, and wan 2.1~\\cite{wan2025}), the 3d domain lacks a robust, scalable foundation model to drive widespread innovation."
+    },
+    {
+      "paragraph_id": "Intro.tex::p0002",
+      "tex_file": "doc/Intro.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\doc\\Intro.tex",
+      "section_path": [
+        "Introduction"
+      ],
+      "block_type": "paragraph",
+      "line_start": 8,
+      "line_end": 8,
+      "text": "To bridge this gap, we introduce \\emph{\\methodName}, a comprehensive 3D asset creation system to generate a textured mesh from a single image input. It is mainly built on two fully open-source foundation models: 1) Hunyuan3D-DiT: A shape-generation model combining a flow-based diffusion architecture with a high-fidelity mesh autoencoder (Hunyuan3D-ShapeVAE); 2) Hunyuan3D-Paint: a mesh-conditioned multi-view diffusion model for PBR material generation, producing high-quality, multi-channel-aligned, and view-consistent textures.",
+      "normalized_text": "to bridge this gap, we introduce \\emph{\\methodname}, a comprehensive 3d asset creation system to generate a textured mesh from a single image input. it is mainly built on two fully open-source foundation models: 1) hunyuan3d-dit: a shape-generation model combining a flow-based diffusion architecture with a high-fidelity mesh autoencoder (hunyuan3d-shapevae); 2) hunyuan3d-paint: a mesh-conditioned multi-view diffusion model for pbr material generation, producing high-quality, multi-channel-aligned, and view-consistent textures."
+    },
+    {
+      "paragraph_id": "Intro.tex::p0003",
+      "tex_file": "doc/Intro.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\doc\\Intro.tex",
+      "section_path": [
+        "Introduction"
+      ],
+      "block_type": "paragraph",
+      "line_start": 11,
+      "line_end": 11,
+      "text": "For shape generation, we leverage Hunyuan3D-ShapeVAE and Hunyuan3D-DiT to achieve high-quality and high-fidelity shape generation. Specifically, Hunyuan3D-ShapeVAE employs mesh surface importance sampling to enhance sharp edges and variational token length to improve intricate geometric details. Hunyuan3D-DiT inherits the recent advanced flow matching models~\\cite{lipman2022flow,esser2024scaling} to construct a scalable and flexible diffusion model.",
+      "normalized_text": "for shape generation, we leverage hunyuan3d-shapevae and hunyuan3d-dit to achieve high-quality and high-fidelity shape generation. specifically, hunyuan3d-shapevae employs mesh surface importance sampling to enhance sharp edges and variational token length to improve intricate geometric details. hunyuan3d-dit inherits the recent advanced flow matching models~\\cite{lipman2022flow,esser2024scaling} to construct a scalable and flexible diffusion model."
+    },
+    {
+      "paragraph_id": "Intro.tex::p0004",
+      "tex_file": "doc/Intro.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\doc\\Intro.tex",
+      "section_path": [
+        "Introduction"
+      ],
+      "block_type": "paragraph",
+      "line_start": 13,
+      "line_end": 13,
+      "text": "For texture synthesis, Hunyuan3D-Paint introduces a multi-view PBR diffusion that generates albedo, metallic, and roughness maps for meshes. Notably, Hunyuan3D-Paint incorporates a spatial-aligned multi-attention module to align albedo and MR maps, 3D-aware RoPE to enhance cross-view consistency, and an illumination-invariant training strategy to produce light-free albedo maps robust to varying lighting conditions.",
+      "normalized_text": "for texture synthesis, hunyuan3d-paint introduces a multi-view pbr diffusion that generates albedo, metallic, and roughness maps for meshes. notably, hunyuan3d-paint incorporates a spatial-aligned multi-attention module to align albedo and mr maps, 3d-aware rope to enhance cross-view consistency, and an illumination-invariant training strategy to produce light-free albedo maps robust to varying lighting conditions."
+    },
+    {
+      "paragraph_id": "Intro.tex::p0005",
+      "tex_file": "doc/Intro.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\doc\\Intro.tex",
+      "section_path": [
+        "Introduction"
+      ],
+      "block_type": "command-block",
+      "line_start": 16,
+      "line_end": 16,
+      "text": "\\emph{\\methodName} separates shape and texture generation into distinct stages, an more advanced strategy proven effective upon previous large reconstruction models ~\\cite{hong2023lrm,yang2024hunyuan3d,xu2024instantmesh,yang2024viewfusion,weng2023consistent123,liu2023syncdreamer,shi2023zero123++,liu2023zero}. This modularity allows users to generate untextured meshes only or apply textures to custom assets, enhancing flexibility for industrial applications.",
+      "normalized_text": "\\emph{\\methodname} separates shape and texture generation into distinct stages, an more advanced strategy proven effective upon previous large reconstruction models ~\\cite{hong2023lrm,yang2024hunyuan3d,xu2024instantmesh,yang2024viewfusion,weng2023consistent123,liu2023syncdreamer,shi2023zero123++,liu2023zero}. this modularity allows users to generate untextured meshes only or apply textures to custom assets, enhancing flexibility for industrial applications."
+    },
+    {
+      "paragraph_id": "Intro.tex::p0006",
+      "tex_file": "doc/Intro.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\doc\\Intro.tex",
+      "section_path": [
+        "Introduction"
+      ],
+      "block_type": "paragraph",
+      "line_start": 19,
+      "line_end": 19,
+      "text": "We rigorously evaluate \\emph{\\methodName} against leading commercial and recent open-source models, ~\\eg, Michelangelo~\\cite{zhao2023michelangelo}, Craftsman 1.5~\\cite{li2024craftsman}, Trellis~\\cite{xiang2024structured}, TripoSG~\\cite{li2025triposg}, Step1X-3D~\\cite{li2025step1x} and Direct3D-S2~\\cite{wu2025direct3ds2gigascale3dgeneration}. Quantitative metrics and visual comparisons confirm its superiority in geometric detail preservation, texture-photo consistency, and human preference.",
+      "normalized_text": "we rigorously evaluate \\emph{\\methodname} against leading commercial and recent open-source models, ~\\eg, michelangelo~\\cite{zhao2023michelangelo}, craftsman 1.5~\\cite{li2024craftsman}, trellis~\\cite{xiang2024structured}, triposg~\\cite{li2025triposg}, step1x-3d~\\cite{li2025step1x} and direct3d-s2~\\cite{wu2025direct3ds2gigascale3dgeneration}. quantitative metrics and visual comparisons confirm its superiority in geometric detail preservation, texture-photo consistency, and human preference."
+    },
+    {
+      "paragraph_id": "Intro.tex::p0007",
+      "tex_file": "doc/Intro.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\doc\\Intro.tex",
+      "section_path": [
+        "Introduction"
+      ],
+      "block_type": "paragraph",
+      "line_start": 21,
+      "line_end": 21,
+      "text": "This tutorial unpacks the architecture, data processing, training, and evaluation of \\emph{\\methodName}, providing practitioners with the tools to harness its capabilities for diverse 3D generation tasks.",
+      "normalized_text": "this tutorial unpacks the architecture, data processing, training, and evaluation of \\emph{\\methodname}, providing practitioners with the tools to harness its capabilities for diverse 3d generation tasks."
+    },
+    {
+      "paragraph_id": "Train.tex::p0001",
+      "tex_file": "doc/Train.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\doc\\Train.tex",
+      "section_path": [
+        "Training",
+        "Hunyuan3D-Shape"
+      ],
+      "block_type": "command-block",
+      "line_start": 4,
+      "line_end": 4,
+      "text": "\\label{subsec:shape}",
+      "normalized_text": "\\label{subsec:shape}"
+    },
+    {
+      "paragraph_id": "Train.tex::p0002",
+      "tex_file": "doc/Train.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\doc\\Train.tex",
+      "section_path": [
+        "Training",
+        "Hunyuan3D-Shape"
+      ],
+      "block_type": "paragraph",
+      "line_start": 6,
+      "line_end": 6,
+      "text": "Shape generation serves as the cornerstone of 3D generation, playing a crucial role in determining the usability of a 3D asset. Drawing inspiration from the success of the latent diffusion model~\\cite{rombach2022high,zhang20233dshape2vecset, zhao2023michelangelo,zhang2024clay} in shape generation, we have adopted the generative diffusion model as the architecture for our shape model. Our shape generation model is composed of two main components: (1) an autoencoder, Hunyuan3D-ShapeVAE (Sec.~\\ref{subsubsec:vae}), which compresses the shape of a 3D asset, represented by a polygon mesh, into a sequence of continuous tokens within the latent space; and (2) a flow-based diffusion model, Hunyuan3D-DiT (Sec.~\\ref{subsubsec:dit}), which is trained on the latent space of ShapeVAE to predict object token sequences from a user-provided image. These predicted tokens are then decoded back into a polygon mesh using the VAE decoder. The specifics of these models are detailed below.",
+      "normalized_text": "shape generation serves as the cornerstone of 3d generation, playing a crucial role in determining the usability of a 3d asset. drawing inspiration from the success of the latent diffusion model~\\cite{rombach2022high,zhang20233dshape2vecset, zhao2023michelangelo,zhang2024clay} in shape generation, we have adopted the generative diffusion model as the architecture for our shape model. our shape generation model is composed of two main components: (1) an autoencoder, hunyuan3d-shapevae (sec.~\\ref{subsubsec:vae}), which compresses the shape of a 3d asset, represented by a polygon mesh, into a sequence of continuous tokens within the latent space; and (2) a flow-based diffusion model, hunyuan3d-dit (sec.~\\ref{subsubsec:dit}), which is trained on the latent space of shapevae to predict object token sequences from a user-provided image. these predicted tokens are then decoded back into a polygon mesh using the vae decoder. the specifics of these models are detailed below."
+    },
+    {
+      "paragraph_id": "Train.tex::p0003",
+      "tex_file": "doc/Train.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\doc\\Train.tex",
+      "section_path": [
+        "Training",
+        "Hunyuan3D-Shape"
+      ],
+      "block_type": "command-block",
+      "line_start": 8,
+      "line_end": 14,
+      "text": "\\begin{figure} \\centering \\includegraphics[width=0.94\\linewidth]{fig/dit.pdf} \\caption{Overall pipeline for shape generation. Given a single image input, combining Hunyuan3D-DiT and Hunyuan3D-VAE can generate a high-quality and high-fidelity 3D shape.} \\vspace{-4mm} \\label{fig:dit} \\end{figure}",
+      "normalized_text": "\\begin{figure} \\centering \\includegraphics[width=0.94\\linewidth]{fig/dit.pdf} \\caption{overall pipeline for shape generation. given a single image input, combining hunyuan3d-dit and hunyuan3d-vae can generate a high-quality and high-fidelity 3d shape.} \\vspace{-4mm} \\label{fig:dit} \\end{figure}"
+    },
+    {
+      "paragraph_id": "Train.tex::p0004",
+      "tex_file": "doc/Train.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\doc\\Train.tex",
+      "section_path": [
+        "Training",
+        "Hunyuan3D-Shape"
+      ],
+      "block_type": "command-block",
+      "line_start": 16,
+      "line_end": 20,
+      "text": "\\begin{wrapfigure}{r}[1mm]{0pt} \\centering \\includegraphics[width=0.5\\linewidth]{fig/blocks.pdf} \\caption{Overview of DiT block. We adopt the DiT implemented by Hunyuan-DiT~\\cite{li2024hunyuandit} in our pipeline.} \\label{fig:blocks}",
+      "normalized_text": "\\begin{wrapfigure}{r}[1mm]{0pt} \\centering \\includegraphics[width=0.5\\linewidth]{fig/blocks.pdf} \\caption{overview of dit block. we adopt the dit implemented by hunyuan-dit~\\cite{li2024hunyuandit} in our pipeline.} \\label{fig:blocks}"
+    },
+    {
+      "paragraph_id": "Train.tex::p0005",
+      "tex_file": "doc/Train.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\doc\\Train.tex",
+      "section_path": [
+        "Training",
+        "Hunyuan3D-Shape",
+        "Hunyuan3D-ShapeVAE"
+      ],
+      "block_type": "command-block",
+      "line_start": 27,
+      "line_end": 27,
+      "text": "\\label{subsubsec:vae}",
+      "normalized_text": "\\label{subsubsec:vae}"
+    },
+    {
+      "paragraph_id": "Train.tex::p0006",
+      "tex_file": "doc/Train.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\doc\\Train.tex",
+      "section_path": [
+        "Training",
+        "Hunyuan3D-Shape",
+        "Hunyuan3D-ShapeVAE"
+      ],
+      "block_type": "paragraph",
+      "line_start": 29,
+      "line_end": 29,
+      "text": "Hunyuan3D-ShapeVAE utilizes vector sets introduced by 3DShape2VecSet~\\cite{zhang20233dshape2vecset}, and also used in the recent project Dora~\\cite{zhang2024clay,chen2024dora}. Following these works, we employ a variational encoder-decoder transformer for compact shape representations. We use 3D coordinates and the normal vectors from point clouds sampled from the surfaces of 3D shapes as inputs for the encoder. The decoder is designed to predict the Signed Distance Function (SDF) of the 3D shape, which can be further transformed into a triangle mesh using the marching cube algorithm.",
+      "normalized_text": "hunyuan3d-shapevae utilizes vector sets introduced by 3dshape2vecset~\\cite{zhang20233dshape2vecset}, and also used in the recent project dora~\\cite{zhang2024clay,chen2024dora}. following these works, we employ a variational encoder-decoder transformer for compact shape representations. we use 3d coordinates and the normal vectors from point clouds sampled from the surfaces of 3d shapes as inputs for the encoder. the decoder is designed to predict the signed distance function (sdf) of the 3d shape, which can be further transformed into a triangle mesh using the marching cube algorithm."
+    },
+    {
+      "paragraph_id": "Train.tex::p0007",
+      "tex_file": "doc/Train.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\doc\\Train.tex",
+      "section_path": [
+        "Training",
+        "Hunyuan3D-Shape",
+        "Hunyuan3D-ShapeVAE"
+      ],
+      "block_type": "command-block",
+      "line_start": 37,
+      "line_end": 37,
+      "text": "\\textbf{Encoder.} For an input mesh, we first gather uniformly sampled surface point clouds $P_u \\in \\mathbb{R}^{M \\times 3}$ and importance sampled point clouds $P_i \\in \\mathbb{R}^{N \\times 3}$. The encoding process begins by applying Farthest Point Sampling (FPS) separately to $P_u$ and $P_i$ to generate query points $Q_u \\in \\mathbb{R}^{M' \\times 3}$ and $Q_i \\in \\mathbb{R}^{N' \\times 3}$ respectively. We then concatenate these points to form the final point cloud $P \\in \\mathbb{R}^{(M+N) \\times 3}$ and query set $Q \\in \\mathbb{R}^{(M'+N') \\times 3}$. Both $P$ and $Q$ are encoded by Fourier positional followed by linear projection, yielding encoded features $X_p \\in \\mathbb{R}^{(M+N) \\times d}$ and $X_q \\in \\mathbb{R}^{(M'+N') \\times d}$, where $d$ is the dimension. These features are processed through cross-attention and self-attention layers to obtain the hidden shape representation $H_s \\in \\mathbb{R}^{(M'+N') \\times d}$. Following the variational autoencoder framework, we apply final linear projections to $H_s$ to predict the mean $\\mathrm{E}(Z_s) \\in \\mathbb{R}^{(M'+N') \\times d_0}$ and variance $\\mathrm{Var}(Z_s) \\in \\mathbb{R}^{(M'+N') \\times d_0}$ of the latent shape embedding, with $d_0$ being the latent dimension.",
+      "normalized_text": "\\textbf{encoder.} for an input mesh, we first gather uniformly sampled surface point clouds $p_u \\in \\mathbb{r}^{m \\times 3}$ and importance sampled point clouds $p_i \\in \\mathbb{r}^{n \\times 3}$. the encoding process begins by applying farthest point sampling (fps) separately to $p_u$ and $p_i$ to generate query points $q_u \\in \\mathbb{r}^{m' \\times 3}$ and $q_i \\in \\mathbb{r}^{n' \\times 3}$ respectively. we then concatenate these points to form the final point cloud $p \\in \\mathbb{r}^{(m+n) \\times 3}$ and query set $q \\in \\mathbb{r}^{(m'+n') \\times 3}$. both $p$ and $q$ are encoded by fourier positional followed by linear projection, yielding encoded features $x_p \\in \\mathbb{r}^{(m+n) \\times d}$ and $x_q \\in \\mathbb{r}^{(m'+n') \\times d}$, where $d$ is the dimension. these features are processed through cross-attention and self-attention layers to obtain the hidden shape representation $h_s \\in \\mathbb{r}^{(m'+n') \\times d}$. following the variational autoencoder framework, we apply final linear projections to $h_s$ to predict the mean $\\mathrm{e}(z_s) \\in \\mathbb{r}^{(m'+n') \\times d_0}$ and variance $\\mathrm{var}(z_s) \\in \\mathbb{r}^{(m'+n') \\times d_0}$ of the latent shape embedding, with $d_0$ being the latent dimension."
+    },
+    {
+      "paragraph_id": "Train.tex::p0008",
+      "tex_file": "doc/Train.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\doc\\Train.tex",
+      "section_path": [
+        "Training",
+        "Hunyuan3D-Shape",
+        "Hunyuan3D-ShapeVAE"
+      ],
+      "block_type": "command-block",
+      "line_start": 39,
+      "line_end": 39,
+      "text": "\\textbf{Decoder.} The decoder $\\mathcal{D}_s$ reconstructs a 3D neural field from the latent shape embedding $Z_s$. Initially, a projection layer maps the $d_0$-dimensional latent embedding to the transformer's hidden dimension $d$. Subsequent self-attention layers refine these embeddings, followed by a point perceiver module that queries a 3D grid $Q_g \\in \\mathbb{R}^{ (H \\times W \\times D) \\times 3}$ to generate a neural field $F_g \\in \\mathbb{R}^{ (F_n \\times W \\times D) \\times d}$. A final linear projection converts $F_g$ into a Sign Distance Function (SDF) $F_{sdf} \\in \\mathbb{R}^{ (F_o \\times W \\times D) \\times 1}$, which is subsequently converted to a triangle mesh via marching cubes during inference.",
+      "normalized_text": "\\textbf{decoder.} the decoder $\\mathcal{d}_s$ reconstructs a 3d neural field from the latent shape embedding $z_s$. initially, a projection layer maps the $d_0$-dimensional latent embedding to the transformer's hidden dimension $d$. subsequent self-attention layers refine these embeddings, followed by a point perceiver module that queries a 3d grid $q_g \\in \\mathbb{r}^{ (h \\times w \\times d) \\times 3}$ to generate a neural field $f_g \\in \\mathbb{r}^{ (f_n \\times w \\times d) \\times d}$. a final linear projection converts $f_g$ into a sign distance function (sdf) $f_{sdf} \\in \\mathbb{r}^{ (f_o \\times w \\times d) \\times 1}$, which is subsequently converted to a triangle mesh via marching cubes during inference."
+    },
+    {
+      "paragraph_id": "Train.tex::p0009",
+      "tex_file": "doc/Train.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\doc\\Train.tex",
+      "section_path": [
+        "Training",
+        "Hunyuan3D-Shape",
+        "Hunyuan3D-ShapeVAE"
+      ],
+      "block_type": "command-block",
+      "line_start": 41,
+      "line_end": 46,
+      "text": "\\textbf{Training Strategy \\& Implementation.} We employ two losses to supervise the model training, including (1) the reconstruction loss that computes MSE loss between predicted SDF $\\mathcal{D}_s (x | Z_s)$ and ground truth $\\mathrm{SDF}(x)$, and (2) the KL-divergence loss $\\mathcal{L}_{KL}$ to make the latent space compact and continuous. The overall training loss $\\mathcal{L}_r$ can be written as, \\begin{equation} \\mathcal{L}_r = \\mathbb{E}_{ x \\in \\mathbb{R}^3 } [ \\mathrm{MSE} ( \\mathcal{D}_s (x | Z_s), \\mathrm{SDF}(x) ) ] + \\gamma \\mathcal{L}_{KL} \\end{equation} where $\\gamma$ is the loss weight of KL loss. To optimize computational efficiency, we implement a multi-resolution training strategy where latent token sequence lengths vary dynamically, with a maximum sequence length of 3072.",
+      "normalized_text": "\\textbf{training strategy \\& implementation.} we employ two losses to supervise the model training, including (1) the reconstruction loss that computes mse loss between predicted sdf $\\mathcal{d}_s (x | z_s)$ and ground truth $\\mathrm{sdf}(x)$, and (2) the kl-divergence loss $\\mathcal{l}_{kl}$ to make the latent space compact and continuous. the overall training loss $\\mathcal{l}_r$ can be written as, \\begin{equation} \\mathcal{l}_r = \\mathbb{e}_{ x \\in \\mathbb{r}^3 } [ \\mathrm{mse} ( \\mathcal{d}_s (x | z_s), \\mathrm{sdf}(x) ) ] + \\gamma \\mathcal{l}_{kl} \\end{equation} where $\\gamma$ is the loss weight of kl loss. to optimize computational efficiency, we implement a multi-resolution training strategy where latent token sequence lengths vary dynamically, with a maximum sequence length of 3072."
+    },
+    {
+      "paragraph_id": "Train.tex::p0010",
+      "tex_file": "doc/Train.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\doc\\Train.tex",
+      "section_path": [
+        "Training",
+        "Hunyuan3D-Shape",
+        "Hunyuan3D-DiT"
+      ],
+      "block_type": "command-block",
+      "line_start": 50,
+      "line_end": 51,
+      "text": "\\label{subsubsec:dit} Hunyuan3D-DiT is a flow-based diffusion model designed to generate detailed and high-resolution 3D shapes based on image conditions.",
+      "normalized_text": "\\label{subsubsec:dit} hunyuan3d-dit is a flow-based diffusion model designed to generate detailed and high-resolution 3d shapes based on image conditions."
+    },
+    {
+      "paragraph_id": "Train.tex::p0011",
+      "tex_file": "doc/Train.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\doc\\Train.tex",
+      "section_path": [
+        "Training",
+        "Hunyuan3D-Shape",
+        "Hunyuan3D-DiT"
+      ],
+      "block_type": "command-block",
+      "line_start": 53,
+      "line_end": 53,
+      "text": "\\textbf{Condition encoder.} To capture detailed image features, we employ a large image encoder, DINOv2 Giant~\\cite{oquab2023dinov2} with an image size of $518 \\times 518$. Additionally, we remove the background from the input image, resize the object to a standard size, center it, and fill the background with white.",
+      "normalized_text": "\\textbf{condition encoder.} to capture detailed image features, we employ a large image encoder, dinov2 giant~\\cite{oquab2023dinov2} with an image size of $518 \\times 518$. additionally, we remove the background from the input image, resize the object to a standard size, center it, and fill the background with white."
+    },
+    {
+      "paragraph_id": "Train.tex::p0012",
+      "tex_file": "doc/Train.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\doc\\Train.tex",
+      "section_path": [
+        "Training",
+        "Hunyuan3D-Shape",
+        "Hunyuan3D-DiT"
+      ],
+      "block_type": "command-block",
+      "line_start": 55,
+      "line_end": 55,
+      "text": "\\textbf{DiT block.} Inspired by Hunyuan-DiT~\\cite{li2024hunyuandit} and TripoSG~\\cite{li2025triposg}, we adopt transformers structure as shown in Fig.~\\ref{fig:dit}. We stack the 21 Transformer layers to learn the latent codes. As shown in Fig.~\\ref{fig:blocks}, in each Transformer layer, we leverage the dimension concatenation to introduce the skip connection of the latent code. Similar to previous methods~\\cite{zhang2024clay, li2024craftsman}, we employ the cross-attention layer to project the image condition into the latent code. In addition, an MOE layer is used to enhance the representation learning of the latent code.",
+      "normalized_text": "\\textbf{dit block.} inspired by hunyuan-dit~\\cite{li2024hunyuandit} and triposg~\\cite{li2025triposg}, we adopt transformers structure as shown in fig.~\\ref{fig:dit}. we stack the 21 transformer layers to learn the latent codes. as shown in fig.~\\ref{fig:blocks}, in each transformer layer, we leverage the dimension concatenation to introduce the skip connection of the latent code. similar to previous methods~\\cite{zhang2024clay, li2024craftsman}, we employ the cross-attention layer to project the image condition into the latent code. in addition, an moe layer is used to enhance the representation learning of the latent code."
+    },
+    {
+      "paragraph_id": "Train.tex::p0013",
+      "tex_file": "doc/Train.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\doc\\Train.tex",
+      "section_path": [
+        "Training",
+        "Hunyuan3D-Shape",
+        "Hunyuan3D-DiT"
+      ],
+      "block_type": "command-block",
+      "line_start": 62,
+      "line_end": 66,
+      "text": "\\textbf{Training \\& Inference.} We train our model using the flow matching objective~\\cite{lipman2022flow,esser2024scaling}. Flow matching defines a probability path between Gaussian and data distributions, training the model to predict the velocity field $u_t = \\frac{x_t}{d_t}$ that moves sample $x_t$ towards data $x_1$. We use the affine path with a conditional optimal transport schedule as specified in~\\cite{lipman2024flowmatchingguidecode}, where $x_t = ( 1-t ) \\times x_0 + t \\times x_1$, $u_t = x_1 - x_0$. The training loss is formulated as, \\begin{equation} \\mathcal{L} = \\mathbb{E}_{t,x_0,x_1} [ \\parallel u_\\theta(x_t,c,t) - u_t \\parallel_2^2 ], \\end{equation} where $t \\sim \\mathbb{U}(0,1)$ and $c$ represents model condition. During inference, we randomly sample a starting point and use a first-order Euler ordinary differential equation (ODE) solver to compute $x_1$ with our diffusion model $u_\\theta(x_t,c,t)$.",
+      "normalized_text": "\\textbf{training \\& inference.} we train our model using the flow matching objective~\\cite{lipman2022flow,esser2024scaling}. flow matching defines a probability path between gaussian and data distributions, training the model to predict the velocity field $u_t = \\frac{x_t}{d_t}$ that moves sample $x_t$ towards data $x_1$. we use the affine path with a conditional optimal transport schedule as specified in~\\cite{lipman2024flowmatchingguidecode}, where $x_t = ( 1-t ) \\times x_0 + t \\times x_1$, $u_t = x_1 - x_0$. the training loss is formulated as, \\begin{equation} \\mathcal{l} = \\mathbb{e}_{t,x_0,x_1} [ \\parallel u_\\theta(x_t,c,t) - u_t \\parallel_2^2 ], \\end{equation} where $t \\sim \\mathbb{u}(0,1)$ and $c$ represents model condition. during inference, we randomly sample a starting point and use a first-order euler ordinary differential equation (ode) solver to compute $x_1$ with our diffusion model $u_\\theta(x_t,c,t)$."
+    },
+    {
+      "paragraph_id": "Train.tex::p0014",
+      "tex_file": "doc/Train.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\doc\\Train.tex",
+      "section_path": [
+        "Training",
+        "Hunyuan3D-Paint"
+      ],
+      "block_type": "paragraph",
+      "line_start": 69,
+      "line_end": 69,
+      "text": "Traditional color textures are no longer sufficient to meet the demands for photorealistic 3D asset generation. Therefore, we introduce a PBR material texture synthesis framework advancing beyond conventional RGB texture maps. We adhere to the BRDF model and simultaneously output albedo, roughness, and metallic maps from multiple viewpoints, aiming to accurately describe the surface reflectance properties of generated 3D assets and precisely simulate the distribution of geometric micro-surfaces, resulting in more realistic and detailed rendering effects. Further, we introduce 3D-Aware RoPE to inject spatial information, significantly improving cross-view consistency and enabling seamless texturing.",
+      "normalized_text": "traditional color textures are no longer sufficient to meet the demands for photorealistic 3d asset generation. therefore, we introduce a pbr material texture synthesis framework advancing beyond conventional rgb texture maps. we adhere to the brdf model and simultaneously output albedo, roughness, and metallic maps from multiple viewpoints, aiming to accurately describe the surface reflectance properties of generated 3d assets and precisely simulate the distribution of geometric micro-surfaces, resulting in more realistic and detailed rendering effects. further, we introduce 3d-aware rope to inject spatial information, significantly improving cross-view consistency and enabling seamless texturing."
+    },
+    {
+      "paragraph_id": "Train.tex::p0015",
+      "tex_file": "doc/Train.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\doc\\Train.tex",
+      "section_path": [
+        "Training",
+        "Hunyuan3D-Paint"
+      ],
+      "block_type": "command-block",
+      "line_start": 72,
+      "line_end": 73,
+      "text": "\\textbf{Basic Architecture.} Building on the multiview texture generation architecture of Hunyuan3D-2~\\cite{zhao2025hunyuan3d}, we introduce a novel material generation framework, as is shown in the left side of Fig.\\ref{fig:texture_pipe}. The framework implements the Disney Principled BRDF model~\\cite{burley2012physically} to generate high-quality PBR material maps. We retain the reference image feature injection mechanism of ReferenceNet, while concatenating both geometry-rendered normal maps and CCM (canonical coordinate map) with latent noise.",
+      "normalized_text": "\\textbf{basic architecture.} building on the multiview texture generation architecture of hunyuan3d-2~\\cite{zhao2025hunyuan3d}, we introduce a novel material generation framework, as is shown in the left side of fig.\\ref{fig:texture_pipe}. the framework implements the disney principled brdf model~\\cite{burley2012physically} to generate high-quality pbr material maps. we retain the reference image feature injection mechanism of referencenet, while concatenating both geometry-rendered normal maps and ccm (canonical coordinate map) with latent noise."
+    },
+    {
+      "paragraph_id": "Train.tex::p0016",
+      "tex_file": "doc/Train.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\doc\\Train.tex",
+      "section_path": [
+        "Training",
+        "Hunyuan3D-Paint"
+      ],
+      "block_type": "command-block",
+      "line_start": 75,
+      "line_end": 80,
+      "text": "\\begin{figure}[h] \\centering \\includegraphics[width=1\\textwidth]{fig/tex_pipe.pdf} \\caption{Overview of material generation framework. } \\label{fig:texture_pipe} \\end{figure}",
+      "normalized_text": "\\begin{figure}[h] \\centering \\includegraphics[width=1\\textwidth]{fig/tex_pipe.pdf} \\caption{overview of material generation framework. } \\label{fig:texture_pipe} \\end{figure}"
+    },
+    {
+      "paragraph_id": "Train.tex::p0017",
+      "tex_file": "doc/Train.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\doc\\Train.tex",
+      "section_path": [
+        "Training",
+        "Hunyuan3D-Paint"
+      ],
+      "block_type": "command-block",
+      "line_start": 82,
+      "line_end": 82,
+      "text": "\\textbf{Spatial-Aligned Multi-Attention Module.} We employ a pre-trained VAE for multi-channel material image compression while implementing a parallel dual-branch UNet architecture~\\cite{he2025materialmvpilluminationinvariantmaterialgeneration} for material generation. As shown in the right side of Fig.\\ref{fig:texture_pipe}, we implement parallel multi-attention modules~\\cite{feng2025romantexdecoupling3dawarerotary} comprising self-attention, multi-view attention, and reference attention for both albedo and metallic-roughness (MR) maps. To model the physical relationships between albedo/MR maps and reference images, and to achieve spatial alignment between MR and albedo maps, we directly propagate the computed outputs from the albedo reference attention module to the MR branch.",
+      "normalized_text": "\\textbf{spatial-aligned multi-attention module.} we employ a pre-trained vae for multi-channel material image compression while implementing a parallel dual-branch unet architecture~\\cite{he2025materialmvpilluminationinvariantmaterialgeneration} for material generation. as shown in the right side of fig.\\ref{fig:texture_pipe}, we implement parallel multi-attention modules~\\cite{feng2025romantexdecoupling3dawarerotary} comprising self-attention, multi-view attention, and reference attention for both albedo and metallic-roughness (mr) maps. to model the physical relationships between albedo/mr maps and reference images, and to achieve spatial alignment between mr and albedo maps, we directly propagate the computed outputs from the albedo reference attention module to the mr branch."
+    },
+    {
+      "paragraph_id": "Train.tex::p0018",
+      "tex_file": "doc/Train.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\doc\\Train.tex",
+      "section_path": [
+        "Training",
+        "Hunyuan3D-Paint"
+      ],
+      "block_type": "command-block",
+      "line_start": 84,
+      "line_end": 84,
+      "text": "\\textbf{3D-Aware RoPE.} To address texture seams and ghosting artifacts caused by local inconsistencies across neibor views, 3D-Aware RoPE~\\cite{feng2025romantexdecoupling3dawarerotary} is introduced into the multiview attention block for enhanced cross-view coherence. Specifically, by downsampling the 3D coordinate volume, we construct multi-resolution 3D coordinate encodings aligned with the UNet hierarchy levels. These encodings are additively fused with corresponding hidden states, thereby integrating cross-view interactions into 3D space to enforce multi-view consistency.",
+      "normalized_text": "\\textbf{3d-aware rope.} to address texture seams and ghosting artifacts caused by local inconsistencies across neibor views, 3d-aware rope~\\cite{feng2025romantexdecoupling3dawarerotary} is introduced into the multiview attention block for enhanced cross-view coherence. specifically, by downsampling the 3d coordinate volume, we construct multi-resolution 3d coordinate encodings aligned with the unet hierarchy levels. these encodings are additively fused with corresponding hidden states, thereby integrating cross-view interactions into 3d space to enforce multi-view consistency."
+    },
+    {
+      "paragraph_id": "Train.tex::p0019",
+      "tex_file": "doc/Train.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\doc\\Train.tex",
+      "section_path": [
+        "Training",
+        "Hunyuan3D-Paint"
+      ],
+      "block_type": "command-block",
+      "line_start": 86,
+      "line_end": 87,
+      "text": "\\textbf{Illumination-Invariant Training Strategy.} To generate light- and shadow-free albedo map and accurate MR map, we posit an intuitive insight: while rendering results of the same object differ under diverse lighting, its intrinsic material properties should remain consistent. Consequently, we design an illumination-invariant training strategy~\\cite{he2025materialmvpilluminationinvariantmaterialgeneration} to enforce this property. Specifically, consistency loss is computed by adopting two sets of training samples containing reference images of the same object rendered by different lighting conditions.",
+      "normalized_text": "\\textbf{illumination-invariant training strategy.} to generate light- and shadow-free albedo map and accurate mr map, we posit an intuitive insight: while rendering results of the same object differ under diverse lighting, its intrinsic material properties should remain consistent. consequently, we design an illumination-invariant training strategy~\\cite{he2025materialmvpilluminationinvariantmaterialgeneration} to enforce this property. specifically, consistency loss is computed by adopting two sets of training samples containing reference images of the same object rendered by different lighting conditions."
+    },
+    {
+      "paragraph_id": "Train.tex::p0020",
+      "tex_file": "doc/Train.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\doc\\Train.tex",
+      "section_path": [
+        "Training",
+        "Hunyuan3D-Paint"
+      ],
+      "block_type": "command-block",
+      "line_start": 90,
+      "line_end": 90,
+      "text": "\\textbf{Experimental Setup.} Our model is initialized from the Zero-SNR checkpoint~\\cite{lin2024common} of Stable Diffusion 2.1 and optimized using the AdamW at a learning rate of $5 \\times 10^{-5}$. The training protocol incorporates 2000 warm-up steps, requiring approximately 180 GPU-days.",
+      "normalized_text": "\\textbf{experimental setup.} our model is initialized from the zero-snr checkpoint~\\cite{lin2024common} of stable diffusion 2.1 and optimized using the adamw at a learning rate of $5 \\times 10^{-5}$. the training protocol incorporates 2000 warm-up steps, requiring approximately 180 gpu-days."
+    },
+    {
+      "paragraph_id": "Evaluation.tex::p0001",
+      "tex_file": "doc/Evaluation.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\doc\\Evaluation.tex",
+      "section_path": [
+        "Evaluation"
+      ],
+      "block_type": "paragraph",
+      "line_start": 2,
+      "line_end": 2,
+      "text": "To assess the effectiveness of a 3D generative model, we conduct experiments focusing on three key areas: (1) 3D Shape Generation (untextured shape evaluation), (2) Texture Synthesis, and (3) Complete 3D asset creation (textured 3D shapes).",
+      "normalized_text": "to assess the effectiveness of a 3d generative model, we conduct experiments focusing on three key areas: (1) 3d shape generation (untextured shape evaluation), (2) texture synthesis, and (3) complete 3d asset creation (textured 3d shapes)."
+    },
+    {
+      "paragraph_id": "Evaluation.tex::p0002",
+      "tex_file": "doc/Evaluation.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\doc\\Evaluation.tex",
+      "section_path": [
+        "Evaluation"
+      ],
+      "block_type": "command-block",
+      "line_start": 4,
+      "line_end": 21,
+      "text": "\\begin{table} \\centering \\small \\begin{tabular}{l|cccccc} \\hline Models & ULIP-T ($\\uparrow$) & ULIP-I ($\\uparrow$) & Uni3D-T ($\\uparrow$)& Uni3D-I ($\\uparrow$) \\\\ \\hline Michelangelo~\\cite{zhao2023michelangelo} & 0.0752 & 0.1152 & 0.2133 & 0.2611 \\\\ Craftsman 1.5~\\cite{li2024craftsman} & 0.0745 & 0.1296 & 0.2375 & 0.2987 \\\\ TripoSG~\\cite{li2025triposg} & 0.0767 & 0.1225 & 0.2506 & 0.3129 \\\\ Step1X-3D~\\cite{li2025step1x} & 0.0735 & 0.1183 & 0.2554 & 0.3195 \\\\ Trellis~\\cite{xiang2024structured} & 0.0769 & 0.1267 & 0.2496 & 0.3116 \\\\ Direct3D-S2~\\cite{wu2025direct3ds2gigascale3dgeneration} & 0.0706 & 0.1134 & 0.2346 & 0.2930\\\\ Hunyuan3D-DiT & \\textbf{0.0774} & \\bf{0.1395} & \\textbf{0.2556} & \\textbf{0.3213} \\\\ \\hline \\end{tabular} \\vspace{3mm} \\caption{The quantitative comparison for shape generation. The Hunyuan3D-DiT presents the best performance.} \\label{tab:shapegen_transposed} \\end{table}",
+      "normalized_text": "\\begin{table} \\centering \\small \\begin{tabular}{l|cccccc} \\hline models & ulip-t ($\\uparrow$) & ulip-i ($\\uparrow$) & uni3d-t ($\\uparrow$)& uni3d-i ($\\uparrow$) \\\\ \\hline michelangelo~\\cite{zhao2023michelangelo} & 0.0752 & 0.1152 & 0.2133 & 0.2611 \\\\ craftsman 1.5~\\cite{li2024craftsman} & 0.0745 & 0.1296 & 0.2375 & 0.2987 \\\\ triposg~\\cite{li2025triposg} & 0.0767 & 0.1225 & 0.2506 & 0.3129 \\\\ step1x-3d~\\cite{li2025step1x} & 0.0735 & 0.1183 & 0.2554 & 0.3195 \\\\ trellis~\\cite{xiang2024structured} & 0.0769 & 0.1267 & 0.2496 & 0.3116 \\\\ direct3d-s2~\\cite{wu2025direct3ds2gigascale3dgeneration} & 0.0706 & 0.1134 & 0.2346 & 0.2930\\\\ hunyuan3d-dit & \\textbf{0.0774} & \\bf{0.1395} & \\textbf{0.2556} & \\textbf{0.3213} \\\\ \\hline \\end{tabular} \\vspace{3mm} \\caption{the quantitative comparison for shape generation. the hunyuan3d-dit presents the best performance.} \\label{tab:shapegen_transposed} \\end{table}"
+    },
+    {
+      "paragraph_id": "Evaluation.tex::p0003",
+      "tex_file": "doc/Evaluation.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\doc\\Evaluation.tex",
+      "section_path": [
+        "Evaluation"
+      ],
+      "block_type": "command-block",
+      "line_start": 23,
+      "line_end": 28,
+      "text": "\\begin{figure}[t] \\centering \\includegraphics[width=\\linewidth]{fig/geo_compare.pdf} \\caption{The qualitative comparisons for image-to-shape generation.} \\label{fig:geo_compare} \\end{figure}",
+      "normalized_text": "\\begin{figure}[t] \\centering \\includegraphics[width=\\linewidth]{fig/geo_compare.pdf} \\caption{the qualitative comparisons for image-to-shape generation.} \\label{fig:geo_compare} \\end{figure}"
+    },
+    {
+      "paragraph_id": "Evaluation.tex::p0004",
+      "tex_file": "doc/Evaluation.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\doc\\Evaluation.tex",
+      "section_path": [
+        "Evaluation",
+        "3D Shape Generation"
+      ],
+      "block_type": "paragraph",
+      "line_start": 34,
+      "line_end": 34,
+      "text": "Shape generation is crucial for 3D generation, as detailed and high-resolution meshes provide the groundwork for subsequent tasks. In this section, we evaluate the 3D shape generation capabilities of Hunyuan3D-DiT, focusing on shape creation.",
+      "normalized_text": "shape generation is crucial for 3d generation, as detailed and high-resolution meshes provide the groundwork for subsequent tasks. in this section, we evaluate the 3d shape generation capabilities of hunyuan3d-dit, focusing on shape creation."
+    },
+    {
+      "paragraph_id": "Evaluation.tex::p0005",
+      "tex_file": "doc/Evaluation.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\doc\\Evaluation.tex",
+      "section_path": [
+        "Evaluation",
+        "3D Shape Generation"
+      ],
+      "block_type": "command-block",
+      "line_start": 36,
+      "line_end": 36,
+      "text": "\\textbf{Metrics.} To evaluate shape generation performance, we used ULIP~\\cite{xue2023ulip} and Uni3D~\\cite{zhouuni3d} to measure the similarity between the generated mesh and input images. Specifically, we sampled 8,192 surface points from the generated mesh as the point cloud modality. We then utilized the caption of the input image obtained from an existing VLM model as the text modality. Finally, we applied the ULIP models to obtain the ULIP-I and ULIP-T scores, which measure the similarity between the point cloud and text, as well as the similarity between the point cloud and image, respectively. In this context, the text caption comes from a VLM model. We also employed the same process to obtain the Uni3D-I and Uni3D-T scores based on the Uni3D model.",
+      "normalized_text": "\\textbf{metrics.} to evaluate shape generation performance, we used ulip~\\cite{xue2023ulip} and uni3d~\\cite{zhouuni3d} to measure the similarity between the generated mesh and input images. specifically, we sampled 8,192 surface points from the generated mesh as the point cloud modality. we then utilized the caption of the input image obtained from an existing vlm model as the text modality. finally, we applied the ulip models to obtain the ulip-i and ulip-t scores, which measure the similarity between the point cloud and text, as well as the similarity between the point cloud and image, respectively. in this context, the text caption comes from a vlm model. we also employed the same process to obtain the uni3d-i and uni3d-t scores based on the uni3d model."
+    },
+    {
+      "paragraph_id": "Evaluation.tex::p0006",
+      "tex_file": "doc/Evaluation.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\doc\\Evaluation.tex",
+      "section_path": [
+        "Evaluation",
+        "3D Shape Generation"
+      ],
+      "block_type": "command-block",
+      "line_start": 38,
+      "line_end": 38,
+      "text": "\\textbf{Comparison with Shape Generation Models.} We compared Shape Quality with several leading models, including open-source options like Direct3D-S2~\\cite{wu2025direct3ds2gigascale3dgeneration}, Step1X-3D~\\cite{li2025step1x}, and TripoSG~\\cite{li2025triposg}. ~\\Cref{tab:shapegen_transposed} presents a numerical comparison between Hunyuan3D-DiT and other methods, showing that Hunyuan3D-DiT delivers the most accurate results. Additionally, the visual comparison in Fig.~\\ref{fig:geo_compare} confirms the adherence of Hunyuan3D-DiT to image prompts, including the faithful capture of intricate details (details of roly-poly toys, the number of calculator buttons, the number of teeth on a rake, and the structure of a fighter jet), and its ability to produce watertight meshes ready for downstream applications.",
+      "normalized_text": "\\textbf{comparison with shape generation models.} we compared shape quality with several leading models, including open-source options like direct3d-s2~\\cite{wu2025direct3ds2gigascale3dgeneration}, step1x-3d~\\cite{li2025step1x}, and triposg~\\cite{li2025triposg}. ~\\cref{tab:shapegen_transposed} presents a numerical comparison between hunyuan3d-dit and other methods, showing that hunyuan3d-dit delivers the most accurate results. additionally, the visual comparison in fig.~\\ref{fig:geo_compare} confirms the adherence of hunyuan3d-dit to image prompts, including the faithful capture of intricate details (details of roly-poly toys, the number of calculator buttons, the number of teeth on a rake, and the structure of a fighter jet), and its ability to produce watertight meshes ready for downstream applications."
+    },
+    {
+      "paragraph_id": "Evaluation.tex::p0007",
+      "tex_file": "doc/Evaluation.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\doc\\Evaluation.tex",
+      "section_path": [
+        "Evaluation",
+        "Texture Map Synthesis"
+      ],
+      "block_type": "command-block",
+      "line_start": 41,
+      "line_end": 41,
+      "text": "\\label{sec:texture_sythesis}",
+      "normalized_text": "\\label{sec:texture_sythesis}"
+    },
+    {
+      "paragraph_id": "Evaluation.tex::p0008",
+      "tex_file": "doc/Evaluation.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\doc\\Evaluation.tex",
+      "section_path": [
+        "Evaluation",
+        "Texture Map Synthesis"
+      ],
+      "block_type": "paragraph",
+      "line_start": 43,
+      "line_end": 43,
+      "text": "As texture maps directly influence the visual appeal of textured 3D assets, we conduct comprehensive quantitative and qualitative comparisons of texture generation methodologies across both academic and industrial domains.",
+      "normalized_text": "as texture maps directly influence the visual appeal of textured 3d assets, we conduct comprehensive quantitative and qualitative comparisons of texture generation methodologies across both academic and industrial domains."
+    },
+    {
+      "paragraph_id": "Evaluation.tex::p0009",
+      "tex_file": "doc/Evaluation.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\doc\\Evaluation.tex",
+      "section_path": [
+        "Evaluation",
+        "Texture Map Synthesis"
+      ],
+      "block_type": "command-block",
+      "line_start": 45,
+      "line_end": 45,
+      "text": "\\textbf{Comparison with Texture Synthesis Models.} To quantify the similarity between generated textures and ground truth, we employ Fréchet Inception Distance (FID)~\\cite{heusel2017gans}, CLIP-based FID (CLIP-FID)~\\cite{radford2021learning}, and Learned Perceptual Image Patch Similarity (LPIPS)~\\cite{zhang2018unreasonable} metrics on Hunyuan3D-Paint and baseline image-to-texture models, including SyncMVD-IPA~\\cite{liu2024text}, TexGen~\\cite{yu2024texgen} and Hunyuan3D-2.0~\\cite{zhao2025hunyuan3d}. Given an untextured shape and a single image, we compare these models with our results through both quantitative and qualitative evaluations. The quantitative results are shown in Tab.~\\ref{tab:img2tex}, while the qualitative results are illustrated in Figure~\\ref{fig:tex_comp}. These evaluations clearly demonstrate the superiority of our method over all comparative approaches.",
+      "normalized_text": "\\textbf{comparison with texture synthesis models.} to quantify the similarity between generated textures and ground truth, we employ fréchet inception distance (fid)~\\cite{heusel2017gans}, clip-based fid (clip-fid)~\\cite{radford2021learning}, and learned perceptual image patch similarity (lpips)~\\cite{zhang2018unreasonable} metrics on hunyuan3d-paint and baseline image-to-texture models, including syncmvd-ipa~\\cite{liu2024text}, texgen~\\cite{yu2024texgen} and hunyuan3d-2.0~\\cite{zhao2025hunyuan3d}. given an untextured shape and a single image, we compare these models with our results through both quantitative and qualitative evaluations. the quantitative results are shown in tab.~\\ref{tab:img2tex}, while the qualitative results are illustrated in figure~\\ref{fig:tex_comp}. these evaluations clearly demonstrate the superiority of our method over all comparative approaches."
+    },
+    {
+      "paragraph_id": "Evaluation.tex::p0010",
+      "tex_file": "doc/Evaluation.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\doc\\Evaluation.tex",
+      "section_path": [
+        "Evaluation",
+        "Texture Map Synthesis"
+      ],
+      "block_type": "command-block",
+      "line_start": 47,
+      "line_end": 52,
+      "text": "\\begin{figure}[h] \\centering \\includegraphics[width=0.8\\linewidth]{fig/tex_comp.pdf} \\caption{The qualitative comparisons for texture synthesis.} \\label{fig:tex_comp} \\end{figure}",
+      "normalized_text": "\\begin{figure}[h] \\centering \\includegraphics[width=0.8\\linewidth]{fig/tex_comp.pdf} \\caption{the qualitative comparisons for texture synthesis.} \\label{fig:tex_comp} \\end{figure}"
+    },
+    {
+      "paragraph_id": "Evaluation.tex::p0011",
+      "tex_file": "doc/Evaluation.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\doc\\Evaluation.tex",
+      "section_path": [
+        "Evaluation",
+        "Texture Map Synthesis"
+      ],
+      "block_type": "command-block",
+      "line_start": 54,
+      "line_end": 69,
+      "text": "\\begin{table} \\centering \\small \\begin{tabular}{l|cccccc} \\toprule \\textbf{Method} & {CLIP-FID ($\\downarrow$}) & {CMMD ($\\downarrow$)} & {CLIP-I ($\\uparrow$)} & {LPIPS ($\\downarrow$)} \\\\ \\midrule SyncMVD-IPA~\\cite{liu2024text} & 28.39 & 2.397 & 0.8823 & 0.1423 \\\\ TexGen~\\cite{yu2024texgen} & 28.24 & 2.448 & 0.8818 & 0.1331 \\\\ Hunyuan3D-2.0~\\cite{zhao2025hunyuan3d} & 26.44 & 2.318 & 0.8893 & 0.1261 \\\\ Hunyuan3D-Paint & \\bf{24.78} & \\bf{2.191} & \\bf{0.9207} & \\bf{0.1211} \\\\ \\bottomrule \\end{tabular} \\caption{The quantitative comparison for texture generation. Hunyuan3D-Paint achieves the best performance.} \\label{tab:img2tex} \\end{table}",
+      "normalized_text": "\\begin{table} \\centering \\small \\begin{tabular}{l|cccccc} \\toprule \\textbf{method} & {clip-fid ($\\downarrow$}) & {cmmd ($\\downarrow$)} & {clip-i ($\\uparrow$)} & {lpips ($\\downarrow$)} \\\\ \\midrule syncmvd-ipa~\\cite{liu2024text} & 28.39 & 2.397 & 0.8823 & 0.1423 \\\\ texgen~\\cite{yu2024texgen} & 28.24 & 2.448 & 0.8818 & 0.1331 \\\\ hunyuan3d-2.0~\\cite{zhao2025hunyuan3d} & 26.44 & 2.318 & 0.8893 & 0.1261 \\\\ hunyuan3d-paint & \\bf{24.78} & \\bf{2.191} & \\bf{0.9207} & \\bf{0.1211} \\\\ \\bottomrule \\end{tabular} \\caption{the quantitative comparison for texture generation. hunyuan3d-paint achieves the best performance.} \\label{tab:img2tex} \\end{table}"
+    },
+    {
+      "paragraph_id": "Evaluation.tex::p0012",
+      "tex_file": "doc/Evaluation.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\doc\\Evaluation.tex",
+      "section_path": [
+        "Evaluation",
+        "Texture Map Synthesis"
+      ],
+      "block_type": "command-block",
+      "line_start": 73,
+      "line_end": 79,
+      "text": "\\begin{figure}[h] \\centering \\includegraphics[width=\\linewidth]{fig/e2e.pdf} \\vspace{-5mm} \\caption{The qualitative comparisons for image-to-3D generation.} \\label{fig:e2e} \\end{figure}",
+      "normalized_text": "\\begin{figure}[h] \\centering \\includegraphics[width=\\linewidth]{fig/e2e.pdf} \\vspace{-5mm} \\caption{the qualitative comparisons for image-to-3d generation.} \\label{fig:e2e} \\end{figure}"
+    },
+    {
+      "paragraph_id": "Evaluation.tex::p0013",
+      "tex_file": "doc/Evaluation.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\doc\\Evaluation.tex",
+      "section_path": [
+        "Evaluation",
+        "Texture Map Synthesis"
+      ],
+      "block_type": "command-block",
+      "line_start": 81,
+      "line_end": 82,
+      "text": "\\textbf{Comparison with Image-to-3D Models.} We also conduct visualized comparison with publicly accessible 3D generation algorithms, including the open-source Step1X-3D~\\cite{li2025step1x} and 3DTopia-XL~\\cite{chen20243dtopia}, alongside the commercial Model 1 and Model 2. Given a single image, all compared methods can form geometry and corresponding PBR material maps. Specifically, we assess the end-to-end quality across these methods, as shown in Fig.~\\ref{fig:e2e}. These results demonstrate that our model not only generates PBR material maps with the highest fidelity but also effectively mitigates shortcomings associated with lower-quality geometries. This leads to superior end-to-end performance compared to existing methods.",
+      "normalized_text": "\\textbf{comparison with image-to-3d models.} we also conduct visualized comparison with publicly accessible 3d generation algorithms, including the open-source step1x-3d~\\cite{li2025step1x} and 3dtopia-xl~\\cite{chen20243dtopia}, alongside the commercial model 1 and model 2. given a single image, all compared methods can form geometry and corresponding pbr material maps. specifically, we assess the end-to-end quality across these methods, as shown in fig.~\\ref{fig:e2e}. these results demonstrate that our model not only generates pbr material maps with the highest fidelity but also effectively mitigates shortcomings associated with lower-quality geometries. this leads to superior end-to-end performance compared to existing methods."
+    },
+    {
+      "paragraph_id": "Data.tex::p0001",
+      "tex_file": "doc/Data.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\doc\\Data.tex",
+      "section_path": [
+        "Data Processing"
+      ],
+      "block_type": "paragraph",
+      "line_start": 4,
+      "line_end": 4,
+      "text": "In this section, we aim to describe the data processing for training the shape generation model and texture model. We start to introduce the dataset preparation, and then present how to obtain the relevant training and testing data for the shape generation model and texture model.",
+      "normalized_text": "in this section, we aim to describe the data processing for training the shape generation model and texture model. we start to introduce the dataset preparation, and then present how to obtain the relevant training and testing data for the shape generation model and texture model."
+    },
+    {
+      "paragraph_id": "Data.tex::p0002",
+      "tex_file": "doc/Data.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\doc\\Data.tex",
+      "section_path": [
+        "Data Processing",
+        "Dataset collection"
+      ],
+      "block_type": "paragraph",
+      "line_start": 7,
+      "line_end": 7,
+      "text": "For shape generation, we collect 100K+ textured and untextured 3D data from public datasets and custom datasets. The public dataset comes mainly from ShapeNet~\\cite{chang2015shapenet}, ModelNet40~\\cite{wu20153d}, Thingi10K~\\cite{zhou2016thingi10k}, and Objaverse~\\cite{deitke2023objaverse,deitke2023objaversexl}. For texture synthesis, we filter 70K+ human-annotated high-quality data following strict curation protocols from Objaverse-XL~\\cite{deitke2023objaversexl}.",
+      "normalized_text": "for shape generation, we collect 100k+ textured and untextured 3d data from public datasets and custom datasets. the public dataset comes mainly from shapenet~\\cite{chang2015shapenet}, modelnet40~\\cite{wu20153d}, thingi10k~\\cite{zhou2016thingi10k}, and objaverse~\\cite{deitke2023objaverse,deitke2023objaversexl}. for texture synthesis, we filter 70k+ human-annotated high-quality data following strict curation protocols from objaverse-xl~\\cite{deitke2023objaversexl}."
+    },
+    {
+      "paragraph_id": "Data.tex::p0003",
+      "tex_file": "doc/Data.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\doc\\Data.tex",
+      "section_path": [
+        "Data Processing",
+        "Data preprocessing for shape generation",
+        "Normalization"
+      ],
+      "block_type": "paragraph",
+      "line_start": 12,
+      "line_end": 12,
+      "text": "The normalization process begins by calculating the axis-aligned bounding box for each 3D object, ensuring all subsequent operations work in a standardized coordinate space. We apply uniform scaling to fit the object within a unit cube centered at the origin, preserving aspect ratios while maintaining consistent scale across the entire dataset. This spatial normalization is particularly crucial for neural networks to learn consistent geometric patterns, as it eliminates size variations that could otherwise dominate the learned features. For point cloud data, the implementation involves centering the cloud by subtracting its centroid, then scaling all points by the maximum Euclidean distance from the center, as shown in the provided Python snippet. This approach guarantees that all objects occupy approximately the same volume in the normalized space while preserving their original geometric relationships.",
+      "normalized_text": "the normalization process begins by calculating the axis-aligned bounding box for each 3d object, ensuring all subsequent operations work in a standardized coordinate space. we apply uniform scaling to fit the object within a unit cube centered at the origin, preserving aspect ratios while maintaining consistent scale across the entire dataset. this spatial normalization is particularly crucial for neural networks to learn consistent geometric patterns, as it eliminates size variations that could otherwise dominate the learned features. for point cloud data, the implementation involves centering the cloud by subtracting its centroid, then scaling all points by the maximum euclidean distance from the center, as shown in the provided python snippet. this approach guarantees that all objects occupy approximately the same volume in the normalized space while preserving their original geometric relationships."
+    },
+    {
+      "paragraph_id": "Data.tex::p0004",
+      "tex_file": "doc/Data.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\doc\\Data.tex",
+      "section_path": [
+        "Data Processing",
+        "Data preprocessing for shape generation",
+        "Watertight"
+      ],
+      "block_type": "paragraph",
+      "line_start": 16,
+      "line_end": 18,
+      "text": "The \\textit{IGL} library generates watertight surfaces by constructing a signed distance field (SDF) from defective geometry. We initialize a uniform 3D query grid encompassing the input mesh. For each query point $\\mathbf{q} \\in Q_g$, IGL computes: $$\\text{SDF}(\\mathbf{q}) = \\underbrace{\\text{distance\\_to\\_mesh}(\\mathbf{q}, V, F)}_{\\text{nearest surface distance}} \\cdot \\underbrace{\\text{sign}(\\omega(\\mathbf{q}))}_{\\text{inside/outside sign}}$$ where $V$ and $F$ represent input vertices and faces. The sign is determined by the generalized winding number $\\omega(\\mathbf{q})$ where $\\omega \\approx 1$ indicates interior points and $\\omega \\approx 0$ exterior points.",
+      "normalized_text": "the \\textit{igl} library generates watertight surfaces by constructing a signed distance field (sdf) from defective geometry. we initialize a uniform 3d query grid encompassing the input mesh. for each query point $\\mathbf{q} \\in q_g$, igl computes: $$\\text{sdf}(\\mathbf{q}) = \\underbrace{\\text{distance\\_to\\_mesh}(\\mathbf{q}, v, f)}_{\\text{nearest surface distance}} \\cdot \\underbrace{\\text{sign}(\\omega(\\mathbf{q}))}_{\\text{inside/outside sign}}$$ where $v$ and $f$ represent input vertices and faces. the sign is determined by the generalized winding number $\\omega(\\mathbf{q})$ where $\\omega \\approx 1$ indicates interior points and $\\omega \\approx 0$ exterior points."
+    },
+    {
+      "paragraph_id": "Data.tex::p0005",
+      "tex_file": "doc/Data.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\doc\\Data.tex",
+      "section_path": [
+        "Data Processing",
+        "Data preprocessing for shape generation",
+        "Watertight"
+      ],
+      "block_type": "paragraph",
+      "line_start": 20,
+      "line_end": 20,
+      "text": "Sign consistency is enforced using IGL's winding number calculation. This resolves ambiguous signs near self-intersections by thresholding $\\omega > 0.5$ for interior classification. The watertight mesh is extracted at the zero-level isosurface via marching cubes. The output $(V_\\text{iso}, F_\\text{iso})$ forms a topologically closed surface without boundary discontinuities.",
+      "normalized_text": "sign consistency is enforced using igl's winding number calculation. this resolves ambiguous signs near self-intersections by thresholding $\\omega > 0.5$ for interior classification. the watertight mesh is extracted at the zero-level isosurface via marching cubes. the output $(v_\\text{iso}, f_\\text{iso})$ forms a topologically closed surface without boundary discontinuities."
+    },
+    {
+      "paragraph_id": "Data.tex::p0006",
+      "tex_file": "doc/Data.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\doc\\Data.tex",
+      "section_path": [
+        "Data Processing",
+        "Data preprocessing for shape generation",
+        "SDF Sampling"
+      ],
+      "block_type": "paragraph",
+      "line_start": 23,
+      "line_end": 23,
+      "text": "In our approach, the creation of signed distance fields (SDF) serves as the core mathematical framework for representing 3D shapes. To achieve this, we employ a strategy of randomly selecting query points in two distinct ways: either close to the surface of the shape or evenly distributed throughout the entire $[-1,1]^3$ space. We then compute the SDF values for these points using the IGL computing library. The SDF values obtained from points near the surface are crucial for capturing the intricate details of the shape's surface. This allows the model to accurately represent fine features and subtle variations in the geometry. The SDF values from uniformly sampled points provide the model with a broader understanding of the overall structure and form of the 3D shapes. This dual sampling approach ensures that the model gains a comprehensive understanding of both detailed and general aspects of the shapes.",
+      "normalized_text": "in our approach, the creation of signed distance fields (sdf) serves as the core mathematical framework for representing 3d shapes. to achieve this, we employ a strategy of randomly selecting query points in two distinct ways: either close to the surface of the shape or evenly distributed throughout the entire $[-1,1]^3$ space. we then compute the sdf values for these points using the igl computing library. the sdf values obtained from points near the surface are crucial for capturing the intricate details of the shape's surface. this allows the model to accurately represent fine features and subtle variations in the geometry. the sdf values from uniformly sampled points provide the model with a broader understanding of the overall structure and form of the 3d shapes. this dual sampling approach ensures that the model gains a comprehensive understanding of both detailed and general aspects of the shapes."
+    },
+    {
+      "paragraph_id": "Data.tex::p0007",
+      "tex_file": "doc/Data.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\doc\\Data.tex",
+      "section_path": [
+        "Data Processing",
+        "Data preprocessing for shape generation",
+        "Condition Render"
+      ],
+      "block_type": "paragraph",
+      "line_start": 28,
+      "line_end": 28,
+      "text": "To render condition images for shape generation training, we sample 150 cameras uniformly distributed on a sphere centered at the origin using the Hammersley sequence algorithm with a randomized offset $\\delta \\in [0,1)^2$. An augmented dataset is generated with randomized FoVs $\\theta_{\\text{aug}} \\sim \\mathcal{U}(10^\\circ, 70^\\circ)$. in the meanwhile camera's radius is adjusted between $r_{\\text{aug}} \\in [1.51, 9.94]$ to ensure consistent object framing.",
+      "normalized_text": "to render condition images for shape generation training, we sample 150 cameras uniformly distributed on a sphere centered at the origin using the hammersley sequence algorithm with a randomized offset $\\delta \\in [0,1)^2$. an augmented dataset is generated with randomized fovs $\\theta_{\\text{aug}} \\sim \\mathcal{u}(10^\\circ, 70^\\circ)$. in the meanwhile camera's radius is adjusted between $r_{\\text{aug}} \\in [1.51, 9.94]$ to ensure consistent object framing."
+    },
+    {
+      "paragraph_id": "Data.tex::p0008",
+      "tex_file": "doc/Data.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\doc\\Data.tex",
+      "section_path": [
+        "Data Processing",
+        "Data preprocessing for shape generation",
+        "Condition Render"
+      ],
+      "block_type": "command-block",
+      "line_start": 30,
+      "line_end": 33,
+      "text": "\\begin{algorithm} \\caption{3D Data Preprocessing Pipeline}\\label{alg:preprocess} \\begin{algorithmic}[1] \\Require Raw 3D mesh $X = (V,F)$ (vertices and faces)",
+      "normalized_text": "\\begin{algorithm} \\caption{3d data preprocessing pipeline}\\label{alg:preprocess} \\begin{algorithmic}[1] \\require raw 3d mesh $x = (v,f)$ (vertices and faces)"
+    },
+    {
+      "paragraph_id": "Data.tex::p0009",
+      "tex_file": "doc/Data.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\doc\\Data.tex",
+      "section_path": [
+        "Data Processing",
+        "Data preprocessing for shape generation",
+        "Condition Render"
+      ],
+      "block_type": "command-block",
+      "line_start": 36,
+      "line_end": 37,
+      "text": "\\State \\textbf{1. Normalization:} \\State $V_{norm} \\gets Normalize(V)$",
+      "normalized_text": "\\state \\textbf{1. normalization:} \\state $v_{norm} \\gets normalize(v)$"
+    },
+    {
+      "paragraph_id": "Data.tex::p0010",
+      "tex_file": "doc/Data.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\doc\\Data.tex",
+      "section_path": [
+        "Data Processing",
+        "Data preprocessing for shape generation",
+        "Condition Render"
+      ],
+      "block_type": "command-block",
+      "line_start": 39,
+      "line_end": 42,
+      "text": "\\State \\textbf{2. Watertight Processing:} \\State Initialize empty SDF grid $\\mathcal{G}$ \\State $SDF \\gets \\text{IGL}(\\mathcal{G}, V_{norm}, F)$ \\State ($V_{iso}, F_{iso}) \\gets \\text{MarchingCube}(SDF, \\text{level}=0)$",
+      "normalized_text": "\\state \\textbf{2. watertight processing:} \\state initialize empty sdf grid $\\mathcal{g}$ \\state $sdf \\gets \\text{igl}(\\mathcal{g}, v_{norm}, f)$ \\state ($v_{iso}, f_{iso}) \\gets \\text{marchingcube}(sdf, \\text{level}=0)$"
+    },
+    {
+      "paragraph_id": "Data.tex::p0011",
+      "tex_file": "doc/Data.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\doc\\Data.tex",
+      "section_path": [
+        "Data Processing",
+        "Data preprocessing for shape generation",
+        "Condition Render"
+      ],
+      "block_type": "command-block",
+      "line_start": 47,
+      "line_end": 49,
+      "text": "\\State \\textbf{3. SDF Sampling:} \\State $P_{surface} \\gets \\text{sample\\_surface}(V_{iso}, F_{iso}, N_{near})$ \\Comment{$N_{near}=249,856$ total points} \\State $P_{near} \\gets \\text{sample\\_near\\_surface}(V_{iso}, F_{iso}, N_{uniform})$ \\Comment{$N_{uniform}=249,856$ total points}",
+      "normalized_text": "\\state \\textbf{3. sdf sampling:} \\state $p_{surface} \\gets \\text{sample\\_surface}(v_{iso}, f_{iso}, n_{near})$ \\comment{$n_{near}=249,856$ total points} \\state $p_{near} \\gets \\text{sample\\_near\\_surface}(v_{iso}, f_{iso}, n_{uniform})$ \\comment{$n_{uniform}=249,856$ total points}"
+    },
+    {
+      "paragraph_id": "Data.tex::p0012",
+      "tex_file": "doc/Data.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\doc\\Data.tex",
+      "section_path": [
+        "Data Processing",
+        "Data preprocessing for shape generation",
+        "Condition Render"
+      ],
+      "block_type": "command-block",
+      "line_start": 51,
+      "line_end": 52,
+      "text": "\\State Query points $P_{query} \\gets P_{near} \\cup P_{uniform}$ \\State $ SDF_{query} \\gets igl.signed\\_distance(P_{query}, V_{iso}, F_{iso})$",
+      "normalized_text": "\\state query points $p_{query} \\gets p_{near} \\cup p_{uniform}$ \\state $ sdf_{query} \\gets igl.signed\\_distance(p_{query}, v_{iso}, f_{iso})$"
+    },
+    {
+      "paragraph_id": "Data.tex::p0013",
+      "tex_file": "doc/Data.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\doc\\Data.tex",
+      "section_path": [
+        "Data Processing",
+        "Data preprocessing for shape generation",
+        "Condition Render"
+      ],
+      "block_type": "command-block",
+      "line_start": 54,
+      "line_end": 56,
+      "text": "\\State \\textbf{4. Surface Sampling:} \\State $P_{random} \\gets \\text{RandomSample}(V_{iso}, F_{iso}, N)$ \\State $P_{sharp} \\gets \\text{SharpSample}(V_{iso}, F_{iso}, N)$ \\Comment{$N=124928$ total points}",
+      "normalized_text": "\\state \\textbf{4. surface sampling:} \\state $p_{random} \\gets \\text{randomsample}(v_{iso}, f_{iso}, n)$ \\state $p_{sharp} \\gets \\text{sharpsample}(v_{iso}, f_{iso}, n)$ \\comment{$n=124928$ total points}"
+    },
+    {
+      "paragraph_id": "Data.tex::p0014",
+      "tex_file": "doc/Data.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\doc\\Data.tex",
+      "section_path": [
+        "Data Processing",
+        "Data preprocessing for shape generation",
+        "Condition Render"
+      ],
+      "block_type": "command-block",
+      "line_start": 58,
+      "line_end": 64,
+      "text": "\\State \\textbf{5. Hammersley Condition Rendering:} \\State Generate Hammersley sequence $H_{150}$ on unit sphere \\State Apply random offset $\\delta \\sim \\mathcal{U}([0,1)^2)$ to $H_{150}$ \\For{each camera position $\\mathbf{c}_i \\in H_{150}$} \\State Sample FoV $\\theta_i \\sim \\mathcal{U}(10^\\circ,70^\\circ)$ \\State Compute radius $r_i \\sim \\mathcal{U}(\\theta_{min},\\theta_{max})$ \\State $Img_i \\gets \\text{render\\_image}(X, \\mathbf{c}_i, r_i)$",
+      "normalized_text": "\\state \\textbf{5. hammersley condition rendering:} \\state generate hammersley sequence $h_{150}$ on unit sphere \\state apply random offset $\\delta \\sim \\mathcal{u}([0,1)^2)$ to $h_{150}$ \\for{each camera position $\\mathbf{c}_i \\in h_{150}$} \\state sample fov $\\theta_i \\sim \\mathcal{u}(10^\\circ,70^\\circ)$ \\state compute radius $r_i \\sim \\mathcal{u}(\\theta_{min},\\theta_{max})$ \\state $img_i \\gets \\text{render\\_image}(x, \\mathbf{c}_i, r_i)$"
+    },
+    {
+      "paragraph_id": "Data.tex::p0015",
+      "tex_file": "doc/Data.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\doc\\Data.tex",
+      "section_path": [
+        "Data Processing",
+        "Data preprocessing for shape generation",
+        "Condition Render"
+      ],
+      "block_type": "command-block",
+      "line_start": 69,
+      "line_end": 71,
+      "text": "\\State \\Return $P_{query}, SDF_{query}, P_{random}, P_{sharp}, \\{Img_i\\}_{i=1}^{150}$ \\end{algorithmic} \\end{algorithm}",
+      "normalized_text": "\\state \\return $p_{query}, sdf_{query}, p_{random}, p_{sharp}, \\{img_i\\}_{i=1}^{150}$ \\end{algorithmic} \\end{algorithm}"
+    },
+    {
+      "paragraph_id": "Data.tex::p0016",
+      "tex_file": "doc/Data.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\doc\\Data.tex",
+      "section_path": [
+        "Data Processing",
+        "Data preprocessing for texture synthesis"
+      ],
+      "block_type": "paragraph",
+      "line_start": 78,
+      "line_end": 80,
+      "text": "The texture synthesis heavily relies on 3D assets with rich texture details. Our training dataset consists of 70k+ human-annotated high quality data following strict curation protocols, which is filtered from Objaverse~\\cite{deitke2023objaverse} and Objaverse-XL \\cite{deitke2023objaversexl}. For each 3D object, we rendered data from four elevation angles: $-20^{\\circ}$, $0^{\\circ}$, $20^{\\circ}$, and a random angle. At each elevation angle, we select 24 views that are uniformly distributed across azimuth dimension, generating corresponding albedo, metallic, roughness maps, and HDR/Point-light images of 512 $\\times$ 512 resolution. We probabilistically render reference images using: (1) Randomly sampled viewpoints (elevation: [-30°, 70°]) (2) Stochastic illumination: point lights (p=0.3) or HDR maps (p=0.7).",
+      "normalized_text": "the texture synthesis heavily relies on 3d assets with rich texture details. our training dataset consists of 70k+ human-annotated high quality data following strict curation protocols, which is filtered from objaverse~\\cite{deitke2023objaverse} and objaverse-xl \\cite{deitke2023objaversexl}. for each 3d object, we rendered data from four elevation angles: $-20^{\\circ}$, $0^{\\circ}$, $20^{\\circ}$, and a random angle. at each elevation angle, we select 24 views that are uniformly distributed across azimuth dimension, generating corresponding albedo, metallic, roughness maps, and hdr/point-light images of 512 $\\times$ 512 resolution. we probabilistically render reference images using: (1) randomly sampled viewpoints (elevation: [-30°, 70°]) (2) stochastic illumination: point lights (p=0.3) or hdr maps (p=0.7)."
+    },
+    {
+      "paragraph_id": "Conclusion.tex::p0001",
+      "tex_file": "doc/Conclusion.tex",
+      "source_path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\hunyuan3d_2_1\\latex_run\\source\\doc\\Conclusion.tex",
+      "section_path": [
+        "Conclusion"
+      ],
+      "block_type": "command-block",
+      "line_start": 2,
+      "line_end": 2,
+      "text": "\\emph{\\methodName} introduces a groundbreaking approach for production-ready 3D content creation by unifying high-fidelity geometry generation and PBR material synthesis within an open-source framework. Its architecture, which combines a DiT for shape generation and a multi-view conditioned painter for PBR material synthesis, allows for the rapid creation of studio-quality assets with exceptional visual fidelity. By open-sourcing the entire data processing, training pipelines, and model weights, this system makes advanced 3D AIGC accessible to a wider audience, revolutionizing workflows in gaming, virtual reality, and industrial design. Quantitative metrics demonstrate its superiority in both geometric accuracy and material quality. As the first fully open-sourced solution for PBR-textured 3D asset generation, \\emph{\\methodName} bridges the gap between academic research and scalable content creation, encouraging global collaboration to shape the future of 3D generative AI.",
+      "normalized_text": "\\emph{\\methodname} introduces a groundbreaking approach for production-ready 3d content creation by unifying high-fidelity geometry generation and pbr material synthesis within an open-source framework. its architecture, which combines a dit for shape generation and a multi-view conditioned painter for pbr material synthesis, allows for the rapid creation of studio-quality assets with exceptional visual fidelity. by open-sourcing the entire data processing, training pipelines, and model weights, this system makes advanced 3d aigc accessible to a wider audience, revolutionizing workflows in gaming, virtual reality, and industrial design. quantitative metrics demonstrate its superiority in both geometric accuracy and material quality. as the first fully open-sourced solution for pbr-textured 3d asset generation, \\emph{\\methodname} bridges the gap between academic research and scalable content creation, encouraging global collaboration to shape the future of 3d generative ai."
+    }
+  ]
+}

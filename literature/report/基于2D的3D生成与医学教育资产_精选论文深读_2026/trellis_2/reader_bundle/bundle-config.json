@@ -1,0 +1,38 @@
+{
+  "title": "Native and Compact Structured Latents for 3D Generation (TRELLIS.2)",
+  "subtitle": "Trace grounded claims, inspect evidence, and mine reusable research patterns.",
+  "default_doc": "trellis_2",
+  "documents": {
+    "trellis_2": {
+      "label": "Trellis_2",
+      "pdf": "./docs/trellis_2.pdf"
+    }
+  },
+  "links": [
+    {
+      "label": "Report Markdown",
+      "href": "./report.md"
+    },
+    {
+      "label": "Traceability JSON",
+      "href": "./traceability.json"
+    },
+    {
+      "label": "Paragraph Index",
+      "href": "./latex-paragraphs.json"
+    },
+    {
+      "label": "Research Lens",
+      "href": "./research-lens.json"
+    },
+    {
+      "label": "Reader Artifacts",
+      "href": "./reader-artifacts.json"
+    },
+    {
+      "label": "Trellis_2 PDF",
+      "href": "./docs/trellis_2.pdf"
+    }
+  ],
+  "research_lens": "./research-lens.json"
+}

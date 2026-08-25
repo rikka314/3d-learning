@@ -1,0 +1,233 @@
+\begin{thebibliography}{10}
+
+\bibitem{ho2020denoising}
+Jonathan Ho, Ajay Jain, and Pieter Abbeel.
+\newblock Denoising diffusion probabilistic models.
+\newblock {\em Advances in neural information processing systems}, 33:6840--6851, 2020.
+
+\bibitem{rombach2022high}
+Robin Rombach, Andreas Blattmann, Dominik Lorenz, Patrick Esser, and Bj{\"o}rn Ommer.
+\newblock High-resolution image synthesis with latent diffusion models.
+\newblock In {\em Proceedings of the IEEE/CVF conference on computer vision and pattern recognition}, pages 10684--10695, 2022.
+
+\bibitem{esser2024scaling}
+Patrick Esser, Sumith Kulal, Andreas Blattmann, Rahim Entezari, Jonas M{\"u}ller, Harry Saini, Yam Levi, Dominik Lorenz, Axel Sauer, Frederic Boesel, et~al.
+\newblock Scaling rectified flow transformers for high-resolution image synthesis.
+\newblock In {\em Forty-first International Conference on Machine Learning}, 2024.
+
+\bibitem{li2024hunyuandit}
+Zhimin Li, Jianwei Zhang, Qin Lin, Jiangfeng Xiong, Yanxin Long, Xinchi Deng, Yingfang Zhang, Xingchao Liu, Minbin Huang, Zedong Xiao, Dayou Chen, Jiajun He, Jiahao Li, Wenyue Li, Chen Zhang, Rongwei Quan, Jianxiang Lu, Jiabin Huang, Xiaoyan Yuan, Xiaoxiao Zheng, Yixuan Li, Jihong Zhang, Chao Zhang, Meng Chen, Jie Liu, Zheng Fang, Weiyan Wang, Jinbao Xue, Yangyu Tao, Jianchen Zhu, Kai Liu, Sihuan Lin, Yifu Sun, Yun Li, Dongdong Wang, Mingtao Chen, Zhichao Hu, Xiao Xiao, Yan Chen, Yuhong Liu, Wei Liu, Di~Wang, Yong Yang, Jie Jiang, and Qinglin Lu.
+\newblock Hunyuan-dit: A powerful multi-resolution diffusion transformer with fine-grained chinese understanding, 2024.
+
+\bibitem{kong2024hunyuanvideo}
+Weijie Kong, Qi~Tian, Zijian Zhang, Rox Min, Zuozhuo Dai, Jin Zhou, Jiangfeng Xiong, Xin Li, Bo~Wu, Jianwei Zhang, Kathrina Wu, Qin Lin, Junkun Yuan, Yanxin Long, Aladdin Wang, Andong Wang, Changlin Li, Duojun Huang, Fang Yang, Hao Tan, Hongmei Wang, Jacob Song, Jiawang Bai, Jianbing Wu, Jinbao Xue, Joey Wang, Kai Wang, Mengyang Liu, Pengyu Li, Shuai Li, Weiyan Wang, Wenqing Yu, Xinchi Deng, Yang Li, Yi~Chen, Yutao Cui, Yuanbo Peng, Zhentao Yu, Zhiyu He, Zhiyong Xu, Zixiang Zhou, Zunnan Xu, Yangyu Tao, Qinglin Lu, Songtao Liu, Dax Zhou, Hongfa Wang, Yong Yang, Di~Wang, Yuhong Liu, Jie Jiang, and Caesar Zhong.
+\newblock Hunyuanvideo: A systematic framework for large video generative models, 2024.
+
+\bibitem{wan2025}
+Team Wan, Ang Wang, Baole Ai, Bin Wen, Chaojie Mao, Chen-Wei Xie, Di~Chen, Feiwu Yu, Haiming Zhao, Jianxiao Yang, Jianyuan Zeng, Jiayu Wang, Jingfeng Zhang, Jingren Zhou, Jinkai Wang, Jixuan Chen, Kai Zhu, Kang Zhao, Keyu Yan, Lianghua Huang, Mengyang Feng, Ningyi Zhang, Pandeng Li, Pingyu Wu, Ruihang Chu, Ruili Feng, Shiwei Zhang, Siyang Sun, Tao Fang, Tianxing Wang, Tianyi Gui, Tingyu Weng, Tong Shen, Wei Lin, Wei Wang, Wei Wang, Wenmeng Zhou, Wente Wang, Wenting Shen, Wenyuan Yu, Xianzhong Shi, Xiaoming Huang, Xin Xu, Yan Kou, Yangyu Lv, Yifei Li, Yijing Liu, Yiming Wang, Yingya Zhang, Yitong Huang, Yong Li, You Wu, Yu~Liu, Yulin Pan, Yun Zheng, Yuntao Hong, Yupeng Shi, Yutong Feng, Zeyinzi Jiang, Zhen Han, Zhi-Fan Wu, and Ziyu Liu.
+\newblock Wan: Open and advanced large-scale video generative models.
+\newblock {\em arXiv preprint arXiv:2503.20314}, 2025.
+
+\bibitem{zhang20233dshape2vecset}
+Biao Zhang, Jiapeng Tang, Matthias Niessner, and Peter Wonka.
+\newblock 3dshape2vecset: A 3d shape representation for neural fields and generative diffusion models.
+\newblock {\em ACM Transactions On Graphics (TOG)}, 42(4):1--16, 2023.
+
+\bibitem{zhao2023michelangelo}
+Zibo Zhao, Wen Liu, Xin Chen, Xianfang Zeng, Rui Wang, Pei Cheng, Bin Fu, Tao Chen, Gang Yu, and Shenghua Gao.
+\newblock Michelangelo: Conditional 3d shape generation based on shape-image-text aligned latent representation.
+\newblock {\em Advances in neural information processing systems}, 36:73969--73982, 2023.
+
+\bibitem{li2025triposg}
+Yangguang Li, Zi-Xin Zou, Zexiang Liu, Dehu Wang, Yuan Liang, Zhipeng Yu, Xingchao Liu, Yuan-Chen Guo, Ding Liang, Wanli Ouyang, et~al.
+\newblock Triposg: High-fidelity 3d shape synthesis using large-scale rectified flow models.
+\newblock {\em arXiv preprint arXiv:2502.06608}, 2025.
+
+\bibitem{weng2024scaling}
+Haohan Weng, Zibo Zhao, Biwen Lei, Xianghui Yang, Jian Liu, Zeqiang Lai, Zhuo Chen, Yuhong Liu, Jie Jiang, Chunchao Guo, et~al.
+\newblock Scaling mesh generation via compressive tokenization.
+\newblock {\em arXiv preprint arXiv:2411.07025}, 2024.
+
+\bibitem{zhang2024clay}
+Longwen Zhang, Ziyu Wang, Qixuan Zhang, Qiwei Qiu, Anqi Pang, Haoran Jiang, Wei Yang, Lan Xu, and Jingyi Yu.
+\newblock Clay: A controllable large-scale generative model for creating high-quality 3d assets.
+\newblock {\em ACM Transactions on Graphics (TOG)}, 43(4):1--20, 2024.
+
+\bibitem{jiang2024flexitex}
+DaDong Jiang, Xianghui Yang, Zibo Zhao, Sheng Zhang, Jiaao Yu, Zeqiang Lai, Shaoxiong Yang, Chunchao Guo, Xiaobo Zhou, and Zhihui Ke.
+\newblock Flexitex: Enhancing texture generation with visual guidance.
+\newblock {\em arXiv preprint arXiv:2409.12431}, 2024.
+
+\bibitem{liu2024text}
+Yuxin Liu, Minshan Xie, Hanyuan Liu, and Tien-Tsin Wong.
+\newblock Text-guided texturing by synchronized multi-view diffusion.
+\newblock In {\em SIGGRAPH Asia 2024 Conference Papers}, pages 1--11, 2024.
+
+\bibitem{touvron2023llama}
+Hugo Touvron, Thibaut Lavril, Gautier Izacard, Xavier Martinet, Marie-Anne Lachaux, Timoth{\'e}e Lacroix, Baptiste Rozi{\`e}re, Naman Goyal, Eric Hambro, Faisal Azhar, et~al.
+\newblock Llama: Open and efficient foundation language models.
+\newblock {\em arXiv preprint arXiv:2302.13971}, 2023.
+
+\bibitem{lipman2022flow}
+Yaron Lipman, Ricky~TQ Chen, Heli Ben-Hamu, Maximilian Nickel, and Matt Le.
+\newblock Flow matching for generative modeling.
+\newblock {\em arXiv preprint arXiv:2210.02747}, 2022.
+
+\bibitem{hong2023lrm}
+Yicong Hong, Kai Zhang, Jiuxiang Gu, Sai Bi, Yang Zhou, Difan Liu, Feng Liu, Kalyan Sunkavalli, Trung Bui, and Hao Tan.
+\newblock Lrm: Large reconstruction model for single image to 3d.
+\newblock {\em arXiv preprint arXiv:2311.04400}, 2023.
+
+\bibitem{yang2024hunyuan3d}
+Xianghui Yang, Huiwen Shi, Bowen Zhang, Fan Yang, Jiacheng Wang, Hongxu Zhao, Xinhai Liu, Xinzhou Wang, Qingxiang Lin, Jiaao Yu, et~al.
+\newblock Hunyuan3d 1.0: A unified framework for text-to-3d and image-to-3d generation.
+\newblock {\em arXiv preprint arXiv:2411.02293}, 2024.
+
+\bibitem{xu2024instantmesh}
+Jiale Xu, Weihao Cheng, Yiming Gao, Xintao Wang, Shenghua Gao, and Ying Shan.
+\newblock Instantmesh: Efficient 3d mesh generation from a single image with sparse-view large reconstruction models.
+\newblock {\em arXiv preprint arXiv:2404.07191}, 2024.
+
+\bibitem{yang2024viewfusion}
+Xianghui Yang, Yan Zuo, Sameera Ramasinghe, Loris Bazzani, Gil Avraham, and Anton van~den Hengel.
+\newblock Viewfusion: Towards multi-view consistency via interpolated denoising.
+\newblock In {\em Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition}, pages 9870--9880, 2024.
+
+\bibitem{weng2023consistent123}
+Haohan Weng, Tianyu Yang, Jianan Wang, Yu~Li, Tong Zhang, CL~Chen, and Lei Zhang.
+\newblock Consistent123: Improve consistency for one image to 3d object synthesis.
+\newblock {\em arXiv preprint arXiv:2310.08092}, 2023.
+
+\bibitem{liu2023syncdreamer}
+Yuan Liu, Cheng Lin, Zijiao Zeng, Xiaoxiao Long, Lingjie Liu, Taku Komura, and Wenping Wang.
+\newblock Syncdreamer: Generating multiview-consistent images from a single-view image.
+\newblock {\em arXiv preprint arXiv:2309.03453}, 2023.
+
+\bibitem{shi2023zero123++}
+Ruoxi Shi, Hansheng Chen, Zhuoyang Zhang, Minghua Liu, Chao Xu, Xinyue Wei, Linghao Chen, Chong Zeng, and Hao Su.
+\newblock Zero123++: a single image to consistent multi-view diffusion base model.
+\newblock {\em arXiv preprint arXiv:2310.15110}, 2023.
+
+\bibitem{liu2023zero}
+Ruoshi Liu, Rundi Wu, Basile Van~Hoorick, Pavel Tokmakov, Sergey Zakharov, and Carl Vondrick.
+\newblock Zero-1-to-3: Zero-shot one image to 3d object.
+\newblock In {\em Proceedings of the IEEE/CVF international conference on computer vision}, pages 9298--9309, 2023.
+
+\bibitem{li2024craftsman}
+Weiyu Li, Jiarui Liu, Rui Chen, Yixun Liang, Xuelin Chen, Ping Tan, and Xiaoxiao Long.
+\newblock Craftsman: High-fidelity mesh generation with 3d native generation and interactive geometry refiner.
+\newblock {\em arXiv preprint arXiv:2405.14979}, 2024.
+
+\bibitem{xiang2024structured}
+Jianfeng Xiang, Zelong Lv, Sicheng Xu, Yu~Deng, Ruicheng Wang, Bowen Zhang, Dong Chen, Xin Tong, and Jiaolong Yang.
+\newblock Structured 3d latents for scalable and versatile 3d generation.
+\newblock {\em arXiv preprint arXiv:2412.01506}, 2024.
+
+\bibitem{li2025step1x}
+Weiyu Li, Xuanyang Zhang, Zheng Sun, Di~Qi, Hao Li, Wei Cheng, Weiwei Cai, Shihao Wu, Jiarui Liu, Zihao Wang, et~al.
+\newblock Step1x-3d: Towards high-fidelity and controllable generation of textured 3d assets.
+\newblock {\em arXiv preprint arXiv:2505.07747}, 2025.
+
+\bibitem{wu2025direct3ds2gigascale3dgeneration}
+Shuang Wu, Youtian Lin, Feihu Zhang, Yifei Zeng, Yikang Yang, Yajie Bao, Jiachen Qian, Siyu Zhu, Philip Torr, Xun Cao, and Yao Yao.
+\newblock Direct3d-s2: Gigascale 3d generation made easy with spatial sparse attention.
+\newblock {\em arXiv preprint arXiv:2505.17412}, 2025.
+
+\bibitem{chang2015shapenet}
+Angel~X Chang, Thomas Funkhouser, Leonidas Guibas, Pat Hanrahan, Qixing Huang, Zimo Li, Silvio Savarese, Manolis Savva, Shuran Song, Hao Su, et~al.
+\newblock Shapenet: An information-rich 3d model repository.
+\newblock {\em arXiv preprint arXiv:1512.03012}, 2015.
+
+\bibitem{wu20153d}
+Zhirong Wu, Shuran Song, Aditya Khosla, Fisher Yu, Linguang Zhang, Xiaoou Tang, and Jianxiong Xiao.
+\newblock 3d shapenets: A deep representation for volumetric shapes.
+\newblock In {\em Proceedings of the IEEE conference on computer vision and pattern recognition}, pages 1912--1920, 2015.
+
+\bibitem{zhou2016thingi10k}
+Qingnan Zhou and Alec Jacobson.
+\newblock Thingi10k: A dataset of 10,000 3d-printing models.
+\newblock {\em arXiv preprint arXiv:1605.04797}, 2016.
+
+\bibitem{deitke2023objaverse}
+Matt Deitke, Dustin Schwenk, Jordi Salvador, Luca Weihs, Oscar Michel, Eli VanderBilt, Ludwig Schmidt, Kiana Ehsani, Aniruddha Kembhavi, and Ali Farhadi.
+\newblock Objaverse: A universe of annotated 3d objects.
+\newblock In {\em Proceedings of the IEEE/CVF conference on computer vision and pattern recognition}, pages 13142--13153, 2023.
+
+\bibitem{deitke2023objaversexl}
+Matt Deitke, Ruoshi Liu, Matthew Wallingford, Huong Ngo, Oscar Michel, Aditya Kusupati, Alan Fan, Christian Laforte, Vikram Voleti, Samir~Yitzhak Gadre, et~al.
+\newblock Objaverse-xl: A universe of 10m+ 3d objects.
+\newblock {\em Advances in Neural Information Processing Systems}, 36:35799--35813, 2023.
+
+\bibitem{chen2024dora}
+Rui Chen, Jianfeng Zhang, Yixun Liang, Guan Luo, Weiyu Li, Jiarui Liu, Xiu Li, Xiaoxiao Long, Jiashi Feng, and Ping Tan.
+\newblock Dora: Sampling and benchmarking for 3d shape variational auto-encoders.
+\newblock {\em arXiv preprint arXiv:2412.17808}, 2024.
+
+\bibitem{oquab2023dinov2}
+Maxime Oquab, Timoth{\'e}e Darcet, Th{\'e}o Moutakanni, Huy Vo, Marc Szafraniec, Vasil Khalidov, Pierre Fernandez, Daniel Haziza, Francisco Massa, Alaaeldin El-Nouby, et~al.
+\newblock Dinov2: Learning robust visual features without supervision.
+\newblock {\em arXiv preprint arXiv:2304.07193}, 2023.
+
+\bibitem{lipman2024flowmatchingguidecode}
+Yaron Lipman, Marton Havasi, Peter Holderrieth, Neta Shaul, Matt Le, Brian Karrer, Ricky T.~Q. Chen, David Lopez-Paz, Heli Ben-Hamu, and Itai Gat.
+\newblock Flow matching guide and code, 2024.
+
+\bibitem{zhao2025hunyuan3d}
+Zibo Zhao, Zeqiang Lai, Qingxiang Lin, Yunfei Zhao, Haolin Liu, Shuhui Yang, Yifei Feng, Mingxin Yang, Sheng Zhang, Xianghui Yang, et~al.
+\newblock Hunyuan3d 2.0: Scaling diffusion models for high resolution textured 3d assets generation.
+\newblock {\em arXiv preprint arXiv:2501.12202}, 2025.
+
+\bibitem{burley2012physically}
+Brent Burley and Walt Disney~Animation Studios.
+\newblock Physically-based shading at disney.
+\newblock In {\em ACM Siggraph}, volume 2012, pages 1--7. vol. 2012, 2012.
+
+\bibitem{he2025materialmvpilluminationinvariantmaterialgeneration}
+Zebin He, Mingxin Yang, Shuhui Yang, Yixuan Tang, Tao Wang, Kaihao Zhang, Guanying Chen, Yuhong Liu, Jie Jiang, Chunchao Guo, and Wenhan Luo.
+\newblock Materialmvp: Illumination-invariant material generation via multi-view pbr diffusion, 2025.
+
+\bibitem{feng2025romantexdecoupling3dawarerotary}
+Yifei Feng, Mingxin Yang, Shuhui Yang, Sheng Zhang, Jiaao Yu, Zibo Zhao, Yuhong Liu, Jie Jiang, and Chunchao Guo.
+\newblock Romantex: Decoupling 3d-aware rotary positional embedded multi-attention network for texture synthesis, 2025.
+
+\bibitem{lin2024common}
+Shanchuan Lin, Bingchen Liu, Jiashi Li, and Xiao Yang.
+\newblock Common diffusion noise schedules and sample steps are flawed.
+\newblock In {\em Proceedings of the IEEE/CVF winter Conference on Applications of Computer Vision}, pages 5404--5411, 2024.
+
+\bibitem{xue2023ulip}
+Le~Xue, Mingfei Gao, Chen Xing, Roberto Mart{\'\i}n-Mart{\'\i}n, Jiajun Wu, Caiming Xiong, Ran Xu, Juan~Carlos Niebles, and Silvio Savarese.
+\newblock Ulip: Learning a unified representation of language, images, and point clouds for 3d understanding.
+\newblock In {\em Proceedings of the IEEE/CVF conference on computer vision and pattern recognition}, pages 1179--1189, 2023.
+
+\bibitem{zhouuni3d}
+Junsheng Zhou, Jinsheng Wang, Baorui Ma, Yu-Shen Liu, Tiejun Huang, and Xinlong Wang.
+\newblock Uni3d: Exploring unified 3d representation at scale.
+\newblock In {\em The Twelfth International Conference on Learning Representations}.
+
+\bibitem{heusel2017gans}
+Martin Heusel, Hubert Ramsauer, Thomas Unterthiner, Bernhard Nessler, and Sepp Hochreiter.
+\newblock Gans trained by a two time-scale update rule converge to a local nash equilibrium.
+\newblock {\em Advances in neural information processing systems}, 30, 2017.
+
+\bibitem{radford2021learning}
+Alec Radford, Jong~Wook Kim, Chris Hallacy, Aditya Ramesh, Gabriel Goh, Sandhini Agarwal, Girish Sastry, Amanda Askell, Pamela Mishkin, Jack Clark, et~al.
+\newblock Learning transferable visual models from natural language supervision.
+\newblock In {\em International conference on machine learning}, pages 8748--8763. PmLR, 2021.
+
+\bibitem{zhang2018unreasonable}
+Richard Zhang, Phillip Isola, Alexei~A Efros, Eli Shechtman, and Oliver Wang.
+\newblock The unreasonable effectiveness of deep features as a perceptual metric.
+\newblock In {\em Proceedings of the IEEE conference on computer vision and pattern recognition}, pages 586--595, 2018.
+
+\bibitem{yu2024texgen}
+Xin Yu, Ze~Yuan, Yuan-Chen Guo, Ying-Tian Liu, Jianhui Liu, Yangguang Li, Yan-Pei Cao, Ding Liang, and Xiaojuan Qi.
+\newblock Texgen: a generative diffusion model for mesh textures.
+\newblock {\em ACM Transactions on Graphics}, 43(6):1--14, 2024.
+
+\bibitem{chen20243dtopia}
+Zhaoxi Chen, Jiaxiang Tang, Yuhao Dong, Ziang Cao, Fangzhou Hong, Yushi Lan, Tengfei Wang, Haozhe Xie, Tong Wu, Shunsuke Saito, et~al.
+\newblock 3dtopia-xl: Scaling high-quality 3d asset generation via primitive diffusion.
+\newblock {\em arXiv preprint arXiv:2409.12957}, 2024.
+
+\end{thebibliography}

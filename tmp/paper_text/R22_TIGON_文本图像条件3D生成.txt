@@ -1,0 +1,665 @@
+                     This CVPR paper is the Open Access version, provided by the Computer Vision Foundation.
+                                  Except for this watermark, it is identical to the accepted version;
+                            the final published version of the proceedings is available on IEEE Xplore.
+
+
+
+
+                                    Text–Image Conditioned 3D Generation
+
+      Jiazhong Cen1† Jiemin Fang2 B Sikuang Li1† Guanjun Wu3† Chen Yang2 Taoran Yi3†
+               Zanwei Zhou1† Zhikuan Bao2 Lingxi Xie2 Wei Shen1 B Qi Tian2
+                        1
+                          MoE Key Lab of Artificial Intelligence, AI Institute,
+                     School of Computer Science, Shanghai Jiao Tong University
+                                           2
+                                             Huawei Inc.
+                          3
+                            Huazhong University of Science and Technology
+                                       jaminfong@gmail.com, wei.shen@sjtu.edu.cn
+
+
+
+                             Abstract
+
+High-quality 3D assets are essential for VR/AR, indus-
+trial design, and entertainment, motivating growing inter-
+est in generative models that create 3D content from user
+prompts. Most existing 3D generators, however, rely on
+a single conditioning modality: image-conditioned models
+achieve high visual fidelity by exploiting pixel-aligned cues
+but suffer from viewpoint bias when the input view is limited
+or ambiguous, while text-conditioned models provide broad
+semantic guidance yet lack low-level visual detail. This lim-
+its how users can express intent and raises a natural ques-
+tion: can these two modalities be combined for more flexi-
+ble and faithful 3D generation? Our diagnostic study shows
+that even simple late fusion of text- and image-conditioned           Figure 1. Single-modality conditioning has limitations in satisfy-
+predictions outperforms single-modality models, revealing             ing user intent. Image-only conditioning captures local appear-
+strong cross-modal complementarity. We therefore formal-              ance but omits unobserved regions; text-only conveys semantics
+ize Text–Image Conditioned 3D Generation, which re-                   but lacks visual fidelity. In contrast, joint text–image conditioning
+quires joint reasoning over a visual exemplar and a textual           produces 3D assets that are both semantically aligned with the de-
+specification. To address this task, we introduce TIGON, a            scription and faithful to the reference appearance.
+minimalist dual-branch baseline with separate image- and
+text-conditioned backbones and lightweight cross-modal fu-
+sion. Extensive experiments show that text–image condi-               A particularly promising line of work [18, 24, 51, 60, 62,
+tioning consistently improves over single-modality meth-              75] learns to generate 3D objects from either an input im-
+ods, highlighting complementary vision–language guid-                 age or a text description. However, relying on a single con-
+ance as a promising direction for future 3D generation re-            ditioning modality can limit the flexibility of 3D generation.
+search. Project page: https://jumpat.github.                              As shown in Fig. 1, when a user specifies a 3D ob-
+io/tigon-page                                                         ject with an example image, image-conditioned 3D genera-
+                                                                      tion can preserve local appearance but is highly sensitive to
+                                                                      viewpoint informativeness: occlusions, atypical views, or
+1. Introduction                                                       incomplete object coverage force the model to hallucinate
+                                                                      under-constrained regions, causing the generated 3D asset
+Generating high-quality 3D assets has attracted increasing            to deviate from the intended semantics. In contrast, text-
+attention due to its importance for downstream applications           conditioned 3D generation is semantically reasonable but
+such as virtual reality, industrial design, and embodied AI.          lacks concrete visual constraints, so the output may roughly
+  † Work done during internship at Huawei.                            match the prompt while exhibiting poor visual quality.
+  B Corresponding authors.                                                These observations raise a natural question of whether
+
+
+
+                                                                604
+image and text conditions can provide complementary in-                             optimizing 3D representations or by first generating con-
+formation for more flexible 3D generation. Intuitively, im-                         sistent multi-view images and then reconstructing 3D con-
+ages anchor the result to the actual observed view, supply-                         tent [23, 31–36, 48, 56, 64, 65]. Despite strong progress, re-
+ing reliable geometry and appearance cues, while text can                           liance on 2D priors often limits 3D consistency, motivating
+specify additional semantics to disambiguate unobserved                             native 3D generative models and cross-modal latent model-
+regions (e.g., “with a long coiled tiger tail”). In a diagnostic                    ing [76].
+study, we find that conditioning on a low-information view                              Among prior works, TICD [14] and FlexGen [67] are
+degrades performance, but adding a textual description and                          most related to ours. TICD augments SDS-based text-to-3D
+fusing the image- and text-conditioned predictions notice-                          with an image diffusion prior, while FlexGen jointly condi-
+ably recovers quality. This motivates us to move beyond                             tions on text and image but focuses on 2D multi-view gener-
+single-modality settings and introduce Text–Image Con-                              ation rather than native 3D synthesis. In contrast, we study
+ditioned 3D Generation1 , which requires the 3D genera-                             native 3D generation under joint text-image conditioning.
+tor to jointly reason over the visual exemplar and the tex-
+tual specification, and to generate a consistent 3D asset that                      Native 3D Generative Models. Unlike SDS-based
+is simultaneously faithful to the image-conditioned appear-                         pipelines that rely on 2D generators at test time, native 3D
+ance/geometry and aligned with the text-defined semantics.                          generative models operate directly on 3D representations
+    To address this task, we propose a strong yet minimalist                        such as point clouds, meshes, voxels, 3D Gaussians [19,
+baseline named TIGON. It adopts a dual-branch design that                           49], and neural fields [2, 13, 22, 37]. Early works [39,
+retains two modality-specialized DiT backbones and cou-                             52] introduce fast point-cloud synthesis via latent diffu-
+ples them via two lightweight fusion mechanisms: (i) cross-                         sion. Later models such as 3DShape2VecSet [73] im-
+modal linear bridges for bidirectional feature sharing (early                       prove geometry-aware latents for diffusion training. More-
+fusion), and (ii) step-wise prediction averaging along the                          over, scalable voxel-based methods [46], octree-based mod-
+denoising trajectory (late fusion). This design prevents ei-                        els [63] and 3DGS-based models [69] improve generation
+ther branch from shouldering the cross-modal domain gap,                            resolution and efficiency.
+preserves their original single-modality ability, and enables                          More recent studies scale data and model capacity for
+free-form conditioning. Extensive experiments show that                             high-quality asset synthesis. Some focus on geometry-only
+TIGON delivers more flexible 3D generation.                                         generation for detailed meshes [6, 26, 59, 60, 70], while
+    Our contributions are summarized as follows: (1) We                             others target fully textured 3D assets [8, 18, 21, 24, 75, 78].
+identify and empirically diagnose the limitations of existing                       Among the latter, TRELLIS [62] introduces a sparse, struc-
+single-modality 3D generation methods. (2) We show that                             tured latent representation that enables high-fidelity 3D
+image and text provide complementary conditioning sig-                              generation via a two-stage pipeline, and UniLat3D [58]
+nals and, motivated by this, introduce the task of text–image                       provides a unified-latent variant with a simplified sam-
+conditioned 3D generation. (3) We propose TIGON, a sim-                             pling process. Together, these advances establish native
+ple yet effective baseline method that leverages modality-                          3D diffusion models as strong alternatives to 2D diffusion-
+specific backbones with lightweight cross-modal fusion.                             based pipelines. However, most existing approaches as-
+(4) We conduct extensive experiments to demonstrate that                            sume single-modality conditioning (either image or text),
+TIGON achieves more robust and flexible 3D generation.                              which limits the flexibility and expressiveness of user in-
+                                                                                    structions. In this work, we study this limitation and intro-
+2. Related Work                                                                     duce the task of text–image conditioned 3D generation.
+
+3D Generation with 2D Generative Models. SDS-based
+text-to-3D methods optimize differentiable 3D represen-                             Multimodal-Conditioned Generation. Multimodal con-
+tations (e.g., NeRFs [37]) using frozen 2D diffusion pri-                           ditioning has proven effective in text, image, and video
+ors, as pioneered by DreamFusion [43] and SJC [54].                                 generation. Multimodal LLMs that ingest both language
+Later works improve resolution, geometry–appearance dis-                            and visual (or even 3D) inputs [1, 5, 7, 9, 16, 30, 66] en-
+entanglement, optimization stability, and multi-view con-                           able grounded reasoning and control, while text-to-image
+sistency, while recent hybrids with 3D Gaussian Splat-                              diffusion benefits from additional visual controls (edges,
+ting or native 3D diffusion further boost efficiency and fi-                        depth, pose, layout) and joint text-image inputs [3, 11,
+delity [4, 20, 23, 25, 27, 28, 47, 50, 55, 61, 72]. A par-                          38, 57, 71, 74] for better alignment with user intent. In
+allel line studies image-conditioned 3D generation and re-                          video generation, combining a reference frame with tex-
+construction with 2D generative priors, either by directly                          tual guidance [17, 53] yields more consistent and control-
+                                                                                    lable outputs. These successes motivate our exploration
+    1 Here we focus on the native 3D generation setting, where the model            of whether joint text-image conditioning can similarly en-
+directly generates a 3D representation under joint text–image conditioning.         dow 3D generators with complementary strengths beyond
+
+
+
+                                                                              605
+single-modality conditioning.
+
+3. Preliminaries
+TRELLIS [62] is an effective 3D generator that learns
+rectified-flow models [12, 29] for a geometry latent (which
+voxels are active) and an appearance latent defined on those
+active locations.
+                                                                                                                                                                                                                                                                                                                            Figure 2. Reference views used in our diagnostic study. Mov-
+                                                                                                                                                                                                                                                                                                                            ing from View-0 to View-1 reduces observable cues and creates a
+                                                                                                                                                                                                                                                                                                                            lower-information setting. Under this shift, single-modality base-
+Geometry Generation. A 3D object is voxelized into a
+                                                                                                                                                                                                                                                                                                                            lines exhibit a marked performance drop.
+sparse set of occupied points {pi }N           3
+                                   i=1 , pi ∈ R . A geome-
+try VAE compresses and reconstructs this set:
+                                                                                                                                                                                                                                                                                                                            UniLat3D. Based on TRELLIS, UniLat3D [58] offers a
+          \mathbf {z}_{\text {geo}} = \mathcal {E}_{\text {geo}}(\{\mathbf {p}_i\}), \qquad \{\mathbf {p}_i\} = \mathcal {D}_{\text {geo}}(\mathbf {z}_{\text {geo}}). \label {eq:trellis-geo}                                                                                                                  (1)         more convenient single-stage 3D generator. Given view-
+                                                                                                                                                                                                                                                                                                                            aggregated features F, it encodes them as
+A rectified-flow model Fgeo parameterizes a time-
+conditioned velocity field that transports Gaussian noise to-                                                                                                                                                                                                                                                                             \mathbf {z}_{\text {uni}} = \mathcal {E}_{\text {uni}}(\mathbf {F}), \quad \mathbf {z}_{\text {uni}} \in \mathbb {R}^{16 \times 16 \times 16 \times c},    (5)
+ward zgeo under image or text conditioning.
+                                                                                                                                                                                                                                                                                                                            and directly decodes to a 3D output O = Duni (zuni ). A sin-
+                                                                                                                                                                                                                                                                                                                            gle rectified-flow model predicts z̃uni during generation. We
+Appearance Generation. On the occupied positions                                                                                                                                                                                                                                                                            adopt UniLat3D for its simplicity and compatibility with
+{pi }, TRELLIS aggregates multi-view image features                                                                                                                                                                                                                                                                         our conditioning study.
+
+                                              \mathbf {F} = \{(\mathbf {p}_i, \mathbf {f}_i)\}_{i=1}^N, \quad \mathbf {f}_i \in \mathbb {R}^d,                                                                                                                                                                              4. Text-Image Conditioned 3D Generation
+                                                                                                                                                                                                                                                                                                                            As discussed in Sec. 1, image-conditioned 3D generation is
+extracted by a 2D vision encoder such as DINOv2 [40], and
+                                                                                                                                                                                                                                                                                                                            vulnerable to viewpoint bias, while text-conditioned gener-
+encodes them into a Structured LATent (SLAT) with an ap-
+                                                                                                                                                                                                                                                                                                                            ation benefits from comprehensive semantics but lacks the
+pearance VAE:
+                                                                                                                                                                                                                                                                                                                            visual cues needed for high-fidelity synthesis. In this sec-
+                                                                                                                                                                                                                                                                                                                            tion, we first empirically diagnose this limitation, then show
+                               \mathbf {z}_{\text {SLAT}} = \mathcal {E}_{\text {app}}(\mathbf {F}) = \{(\mathbf {p}_i, \mathbf {z}_i)\}_{i=1}^N. \label {eq:trellis-slat}                                                                                                                                      (2)         that even a simple late fusion of image- and text-conditioned
+                                                                                                                                                                                                                                                                                                                            predictions yields noticeable gains, revealing clear comple-
+A second rectified-flow model Fapp is learned for zSLAT , and                                                                                                                                                                                                                                                               mentarity between the two modalities and motivating the
+the appearance decoder produces the final 3D representation                                                                                                                                                                                                                                                                 task of text–image conditioned 3D generation.
+
+                                                                                             \mathcal {O} = \mathcal {D}_{\text {app}}(\mathbf {z}_{\text {SLAT}}),                                                                                                                                             (3)         Limitations of Single-Modality Conditioning. Tab. 1 re-
+                                                                                                                                                                                                                                                                                                                            ports the performance of representative 3D generation mod-
+where O can be mesh, 3DGS [19], or radiance fields [13].                                                                                                                                                                                                                                                                    els on Toys4K under two viewpoint configurations2 . As il-
+                                                                                                                                                                                                                                                                                                                            lustrated in Fig. 2, View-0 is a frontal view with rich seman-
+                                                                                                                                                                                                                                                                                                                            tics and clear local details, whereas View-1 is a low-angle
+Sampling with Rectified Flow. For each latent ℓ ∈
+                                                                                                                                                                                                                                                                                                                            view providing much weaker cues. This change alone leads
+{geo, SLAT} with decoder Dℓ ∈ {Dgeo , Dapp } and a cho-
+                                                                                                                                                                                                                                                                                                                            to substantial degradation: TRELLIS degrades from 56.08
+sen condition c (image I or text T), inference integrates
+                                                                                                                                                                                                                                                                                                                            FDDINOv2 under View-0 to 143.58 under View-1, indicating
+the rectified-flow ODE from noise to data. Let 1 = t0 >
+                                                                                                                                                                                                                                                                                                                            strong dependence on viewpoint completeness. Moreover,
+t1 > · · · > tK = 0 be a fixed schedule and initialize
+                                                                                                                                                                                                                                                                                                                            the text-only counterparts perform even worse in visual
+z̃ℓ,t0 ∼ N (0, Ic ), where c is the latent dimension. At step
+                                                                                                                                                                                                                                                                                                                            alignment (e.g., UniLat3D reaches only 154.88 FDDINOv2 ),
+k,
+                                                                                                                                                                                                                                                                                                                            confirming that text priors alone are insufficient to recover
+                            \begin {aligned} &\mathbf {v}_{\ell , k} = \mathcal {F}_{\ell }\!\left (\tilde {\mathbf {z}}_{\ell , t_k},\, t_k;\, \mathbf {c}\right ),\\ &\tilde {\mathbf {z}}_{\ell , t_{k+1}} = \tilde {\mathbf {z}}_{\ell , t_k} - (t_k - t_{k+1})\, \mathbf {v}_{\ell , k}, \end {aligned}                fine-grained visual details.
+                                                                                                                                                                                                                                                                                                                (4)
+
+                                                                                                                                                                                                                                                                                                                            Enhanced 3D Generation with Simple Cross-Modal Fu-
+yielding z̃ℓ,0 after K steps. Decoding z̃geo,0 with Dgeo pro-
+                                                                                                                                                                                                                                                                                                                            sion. Images and text provide complementary constraints:
+duces the activated voxels, and decoding z̃SLAT,0 with Dapp
+gives the final 3D output O.                                                                                                                                                                                                                                                                                                   2 Please refer to Sec. 6.2 for details about the metrics used in Tab. 1.
+
+
+
+
+                                                                                                                                                                                                                                                                                                                      606
+Table 1. Performance of existing methods on the Toys4K dataset                                         Noisy Latent
+under different conditioning signals. ‘GS’ denotes that the 3D rep-
+resentation is 3DGS.                                                            Text Cond.                                       Image Cond.
+                                                                                                            T
+                                                                                    1                                 1
+ Model                              Cond.    CLIP↑   FDDINOv2 ↓                          DiT Block                         DiT Block
+ TripoSR                            View-0   88.67      269.58
+ Step1X-3D†                         View-0   89.99      152.69                                         Zero Linears
+ Hunyuan3D-2.1†                     View-0   89.87      114.64                                           T-I / I-T
+ TRELLIS (GS)                       View-0   92.88       56.08
+
+
+
+
+                                                                                                                                               Denoise
+ UniLat3D (GS)                      View-0   93.34       47.41                      2                                 2
+                                                                                          Self-Attn
+ TripoSR                            View-1   79.40      804.18                           Cross-Attn                        DiT Block
+ Step1X-3D†                         View-1   80.47      562.84                               FFN
+ Hunyuan3D-2.1†                     View-1   85.33      229.36
+
+
+
+
+                                                                                             …
+
+
+
+
+                                                                                                                               …
+ TRELLIS (GS)                       View-1   88.16      143.58                                         Zero Linears
+ UniLat3D (GS)                      View-1   89.03      125.93                      L                                 L
+                                                                                         DiT Block                         DiT Block
+ TRELLIS (GS)                        Text    86.30      148.21
+ UniLat3D (GS)                       Text    86.14      154.88
+                                                                                        Output Layer                      Output Layer
+ SimFusion (GS; Ours)        View-1 + Text   90.64      82.40
+                                                                                                       V Prediction
+† Using non-public training data.
+
+                                                                            Figure 3. TIGON employs a dual-branch architecture, with a
+                                                                            text-conditioned DiT (left) and an image-conditioned DiT (right).
+                                                                            Paired blocks exchange features via cross-modal bridges (“Zero
+text offers high-level, multi-view semantic priors, while im-               Linears”). At each denoising step, two predictions are averaged to
+ages provide precise cues on style, texture, geometry, and                  produce the velocity field v. T denotes the denoising timestep.
+color. To verify this complementarity, we conduct a sim-
+ple fusion experiment. At inference time, we take two pre-
+trained rectified-flow models, one image-conditioned and                    5.1. Overall Pipeline
+the other text-conditioned, and directly average their pre-                 As shown in Fig. 3, TIGON uses two parallel branches
+dicted velocity fields at each denoising step to form a joint               (image- and text-conditioned) that exchange features via
+text-image baseline, which we call SimFusion.                               zero-initialized cross-modal bridges between corresponding
+    As shown in Tab. 1, this naive fusion already outper-                   DiT blocks. At each denoising step, their predictions are av-
+forms both image-only and text-only models by a large mar-                  eraged to produce the final velocity field v.
+gin (82.40 FD vs. 125.93 and 145.06), suggesting that it
+preserves the semantic correctness from text while retain-                  5.2. Dual-Branch Backbone
+ing the fine-grained visual cues from the image. This com-
+                                                                            TIGON adopts a dual-branch backbone because image and
+plementary effect motivates us to define a new task, termed
+                                                                            text provide fundamentally different signals for 3D genera-
+Text–Image Conditioned 3D Generation.
+                                                                            tion. Image-conditioned tokens are dense, view-grounded,
+                                                                            and locally informative, offering explicit cues about color,
+Problem Formulation. In text-image conditioned 3D                           texture, and fine geometry, whereas text-conditioned tokens
+generation, the model should jointly adopt a visual exem-                   encode sparse, abstract semantics. This asymmetry creates
+plar (image) and a semantic description (text) to generate a                a granularity mismatch: for example, the concept “tiger”
+coherent 3D object. Formally, given an image condition I                    may be conveyed by a single word token but requires many
+and a text condition T, the goal is to model the conditional                image tokens to depict. Without enough data, mixing such
+distribution p(O | I, T), where O denotes the target 3D rep-                heterogeneous token semantics within a single backbone of-
+resentation (e.g., mesh, 3DGS, or radiance field). This task                ten degrades performance. Therefore, TIGON retains two
+requires the model to (i) satisfy the semantics in T and (ii)               modality-specific backbones and performs fusion explicitly,
+match the view-specific appearance constraints in I.                        preserving each branch’s strengths while avoiding overly
+                                                                            aggressive entanglement.
+5. Method                                                                      Each branch of TIGON is a Diffusion Transformer
+                                                                            (DiT) [42] with L blocks. Let Fimg and Ftxt denote the
+In this section, we introduce TIGON (Text–Image condi-                      image- and text-conditioned branches. Given latent z̃, time
+tioned GeneratiON) as a baseline for our proposed task.                     step t, and condition (image I or text T), each branch pre-
+
+
+
+                                                                      607
+dicts a velocity field:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     5.5. Training Strategy
+                                                                                                                 \begin {aligned} \mathbf {v}_{\texttt {img}} &= \mathcal {F}_{\texttt {img}}\!\left (\tilde {\mathbf {z}},\, t,\, \mathbf {I}\right ),\\ \mathbf {v}_{\texttt {txt}} &= \mathcal {F}_{\texttt {txt}}\!\left (\tilde {\mathbf {z}},\, t,\, \mathbf {T}\right ). \end {aligned}                                                                                                                              The training of TIGON is a two-stage process. The two
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                (6)         branches are first pre-trained separately on their respective
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            modalities to ensure balanced learning. Then, the zero-
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            initialized cross-modal bridges are trained, and all model
+Both branches are pretrained in the same latent space intro-
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            parameters are jointly fine-tuned.
+duced in Sec. 3, which allows simple additive fusion of the
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                To preserve unimodal generation capability, we apply
+predicted velocities.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            condition dropout: during training, the image and text
+5.3. Early-Fusion Strategy                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  conditions are independently dropped with probability 0.5.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            This produces a uniform mixture over four regimes—25%
+Simply averaging the final predictions of two rectified flow
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            unconditional (for CFG [15]), 25% text-only, 25% image-
+models is often sub-optimal: without explicit interaction,
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            only, and 25% text+image. Consequently, TIGON learns
+the branches can diverge and destructive averaging degrades
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            to handle free-form conditioning at inference, supporting
+detail and consistency. We therefore assign a cross-modal
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            text-only, image-only, or joint text–image inputs.
+bridge at every backbone block for early, fine-grained
+cross-modal feature fusion.
+   Let the image- and text-conditioned branches each have
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            6. Experiments
+L blocks. Denote by \protect \mathbf  {f}^{(i)}_{\texttt {img}} and \protect \mathbf  {f}^{(i)}_{\texttt {txt}} the output of the i-                                                                                                                                                                                                                                                                                                                                                                                        We first describe the implementation details, datasets, and
+th block (i{=}1,\dots ,L). We insert learned linear projec-                                                                                                                                                                                                                                                                                                                                                                                                                                                                 evaluation protocol, then report quantitative and qualitative
+        (i)              (i)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                results and ablations.
+tions Ptxt→img and Pimg→txt to inject information across
+branches. The inputs to the (i{+}1)-th blocks are:
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            6.1. Implementation Details
+                                              \label {eq:feature-switch} \begin {aligned} \mathbf {f}^{(i),\prime }_{\texttt {img}} &= \mathbf {f}^{(i)}_{\texttt {img}} \;+\; \mathcal {P}^{(i)}_{\texttt {txt}\rightarrow \texttt {img}}\!\big (\mathbf {f}^{(i)}_{\texttt {txt}}\big ),\\ \mathbf {f}^{(i),\prime }_{\texttt {txt}} &= \mathbf {f}^{(i)}_{\texttt {txt}} \;+\; \mathcal {P}^{(i)}_{\texttt {img}\rightarrow \texttt {txt}}\!\big (\mathbf {f}^{(i)}_{\texttt {img}}\big ). \end {aligned}                TIGON is implemented in PyTorch [41] on top of TREL-
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                (7)         LIS and UniLat3D. We use the released UniLat3D check-
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            point for the image branch. For the text branch, we reuse
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            the UniLat3D backbone, replace its DINO-based condition
+Stability via Zero-Initialization Inspired by Control-                                                                                                                                                                                                                                                                                                                                                                                                                                                                      encoder with a CLIP text encoder, and train from scratch
+Net [74], to maintain training stability at the start of joint                                                                                                                                                                                                                                                                                                                                                                                                                                                              for 1,000,000 iterations with batch size 256 and learning
+training, all cross-modal bridges are zero-initialized. Con-                                                                                                                                                                                                                                                                                                                                                                                                                                                                rate 1 × 10−4 . We then jointly fine-tune both branches and
+sequently, \protect \mathbf  {f}^{(i),\prime }_{\texttt {img}}=\mathbf {f}^{(i)}_{\texttt {img}} and \protect \mathbf  {f}^{(i),\prime }_{\texttt {txt}}=\mathbf {f}^{(i)}_{\texttt {txt}} initially, and gra-                                                                                                                                                                                                                                                                                                              the cross-modal bridges for 50,000 iterations with learning
+dients progressively “open” these gates, learning when (and                                                                                                                                                                                                                                                                                                                                                                                                                                                                 rate 1 × 10−5 in BF16 on 64 NVIDIA A800 GPUs, using
+how much) to exchange information at each depth.                                                                                                                                                                                                                                                                                                                                                                                                                                                                            DeepSpeed ZeRO-2 [45] and FlashAttention [10].
+5.4. Late-Fusion Strategy                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   6.2. Datasets and Evaluation Protocol
+We adopt a simple prediction-averaging scheme. Given the                                                                                                                                                                                                                                                                                                                                                                                                                                                                    Training. TIGON is trained on TRELLIS-500K. Please
+outputs of the text and image branches, vtxt and vimg , the                                                                                                                                                                                                                                                                                                                                                                                                                                                                 refer to the supplement for more details about this dataset.
+fused prediction at each denoising step is                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  Evaluation. We evaluate on two test sets: extbfToys4K
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            contains about 4K high-quality 3D objects from 105 cate-
+                                                                                                                          \mathbf {v} = \tfrac {1}{2}\big (\mathbf {v}_{\texttt {txt}} + \mathbf {v}_{\texttt {img}}\big ).                                                                                                                                                                                                                                                                                     (8)         gories and is widely used by TRELLIS and UniLat3D. Uni-
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            Lat1K is a harder 1K-object benchmark curated by Uni-
+Why Is a Sophisticated Fusion Strategy Unnecessary?                                                                                                                                                                                                                                                                                                                                                                                                                                                                         Lat3D, containing 500 high-quality Sketchfab assets and
+Early fusion with cross-modal bridges and end-to-end fine-                                                                                                                                                                                                                                                                                                                                                                                                                                                                  500 Toys4K samples.
+tuning enable each branch to implicitly condition on both                                                                                                                                                                                                                                                                                                                                                                                                                                                                   Metrics and Protocol. We use four metrics: CLIP [44],
+modalities, so any potential benefit of dynamic, modality-                                                                                                                                                                                                                                                                                                                                                                                                                                                                  FDDINOv2 , ULIP [68], and Uni3D [77]. CLIP and FDDINOv2
+weighted fusion can be absorbed into the branch parame-                                                                                                                                                                                                                                                                                                                                                                                                                                                                     are computed from renderings of generated and ground-
+ters (i.e., by reparameterization during training). To vali-                                                                                                                                                                                                                                                                                                                                                                                                                                                                truth objects, while ULIP and Uni3D measure image–point-
+date this, we compare against two learnable late-fusion vari-                                                                                                                                                                                                                                                                                                                                                                                                                                                               cloud alignment and are thus only reported for mesh out-
+ants: (i) a weight-prediction module that outputs a scalar for                                                                                                                                                                                                                                                                                                                                                                                                                                                              puts. To test robustness to viewpoint informativeness, each
+linear mixing; and (ii) an additional cross-modal attention                                                                                                                                                                                                                                                                                                                                                                                                                                                                 case is conditioned on three reference views (front, top, and
+block. Both yield at most marginal gains while introduc-                                                                                                                                                                                                                                                                                                                                                                                                                                                                    bottom) instead of ideal views. We use public checkpoints
+ing extra parameters and training variance. See Sec. 6.5 for                                                                                                                                                                                                                                                                                                                                                                                                                                                                for prior methods and re-evaluate them under this unified
+quantitative results; architectural details are in the supple-                                                                                                                                                                                                                                                                                                                                                                                                                                                              protocol; full metric definitions and rendering settings are
+mentary material.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           provided in the supplement.
+
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      608
+Table 2. Quantitative results on Toys4K (left) and UniLat1K (right). “Cond.” denotes conditioning modality (“I”: image, “T”: text), and
+“Rep.” denotes output representation (“M.”: mesh, “GS”: 3DGS).
+
+                                                            Toys4K                                       UniLat1K
+    Model                    Cond.    Rep.
+                                             CLIP↑    FDDINOv2 ↓ ULIP↑         Uni3D↑     CLIP↑     FDDINOv2 ↓ ULIP↑        Uni3D↑
+    TripoSR [51]                I     M.     83.14      596.44         27.37    24.38     83.37       652.27       25.90     23.96
+    TRELLIS                     I     M.     89.09      171.44         39.97    35.61     89.40       233.53       39.37     35.40
+    TRELLIS                     I     GS     90.50       98.75           -        -       90.83       177.20         -         -
+    Step1X-3D† [24]             I     M.     84.77      361.44         34.15    30.04     85.36       402.25       33.62     30.38
+    Hunyuan3D-2.1† [18]         I     M.     87.57      171.91         40.22    35.70     87.27       249.66       39.58     35.54
+    Stable3DGen [70]            I     M.       -           -           35.52    31.76       -           -          35.26     32.08
+    Direct3D-S2 [60]            I     M.       -           -           33.47    29.29       -           -          32.74     29.44
+    UniLat3D                    I     M.     91.85      109.68         40.32    35.75     90.00       205.72       39.60     35.49
+    UniLat3D                    I     GS     91.20       85.30           -        -       91.40       155.99         -         -
+    TIGON (Ours)                I     GS     91.40       84.62           -        -       91.64       153.79         -         -
+    TRELLIS                     T     M.     87.15      182.42         37.41    33.59     85.90       316.05       36.55     33.23
+    TRELLIS                     T     GS     86.30      148.21           -        -       84.75       288.55         -         -
+    UniLat3D                    T     M.     87.03      179.95         36.14    32.35     85.29       313.85       35.34     32.08
+    UniLat3D                    T     GS     86.14      154.88           -        -       85.75       282.36         -         -
+    TIGON (Ours)                T     GS     86.77      152.34           -        -       86.42       273.97         -         -
+    SimFusion (Ours)          I+T     GS     91.95       66.78           -        -       92.09       136.97         -         -
+    TIGON (Ours)              I+T     M.     92.97       80.77         41.36    36.68     90.91       176.69       40.95     36.74
+    TIGON (Ours)              I+T     GS     92.33       61.59           -        -       92.42       130.08         -         -
+
+†
+    Using non-public training data.
+
+
+
+6.3. Quantitative Results                                              console combined with text produces much more faithful
+                                                                       geometry than the text-only baseline. Overall, the visual re-
+Results on Toys4K and UniLat1K are reported in Table 2.
+                                                                       sults show that text and image address complementary fail-
+We evaluate TIGON under three conditioning regimes, i.e.,
+                                                                       ure modes, and that joint conditioning enables more con-
+text-only, image-only, and text–image. TIGON is competi-
+                                                                       trollable, higher-quality 3D generation.
+tive in both single-modality settings, while the largest gains
+appear under text–image conditioning, showing effective                   To further demonstrate TIGON’s controllability, we fix
+use of complementary signals.                                          the input image and vary the text prompt to obtain diverse
+                                                                       3D outputs. As shown in Fig. 5, when the image is highly
+6.4. Qualitative Results                                               informative (e.g., a distinctive character), TIGON preserves
+                                                                       identity while adjusting fine-grained attributes according to
+As shown in Fig. 4, we compare TIGON with image-only                   the text; when the image is ambiguous (e.g., a bottom view
+and text-only variants of TRELLIS and UniLat3D.                        of a toaster), it relies more on text and can generate seman-
+Image-Only Conditioning. With only one reference view,                 tically different objects, such as a telephone or a bed. This
+shape and appearance remain under-constrained, so image-               combination of pixel-level alignment and semantic control
+only models must hallucinate unseen regions and often de-              offers greater flexibility than single-modality methods. We
+viate from user intent. For example, given a top view of               further observe in Fig. 6 that when the image and text ex-
+a trophy, TRELLIS/UniLat3D capture the overall style but               plicitly conflict, TIGON tends to follow the image if it al-
+fail to reconstruct a faithful trophy. Even with a more                ready provides clear semantic guidance, likely because im-
+informative view (e.g., the toaster in the last row), they             ages are usually more specific and less ambiguous than text.
+still produce distorted slots due to incomplete observation.           More qualitative results are provided in the supplement.
+Adding text supplies the missing semantics, so TIGON bet-
+ter matches both the description and the reference image.              6.5. Ablation Study
+Text-Only Conditioning. Text provides high-level seman-
+                                                                       We study each TIGON component on Toys4K.
+tics but no pixel-aligned cues, leading to ambiguous geom-
+etry and lower visual fidelity. Introducing even a weak im-
+age cue markedly improves spatial alignment and appear-                Early-Fusion Strategy. As shown in Tab. 3, without
+ance: in the third row of Fig. 4, a top-view image of a game           cross-modal bridges, joint fine-tuning of the two branches
+
+
+
+                                                                 609
+Figure 4. Qualitative comparison on Toys4K and UniLat1K against image-only and text-only variants of TRELLIS and UniLat3D. Dashed
+boxes mark artifacts from prior methods. Image-only models respect the reference view but must hallucinate unseen regions, while text-
+only models lack pixel-aligned cues and often produce low-fidelity geometry and appearance. Full prompts are provided in the supplement.
+
+
+
+
+                                                                  610
+                                  Figure 5. Controllable generation under text and image conditions.
+
+
+
+
+  Figure 6. Generation with conflicting text-image conditions.
+                                                                         Figure 7. Effect of early fusion. Without cross-modal bridges,
+                                                                         the two branches diverge during denoising. Full text prompt is
+Table 3. Ablations on Toys4K. “Bridges” denotes zero-initialized
+                                                                         available in the supplement.
+cross-modal bridges; “Sim”, “AW”, and “AT” denote three fusion
+strategies; “FT” denotes joint fine-tuning. The TIGON setting is
+highlighted in light gray.
+                                                                         simple averaging (Sim) already reaches 61.59 FDDINOv2
+             Fusion Strategy                                             (Table 3), while adaptive weighting (AW) and attention-
+ Bridges                         FT     CLIP↑     FDDINOv2 ↓
+             Sim AW AT
+                                                                         based fusion (AT) change this metric only slightly (60.90
+              ✓                          91.95       66.78               and 62.00). We therefore adopt simple averaging by default.
+              ✓                   ✓      92.05       66.04
+    ✓         ✓                   ✓      92.33       61.59
+    ✓                ✓            ✓      92.31       60.90
+    ✓                      ✓      ✓      92.26       62.00               7. Conclusion
+
+                                                                         In this paper, we revisit conventional single-modality con-
+                                                                         ditioned 3D generation and highlight a clear limitation:
+only brings marginal improvement (66.78 → 66.04 in
+                                                                         image-conditioned models are sensitive to viewpoint infor-
+FDDINOv2 ). Enabling cross-modal bridges yields a substan-
+                                                                         mativeness and lack control over unobserved regions, while
+tial gain (66.78 → 61.59 in FDDINOv2 ), underscoring the ne-
+                                                                         text-conditioned models capture global intent but lack con-
+cessity of cross-modal information exchange. Qualitatively,
+                                                                         crete visual cues. Our diagnostic study empirically shows
+Fig. 7 shows that, without cross-modal bridges, the text- and
+                                                                         that these two signals are complementary, which motivates
+image-conditioned branches diverge during denoising, pro-
+                                                                         us to formalize the task of Text–Image Conditioned 3D
+ducing inconsistent or abnormal structures; with bridges,
+                                                                         Generation. We further introduce TIGON, a simple yet ef-
+they remain aligned and produce coherent result.
+                                                                         fective baseline for this task. Experiments demonstrate con-
+                                                                         sistent gains over strong single-modality models, and show
+Late-Fusion Strategy. As discussed in Sec. 5.4, a sophis-                that combining modalities yields more robust and flexible
+ticated learnable late-fusion strategy appears unnecessary.              3D generation. We hope this work will help drive future
+Under the same early-fusion setup and joint fine-tuning,                 research on controllable, high-quality 3D generation.
+
+
+
+                                                                   611
+Acknowledgements                                                            [13] Quankai Gao, Qiangeng Xu, Hao Su, Ulrich Neumann, and
+                                                                                 Zexiang Xu. Strivec: Sparse tri-vector radiance fields. In
+This work was supported by the NSFC under Grant                                  ICCV, 2023. 2, 3
+62322604 and 62576207. We thank the anonymous                               [14] Yuze He, Yushi Bai, Matthieu Lin, Jenny Sheng, Yubin Hu,
+reviewers for their valuable feedback and suggestions.                           Qi Wang, Yu-Hui Wen, and Yong-Jin Liu. Text-image con-
+                                                                                 ditioned diffusion for consistent text-to-3d generation. Com-
+                                                                                 puter Aided Geometric Design, 2024. 2
+References                                                                  [15] Jonathan Ho and Tim Salimans. Classifier-free diffusion
+ [1] Jinze Bai, Shuai Bai, Shusheng Yang, Shijie Wang, Sinan                     guidance. arXiv preprint arXiv:2207.12598, 2022. 5
+     Tan, Peng Wang, Junyang Lin, Chang Zhou, and Jingren                   [16] Yining Hong, Haoyu Zhen, Peihao Chen, Shuhong Zheng,
+     Zhou. Qwen-vl: A versatile vision-language model for un-                    Yilun Du, Zhenfang Chen, and Chuang Gan. 3d-llm: Inject-
+     derstanding, localization, text reading, and beyond. arXiv                  ing the 3d world into large language models. NeurIPS, 2023.
+     preprint arXiv:2308.12966, 2023. 2                                          2
+ [2] Jonathan T Barron, Ben Mildenhall, Matthew Tancik, Peter               [17] Yaosi Hu, Chong Luo, and Zhenzhong Chen. Make it
+     Hedman, Ricardo Martin-Brualla, and Pratul P Srinivasan.                    move: controllable image-to-video generation with text de-
+     Mip-nerf: A multiscale representation for anti-aliasing neu-                scriptions. In CVPR, 2022. 2
+     ral radiance fields. In ICCV, 2021. 2                                  [18] Team Hunyuan3D, Shuhui Yang, Mingxin Yang, Yifei Feng,
+ [3] Tim Brooks, Aleksander Holynski, and Alexei A Efros. In-                    Xin Huang, Sheng Zhang, Zebin He, Di Luo, Haolin Liu,
+     structpix2pix: Learning to follow image editing instructions.               Yunfei Zhao, et al. Hunyuan3d 2.1: From images to high-
+     In CVPR, 2023. 2                                                            fidelity 3d assets with production-ready pbr material. arXiv
+ [4] Rui Chen, Yongwei Chen, Ningxin Jiao, and Kui Jia. Fan-                     preprint arXiv:2506.15442, 2025. 1, 2, 6
+     tasia3d: Disentangling geometry and appearance for high-               [19] Bernhard Kerbl, Georgios Kopanas, Thomas Leimkühler,
+     quality text-to-3d content creation. In ICCV, 2023. 2                       and George Drettakis. 3d gaussian splatting for real-time
+ [5] Sijin Chen, Xin Chen, Chi Zhang, Mingsheng Li, Gang Yu,                     radiance field rendering. ACM TOG, 2023. 2, 3
+     Hao Fei, Hongyuan Zhu, Jiayuan Fan, and Tao Chen. Ll3da:               [20] Min-Seop Kwak, Donghoon Ahn, Inès Hyeonsu Kim, Jin-
+     Visual interactive instruction tuning for omni-3d understand-               Hwa Kim, and Seungryong Kim. Geometry-aware score dis-
+     ing reasoning and planning. In CVPR, 2024. 2                                tillation via 3d consistent noising and gradient consistency
+ [6] Yiwen Chen, Zhihao Li, Yikai Wang, Hu Zhang, Qin Li,                        modeling. arXiv preprint arXiv:2406.16695, 2024. 2
+     Chi Zhang, and Guosheng Lin. Ultra3d: Efficient and high-              [21] Zeqiang Lai, Yunfei Zhao, Haolin Liu, Zibo Zhao, Qingxi-
+     fidelity 3d generation with part attention. arXiv preprint                  ang Lin, Huiwen Shi, Xianghui Yang, Mingxin Yang, Shuhui
+     arXiv:2507.17745, 2025. 2                                                   Yang, Yifei Feng, et al. Hunyuan3d 2.5: Towards high-
+ [7] Zhe Chen, Jiannan Wu, Wenhai Wang, Weijie Su, Guo Chen,                     fidelity 3d assets generation with ultimate details. arXiv
+     Sen Xing, Muyan Zhong, Qinglong Zhang, Xizhou Zhu,                          preprint arXiv:2506.16504, 2025. 2
+     Lewei Lu, et al. Internvl: Scaling up vision foundation mod-           [22] Yushi Lan, Fangzhou Hong, Shuai Yang, Shangchen Zhou,
+     els and aligning for generic visual-linguistic tasks. In CVPR,              Xuyi Meng, Bo Dai, Xingang Pan, and Chen Change Loy.
+     2024. 2                                                                     Ln3diff: Scalable latent neural fields diffusion for speedy 3d
+ [8] Zhaoxi Chen, Jiaxiang Tang, Yuhao Dong, Ziang Cao,                          generation. In ECCV, 2024. 2
+     Fangzhou Hong, Yushi Lan, Tengfei Wang, Haozhe Xie,                    [23] Jiahao Li, Hao Tan, Kai Zhang, Zexiang Xu, Fujun
+     Tong Wu, Shunsuke Saito, et al. 3dtopia-xl: Scaling high-                   Luan, Yinghao Xu, Yicong Hong, Kalyan Sunkavalli, Greg
+     quality 3d asset generation via primitive diffusion. In CVPR,               Shakhnarovich, and Sai Bi. Instant3d: Fast text-to-3d
+     2025. 2                                                                     with sparse-view generation and large reconstruction model.
+ [9] Wenliang Dai, Junnan Li, Dongxu Li, Anthony Tiong, Junqi                    arXiv preprint arXiv:2311.06214, 2023. 2
+     Zhao, Weisheng Wang, Boyang Li, Pascale N Fung, and                    [24] Weiyu Li, Xuanyang Zhang, Zheng Sun, Di Qi, Hao Li,
+     Steven Hoi. Instructblip: Towards general-purpose vision-                   Wei Cheng, Weiwei Cai, Shihao Wu, Jiarui Liu, Zihao
+     language models with instruction tuning. NeurIPS, 2023. 2                   Wang, et al. Step1x-3d: Towards high-fidelity and con-
+[10] Tri Dao.      Flashattention-2: Faster attention with bet-                  trollable generation of textured 3d assets. arXiv preprint
+     ter parallelism and work partitioning.          arXiv preprint              arXiv:2505.07747, 2025. 1, 2, 6
+     arXiv:2307.08691, 2023. 5                                              [25] Zongrui Li, Minghui Hu, Qian Zheng, and Xudong Jiang.
+[11] Chaorui Deng, Deyao Zhu, Kunchang Li, Chenhui Gou,                          Connecting consistency distillation to score distillation for
+     Feng Li, Zeyu Wang, Shu Zhong, Weihao Yu, Xiaonan                           text-to-3d generation. In ECCV, 2024. 2
+     Nie, Ziang Song, Guang Shi, and Haoqi Fan. Emerging                    [26] Zhihao Li, Yufei Wang, Heliang Zheng, Yihao Luo, and
+     properties in unified multimodal pretraining. arXiv preprint                Bihan Wen. Sparc3d: Sparse representation and construc-
+     arXiv:2505.14683, 2025. 2                                                   tion for high-resolution 3d shapes modeling. arXiv preprint
+[12] Patrick Esser, Sumith Kulal, Andreas Blattmann, Rahim                       arXiv:2505.14521, 2025. 2
+     Entezari, Jonas Müller, Harry Saini, Yam Levi, Dominik                [27] Yixun Liang, Xin Yang, Jiantao Lin, Haodong Li, Xiao-
+     Lorenz, Axel Sauer, Frederic Boesel, et al. Scaling recti-                  gang Xu, and Yingcong Chen. Luciddreamer: Towards high-
+     fied flow transformers for high-resolution image synthesis.                 fidelity text-to-3d generation via interval score matching. In
+     In ICLR, 2024. 3                                                            CVPR, 2024. 2
+
+
+
+
+                                                                      612
+[28] Chen-Hsuan Lin, Jun Gao, Luming Tang, Towaki Takikawa,                       An imperative style, high-performance deep learning library.
+     Xiaohui Zeng, Xun Huang, Karsten Kreis, Sanja Fidler,                        NeurIPS, 2019. 5
+     Ming-Yu Liu, and Tsung-Yi Lin. Magic3d: High-resolution                 [42] William Peebles and Saining Xie. Scalable diffusion models
+     text-to-3d content creation. In CVPR, 2023. 2                                with transformers. In ICCV, 2023. 4
+[29] Yaron Lipman, Ricky TQ Chen, Heli Ben-Hamu, Maximil-                    [43] Ben Poole, Ajay Jain, Jonathan T Barron, and Ben Milden-
+     ian Nickel, and Matt Le. Flow matching for generative mod-                   hall. Dreamfusion: Text-to-3d using 2d diffusion. In ICLR,
+     eling. arXiv preprint arXiv:2210.02747, 2022. 3                              2023. 2
+[30] Haotian Liu, Chunyuan Li, Qingyang Wu, and Yong Jae Lee.                [44] Alec Radford, Jong Wook Kim, Chris Hallacy, Aditya
+     Visual instruction tuning. In NeurIPS, 2023. 2                               Ramesh, Gabriel Goh, Sandhini Agarwal, Girish Sastry,
+[31] Minghua Liu, Chao Xu, Haian Jin, Linghao Chen, Mukund                        Amanda Askell, Pamela Mishkin, Jack Clark, et al. Learn-
+     Varma T, Zexiang Xu, and Hao Su. One-2-3-45: Any single                      ing transferable visual models from natural language super-
+     image to 3d mesh in 45 seconds without per-shape optimiza-                   vision. In ICLR, 2021. 5
+     tion. In NeurIPS, 2023. 2                                               [45] Samyam Rajbhandari, Jeff Rasley, Olatunji Ruwase, and
+[32] Minghua Liu, Ruoxi Shi, Linghao Chen, Zhuoyang Zhang,                        Yuxiong He. Zero: Memory optimizations toward training
+     Chao Xu, Xinyue Wei, Hansheng Chen, Chong Zeng, Ji-                          trillion parameter models. In SC20: International Confer-
+     ayuan Gu, and Hao Su. One-2-3-45++: Fast single image                        ence for High Performance Computing, Networking, Storage
+     to 3d objects with consistent multi-view generation and 3d                   and Analysis, 2020. 5
+     diffusion. In CVPR, 2024.                                               [46] Xuanchi Ren, Jiahui Huang, Xiaohui Zeng, Ken Museth,
+[33] Ruoshi Liu, Rundi Wu, Basile Van Hoorick, Pavel Tok-                         Sanja Fidler, and Francis Williams. Xcube: Large-scale
+     makov, Sergey Zakharov, and Carl Vondrick. Zero-1-to-3:                      3d generative modeling using sparse voxel hierarchies. In
+     Zero-shot one image to 3d object. In ICCV, 2023.                             CVPR, 2024. 2
+[34] Yuan Liu, Cheng Lin, Zijiao Zeng, Xiaoxiao Long, Lingjie                [47] Jingxiang Sun, Bo Zhang, Ruizhi Shao, Lizhen Wang, Wen
+     Liu, Taku Komura, and Wenping Wang. Syncdreamer: Gen-                        Liu, Zhenda Xie, and Yebin Liu. Dreamcraft3d: Hierarchical
+     erating multiview-consistent images from a single-view im-                   3d generation with bootstrapped diffusion prior. In ICLR,
+     age. In ICLR, 2024.                                                          2024. 2
+[35] Xiaoxiao Long, Yuan-Chen Guo, Cheng Lin, Yuan Liu,                      [48] Junshu Tang, Tengfei Wang, Bo Zhang, Ting Zhang, Ran Yi,
+     Zhiyang Dou, Lingjie Liu, Yuexin Ma, Song-Hai Zhang,                         Lizhuang Ma, and Dong Chen. Make-it-3d: High-fidelity 3d
+     Marc Habermann, Christian Theobalt, et al. Wonder3d: Sin-                    creation from a single image with diffusion prior. In ICCV,
+     gle image to 3d using cross-domain diffusion. In CVPR,                       2023. 2
+     2024.                                                                   [49] Jiaxiang Tang, Zhaoxi Chen, Xiaokang Chen, Tengfei Wang,
+[36] Luke Melas-Kyriazi, Iro Laina, Christian Rupprecht, and                      Gang Zeng, and Ziwei Liu. Lgm: Large multi-view gaus-
+     Andrea Vedaldi. Realfusion: 360deg reconstruction of any                     sian model for high-resolution 3d content creation. In ECCV,
+     object from a single image. In CVPR, 2023. 2                                 2024. 2
+[37] Ben Mildenhall, Pratul P Srinivasan, Matthew Tancik,                    [50] Jiaxiang Tang, Jiawei Ren, Hang Zhou, Ziwei Liu, and Gang
+     Jonathan T Barron, Ravi Ramamoorthi, and Ren Ng. Nerf:                       Zeng. Dreamgaussian: Generative gaussian splatting for ef-
+     Representing scenes as neural radiance fields for view syn-                  ficient 3d content creation. In ICLR, 2024. 2
+     thesis. In ECCV, 2020. 2                                                [51] Dmitry Tochilkin, David Pankratz, Zexiang Liu, Zixuan
+[38] Chong Mou, Xintao Wang, Liangbin Xie, Yanze Wu, Jian                         Huang, Adam Letts, Yangguang Li, Ding Liang, Christian
+     Zhang, Zhongang Qi, and Ying Shan. T2i-adapter: Learning                     Laforte, Varun Jampani, and Yan-Pei Cao. Triposr: Fast 3d
+     adapters to dig out more controllable ability for text-to-image              object reconstruction from a single image. arXiv preprint
+     diffusion models. In AAAI, 2024. 2                                           arXiv:2403.02151, 2024. 1, 6
+[39] Alex Nichol, Heewoo Jun, Prafulla Dhariwal, Pamela                      [52] Arash Vahdat, Francis Williams, Zan Gojcic, Or Litany,
+     Mishkin, and Mark Chen. Point-e: A system for generat-                       Sanja Fidler, Karsten Kreis, et al. Lion: Latent point dif-
+     ing 3d point clouds from complex prompts. arXiv preprint                     fusion models for 3d shape generation. NeurIPS, 2022. 2
+     arXiv:2212.08751, 2022. 2                                               [53] Team Wan, Ang Wang, Baole Ai, Bin Wen, Chaojie Mao,
+[40] Maxime Oquab, Timothée Darcet, Théo Moutakanni, Huy V.                     Chen-Wei Xie, Di Chen, Feiwu Yu, Haiming Zhao, Jianx-
+     Vo, Marc Szafraniec, Vasil Khalidov, Pierre Fernandez,                       iao Yang, Jianyuan Zeng, Jiayu Wang, Jingfeng Zhang, Jin-
+     Daniel Haziza, Francisco Massa, Alaaeldin El-Nouby, Mido                     gren Zhou, Jinkai Wang, Jixuan Chen, Kai Zhu, Kang Zhao,
+     Assran, Nicolas Ballas, Wojciech Galuba, Russell Howes,                      Keyu Yan, Lianghua Huang, Mengyang Feng, Ningyi Zhang,
+     Po-Yao Huang, Shang-Wen Li, Ishan Misra, Michael Rab-                        Pandeng Li, Pingyu Wu, Ruihang Chu, Ruili Feng, Shiwei
+     bat, Vasu Sharma, Gabriel Synnaeve, Hu Xu, Hervé Jégou,                    Zhang, Siyang Sun, Tao Fang, Tianxing Wang, Tianyi Gui,
+     Julien Mairal, Patrick Labatut, Armand Joulin, and Piotr Bo-                 Tingyu Weng, Tong Shen, Wei Lin, Wei Wang, Wei Wang,
+     janowski. Dinov2: Learning robust visual features without                    Wenmeng Zhou, Wente Wang, Wenting Shen, Wenyuan Yu,
+     supervision. Trans. Mach. Learn. Res., 2024. 3                               Xianzhong Shi, Xiaoming Huang, Xin Xu, Yan Kou, Yangyu
+[41] Adam Paszke, Sam Gross, Francisco Massa, Adam Lerer,                         Lv, Yifei Li, Yijing Liu, Yiming Wang, Yingya Zhang, Yi-
+     James Bradbury, Gregory Chanan, Trevor Killeen, Zem-                         tong Huang, Yong Li, You Wu, Yu Liu, Yulin Pan, Yun
+     ing Lin, Natalia Gimelshein, Luca Antiga, et al. Pytorch:                    Zheng, Yuntao Hong, Yupeng Shi, Yutong Feng, Zeyinzi
+
+
+
+
+                                                                       613
+     Jiang, Zhen Han, Zhi-Fan Wu, and Ziyu Liu. Wan: Open                        mesh generation from a single image with sparse-view large
+     and advanced large-scale video generative models. arXiv                     reconstruction models. arXiv preprint arXiv:2404.07191,
+     preprint arXiv:2503.20314, 2025. 2                                          2024. 2
+[54] Haochen Wang, Xiaodan Du, Jiahao Li, Raymond A Yeh,                    [66] Runsen Xu, Xiaolong Wang, Tai Wang, Yilun Chen, Jiang-
+     and Greg Shakhnarovich. Score jacobian chaining: Lifting                    miao Pang, and Dahua Lin. Pointllm: Empowering large lan-
+     pretrained 2d diffusion models for 3d generation. In CVPR,                  guage models to understand point clouds. In ECCV, 2024. 2
+     2023. 2                                                                [67] Xinli Xu, Wenhang Ge, Jiantao Lin, Jiawei Feng, Lie Xu,
+[55] Zhengyi Wang, Cheng Lu, Yikai Wang, Fan Bao, Chongxuan                      HanFeng Zhao, Shunsi Zhang, and Ying-Cong Chen. Flex-
+     Li, Hang Su, and Jun Zhu. Prolificdreamer: High-fidelity and                gen: Flexible multi-view generation from text and image in-
+     diverse text-to-3d generation with variational score distilla-              puts. In ICCV, 2025. 2
+     tion. NeurIPS, 2023. 2                                                 [68] Le Xue, Mingfei Gao, Chen Xing, Roberto Martı́n-Martı́n,
+[56] Haohan Weng, Tianyu Yang, Jianan Wang, Yu Li, Tong                          Jiajun Wu, Caiming Xiong, Ran Xu, Juan Carlos Niebles,
+     Zhang, CL Chen, and Lei Zhang. Consistent123: Improve                       and Silvio Savarese. Ulip: Learning a unified representation
+     consistency for one image to 3d object synthesis. arXiv                     of language, images, and point clouds for 3d understanding.
+     preprint arXiv:2310.08092, 2023. 2                                          In CVPR, 2023. 5
+[57] Chenfei Wu, Jiahao Li, Jingren Zhou, Junyang Lin, Kaiyuan              [69] Haitao Yang, Yuan Dong, Hanwen Jiang, Dejia Xu, Georgios
+     Gao, Kun Yan, Sheng ming Yin, Shuai Bai, Xiao Xu, Yilei                     Pavlakos, and Qixing Huang. Atlas gaussians diffusion for
+     Chen, Yuxiang Chen, Zecheng Tang, Zekai Zhang, Zhengyi                      3d generation. In ICLR, 2025. 2
+     Wang, An Yang, Bowen Yu, Chen Cheng, Dayiheng Liu, De-                 [70] Chongjie Ye, Yushuang Wu, Ziteng Lu, Jiahao Chang, Xi-
+     qing Li, Hang Zhang, Hao Meng, Hu Wei, Jingyuan Ni, Kai                     aoyang Guo, Jiaqing Zhou, Hao Zhao, and Xiaoguang Han.
+     Chen, Kuan Cao, Liang Peng, Lin Qu, Minggang Wu, Peng                       Hi3dgen: High-fidelity 3d geometry generation from im-
+     Wang, Shuting Yu, Tingkun Wen, Wensen Feng, Xiaoxiao                        ages via normal bridging. arXiv preprint arXiv:2503.22236,
+     Xu, Yi Wang, Yichang Zhang, Yongqiang Zhu, Yujia Wu,                        2025. 2, 6
+     Yuxuan Cai, and Zenan Liu. Qwen-image technical report.
+                                                                            [71] Hu Ye, Jun Zhang, Sibo Liu, Xiao Han, and Wei Yang. Ip-
+     arXiv preprint arXiv:2508.02324, 2025. 2
+                                                                                 adapter: Text compatible image prompt adapter for text-to-
+[58] Guanjun Wu, Jiemin Fang, Chen Yang, Sikuang Li, Taoran                      image diffusion models. arXiv preprint arxiv:2308.06721,
+     Yi, Jia Lu, Zanwei Zhou, Jiazhong Cen, Lingxi Xie, Xi-                      2023. 2
+     aopeng Zhang, et al. Unilat3d: Geometry-appearance uni-
+                                                                            [72] Taoran Yi, Jiemin Fang, Junjie Wang, Guanjun Wu, Lingxi
+     fied latents for single-stage 3d generation. arXiv preprint
+                                                                                 Xie, Xiaopeng Zhang, Wenyu Liu, Qi Tian, and Xinggang
+     arXiv:2509.25079, 2025. 2, 3
+                                                                                 Wang. Gaussiandreamer: Fast generation from text to 3d
+[59] Shuang Wu, Youtian Lin, Feihu Zhang, Yifei Zeng, Jingxi
+                                                                                 gaussians by bridging 2d and 3d diffusion models. In CVPR,
+     Xu, Philip Torr, Xun Cao, and Yao Yao. Direct3d: Scalable
+                                                                                 2024. 2
+     image-to-3d generation via 3d latent diffusion transformer.
+                                                                            [73] Biao Zhang, Jiapeng Tang, Matthias Niessner, and Peter
+     Advances in Neural Information Processing Systems, 2024.
+                                                                                 Wonka. 3dshape2vecset: A 3d shape representation for neu-
+     2
+                                                                                 ral fields and generative diffusion models. ACM TOG, 2023.
+[60] Shuang Wu, Youtian Lin, Feihu Zhang, Yifei Zeng, Yikang
+                                                                                 2
+     Yang, Yajie Bao, Jiachen Qian, Siyu Zhu, Xun Cao,
+                                                                            [74] Lvmin Zhang, Anyi Rao, and Maneesh Agrawala. Adding
+     Philip Torr, et al. Direct3d-s2: Gigascale 3d generation
+                                                                                 conditional control to text-to-image diffusion models. In
+     made easy with spatial sparse attention. arXiv preprint
+                                                                                 ICCV, 2023. 2, 5
+     arXiv:2505.17412, 2025. 1, 2, 6
+[61] Zike Wu, Pan Zhou, Xuanyu Yi, Xiaoding Yuan, and Han-                  [75] Longwen Zhang, Ziyu Wang, Qixuan Zhang, Qiwei Qiu,
+     wang Zhang. Consistent3d: Towards consistent high-fidelity                  Anqi Pang, Haoran Jiang, Wei Yang, Lan Xu, and Jingyi
+     text-to-3d generation with deterministic sampling prior. In                 Yu. Clay: A controllable large-scale generative model for
+     CVPR, 2024. 2                                                               creating high-quality 3d assets. ACM TOG, 2024. 1, 2
+[62] Jianfeng Xiang, Zelong Lv, Sicheng Xu, Yu Deng, Ruicheng               [76] Zibo Zhao, Wen Liu, Xin Chen, Xianfang Zeng, Rui Wang,
+     Wang, Bowen Zhang, Dong Chen, Xin Tong, and Jiaolong                        Pei Cheng, Bin Fu, Tao Chen, Gang Yu, and Shenghua Gao.
+     Yang. Structured 3d latents for scalable and versatile 3d gen-              Michelangelo: Conditional 3d shape generation based on
+     eration. In CVPR, 2025. 1, 2, 3                                             shape-image-text aligned latent representation. In NeurIPS,
+[63] Bojun Xiong, Si-Tong Wei, Xin-Yang Zheng, Yan-Pei Cao,                      2023. 2
+     Zhouhui Lian, and Peng-Shuai Wang. Octfusion: Octree-                  [77] Junsheng Zhou, Jinsheng Wang, Baorui Ma, Yu-Shen Liu,
+     based diffusion models for 3d shape generation. Computer                    Tiejun Huang, and Xinlong Wang. Uni3d: Exploring unified
+     Graphics Forum, 2025. 2                                                     3d representation at scale. arXiv preprint arXiv:2310.06773,
+[64] Dejia Xu, Yifan Jiang, Peihao Wang, Zhiwen Fan, Yi Wang,                    2023. 5
+     and Zhangyang Wang. Neurallift-360: Lifting an in-the-wild             [78] Zanwei Zhou, Taoran Yi, Jiemin Fang, Chen Yang, Lingxi
+     2d photo to a 3d object with 360deg views. In CVPR, 2023.                   Xie, Xinggang Wang, Wei Shen, and Qi Tian. Few-step flow
+     2                                                                           for 3d generation via marginal-data transport distillation. In
+[65] Jiale Xu, Weihao Cheng, Yiming Gao, Xintao Wang,                            AAAI, 2026. 2
+     Shenghua Gao, and Ying Shan. Instantmesh: Efficient 3d
+
+
+
+
+                                                                      614
+

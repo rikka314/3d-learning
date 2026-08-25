@@ -1,0 +1,199 @@
+{
+  "schema_version": "paper-research-lens/1.0",
+  "paper": {
+    "title": "Image Generators are Generalist Vision Learners",
+    "source_mode": "latex-primary"
+  },
+  "research_equation": {
+    "one_sentence_thesis": "A powerful image generator already contains broad semantic and geometric priors, but free-form RGB generation is not reliably measurable; low-ratio instruction tuning plus invertible RGB protocols turns that latent capability into one prompt-driven, benchmarkable vision interface.",
+    "valuable_paradigm": "large-scale generative vision pretraining",
+    "broken_assumption": "visual understanding requires task-specific architectures and native structured output heads",
+    "hard_setting": "one shared model must retain generation while supporting diverse 2D and 3D benchmark outputs",
+    "borrowed_tool": "LLM-style instruction tuning of a generative base model",
+    "unavailable_mechanism": "a separate reliable task head, loss, and output structure for every vision task",
+    "surrogate_mechanism": "natural-language prompts plus decodable RGB answer images and deterministic codecs",
+    "claim_ids": ["C2.1", "C4.2", "C9.1"]
+  },
+  "direction_reconstruction": {
+    "starting_dissatisfaction": "Zero-shot image and video generators could draw depth-, normal-, and segmentation-like images, yet their outputs did not obey a strict format and could not be trusted on modern quantitative benchmarks.",
+    "almost_worked_transfer": "Task-specific repurposing of diffusion generators could achieve SOTA dense prediction, but used specialist modules or full finetuning and lost the desired generality.",
+    "blocking_constraint": "A generalist image generator has only an RGB output interface, while benchmarks expect masks, metric scalars, vectors, and task-specific structures.",
+    "replacement_logic": "Encode every supported answer as an invertible RGB visualization and teach the base generator to follow that protocol with a low ratio of vision-task examples mixed into its original training distribution.",
+    "claim_ids": ["C6.1", "C7.1", "C20.1", "C20.2"]
+  },
+  "challenge_module_map": [
+    {
+      "challenge": "Free-form generation is not quantitatively decodable",
+      "failure_mode": "Prompted colors and layouts drift, so masks or physical values cannot be recovered reliably",
+      "design_principle": "Make the generated visualization invertible",
+      "module": "Prompted RGB protocols for segmentation, metric depth, and surface normals",
+      "ablation_or_evidence": "Standard benchmark results after deterministic decoding",
+      "claim_ids": ["C4.1", "C9.1", "C13.1", "C17.1"]
+    },
+    {
+      "challenge": "Multi-task alignment may erase generation capability",
+      "failure_mode": "The base model becomes a perception specialist",
+      "design_principle": "Use a low-intervention alignment mixture",
+      "module": "Very-low-ratio vision data mixed with original NBP training data",
+      "ablation_or_evidence": "53.5% GenAI-Bench and 47.8% ImgEdit pairwise win rates versus NBP",
+      "claim_ids": ["C14.2", "C17.4"]
+    },
+    {
+      "challenge": "Unknown instance counts prevent fixed prompt colors",
+      "failure_mode": "The prompt cannot enumerate a color for every instance in advance",
+      "design_principle": "Restrict one inference to one semantic class and let the generator allocate colors dynamically",
+      "module": "Per-class instance segmentation plus color clustering",
+      "ablation_or_evidence": "SA-Co/Gold zero-shot performance and qualitative instance examples",
+      "claim_ids": ["C10.1", "C13.1", "C17.2"]
+    },
+    {
+      "challenge": "Metric depth is unbounded while RGB is bounded",
+      "failure_mode": "A naive color scale either loses near-field precision or cannot represent the full distance range",
+      "design_principle": "Allocate more code space to nearby geometry while retaining invertibility",
+      "module": "Power transform followed by a piecewise-linear RGB-cube path",
+      "ablation_or_evidence": "Table 3 depth benchmarks and Figures 5–7",
+      "claim_ids": ["C11.1", "C11.2", "C15.3", "C17.3"]
+    }
+  ],
+  "module_lenses": [
+    {
+      "module": "Prompted RGB output protocol",
+      "failure_fixed": "Unstructured generator outputs cannot be scored as standard vision predictions",
+      "ideal_unavailable_solution": "A native structured decoder and task head for each benchmark family",
+      "available_proxy": "The generator's native RGB image output and natural-language instruction following",
+      "hidden_assumption": "The model can obey pixel-level color constraints accurately enough for deterministic decoding",
+      "future_direction": "Constrained RGB decoding, explicit protocol tokens, and calibrated output-validity checks",
+      "claim_ids": ["C14.1", "C21.3", "C23.3"]
+    },
+    {
+      "module": "Depth bijection",
+      "failure_fixed": "Infinite metric depth range and nonuniform task utility do not fit naive bounded colors",
+      "ideal_unavailable_solution": "Direct calibrated real-valued regression with the general generator",
+      "available_proxy": "A power-warped scalar encoded along RGB-cube edges",
+      "hidden_assumption": "Off-path RGB generation errors remain small and nearest-path projection does not amplify physical error catastrophically",
+      "future_direction": "Learn an error-equalizing codec and propagate RGB uncertainty into metric-depth confidence",
+      "claim_ids": ["C11.2", "C12.2", "C23.3"]
+    },
+    {
+      "module": "Low-ratio mixed instruction tuning",
+      "failure_fixed": "Task alignment may cause catastrophic forgetting of image generation",
+      "ideal_unavailable_solution": "Perfectly lossless task alignment with no base-model update",
+      "available_proxy": "Mix small vision-task supervision into the original generation mixture",
+      "hidden_assumption": "Task formatting can be learned from little data and the new supervision does not carry most of the task knowledge",
+      "future_direction": "Controlled data-scaling and pretraining-objective ablations that separate unlocking from relearning",
+      "claim_ids": ["C14.2", "C14.3", "C23.2"]
+    },
+    {
+      "module": "Dynamic instance colors",
+      "failure_fixed": "The number of instances is unknown before inference",
+      "ideal_unavailable_solution": "Permutation-invariant set prediction with an explicit instance decoder",
+      "available_proxy": "Per-class generation followed by thresholded color clustering",
+      "hidden_assumption": "Different objects receive separable colors and internal texture does not fragment a mask",
+      "future_direction": "Permutation-invariant learned color allocation and topology-aware mask decoding",
+      "claim_ids": ["C13.1", "C21.3"]
+    }
+  ],
+  "citation_logic": [
+    {
+      "citation_cluster": "Wiedemer et al. 2025; Zuo et al. 2025",
+      "narrative_function": "limitation evidence and direction trigger",
+      "assumption_inherited": "Strong generators exhibit emergent visual understanding in their outputs",
+      "paper_move": "Turn qualitative zero-shot behavior into strictly formatted, quantitatively benchmarked outputs",
+      "claim_ids": ["C8.1", "C6.1"]
+    },
+    {
+      "citation_cluster": "Marigold; Lotus/Lotus-2; StableNormal; Depth Anything 3; SAM 3",
+      "narrative_function": "method ancestry and strong baseline pressure",
+      "assumption_inherited": "Generation priors or specialist architectures can solve dense perception effectively",
+      "paper_move": "Remove per-task model specialization and compete using one shared generative interface",
+      "claim_ids": ["C8.2", "C16.2", "C17.1"]
+    },
+    {
+      "citation_cluster": "GPT-3; PaLM; InstructGPT; FLAN",
+      "narrative_function": "cross-field paradigm template",
+      "assumption_inherited": "Generative base models contain broad capabilities that instruction tuning can align to task formats",
+      "paper_move": "Translate text-generation task following into RGB-generation task following",
+      "claim_ids": ["C8.3", "C22.1"]
+    }
+  ],
+  "experiment_story_map": [
+    {
+      "experiment": "Table 2 segmentation suite",
+      "claim_supported": "One shared model can perform strong zero-shot semantic, instance, and referring segmentation",
+      "counterfactual": "A general image generator cannot match specialist segmentation systems without task-specific heads",
+      "stress_condition": "Four datasets with open-vocabulary and reasoning-oriented prompts",
+      "claim_ids": ["C17.1", "C17.2"]
+    },
+    {
+      "experiment": "Table 3 metric depth suite",
+      "claim_supported": "Synthetic-only instruction alignment can unlock strong absolute-scale priors without camera parameters",
+      "counterfactual": "Metric depth requires specialist regression and intrinsics",
+      "stress_condition": "Six real-world domains and shared-dataset comparison with Depth Anything 3",
+      "claim_ids": ["C17.3", "C15.3"]
+    },
+    {
+      "experiment": "Table 4 and Figure 8 surface normals",
+      "claim_supported": "The RGB interface extends to 3D local geometry and can rival diffusion specialists",
+      "counterfactual": "A general generator's normal maps are too coarse for geometric evaluation",
+      "stress_condition": "Indoor and outdoor datasets, including a benchmark on which Lotus-2 was trained",
+      "claim_ids": ["C17.4", "C15.3"]
+    },
+    {
+      "experiment": "GenAI-Bench and ImgEdit pairwise human evaluations",
+      "claim_supported": "Low-ratio visual instruction tuning largely preserves NBP generation",
+      "counterfactual": "Dense prediction alignment catastrophically forgets the original generative prior",
+      "stress_condition": "Both text-to-image generation and image editing",
+      "claim_ids": ["C14.2", "C17.4"]
+    }
+  ],
+  "story_patterns": [
+    {
+      "pattern_name": "replacement story",
+      "formula": "missing task head Y + native generator interface X -> invertible RGB surrogate Z",
+      "lesson": "When a foundation model appears incapable, first test whether the missing piece is an interface rather than a representation.",
+      "claim_ids": ["C20.1", "C20.2"]
+    },
+    {
+      "pattern_name": "one interface, many specialists",
+      "formula": "shared weights + prompt-routed protocols + task-specific deterministic decoders",
+      "lesson": "A paper can earn generality through a common protocol even when the physical meaning of each output differs.",
+      "claim_ids": ["C7.1", "C9.1", "C19.1"]
+    },
+    {
+      "pattern_name": "hidden-assumption break",
+      "formula": "strong post-tuning transfer does not identify whether capability was unlocked or relearned",
+      "lesson": "The strongest follow-up paper attacks the causal assumption behind the original success, not merely one more benchmark.",
+      "claim_ids": ["C18.2", "C23.2"]
+    }
+  ],
+  "boundary_directions": [
+    {
+      "title": "Causal accounting of generative pretraining",
+      "hidden_assumption": "Very-low-ratio instruction tuning only formats capabilities already present in NBP",
+      "what_breaks": "If task supervision learns most of the representation, the title-level conclusion no longer follows from the benchmark results",
+      "new_direction": "Hold task data and compute fixed across generative, discriminative, frozen, and random-initialization bases with scaling curves",
+      "claim_ids": ["C14.3", "C18.2", "C23.2"]
+    },
+    {
+      "title": "Calibrated generative codecs",
+      "hidden_assumption": "Generated colors stay close enough to the valid task manifold for deterministic decoding",
+      "what_breaks": "Small RGB errors can fragment masks or become large metric-depth errors after inversion",
+      "new_direction": "Learn task-metric-aware code manifolds, output validity scores, and uncertainty propagation",
+      "claim_ids": ["C21.3", "C23.3"]
+    },
+    {
+      "title": "Temporal and interactive generalist vision",
+      "hidden_assumption": "Per-frame RGB answers are sufficient for general visual understanding",
+      "what_breaks": "Video, tracking, identity, action, and embodied control require temporal consistency and closed-loop correction",
+      "new_direction": "Use video generators and interactive correction protocols to produce temporally coherent structured visual outputs",
+      "claim_ids": ["C21.1", "C23.1", "C23.4"]
+    },
+    {
+      "title": "Efficient universal-to-specialist transfer",
+      "hidden_assumption": "A flagship image generator is affordable enough to serve directly as a perception model",
+      "what_breaks": "Latency, memory, and energy make the method impractical despite accuracy",
+      "new_direction": "Distill the unified prompt-and-codec behavior into compact students without losing cross-task transfer",
+      "claim_ids": ["C21.1", "C23.1"]
+    }
+  ]
+}

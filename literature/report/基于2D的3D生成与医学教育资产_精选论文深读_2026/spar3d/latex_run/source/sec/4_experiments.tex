@@ -1,0 +1,80 @@
+\section{Experiments}
+\label{sec:experiments}
+
+\input{tables/gso}
+\input{tables/omniobj3d}
+
+\subsection{Evaluation}
+\paragraph{Datasets.}
+We used two datasets for evaluation, GSO~\cite{downs2022google} and OmniObject3D~\cite{wu2023omniobject3d}. We follow TripoSR~\cite{TripoSR2024} and remove simple box or cylindrical objects to avoid bias on simple geometries. Each of the evaluation sets consists of around 250 objects. We render the objects with diverse azimuth angles at different elevations, with randomly sampled HDRI environment maps. We also vary the focal length of the camera to create more diverse test cases.
+
+\paragraph{Metrics.}
+To evaluate the geometry quality of the reconstructed meshes, we use follow prior works~\cite{TripoSR2024,xu2024instantmesh} and use Chamfer Distance (CD) and F-score (FS) as our evaluation metrics. CD measures the alignment between two point clouds and is defined as the average of accuracy and completeness:
+\begin{equation}
+    \small
+    d(S_1, S_2) = \frac{1}{2|S_1|}\sum_{x \in S_1} \min_{y \in S_2} \|x-y\|_2 + \frac{1}{2|S_2|}\sum_{y \in S_2} \min_{x \in S_1} \|x-y\|_2
+    \label{eq:chamfer}
+\end{equation}
+FS evaluates point cloud alignment by calculating the F-score with a predefined threshold. Predicted points that lie within the distance threshold are considered as correct predictions. A higher FS means better alignment between the reconstructed shape and the groundtruth.
+To evaluate the texture quality, we compute standard image metrics, including PSNR, SSIM and LPIPS, between images rendered from the predicted mesh and the groundtruth images.
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=0.95\textwidth]{figures/qualitative_compare.pdf}
+\vspace{-4mm}
+\caption{\textbf{Qualitative Comparison.} We compare \method to other state-of-the-art methods visually. \method not only aligns better with the visible surfaces from images, but also generates higher-quality geometries and textures for the occluded surfaces.}
+\label{fig:qualitative}
+\vspace{-4mm}
+\end{figure*}
+
+\paragraph{Protocol.}
+To calculate the metrics that are comparable across methods, the meshes need to lie in the same coordinate system. To this end, we perform brute-force search in rotations to align each predicted mesh with the groundtruth mesh. Both the prediction and the groundtruth are normalized before the brute-force alignment, and the alignment is further refined with ICP.
+
+\paragraph{Baselines.}
+We compare \method with other efficient methods for single-view 3D generation or reconstruction~\cite{TripoSR2024,tang2024lgm,xu2024instantmesh,wang2024crm,sf3d2024}. We use the official implementation for all baselines, and we evaluate the produced meshes under the same protocol. Specifically, we compare against TripoSR~\cite{TripoSR2024}, LGM~\cite{tang2024lgm}, CRM~\cite{wang2024crm}, InstantMesh~\cite{xu2024instantmesh}, LN3Diff~\cite{lan2024ln3diff}, Shap-E~\cite{jun2023shap} and SF3D~\cite{sf3d2024}. Among these baselines, TripoSR and SF3D are pure regression-based approaches; LGM, CRM and InstantMesh use multiview diffusion to generate pseudo multi-view images; LN3Diff and Shap-E are purely diffusion-based 3D generative models.
+
+\begin{figure*}[h]
+\centering
+\includegraphics[width=0.95\textwidth]{figures/qualitative_wild.pdf}
+\caption{\textbf{Generalization Results.} We show qualitative results of \method on in-the-wild images from 2D generative models (top 2 rows) and ImageNet (bottom 2 rows). The reconstructed meshes exhibit accurate geometric structures with great textures, demonstrating a strong generalization performance of \method.}
+\vspace{-6mm}
+\label{fig:wild}
+\end{figure*}
+
+\begin{figure*}[h]
+\centering
+\includegraphics[width=0.95\textwidth]{figures/qualitative_edit.pdf}
+\caption{\textbf{Editing Results.} We show qualitative examples of interactive editing with \method. On the left two examples, we add a handle to the mug and a tail to the elephant doll by duplicating existing points. On the right two examples, we move or delete points to fix imperfections and to improve local details on the mesh. All the edits are performed in Blender within a minute.}
+\label{fig:edit}
+\vspace{-6mm}
+\end{figure*}
+
+\subsection{Main Results}
+\paragraph{Quantitative Comparison.}
+We compare \method to other baselines on GSO and Omniobject3D quantitatively. As shown in~\cref{tab:gso} and~\cref{tab:omni}, \method outperforms all other regressive or generative baselines significantly across most metrics on both datasets. For SSIM, we observe that \method is slightly worse than the strongest baseline for this metric. We find that this relates to the Monte Carlo noise from our shader. \method is also among the fastest reconstruction models with an inference speed of \gentime seconds per object, which is significantly faster than 3D or multiview diffusion-based approaches. 
+
+\paragraph{Qualitative Results.}
+We show qualitative results of different methods in~\cref{fig:qualitative}. The reconstructed meshes from pure regression-based approaches such as SF3D or TripoSR align with the input image well, but the backside is often less accurate and over-smoothed. Multi-view diffusion-based methods such as LGM, CRM and InstantMesh show more details on the backside. However, the inconsistency in the synthesized views leads to clear artifacts and overall worse results. Pure generative approaches such as Shap-E and LN3Diff are able to produce sharp surfaces in their generation. However, many details are erroneous hallucinations that do not accurately follow the input images, and the visible surfaces are often reconstructed incorrectly. Compared to prior art, the meshes produced by \method not only faithfully resemble the input image, but also exhibit well-generated occluded parts with reasonable details. In~\cref{fig:wild}, we further show qualitative results of \method on in-the-wild images. The images are generated using text-to-image generative models or from the ImageNet validation set~\cite{deng2009imagenet}. The high quality of the reconstructed meshes demonstrates a strong generalization performance of \method.
+
+\subsection{Editing Results}
+The usage of explicit point clouds as an intermediate representation enables interactive editing of the generated meshes. Users can easily alter the unseen surface of the mesh by manipulating the point cloud. In~\cref{fig:edit}, we show a few editing examples with \method, either by adding major object parts to the reconstruction, or improving undesirable generated details.
+
+\subsection{Ablation}
+We ablate the key idea of \method, the point sampling stage, which can be seen as an addition to standard regression approaches. We consider a variant of our model (\method w/o Point), where we remove the point sampling stage and make \method a full regressive model.
+We compare this variant with our full model on both GSO and Omniobject3D.
+As shown in~\cref{tab:ablation}, our full \method significantly outperforms the regressive variant, which validates the effectiveness of our design.
+
+\input{tables/ablation}
+\vspace{-6mm}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.9\linewidth]{figures/qualitative-conflict.pdf}
+\caption{\textbf{Generated Mesh with Conflicting Cues.} Under conflicting cues from images and point clouds, our model reconstructs the visible surface based on the image, while generating the backside surface based on the point cloud.}
+\label{fig:analysis}
+\vspace{-5mm}
+\end{figure}
+
+\subsection{Analysis}
+We further design experiments to understand how \method works. 
+Our key assumption when designing \method is that the two-stage design effectively separates the uncertain part (back-surface modeling) and the deterministic part (visible surface modeling) of the monocular 3D reconstruction problem. Ideally, the meshing stage should mainly rely on the input image for reconstructing the visible surface, while relying on the point cloud to generate the back surface. To see whether this is true, we design an experiment where we artificially use point clouds that conflict with the input image. In~\cref{fig:analysis}, we feed the input image of a squirrel and the point cloud of a horse to the meshing model. As shown in the figure, the reconstructed mesh indeed aligns with the squirrel image well on the visible surface, while the back surface mainly adheres to the point cloud. This result validates our assumption. 

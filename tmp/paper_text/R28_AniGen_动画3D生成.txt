@@ -1,0 +1,1030 @@
+                                         AniGen: Unified 𝑆 3 Fields for Animatable 3D Asset Generation
+                                         YI-HUA HUANG∗ , The University of Hong Kong, China
+                                         ZI-XIN ZOU, VAST, China
+                                         YUTING HE, The Chinese University of Hong Kong, China
+                                         CHIRUI CHANG, The University of Hong Kong, China
+                                         CHENG-FENG PU, Tsinghua University, China
+                                         ZIYI YANG, The University of Hong Kong, China
+                                         YUAN-CHEN GUO, VAST, China
+                                         YAN-PEI CAO† , VAST, China
+                                         XIAOJUAN QI† , The University of Hong Kong, China
+arXiv:2604.08746v2 [cs.GR] 14 Apr 2026
+
+
+
+
+                                         Fig. 1. Given a single conditional image as input, AniGen generates a 3D shape along with its skeleton and skinning weights, supporting a wide range of 3D
+                                         assets, including organic entities such as animals, cartoon characters, humans, and articulated man-made objects.
+
+                                         Animatable 3D assets, defined as geometry equipped with an articulated             and often produces skeletons that are topologically inconsistent with the
+                                         skeleton and skinning weights, are fundamental to interactive graphics,            generated geometry. We present AniGen, a unified framework that directly
+                                         embodied agents, and animation production. While recent 3D generative              generates animate-ready 3D assets conditioned on a single image. Our key
+                                         models can synthesize visually plausible shapes from images, the results           insight is to represent shape, skeleton, and skinning as mutually consistent
+                                         are typically static. Obtaining usable rigs via post-hoc auto-rigging is brittle   𝑆 3 Fields (Shape, Skeleton, Skin) defined over a shared spatial domain. To
+                                                                                                                            enable the robust learning of these fields, we introduce two technical inno-
+                                         ∗ This work is in collaboration with VAST.                                         vations: (i) a confidence-decaying skeleton field that explicitly handles the
+                                         † Corresponding Author                                                             geometric ambiguity of bone prediction at Voronoi boundaries, and (ii) a dual
+2   •    Yi-Hua Huang, et al.
+
+
+skin feature field that decouples skinning weights from specific joint counts,        TRELLIS                    UniRig                    Anymate
+allowing a fixed-architecture network to predict rigs of arbitrary complexity.
+Built upon a two-stage flow-matching pipeline, AniGen first synthesizes a
+sparse structural scaffold and then generates dense geometry and articula-
+tion in a structured latent space. Extensive experiments demonstrate that
+AniGen substantially outperforms state-of-the-art sequential baselines in rig
+validity and animation quality, generalizing effectively to in-the-wild images
+across diverse categories including animals, humanoids, and machinery.
+Homepage: https://yihua7.github.io/AniGen_web/                                         AniGen                   Puppeteer                 RigAnything
+
+
+
+                                                                                 Fig. 2. We present a case study combining TRELLIS [Xiang et al. 2025b]
+                                                                                 with state-of-the-art auto-rigging baselines for animatable asset generation.
+1       Introduction                                                             Existing methods produce skeletons with missing bones (UniRig [Zhang
+The rapid advancement of generative 3D models [Chen et al. 2025b;                et al. 2025]), unstructured rigs (Anymate [Deng et al. 2025]), or poor skinning
+Li et al. 2025c; Wu et al. 2024a; Xiang et al. 2025b; Zhang et al. 2023,         (Puppeteer [Song et al. 2025a], RigAnything [Liu et al. 2025]). The resulting
+2024b] has begun to democratize 3D content creation, enabling the                animations expose practical failure modes of this pipeline, whereas AniGen
+                                                                                 generates plausible skeletons and skinning that support stable character
+synthesis of visually stunning geometry and appearance from simple
+                                                                                 animation.
+text or image prompts. However, a significant gap remains between
+visual plausibility and functional utility. In interactive domains such
+as video games, virtual reality, and embodied AI, a 3D asset’s utility
+depends on its animatability. That is, it must be equipped with an
+                                                                                 compression-generation pipeline that can effectively “grow” the ge-
+articulated skeleton and precise skinning weights to enable posing,
+                                                                                 ometry and rig simultaneously. To make joint generation tractable,
+motion-capture driving, or physical simulation. Current generative
+                                                                                 we introduce two key designs at the auto-encoding stage to com-
+models paradigms primarily yield static statues: models that process
+                                                                                 press the 𝑆 3 Fields into structured sparse latents [Xiang et al. 2025b].
+high-fidelity surface details but remain functionally inert, serving
+                                                                                 First, to address the inherent ambiguity of skeleton regression in
+as mere decorations rather than interactive entities.
+                                                                                 regions equidistant to multiple bones (i.e., near Voronoi boundaries),
+   A straightforward strategy to bridge this gap is a sequential
+                                                                                 we introduce a confidence-decaying skeleton field. This mechanism
+“generate-then-rig” pipeline: first synthesize a static mesh using
+                                                                                 explicitly down-weights ambiguous regions during auto-encoder
+a state-of-the-art 3D generator [Xiang et al. 2025b], followed by
+                                                                                 training, focusing supervision on high-certainty areas near kine-
+an off-the-shelf auto-rigging algorithm [Deng et al. 2025; Liu et al.
+                                                                                 matic chains and thereby enforcing structural coherence. Second,
+2025; Song et al. 2025a; Zhang et al. 2025]. Unfortunately, this de-
+                                                                                 to accommodate the wide variation in joint counts across object
+coupled approach is brittle. Unlike artist-authored assets, which are
+                                                                                 categories, we propose a Dual Skin Field representation, decoded
+modeled with clean topology and articulation in mind, generated
+                                                                                 via a pre-trained Skin Auto-Encoder (SkinAE). This design converts
+meshes often contain “topological variances”, e.g., small geometric
+                                                                                 variable-cardinality skinning into a fixed-dimensional latent fea-
+irregularities, diversely posed limbs, or ambiguous surface topology.
+                                                                                 ture space, enabling consistent compression of rigs with arbitrary
+While these variances may be visually negligible, they are cata-
+                                                                                 complexity.
+strophic for auto-riggers, which rely on precise topological cues to
+                                                                                    Built upon these compressed latents, we train a sparse struc-
+infer kinematic chains. As shown in Figure 2, this mismatch often
+                                                                                 tured flow-matching model [Xiang et al. 2025b] to generate struc-
+leads to anatomically incorrect skelections or skinning artifacts that
+                                                                                 tured latent codes from image-conditioned noise, which are subse-
+cause unnatural shearing during animation.
+                                                                                 quently decoded into geometry and rigging simultaneously. Ani-
+   In this work, we argue that this fragility stems from a fundamental
+                                                                                 Gen demonstrates strong generalization capability, producing fully
+representation mismatch. Geometry and articulation are not disjoint
+                                                                                 rigged, animate-ready 3D assets from single images across a broad
+attributes to be processed sequentially; rather, they are inherently
+                                                                                 range of categories, including humanoid characters, organic ani-
+entangled. The shape of a character is functionally determined by
+                                                                                 mals, and articulated machinery. Extensive experiments show that
+its underlying skeleton, and the validity of a skeleton is constrained
+                                                                                 AniGen consistently outperforms sequential baselines in rig validity
+by the volume of the shape. Therefore, treating rigging as a post-
+                                                                                 and animation quality, representing a practical step toward the scal-
+processing step ignores the intrinsic cross-modal priors that exist
+                                                                                 able generation of functional 3D worlds. We additionally show that
+between shape and function.
+                                                                                 this joint modeling of geometry and articulation does not compro-
+   To address this, we present AniGen, a unified generative frame-
+                                                                                 mise geometric fidelity relative to strong geometry-only generators,
+work that treats 3D shape, skeleton, and skinning as mutually con-
+                                                                                 making the method practical rather than merely structurally correct.
+sistent fields to be co-generated. Our key insight is to unify these
+                                                                                    In summary, our contributions are:
+distinct modalities into a common shared continuous representation,
+which we term 𝑆 3 Fields (𝑆hape, 𝑆keleton, 𝑆kin). By representing                     • Unified Generative Formulation: We propose a holistic frame-
+the skeleton not as a discrete graph but as a dense vector field, and                   work for the co-generation of shape, skeleton, and skinning
+skinning not as a sparse matrix but as a dual feature field, we enable                  as mutually aligned 𝑆 3 Fields, effectively eliminating the
+all three components to share the same spatial domain and genera-                       accumulation of errors inherent in sequential “generate-
+tive priors. Crucially, this unified representation enables a coherent                  then-rig” pipelines.
+                                                                                     AniGen: Unified 𝑆 3 Fields for Animatable 3D Asset Generation   •   3
+
+
+     • Confidence-Aware Skeleton Field: We introduce a confidence-       performance by scaling up model capacity and leveraging larger,
+       decaying vector field representation that resolves structural     more carefully curated datasets.
+       ambiguity, enabling robust graph extraction from noisy vol-          More recently, TRELLIS [Xiang et al. 2025b] has emerged as a
+       umetric predictions.                                              leading framework for high-quality 3D generation, demonstrating
+     • Joint-Count Agnostic Skinning: We devise a Dual Skin Field        the effectiveness of a two-stage generation paradigm. In the first
+       and SkinAE training strategy that allows generative models        stage, TRELLIS generates a sparse voxel representation that cap-
+       to synthesize rigs of arbitrary complexity.                       tures the global structure of the shape. Conditioned on this sparse
+     • State-of-the-Art Performance: We demonstrate that AniGen          structure, the second stage refines geometry and details using rec-
+       produces high-fidelity, animate-ready assets from in-the-         tified flow [Liu et al. 2022] operating on sparse tensors. Several
+       wild images, outperforming existing auto-rigging baselines.       follow-up works improve upon this framework. SparseFlex [He et al.
+                                                                         2025] increases the voxel resolution in the first stage to 5123 to en-
+                                                                         hance geometric accuracy. Ultra3D [Chen et al. 2025b] replaces the
+2 Related Work
+                                                                         voxel-based first stage with VecSet representations and feeds vox-
+2.1 Conditional 3D Generation                                            elized outputs into the second-stage diffusion model. CUPID [Huang
+Early text-to-3D generation methods are predominantly optimization-      et al. 2025a] improves image-conditioned generation by predicting
+based. DreamField [Jain et al. 2022] leverages CLIP [Radford et al.      per-voxel UV coordinates in the first stage, leading to better align-
+2021] to optimize NeRF [Mildenhall et al. 2021] renderings such          ment with input images. Recently proposed TRELLIS 2 [Xiang et al.
+that the reconstructed 3D scene aligns with a given text prompt.         2025a] further advances this paradigm by substantially increasing
+Building upon this paradigm, DreamFusion [Poole et al. 2023] intro-      the first-stage resolution to 15363 and incorporating high-quality
+duces Score Distillation Sampling (SDS), which employs a pretrained      PBR material prediction in the second stage, achieving state-of-
+image diffusion model [Ho et al. 2020; Song et al. 2021] to super-       the-art results and highlighting the advantages of two-stage 3D
+vise NeRF optimization. Subsequent “dreamer” variants [Liu et al.        generation. Although these approaches produce geometry of excep-
+2024; Long et al. 2024; Wang et al. 2023b; Yu et al. 2023] further       tional quality, they are limited to static representations and lack the
+extend DreamFusion by improving the SDS formulation [Wang                articulation capabilities essential for interactive 3D applications.
+et al. 2023b; Yu et al. 2023], incorporating multi-view SDS supervi-
+sion [Liu et al. 2024; Shi et al. 2023], and introducing normal-domain
+constraints [Long et al. 2024].
+   Despite their effectiveness, optimization-based approaches are
+computationally expensive, often requiring hours to generate a           2.2   Automatic Rigging and Skinning
+single asset. To address this limitation, feed-forward methods have      Automatic rigging [Bærentzen et al. 2014; Borosán et al. 2012; Pandey
+been proposed to directly infer 3D representations. Methods such as      et al. 2022; Xu et al. 2019] aims to equip static 3D meshes with
+Zero-1-to-3 [Liu et al. 2023], Instant3D [Li et al. 2024], DMV3D [Xu     skeletons and skinning weights to enable animation. To address
+et al. 2024], and CAT3D [Gao et al. 2024] first synthesize pose-         animation and rigging challenges, structural representations for 3D
+conditioned multi-view images and then reconstruct 3D geometry           shapes were initially proposed by Marr et al.[Marr and Nishihara
+using NeRF or 3D Gaussian Splatting (3DGS) [Kerbl et al. 2023]. In       1978], focusing on spatial organization rather than surface geometry.
+contrast, LRM [Hong et al. 2023] formulates 3D reconstruction as         Pinocchio[Baran and Popović 2007] introduced a fully automated
+a direct regression problem by employing a transformer [Vaswani          method for embedding template skeletons into arbitrary 3D meshes,
+et al. 2017] to predict triplane representations from partial image      enabling animation-ready rigs with minimal manual intervention.
+observations. Building on this idea, TriplaneGaussian [Zou et al.        RigNet [Xu et al. 2020] further advanced rigging through deep learn-
+2024] and LGM [Tang et al. 2024] replace volumetric representations      ing but was limited to templates and T-poses. Subsequent works,
+with 3DGS to improve rendering quality and geometric fidelity.           such as Neural Blend Shapes [Li et al. 2021] and TARig [Ma and
+TripoSR [Tochilkin et al. 2024] further scales up LRM by leveraging      Zhang 2023], tackled rigging and skinning for humanoid charac-
+larger datasets and refined architectural designs.                       ters, while MoRig [Xu et al. 2022] used deforming point clouds for
+   However, under partial observations, such as a single image or        guidance. Other methods, such as NeuroSkinning [Liu et al. 2019]
+a small number of views, recovering a complete 3D shape is inher-        and DRiVE [Sun et al. 2025], also focus on skeleton prediction and
+ently a generative task rather than a pure reconstruction problem.       skinning for human characters.
+Consequently, regression-based feed-forward methods tend to pro-            More recently, general-purpose rigging methods have emerged.
+duce overly smoothed geometry, as they implicitly learn the data         UniRig [Zhang et al. 2025] was one of the first to rig arbitrary
+average and struggle to preserve fine-grained details. To mitigate       shapes with an end-to-end auto-regressive model, followed by Rig-
+this issue, VecSet [Zhang et al. 2023] proposes encoding 3D shapes       Anything [Liu et al. 2025], which applied a joint diffusion model for
+into fixed-length token sequences and training diffusion models in       sequential joint generation. Anymate [Deng et al. 2025] introduced
+the token space. Direct3D [Wu et al. 2024a] adopts VecSet tokens to      a modular approach to predict joints, connectivity, and skinning
+predict triplanes that encode geometric structure, while Dora [Chen      weights, while Puppeteer [Song et al. 2025a] leveraged an auto-
+et al. 2025c] enhances detail preservation by adaptively sampling        regressive transformer to predict skeletons and drive motion via
+more points around sharp edges. Subsequent works, including Tri-         optimization. However, these methods typically function as post-
+poSG [Li et al. 2025c] and Clay [Zhang et al. 2024b], further improve    processing steps that depend heavily on the distribution of the
+4     •    Yi-Hua Huang, et al.
+
+
+    Animatable 3D Assets Encoding & Decoding
+           Input                                   Encoder         𝓔𝑳                                                      Structured                                          Decoder                        𝓓𝑳                       Output
+                                                                                                                             Latents
+
+
+
+
+                                                                                                                                                                                                                        FlexiCube
+                          Voxelize
+                                                                                                                                                                                                   Shape/Skin                          3D Shape
+                                                                                                                                                                                               Features (𝒚𝒔 , 𝒚𝒔𝒌𝒊𝒏 )                  (𝓢-Field)
+
+
+
+
+                                                                                            Sparse Transformer
+
+
+
+
+                                                                                                                                                          Sparse Transformer
+           3D Shape                     Shape Voxels 𝑽                   DINOv2
+
+                                                                                                                           Shape Latents                                                        𝑾𝒗
+
+
+
+
+                                                                                                                                                                               Skin Features
+                                                                                                                                 (𝒛𝒔 , 𝒛𝒔𝒌𝒊𝒏 )
+
+
+
+
+                                                                                                                                                                                                                        Skin Dec
+                                                         Product                                                                                                                                𝑾𝒋
+                                                                       Shape/Skin                                                                                                                                                    Skin Weights
+          Skin Weights                Skin Features 𝑾𝒋             Features (𝒙𝒔 , 𝒙𝒔𝒌𝒊𝒏 )                                                                                                                                             (𝓦-Field)
+                           Skin Enc
+
+
+
+
+                                                                                                                                                                                                                        Grouping
+                          Voxelize
+                                                                       Skeleton                                           Skeleton Latents                                                          Skeleton                           Skeleton
+           Skeleton                   Skeleton Voxels 𝑽𝒔𝒌            Features (𝒙𝒔𝒌 )                                                (𝒛𝒔𝒌 )                                                        Features (𝒚𝒔𝒌 )                      (𝓑-Field)
+
+
+    Animatable 3D Assets Generation
+                                                                     Stage I                                                                                                                                                          Stage II
+    Condition            Sparse                                                                                  Condition                       Structured
+                         Structure               Dec
+                                                 Dec                                                                                             Latent                                                                  Dec
+                         Flow                    𝓓𝑺                                                                                              FLow                                                                    𝓓𝑳
+    Noise (𝒛%𝒔 , 𝒛%𝒔
+                  𝒔𝒌 )
+                                      𝓖𝑺                           Sparse Structures
+                                                                       (𝑽, 𝑽𝒔𝒌 )
+                                                                                                   Stuctured Noise
+                                                                                                        (𝒛'𝒔 , 𝒛′𝒔𝒌𝒊𝒏 , 𝐳′𝒔𝒌 )
+                                                                                                                                                        𝓖𝑳                                     Structured Latents
+                                                                                                                                                                                                  (𝒛, 𝒛𝒔𝒌𝒊𝒏 , 𝐳𝒔𝒌 )                 Animatable Shape
+
+
+
+Fig. 3. Overview of the AniGen framework. The top panel illustrates the encoding and decoding of the 𝑆 3 fields using the structured latent autoencoder E𝐿
+and D𝐿 . From top to bottom, the three rows correspond to the shape, skin, and skeleton branches, respectively. The bottom panel depicts the generation
+pipeline for animatable 3D assets. Given an input image, the sparse structure flow model G𝑆 predicts voxel scaffolds that serve as supports for the shape and
+skeleton. Conditioned on these supports, a structured latent flow G𝐿 synthesizes the corresponding 𝑆 3 fields. Finally, the decoded outputs yield a 3D shape
+equipped with skeleton rigging and associated skinning, producing an animatable 3D asset.
+
+
+input mesh. They often struggle with topological, shape-, and pose-                                                          skeletons based on semantic joint names using a transformer with
+variances common in generative outputs, motivating our end-to-end                                                            skeletal and temporal attention. AnimaX [Huang et al. 2025b] gen-
+approach where geometry and rigging are co-generated.                                                                        erates multi-view videos of animated characters and derives pose
+                                                                                                                             parameters via triangulation and inverse kinematics. Similarly, An-
+2.3         Generative Dynamic & Articulated Assets                                                                          imaMimic [Xie et al. 2025] combines UniRig with video priors to
+                                                                                                                             drive motion. Make-it-Poseable [Guo et al. 2025] bypasses skinning
+Beyond generating static 3D content, researchers have also ex-
+                                                                                                                             by directly animating meshes with their associated skeletons. For
+plored creating animatable or dynamic 3D objects. One direction
+                                                                                                                             articulated objects, ArtiLatent [Chen et al. 2025a] generates sparse
+involves 4D generation. DreamGaussian4D [Ren et al. 2023] extends
+                                                                                                                             structures with articulation labels (e.g., part types and joint types),
+optimization-based methods to dynamic generation. Cat4D [Wu
+                                                                                                                             enabling dynamic objects like drawers or cabinets. Particulate [Li
+et al. 2025a] and SVG [Dai et al. 2025] use diffusion models to gen-
+                                                                                                                             et al. 2025a] applies a part articulation transformer to predict artic-
+erate spatial-temporal frame matrices for dynamic scenes but are
+                                                                                                                             ulation labels, supporting downstream embodied AI tasks. Unlike
+limited in view range. SMRNet [Zhang et al. 2024a] and HMC [Wang
+                                                                                                                             these works, which often focus on rigid parts or video-driven priors,
+et al. 2023a] animate existing 3D shapes by retargeting them with
+                                                                                                                             our framework unifies shape, skeleton, and skinning generation to
+reference animations, while SC4D [Wu et al. 2024b] and Deform-
+                                                                                                                             produce fully animatable organic assets.
+Splat [Kim et al. 2025] optimize 3D shapes into dynamic motion
+with sparse control and local rigidity [Huang et al. 2024]. Ani-
+mateAnyMesh [Wu et al. 2025b] generates deformed mesh sequences
+using a feedforward model, and SS4D [Li et al. 2025b] predicts se-                                                           3 Method
+quential sparse structures and latent representations to produce
+dynamic scenes. While these methods generate dynamic content,                                                                3.1 Overview
+they often lack flexible controllers to freely adjust pose and motion.                                                       Our goal is to generate a fully functional, animatable 3D asset from
+   Another direction explores combining rigging with motion syn-                                                             a single RGB image I. Formally, an animatable asset is a tuple A =
+thesis or part-level articulation. Anytop [Gat et al. 2025] animates                                                         (M, K, W), consisting of a 3D mesh geometry M, a hierarchical
+                                                                                        AniGen: Unified 𝑆 3 Fields for Animatable 3D Asset Generation             •    5
+
+
+skeleton K (joints and connectivity), and skinning weights W that         modeling: it lacks a fixed spatial support, does not align naturally
+bind the geometry to the skeleton.                                        with volumetric or grid-based shape representations, and is difficult
+   Existing approaches typically treat this as a sequential pipeline:     to co-generate with geometry using shared model structures. To
+generating a static mesh M first, and then predicting K and W             this end, we represent the skeleton K not as a graph, but as a dense
+via post-processing. This separation often leads to topological mis-      vector field, allowing it to be co-generated with the shape using the
+matches, where the generated geometry lacks the structural in-            same model architecture. Let K = {𝐽1, . . . , 𝐽𝑀 } be the set of discrete
+tegrity required for articulation (e.g., fused limbs).                    joints in Euclidean space. The Skeleton Field B : R3 → R6 maps any
+   AniGen fundamentally departs from this paradigm by modeling            point 𝑥 ∈ R3 to a vector pair pointing to its nearest joint 𝑗 (𝑥) ∈ K
+𝑆hape, 𝑆keleton, and 𝑆kinning as a unified, spatially aligned rep-        and that joint’s parent 𝑝 (𝑥) ∈ K:
+resentation which we term 𝑆 3 Fields (Sec. 3.2). By representing                             B (𝑥) = [( 𝑗 (𝑥) − 𝑥) ⊕ (𝑝 (𝑥) − 𝑥)] ,                                   (2)
+articulation properties as continuous fields sharing the same spatial
+domain as the geometry, we ensure mutual consistency.                     where ⊕ denotes concatenation. This relative parameterization en-
+   To synthesize these fields from a single image, we devise a two-       sures the field is translation-invariant and local.
+stage generative pipeline (see Fig. 3):                                      Voxel Support V𝑠𝑘 . To model this field efficiently, we parameterize
+     • Representation & Compression: We first learn to compress           it using latent features distributed across a specific set of sparse
+       the continuous 𝑆 3 Fields into a compact, sparse structural        voxels V𝑠𝑘 . Critically, we cannot simply reuse the shape voxels V
+       representation. We employ a sparse structure auto-encoder          for this purpose, as V tracks the surface boundary, whereas skele-
+       (E𝑆 , D𝑆 ) to capture the coarse spatial layout and a structured   ton joints often reside deep within the object’s volume (far from
+       latent auto-encoder (E𝐿 , D𝐿 ) to encode fine-grained geom-        surface voxels). Therefore, we define V𝑠𝑘 as the set of voxels inter-
+       etry and skinning features into a low-dimensional latent           sected by the skeleton bones. To ensure robust coverage and prevent
+       space (Sec. 3.3).                                                  disconnection during generation, we dilate V𝑠𝑘 with a radius of 2
+     • Generative Flow: We then train two flow-matching models            voxels. This ensures the field is defined on a continuous, volumetric
+       to synthesize these representations from the input image. A        structure enveloping the kinematic chains (see Fig. 4).
+       sparse structure flow model first predicts the spatial occu-
+       pancy and skeleton graph, followed by a structured latent
+       flow model that “paints” the geometry and skinning details
+       onto this structure (Sec. 3.4).                                                                                                         Nearest Mapping
+
+
+
+
+3.2 𝑆 3 Fields                                                                                                                                 Confidence Decay
+
+A core challenge in generating animatable assets is that skeletons        (a) Shape & Skeleton (b) Shape Voxels     (c) Skeleton Voxels     (d) Skeleton Field
+and skinning weights are traditionally irregular data structures
+(graphs and sparse matrices), which are difficult to generate using       Fig. 4. Illustration of the (b) shape voxels V, (c) skeleton voxels V𝑠𝑘 , and
+standard convolutional or transformer architectures that assume           the (d) confidence-decaying nearest-neighbor joint field.
+fixed grid topologies. We resolve this by lifting them into continuous
+fields defined over the shared 3D domain R3 . We collectively term
+                                                                             Confidence-Aware Prediction. A major challenge in regression-
+this representation 𝑆 3 Fields.
+                                                                          based skeleton prediction arises near Voronoi boundaries between
+3.2.1 Shape Field S. Following recent state-of-the-art 3D gener-          joints, where the identity of the nearest bone changes abruptly. At
+ation method [Xiang et al. 2025b], we define the shape field over         these locations, the regression target becomes discontinuous, caus-
+                                            3
+a set of active sparse voxels V ⊂ {0, 1}𝑁 that track the mesh             ing ambiguous supervision and unstable gradients during training.
+surface. Formally, the Shape Field S maps each active voxel coordi-       Standard Bayesian uncertainty learning strategies [Kendall and Gal
+nate 𝑣 ∈ V to a set of local geometric and appearance parameters          2017] often struggle here, as they rely on a learned variance that is
+required by FlexiCubes [Shen et al. 2023] for mesh extraction:            difficult to weight against the regression loss and cannot guaran-
+                                                                          tee low confidence scores in ambiguous regions (see Sec. 4.6). To
+                    S(𝑣) = [d, n, c, fflex ] ∈ R𝐶S ,               (1)    mitigate this, we augment the field with a scalar confidence score
+where d ∈ R8 denotes the signed distances at the voxel corners,           𝑐 (𝑥) ∈ [0, 1]. We explicitly supervise the confidence using a geo-
+n ∈ R8×3 and c ∈ R8×3 represent corner normals and colors, and            metric metric that reflects the ambiguity of joint assignment. For a
+                                                                          voxel center 𝑣𝑐 , let 𝑗 𝑔𝑡 be the nearest joint and 𝑗2𝑛𝑑 be the second
+                                                                                                                               𝑔𝑡
+f 𝑓 𝑙𝑒𝑥 contains the FlexiCubes-specific interpolation and splitting
+weights [Shen et al. 2023]. This explicit parameterization enables        nearest. We define the ground truth (GT) confidence as:
+the extraction of high-quality, watertight meshes M directly from                                              ∥𝑣𝑐 − 𝑗 𝑔𝑡 ∥ 2
+                                                                                             𝑐𝑔𝑡 (𝑣𝑐 ) = 1 −                    ∈ [0, 1].                             (3)
+the field components. Since color is stored in the same field, the                                             ∥𝑣𝑐 − 𝑗2𝑛𝑑 ∥ 2
+                                                                                                                       𝑔𝑡
+final textured mesh can be obtained during surface extraction.
+                                                                             The model predicts an extra scalar field to fit this target. Cru-
+3.2.2 Skeleton Field B. A skeleton is conventionally represented as       cially, we use 𝑐𝑔𝑡 to weight the regression loss for joint and parent
+a set of joints organized in a tree structure in Euclidean space. How-    predictions. This forces the model to focus on the high-certainty
+ever, such a discrete graph representation is ill-suited for generative   regions near bones while suppressing gradients from ambiguous
+6   •   Yi-Hua Huang, et al.
+
+
+boundaries. Additionally, the learned confidence field facilitates the              weights are computed using a cross-attention operation, ensuring
+next joint recovery stage.                                                          that 𝑤 𝑣 forms a valid partition of unity (sums to 1). For more imple-
+                                                                                    mentation details, please refer to Sec.3.3.1 and Fig.6. This allows our
+    From Continuous Field to Discrete Skeleton. During inference, we
+                                                                                    generative model to predict fixed-size feature maps that naturally
+can recover the discrete skeleton K from the predicted field B and
+                                                                                    generalize to rigs of arbitrary complexity.
+confidence 𝑐. For every center 𝑣𝑖 ∈ V𝑠𝑘 , we derive a voting joint
+𝑗ˆ𝑖 and corresponding parent 𝑝ˆ𝑖 using the predicted Skeleton Field
+                                                                                    ALGORITHM 1: Field-to-Skeleton Clustering
+B̂ (𝑣). We then employ a confidence-weighted iterative clustering
+algorithm (detailed in Alg. 1) to enhance the joint prediction accu-                  Input : J, P ∈ R𝑁 ×3 ; confidences c ∈ R𝑁 ×1 (default ones);
+racy: we iteratively shift the voting points toward the centroid of                            threshold 𝜏; bandwidth ℎ; min cluster size 𝑠 min .
+their local neighborhood, weighted by their predicted confidence.                     Output : Grouped joints J̄ ∈ R𝑀 ×3 ; parent indices
+                                                                                               𝝅 ∈ { −1, . . . , 𝑀 − 1} 𝑀 .
+This effectively concentrates votes into tight clusters. The final
+                                                                                      S←J
+confidence-weighted centroids are identified as joints, and isolated
+                                                                                      for 𝑡 ← 1 to 10 do
+low-confidence points are filtered out to remove noise. Addition-                         for 𝑖 ← 1 to |S| do
+ally, the clustering process estimates the parent location for each                            N𝑖 ← neighbors of S𝑖 within radius ℎ
+cluster. By connecting the cluster centroid to its closest estimated                                               ∥S −S ∥ 2
+parent, the joints are sequentially linked to form the skeleton. Fig. 5                        𝑤𝑖 𝑗 ← 𝑐 𝐽𝑗 exp(− 𝑗2ℎ2𝑖 ) ∀ 𝑗 ∈ N𝑖
+                                                                                                         Í
+provides an intuitive illustration of this conversion.                                          ′           𝑗 ∈N𝑖 𝑤𝑖 𝑗 S 𝑗
+                                                                                               S𝑖 ← Í
+                                                                                                       𝑗 ∈N𝑖 𝑤𝑖 𝑗 + 10
+                                                                                                                           −8
+
+                                                                                          end
+                                                                                                                 1
+                                                                                          if max𝑖 ∥S𝑖′ − S𝑖 ∥ ≤ 10 ℎ then
+                                                                          ROOT                break
+(a) Continuous Joint     (b) Joint Vote      (c) Parent Vote   (d) Skeleton               end
+    Field over 𝑉sk         Clustering          Clustering      Construction               S ← S′
+                                                                                      end
+Fig. 5. Illustration of the conversion from a continuous field to a discrete          Cluster S with merge radius 𝑟 = ℎ2 to get labels ℓ𝑖 ∈ {1, . . . , 𝑁𝑐 }
+skeleton. The voting results of the joint field in (a) are clustered to obtain        for 𝑘 ← 1 to 𝑁𝑐 do
+discrete joints in (b) and parent nodes in (c). The skeletal topology is then                    Í          𝐽
+                                                                                                   𝑖:ℓ =𝑘 𝑐 𝑖 J𝑖
+                                                                                                                         Í
+                                                                                                                          𝑖:ℓ𝑖 =𝑘 𝑐 𝑖 P𝑖
+                                                                                                                                    𝑃
+determined by assigning each parent to its nearest joint as in (d).                       J̃𝑘 ← Í 𝑖           𝐽
+                                                                                                                 ; P̃𝑘 ←  Í           𝑃
+                                                                                                    𝑖:ℓ =𝑘 𝑐 𝑖
+                                                                                                       𝑖                    𝑖:ℓ𝑖 =𝑘 𝑐 𝑖
+                                                                                      end
+3.2.3 Dual Skin Field W. Skinning weights represent a normal-                         Keep clusters with | {𝑖 : ℓ𝑖 = 𝑘 } | ≥ 𝑠 min to obtain J̄, P̄
+ized probability distribution indicating how each vertex follows the                  for 𝑘 ← 1 to 𝑀 do
+motion of the underlying skeleton. Parameterizing this relationship                       𝜋𝑘 ← arg min𝑢 ∥ P̄𝑘 − J̄𝑢 ∥ 2
+directly with a neural network is non-trivial because the number                      end
+of joints, 𝑁 𝑗 , varies significantly across different asset categories.              return J̄, 𝝅
+This variability precludes the use of standard regression layers with
+fixed output dimensions.
+   To overcome this, we propose a Dual Skin Field formulation that                  3.3   Latent Representation of 𝑆 3 Fields
+factorizes the skinning function into two implicit feature fields de-
+                                                                                    To enable scalable generative modeling of complex 𝑆 3 fields, we
+fined over the shape voxels V and skeleton voxels V𝑠𝑘 , respectively:
+                                                                                    must project them onto a compact, lower-dimensional manifold. We
+                               W, W𝑠𝑘 : R3 → R𝐷 skin ,                        (4)   achieve this via a hierarchical compression strategy that disentan-
+where 𝐷𝑠𝑘𝑖𝑛 denotes the dimension of the shared latent embedding                    gles coarse structural topology from fine-grained geometry and artic-
+space.                                                                              ulation. Unlike standard Variational Auto-Encoders (VAEs) [Kingma
+                                                                                    and Welling 2014] commonly used in latent diffusion, we employ
+       • The Surface Skin Field W encodes local deformability and
+                                                                                    Denoising Auto-Encoders (DAEs). This design choice, aligned with
+             segmentation cues of the geometry. This field is instantiated
+                                                                                    recent findings in generative modeling [Yang et al. 2025; Yao et al.
+             as 𝑦skin in the auto-encoder, as illustrated in Fig. 3.
+                                                                                    2025], provides a latent space that is structurally better suited for
+       • The Skeleton Skin Field W𝑠𝑘 encodes the influence charac-
+                                                                                    the linear interpolation trajectory of flow matching.
+             teristics of the skeletal structure. This field is instantiated as
+                                                                                       To ensure training stability and prevent the model from exploit-
+             parts of 𝑦𝑠𝑘 in the auto-encoder, as illustrated in Fig. 3.
+                                                                                    ing unbounded feature magnitudes to trivialize the reconstruction
+This representation effectively decouples the network architec-                     task (which leads to singularities in the flow field), we strictly nor-
+ture from the specific joint count. To recover the explicit skinning                malize all latent features onto a unit ℓ1 -norm hypersphere. Without
+weights 𝑤 𝑣 ∈ R𝑁 𝑗 for a query vertex 𝑣 and a generated set of joints               this constraint, we observe that the DAE can artificially inflate the
+{ 𝑗𝑖 }𝑖=1𝑗 , we query the fields to obtain the vertex feature W (𝑣) and
+      𝑁
+                                                                                    latent norm to enlarge pairwise sample distances, which improves
+the joint features {W𝑠𝑘 ( 𝑗𝑖 )}𝑖=1𝑗 . These features are mapped to a                reconstruction shortcuts but makes the subsequent flow-matching
+                                      𝑁
+
+shared compatibility space via a lightweight MLP, and the final                     objective substantially harder. During training, we perturb the clean
+                                                                                                      AniGen: Unified 𝑆 3 Fields for Animatable 3D Asset Generation       •   7
+
+
+encoded latent 𝑧 with standard Gaussian noise 𝑛, mixed via a coeffi-                                    Skin Enc                                  Skin Dec
+cient 𝑡 ∈ [0, 𝑡 max ], i.e., 𝑧 sample = 𝑡 · 𝑛 + (1 − 𝑡) · 𝑧. To further stabilize                        Input                                     Output
+                                                                                                                          $%                  "
+the learning process, we implement a curriculum schedule where                            {𝑗! }          {𝑝! }         {𝑤# }              {𝑊! }              {𝑊#& }
+𝑡 max is linearly increased from 0 to 0.75 over the course of training.
+                                                                                          Subtract                                  4×      MLP        4×      MLP
+3.3.1 Prerequisite: Skin Auto-Encoder (SkinAE). Before introducing
+the main auto-encoder that compresses the full 𝑆 3 Fields, we first                    PE & Linear                                     * "}
+                                                                                                                                      {𝑊            *#& }
+                                                                                                                                                   {𝑊           {𝑇,#& }
+                                                                                                                                        !
+describe how skinning information is encoded into latent features.                                     Concat with
+Skinning weights 𝑊 ∈ R𝑁 𝑣 ×𝑁 𝑗 inherently depend on the number                                          Parent’s                         Cross Attention
+of joints 𝑁 𝑗 , which varies significantly across asset categories (e.g.,            6×                              Weighted
+                                                                                           MHA                        Sum
+𝑁 𝑗 = 10 for a fish versus 𝑁 𝑗 = 52 for a humanoid). This variable                                                                                Softmax
+cardinality makes explicit skinning matrices incompatible with stan-
+dard neural networks that require fixed input channel dimensions.                         {𝑊! }
+                                                                                                  "
+                                                                                                                      {𝑊#& }                         '()*
+                                                                                                                                                  {𝑤# }
+   To address this issue, we introduce SkinAE, which learns a joint-                      Output                      Output                      Output
+count–agnostic representation of skinning. Rather than representing
+skinning as a joint-indexed matrix, SkinAE factorizes it into fixed-
+dimensional joint embeddings and vertex embeddings, thereby decou-                  Fig. 6. SkinAE encodes skeleton joints 𝑗𝑖 and parents 𝑝𝑖 into joint skin
+                                                                                    features 𝑊𝑖 , which are averaged by GT skin weights 𝑤𝑘 to obtain vertex
+                                                                                                    𝑗                                           𝑔𝑡
+pling the representation from the number of joints while preserving
+                                                                                    skin features 𝑊𝑘𝑣 . The decoder processes 𝑊𝑖 and 𝑊𝑘𝑣 via MLPs, producing
+                                                                                                                                    𝑗
+articulation structure.
+                                                                                    𝑊˜ 𝑖 , 𝑊˜ 𝑣𝑘 , and vertex temperatures 𝑇˜𝑣𝑘 . Final skin weights are obtained
+                                                                                        𝑗
+
+   Architecture. SkinAE comprises a Transformer-based encoder and                   through cross-attention and Softmax with temperature adjustment.
+a lightweight MLP decoder, as shown in Fig. 6.
+    (1) Joint Encoding: Given a set of skeleton joints 𝑗𝑖 𝑖=1𝑗 , we com-
+                                                                  𝑁
+                                                                                       The encoder E𝑆 processes each input with a lightweight 3D con-
+        pute parent-relative edge vectors 𝑒𝑖 = 𝑗𝑖 − 𝑝𝑖 , apply posi-                volutional network. We utilize strided 3D convolutions to downsam-
+        tional encoding (PE), and concatenate them with parent                      ple the spatial resolution, followed by multi-resolution 3D residual
+        features to incorporate structural information. A Trans-                    blocks to capture multi-scale structural dependencies. This process
+                                                                                                                                              3
+        former encoder processes these to generate joint skin fea-                  yields two distinct compressed latent volumes: 𝑧𝑠 ∈ R16 ×8 for the
+        tures 𝑊𝑖 𝑗 ∈ R𝐶 , (𝐶 = 4).                                                  shape structure and 𝑧𝑠𝑘
+                                                                                                                     3
+                                                                                                            𝑠 ∈ R16 ×4 for the skeleton structure. Con-
+    (2) Vertex Encoding: Corresponding vertex embeddings {𝑊𝑘𝑣 ∈                     versely, the decoder D𝑆 maps these latents back to the original
+        R𝐶 } are computed via the skin-weighted average of the joint                resolution using progressive 3D upsampling and residual blocks.
+        embeddings. It makes the vertex skin features of a fixed                    The network terminates in two separate output heads that recon-
+        channel dimension independent of 𝑁 𝑗 . This compresses the                  struct the binary occupancy probabilities for the shape and skeleton
+        sparse skinning matrix into a dense and fixed-channel vertex                volumes, respectively.
+        field.
+    (3) Decoding: A lightweight decoder MLP lifts these features                    3.3.3 Structured Latent Auto-Encoder E𝐿 & D𝐿 . The Structured
+        to a higher dimension (R64 ) and reconstructs the original                  Latent Auto-Encoder (E𝐿 , D𝐿 ) serves as the core engine for high-
+        skinning weights via channel-wise compatibility:                            fidelity reconstruction (see Fig. 3, top). Using the sparse voxels V
+                                                                                    and V𝑠𝑘 as scaffolds, it encodes the fine-grained 𝑆 3 fields into a
+                                                                                    continuous latent space.
+                                                     !
+                                      1 ˜𝑣 ˜𝑗
+                  𝑤𝑘 (𝑣) = Softmax𝑖       ⟨𝑊  , 𝑊  ⟩   .              (5)
+                                     𝑇˜ 𝑣                                             Input Feature Construction. We construct voxel-aligned sparse
+                                            𝑘    𝑖
+                                            𝑘
+                                                                                    inputs from both multi-view and geometry observations:
+Here, 𝑊˜ denotes output features produced by the decoder MLPs (see                       • Shape (𝑥 s ): Defined on V. We back-project multi-view DI-
+Fig. 6). We pre-train SkinAE using 3D points sampled directly from                          NOv2 [Oquab et al. 2024] features onto the voxel grid fol-
+the mesh surface and freeze the network weights for the subsequent                          lowing TRELLIS [Xiang et al. 2025b].
+stages. Empirically, we find this pre-training strategy is essential                     • Skinning (𝑥 skin ): Defined on V. For each occupied voxel,
+for the convergence and performance of the structured latent auto-                          we query the nearest point on the ground-truth mesh and
+encoder (as demonstrated in Sec. 4.6). This step effectively converts                       assign it the corresponding vertex embedding 𝑊 𝑣 derived
+the variable-cardinality skinning regression task into a fixed-channel                      from the frozen SkinAE.
+feature matching task, enabling the generative models to synthesize                      • Skeleton (𝑥 sk ): Defined on V𝑠𝑘 . We concatenate the positional
+skinning fields for rigs of any complexity.                                                 embeddings of the nearest joint and its parent, along with
+                                                                                            the joint embedding 𝑊 𝑗 from SkinAE.
+3.3.2 Sparse Structure Auto-Encoder E𝑆 & D𝑆 . The first stage of
+our pipeline captures the coarse spatial layout. The Sparse Structure                  Encoding & Decoding. The encoder E𝐿 employs a multi-stream
+Auto-Encoder learns compact discrete representations from two                       sparse Transformer backbone (12 Swin-style blocks [Liu et al. 2021])
+                                                                    3
+aligned volumetric inputs: the shape occupancy grid V ∈ {0, 1}64                    to process these inputs, producing three latent volumes (𝑧𝑠 , 𝑧 skin, 𝑧 sk )
+and the skeleton occupancy grid V𝑠𝑘 (defined in Sec. 3.2.2).                        with channel dimensions 8, 4, and 4, respectively. The decoder D𝐿
+8   •   Yi-Hua Huang, et al.
+
+
+applies the same multi-stream sparse Transformer backbone to ob-              3.4          Generative Flow Model
+tain hidden features (ℎ𝑠 , ℎ skin, ℎ sk ). It then upsamples the shape and    We model the generation of animatable assets as a conditional flow
+skin latents to high resolution (2563 ) to predict: (i) the Shape Field       matching problem. Formally, we aim to learn a velocity field 𝑣𝑡 that
+𝑦𝑠 for FlexiCubes extraction, and (ii) the Vertex Feature Field 𝑦𝑠𝑘𝑖𝑛         transports a standard Gaussian distribution 𝜋0 = N (0, 𝐼 ) to the
+for predicting {𝑊𝑘𝑣 }. Simultaneously, the skeleton branch decodes            data distribution 𝜋1 of our compressed representations. To handle
+the Skeleton Field 𝑦sk (vectors and confidence) and Joint Feature             the complex interplay between topological structure and dense
+Field for predicting {𝑊𝑖 𝑗 }. The final asset is assembled by extracting      attributes (i.e., geometry and skinning weights), we decompose the
+the mesh via Marching FlexiCubes, clustering the skeleton field into          generation process into two cascaded stages: Sparse Structure Flow
+discrete joints (Sec. 3.2.2), and decoding the skinning weights using         (G𝑆 ) and Structured Latent Flow (G𝐿 ). Fig. 8 illustrates our flow model
+the SkinAE decoder on the predicted features. The reconstructed               architecture.
+shape is thus rigged with a predicted skeleton, as illustrated in Fig. 3.
+   Confidence-Weighted Supervision. We supervise the geometry
+with standard rendering losses (depth, normal, color). For the skele-                      Sparse Structure Flow       𝓖𝑺               Structured Latent Flow             𝓖𝑳
+ton and skeleton-side skinning fields (W𝑠𝑘 ), which are both rep-                                Input                            Input         Input           Input
+                                                                                                                   !                                &         &
+                                                                                    x &!       Cond Time      𝑥 & "#        𝑥"&    Cond Time Time 𝑥"#$%      𝑥"#    Time
+resented by 𝑦sk , we employ confidence-weighted supervision to
+mitigate border ambiguity (see Sec. 3.2.2). The regression loss for a
+                                                                               PE & Linear                 PE & Linear       Sp.Conv.          Sp.Conv.          Sp.Conv.
+joint prediction 𝑗 𝑣𝑐 at voxel 𝑣𝑐 is:
+                    𝐿 𝐽 = E𝑣𝑐 𝑐𝑔𝑡 (𝑣𝑐 ) ∥ 𝑗 𝑣𝑐 − 𝑗 𝑣𝑐 ∥ 22 ,      (6)         24×                          24×              24×               24×           24×
+                                                  𝑔𝑡 
+                                                                                 MHA                          MHA              MHA              MHA               MHA
+where 𝑐𝑔𝑡 is the ground-truth confidence (Eq. 3). The same weight-
+                                                                                 AdaLN                       AdaLN            AdaLN             AdaLN            AdaLN
+ing is applied to parent predictions and skin feature 𝑊 𝑗 predictions
+in the skeleton branch. Furthermore, the structured latent auto-
+                                                                                Adapter                      Adapter         Adapter           Adapter
+encoder is trained with feature reconstruction losses for the surface-
+side skinning embeddings. The sparse-structure auto-encoder, aug-
+                                                                                 Linear                       Linear         Up.Conv.          Up.Conv.           Linear
+mented with an additional branch to encode V𝑠𝑘, is optimized using
+binary occupancy reconstruction losses on both V and V𝑠𝑘.                                                      !
+                                                                                  𝑣!                          𝑣"#              𝑣"               𝑣"#$%             𝑣"#
+                                                                                 Output                      Output           Output            Output           Output
+   BVH-Accelerated Skin Transfer. To supervise the predicted vertex
+skin features {𝑊𝑘𝑣 }, we must match them to the ground truth (GT).
+Since the predicted mesh topology differs from the GT mesh, we                Fig. 8. The architectures of the AniGen flow models, G𝑆 and G𝐿. The
+transfer GT skin features via nearest-surface interpolation. To make          input to G𝑆 comprises noisy volumetric features encoding geometry, 𝑧 ′𝑠 ,
+this efficient during training, we implement a CUDA-based Bound-              and skeleton information, 𝑧 ′𝑠 skl. G𝐿 processes noisy structured latents
+ing Volume Hierarchy (BVH) that caches the GT geometry. This                  representing geometry, 𝑧 ′ s, skin, 𝑧 ′ skin, and skeleton, 𝑧 ′ skl. These flow
+reduces average query time from 48.6 ms to 2.6 ms (18.6× speedup).            models predict the velocities of the noisy features and iteratively denoise
+Crucially, as shown in Fig. 7, BVH-based barycentric transfer is              them using the Euler method.
+more robust to uneven vertex sampling than simple nearest-vertex
+matching.
+                                                                              3.4.1 Stage I: Sparse Structure Flow G𝑆 . The first stage constructs
+                                                                              the scaffold of the asset. Conditioned on image features, G𝑆 predicts
+                                                                              the active sparse voxel sets for both the shape (V) and the skeleton
+                                                                              (V𝑠𝑘 ). We instantiate G𝑆 as a dual-stream Transformer. Rather than
+                                                                              concatenating shape and skeleton into a single sequence (which
+                                                                              obscures their distinct topological roles), we process them in parallel
+                                                                              branches:
+                                                                                       • Shape Branch: Predicts the binary occupancy of surface-
+                                                                                         crossing voxels.
+                                                                                       • Skeleton Branch: Predicts the binary occupancy of bone-
+                                                                                         containing voxels.
+
+        Skeleton               Skin     NN Transfer       BVH Transfer           Cross-Structural Adapters. A naïve dual-stream approach risks
+                                                                              generating a skeleton that drifts outside the mesh. To enforce spa-
+                                                                              tial compatibility, we introduce lightweight linear adapters that
+Fig. 7. BVH-based skin transfer vs. nearest-vertex (NN) transfer. We imple-
+ment a CUDA BVH supporting multi-device deployment and save/restore.          exchange information between the two branches at every Trans-
+                                                                              former block. This bidirectional fusion ensures the skeleton “grows”
+                                                                              strictly within the geometric bounds of the shape.
+                                                                                         AniGen: Unified 𝑆 3 Fields for Animatable 3D Asset Generation   •   9
+
+
+3.4.2 Stage II: Structured Latent Flow G𝐿 . Given the generated scaf-      4.1.3 Metrics. Following UniRig [Zhang et al. 2025], we adopt three
+folds, the second stage synthesizes the 𝑆 3 field latent features. G𝐿 is   Chamfer-style metrics to quantify skeletal geometric accuracy: joint-
+trained to denoise the latent codes 𝑧 s , 𝑧 skin , and 𝑧 sk .              to-joint, joint-to-bone, and bone-to-bone distances. While these met-
+                                                                           rics capture local Euclidean proximity, they are insufficient for com-
+    Architecture. Similar to Stage I, we employ a multi-branch archi-      prehensive evaluation of skeleton structure. In particular, they do
+tecture. Since geometry and skinning share the same spatial domain         not treat a skeleton as a metric measure space and therefore can be
+(V), we process them in a primary branch, while the skeleton latent        insensitive to structural/topological errors. For example, inserting
+𝑧 sk (defined on V𝑠𝑘 ) is processed in a secondary branch. We again        an extra joint along a ground-truth (GT) bone may not change the
+utilize adapter layers to enforce consistency between the predicted        joint-to-bone or bone-to-bone distances, and adding a duplicated
+skinning features and the underlying skeletal structure.                   branch extremely close to a correct branch can still yield negligi-
+                                                                           ble Chamfer distances. This many-to-one matching bias inherently
+   Controllable Joint Density. A key advantage of our joint-count
+                                                                           masks critical errors in kinematic connectivity and hierarchy.
+agnostic representation (Sec. 3.3.1) is that the network is not bound
+                                                                              To address this limitation, we incorporate Optimal Transport-
+to a specific rig topology. We exploit this by introducing joint den-
+                                                                           based metrics, specifically the Wasserstein distance [Givens and
+sity as an explicit conditional input. During training, we compute
+                                                                           Shortt 1984] and Gromov–Wasserstein (GW) distance [Mémoli 2011],
+the normalized joint count of the ground truth asset. This scalar
+                                                                           which explicitly account for the global distribution. Formally, we
+is embedded and injected into the flow model via AdaLN modu-
+                                                                           use the 𝐿2 -Wasserstein distance (Earth Mover’s Distance) between
+lation [Peebles and Xie 2023]. At inference, users can adjust this
+                                                                           joint measures:
+scalar to control the granularity of the rig without changing the
+underlying geometry (visualized in Fig. 11).                                                                  𝑛 ∑︁
+                                                                                                                 𝑚
+                                                                                                                                     ! 12
+                                                                                                                                𝑔𝑡 2
+                                                                                                             ∑︁
+                                                                                       D𝑊 (𝜇, 𝜈) = min              𝜋𝑖𝑘 ∥ 𝑗𝑖 − 𝑗𝑘 ∥ 2 ,        (7)
+                                                                                                           𝜋 ∈Π (𝑎,𝑏 )
+4 Experiment                                                                                                              𝑖=1 𝑘=1
+
+4.1 Experimental Setup                                                     where 𝜋 ∈ R𝑛×𝑚 is a transport plan with 𝑘 𝜋𝑖𝑘 = 𝑖 𝜋𝑖𝑘 = 1. Com-
+                                                                                                                  Í       Í
+                                                                                      +
+4.1.1 Dataset and Implementation. We adopt ArticulationXL [Song            pared with Chamfer distances, the Wasserstein distance enforces
+et al. 2025b] as our evaluation dataset, which contains approxi-           a global mass-preserving matching, which mitigates many-to-one
+mately 33K rigged 3D shapes curated from Objaverse-XL [Deitke              correspondences. However, it still relies on the ambient Euclidean
+et al. 2023a,b]. We randomly sample 1K shapes to form the test             cost and therefore does not explicitly encode skeletal topology.
+set. To increase motion diversity, we augment the dataset in two               To make the metric topology/structure-aware, we further com-
+ways. For assets with existing animation sequences, we generate            pute the GW distance between the predicted skeleton graph and the
+additional samples by interpolating within the asset’s own motion.         GT skeleton graph by comparing intrinsic pairwise distances. Let
+Otherwise, we apply stochastic joint perturbations: each joint has         𝑑 p (𝑖, 𝑖 ′ ) denote the geodesic distance along the predicted skeleton
+80% probability of being rotated around a random axis by a jitter of       graph between predicted joints 𝑖 and 𝑖 ′ , and let 𝑑 g (𝑘, 𝑘 ′ ) be defined
+up to 60◦ . Because ArticulationXL is relatively small (in contrast to     analogously on the GT skeleton. The GW objective is
+the ∼10M shapes in Objaverse-XL) and is insufficient for training a                                     𝑛    𝑚
+                                                                                                                                                        ! 12
+generative flow model from scratch, we adopt a warm-start initial-                                                                        ′ 2
+                                                                                                       ∑︁   ∑︁
+                                                                           D𝐺𝑊 (𝜇, 𝜈) = min                                ′
+                                                                                                                  𝑑 p (𝑖, 𝑖 ) − 𝑑 gt (𝑘, 𝑘 ) 𝜋𝑖𝑘 𝜋𝑖 ′𝑘 ′ .
+ization strategy. Specifically, we initialize the shared branches of the                     𝜋 ∈Π (𝑎,𝑏 )
+                                                                                                           𝑖,𝑖 ′ =1 𝑘,𝑘 ′ =1
+autoencoders and flow modules in AniGen with pre-trained TRELLIS                                                                             (8)
+parameters [Xiang et al. 2025b], effectively leveraging large-scale        By matching geodesic structures rather than only Euclidean coordi-
+geometric priors to facilitate the learning of joint representation. In    nates, GW penalizes topological inconsistencies such as spurious
+implementation, we first pre-train SkinAE and then freeze it when          branches or incorrect connectivity even when the geometry is lo-
+training the structured latent auto-encoder.                               cally close. In practice, the OT problems in Eq. (7) and Eq. (8) can
+                                                                           be efficiently solved via iterative Sinkhorn updates. Given the opti-
+4.1.2 Baselines. To the best of our knowledge, no existing method          mal transport plan from Wasserstein distance, we align predicted
+directly generates fully rigged 3D shapes – comprising geometry,           skinning weights to GT and then report ℓ1 , ℓ2 , and KL divergence
+articulated skeleton, and skinning – in a unified manner. Therefore,       between the aligned skinning distributions.
+we construct strong baselines by coupling state-of-the-art automatic
+rigging methods with the recent 3D generative model TRELLIS [Xi-           4.2    Quantitative Evaluation
+ang et al. 2025b]: we first generate a shape using TRELLIS, and
+then apply an off-the-shelf rigging algorithm to infer the skeleton
+and skinning weights. For a fair comparison under the same data               We summarize the quantitative evaluation results in Tab. 1, in-
+domain and pose distribution, we further fine-tune TRELLIS on Ar-          cluding Chamfer distances, mm-space distances, and skin metrics.
+ticulationXL using the same pose-augmented training set described          Note that TRELLIS∗ refers to the finetuned TRELLIS model trained
+above. We refer to this variant as TRELLIS∗ in Tab.1. The rigging          on the split train set. Because every method is image-conditioned
+methods we evaluate in this pipeline include UniRig[Zhang et al.           rather than GT-conditioned, the generated asset is not expected to
+2025], Anymate [Deng et al. 2025], Puppeteer [Song et al. 2025a],          be an exact replica of the GT shape. We therefore normalize scale,
+and RigAnything [Liu et al. 2025].                                         center the prediction, and then align it to the GT with ICP using 100
+10   •   Yi-Hua Huang, et al.
+
+
+Table 1. Quantitative evaluation of skeleton accuracy and skin metrics for various methods. Results include Chamfer distances, mm-space distances,
+Wasserstein-based distances, and skin metrics (ℓ1 , ℓ2 , KL divergence). The best scores are highlighted in bold, and the second-best scores are underlined. Note
+that TRELLIS∗ refers to the finetuned TRELLIS model trained on the split train set, while GT-Mesh combined with rigging methods serves as a reference.
+
+
+  Method                        Joint-to-Joint ↓   Joint-to-Bone ↓   Bone-to-Bone ↓   Wasserstein ↓   Gromov–Wasserstein ↓    Skin ℓ1 ↓   Skin ℓ2 ↓   Skin KL ↓
+  GT-Mesh + UniRig                   0.190              0.180            0.166           0.260               0.389             0.0973      0.224        6.117
+  GT-Mesh + Anymate                  0.169              0.161            0.145           0.232               0.368             0.0918      0.204        4.388
+  GT-Mesh + Puppeteer                0.235              0.228            0.212           0.239              0.322              0.0823      0.197        4.133
+  GT-Mesh + RigAnything              0.193              0.181            0.165           0.268               0.392             0.1018      0.223        6.161
+  TRELLIS ∗ + UniRig                 0.205              0.192            0.179           0.269               0.397             0.0966      0.221        5.903
+  TRELLIS ∗ + Anymate                0.179              0.172            0.157           0.232               0.349             0.0919      0.203        4.221
+  TRELLIS ∗ + Puppeteer              0.245              0.237            0.219           0.241               0.326             0.0873      0.202        4.135
+  TRELLIS ∗ + RigAnything            0.273              0.264            0.252           0.285               0.383             0.1026      0.224        6.451
+  AniGen                             0.174              0.164            0.143           0.229              0.286              0.0793      0.186        2.919
+
+
+
+
+Fig. 9. Qualitative comparison of skeleton and skin results across different methods. We visualize the predicted skeletons, corresponding skins, and demonstrate
+animations to evaluate the practical usability of the rigged assets. The dragon case represents a relatively simple example with a clear identity and four-limbed
+structure, while the flower case poses a more complex challenge due to its intricate and non-standard structure.
+                                                                                                AniGen: Unified 𝑆 3 Fields for Animatable 3D Asset Generation   •   11
+
+
+    Input Image               View 1                 View 2                 Skeleton                 Skin                   Pose 1                   Pose 2
+
+
+
+
+Fig. 10. Qualitative results on in-the-wild images, including examples from real-world photographs, web content, and AI-generated imagery. The showcased
+objects span a wide range of categories, such as sea animals, household items, cartoon characters, pets, humans, birds, plants, and machinery. Edited poses are
+demonstrated to illustrate animation capabilities, with examples such as a whale swimming, a lamp adjusting its angle, a dog running, and a robotic arm
+picking up an apple. These results highlight the versatility and practical usability of AniGen for applications in animation, games, image editing, VR, and more.
+12    •   Yi-Hua Huang, et al.
+
+
+randomly initialized rotations. The results demonstrate that AniGen               in the details. UniRig generates redundant bones in the head, while
+achieves the best performance in skeleton structure prediction and                Puppeteer and RigAnything fail to produce detailed finger joints.
+skin accuracy across all baselines. This establishes AniGen as the                Anymate produces a skeleton with joint distributions very close to
+leading end-to-end image-conditioned rigged shape generation so-                  the GT, but the connections between bones are incorrect. Regarding
+lution. Notably, AniGen excels in Gromov-Wasserstein distance and                 skin results, UniRig, Puppeteer, and RigAnything exhibit regional
+skin KL divergence, achieving significant advantages over the other               artifacts, particularly in the feet or tail.
+baselines in the accuracy of skeleton topology and skin weights.                     The flower example is more challenging than the dragon. UniRig
+Additionally, we provide results from coupling GT meshes with                     and RigAnything fail to generate skeletons that adequately cover
+off-the-shelf rigging methods to serve as an upper-bound reference.               the full structure of the flower. In contrast, Anymate produces joints
+While these GT-input baselines naturally exhibit better results, it               that closely match the GT joint distribution, but some bone connec-
+is worth noting that generation models often produce geometries                   tions are incorrect. Puppeteer creates a coarse yet overall suitable
+that deviate slightly from the GT due to minor variations in scale,               skeleton to support the flower, but its skin results are inadequate
+rotation, and pose.                                                               for practical animation, resulting in broken animations. Some com-
+                                                                                  pared results also exhibit pose discrepancies after animation. This
+                                                                                  is not because different target poses are used; instead, all methods
+   Geometry Evaluation. We further report geometry-and-fidelity
+                                                                                  are driven toward the same target motion. When a baseline predicts
+metrics in Tab. 2. AniGen remains competitive with TRELLIS∗ , it
+                                                                                  topologically broken bones or erroneous skin influences, it cannot
+shows only a small gap, while substantially improving the rigging-
+                                                                                  physically realize the target pose without catastrophic distortion,
+related metrics in Tab. 1. This confirms that jointly modeling shape,
+                                                                                  so the final animated pose remains visibly mismatched.
+skeleton, and skin does not substantially degrade geometry qual-
+ity. Pure geometry generation can still be slightly stronger under
+geometry-only metrics, which we consider a minor limitation, but
+the gap is small relative to the articulation gains.                              4.4   In-the-Wild Results
+                                                                                  We present the robust generalization of AniGen on diverse “in-the-
+Table 2. Geometry evaluation on the rigged-domain test set. We report
+                                                                                  wild” images in Fig. 10, including real-world photographs, web-
+surface Chamfer distance, F-score, and image-space PSNR & LPIPS.
+                                                                                  sourced imagery, and AI-generated content. These examples span a
+                                                                                  diverse set of object categories: sea animals, household items, car-
+              Method       Chamfer ↓    F-Score ↑   PSNR ↑    LPIPS ↓
+                                                                                  toon characters, pets, humans, birds, plants, and machinery, demon-
+              TRELLIS       0.0475         0.77      24.25     0.126
+              TRELLIS∗      0.0394        0.89       25.23     0.104              strating the versatility of our approach across both natural and
+              AniGen        0.0409         0.88      25.12     0.108              synthetic visual domains. To highlight the functional utility of the
+                                                                                  generated assets, we further provide edited poses and motion vari-
+                                                                                  ants tailored to the identity, structure, and expected behavior of the
+                                                                                  underlying subject. As illustrated, a whale can be posed to swim
+  Inference Cost Evaluation. We report end-to-end inference cost in               freely through an ocean scene; the lamp can be reoriented so its
+Tab. 3. AniGen is comparable to the fastest sequential baseline while             head and body direct light toward different targets; and the cartoon
+avoiding the heavy post-hoc rigging overhead of methods such as                   character can be driven through a variety of full-body motions. Like-
+UniRig and RigAnything.                                                           wise, the dog can open and close its mouth while running across
+                                                                                  a lawn, the woman can be animated performing kung-fu move-
+                  Table 3. Inference cost runtime comparison.                     ments, and the eagle can be posed to hug or capture a sheep in a
+                                                                                  dynamic interaction. Beyond animals and humans, we also demon-
+ Method             TRELLIS∗            TRELLIS∗ +UniRig      TRELLIS∗ +Anymate   strate controllable state changes and functional motions: the plant
+ Time (s) ↓             15                     146                   19           can transition between blooming and withering, and the robotic
+ Method         TRELLIS∗ +Puppeteer   TRELLIS∗ +RigAnything        AniGen         arm can grasp an apple, lift it, and transport it to a new location.
+ Time (s) ↓             36                     127                   19
+                                                                                     These diverse results underscore the flexibility and versatility of
+                                                                                  AniGen, demonstrating its capacity to operate effectively and ro-
+                                                                                  bustly across a wide variety of subjects, visual styles, and real-world
+4.3       Qualitative Evaluation                                                  scenarios. This breadth suggests that AniGen serves as a unified,
+To provide a more intuitive comparison, we present qualitative                    category-agnostic foundation for controllable asset synthesis and
+results across various baselines in Fig. 9. We visualize the generated            animation, rather than being confined to narrow context domains.
+skeletons and skins and perform similar animations on the outputs                 As a result, AniGen enables a wide range of downstream applica-
+to better demonstrate the practical usability of each rigged asset.               tions, including embodied AI (e.g., interactive agents that require
+For brevity, we omit TRELLIS∗ + in the following discussion.                      consistent, controllable visual assets), image and video editing (e.g.,
+   In the case of the dragon, which is a relatively simple example                pose- and motion-aware content modification), animation and gam-
+with a clear identity and a four-limbed structure, AniGen, UniRig,                ing pipelines (e.g., rapid prototyping of characters, props, and ac-
+Puppeteer, and RigAnything generate skeletons that are overall very               tions), and creative production workflows such as cartoon creation
+similar to the ground truth. However, there are notable differences               and stylized storytelling. Moreover, it can support immersive and
+                                                                                                      AniGen: Unified 𝑆 3 Fields for Animatable 3D Asset Generation    •   13
+
+
+simulation-centric settings, including virtual reality experiences,               regions, resulting in noisy and redundant bones and joints. In con-
+digital-twin systems, and game character development.                             trast, our method explicitly defines ambiguity in Eq.3 using a prior
+                                                                                  and supervises the confidence field directly during training, rather
+      Condition            Dense               Medium               Sparse        than relying on Bayesian learning’s adaptive reconstruction loss.
+                                                                                  This results in a more effective confidence field, which integrates
+                                                                                  seamlessly with the confidence-weighted grouping algorithm (Alg.1)
+                                                                                  to consistently achieve accurate grouping results. The quantitative
+                                                                                  results in Tab. 4 confirm this trend: explicit confidence supervi-
+                                                                                  sion improves structural correctness over both removing confidence
+                                                                                  and replacing it with Bayesian uncertainty learning, while SkinAE
+                                                                                  pretraining is critical for high-quality skin prediction.
+
+                                                                                  Table 4. Quantitative ablation on confidence modeling and SkinAE pretrain-
+                                                                                  ing. Lower is better for both metrics.
+
+
+                                                                                                Method          Bayesian     w/o-Conf      w/o-SkinAE       Ours
+                                                                                                Joint-GW ↓       0.310         0.337          0.383         0.286
+                                                                                                Skin-KL ↓        3.174         3.187          5.138         2.919
+
+
+                                                                                     We also analyze the impact of pretraining SkinAE. Without pre-
+                                                                                  training ("w/o SkinAE"), SkinAE becomes part of the structured
+Fig. 11. Skeleton generation with different joint density levels. Higher joint    latent auto-encoder (E𝐿 and D𝐿 ) and is trained jointly from scratch.
+density enables flexible, human-like motions, while medium and sparse den-        This joint optimization lacks skin information in the input to the
+sities result in reduced flexibility, resembling real robots. This demonstrates   structured latent encoder, leading to sub-optimal feature alignment
+the adaptability of the method to varying motion requirements.                    and hindered convergence. Consequently, the reconstruction of the
+                                                                                  joint field is negatively affected. As shown in the 4th column of
+                                                                                  Fig. 12, this results in poor skin quality for the tissue character and
+                                                                                  a broken skeleton for the goat. Our pretraining strategy ensures
+4.5    Joint Number Control
+                                                                                  convergence of the structured latent auto-encoder and achieves
+As discussed in Sec. 3.4.2, we introduce joint density as a conditional           sufficient accuracy for the generation decoding task.
+input to control the number of joints in the generated skeleton, al-
+lowing it to adapt to varying flexibility requirements. The GT joint                             GT             Bayesian       w/o Conf       w/o SkinAE        Ours
+count is normalized to the range [0, 1] (by dividing by 60 and clamp-
+                                                                                   Skin
+
+
+
+
+ing), positionally embedded, and encoded with MLPs before being
+injected into the flow model via AdaLN modulation. During infer-
+ence, the joint density condition can be adjusted to control the final
+                                                                                   Skeleton
+
+
+
+
+number of skeleton joints using classifier-free guidance (CFG). We
+illustrate the results of joint number control in Fig. 11, using a CFG
+                                                                                   Skin
+
+
+
+
+scale of 3.0. By adjusting the joint density, the model can synthesize
+skeletons with distinct degrees of freedom: a “high-density” can per-
+form smooth, human-like motions – such as bending arms, twisting
+                                                                                   Skeleton
+
+
+
+
+its head, and clenching its fists – while a “medium-density” variant
+retains limb flexibility but loses fine-grained manual dexterity. At
+the “sparse” extreme, the model yields a rigid, minimalist armature
+with significantly constrained motion, like a “real robot”.                       Fig. 12. Ablation study on confidence design and SkinAE pretraining. With-
+                                                                                  out confidence learning or with Bayesian confidence, skeleton predictions
+4.6    Ablation Study                                                             are noisy and redundant (column 2,3). Without pretraining SkinAE, skin
+In this section, we conduct an ablation study on the design choices               quality and skeleton structure degrade significantly (column 4). Our method
+discussed in the method section and explain why we selected the                   ensures clean skeletons and accurate skin generation (column 5).
+current technical approach. First, we investigate the confidence
+design, as detailed in Sec.3.2.2. High ambiguity in border regions
+makes confidence learning essential to ensure clean final generation              5           Conclusion
+results. Without confidence, the model fails to refine noisy predic-              We introduced AniGen, a method for image-conditioned generation
+tions into a clean skeleton, as shown in the 3rd column of Fig.12.                of animatable 3D assets that couples geometry synthesis with rig
+Even with Bayesian confidence [Kendall and Gal 2017], the self-                   prediction in a single generative model. In contrast to “generate-
+adaptive learning approach cannot effectively resolve ambiguous                   then-rig” pipelines, AniGen learns a joint distribution over shape,
+14   •   Yi-Hua Huang, et al.
+
+
+skeleton, and skin, and represents all three as fields to promote                             preprint arXiv:2507.17745 (2025).
+mutual consistency. Our core contribution, the 𝑆 3 field formulation,                      Peng Dai, Feitong Tan, Qiangeng Xu, David Futschik, Ruofei Du, Sean Fanello, XI-
+                                                                                              AOJUAN QI, and Yinda Zhang. 2025. SVG: 3D Stereoscopic Video Generation via
+together with the confidence-decaying nearest joint-parent field and                          Denoising Frame Matrix. In ICLR.
+the dual skin feature field, enables reliable modeling of kinematic                        Matt Deitke, Ruoshi Liu, Matthew Wallingford, Huong Ngo, Oscar Michel, Aditya
+                                                                                              Kusupati, Alan Fan, Christian Laforte, Vikram Voleti, Samir Yitzhak Gadre, et al.
+structure and skinning despite ambiguity and category diversity.                              2023a. Objaverse-xl: A universe of 10m+ 3d objects. Advances in Neural Information
+AniGen leverages a structured latent auto-encoder and flow-based                              Processing Systems 36 (2023), 35799–35813.
+generation over sparse structures and structured latents to produce                        Matt Deitke, Dustin Schwenk, Jordi Salvador, Luca Weihs, Oscar Michel, Eli VanderBilt,
+                                                                                              Ludwig Schmidt, Kiana Ehsani, Aniruddha Kembhavi, and Ali Farhadi. 2023b. Obja-
+coherent rigged assets directly from images. Empirically, AniGen                              verse: A universe of annotated 3d objects. In Proceedings of the IEEE/CVF conference
+achieves clear gains over prior approaches in rigging quality and                             on computer vision and pattern recognition. 13142–13153.
+usability, and generalizes well to in-the-wild images spanning a                           Yufan Deng, Yuhao Zhang, Chen Geng, Shangzhe Wu, and Jiajun Wu. 2025. Anymate:
+                                                                                              A dataset and baselines for learning 3d object rigging. In Proceedings of the Special
+wide range of object categories and visual styles. The experiments                            Interest Group on Computer Graphics and Interactive Techniques Conference Conference
+further show that these gains are achieved without sacrificing ge-                            Papers. 1–10.
+                                                                                           Ruiqi Gao, Aleksander Holynski, Philipp Henzler, Arthur Brussee, Ricardo Martin Bru-
+ometry fidelity relative to strong geometry-only generators. We                               alla, Pratul Srinivasan, Jonathan Barron, and Ben Poole. 2024. CAT3D: Create
+believe that AniGen establishes a powerful foundation for the next                            Anything in 3D with Multi-View Diffusion Models. Advances in Neural Information
+generation of controllable 3D content creation, with broad applica-                           Processing Systems 37 (2024), 75468–75494.
+                                                                                           Inbar Gat, Sigal Raab, Guy Tevet, Yuval Reshef, Amit Haim Bermano, and Daniel Cohen-
+tions for interactive graphics, embodied AI, VR/AR, digital twins,                            Or. 2025. Anytop: Character animation diffusion with any topology. In Proceedings of
+and animation/editing workflows.                                                              the Special Interest Group on Computer Graphics and Interactive Techniques Conference
+                                                                                              Conference Papers. 1–10.
+                                                                                           Clark R Givens and Rae Michael Shortt. 1984. A class of Wasserstein metrics for
+                                                                                              probability distributions. Michigan Mathematical Journal 31, 2 (1984), 231–240.
+    Limitations and future work. One limitation of AniGen is its cur-                      Zhiyang Guo, Ori Zhang, Jax Xiang, Alan Zhao, Wengang Zhou, and Houqiang Li. 2025.
+rent focus on image-conditioned generation. Although effective,                               Make-It-Poseable: Feed-forward Latent Posing Model for 3D Humanoid Character
+this setting does not fully reflect many practical use cases, where                           Animation. arXiv preprint arXiv:2512.16767 (2025).
+                                                                                           Xianglong He, Zi-Xin Zou, Chia-Hao Chen, Yuan-Chen Guo, Ding Liang, Chun Yuan,
+animatable shapes are often derived from captured videos in which                             Wanli Ouyang, Yan-Pei Cao, and Yangguang Li. 2025. SparseFlex: High-Resolution
+motion dynamics and skeletal constraints are more explicitly ob-                              and Arbitrary-Topology 3D Shape Modeling. In Proceedings of the IEEE/CVF Interna-
+served. Extending AniGen to support video input could enable more                             tional Conference on Computer Vision (ICCV). 14822–14833.
+                                                                                           Jonathan Ho, Ajay Jain, and Pieter Abbeel. 2020. Denoising diffusion probabilistic
+robust and temporally consistent shape and skeleton generation,                               models. Advances in neural information processing systems 33 (2020), 6840–6851.
+and also enable the production of animatable shapes directly aligned                       Yicong Hong, Kai Zhang, Jiuxiang Gu, Sai Bi, Yang Zhou, Difan Liu, Feng Liu, Kalyan
+                                                                                              Sunkavalli, Trung Bui, and Hao Tan. 2023. LRM: Large Reconstruction Model for
+with the motions and structural cues present in the input video. Ad-                          Single Image to 3D. In The Twelfth International Conference on Learning Representa-
+dressing this challenge is an important direction for future work                             tions.
+and could substantially broaden the applicability of the method. A                         Binbin Huang, Haobin Duan, Yiqun Zhao, Zibo Zhao, Yi Ma, and Shenghua Gao. 2025a.
+                                                                                              CUPID: Generative 3D Reconstruction via Joint Object and Pose Modeling. arXiv
+second limitation arises for articulated objects that require strict                          preprint arXiv:2510.20776 (2025).
+geometric alignment between rigid parts, such as the lid and base of                       Yi-Hua Huang, Yang-Tian Sun, Ziyi Yang, Xiaoyang Lyu, Yan-Pei Cao, and Xiaojuan
+a laptop. Although AniGen can infer a plausible hinge skeleton for                            Qi. 2024. Sc-gs: Sparse-controlled gaussian splatting for editable dynamic scenes. In
+                                                                                              Proceedings of the IEEE/CVF conference on computer vision and pattern recognition.
+such objects, small geometric mismatches may still produce visible                            4220–4230.
+gaps in closed configurations. Finally, the skeletons predicted by our                     Zehuan Huang, Haoran Feng, Yang-Tian Sun, Yuan-Chen Guo, Yan-Pei Cao, and Lu
+                                                                                              Sheng. 2025b. Animax: Animating the inanimate in 3d with joint video-pose diffusion
+current model primarily reflect the medial-axis tendencies present                            models. In Proceedings of the SIGGRAPH Asia 2025 Conference Papers. 1–13.
+in the training data, rather than fully anatomically inspired produc-                      Ajay Jain, Ben Mildenhall, Jonathan T Barron, Pieter Abbeel, and Ben Poole. 2022.
+tion rigs. We emphasize that this limitation stems from the available                         Zero-shot text-guided object generation with dream fields. In Proceedings of the
+                                                                                              IEEE/CVF conference on computer vision and pattern recognition. 867–876.
+data rather than from the representation itself. Since the proposed                        Alex Kendall and Yarin Gal. 2017. What uncertainties do we need in bayesian deep
+𝑆 3 fields are continuous and volumetric, they are, in principle, ca-                         learning for computer vision? Advances in neural information processing systems 30
+pable of encoding richer sub-surface control structures, including                            (2017).
+                                                                                           Bernhard Kerbl, Georgios Kopanas, Thomas Leimkühler, and George Drettakis. 2023.
+production-style anatomical rigs, given access to suitable data.                              3D Gaussian splatting for real-time radiance field rendering. ACM Trans. Graph. 42,
+                                                                                              4 (2023), 139–1.
+References                                                                                 Jinhyeok Kim, Jaehun Bang, Seunghyun Seo, and Kyungdon Joo. 2025. Rigidity-Aware
+                                                                                              3D Gaussian Deformation from a Single Image. In Proceedings of the SIGGRAPH
+J. A. Bærentzen, R. Abdrashitov, and K. Singh. 2014. Interactive Shape Modeling using         Asia 2025 Conference Papers. 1–11.
+    a Skeleton-Mesh Co-Representation. ACM Transactions on Graphics (proceedings of        Diederik P Kingma and Max Welling. 2014. Auto-encoding variational bayes. In ICLR.
+    ACM SIGGRAPH) 33, 4 (2014).                                                            Jiahao Li, Hao Tan, Kai Zhang, Zexiang Xu, Fujun Luan, Yinghao Xu, Yicong Hong,
+Ilya Baran and Jovan Popović. 2007. Automatic rigging and animation of 3d characters.         Kalyan Sunkavalli, Greg Shakhnarovich, and Sai Bi. 2024. Instant3D: Fast Text-to-3D
+    ACM Transactions on graphics (TOG) 26, 3 (2007), 72–es.                                   with Sparse-view Generation and Large Reconstruction Model. In ICLR.
+Péter Borosán, Ming Jin, Doug DeCarlo, Yotam Gingold, and Andrew Nealen. 2012.             Peizhuo Li, Kfir Aberman, Rana Hanocka, Libin Liu, Olga Sorkine-Hornung, and Bao-
+    RigMesh: automatic rigging for part-based shape modeling and deformation. ACM             quan Chen. 2021. Learning Skeletal Articulations with Neural Blend Shapes. ACM
+    Trans. Graph. 31, 6, Article 198 (Nov. 2012), 9 pages. doi:10.1145/2366145.2366217        Transactions on Graphics (TOG) 40, 4 (2021), 130.
+Honghua Chen, Yushi Lan, Yongwei Chen, and Xingang Pan. 2025a. ArtiLatent: Realistic       Ruining Li, Yuxin Yao, Chuanxia Zheng, Christian Rupprecht, Joan Lasenby, Shangzhe
+    Articulated 3D Object Generation via Structured Latents. In Proceedings of the            Wu, and Andrea Vedaldi. 2025a. Particulate: Feed-Forward 3D Object Articulation.
+    SIGGRAPH Asia 2025 Conference Papers. 1–11.                                               arXiv preprint arXiv:2512.11798 (2025).
+Rui Chen, Jianfeng Zhang, Yixun Liang, Guan Luo, Weiyu Li, Jiarui Liu, Xiu Li, Xiaoxiao    Yangguang Li, Zi-Xin Zou, Zexiang Liu, Dehu Wang, Yuan Liang, Zhipeng Yu, Xingchao
+    Long, Jiashi Feng, and Ping Tan. 2025c. Dora: Sampling and benchmarking for 3d            Liu, Yuan-Chen Guo, Ding Liang, Wanli Ouyang, et al. 2025c. Triposg: High-
+    shape variational auto-encoders. In Proceedings of the Computer Vision and Pattern        fidelity 3d shape synthesis using large-scale rectified flow models. arXiv preprint
+    Recognition Conference. 16251–16261.                                                      arXiv:2502.06608 (2025).
+Yiwen Chen, Zhihao Li, Yikai Wang, Hu Zhang, Qin Li, Chi Zhang, and Guosheng Lin.
+    2025b. Ultra3d: Efficient and high-fidelity 3d generation with part attention. arXiv
+                                                                                                          AniGen: Unified 𝑆 3 Fields for Animatable 3D Asset Generation        •   15
+
+
+Zhibing Li, Mengchen Zhang, Tong Wu, Jing Tan, Jiaqi Wang, and Dahua Lin. 2025b.            Jiaxiang Tang, Zhaoxi Chen, Xiaokang Chen, Tengfei Wang, Gang Zeng, and Ziwei
+   SS4D: Native 4D Generative Model via Structured Spacetime Latents. ACM Transac-              Liu. 2024. Lgm: Large multi-view gaussian model for high-resolution 3d content
+   tions on Graphics (TOG) 44, 6 (2025), 1–12.                                                  creation. In European Conference on Computer Vision. Springer, 1–18.
+Isabella Liu, Zhan Xu, Wang Yifan, Hao Tan, Zexiang Xu, Xiaolong Wang, Hao Su, and          Dmitry Tochilkin, David Pankratz, Zexiang Liu, Zixuan Huang, , Adam Letts, Yangguang
+   Zifan Shi. 2025. Riganything: Template-free autoregressive rigging for diverse 3d            Li, Ding Liang, Christian Laforte, Varun Jampani, and Yan-Pei Cao. 2024. TripoSR:
+   assets. ACM Transactions on Graphics (TOG) 44, 4 (2025), 1–12.                               Fast 3D Object Reconstruction from a Single Image. arXiv preprint arXiv:2403.02151
+Lijuan Liu, Youyi Zheng, Di Tang, Yi Yuan, Changjie Fan, and Kun Zhou. 2019. Neu-               (2024).
+   roskinning: Automatic skin binding for production characters with deep graph             Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N
+   networks. ACM Transactions on Graphics (ToG) 38, 4 (2019), 1–12.                             Gomez, Łukasz Kaiser, and Illia Polosukhin. 2017. Attention is all you need. Advances
+Ruoshi Liu, Rundi Wu, Basile Van Hoorick, Pavel Tokmakov, Sergey Zakharov, and                  in neural information processing systems 30 (2017).
+   Carl Vondrick. 2023. Zero-1-to-3: Zero-shot one image to 3d object. In Proceedings       Haoyu Wang, Shaoli Huang, Fang Zhao, Chun Yuan, and Ying Shan. 2023a. Hmc:
+   of the IEEE/CVF international conference on computer vision. 9298–9309.                      Hierarchical mesh coarsening for skeleton-free motion retargeting. arXiv preprint
+Xingchao Liu, Chengyue Gong, and Qiang Liu. 2022. Flow straight and fast: Learning              arXiv:2303.10941 (2023).
+   to generate and transfer data with rectified flow. arXiv preprint arXiv:2209.03003       Zhengyi Wang, Cheng Lu, Yikai Wang, Fan Bao, Chongxuan Li, Hang Su, and Jun
+   (2022).                                                                                      Zhu. 2023b. Prolificdreamer: High-fidelity and diverse text-to-3d generation with
+Yuan Liu, Cheng Lin, Zijiao Zeng, Xiaoxiao Long, Lingjie Liu, Taku Komura, and                  variational score distillation. Advances in neural information processing systems 36
+   Wenping Wang. 2024. SyncDreamer: Generating Multiview-consistent Images from                 (2023), 8406–8441.
+   a Single-view Image. In ICLR.                                                            Rundi Wu, Ruiqi Gao, Ben Poole, Alex Trevithick, Changxi Zheng, Jonathan T Barron,
+Ze Liu, Yutong Lin, Yue Cao, Han Hu, Yixuan Wei, Zheng Zhang, Stephen Lin, and                  and Aleksander Holynski. 2025a. Cat4d: Create anything in 4d with multi-view
+   Baining Guo. 2021. Swin transformer: Hierarchical vision transformer using shifted           video diffusion models. In Proceedings of the Computer Vision and Pattern Recognition
+   windows. In Proceedings of the IEEE/CVF international conference on computer vision.         Conference. 26057–26068.
+   10012–10022.                                                                             Shuang Wu, Youtian Lin, Feihu Zhang, Yifei Zeng, Jingxi Xu, Philip Torr, Xun Cao, and
+Xiaoxiao Long, Yuan-Chen Guo, Cheng Lin, Yuan Liu, Zhiyang Dou, Lingjie Liu, Yuexin             Yao Yao. 2024a. Direct3d: Scalable image-to-3d generation via 3d latent diffusion
+   Ma, Song-Hai Zhang, Marc Habermann, Christian Theobalt, et al. 2024. Wonder3d:               transformer. Advances in Neural Information Processing Systems 37 (2024), 121859–
+   Single image to 3d using cross-domain diffusion. In Proceedings of the IEEE/CVF              121881.
+   conference on computer vision and pattern recognition. 9970–9980.                        Zijie Wu, Chaohui Yu, Yanqin Jiang, Chenjie Cao, Fan Wang, and Xiang Bai. 2024b.
+Jing Ma and Dongliang Zhang. 2023. TARig: Adaptive template-aware neural rigging                Sc4d: Sparse-controlled video-to-4d generation and motion transfer. In European
+   for humanoid characters. Computers & Graphics 114 (2023), 158–167.                           Conference on Computer Vision. Springer, 361–379.
+David Marr and Herbert Keith Nishihara. 1978. Representation and recognition of the         Zijie Wu, Chaohui Yu, Fan Wang, and Xiang Bai. 2025b. AnimateAnyMesh: A Feed-
+   spatial organization of three-dimensional shapes. Proceedings of the Royal Society of        Forward 4D Foundation Model for Text-Driven Universal Mesh Animation. In
+   London. Series B. Biological Sciences 200, 1140 (1978), 269–294.                             Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV).
+Facundo Mémoli. 2011. Gromov–Wasserstein distances and the metric approach to                   13557–13568.
+   object matching. Foundations of computational mathematics 11, 4 (2011), 417–487.         Jianfeng Xiang, Xiaoxue Chen, Sicheng Xu, Ruicheng Wang, Zelong Lv, Yu Deng,
+Ben Mildenhall, Pratul P Srinivasan, Matthew Tancik, Jonathan T Barron, Ravi Ra-                Hongyuan Zhu, Yue Dong, Hao Zhao, Nicholas Jing Yuan, et al. 2025a. Native and
+   mamoorthi, and Ren Ng. 2021. Nerf: Representing scenes as neural radiance fields             Compact Structured Latents for 3D Generation. arXiv preprint arXiv:2512.14692
+   for view synthesis. Commun. ACM 65, 1 (2021), 99–106.                                        (2025).
+Maxime Oquab, Timothée Darcet, Théo Moutakanni, Huy Vo, Marc Szafraniec, Vasil              Jianfeng Xiang, Zelong Lv, Sicheng Xu, Yu Deng, Ruicheng Wang, Bowen Zhang, Dong
+   Khalidov, Pierre Fernandez, Daniel Haziza, Francisco Massa, Alaaeldin El-Nouby,              Chen, Xin Tong, and Jiaolong Yang. 2025b. Structured 3d latents for scalable and
+   et al. 2024. DINOv2: Learning Robust Visual Features without Supervision. Trans-             versatile 3d generation. In Proceedings of the Computer Vision and Pattern Recognition
+   actions on Machine Learning Research Journal (2024).                                         Conference. 21469–21480.
+Karran Pandey, J. Andreas Bærentzen, and Karan Singh. 2022. Face Extrusion Quad             Tianyi Xie, Yunuo Chen, Yaowei Guo, Yin Yang, Bolei Zhou, Demetri Terzopoulos, Ying
+   Meshes. In ACM SIGGRAPH 2022 Conference Proceedings (Vancouver, BC, Canada)                  Jiang, and Chenfanfu Jiang. 2025. AnimaMimic: Imitating 3D Animation from Video
+   (SIGGRAPH ’22). Association for Computing Machinery, New York, NY, USA, Article              Priors. arXiv preprint arXiv:2512.14133 (2025).
+   10, 9 pages. doi:10.1145/3528233.3530754                                                 Yinghao Xu, Hao Tan, Fujun Luan, Sai Bi, Peng Wang, Jiahao Li, Zifan Shi, Kalyan
+William Peebles and Saining Xie. 2023. Scalable diffusion models with transformers. In          Sunkavalli, Gordon Wetzstein, Zexiang Xu, et al. 2024. DMV3D: Denoising Multi-
+   Proceedings of the IEEE/CVF international conference on computer vision. 4195–4205.          view Diffusion Using 3D Large Reconstruction Model. In ICLR.
+Ben Poole, Ajay Jain, Jonathan T Barron, and Ben Mildenhall. 2023. DreamFusion:             Zhan Xu, Yang Zhou, Evangelos Kalogerakis, Chris Landreth, and Karan Singh. 2020.
+   Text-to-3D using 2D Diffusion. In ICLR.                                                      RigNet: neural rigging for articulated characters. ACM Transactions on Graphics
+Alec Radford, Jong Wook Kim, Chris Hallacy, Aditya Ramesh, Gabriel Goh, Sandhini                (TOG) 39, 4 (2020), 58–1.
+   Agarwal, Girish Sastry, Amanda Askell, Pamela Mishkin, Jack Clark, et al. 2021.          Zhan Xu, Yang Zhou, Evangelos Kalogerakis, and Karan Singh. 2019. Predicting Ani-
+   Learning transferable visual models from natural language supervision. In Interna-           mation Skeletons for 3D Articulated Models via Volumetric Nets. 2019 International
+   tional conference on machine learning. PmLR, 8748–8763.                                      Conference on 3D Vision (3DV) (2019), 298–307. https://api.semanticscholar.org/
+Jiawei Ren, Liang Pan, Jiaxiang Tang, Chi Zhang, Ang Cao, Gang Zeng, and Ziwei                  CorpusID:201309034
+   Liu. 2023. Dreamgaussian4d: Generative 4d gaussian splatting. arXiv preprint             Zhan Xu, Yang Zhou, Li Yi, and Evangelos Kalogerakis. 2022. Morig: Motion-aware
+   arXiv:2312.17142 (2023).                                                                     rigging of character meshes from point clouds. In SIGGRAPH Asia 2022 conference
+Tianchang Shen, Jacob Munkberg, Jon Hasselgren, Kangxue Yin, Zian Wang, Wenzheng                papers. 1–9.
+   Chen, Zan Gojcic, Sanja Fidler, Nicholas Sharp, and Jun Gao. 2023. Flexible isosurface   Jiawei Yang, Tianhong Li, Lijie Fan, Yonglong Tian, and Yue Wang. 2025. Latent
+   extraction for gradient-based mesh optimization. ACM Transactions on Graphics                denoising makes good visual tokenizers. arXiv preprint arXiv:2507.15856 (2025).
+   (TOG) 42, 4 (2023), 1–16.                                                                Jingfeng Yao, Yuda Song, Yucong Zhou, and Xinggang Wang. 2025. Towards Scalable
+Yichun Shi, Peng Wang, Jianglong Ye, Long Mai, Kejie Li, and Xiao Yang. 2023. MV-               Pre-training of Visual Tokenizers for Generation. arXiv preprint arXiv:2512.13687
+   Dream: Multi-view Diffusion for 3D Generation. In ICLR.                                      (2025).
+Chaoyue Song, Xiu Li, Fan Yang, Zhongcong Xu, Jiacheng Wei, Fayao Liu, Jiashi Feng,         Xin Yu, Yuan-Chen Guo, Yangguang Li, Ding Liang, Song-Hai Zhang, and Xiaojuan Qi.
+   Guosheng Lin, and Jianfeng Zhang. 2025a. Puppeteer: Rig and Animate Your 3D                  2023. Text-to-3D with Classifier Score Distillation. In ICLR.
+   Models. In The Thirty-ninth Annual Conference on Neural Information Processing           Biao Zhang, Jiapeng Tang, Matthias Niessner, and Peter Wonka. 2023. 3dshape2vecset:
+   Systems.                                                                                     A 3d shape representation for neural fields and generative diffusion models. ACM
+Chaoyue Song, Jianfeng Zhang, Xiu Li, Fan Yang, Yiwen Chen, Zhongcong Xu, Jun Hao               Transactions On Graphics (TOG) 42, 4 (2023), 1–16.
+   Liew, Xiaoyang Guo, Fayao Liu, Jiashi Feng, and Guosheng Lin. 2025b. MagicAr-            Jia-Peng Zhang, Cheng-Feng Pu, Meng-Hao Guo, Yan-Pei Cao, and Shi-Min Hu. 2025.
+   ticulate: Make Your 3D Models Articulation-Ready. In Proceedings of the Computer             One model to rig them all: Diverse skeleton rigging with unirig. ACM Transactions
+   Vision and Pattern Recognition Conference (CVPR). 15998–16007.                               on Graphics (TOG) 44, 4 (2025), 1–18.
+Jiaming Song, Chenlin Meng, and Stefano Ermon. 2021. Denoising Diffusion Implicit           Jia-Qi Zhang, Miao Wang, Fu-Cheng Zhang, and Fang-Lue Zhang. 2024a. Skinned
+   Models. In ICLR.                                                                             motion retargeting with preservation of body part relationships. IEEE Transactions
+Mingze Sun, Junhao Chen, Junting Dong, Yurun Chen, Xinyu Jiang, Shiwei Mao, Puhua               on Visualization and Computer Graphics (2024).
+   Jiang, Jingbo Wang, Bo Dai, and Ruqi Huang. 2025. Drive: Diffusion-based rigging         Longwen Zhang, Ziyu Wang, Qixuan Zhang, Qiwei Qiu, Anqi Pang, Haoran Jiang, Wei
+   empowers generation of versatile and expressive characters. In Proceedings of the            Yang, Lan Xu, and Jingyi Yu. 2024b. Clay: A controllable large-scale generative
+   Computer Vision and Pattern Recognition Conference. 21170–21180.                             model for creating high-quality 3d assets. ACM Transactions on Graphics (TOG) 43,
+                                                                                                4 (2024), 1–20.
+16   •   Yi-Hua Huang, et al.
+
+
+Zi-Xin Zou, Zhipeng Yu, Yuan-Chen Guo, Yangguang Li, Ding Liang, Yan-Pei Cao, and    single-view 3d reconstruction with transformers. In Proceedings of the IEEE/CVF
+   Song-Hai Zhang. 2024. Triplane meets gaussian splatting: Fast and generalizable   conference on computer vision and pattern recognition. 10324–10335.
+

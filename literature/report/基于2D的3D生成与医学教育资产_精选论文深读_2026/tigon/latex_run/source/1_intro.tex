@@ -1,0 +1,21 @@
+\section{Introduction}
+\label{sec:intro}
+
+Generating high-quality 3D assets has attracted increasing attention due to its importance for downstream applications such as virtual reality, industrial design, and embodied AI. A particularly promising line of work~\cite{trellis, hunyuan3d, direct3ds2, triposr, step1x, clay} learns to generate 3D objects from either an input image or a text description. However, relying on a single conditioning modality can limit the flexibility of 3D generation.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{tigon-teaser.png}
+    \caption{Single-modality conditioning has limitations in satisfying user intent.
+    Image-only conditioning captures local appearance but omits unobserved regions; text-only conveys semantics but lacks visual fidelity.
+    In contrast, joint text–image conditioning produces 3D assets that are both semantically aligned with the description and faithful to the reference appearance.}
+    \label{fig:teaser}
+\end{figure}
+
+As shown in~\cref{fig:teaser}, when a user specifies a 3D object with an example image, image-conditioned 3D generation can preserve local appearance but is highly sensitive to viewpoint informativeness: occlusions, atypical views, or incomplete object coverage force the model to hallucinate under-constrained regions, causing the generated 3D asset to deviate from the intended semantics. In contrast, text-conditioned 3D generation is semantically reasonable but lacks concrete visual constraints, so the output may roughly match the prompt while exhibiting poor visual quality.
+
+These observations raise a natural question of whether image and text conditions can provide complementary information for more flexible 3D generation. Intuitively, images anchor the result to the actual observed view, supplying reliable geometry and appearance cues, while text can specify additional semantics to disambiguate unobserved regions (\emph{e.g.}, ``with a long coiled tiger tail''). In a diagnostic study, we find that conditioning on a low-information view degrades performance, but adding a textual description and fusing the image- and text-conditioned predictions noticeably recovers quality. This motivates us to move beyond single-modality settings and introduce \textbf{Text--Image Conditioned 3D Generation}\footnote{Here we focus on the \emph{native} 3D generation setting, where the model directly generates a 3D representation under joint text--image conditioning.}, which requires the 3D generator to jointly reason over the visual exemplar and the textual specification, and to generate a consistent 3D asset that is simultaneously faithful to the image-conditioned appearance/geometry and aligned with the text-defined semantics.
+
+To address this task, we propose a strong yet minimalist baseline named \textbf{TIGON}. It adopts a dual-branch design that retains two modality-specialized DiT backbones and couples them via two lightweight fusion mechanisms: (i) cross-modal linear bridges for bidirectional feature sharing (early fusion), and (ii) step-wise prediction averaging along the denoising trajectory (late fusion). This design prevents either branch from shouldering the cross-modal domain gap, preserves their original single-modality ability, and enables free-form conditioning. Extensive experiments show that TIGON delivers more flexible 3D generation.
+
+Our contributions are summarized as follows: (1) We identify and empirically diagnose the limitations of existing single-modality 3D generation methods. (2) We show that image and text provide complementary conditioning signals and, motivated by this, introduce the task of text–image conditioned 3D generation. (3) We propose TIGON, a simple yet effective baseline method that leverages modality-specific backbones with lightweight cross-modal fusion. (4) We conduct extensive experiments to demonstrate that TIGON achieves more robust and flexible 3D generation.

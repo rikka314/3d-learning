@@ -1,0 +1,196 @@
+\clearpage
+\renewcommand{\thepage}{A\arabic{page}}
+\setcounter{page}{1}
+\maketitlesupplementary
+\appendix
+\renewcommand{\thefigure}{A\arabic{figure}}
+\renewcommand{\thetable}{A\arabic{table}}
+\setcounter{figure}{0}
+\setcounter{table}{0}
+
+\section{Contents}
+\label{sec:contents}
+In this supplement, we provide the following contents:
+\begin{itemize}
+    \item The design of the cross-modal late-fusion module used for ablation.
+    \item The dataset composition of TRELLIS-500K.
+    \item The evaluation metric definitions and rendering settings.
+    \item Compatibility between TIGON and TRELLIS.
+    \item More qualitative results.
+    \item Full text prompts used in the main paper.
+\end{itemize}
+
+
+\section{Design of Ablation for the Cross-Modal Late-Fusion Module}
+To assess whether more sophisticated mechanisms can outperform our simple averaging strategy, we design two learnable late-fusion variants.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\linewidth]{tigon-fusion-module.pdf}
+    \caption{The adaptive fusion module used in the ablation study. 
+    $D$ denotes the intermediate feature dimension, and $C$ denotes the latent output dimension.}
+    \label{fig:fusion_module}
+\end{figure}
+
+A fusion module must access the current branch predictions 
+$\mathbf{f}^{(L)}_{\texttt{txt}}$ and $\mathbf{f}^{(L)}_{\texttt{img}}$, 
+the modality conditions $\mathbf{T}$ and $\mathbf{I}$, 
+and the denoising timestep $t$. 
+To integrate these inputs, we employ a dual cross-attention module. 
+As shown in~\cref{fig:fusion_module}, we concatenate the two branch features along the channel dimension and obtain a fused representation:
+\begin{equation}
+    \mathbf{f}_{\texttt{fused}}
+    = \mathcal{M}\big([\mathbf{f}_{\texttt{txt}} \,;\, \mathbf{f}_{\texttt{img}}],\, t,\, \mathbf{T},\, \mathbf{I}\big).
+\end{equation}
+Different output heads applied to $\mathbf{f}_{\texttt{fused}}$ produce the two fusion variants below.
+
+\paragraph{Linear Fusion with Learnable Adaptive Weighting (AW).}
+To produce element-wise fusion weights, the fusion module applies a linear projection 
+$\mathbb{R}^{B\times N\times 2D} \rightarrow \mathbb{R}^{B\times N\times 1}$,
+followed by a sigmoid activation to obtain 
+$\mathbf{w} \in \mathbb{R}^{B\times N\times 1}$. 
+The final fused prediction is computed as
+\begin{equation}
+    \mathbf{v}
+    = \mathbf{w}\,\mathbf{v}_{\texttt{txt}}
+    + (1-\mathbf{w})\,\mathbf{v}_{\texttt{img}}.
+\end{equation}
+
+\paragraph{Attention-Based Cross-Modal Fusion (AT).}
+Instead of predicting fusion weights, this variant lets the fusion module directly generate modality-specific features. 
+To maintain training stability, we reuse the original output projections 
+$\mathcal{G}_{*} : \mathbb{R}^{D} \rightarrow \mathbb{R}^{C}$ for $* \in \{\texttt{txt}, \texttt{img}\}$. 
+We split the fused representation along the channel dimension to obtain  
+$\hat{\mathbf{f}}_{\texttt{txt}}, \hat{\mathbf{f}}_{\texttt{img}} \in \mathbb{R}^{B\times N\times D}$. 
+Each is then projected to the latent dimension, and the final prediction is formed by summation:
+\begin{equation}
+    \mathbf{v}
+    = \frac{1}{2}(\mathcal{G}_{\texttt{txt}}(\hat{\mathbf{f}}_{\texttt{txt}})
+    + \mathcal{G}_{\texttt{img}}(\hat{\mathbf{f}}_{\texttt{img}})).
+\end{equation}
+Note that we omit the normalization operation for brevity.
+
+\section{TRELLIS-500K Dataset Overview}
+
+TRELLIS-500K is a large-scale 3D asset collection assembled in prior work~\cite{trellis}, drawing from several publicly available repositories. The dataset merges objects from Objaverse-style sources together with high-quality CAD and artist-designed assets, followed by filtering procedures to remove models with missing geometry or severely degraded textures. Each object is additionally paired with a detailed natural-language caption generated using GPT-4o~\cite{2024GPT4o}, providing consistent semantic supervision for text-driven 3D generation.
+
+\paragraph{Objaverse-Derived ~\cite{deitke2023objaverse, deitke2024objaverse}.}
+A substantial portion of TRELLIS-500K comes from higher-quality subsets of Objaverse-XL, particularly assets originating from Sketchfab (Objaverse V1) and selected GitHub contributions. These models cover a wide range of manually designed shapes, photogrammetry scans, and professionally captured artifacts. Lower-quality objects from the broader Objaverse-XL collection are excluded.
+
+\paragraph{ABO~\cite{collins2022abo}.}
+ABO contributes a set of professionally authored household product models characterized by clean topology and high-resolution materials, enriching the dataset with well-designed, manufacturable assets.
+
+\paragraph{3D-FUTURE~\cite{fu20213d}.}
+3D-FUTURE provides industrial-grade furniture models with detailed geometry and realistic textures, complementing other sources with contemporary interior designs.
+
+\paragraph{HSSD~\cite{khanna2023hssd}.}
+Assets from HSSD include indoor objects such as decorative items and furnishings originally curated for embodied AI research. These assets are structurally consistent and help broaden the dataset’s coverage of indoor categories.
+
+Overall, TRELLIS-500K offers a curated mixture of diverse, reasonably clean 3D assets with high-quality textual descriptions, and serves as a strong large-scale dataset for training text- and image-conditioned 3D generative models.
+
+
+\section{Rendering Settings and Evaluation Metric Definitions}
+\subsection{Rendering Settings}
+To assess generation quality, we render four reference views for each ground-truth object using cameras placed at yaw angles of ${0^\circ, 90^\circ, 180^\circ, 270^\circ}$ and a fixed pitch of $30^\circ$, all looking toward the origin with a $40^\circ$ field of view and positioned uniformly on a sphere of radius 2. We apply the same rendering protocol to the corresponding generated object to obtain its synthesized views. Image features are then extracted using the CLIP image encoder and DINOv2 to compute the CLIP similarity score and FD$_\texttt{DINOv2}$, respectively.
+
+\subsection{Evaluation Metric Definitions}
+
+\paragraph{CLIP.}
+For each instance, we render four views for the ground-truth (GT) object and four views for the generated object, and compute the cosine similarity between every GT–generated pair, yielding a $4 \times 4$ similarity matrix. 
+Since the generated objects are not canonicalized with respect to front/back orientation, we do not know the exact correspondence between GT and generated views. 
+Therefore, we apply the Hungarian matching to this $4 \times 4$ matrix to find the optimal one-to-one assignment, and use the resulting matching score (average cosine similarity over the matched pairs) as the final CLIP score.
+
+\paragraph{Fréchet Inception Distance (FID).}
+To assess distributional similarity between real and generated objects, we compute a Fréchet Distance in the DINOv2 feature space. 
+All GT and generated renders are embedded using a pretrained DINOv2 encoder to obtain sets of ``real'' features $\{\mathbf{x}_i\}$ and ``generated'' features $\{\mathbf{y}_i\}$. 
+We estimate the empirical means and covariances $(\boldsymbol{\mu}_r, \boldsymbol{\Sigma}_r)$ and $(\boldsymbol{\mu}_g, \boldsymbol{\Sigma}_g)$ of the two distributions, and report
+\begin{equation}
+    \text{FD}_\texttt{DINOv2}
+    = \|\boldsymbol{\mu}_r - \boldsymbol{\mu}_g\|_2^2
+      + \operatorname{Tr}\!\left(\boldsymbol{\Sigma}_r + \boldsymbol{\Sigma}_g
+      - 2(\boldsymbol{\Sigma}_r \boldsymbol{\Sigma}_g)^{1/2}\right),
+\end{equation}
+where lower values indicate that generated features more closely match the distribution of GT features.
+
+\paragraph{ULIP and Uni3D.}
+To evaluate the geometric fidelity of the generated 3D object, we employ ULIP~\cite{ulip} and Uni3D~\cite{uni3d} to measure semantic consistency between the generated 3D shape and the corresponding GT renderings. 
+For each instance, we encode the four reference views using the ULIP or Uni3D image encoder, and encode the generated mesh using the corresponding point-cloud encoder applied to its vertices. 
+The average cosine similarity between the image embeddings and the point-cloud embedding is reported as the ULIP or Uni3D score.
+
+\section{Compatibility between TIGON and TRELLIS}
+In this paper, we instantiate TIGON on UniLat3D, a single-stage extension of TRELLIS. However, the core idea of TIGON is not restricted to UniLat3D. To demonstrate this, we conduct an additional experiment directly on TRELLIS: we integrate the TRELLIS text and image models within the TIGON framework and evaluate the resulting model. 
+
+Due to resource limitations, we add cross-modal bridges only to the sparse-structure flow of TRELLIS and fine-tune it, while keeping the SLAT flow as a simple fusion of the two modality branches. 
+
+The performance is reported in Table~\ref{tab:trellis_tigon}. 
+With cross-modal fusion, TRELLIS exhibits improved generation quality compared with its single-modality variants. These results highlight the potential of TIGON as a general multimodal fusion framework that is compatible with a broader class of flow-based 3D generators.  
+
+\begin{table}[htbp]
+    \centering
+    \begin{tabular}{cccc}
+    \toprule
+         \textbf{Model} & \textbf{Cond.} & \textbf{CLIP} & \textbf{FD$_{\texttt{DINOv2}}$} \\
+         \midrule
+         TRELLIS & I & 90.50 & 98.75\\
+         TRELLIS & T & 86.30 & 148.21\\
+         TRELLIS (w/o ss-bridge) & I+T & 91.23 & 80.35\\
+         TRELLIS (w/ ss-bridge) & I+T & 91.51 & 75.35\\
+    \bottomrule
+    \end{tabular}
+    \caption{Integrating TIGON with TRELLIS. Experiment is conducted on Toys4K. We use 3D-GS as the representation. `ss-bridge' denotes the cross-modal bridge for the sparse-structure flow model.}
+    \label{tab:trellis_tigon}
+\end{table}
+
+\begin{figure*}[htbp]
+    \centering
+    \includegraphics[width=\linewidth]{tigon-supp-mesh-comp.png}
+    \caption{Meshes generated by Hunyuan3D-2.1, Step1X-3D, and TIGON. For the full text prompts, please refer to~\cref{sec:full_cap}.}
+    \label{fig:mesh}
+\end{figure*}
+
+\begin{figure*}[htbp]
+    \centering
+    \includegraphics[width=\linewidth]{tigon-supp-edit.png}
+    \caption{Additional visualization results of controllable generation with TIGON under joint text and image conditioning.}
+    \label{fig:supp_edit}
+\end{figure*}
+
+\section{Additional Qualitative Results}
+\paragraph{Mesh Generation.}
+In the main paper, we provide visualization with 3D-GS representation. We further provide comparison results with other mesh generation methods~\cite{hunyuan3d2025hunyuan3d2.1, step1x} to demonstrate the ability of mesh generation of TIGON. 
+Existing approaches exhibit a strong dependence on favorable viewpoints. 
+For example, in the second row of~\cref{fig:mesh}, although the input image clearly depicts a bird, Step1X-3D fails to produce a plausible geometry. 
+Similarly, in the fifth row, Hunyuan3D-2.1 cannot generate the deer’s legs. 
+With explicit semantic guidance from text, TIGON successfully reconstructs these cases, producing meshes that better align with both appearance cues and object semantics.
+
+\paragraph{Controllable Generation.}
+Additional results in~\cref{fig:supp_edit} further illustrate TIGON’s controllable generation ability. By combining different condition images with different text prompts, TIGON produces diverse 3D objects while maintaining strong visual alignment, highlighting the flexibility and expressiveness enabled by joint text–image conditioning. 
+We also provide videos that more fully show these controllable generation results; please refer to the supplementary materials.
+
+% To further demonstrate the controllability of TIGON, we fix an input image and vary text prompts to obtain diverse 3D outputs. As shown in~\cref{fig:edit}, when the image is highly informative (\emph{e.g.}, a distinct character), TIGON preserves identity while modifying fine attributes according to the text. When the image is ambiguous (\emph{e.g.}, a bottom view of a toaster), TIGON instead relies more on the text, producing semantically different objects (such as a telephone or a bed). This coupling of pixel-level alignment and semantic control offers greater flexibility than single-modality methods. More qualitative results are provided in the supplement.
+
+\section{Full Text Prompts List}
+\label{sec:full_cap}
+We provide here the full text prompts that are abbreviated in our figures.
+
+\noindent Fig. 4: From the 1st to the 5th row:
+\begin{itemize}
+    \item A whimsical, yellow toy-like car with a clown driver, blue side panels, and roof, red circles near the wheels, three roof balloons, a yellow wind-up key, light blue bumpers, and a weathered, vintage aesthetic.
+    \item A circular dartboard with concentric rings alternating between white and red, featuring a central bullseye and a dart embedded in the outer red ring. The dart has a black shaft, a brown tip, and red fletching. The dartboard's surface appears to have a matte finish, and the lighting highlights its three-dimensional form.
+    \item A handheld gaming console with a sleek black body, featuring two detachable controllers, one blue on the left and one red on the right. The blue controller has a directional pad and four action buttons labeled A, B, X, and Y. The red controller includes a joystick and additional buttons. The device has a glossy finish with visible screws and ports along its edges, indicating a portable design for gaming on the go.
+    \item A golden trophy with intricate engravings and detailed textures, featuring two handles, a transparent lid with a purple band, and blue ribbons with logos draped over it. The base has multiple tiers with inscriptions, and the overall design includes reflective surfaces and polished finishes.
+    \item A vintage toaster with a compact, rectangular shape, rounded edges, predominantly orange with metallic silver accents, two top bread slots, front and back panels featuring curved orange with central silver panels, inwardly curved side panels with a metallic lever and two knobs, and a wider base.
+\end{itemize}
+
+\noindent Fig. 6: A modern all-in-one desktop computer with a sleek, white stand, slightly curved white back, flat rectangular screen with rounded corners, thin black side and top bezels, and a thicker white bottom bezel.
+
+\noindent\cref{fig:mesh}: From the 1st to the 5th row:
+\begin{itemize}
+\item A modern white sofa with curved backrest and sides, three horizontal seat cushions, and five throw pillows alternately colored in purple and white.
+\item A small, stylized bird with a round body, featuring soft orange plumage on its head and back, transitioning to white on its chest. The bird has a short, pointed black beak, dark eyes, and delicate brown legs with clawed feet. Its tail is short and slightly fanned, matching the orange coloration of its back. The texture appears smooth and slightly fluffy, giving it a plush, cartoon-like appearance.
+\item A detailed 3D model of a whimsical, purple house with multiple stories, featuring intricate architectural details such as gabled roofs, chimneys, windows with varying sizes and shapes, and a staircase leading to the entrance. The house has a textured surface resembling stone or brick, with small decorative elements like railings and a balcony. The surrounding area includes scattered debris and a small figure near the base, adding context to the scene.
+\item A beige and brown backpack with a textured fabric surface, featuring two rounded ear-like protrusions on top, adjustable shoulder straps with padded sections, and a central zipper compartment. The backpack has a structured design with visible stitching details and reinforced areas around the straps and zippers.
+\item Low-poly, tan-colored standing deer with simple shapes; head with elongated muzzle, branched antlers, arched back, thin tapered legs, darker hooves, and stubby tail.
+\end{itemize}
+
+% \clearpage

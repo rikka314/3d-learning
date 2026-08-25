@@ -1,0 +1,28 @@
+{
+  "schema_version": "paper-reader-artifacts/1.0",
+  "paper": {
+    "title": "Hunyuan3D 2.1: From Images to High-Fidelity 3D Assets with Production-Ready PBR Material",
+    "source_mode": "latex-primary"
+  },
+  "report": {
+    "markdown": "report.md"
+  },
+  "traceability_manifest": "traceability_manifest.json",
+  "latex_paragraphs": "latex_run/latex_paragraphs.json",
+  "research_lens": "research_lens.json",
+  "documents": [
+    {
+      "doc": "hunyuan3d_2_1",
+      "label": "Hunyuan3D 2.1",
+      "pdf": "latex_run/source/neurips_2025.pdf",
+      "synctex": "latex_run/source/neurips_2025.synctex.gz"
+    }
+  ],
+  "storyboard": {
+    "manifest": "storyboard_manifest.json",
+    "prompts": "storyboard_prompts.md",
+    "images": [],
+    "status": "prompts-only"
+  },
+  "reader_output": "reader_bundle"
+}

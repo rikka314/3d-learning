@@ -1,0 +1,305 @@
+\relax 
+\providecommand\zref@newlabel[2]{}
+\providecommand \babel@aux [2]{\global \let \babel@toc \@gobbletwo }
+\@nameuse{bbl@beforestart}
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\bibstyle{abbrvnat}
+\citation{nbp,veo3,flux2,seedance2,uni1,gpt1p5}
+\citation{krizhevsky2012imagenet_alexnet,dehghani2023scaling_vit22b,dosovitskiy2020image_vit}
+\citation{simclr,he2020momentum_moco,chen2020improved_moco2,zhai2023siglip1,tschannen2025siglip2,radford2021learning_clip}
+\citation{caron2021emerging_dinov1,grill2020bootstrap_byol}
+\citation{he2022masked_mae,bao2021beit,chen2024deconstructing_dae}
+\citation{oquab2023dinov2,simeoni2025dinov3,zhou2021ibot,cao2026tipsv2}
+\citation{chen2020generative_igpt,bai2024sequential_lvm}
+\babel@aux{english}{}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}\protected@file@percent }
+\citation{zuo2025nanobanana_low_level,wiedemer2025veo_learner}
+\citation{he2024lotus,lotus2,marigold,ye2024stablenormal,yu2024high,zhao2025diception,wang2026thfm}
+\citation{brown2020language_gpt3,chowdhery2023palm}
+\citation{ouyang2022training_instructgpt,wei2021finetuned_flan}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces We demonstrate the hidden visual understanding capabilities of image generators by instruction-tuning Nano Banana Pro. The instruction-tuned model, \textbf  {Vision Banana} \raisebox  {-0.2ex}{\includegraphics [height=1.2em]{assets/vb4.png}}, can produce visualizations in a precise format that can enable evaluation on established benchmarks. }}{2}{figure.caption.1}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{fig:teaser_img}{{1}{2}{We demonstrate the hidden visual understanding capabilities of image generators by instruction-tuning Nano Banana Pro. The instruction-tuned model, \textbf {Vision Banana} \emojivb , can produce visualizations in a precise format that can enable evaluation on established benchmarks}{figure.caption.1}{}}
+\newlabel{fig:teaser_img@cref}{{[figure][1][]1}{[1][2][]2}{}{}{}}
+\citation{sam3}
+\citation{ren2024dinox}
+\citation{dav3}
+\citation{lotus2}
+\citation{sam3}
+\citation{dav3}
+\citation{li2024genaibench}
+\citation{ye2025imgedit}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces The instruction-tuned \textbf  {Vision Banana} model surpasses or rivals SOTA specialists across visual generation and understanding. For 2D visual understanding, it beats the highly specialized \textbf  {Segment Anything Model 3} \citep  {sam3} on 3 segmentation datasets, and is on par with DINO-X \citep  {ren2024dinox} on instance segmentation. For 3D visual understanding, it surpasses the best metric depth estimation expert, \textbf  {Depth Anything 3} \citep  {dav3}, and the best surface normal estimation specialist, Lotus-2 \citep  {lotus2}. In visual generation, Vision Banana inherits its capabilities from Nano Banana Pro and is on par with it on text-to-image and image editing. }}{3}{table.caption.2}\protected@file@percent }
+\newlabel{tab:overall}{{1}{3}{The instruction-tuned \textbf {Vision Banana} model surpasses or rivals SOTA specialists across visual generation and understanding. For 2D visual understanding, it beats the highly specialized \textbf {Segment Anything Model 3} \citep {sam3} on 3 segmentation datasets, and is on par with DINO-X \citep {ren2024dinox} on instance segmentation. For 3D visual understanding, it surpasses the best metric depth estimation expert, \textbf {Depth Anything 3} \citep {dav3}, and the best surface normal estimation specialist, Lotus-2 \citep {lotus2}. In visual generation, Vision Banana inherits its capabilities from Nano Banana Pro and is on par with it on text-to-image and image editing}{table.caption.2}{}}
+\newlabel{tab:overall@cref}{{[table][1][]1}{[1][3][]3}{}{}{}}
+\citation{wiedemer2025veo_learner,zuo2025nanobanana_low_level}
+\citation{li2024genaibench}
+\citation{ye2025imgedit}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Method}{4}{section.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Instruction-tuning Nano Banana Pro}{4}{section.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Vision Tasks and Data.}{4}{section.2}\protected@file@percent }
+\citation{kirillov2023segment}
+\citation{radford2021learning_clip}
+\citation{kirillov2023segment,ravi2024sam2,sam3}
+\citation{cityscapes}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Vision Banana - Generalist Vision Model from Image Generator}{5}{section.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}2D Semantic Understanding}{5}{subsection.3.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Vision-Banana \raisebox  {-0.2ex}{\includegraphics [height=1.2em]{assets/vb4.png}}\ \ compared with state-of-the-art methods on various segmentation datasets. We mainly compare with other methods that have not been trained on in-domain data, i.e., the training splits of these benchmarks. We denote them as ``Zero-Shot Transfer'' in the table. The usage of this term follows Segment Anything \citep  {kirillov2023segment} and CLIP \citep  {radford2021learning_clip}. Non zero-shot transfer methods are marked in \textcolor {gray}{gray}. $^*$: On SA-Co/Gold, we evaluate our method on $500$ randomly sampled queries. On ReasonSeg, methods are paired with multimodal LLMs for reasoning. We use Gemini 2.5 Pro in our case. References of previous methods are in the main text. }}{5}{table.caption.3}\protected@file@percent }
+\newlabel{tab-seg-cityscapes}{{2a}{5}{Cityscapes val}{table.caption.3}{}}
+\newlabel{tab-seg-cityscapes@cref}{{[subtable][1][2]2a}{[1][5][]5}{}{}{}}
+\newlabel{sub@tab-seg-cityscapes}{{a}{5}{Cityscapes val}{table.caption.3}{}}
+\newlabel{sub@tab-seg-cityscapes@cref}{{[subtable][1][2]2a}{[1][5][]5}{}{}{}}
+\newlabel{tab-seg-saco}{{2b}{5}{SA-Co/Gold}{table.caption.3}{}}
+\newlabel{tab-seg-saco@cref}{{[subtable][2][2]2b}{[1][5][]5}{}{}{}}
+\newlabel{sub@tab-seg-saco}{{b}{5}{SA-Co/Gold}{table.caption.3}{}}
+\newlabel{sub@tab-seg-saco@cref}{{[subtable][2][2]2b}{[1][5][]5}{}{}{}}
+\newlabel{tab-seg-refcocog}{{2c}{5}{RefCOCOg val (U)}{table.caption.3}{}}
+\newlabel{tab-seg-refcocog@cref}{{[subtable][3][2]2c}{[1][5][]5}{}{}{}}
+\newlabel{sub@tab-seg-refcocog}{{c}{5}{RefCOCOg val (U)}{table.caption.3}{}}
+\newlabel{sub@tab-seg-refcocog@cref}{{[subtable][3][2]2c}{[1][5][]5}{}{}{}}
+\newlabel{tab-seg-reasonseg}{{2d}{5}{ReasonSeg val}{table.caption.3}{}}
+\newlabel{tab-seg-reasonseg@cref}{{[subtable][4][2]2d}{[1][5][]5}{}{}{}}
+\newlabel{sub@tab-seg-reasonseg}{{d}{5}{ReasonSeg val}{table.caption.3}{}}
+\newlabel{sub@tab-seg-reasonseg@cref}{{[subtable][4][2]2d}{[1][5][]5}{}{}{}}
+\newlabel{tab-segmentation-all}{{2}{5}{Vision-Banana \emojivb \ \ compared with state-of-the-art methods on various segmentation datasets. We mainly compare with other methods that have not been trained on in-domain data, i.e., the training splits of these benchmarks. We denote them as ``Zero-Shot Transfer'' in the table. The usage of this term follows Segment Anything \citep {kirillov2023segment} and CLIP \citep {radford2021learning_clip}. Non zero-shot transfer methods are marked in \textcolor {gray}{gray}. $^*$: On SA-Co/Gold, we evaluate our method on $500$ randomly sampled queries. On ReasonSeg, methods are paired with multimodal LLMs for reasoning. We use Gemini 2.5 Pro in our case. References of previous methods are in the main text}{table.caption.3}{}}
+\newlabel{tab-segmentation-all@cref}{{[table][2][]2}{[1][5][]5}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{Semantic Segmentation.}{5}{table.caption.3}\protected@file@percent }
+\citation{fu2025segman,shen2024_aped,zhang2023simple_openseed,zou2023generalized_xdecoder,sam3}
+\citation{cityscapes}
+\citation{fu2025segman}
+\citation{sam3}
+\citation{gemini25}
+\citation{shen2024_aped}
+\citation{minderer2023gowol}
+\citation{ren2024dinox}
+\newlabel{fig:demo-semseg1}{{2a}{6}{Example 1}{figure.caption.4}{}}
+\newlabel{fig:demo-semseg1@cref}{{[subfigure][1][2]2a}{[1][6][]6}{}{}{}}
+\newlabel{sub@fig:demo-semseg1}{{a}{6}{Example 1}{figure.caption.4}{}}
+\newlabel{sub@fig:demo-semseg1@cref}{{[subfigure][1][2]2a}{[1][6][]6}{}{}{}}
+\newlabel{fig:demo-semseg2}{{2b}{6}{Example 2}{figure.caption.4}{}}
+\newlabel{fig:demo-semseg2@cref}{{[subfigure][2][2]2b}{[1][6][]6}{}{}{}}
+\newlabel{sub@fig:demo-semseg2}{{b}{6}{Example 2}{figure.caption.4}{}}
+\newlabel{sub@fig:demo-semseg2@cref}{{[subfigure][2][2]2b}{[1][6][]6}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Vision Banana can perform semantic segmentation, following the instruction prompts. It handles various prompting styles. It can also segment anything specified via text prompts, from single-word nouns to phrases. It produces segmentation mask at fine-grained granularity, for example, the cats' whiskers in Example 1 (middle). }}{6}{figure.caption.4}\protected@file@percent }
+\newlabel{fig:demo-semantic-segmentation}{{2}{6}{Vision Banana can perform semantic segmentation, following the instruction prompts. It handles various prompting styles. It can also segment anything specified via text prompts, from single-word nouns to phrases. It produces segmentation mask at fine-grained granularity, for example, the cats' whiskers in Example 1 (middle)}{figure.caption.4}{}}
+\newlabel{fig:demo-semantic-segmentation@cref}{{[figure][2][]2}{[1][6][]6}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{Instance Segmentation.}{6}{figure.caption.5}\protected@file@percent }
+\citation{refcoco}
+\citation{reasonseg}
+\citation{sam3}
+\citation{liu2025hybrid}
+\citation{kang2025your}
+\citation{liu2025segzero}
+\citation{lu2025rsvp}
+\citation{wei2024hyperseg}
+\citation{wang2026xsam}
+\citation{wang2026xsam}
+\citation{reasonseg}
+\newlabel{fig:demo-insseg1}{{3a}{7}{Example 1}{figure.caption.5}{}}
+\newlabel{fig:demo-insseg1@cref}{{[subfigure][1][3]3a}{[1][6][]7}{}{}{}}
+\newlabel{sub@fig:demo-insseg1}{{a}{7}{Example 1}{figure.caption.5}{}}
+\newlabel{sub@fig:demo-insseg1@cref}{{[subfigure][1][3]3a}{[1][6][]7}{}{}{}}
+\newlabel{fig:demo-insseg1_pred1}{{\caption@xref {fig:demo-insseg1_pred1}{ on input line 447}}{7}{Semantic Segmentation}{figure.caption.5}{}}
+\newlabel{fig:demo-insseg1_pred1@cref}{{[subsection][1][3]3.1}{[1][6][]7}{}{}{}}
+\newlabel{sub@fig:demo-insseg1_pred1}{{a}{7}{Semantic Segmentation}{figure.caption.5}{}}
+\newlabel{sub@fig:demo-insseg1_pred1@cref}{{[subsection][1][3]3.1}{[1][6][]7}{}{}{}}
+\newlabel{fig:demo-insseg1_pred2}{{\caption@xref {fig:demo-insseg1_pred2}{ on input line 453}}{7}{Semantic Segmentation}{figure.caption.5}{}}
+\newlabel{fig:demo-insseg1_pred2@cref}{{[subsection][1][3]3.1}{[1][6][]7}{}{}{}}
+\newlabel{sub@fig:demo-insseg1_pred2}{{a}{7}{Semantic Segmentation}{figure.caption.5}{}}
+\newlabel{sub@fig:demo-insseg1_pred2@cref}{{[subsection][1][3]3.1}{[1][6][]7}{}{}{}}
+\newlabel{fig:demo-insseg2_in}{{3b}{7}{Example 2}{figure.caption.5}{}}
+\newlabel{fig:demo-insseg2_in@cref}{{[subfigure][2][3]3b}{[1][6][]7}{}{}{}}
+\newlabel{sub@fig:demo-insseg2_in}{{b}{7}{Example 2}{figure.caption.5}{}}
+\newlabel{sub@fig:demo-insseg2_in@cref}{{[subfigure][2][3]3b}{[1][6][]7}{}{}{}}
+\newlabel{fig:demo-insseg2_pred_1}{{\caption@xref {fig:demo-insseg2_pred_1}{ on input line 467}}{7}{Semantic Segmentation}{figure.caption.5}{}}
+\newlabel{fig:demo-insseg2_pred_1@cref}{{[subsection][1][3]3.1}{[1][6][]7}{}{}{}}
+\newlabel{sub@fig:demo-insseg2_pred_1}{{b}{7}{Semantic Segmentation}{figure.caption.5}{}}
+\newlabel{sub@fig:demo-insseg2_pred_1@cref}{{[subsection][1][3]3.1}{[1][6][]7}{}{}{}}
+\newlabel{fig:demo-insseg2_pred_2}{{\caption@xref {fig:demo-insseg2_pred_2}{ on input line 473}}{7}{Semantic Segmentation}{figure.caption.5}{}}
+\newlabel{fig:demo-insseg2_pred_2@cref}{{[subsection][1][3]3.1}{[1][6][]7}{}{}{}}
+\newlabel{sub@fig:demo-insseg2_pred_2}{{b}{7}{Semantic Segmentation}{figure.caption.5}{}}
+\newlabel{sub@fig:demo-insseg2_pred_2@cref}{{[subsection][1][3]3.1}{[1][6][]7}{}{}{}}
+\newlabel{fig:demo-insseg3_in}{{3c}{7}{Example 3}{figure.caption.5}{}}
+\newlabel{fig:demo-insseg3_in@cref}{{[subfigure][3][3]3c}{[1][6][]7}{}{}{}}
+\newlabel{sub@fig:demo-insseg3_in}{{c}{7}{Example 3}{figure.caption.5}{}}
+\newlabel{sub@fig:demo-insseg3_in@cref}{{[subfigure][3][3]3c}{[1][6][]7}{}{}{}}
+\newlabel{fig:demo-insseg3_pred-1}{{\caption@xref {fig:demo-insseg3_pred-1}{ on input line 487}}{7}{Semantic Segmentation}{figure.caption.5}{}}
+\newlabel{fig:demo-insseg3_pred-1@cref}{{[subsection][1][3]3.1}{[1][6][]7}{}{}{}}
+\newlabel{sub@fig:demo-insseg3_pred-1}{{c}{7}{Semantic Segmentation}{figure.caption.5}{}}
+\newlabel{sub@fig:demo-insseg3_pred-1@cref}{{[subsection][1][3]3.1}{[1][6][]7}{}{}{}}
+\newlabel{fig:demo-insseg3_pred-2}{{\caption@xref {fig:demo-insseg3_pred-2}{ on input line 493}}{7}{Semantic Segmentation}{figure.caption.5}{}}
+\newlabel{fig:demo-insseg3_pred-2@cref}{{[subsection][1][3]3.1}{[1][6][]7}{}{}{}}
+\newlabel{sub@fig:demo-insseg3_pred-2}{{c}{7}{Semantic Segmentation}{figure.caption.5}{}}
+\newlabel{sub@fig:demo-insseg3_pred-2@cref}{{[subsection][1][3]3.1}{[1][6][]7}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Vision Banana can perform instance segmentation, one class at a time. It renders different instances with different colors. It can understand the nuanced concept in language as well. }}{7}{figure.caption.5}\protected@file@percent }
+\newlabel{fig:demo-instance-segmentation}{{3}{7}{Vision Banana can perform instance segmentation, one class at a time. It renders different instances with different colors. It can understand the nuanced concept in language as well}{figure.caption.5}{}}
+\newlabel{fig:demo-instance-segmentation@cref}{{[figure][3][]3}{[1][6][]7}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{Referring Expression Segmentation.}{7}{figure.caption.6}\protected@file@percent }
+\citation{dav3}
+\citation{lotus2}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Vision Banana can understand natural language prompts and reason about them, including but not limited to: (a) description of objects' appearances (``\textit  {man in pink t shirt}''); (b) description of actions (``\textit  {stretching}'' and ``\textit  {cleaning}''); (c) objects that have uncommon usage (\textit  {toaster as a game controller}); (d) multilingual text content (\textit  {text on the menu in Chinese and English}). This requires strong and comprehensive visual understanding capability. }}{8}{figure.caption.6}\protected@file@percent }
+\newlabel{fig:refseg-demo}{{4}{8}{Vision Banana can understand natural language prompts and reason about them, including but not limited to: (a) description of objects' appearances (``\textit {man in pink t shirt}''); (b) description of actions (``\textit {stretching}'' and ``\textit {cleaning}''); (c) objects that have uncommon usage (\textit {toaster as a game controller}); (d) multilingual text content (\textit {text on the menu in Chinese and English}). This requires strong and comprehensive visual understanding capability}{figure.caption.6}{}}
+\newlabel{fig:refseg-demo@cref}{{[figure][4][]4}{[1][6][]8}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}3D Understanding from Monocular Images}{8}{subsection.3.2}\protected@file@percent }
+\citation{eigen2014depth}
+\citation{yang2024dav2,bochkovskii2024depthpro,wang2024moge,wang2025moge2,lotus2,he2024lotus,hu2024metric3dv2,depthlm,dav3,piccinelli2025unidepthv2,unik3d}
+\citation{barron2025power}
+\@writefile{toc}{\contentsline {paragraph}{Metric Depth Estimation.}{9}{subsection.3.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces A visualization of our bijection between scalar metric distances $d \geq 0$ and RGB color values in $[0, 1]^3$, which is achieved by curving metric depth with a power transform, and then interpolating along the edges of the color cube according to that curved metric depth. The metric depth values (in meters) corresponding to various RGB colors are overlaid. }}{9}{figure.caption.7}\protected@file@percent }
+\newlabel{fig:color_tubes_minipage}{{5}{9}{A visualization of our bijection between scalar metric distances $d \geq 0$ and RGB color values in $[0, 1]^3$, which is achieved by curving metric depth with a power transform, and then interpolating along the edges of the color cube according to that curved metric depth. The metric depth values (in meters) corresponding to various RGB colors are overlaid}{figure.caption.7}{}}
+\newlabel{fig:color_tubes_minipage@cref}{{[figure][5][]5}{[1][9][]9}{}{}{}}
+\citation{depthlm}
+\citation{dav3}
+\citation{bochkovskii2024depthpro}
+\citation{unik3d}
+\citation{wang2025moge2}
+\citation{nyuv2}
+\citation{koch2018evaluation_ibims1}
+\citation{eth3d}
+\citation{diode_dataset}
+\citation{Uhrig2017THREEDV_kitti}
+\citation{caesar2020nuscenes}
+\citation{dav3}
+\citation{unik3d}
+\citation{wang2025moge2}
+\citation{dav3}
+\citation{nyuv2}
+\citation{eth3d}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Monocular metric depth estimation under the zero-shot transfer setting. Vision Banana achieves superior results on public datasets without using camera intrinsics in neither training of inference. Metrics marked with $\uparrow $ are better if higher; metrics marked with $\downarrow $ are better if lower. }}{10}{table.caption.8}\protected@file@percent }
+\newlabel{tab:depth}{{3}{10}{Monocular metric depth estimation under the zero-shot transfer setting. Vision Banana achieves superior results on public datasets without using camera intrinsics in neither training of inference. Metrics marked with $\uparrow $ are better if higher; metrics marked with $\downarrow $ are better if lower}{table.caption.8}{}}
+\newlabel{tab:depth@cref}{{[table][3][]3}{[1][10][]10}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces  Demonstration of Vision Banana's metric depth estimation capabilities. The two columns to the left are the input images and the depth visualization image generated by Vision Banana. The depth images are then decoded back to metric depth values. Combining them with the camera intrinsics, we can reconstruct the 3D scene accurately. The two columns on the right are random views of the reconstructed scenes. Note that camera intrinsics are not needed in predicting the depth itself. Samples taken from NYU v2 \citep  {nyuv2} and ETH 3D \citep  {eth3d}. }}{11}{figure.caption.9}\protected@file@percent }
+\newlabel{fig:depth-demo1}{{6}{11}{Demonstration of Vision Banana's metric depth estimation capabilities. The two columns to the left are the input images and the depth visualization image generated by Vision Banana. The depth images are then decoded back to metric depth values. Combining them with the camera intrinsics, we can reconstruct the 3D scene accurately. The two columns on the right are random views of the reconstructed scenes. Note that camera intrinsics are not needed in predicting the depth itself. Samples taken from NYU v2 \citep {nyuv2} and ETH 3D \citep {eth3d}}{figure.caption.9}{}}
+\newlabel{fig:depth-demo1@cref}{{[figure][6][]6}{[1][10][]11}{}{}{}}
+\citation{nyuv2}
+\citation{diode_dataset}
+\citation{dai2017scannet}
+\citation{cabon2020virtualkitty}
+\citation{marigold}
+\citation{DSINE}
+\citation{ye2024stablenormal}
+\citation{lotus2}
+\citation{lotus2}
+\citation{lotus2}
+\citation{cabon2020virtualkitty}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Vision Banana depth estimation in the wild. (a) Author of this paper takes a picture near Kinkaku-Ji with a consumer cell-phone. (b) Vision Banana generates a depth estimation image. The depth value at the position marked by a green star is decoded to be $13.71$ meters. (c) Author then measures the actual distance using Google Map, which turns out to be 12.87 meters. The AbsRel error at this point is around $0.065$.}}{12}{figure.caption.10}\protected@file@percent }
+\newlabel{fig:depth-kinkakuji}{{7}{12}{Vision Banana depth estimation in the wild. (a) Author of this paper takes a picture near Kinkaku-Ji with a consumer cell-phone. (b) Vision Banana generates a depth estimation image. The depth value at the position marked by a green star is decoded to be $13.71$ meters. (c) Author then measures the actual distance using Google Map, which turns out to be 12.87 meters. The AbsRel error at this point is around $0.065$}{figure.caption.10}{}}
+\newlabel{fig:depth-kinkakuji@cref}{{[figure][7][]7}{[1][10][]12}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{Surface Normal Estimation.}{12}{figure.caption.10}\protected@file@percent }
+\citation{radford2018improving_gpt1,radford2019language_gpt2,brown2020language_gpt3}
+\citation{wiedemer2025veo_learner,zuo2025nanobanana_low_level}
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Surface normal estimation results. Vision Banana achieves the lowest mean and median angle errors on the indoor datasets on average, and is on par with previous SOTA on outdoor scenes.}}{13}{table.caption.11}\protected@file@percent }
+\newlabel{tab:surface_normal}{{4}{13}{Surface normal estimation results. Vision Banana achieves the lowest mean and median angle errors on the indoor datasets on average, and is on par with previous SOTA on outdoor scenes}{table.caption.11}{}}
+\newlabel{tab:surface_normal@cref}{{[table][4][]4}{[1][12][]13}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces  Comparison with SOTA surface normal estimation method Lotus-2~\citep  {lotus2}. Results of Lotus-2 are obtained using its Hugging-Face demo: \url  {https://huggingface.co/spaces/haodongli/Lotus-2_Normal}. Vision Banana can produce surface normal map with much higher visual quality and better fine-grained details. Zoom-in for the details. }}{13}{figure.caption.12}\protected@file@percent }
+\newlabel{fig:surface_normal_demo}{{8}{13}{Comparison with SOTA surface normal estimation method Lotus-2~\citep {lotus2}. Results of Lotus-2 are obtained using its Hugging-Face demo: \url {https://huggingface.co/spaces/haodongli/Lotus-2_Normal}. Vision Banana can produce surface normal map with much higher visual quality and better fine-grained details. Zoom-in for the details}{figure.caption.12}{}}
+\newlabel{fig:surface_normal_demo@cref}{{[figure][8][]8}{[1][12][]13}{}{}{}}
+\citation{marigold,zhao2025diception}
+\citation{sam3,dav3}
+\citation{kirillov2023segment,ravi2024sam2,sam3}
+\citation{wei2021finetuned_flan}
+\citation{wang2025vggt}
+\citation{zhang2025d4rt}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Discussion}{14}{section.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Image Generators are Generalist Vision Learners.}{14}{section.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Image Generation as a Universal Interface.}{14}{section.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Future Work.}{14}{section.4}\protected@file@percent }
+\bibdata{main}
+\bibcite{DSINE}{{1}{2024}{{Bae and Davison}}{{}}}
+\bibcite{bai2024sequential_lvm}{{2}{2024}{{Bai et~al.}}{{Bai, Geng, Mangalam, Bar, Yuille, Darrell, Malik, and Efros}}}
+\bibcite{bao2021beit}{{3}{2021}{{Bao et~al.}}{{Bao, Dong, Piao, and Wei}}}
+\bibcite{barron2025power}{{4}{2025}{{Barron}}{{}}}
+\bibcite{flux2}{{5}{2025}{{Black Forest Labs}}{{}}}
+\bibcite{bochkovskii2024depthpro}{{6}{2024}{{Bochkovskii et~al.}}{{Bochkovskii, Delaunoy, Germain, Santos, Zhou, Richter, and Koltun}}}
+\bibcite{brown2020language_gpt3}{{7}{2020}{{Brown et~al.}}{{Brown, Mann, Ryder, Subbiah, Kaplan, Dhariwal, Neelakantan, Shyam, Sastry, Askell, et~al.}}}
+\bibcite{seedance2}{{8}{2026}{{ByteDance}}{{}}}
+\bibcite{cabon2020virtualkitty}{{9}{2020}{{Cabon et~al.}}{{Cabon, Murray, and Humenberger}}}
+\bibcite{caesar2020nuscenes}{{10}{2020}{{Caesar et~al.}}{{Caesar, Bankiti, Lang, Vora, Liong, Xu, Krishnan, Pan, Baldan, and Beijbom}}}
+\bibcite{depthlm}{{11}{2025}{{Cai et~al.}}{{Cai, Yeh, Xu, Liu, Meyer, Lei, Zhao, Li, Chandra, and Shi}}}
+\bibcite{cao2026tipsv2}{{12}{2026}{{Cao et~al.}}{{Cao, Chen, Maninis, Chen, Karpur, Xia, Dua, Dabral, Han, Han, et~al.}}}
+\bibcite{sam3}{{13}{2025}{{Carion et~al.}}{{Carion, Gustafson, Hu, Debnath, Hu, Suris, Ryali, Alwala, Khedr, Huang, et~al.}}}
+\bibcite{caron2021emerging_dinov1}{{14}{2021}{{Caron et~al.}}{{Caron, Touvron, Misra, J{\'e}gou, Mairal, Bojanowski, and Joulin}}}
+\bibcite{chen2020generative_igpt}{{15}{2020{a}}{{Chen et~al.}}{{Chen, Radford, Child, Wu, Jun, Luan, and Sutskever}}}
+\bibcite{simclr}{{16}{2020{b}}{{Chen et~al.}}{{Chen, Kornblith, Norouzi, and Hinton}}}
+\bibcite{chen2020improved_moco2}{{17}{2020{c}}{{Chen et~al.}}{{Chen, Fan, Girshick, and He}}}
+\bibcite{chen2024deconstructing_dae}{{18}{2024}{{Chen et~al.}}{{Chen, Liu, Xie, and He}}}
+\bibcite{chowdhery2023palm}{{19}{2023}{{Chowdhery et~al.}}{{Chowdhery, Narang, Devlin, Bosma, Mishra, Roberts, Barham, Chung, Sutton, Gehrmann, et~al.}}}
+\bibcite{cityscapes}{{20}{2016}{{Cordts et~al.}}{{Cordts, Omran, Ramos, Rehfeld, Enzweiler, Benenson, Franke, Roth, and Schiele}}}
+\bibcite{dai2017scannet}{{21}{2017}{{Dai et~al.}}{{Dai, Chang, Savva, Halber, Funkhouser, and Nie{\ss }ner}}}
+\bibcite{dehghani2023scaling_vit22b}{{22}{2023}{{Dehghani et~al.}}{{Dehghani, Djolonga, Mustafa, Padlewski, Heek, Gilmer, Steiner, Caron, Geirhos, Alabdulmohsin, et~al.}}}
+\bibcite{dosovitskiy2020image_vit}{{23}{2020}{{Dosovitskiy et~al.}}{{Dosovitskiy, Beyer, Kolesnikov, Weissenborn, Zhai, Unterthiner, Dehghani, Minderer, Heigold, Gelly, et~al.}}}
+\bibcite{eigen2014depth}{{24}{2014}{{Eigen et~al.}}{{Eigen, Puhrsch, and Fergus}}}
+\bibcite{fu2025segman}{{25}{2025}{{Fu et~al.}}{{Fu, Lou, and Yu}}}
+\bibcite{gemini25}{{26}{2025}{{Gemini Team}}{{}}}
+\bibcite{nbp}{{27}{2025{a}}{{Google}}{{}}}
+\bibcite{veo3}{{28}{2025{b}}{{Google}}{{}}}
+\bibcite{grill2020bootstrap_byol}{{29}{2020}{{Grill et~al.}}{{Grill, Strub, Altch{\'e}, Tallec, Richemond, Buchatskaya, Doersch, Avila~Pires, Guo, Gheshlaghi~Azar, et~al.}}}
+\bibcite{he2024lotus}{{30}{2024}{{He et~al.}}{{He, Li, Yin, Liang, Li, Zhou, Zhang, Liu, and Chen}}}
+\bibcite{lotus2}{{31}{2025}{{He et~al.}}{{He, Li, Sheng, and Chen}}}
+\bibcite{he2020momentum_moco}{{32}{2020}{{He et~al.}}{{He, Fan, Wu, Xie, and Girshick}}}
+\bibcite{he2022masked_mae}{{33}{2022}{{He et~al.}}{{He, Chen, Xie, Li, Doll{\'a}r, and Girshick}}}
+\bibcite{hu2024metric3dv2}{{34}{2024}{{Hu et~al.}}{{Hu, Yin, Zhang, Cai, Long, Chen, Wang, Yu, Shen, and Shen}}}
+\bibcite{kang2025your}{{35}{2025}{{Kang et~al.}}{{Kang, Kim, Kim, and Hwang}}}
+\bibcite{refcoco}{{36}{2014}{{Kazemzadeh et~al.}}{{Kazemzadeh, Ordonez, Matten, and Berg}}}
+\bibcite{marigold}{{37}{2024}{{Ke et~al.}}{{Ke, Obukhov, Huang, Metzger, Daudt, and Schindler}}}
+\bibcite{kirillov2023segment}{{38}{2023}{{Kirillov et~al.}}{{Kirillov, Mintun, Ravi, Mao, Rolland, Gustafson, Xiao, Whitehead, Berg, Lo, Doll{\'a}r, and Girshick}}}
+\bibcite{koch2018evaluation_ibims1}{{39}{2018}{{Koch et~al.}}{{Koch, Liebel, Fraundorfer, and Korner}}}
+\bibcite{krizhevsky2012imagenet_alexnet}{{40}{2012}{{Krizhevsky et~al.}}{{Krizhevsky, Sutskever, and Hinton}}}
+\bibcite{reasonseg}{{41}{2024}{{Lai et~al.}}{{Lai, Tian, Chen, Li, Yuan, Liu, and Jia}}}
+\bibcite{li2024genaibench}{{42}{2024}{{Li et~al.}}{{Li, Lin, Pathak, Li, Fei, Wu, Ling, Xia, Zhang, Neubig, et~al.}}}
+\bibcite{dav3}{{43}{2025}{{Lin et~al.}}{{Lin, Chen, Liew, Chen, Li, Shi, Feng, and Kang}}}
+\bibcite{liu2025hybrid}{{44}{2025}{{Liu and Li}}{{}}}
+\bibcite{liu2025segzero}{{45}{2025}{{Liu et~al.}}{{Liu, Peng, Zhong, Yue, Lu, Yu, and Jia}}}
+\bibcite{lu2025rsvp}{{46}{2025}{{Lu et~al.}}{{Lu, Cao, Wu, Li, Tang, Ji, Wu, Wu, and Zhu}}}
+\bibcite{uni1}{{47}{2026}{{Luma}}{{}}}
+\bibcite{minderer2023gowol}{{48}{2023}{{Minderer et~al.}}{{Minderer, Gritsenko, and Houlsby}}}
+\bibcite{gpt1p5}{{49}{2026}{{OpenAI}}{{}}}
+\bibcite{oquab2023dinov2}{{50}{2023}{{Oquab et~al.}}{{Oquab, Darcet, Moutakanni, Vo, Szafraniec, Khalidov, Fernandez, Haziza, Massa, El-Nouby, et~al.}}}
+\bibcite{ouyang2022training_instructgpt}{{51}{2022}{{Ouyang et~al.}}{{Ouyang, Wu, Jiang, Almeida, Wainwright, Mishkin, Zhang, Agarwal, Slama, Ray, et~al.}}}
+\bibcite{unik3d}{{52}{2025{a}}{{Piccinelli et~al.}}{{Piccinelli, Sakaridis, Segu, Yang, Li, Abbeloos, and Van~Gool}}}
+\bibcite{piccinelli2025unidepthv2}{{53}{2025{b}}{{Piccinelli et~al.}}{{Piccinelli, Sakaridis, Yang, Segu, Li, Abbeloos, and Van~Gool}}}
+\bibcite{radford2018improving_gpt1}{{54}{2018}{{Radford et~al.}}{{Radford, Narasimhan, Salimans, Sutskever, et~al.}}}
+\bibcite{radford2019language_gpt2}{{55}{2019}{{Radford et~al.}}{{Radford, Wu, Child, Luan, Amodei, Sutskever, et~al.}}}
+\bibcite{radford2021learning_clip}{{56}{2021}{{Radford et~al.}}{{Radford, Kim, Hallacy, Ramesh, Goh, Agarwal, Sastry, Askell, Mishkin, Clark, et~al.}}}
+\bibcite{ravi2024sam2}{{57}{2024}{{Ravi et~al.}}{{Ravi, Gabeur, Hu, Hu, Ryali, Ma, Khedr, R{\"a}dle, Rolland, Gustafson, Mintun, Pan, Alwala, Carion, Wu, Girshick, Doll{\'a}r, and Feichtenhofer}}}
+\bibcite{ren2024dinox}{{58}{2024}{{Ren et~al.}}{{Ren, Chen, Jiang, Zeng, Xiong, Liu, Ma, Shen, Gao, Jiang, et~al.}}}
+\bibcite{eth3d}{{59}{2019}{{Schops et~al.}}{{Schops, Sattler, and Pollefeys}}}
+\bibcite{shen2024_aped}{{60}{2024}{{Shen et~al.}}{{Shen, Fu, Chen, Zhang, Li, Sun, Wu, Lin, and Ji}}}
+\bibcite{nyuv2}{{61}{2012}{{Silberman et~al.}}{{Silberman, Hoiem, Kohli, and Fergus}}}
+\bibcite{simeoni2025dinov3}{{62}{2025}{{Sim{\'e}oni et~al.}}{{Sim{\'e}oni, Vo, Seitzer, Baldassarre, Oquab, Jose, Khalidov, Szafraniec, Yi, Ramamonjisoa, et~al.}}}
+\bibcite{tschannen2025siglip2}{{63}{2025}{{Tschannen et~al.}}{{Tschannen, Gritsenko, Wang, Naeem, Alabdulmohsin, Parthasarathy, Evans, Beyer, Xia, Mustafa, et~al.}}}
+\bibcite{Uhrig2017THREEDV_kitti}{{64}{2017}{{Uhrig et~al.}}{{Uhrig, Schneider, Schneider, Franke, Brox, and Geiger}}}
+\bibcite{diode_dataset}{{65}{2019}{{Vasiljevic et~al.}}{{Vasiljevic, Kolkin, Zhang, Luo, Wang, Dai, Daniele, Mostajabi, Basart, Walter, and Shakhnarovich}}}
+\bibcite{wang2026xsam}{{66}{2026{a}}{{Wang et~al.}}{{Wang, Qiao, Jie, Huang, Feng, Zheng, Ma, Lan, and Liang}}}
+\bibcite{wang2025vggt}{{67}{2025{a}}{{Wang et~al.}}{{Wang, Chen, Karaev, Vedaldi, Rupprecht, and Novotny}}}
+\bibcite{wang2026thfm}{{68}{2026{b}}{{Wang et~al.}}{{Wang, Zanfir, Bazavan, Andriluka, and Sminchisescu}}}
+\bibcite{wang2024moge}{{69}{2025{b}}{{Wang et~al.}}{{Wang, Xu, Dai, Xiang, Deng, Tong, and Yang}}}
+\bibcite{wang2025moge2}{{70}{2025{c}}{{Wang et~al.}}{{Wang, Xu, Dong, Deng, Xiang, Lv, Sun, Tong, and Yang}}}
+\bibcite{wei2024hyperseg}{{71}{2024}{{Wei et~al.}}{{Wei, Zhong, Tan, Liu, Zhao, Hu, and Yang}}}
+\bibcite{wei2021finetuned_flan}{{72}{2021}{{Wei et~al.}}{{Wei, Bosma, Zhao, Guu, Yu, Lester, Du, Dai, and Le}}}
+\bibcite{wiedemer2025veo_learner}{{73}{2025}{{Wiedemer et~al.}}{{Wiedemer, Li, Vicol, Gu, Matarese, Swersky, Kim, Jaini, and Geirhos}}}
+\bibcite{yang2024dav2}{{74}{2024}{{Yang et~al.}}{{Yang, Kang, Huang, Zhao, Xu, Feng, and Zhao}}}
+\bibcite{ye2024stablenormal}{{75}{2024}{{Ye et~al.}}{{Ye, Qiu, Gu, Zuo, Wu, Dong, Bo, Xiu, and Han}}}
+\bibcite{ye2025imgedit}{{76}{2025}{{Ye et~al.}}{{Ye, He, Li, Lin, Yuan, Yan, Hou, and Yuan}}}
+\bibcite{yu2024high}{{77}{2024}{{Yu et~al.}}{{Yu, Jiang, Zhang, Chen, Li, Zhang, and Lu}}}
+\bibcite{zhai2023siglip1}{{78}{2023}{{Zhai et~al.}}{{Zhai, Mustafa, Kolesnikov, and Beyer}}}
+\bibcite{zhang2025d4rt}{{79}{2025}{{Zhang et~al.}}{{Zhang, Moing, Koppula, Rocco, Momeni, Xie, Sun, Sukthankar, Barral, Hadsell, et~al.}}}
+\bibcite{zhang2023simple_openseed}{{80}{2023}{{Zhang et~al.}}{{Zhang, Li, Zou, Liu, Li, Yang, and Zhang}}}
+\bibcite{zhao2025diception}{{81}{2025}{{Zhao et~al.}}{{Zhao, Sun, Liu, Zheng, Zhu, Zhao, Chen, He, and Shen}}}
+\bibcite{zhou2021ibot}{{82}{2021}{{Zhou et~al.}}{{Zhou, Wei, Wang, Shen, Xie, Yuille, and Kong}}}
+\bibcite{zou2023generalized_xdecoder}{{83}{2023}{{Zou et~al.}}{{Zou, Dou, Yang, Gan, Li, Li, Dai, Behl, Wang, Yuan, et~al.}}}
+\bibcite{zuo2025nanobanana_low_level}{{84}{2025}{{Zuo et~al.}}{{Zuo, Deng, Zhou, Zhu, Zhang, Zhang, Yan, Huang, Chen, Deng, Jin, Sang, and Gao}}}
+\citation{li2024genaibench}
+\citation{ye2025imgedit}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Comparing Vision Banana (left) and Nano Banana Pro (right) on text-to-image generation. Prompts sampled from GenAI-Bench \citep  {li2024genaibench}. Results verify that Vision Banana does not forget its generative features during the instruction-tuning. }}{21}{figure.caption.13}\protected@file@percent }
+\newlabel{fig:t2i-demo}{{9}{21}{Comparing Vision Banana (left) and Nano Banana Pro (right) on text-to-image generation. Prompts sampled from GenAI-Bench \citep {li2024genaibench}. Results verify that Vision Banana does not forget its generative features during the instruction-tuning}{figure.caption.13}{}}
+\newlabel{fig:t2i-demo@cref}{{[figure][9][]9}{[1][21][]21}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Comparing Vision Banana (left) and Nano Banana Pro (right) on image-editing. Prompts sampled from ImgEdit \citep  {ye2025imgedit}. }}{22}{figure.caption.14}\protected@file@percent }
+\newlabel{fig:imgedit-demo}{{10}{22}{Comparing Vision Banana (left) and Nano Banana Pro (right) on image-editing. Prompts sampled from ImgEdit \citep {ye2025imgedit}}{figure.caption.14}{}}
+\newlabel{fig:imgedit-demo@cref}{{[figure][10][]10}{[1][21][]22}{}{}{}}
+\newlabel{LastPage}{{4}{22}{}{page.22}{}}
+\gdef\lastpage@lastpage{22}
+\gdef\lastpage@lastpageHy{22}
+\gdef \@abspage@last{22}

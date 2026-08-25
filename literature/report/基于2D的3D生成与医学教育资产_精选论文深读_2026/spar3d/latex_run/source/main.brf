@@ -1,0 +1,144 @@
+\backcite {sf3d2024}{{2}{1}{section.1}}
+\backcite {choy20163d}{{2}{1}{section.1}}
+\backcite {groueix2018}{{2}{1}{section.1}}
+\backcite {hong2023lrm}{{2}{1}{section.1}}
+\backcite {huang2023shapeclipper}{{2}{1}{section.1}}
+\backcite {huang2024zeroshape}{{2}{1}{section.1}}
+\backcite {mescheder2019occupancy}{{2}{1}{section.1}}
+\backcite {tang2024lgm}{{2}{1}{section.1}}
+\backcite {TripoSR2024}{{2}{1}{section.1}}
+\backcite {wang2018pixel2mesh}{{2}{1}{section.1}}
+\backcite {wu2017marrnet}{{2}{1}{section.1}}
+\backcite {xu2024instantmesh}{{2}{1}{section.1}}
+\backcite {xu2019disn}{{2}{1}{section.1}}
+\backcite {zhang2024gs}{{2}{1}{section.1}}
+\backcite {chen2023single}{{2}{1}{section.1}}
+\backcite {cheng2023sdfusion}{{2}{1}{section.1}}
+\backcite {chou2023diffusion}{{2}{1}{section.1}}
+\backcite {huang2024pointinfinity}{{2}{1}{section.1}}
+\backcite {jun2023shap}{{2}{1}{section.1}}
+\backcite {lan2024ln3diff}{{2}{1}{section.1}}
+\backcite {liu2023syncdreamer}{{2}{1}{section.1}}
+\backcite {nichol2022point}{{2}{1}{section.1}}
+\backcite {shi2023mvdream}{{2}{1}{section.1}}
+\backcite {shue20233d}{{2}{1}{section.1}}
+\backcite {yariv2024mosaic}{{2}{1}{section.1}}
+\backcite {zhao2023michelangelo}{{2}{1}{section.1}}
+\backcite {huang2024zeroshape}{{2}{1}{section.1}}
+\backcite {choy20163d}{{2}{2}{section*.2}}
+\backcite {groueix2018}{{2}{2}{section*.2}}
+\backcite {huang2023shapeclipper}{{2}{2}{section*.2}}
+\backcite {mescheder2019occupancy}{{2}{2}{section*.2}}
+\backcite {wang2018pixel2mesh}{{2}{2}{section*.2}}
+\backcite {wu2017marrnet}{{2}{2}{section*.2}}
+\backcite {xu2019disn}{{2}{2}{section*.2}}
+\backcite {chang2015shapenet}{{2}{2}{section*.2}}
+\backcite {sun2018pix3d}{{2}{2}{section*.2}}
+\backcite {deitke2022objaverse}{{2}{2}{section*.2}}
+\backcite {reizenstein2021co3d}{{2}{2}{section*.2}}
+\backcite {hong2023lrm}{{2}{2}{section*.2}}
+\backcite {huang2024zeroshape}{{2}{2}{section*.2}}
+\backcite {wu2023multiview}{{2}{2}{section*.2}}
+\backcite {hong2023lrm}{{2}{2}{section*.2}}
+\backcite {sf3d2024}{{2}{2}{section*.2}}
+\backcite {tang2024lgm}{{2}{2}{section*.2}}
+\backcite {TripoSR2024}{{2}{2}{section*.2}}
+\backcite {wang2024crm}{{2}{2}{section*.2}}
+\backcite {xu2024instantmesh}{{2}{2}{section*.2}}
+\backcite {zhang2024gs}{{2}{2}{section*.2}}
+\backcite {liu2023zero}{{2}{2}{section*.2}}
+\backcite {liu2023syncdreamer}{{2}{2}{section*.2}}
+\backcite {shi2023zero123plus}{{2}{2}{section*.2}}
+\backcite {shi2023mvdream}{{2}{2}{section*.2}}
+\backcite {tang2024lgm}{{2}{2}{section*.2}}
+\backcite {wang2024crm}{{2}{2}{section*.2}}
+\backcite {xu2024instantmesh}{{2}{2}{section*.2}}
+\backcite {cai2020learning}{{3}{2}{section*.4}}
+\backcite {gao2022get3d}{{3}{2}{section*.4}}
+\backcite {hui2020progressive}{{3}{2}{section*.4}}
+\backcite {valsesia2018learning}{{3}{2}{section*.4}}
+\backcite {klokov2020discrete}{{3}{2}{section*.4}}
+\backcite {yang2019pointflow}{{3}{2}{section*.4}}
+\backcite {gao2021tm}{{3}{2}{section*.4}}
+\backcite {mittal2022autosdf}{{3}{2}{section*.4}}
+\backcite {wu2019sagnet}{{3}{2}{section*.4}}
+\backcite {dhariwal2021diffusion}{{3}{2}{section*.4}}
+\backcite {rombach2022high}{{3}{2}{section*.4}}
+\backcite {chen2023single}{{3}{2}{section*.4}}
+\backcite {cheng2023sdfusion}{{3}{2}{section*.4}}
+\backcite {chou2023diffusion}{{3}{2}{section*.4}}
+\backcite {huang2024pointinfinity}{{3}{2}{section*.4}}
+\backcite {jun2023shap}{{3}{2}{section*.4}}
+\backcite {lan2024ln3diff}{{3}{2}{section*.4}}
+\backcite {liu2023syncdreamer}{{3}{2}{section*.4}}
+\backcite {nichol2022point}{{3}{2}{section*.4}}
+\backcite {shi2023mvdream}{{3}{2}{section*.4}}
+\backcite {shue20233d}{{3}{2}{section*.4}}
+\backcite {yariv2024mosaic}{{3}{2}{section*.4}}
+\backcite {zhao2023michelangelo}{{3}{2}{section*.4}}
+\backcite {deng2023nerdi}{{3}{2}{section*.5}}
+\backcite {gu2023nerfdiff}{{3}{2}{section*.5}}
+\backcite {melas2023realfusion}{{3}{2}{section*.5}}
+\backcite {tang2023make}{{3}{2}{section*.5}}
+\backcite {pooledreamfusion}{{3}{2}{section*.5}}
+\backcite {wang2023score}{{3}{2}{section*.5}}
+\backcite {ho2020denoising}{{3}{3.1}{section*.8}}
+\backcite {chen2023importance}{{3}{3.1}{equation.1}}
+\backcite {songdenoising}{{3}{3.1}{equation.2}}
+\backcite {ho2022classifier}{{4}{3.1}{equation.2}}
+\backcite {nichol2022point}{{4}{3.1}{section*.9}}
+\backcite {oquab2023dinov2}{{4}{3.1}{section*.9}}
+\backcite {oquab2023dinov2}{{4}{3.2}{section*.13}}
+\backcite {huang2024pointinfinity}{{4}{3.2}{section*.13}}
+\backcite {sf3d2024}{{4}{3.2}{section*.13}}
+\backcite {sf3d2024}{{4}{3.2}{section*.14}}
+\backcite {wang2024crm}{{4}{3.2}{section*.14}}
+\backcite {xu2024instantmesh}{{4}{3.2}{section*.14}}
+\backcite {shen2021deep}{{4}{3.2}{section*.14}}
+\backcite {Boss2021neuralPIL}{{4}{3.2}{section*.15}}
+\backcite {gardner2023reni++}{{4}{3.2}{section*.15}}
+\backcite {sf3d2024}{{4}{3.2}{section*.15}}
+\backcite {sun2023alphaclip}{{4}{3.2}{section*.15}}
+\backcite {Burley2012}{{4}{3.2}{section*.16}}
+\backcite {VeachPhD}{{4}{3.2}{section*.16}}
+\backcite {zhang2018perceptual}{{4}{3.2}{section*.17}}
+\backcite {Burley2012}{{5}{3}{figure.caption.11}}
+\backcite {huang2024pointinfinity}{{5}{3.4}{section*.19}}
+\backcite {hasselgren2022nvdiffrecmc}{{5}{3.4}{section*.19}}
+\backcite {Walter2007}{{5}{3.4}{section*.19}}
+\backcite {TripoSR2024}{{5}{3.4}{section*.19}}
+\backcite {downs2022google}{{5}{4.1}{section*.22}}
+\backcite {wu2023omniobject3d}{{5}{4.1}{section*.22}}
+\backcite {TripoSR2024}{{5}{4.1}{section*.22}}
+\backcite {jun2023shap}{{6}{\caption@xref {??}{ on input line 17}}{table.caption.20}}
+\backcite {lan2024ln3diff}{{6}{\caption@xref {??}{ on input line 17}}{table.caption.20}}
+\backcite {tang2024lgm}{{6}{\caption@xref {??}{ on input line 17}}{table.caption.20}}
+\backcite {wang2024crm}{{6}{\caption@xref {??}{ on input line 17}}{table.caption.20}}
+\backcite {TripoSR2024}{{6}{\caption@xref {??}{ on input line 17}}{table.caption.20}}
+\backcite {xu2024instantmesh}{{6}{\caption@xref {??}{ on input line 17}}{table.caption.20}}
+\backcite {sf3d2024}{{6}{\caption@xref {??}{ on input line 17}}{table.caption.20}}
+\backcite {downs2022google}{{6}{1}{table.caption.20}}
+\backcite {jun2023shap}{{6}{\caption@xref {??}{ on input line 17}}{table.caption.21}}
+\backcite {lan2024ln3diff}{{6}{\caption@xref {??}{ on input line 17}}{table.caption.21}}
+\backcite {tang2024lgm}{{6}{\caption@xref {??}{ on input line 17}}{table.caption.21}}
+\backcite {wang2024crm}{{6}{\caption@xref {??}{ on input line 17}}{table.caption.21}}
+\backcite {TripoSR2024}{{6}{\caption@xref {??}{ on input line 17}}{table.caption.21}}
+\backcite {xu2024instantmesh}{{6}{\caption@xref {??}{ on input line 17}}{table.caption.21}}
+\backcite {sf3d2024}{{6}{\caption@xref {??}{ on input line 17}}{table.caption.21}}
+\backcite {wu2023omniobject3d}{{6}{2}{table.caption.21}}
+\backcite {TripoSR2024}{{6}{4.1}{section*.23}}
+\backcite {xu2024instantmesh}{{6}{4.1}{section*.23}}
+\backcite {sf3d2024}{{6}{4.1}{section*.26}}
+\backcite {tang2024lgm}{{6}{4.1}{section*.26}}
+\backcite {TripoSR2024}{{6}{4.1}{section*.26}}
+\backcite {wang2024crm}{{6}{4.1}{section*.26}}
+\backcite {xu2024instantmesh}{{6}{4.1}{section*.26}}
+\backcite {TripoSR2024}{{6}{4.1}{section*.26}}
+\backcite {tang2024lgm}{{6}{4.1}{section*.26}}
+\backcite {wang2024crm}{{6}{4.1}{section*.26}}
+\backcite {xu2024instantmesh}{{6}{4.1}{section*.26}}
+\backcite {lan2024ln3diff}{{6}{4.1}{section*.26}}
+\backcite {jun2023shap}{{6}{4.1}{section*.26}}
+\backcite {sf3d2024}{{6}{4.1}{section*.26}}
+\backcite {deng2009imagenet}{{7}{4.2}{section*.30}}
+\backcite {sf3d2024}{{1}{5}{figure.caption.34}}

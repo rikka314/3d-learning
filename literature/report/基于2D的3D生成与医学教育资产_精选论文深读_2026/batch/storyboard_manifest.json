@@ -1,0 +1,34 @@
+{
+  "schema_version": "paper-storyboard/1.0",
+  "source_report": "report.md",
+  "style": "connected cartoon storyboard; prompts-only because no image-generation tool is exposed in this runtime",
+  "panels": [
+    {
+      "panel_id": "S1",
+      "title": "四种工具，不是四个冠军",
+      "report_claim_ids": [
+        "C30.1"
+      ],
+      "visual_metaphor": "同一位教师选择不同工具",
+      "prompt": "Scientific educational cartoon storyboard, same anatomy teacher at a workbench choosing four distinct tools: a point-cloud sketch tool, a PBR paint tool, a text-image fusion tool, and a topology voxel tool; no text."
+    },
+    {
+      "panel_id": "S2",
+      "title": "生成候选",
+      "report_claim_ids": [
+        "C30.1"
+      ],
+      "visual_metaphor": "候选草模",
+      "prompt": "Scientific educational cartoon, same teacher produces four translucent 3D candidate models from 2D references, clearly marking unseen regions as uncertain; no text."
+    },
+    {
+      "panel_id": "S3",
+      "title": "可信发布门",
+      "report_claim_ids": [
+        "C30.2"
+      ],
+      "visual_metaphor": "canonical anatomy 作为校准尺",
+      "prompt": "Scientific educational cartoon, same teacher uses a verified anatomy reference, landmark ruler, part graph checklist, and expert review stamp before publishing a teaching asset; no text."
+    }
+  ]
+}

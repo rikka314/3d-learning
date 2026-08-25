@@ -1,0 +1,510 @@
+{
+  "schema_version": "paper-traceability/1.0",
+  "paper": {
+    "title": "Hunyuan3D 2.1: From Images to High-Fidelity 3D Assets with Production-Ready PBR Material",
+    "source_mode": "latex-primary",
+    "report_path": "report.md"
+  },
+  "claims": [
+    {
+      "claim_id": "C1.2",
+      "section_id": "1",
+      "section_title": "论文身份与证据包",
+      "claim_text": "Hunyuan3D 2.1 的官方材料是 arXiv technical report/tutorial；它不是已核实的 CVPR 2025 论文。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C1.2-a",
+          "doc": "hunyuan3d_2_1",
+          "paragraph_id": "Abstract.tex::p0001",
+          "quote": "as a case study in this tutorial",
+          "relation": "direct",
+          "locator_snippets": [
+            "Hunyuan3D-DiT"
+          ]
+        }
+      ]
+    },
+    {
+      "claim_id": "C2.2",
+      "section_id": "2",
+      "section_title": "一句话论点与研究方程",
+      "claim_text": "系统以“shape generation 与 PBR paint 分离”替代端到端 RGB texture，使几何正确性和受光外观可分别控制与验收。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C2.2-a",
+          "doc": "hunyuan3d_2_1",
+          "paragraph_id": "Intro.tex::p0005",
+          "quote": "separates shape and texture generation",
+          "relation": "direct",
+          "locator_snippets": [
+            "generate untextured meshes only"
+          ]
+        }
+      ]
+    },
+    {
+      "claim_id": "C4.2",
+      "section_id": "4",
+      "section_title": "真正解决的问题",
+      "claim_text": "单图生产资产不仅需要 mesh，还需要 albedo、metallic、roughness 的 PBR 属性与跨视图一致性。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C4.2-a",
+          "doc": "hunyuan3d_2_1",
+          "paragraph_id": "Intro.tex::p0004",
+          "quote": "multi-view PBR diffusion",
+          "relation": "direct",
+          "locator_snippets": [
+            "albedo, metallic, and roughness maps"
+          ]
+        }
+      ]
+    },
+    {
+      "claim_id": "C9.2",
+      "section_id": "9",
+      "section_title": "核心方法",
+      "claim_text": "Hunyuan3D-DiT 在 ShapeVAE latent 中从图像预测 shape token；Hunyuan3D-Paint 以 mesh 条件生成多视图 PBR maps。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C9.2-a",
+          "doc": "hunyuan3d_2_1",
+          "paragraph_id": "Intro.tex::p0002",
+          "quote": "two fully open-source foundation models",
+          "relation": "direct",
+          "locator_snippets": [
+            "Hunyuan3D-Paint"
+          ]
+        }
+      ]
+    },
+    {
+      "claim_id": "C11.2",
+      "section_id": "11",
+      "section_title": "公式与表示",
+      "claim_text": "ShapeVAE 从 surface point/normal 编码到 latent，并以 SDF decoder 加 Marching Cubes 还原 mesh；DiT 用 flow matching 预测从噪声到数据的 velocity。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C11.2-a",
+          "doc": "hunyuan3d_2_1",
+          "paragraph_id": "Train.tex::p0006",
+          "quote": "predict the Signed Distance Function",
+          "relation": "direct",
+          "locator_snippets": [
+            "marching cube algorithm"
+          ]
+        }
+      ]
+    },
+    {
+      "claim_id": "C14.2",
+      "section_id": "14",
+      "section_title": "模块思维",
+      "claim_text": "PBR painter 的 3D-Aware RoPE 与 illumination-invariant training 分别针对多视图 seam/ghosting 和把光照烘焙进材质的失败模式。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C14.2-a",
+          "doc": "hunyuan3d_2_1",
+          "paragraph_id": "Train.tex::p0018",
+          "quote": "texture seams and ghosting artifacts",
+          "relation": "inference",
+          "locator_snippets": [
+            "cross-view coherence"
+          ]
+        }
+      ]
+    },
+    {
+      "claim_id": "C16.2",
+      "section_id": "16",
+      "section_title": "实验设计",
+      "claim_text": "论文分 shape、texture、end-to-end asset 三类评估；shape 使用 ULIP/Uni3D，texture 使用 FID、CLIP-FID、CMMD、CLIP-I、LPIPS。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C16.2-a",
+          "doc": "hunyuan3d_2_1",
+          "paragraph_id": "Evaluation.tex::p0001",
+          "quote": "three key areas",
+          "relation": "direct",
+          "locator_snippets": [
+            "Texture Synthesis"
+          ]
+        }
+      ]
+    },
+    {
+      "claim_id": "C17.2",
+      "section_id": "17",
+      "section_title": "实验—主张对齐",
+      "claim_text": "报告的 quantitative comparison 支持其作者主张，但 end-to-end 比较主要是可视化，且训练数据与许可边界必须单独审计。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C17.2-a",
+          "doc": "hunyuan3d_2_1",
+          "paragraph_id": "Evaluation.tex::p0013",
+          "quote": "visualized comparison",
+          "relation": "direct",
+          "locator_snippets": [
+            "PBR material maps"
+          ]
+        }
+      ]
+    },
+    {
+      "claim_id": "C21.2",
+      "section_id": "21",
+      "section_title": "局限",
+      "claim_text": "其指标衡量 image/text–point-cloud 对齐或纹理相似，不覆盖医学部件关系、左右侧、腔室连接和专家教学正确性。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C21.2-a",
+          "doc": "hunyuan3d_2_1",
+          "paragraph_id": "Evaluation.tex::p0005",
+          "quote": "similarity between the generated mesh and input images",
+          "relation": "inference",
+          "locator_snippets": [
+            "point cloud modality"
+          ]
+        }
+      ]
+    },
+    {
+      "claim_id": "C20.1",
+      "section_id": "20",
+      "section_title": "可复用论文模式",
+      "claim_text": "Hunyuan3D 2.1 的可复用模式是先独立生成/验收 shape，再让 mesh-conditioned PBR painter 处理外观，从而避免将结构错误藏在受光纹理里。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C20.1-a",
+          "doc": "hunyuan3d_2_1",
+          "paragraph_id": "Intro.tex::p0005",
+          "quote": "separates shape and texture generation",
+          "relation": "inference",
+          "locator_snippets": [
+            "distinct stages"
+          ]
+        }
+      ]
+    },
+    {
+      "claim_id": "C22.1",
+      "section_id": "22",
+      "section_title": "创新边界判断",
+      "claim_text": "论文是 production-oriented 的系统整合和 PBR 工程推进；医学迁移仍需额外的 anatomy-aware geometry truth。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C22.1-a",
+          "doc": "hunyuan3d_2_1",
+          "paragraph_id": "Intro.tex::p0002",
+          "quote": "generate a textured mesh",
+          "relation": "inference",
+          "locator_snippets": [
+            "Hunyuan3D-Paint"
+          ]
+        }
+      ]
+    },
+    {
+      "claim_id": "C23.2",
+      "section_id": "23",
+      "section_title": "医学教育路线",
+      "claim_text": "Hunyuan3D 2.1 是 PBR 主生产候选，但只能在 canonical geometry 已通过 QC 后用于外观阶段；其社区许可也须先审核。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C23.2-a",
+          "doc": "hunyuan3d_2_1",
+          "paragraph_id": "Intro.tex::p0005",
+          "quote": "apply textures to custom assets",
+          "relation": "inference",
+          "locator_snippets": [
+            "enhancing flexibility"
+          ]
+        }
+      ]
+    },
+    {
+      "claim_id": "C3.2",
+      "section_id": "3",
+      "section_title": "标题解读",
+      "claim_text": "标题把论文的对象、条件或关键 representation 准确地压缩成一个技术承诺；此处的逐词解读是基于论文摘要与方法的推断。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C3.2-a",
+          "doc": "hunyuan3d_2_1",
+          "paragraph_id": "Intro.tex::p0005",
+          "quote": "separates shape and texture generation",
+          "relation": "inference",
+          "locator_snippets": [
+            "generate untextured meshes only"
+          ]
+        }
+      ]
+    },
+    {
+      "claim_id": "C5.2",
+      "section_id": "5",
+      "section_title": "科学问题阶梯",
+      "claim_text": "直接任务只是单图或条件 3D 生成；更上层的问题是如何在不完整观测下表达不确定性，同时把可发布资产的几何事实与视觉呈现分开。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C5.2-a",
+          "doc": "hunyuan3d_2_1",
+          "paragraph_id": "Intro.tex::p0004",
+          "quote": "multi-view PBR diffusion",
+          "relation": "inference",
+          "locator_snippets": [
+            "albedo, metallic, and roughness maps"
+          ]
+        }
+      ]
+    },
+    {
+      "claim_id": "C6.2",
+      "section_id": "6",
+      "section_title": "作者可能的发现路径",
+      "claim_text": "一种合理的作者侧路径是先发现已有范式的隐藏假设，再保留其强项并把失败环节替换为新的中间表示、模块或条件机制。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C6.2-a",
+          "doc": "hunyuan3d_2_1",
+          "paragraph_id": "Intro.tex::p0004",
+          "quote": "multi-view PBR diffusion",
+          "relation": "inference",
+          "locator_snippets": [
+            "albedo, metallic, and roughness maps"
+          ]
+        }
+      ]
+    },
+    {
+      "claim_id": "C7.2",
+      "section_id": "7",
+      "section_title": "论文叙事构造",
+      "claim_text": "论文的叙事闭环是“明确失败模式 → 给出设计原则 → 放入模块 → 用主表、图或消融检验”；这是证据支持的结构性解读。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C7.2-a",
+          "doc": "hunyuan3d_2_1",
+          "paragraph_id": "Intro.tex::p0002",
+          "quote": "two fully open-source foundation models",
+          "relation": "inference",
+          "locator_snippets": [
+            "Hunyuan3D-Paint"
+          ]
+        }
+      ]
+    },
+    {
+      "claim_id": "C8.2",
+      "section_id": "8",
+      "section_title": "相关工作与关键引用",
+      "claim_text": "相关工作在本文中承担方法祖先、对照压力或局限性证据的角色，而不是可直接横向排名的列表。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C8.2-a",
+          "doc": "hunyuan3d_2_1",
+          "paragraph_id": "Intro.tex::p0004",
+          "quote": "multi-view PBR diffusion",
+          "relation": "inference",
+          "locator_snippets": [
+            "albedo, metallic, and roughness maps"
+          ]
+        }
+      ]
+    },
+    {
+      "claim_id": "C10.2",
+      "section_id": "10",
+      "section_title": "符号、概念与记号",
+      "claim_text": "本报告只将符号解释为算法中实际使用的对象；任何符号都不应被误读为输入图像已提供的医学事实。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C10.2-a",
+          "doc": "hunyuan3d_2_1",
+          "paragraph_id": "Train.tex::p0006",
+          "quote": "predict the Signed Distance Function",
+          "relation": "inference",
+          "locator_snippets": [
+            "marching cube algorithm"
+          ]
+        }
+      ]
+    },
+    {
+      "claim_id": "C12.2",
+      "section_id": "12",
+      "section_title": "理论、证明与实践映射",
+      "claim_text": "论文的训练目标或表示公式说明优化对象与实现步骤，但通常不是医学拓扑正确性的证明。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C12.2-a",
+          "doc": "hunyuan3d_2_1",
+          "paragraph_id": "Train.tex::p0006",
+          "quote": "predict the Signed Distance Function",
+          "relation": "inference",
+          "locator_snippets": [
+            "marching cube algorithm"
+          ]
+        }
+      ]
+    },
+    {
+      "claim_id": "C13.2",
+      "section_id": "13",
+      "section_title": "算法/模块 walkthrough",
+      "claim_text": "把论文实现成可复现实验时，应按输入条件、latent/中间状态、decoder、输出 artifact 与 QC 依次展开，而不能只复刻最终截图。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C13.2-a",
+          "doc": "hunyuan3d_2_1",
+          "paragraph_id": "Intro.tex::p0002",
+          "quote": "two fully open-source foundation models",
+          "relation": "inference",
+          "locator_snippets": [
+            "Hunyuan3D-Paint"
+          ]
+        }
+      ]
+    },
+    {
+      "claim_id": "C15.2",
+      "section_id": "15",
+      "section_title": "图表解读",
+      "claim_text": "论文中的 pipeline、主表与消融图支持其具体通用资产主张；图中可见的质量不自动扩展为看不见的结构真实性。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C15.2-a",
+          "doc": "hunyuan3d_2_1",
+          "paragraph_id": "Evaluation.tex::p0013",
+          "quote": "visualized comparison",
+          "relation": "inference",
+          "locator_snippets": [
+            "PBR material maps"
+          ]
+        }
+      ]
+    },
+    {
+      "claim_id": "C18.2",
+      "section_id": "18",
+      "section_title": "Reviewer-lens audit",
+      "claim_text": "从审稿视角，应把作者协议内的优越性、训练/依赖门槛、数据/许可不确定性以及医学迁移缺口分开评价。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C18.2-a",
+          "doc": "hunyuan3d_2_1",
+          "paragraph_id": "Evaluation.tex::p0001",
+          "quote": "three key areas",
+          "relation": "inference",
+          "locator_snippets": [
+            "Texture Synthesis"
+          ]
+        }
+      ]
+    },
+    {
+      "claim_id": "C19.2",
+      "section_id": "19",
+      "section_title": "创新点与支持审计",
+      "claim_text": "贡献应逐条绑定其对应的表示、模块、消融或 benchmark，而不能把系统总结果一概归因给单一新意。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C19.2-a",
+          "doc": "hunyuan3d_2_1",
+          "paragraph_id": "Evaluation.tex::p0013",
+          "quote": "visualized comparison",
+          "relation": "inference",
+          "locator_snippets": [
+            "PBR material maps"
+          ]
+        }
+      ]
+    },
+    {
+      "claim_id": "C24.2",
+      "section_id": "24",
+      "section_title": "通俗故事",
+      "claim_text": "把论文记成“用一个被约束的代理机制处理 2D 中缺失的 3D 信息”，比把它记成模型名或单一分数更接近其可复用洞见。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C24.2-a",
+          "doc": "hunyuan3d_2_1",
+          "paragraph_id": "Intro.tex::p0005",
+          "quote": "separates shape and texture generation",
+          "relation": "inference",
+          "locator_snippets": [
+            "generate untextured meshes only"
+          ]
+        }
+      ]
+    },
+    {
+      "claim_id": "C25.2",
+      "section_id": "25",
+      "section_title": "来源使用说明",
+      "claim_text": "本报告使用与目标版本匹配的官方 LaTeX source 作为结构化证据，并用官方 PDF 检查页码、表格和图形。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C25.2-a",
+          "doc": "hunyuan3d_2_1",
+          "paragraph_id": "Abstract.tex::p0001",
+          "quote": "as a case study in this tutorial",
+          "relation": "direct",
+          "locator_snippets": [
+            "Hunyuan3D-DiT"
+          ]
+        }
+      ]
+    }
+  ]
+}

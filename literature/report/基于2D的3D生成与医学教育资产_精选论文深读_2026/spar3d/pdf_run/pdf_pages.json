@@ -1,0 +1,1660 @@
+{
+  "schema_version": "paper-pdf-source/1.0",
+  "doc": "spar3d",
+  "source_pdf": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\spar3d\\paper.pdf",
+  "page_count": 11,
+  "extracted_pages": 11,
+  "text_output": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\report\\基于2D的3D生成与医学教育资产_精选论文深读_2026\\spar3d\\pdf_run\\paper_pdf_text.txt",
+  "pages": [
+    {
+      "doc": "spar3d",
+      "page": 1,
+      "width": 612.0,
+      "height": 792.0,
+      "text": "SPAR3D: Stable Point-Aware Reconstruction of 3D Objects from Single Images\nZixuan Huang1,2∗\nMark Boss1\nAaryaman Vasishta1\nJames M. Rehg2\nVarun Jampani1\n1Stability AI, 2UIUC\nPoint Cloud\nMesh Output\nInput Image\nPoint Cloud\nMesh Output\nInput Image\nEdit\nEdit\nFigure 1. We present SPAR3D, a state-of-the-art 3D reconstructor that reconstructs high-quality 3D meshes from single-view images.\nSPAR3D enjoys a fast reconstruction speed at 0.7 seconds and supports interactive user edits.\nAbstract\nWe study the problem of single-image 3D object recon-\nstruction. Recent works have diverged into two directions:\nregression-based modeling and generative modeling. Re-\ngression methods efﬁciently infer visible surfaces, but strug-\ngle with occluded regions. Generative methods handle un-\ncertain regions better by modeling distributions, but are\ncomputationally expensive and the generation is often mis-\naligned with visible surfaces.\nIn this paper, we present\nSPAR3D, a novel two-stage approach aiming to take the\nbest of both directions. The ﬁrst stage of SPAR3D generates\n*Work done at Stability AI.\nsparse 3D point clouds using a lightweight point diffusion\nmodel, which has a fast sampling speed. The second stage\nuses both the sampled point cloud and the input image to\ncreate highly detailed meshes. Our two-stage design en-\nables probabilistic modeling of the ill-posed single-image\n3D task while maintaining high computational efﬁciency\nand great output ﬁdelity. Using point clouds as an interme-\ndiate representation further allows for interactive user ed-\nits. Evaluated on diverse datasets, SPAR3D demonstrates\nsuperior performance over previous state-of-the-art meth-\nods, at an inference speed of 0.7 seconds. Project page with\ncode and model: https://spar3d.github.io\nThis CVPR paper is the Open Access version, provided by the Computer Vision Foundation.\nExcept for this watermark, it is identical to the accepted version;\nthe final published version of the proceedings is available on IEEE Xplore.\n16860\n",
+      "blocks": [
+        {
+          "bbox": [
+            62.73,
+            105.88,
+            549.27,
+            120.22
+          ],
+          "type": 0,
+          "text": "SPAR3D: Stable Point-Aware Reconstruction of 3D Objects from Single Images"
+        },
+        {
+          "bbox": [
+            79.41,
+            142.48,
+            532.09,
+            157.67
+          ],
+          "type": 0,
+          "text": "Zixuan Huang1,2∗\nMark Boss1\nAaryaman Vasishta1\nJames M. Rehg2\nVarun Jampani1"
+        },
+        {
+          "bbox": [
+            254.11,
+            156.43,
+            354.9,
+            171.61
+          ],
+          "type": 0,
+          "text": "1Stability AI, 2UIUC"
+        },
+        {
+          "bbox": [
+            63.97,
+            489.93,
+            515.52,
+            501.12
+          ],
+          "type": 0,
+          "text": "Point Cloud\nMesh Output\nInput Image\nPoint Cloud\nMesh Output\nInput Image"
+        },
+        {
+          "bbox": [
+            148.25,
+            430.2,
+            413.54,
+            441.81
+          ],
+          "type": 0,
+          "text": "Edit\nEdit"
+        },
+        {
+          "bbox": [
+            58.5,
+            514.75,
+            553.5,
+            534.67
+          ],
+          "type": 0,
+          "text": "Figure 1. We present SPAR3D, a state-of-the-art 3D reconstructor that reconstructs high-quality 3D meshes from single-view images.\nSPAR3D enjoys a fast reconstruction speed at 0.7 seconds and supports interactive user edits."
+        },
+        {
+          "bbox": [
+            154.38,
+            546.51,
+            198.87,
+            558.47
+          ],
+          "type": 0,
+          "text": "Abstract"
+        },
+        {
+          "bbox": [
+            58.5,
+            573.16,
+            294.75,
+            690.72
+          ],
+          "type": 0,
+          "text": "We study the problem of single-image 3D object recon-\nstruction. Recent works have diverged into two directions:\nregression-based modeling and generative modeling. Re-\ngression methods efﬁciently infer visible surfaces, but strug-\ngle with occluded regions. Generative methods handle un-\ncertain regions better by modeling distributions, but are\ncomputationally expensive and the generation is often mis-\naligned with visible surfaces.\nIn this paper, we present\nSPAR3D, a novel two-stage approach aiming to take the\nbest of both directions. The ﬁrst stage of SPAR3D generates"
+        },
+        {
+          "bbox": [
+            69.36,
+            703.65,
+            156.99,
+            712.92
+          ],
+          "type": 0,
+          "text": "*Work done at Stability AI."
+        },
+        {
+          "bbox": [
+            317.25,
+            548.08,
+            553.5,
+            689.55
+          ],
+          "type": 0,
+          "text": "sparse 3D point clouds using a lightweight point diffusion\nmodel, which has a fast sampling speed. The second stage\nuses both the sampled point cloud and the input image to\ncreate highly detailed meshes. Our two-stage design en-\nables probabilistic modeling of the ill-posed single-image\n3D task while maintaining high computational efﬁciency\nand great output ﬁdelity. Using point clouds as an interme-\ndiate representation further allows for interactive user ed-\nits. Evaluated on diverse datasets, SPAR3D demonstrates\nsuperior performance over previous state-of-the-art meth-\nods, at an inference speed of 0.7 seconds. Project page with\ncode and model: https://spar3d.github.io"
+        },
+        {
+          "bbox": [
+            147.63,
+            1.8,
+            495.0,
+            36.4
+          ],
+          "type": 0,
+          "text": "This CVPR paper is the Open Access version, provided by the Computer Vision Foundation.\nExcept for this watermark, it is identical to the accepted version;\nthe final published version of the proceedings is available on IEEE Xplore."
+        },
+        {
+          "bbox": [
+            294.75,
+            746.52,
+            317.25,
+            758.53
+          ],
+          "type": 0,
+          "text": "16860"
+        }
+      ],
+      "preview": null
+    },
+    {
+      "doc": "spar3d",
+      "page": 2,
+      "width": 612.0,
+      "height": 792.0,
+      "text": "1. Introduction\nReconstructing 3D objects from monocular images is a fun-\ndamental problem in computer vision. An efﬁcient recon-\nstruction system opens up a wide range of applications,\nincluding augmented reality, ﬁlmmaking, and manufactur-\ning. Monocular 3D reconstruction is also a complex in-\nverse problem: while the visible surface can be estimated\nfrom shading, predicting the occluded surface necessitates\na strong 3D object prior. Our ﬁeld has seen a divergence\nin two different directions: feedforward regression [2, 11,\n20, 25, 26, 28, 39, 55, 56, 61, 63, 65, 66, 69, 70, 73] and\ndiffusion-based generation [6, 9, 10, 27, 30, 32, 33, 35–\n37, 41, 48–50, 72, 75].\nDespite the signiﬁcant progress\nmade in both directions, each has fundamental limitations.\nRegression-based models are highly effective in adher-\ning to the visible surface in the image, and the inference\nspeed is typically fast. However, they make the oversimpli-\nﬁed assumption of bijective mapping between images and\n3D. This assumption introduces ambiguity in the learning\nobjective, leading to poorly estimated surfaces and textures\nin occluded regions. On the other hand, diffusion-based\napproaches are generative and do not predict the statistical\nmean. However, their iterative sampling at inference time is\ncomputationally inefﬁcient when modeling high-resolution\n3D. Additionally, previous studies such as [28] indicate that\ndiffusion-generated 3D models exhibit worse alignment to\nthe surface visible in the input image. How can we take the\nbest of both worlds while avoiding their limitations?\nIn light of this, we propose SPAR3D, which breaks the\n3D reconstruction process down into two stages: the point\nsampling stage and the meshing stage. The point sampling\nstage uses diffusion models to generate sparse point clouds,\nfollowed by the meshing stage, transforming point clouds\ninto highly detailed meshes. Our main idea is to ofﬂoad\nthe uncertainty modeling to the point sampling stage, where\nthe low resolution of the point clouds allows rapid iterative\nsampling. The subsequent meshing stage leverages the lo-\ncal image features to transform the point cloud into a de-\ntailed mesh of high output ﬁdelity.\nReducing the mesh-\ning uncertainty with point clouds further facilitates unsu-\npervised learning of inverse rendering, which reduces the\nbaked-in lighting in the textures.\nOur two-stage design\nenables SPAR3D to signiﬁcantly outperform previous re-\ngressive methods, while preserving high computational ef-\nﬁciency and ﬁdelity to input observation.\nA key design choice of our method is the usage of point\nclouds to connect the two stages. To ensure fast reconstruc-\ntion, our intermediate representation needs to be lightweight\nso it can be efﬁciently generated. However, it should pro-\nvide enough guidance to the meshing stage. This inspires us\nto use point clouds, which are perhaps the most computa-\ntionally efﬁcient 3D representation because all information\nbits are used to represent the surface. Moreover, the lack of\nconnectivity, typically considered as the drawback of point\nclouds, now turns into an advantage with our two-stage ap-\nproach for editing purposes. When the back surface does\nnot align with user expectations, local edits can be easily\nmade on the low-resolution point clouds without worrying\nabout topologies (see Fig. 1 bottom). Feeding edited point\nclouds into the meshing stage produces better meshes tai-\nlored towards user requirements.\nOur experiments demonstrate the superiority of SPAR3D\nover previous state-of-the-art methods, with solid quan-\ntitative and qualitative results on various data sources.\nSPAR3D also exhibits a strong generalization ability to in-\nthe-wild images and AI-generated images. With a total in-\nference time below 0.7 seconds, SPAR3D is not only ef-\nﬁcient but also allows for easy user-driven edits, offering\na practical solution to the task of monocular 3D reconstruc-\ntion. We hope that this is a meaningful step towards scalable\ngeneration of high-quality 3D assets.\n2. Related Work\nFeedforward 3D reconstruction\nmethods address the\nproblem of 3D object reconstruction by learning a feed-\nforward model in a regression-based manner.\nEarlier\nworks [11, 20, 26, 39, 61, 66, 70] in this ﬁeld typically pre-\ndict only the geometry and train on small datasets [5, 52],\nwhich limits their generalization ability. Recently, larger\n3D datasets [12, 44] have been collected, unlocking the po-\ntential to train feedforward 3D models at scale [25, 28, 65].\nThese models exhibit great generalization ability to unseen\nimages, and excel at producing reconstructions that tightly\nalign with the observed cues in the input image. In partic-\nular, LRM [25] and follow-up works [2, 55, 56, 63, 69, 73]\nshow that properly designed large transformer models can\nbe trained using only rendering losses to capture object ge-\nometry and texture in great detail. Despite the high ﬁdelity\nand computational efﬁciency of these models, the oversim-\npliﬁed bijective assumption in these regressive approaches\nresults in oversmoothed unseen surfaces. Multi-view diffu-\nsion models [36, 37, 47, 48] have been considered as a rem-\nedy for this, where additional viewpoints are synthesized\nas input to the feedforward model [55, 63, 69]. However,\nthe inconsistency across viewpoints often leads to signiﬁ-\ncant artifacts on the reconstructed surfaces, and the compu-\ntational efﬁciency of these approaches is severely affected\nby the slow multi-view generation process. Our model also\naims to overcome the learning ambiguity in regressive ap-\nproaches, but our point sampling approach is inherently 3D-\nconsistent and computationally efﬁcient, and further allows\neasy user edits.\nGenerative 3D modeling\nlearns the image-conditioned\ndistribution of 3D assets instead of a deterministic map-\nping. Early 3D generative works use GAN [4, 17, 29, 57],\n16861\n",
+      "blocks": [
+        {
+          "bbox": [
+            58.5,
+            72.75,
+            135.34,
+            84.71
+          ],
+          "type": 0,
+          "text": "1. Introduction"
+        },
+        {
+          "bbox": [
+            58.5,
+            93.42,
+            294.75,
+            713.39
+          ],
+          "type": 0,
+          "text": "Reconstructing 3D objects from monocular images is a fun-\ndamental problem in computer vision. An efﬁcient recon-\nstruction system opens up a wide range of applications,\nincluding augmented reality, ﬁlmmaking, and manufactur-\ning. Monocular 3D reconstruction is also a complex in-\nverse problem: while the visible surface can be estimated\nfrom shading, predicting the occluded surface necessitates\na strong 3D object prior. Our ﬁeld has seen a divergence\nin two different directions: feedforward regression [2, 11,\n20, 25, 26, 28, 39, 55, 56, 61, 63, 65, 66, 69, 70, 73] and\ndiffusion-based generation [6, 9, 10, 27, 30, 32, 33, 35–\n37, 41, 48–50, 72, 75].\nDespite the signiﬁcant progress\nmade in both directions, each has fundamental limitations.\nRegression-based models are highly effective in adher-\ning to the visible surface in the image, and the inference\nspeed is typically fast. However, they make the oversimpli-\nﬁed assumption of bijective mapping between images and\n3D. This assumption introduces ambiguity in the learning\nobjective, leading to poorly estimated surfaces and textures\nin occluded regions. On the other hand, diffusion-based\napproaches are generative and do not predict the statistical\nmean. However, their iterative sampling at inference time is\ncomputationally inefﬁcient when modeling high-resolution\n3D. Additionally, previous studies such as [28] indicate that\ndiffusion-generated 3D models exhibit worse alignment to\nthe surface visible in the input image. How can we take the\nbest of both worlds while avoiding their limitations?\nIn light of this, we propose SPAR3D, which breaks the\n3D reconstruction process down into two stages: the point\nsampling stage and the meshing stage. The point sampling\nstage uses diffusion models to generate sparse point clouds,\nfollowed by the meshing stage, transforming point clouds\ninto highly detailed meshes. Our main idea is to ofﬂoad\nthe uncertainty modeling to the point sampling stage, where\nthe low resolution of the point clouds allows rapid iterative\nsampling. The subsequent meshing stage leverages the lo-\ncal image features to transform the point cloud into a de-\ntailed mesh of high output ﬁdelity.\nReducing the mesh-\ning uncertainty with point clouds further facilitates unsu-\npervised learning of inverse rendering, which reduces the\nbaked-in lighting in the textures.\nOur two-stage design\nenables SPAR3D to signiﬁcantly outperform previous re-\ngressive methods, while preserving high computational ef-\nﬁciency and ﬁdelity to input observation.\nA key design choice of our method is the usage of point\nclouds to connect the two stages. To ensure fast reconstruc-\ntion, our intermediate representation needs to be lightweight\nso it can be efﬁciently generated. However, it should pro-\nvide enough guidance to the meshing stage. This inspires us\nto use point clouds, which are perhaps the most computa-\ntionally efﬁcient 3D representation because all information\nbits are used to represent the surface. Moreover, the lack of"
+        },
+        {
+          "bbox": [
+            317.25,
+            74.39,
+            553.5,
+            288.35
+          ],
+          "type": 0,
+          "text": "connectivity, typically considered as the drawback of point\nclouds, now turns into an advantage with our two-stage ap-\nproach for editing purposes. When the back surface does\nnot align with user expectations, local edits can be easily\nmade on the low-resolution point clouds without worrying\nabout topologies (see Fig. 1 bottom). Feeding edited point\nclouds into the meshing stage produces better meshes tai-\nlored towards user requirements.\nOur experiments demonstrate the superiority of SPAR3D\nover previous state-of-the-art methods, with solid quan-\ntitative and qualitative results on various data sources.\nSPAR3D also exhibits a strong generalization ability to in-\nthe-wild images and AI-generated images. With a total in-\nference time below 0.7 seconds, SPAR3D is not only ef-\nﬁcient but also allows for easy user-driven edits, offering\na practical solution to the task of monocular 3D reconstruc-\ntion. We hope that this is a meaningful step towards scalable\ngeneration of high-quality 3D assets."
+        },
+        {
+          "bbox": [
+            317.25,
+            302.89,
+            400.36,
+            314.85
+          ],
+          "type": 0,
+          "text": "2. Related Work"
+        },
+        {
+          "bbox": [
+            317.25,
+            324.11,
+            553.5,
+            668.93
+          ],
+          "type": 0,
+          "text": "Feedforward 3D reconstruction\nmethods address the\nproblem of 3D object reconstruction by learning a feed-\nforward model in a regression-based manner.\nEarlier\nworks [11, 20, 26, 39, 61, 66, 70] in this ﬁeld typically pre-\ndict only the geometry and train on small datasets [5, 52],\nwhich limits their generalization ability. Recently, larger\n3D datasets [12, 44] have been collected, unlocking the po-\ntential to train feedforward 3D models at scale [25, 28, 65].\nThese models exhibit great generalization ability to unseen\nimages, and excel at producing reconstructions that tightly\nalign with the observed cues in the input image. In partic-\nular, LRM [25] and follow-up works [2, 55, 56, 63, 69, 73]\nshow that properly designed large transformer models can\nbe trained using only rendering losses to capture object ge-\nometry and texture in great detail. Despite the high ﬁdelity\nand computational efﬁciency of these models, the oversim-\npliﬁed bijective assumption in these regressive approaches\nresults in oversmoothed unseen surfaces. Multi-view diffu-\nsion models [36, 37, 47, 48] have been considered as a rem-\nedy for this, where additional viewpoints are synthesized\nas input to the feedforward model [55, 63, 69]. However,\nthe inconsistency across viewpoints often leads to signiﬁ-\ncant artifacts on the reconstructed surfaces, and the compu-\ntational efﬁciency of these approaches is severely affected\nby the slow multi-view generation process. Our model also\naims to overcome the learning ambiguity in regressive ap-\nproaches, but our point sampling approach is inherently 3D-\nconsistent and computationally efﬁcient, and further allows\neasy user edits."
+        },
+        {
+          "bbox": [
+            317.25,
+            679.41,
+            553.5,
+            713.4
+          ],
+          "type": 0,
+          "text": "Generative 3D modeling\nlearns the image-conditioned\ndistribution of 3D assets instead of a deterministic map-\nping. Early 3D generative works use GAN [4, 17, 29, 57],"
+        },
+        {
+          "bbox": [
+            294.75,
+            746.52,
+            317.25,
+            758.53
+          ],
+          "type": 0,
+          "text": "16861"
+        }
+      ],
+      "preview": null
+    },
+    {
+      "doc": "spar3d",
+      "page": 3,
+      "width": 612.0,
+      "height": 792.0,
+      "text": "Input Image\nNoisy Points\nGeometry\nPoint Cloud\nDenoiser\nTriplane\nTransformer\nDINOv2 \nEncoder\nTriplane\nEnvironment Map\nTexture\nSampled Points\nIllumination \nEncoder\nRENI++\nDecoder\nFigure 2. SPAR3D Overview. Conditioned on the input image, SPAR3D ﬁrst leverages a point diffusion model to generate a sparse point\ncloud. The triplane transformer then uses the sampled point cloud and image features to produce high-resolution triplane features. The\ntriplane features are then queried to reconstruct the geometry, texture, and illumination of the object in the image.\nnormalizing ﬂow [31, 71] or VAE [18, 40, 68] as the gen-\nerative framework. Inspired by the success of 2D diffusion\nmodels [15, 45], 3D diffusion models [6, 9, 10, 27, 30, 32,\n33, 35–37, 41, 48–50, 72, 75] have also been extensively ex-\nplored in recent works. Despite the advantage of probabilis-\ntic modeling that avoids over-smoothed results, diffusion-\nbased 3D generation has two drawbacks: 1) not aligning\nwell with input observations, and 2) having low inference\nspeed at high resolution. Our work inherits the advantage\nof probabilistic modeling, while avoiding the drawbacks by\nusing diffusion to generate only sparse point clouds.\nOptimization-based single-view 3D\nleverages 2D gener-\native priors to recover 3D from single-view images. These\nworks [13, 21, 38, 54] rely on SDS-type loss [43, 60] and\ngenerate 3D assets by optimizing for each object image sep-\narately. These methods achieve promising results without\nlarge-scale annotation. However, the lack of a strong ex-\nplicit 3D prior makes the optimization process inefﬁcient\nand prone to local minima.\n3. Method\nSPAR3D Overview.\nGiven the input image I ∈R3×h×w,\nour method produces a 3D mesh with PBR materials, in-\ncluding albedo, metallic, roughness and surface normals.\nThe main goal of our work is to develop a model that en-\njoys the beneﬁts of distribution learning through diffusion\nmodels, while not suffering from the low output ﬁdelity and\ncomputational inefﬁciency. To this end, we design a two-\nstage model that consists of the point sampling stage and\nthe meshing stage (see Fig. 2). At the point sampling stage,\na point diffusion model learns the conditional distribution\nof point clouds given the input image. This stage is com-\nputationally efﬁcient given the low resolution of the point\nclouds. The regression-based meshing stage transforms the\nsampled point cloud into a highly detailed mesh that aligns\nwith the visible surface. The reduced uncertainty with point\nsampling further facilitates the learning of materials and il-\nlumination in an unsupervised manner during the meshing\nstage. This reduces baked-in lighting artifacts and results\nin better modeling of specular surfaces.\nFinally, by us-\ning sparse point clouds as the intermediate representation,\nSPAR3D enables human editing in the loop.\n3.1. Point Sampling Stage\nOverview.\nThe point sampling stage produces a sparse\npoint cloud as the input to the meshing stage. The core of\nthe point sampling stage is a point diffusion model, which\ngenerates point clouds p0 ∈Rn×6 conditioned on the in-\nput image I. The six channels include three XYZ channels\nand three RGB channels. In our work, the resolution of the\npoint cloud n is set to 512.\nPoint Diffusion Framework.\nOur diffusion framework is\nbased on DDPM [24], which consists of two processes: 1)\nthe forward process which adds noise to the original point\ncloud, and 2) the backward process where the denoiser\nlearns to remove the noise. At timestep t ∈[0, T], the dif-\nfusion process combines Gaussian noise ϵ ∼N(0, I) with\na point cloud p0 as\npt = √¯αtp0 +\n√\n1 −¯αtϵ,\n(1)\nwhere ¯αt denotes the noise schedule. We use the sigmoid\nnoise schedule proposed in [7], combined with input scaling\nand the renormalization trick. The denoiser ϵθ(pt, t; c) then\nlearns to recover the noise from pt and is supervised by\nLsimple(θ) = Et,p0,ϵ∥ϵ −ϵθ(pt, t; c)∥2\n2.\n(2)\nHere c denotes the image condition tokens. During infer-\nence, we use the DDIM sampler [51] to generate point cloud\nsamples.\nSamples generated directly often align poorly\nwith the condition, hence we use the classiﬁer-free guid-\nance (CFG) [23] to improve sampling ﬁdelity.\n16862\n",
+      "blocks": [
+        {
+          "bbox": [
+            74.26,
+            141.21,
+            116.91,
+            149.23
+          ],
+          "type": 0,
+          "text": "Input Image"
+        },
+        {
+          "bbox": [
+            73.26,
+            215.35,
+            117.73,
+            223.37
+          ],
+          "type": 0,
+          "text": "Noisy Points"
+        },
+        {
+          "bbox": [
+            429.37,
+            141.07,
+            464.62,
+            149.09
+          ],
+          "type": 0,
+          "text": "Geometry"
+        },
+        {
+          "bbox": [
+            155.39,
+            176.5,
+            196.84,
+            194.1
+          ],
+          "type": 0,
+          "text": "Point Cloud\nDenoiser"
+        },
+        {
+          "bbox": [
+            162.15,
+            102.0,
+            284.71,
+            119.66
+          ],
+          "type": 0,
+          "text": "Triplane\nTransformer\nDINOv2 \nEncoder"
+        },
+        {
+          "bbox": [
+            367.45,
+            127.4,
+            396.33,
+            135.42
+          ],
+          "type": 0,
+          "text": "Triplane"
+        },
+        {
+          "bbox": [
+            484.7,
+            215.76,
+            547.46,
+            223.78
+          ],
+          "type": 0,
+          "text": "Environment Map"
+        },
+        {
+          "bbox": [
+            502.56,
+            141.06,
+            529.53,
+            149.09
+          ],
+          "type": 0,
+          "text": "Texture"
+        },
+        {
+          "bbox": [
+            234.24,
+            215.69,
+            290.44,
+            223.71
+          ],
+          "type": 0,
+          "text": "Sampled Points"
+        },
+        {
+          "bbox": [
+            331.78,
+            176.5,
+            374.71,
+            194.1
+          ],
+          "type": 0,
+          "text": "Illumination \nEncoder"
+        },
+        {
+          "bbox": [
+            421.58,
+            176.5,
+            451.79,
+            194.1
+          ],
+          "type": 0,
+          "text": "RENI++\nDecoder"
+        },
+        {
+          "bbox": [
+            58.5,
+            238.26,
+            553.5,
+            269.25
+          ],
+          "type": 0,
+          "text": "Figure 2. SPAR3D Overview. Conditioned on the input image, SPAR3D ﬁrst leverages a point diffusion model to generate a sparse point\ncloud. The triplane transformer then uses the sampled point cloud and image features to produce high-resolution triplane features. The\ntriplane features are then queried to reconstruct the geometry, texture, and illumination of the object in the image."
+        },
+        {
+          "bbox": [
+            58.5,
+            278.53,
+            294.75,
+            408.04
+          ],
+          "type": 0,
+          "text": "normalizing ﬂow [31, 71] or VAE [18, 40, 68] as the gen-\nerative framework. Inspired by the success of 2D diffusion\nmodels [15, 45], 3D diffusion models [6, 9, 10, 27, 30, 32,\n33, 35–37, 41, 48–50, 72, 75] have also been extensively ex-\nplored in recent works. Despite the advantage of probabilis-\ntic modeling that avoids over-smoothed results, diffusion-\nbased 3D generation has two drawbacks: 1) not aligning\nwell with input observations, and 2) having low inference\nspeed at high resolution. Our work inherits the advantage\nof probabilistic modeling, while avoiding the drawbacks by\nusing diffusion to generate only sparse point clouds."
+        },
+        {
+          "bbox": [
+            58.5,
+            418.44,
+            294.75,
+            512.2
+          ],
+          "type": 0,
+          "text": "Optimization-based single-view 3D\nleverages 2D gener-\native priors to recover 3D from single-view images. These\nworks [13, 21, 38, 54] rely on SDS-type loss [43, 60] and\ngenerate 3D assets by optimizing for each object image sep-\narately. These methods achieve promising results without\nlarge-scale annotation. However, the lack of a strong ex-\nplicit 3D prior makes the optimization process inefﬁcient\nand prone to local minima."
+        },
+        {
+          "bbox": [
+            58.5,
+            526.71,
+            110.3,
+            538.66
+          ],
+          "type": 0,
+          "text": "3. Method"
+        },
+        {
+          "bbox": [
+            58.5,
+            545.2,
+            294.75,
+            713.4
+          ],
+          "type": 0,
+          "text": "SPAR3D Overview.\nGiven the input image I ∈R3×h×w,\nour method produces a 3D mesh with PBR materials, in-\ncluding albedo, metallic, roughness and surface normals.\nThe main goal of our work is to develop a model that en-\njoys the beneﬁts of distribution learning through diffusion\nmodels, while not suffering from the low output ﬁdelity and\ncomputational inefﬁciency. To this end, we design a two-\nstage model that consists of the point sampling stage and\nthe meshing stage (see Fig. 2). At the point sampling stage,\na point diffusion model learns the conditional distribution\nof point clouds given the input image. This stage is com-\nputationally efﬁcient given the low resolution of the point\nclouds. The regression-based meshing stage transforms the\nsampled point cloud into a highly detailed mesh that aligns"
+        },
+        {
+          "bbox": [
+            317.25,
+            278.53,
+            553.5,
+            360.22
+          ],
+          "type": 0,
+          "text": "with the visible surface. The reduced uncertainty with point\nsampling further facilitates the learning of materials and il-\nlumination in an unsupervised manner during the meshing\nstage. This reduces baked-in lighting artifacts and results\nin better modeling of specular surfaces.\nFinally, by us-\ning sparse point clouds as the intermediate representation,\nSPAR3D enables human editing in the loop."
+        },
+        {
+          "bbox": [
+            317.25,
+            367.91,
+            436.68,
+            378.87
+          ],
+          "type": 0,
+          "text": "3.1. Point Sampling Stage"
+        },
+        {
+          "bbox": [
+            317.25,
+            386.61,
+            553.5,
+            468.42
+          ],
+          "type": 0,
+          "text": "Overview.\nThe point sampling stage produces a sparse\npoint cloud as the input to the meshing stage. The core of\nthe point sampling stage is a point diffusion model, which\ngenerates point clouds p0 ∈Rn×6 conditioned on the in-\nput image I. The six channels include three XYZ channels\nand three RGB channels. In our work, the resolution of the\npoint cloud n is set to 512."
+        },
+        {
+          "bbox": [
+            317.25,
+            474.16,
+            553.5,
+            558.4
+          ],
+          "type": 0,
+          "text": "Point Diffusion Framework.\nOur diffusion framework is\nbased on DDPM [24], which consists of two processes: 1)\nthe forward process which adds noise to the original point\ncloud, and 2) the backward process where the denoiser\nlearns to remove the noise. At timestep t ∈[0, T], the dif-\nfusion process combines Gaussian noise ϵ ∼N(0, I) with\na point cloud p0 as"
+        },
+        {
+          "bbox": [
+            382.12,
+            556.3,
+            454.01,
+            581.57
+          ],
+          "type": 0,
+          "text": "pt = √¯αtp0 +\n√"
+        },
+        {
+          "bbox": [
+            454.01,
+            564.18,
+            553.5,
+            581.57
+          ],
+          "type": 0,
+          "text": "1 −¯αtϵ,\n(1)"
+        },
+        {
+          "bbox": [
+            317.25,
+            582.62,
+            553.5,
+            631.14
+          ],
+          "type": 0,
+          "text": "where ¯αt denotes the noise schedule. We use the sigmoid\nnoise schedule proposed in [7], combined with input scaling\nand the renormalization trick. The denoiser ϵθ(pt, t; c) then\nlearns to recover the noise from pt and is supervised by"
+        },
+        {
+          "bbox": [
+            353.84,
+            633.86,
+            553.5,
+            654.31
+          ],
+          "type": 0,
+          "text": "Lsimple(θ) = Et,p0,ϵ∥ϵ −ϵθ(pt, t; c)∥2\n2.\n(2)"
+        },
+        {
+          "bbox": [
+            317.25,
+            655.61,
+            553.5,
+            713.4
+          ],
+          "type": 0,
+          "text": "Here c denotes the image condition tokens. During infer-\nence, we use the DDIM sampler [51] to generate point cloud\nsamples.\nSamples generated directly often align poorly\nwith the condition, hence we use the classiﬁer-free guid-\nance (CFG) [23] to improve sampling ﬁdelity."
+        },
+        {
+          "bbox": [
+            294.75,
+            746.52,
+            317.25,
+            758.53
+          ],
+          "type": 0,
+          "text": "16862"
+        }
+      ],
+      "preview": null
+    },
+    {
+      "doc": "spar3d",
+      "page": 4,
+      "width": 612.0,
+      "height": 792.0,
+      "text": "Denoiser Design.\nWe use a transformer denoiser similar\nto Point-E [41], where the noisy point cloud pt ∈Rn×6 is\nlinearly mapped to a set of point tokens x ∈Rn×d. We\nuse DINOv2 [42] to encode the input image I as condition-\ning tokens c ∈Rc×d. The conditions and the point tokens\nare then concatenated together as input to the transformer,\nwhich predicts the added noise on each point.\nAlbedo Point clouds.\nIn the meshing stage, we estimate\nthe materials and lighting alongside the geometry. How-\never, this decomposition is inherently ambiguous because\nthere are countless combinations of lighting and albedo that\ncan explain the same input image. It is challenging to learn\nthis highly uncertain decomposition during the regressive\nmeshing stage alone. We therefore reduce the uncertainty\nat the point sampling stage, by directly generating albedo\npoint clouds with diffusion models. Sampling albedo point\nclouds as input to the meshing stage drastically reduces the\nambiguity of inverse rendering and stabilizes the decompo-\nsition learning.\n3.2. Meshing Stage\nOverview.\nThe meshing stage produces a textured mesh\nfrom the input image and the point cloud.\nThe back-\nbone of our meshing model is a large triplane transformer,\nwhich predicts triplane features from the image and point\ncloud conditions. We estimate the geometry, texture and\nlighting of the current object from the triplane, and metal-\nlic/roughness from the image features. The geometry and\nmaterials are fed into our differentiable renderer during\ntraining, so that we can apply rendering loss to supervise\nour model.\nTriplane Transformer.\nOur triplane transformer consists\nof three submodules: the point cloud encoder, the image\nencoder, and the transformer backbone. We use a simple\ntransformer encoder to encode the point cloud as a set of\npoint tokens. Given the low resolution of the point clouds,\neach point can be directly mapped to a single token. Our\nimage encoder is DINOv2 [42], which produces local im-\nage embeddings. Our triplane transformer follows a simi-\nlar design to PointInﬁnity [27] and SF3D [2], which pro-\nduces triplanes at high resolution of 384 × 384 by using a\ncomputationally-detached two-stream design.\nSurface Estimation.\nTo estimate the geometry, the tri-\nplanes are queried with a shallow MLP to produce density\nvalues. Similar to [2, 63, 69], we convert the implicit den-\nsity ﬁeld to explicit surface using differentiable Marching\nTetrahedron (DMTet) [46]. We additionally use two MLP\nheads to predict vertex offsets and surface normals together\nwith density. These two attributes reduce the artifacts in-\ntroduced by the Marching Tetrahedron and lead to locally\nsmoother surfaces.\nMaterial and Illumination Estimation.\nWe perform in-\nverse rendering and jointly estimate materials (albedo,\nmetallic and roughness) and illumination alongside the ge-\nometry. The task is highly ill-posed and Neural-PIL [1]\nshowed that an illumination prior can reduce the ambigu-\nity. We build our illumination estimator upon the learning-\nbased illumination prior from RENI++ [19]. RENI++ is\noriginally an unconditional generative model for HDR illu-\nmination generation. We learn an encoder to map triplane\nfeatures into the latent space of RENI++. This allows us to\nestimate the environment illumination in the input image.\nThe albedo is estimated from triplane similar to geometry,\nwhere a shallow MLP predicts the albedo value for each 3D\nlocation. For metallic and roughness, we follow SF3D [2]\nand learn to estimate them with a probabilistic approach via\na Beta prior. We ﬁnd that the CLIP encoder used in SF3D\nis unstable when the object size changes. We therefore re-\nplace their CLIP encoder with AlphaCLIP [53] to alleviate\nthis issue using foreground object masks.\nDifferentiable Rendering.\nWe implement a differen-\ntiable renderer that renders images based on the predicted\nenvironment map, PBR materials and geometry surface\n(see Fig. 3). We use a differentiable mesh rasterizer and\nadd a differentiable shader. Speciﬁcally, we leverage the\nstandard simpliﬁed Disney PBR model [3] in our shader.\nAs we use RENI++ to reconstruct environment maps, we\nneed to explicitly integrate the incoming radiance. Here,\nwe opt to use the Monte Carlo Integration. Given the low\nsample counts we can computationally afford during train-\ning, we rely on Multiple Importance Sampling (MIS) with\nthe balanced heuristic [58] to reduce integration variance.\nAdditionally, to better model the self-occlusion which has\nbeen typically ignored in prior works, we implement a vis-\nibility test for better shadow modeling. We take inspiration\nfrom real-time graphics and model the visibility test as a\nscreen-space method using the depth map from our raster-\nizer. An overview of this test is shown in Fig. 4. Speciﬁ-\ncally, we ray-march a short distance (0.25) in 6 steps for all\nproposed sample directions from MIS, and project the posi-\ntion back to image space. If the current ray depth is farther\naway than the sampled value from the depth map, then the\nray is marked as shadowed.\nLoss Function.\nOur main loss function is the render-\ning loss that compares renderings from novel views to the\ngrountruth (GT) images. Speciﬁcally, our rendering loss is\na linear combination of 1) the L2 distance between the ren-\ndered and GT images, 2) the perceptual distance between\nthe rendered and GT images measured by LPIPS [74], and\n3) the L2 distance between the rendered opacity and the GT\nforeground mask. Apart from the rendering loss, we also\nfollow SF3D and apply the mesh and shading regulariza-\ntion that regularizes the surface smoothness and the inverse\nrendering respectively.\n16863\n",
+      "blocks": [
+        {
+          "bbox": [
+            58.5,
+            74.29,
+            294.75,
+            156.09
+          ],
+          "type": 0,
+          "text": "Denoiser Design.\nWe use a transformer denoiser similar\nto Point-E [41], where the noisy point cloud pt ∈Rn×6 is\nlinearly mapped to a set of point tokens x ∈Rn×d. We\nuse DINOv2 [42] to encode the input image I as condition-\ning tokens c ∈Rc×d. The conditions and the point tokens\nare then concatenated together as input to the transformer,\nwhich predicts the added noise on each point."
+        },
+        {
+          "bbox": [
+            58.5,
+            166.7,
+            294.75,
+            308.29
+          ],
+          "type": 0,
+          "text": "Albedo Point clouds.\nIn the meshing stage, we estimate\nthe materials and lighting alongside the geometry. How-\never, this decomposition is inherently ambiguous because\nthere are countless combinations of lighting and albedo that\ncan explain the same input image. It is challenging to learn\nthis highly uncertain decomposition during the regressive\nmeshing stage alone. We therefore reduce the uncertainty\nat the point sampling stage, by directly generating albedo\npoint clouds with diffusion models. Sampling albedo point\nclouds as input to the meshing stage drastically reduces the\nambiguity of inverse rendering and stabilizes the decompo-\nsition learning."
+        },
+        {
+          "bbox": [
+            58.5,
+            319.69,
+            146.17,
+            330.65
+          ],
+          "type": 0,
+          "text": "3.2. Meshing Stage"
+        },
+        {
+          "bbox": [
+            58.5,
+            339.16,
+            294.75,
+            456.83
+          ],
+          "type": 0,
+          "text": "Overview.\nThe meshing stage produces a textured mesh\nfrom the input image and the point cloud.\nThe back-\nbone of our meshing model is a large triplane transformer,\nwhich predicts triplane features from the image and point\ncloud conditions. We estimate the geometry, texture and\nlighting of the current object from the triplane, and metal-\nlic/roughness from the image features. The geometry and\nmaterials are fed into our differentiable renderer during\ntraining, so that we can apply rendering loss to supervise\nour model."
+        },
+        {
+          "bbox": [
+            58.5,
+            467.44,
+            294.75,
+            597.07
+          ],
+          "type": 0,
+          "text": "Triplane Transformer.\nOur triplane transformer consists\nof three submodules: the point cloud encoder, the image\nencoder, and the transformer backbone. We use a simple\ntransformer encoder to encode the point cloud as a set of\npoint tokens. Given the low resolution of the point clouds,\neach point can be directly mapped to a single token. Our\nimage encoder is DINOv2 [42], which produces local im-\nage embeddings. Our triplane transformer follows a simi-\nlar design to PointInﬁnity [27] and SF3D [2], which pro-\nduces triplanes at high resolution of 384 × 384 by using a\ncomputationally-detached two-stream design."
+        },
+        {
+          "bbox": [
+            58.5,
+            607.68,
+            294.75,
+            713.4
+          ],
+          "type": 0,
+          "text": "Surface Estimation.\nTo estimate the geometry, the tri-\nplanes are queried with a shallow MLP to produce density\nvalues. Similar to [2, 63, 69], we convert the implicit den-\nsity ﬁeld to explicit surface using differentiable Marching\nTetrahedron (DMTet) [46]. We additionally use two MLP\nheads to predict vertex offsets and surface normals together\nwith density. These two attributes reduce the artifacts in-\ntroduced by the Marching Tetrahedron and lead to locally\nsmoother surfaces."
+        },
+        {
+          "bbox": [
+            317.25,
+            74.29,
+            553.5,
+            299.55
+          ],
+          "type": 0,
+          "text": "Material and Illumination Estimation.\nWe perform in-\nverse rendering and jointly estimate materials (albedo,\nmetallic and roughness) and illumination alongside the ge-\nometry. The task is highly ill-posed and Neural-PIL [1]\nshowed that an illumination prior can reduce the ambigu-\nity. We build our illumination estimator upon the learning-\nbased illumination prior from RENI++ [19]. RENI++ is\noriginally an unconditional generative model for HDR illu-\nmination generation. We learn an encoder to map triplane\nfeatures into the latent space of RENI++. This allows us to\nestimate the environment illumination in the input image.\nThe albedo is estimated from triplane similar to geometry,\nwhere a shallow MLP predicts the albedo value for each 3D\nlocation. For metallic and roughness, we follow SF3D [2]\nand learn to estimate them with a probabilistic approach via\na Beta prior. We ﬁnd that the CLIP encoder used in SF3D\nis unstable when the object size changes. We therefore re-\nplace their CLIP encoder with AlphaCLIP [53] to alleviate\nthis issue using foreground object masks."
+        },
+        {
+          "bbox": [
+            317.25,
+            305.12,
+            553.5,
+            578.21
+          ],
+          "type": 0,
+          "text": "Differentiable Rendering.\nWe implement a differen-\ntiable renderer that renders images based on the predicted\nenvironment map, PBR materials and geometry surface\n(see Fig. 3). We use a differentiable mesh rasterizer and\nadd a differentiable shader. Speciﬁcally, we leverage the\nstandard simpliﬁed Disney PBR model [3] in our shader.\nAs we use RENI++ to reconstruct environment maps, we\nneed to explicitly integrate the incoming radiance. Here,\nwe opt to use the Monte Carlo Integration. Given the low\nsample counts we can computationally afford during train-\ning, we rely on Multiple Importance Sampling (MIS) with\nthe balanced heuristic [58] to reduce integration variance.\nAdditionally, to better model the self-occlusion which has\nbeen typically ignored in prior works, we implement a vis-\nibility test for better shadow modeling. We take inspiration\nfrom real-time graphics and model the visibility test as a\nscreen-space method using the depth map from our raster-\nizer. An overview of this test is shown in Fig. 4. Speciﬁ-\ncally, we ray-march a short distance (0.25) in 6 steps for all\nproposed sample directions from MIS, and project the posi-\ntion back to image space. If the current ray depth is farther\naway than the sampled value from the depth map, then the\nray is marked as shadowed."
+        },
+        {
+          "bbox": [
+            317.25,
+            583.77,
+            553.5,
+            713.4
+          ],
+          "type": 0,
+          "text": "Loss Function.\nOur main loss function is the render-\ning loss that compares renderings from novel views to the\ngrountruth (GT) images. Speciﬁcally, our rendering loss is\na linear combination of 1) the L2 distance between the ren-\ndered and GT images, 2) the perceptual distance between\nthe rendered and GT images measured by LPIPS [74], and\n3) the L2 distance between the rendered opacity and the GT\nforeground mask. Apart from the rendering loss, we also\nfollow SF3D and apply the mesh and shading regulariza-\ntion that regularizes the surface smoothness and the inverse\nrendering respectively."
+        },
+        {
+          "bbox": [
+            294.75,
+            746.52,
+            317.25,
+            758.53
+          ],
+          "type": 0,
+          "text": "16863"
+        }
+      ],
+      "preview": null
+    },
+    {
+      "doc": "spar3d",
+      "page": 5,
+      "width": 612.0,
+      "height": 792.0,
+      "text": "Monte Carlo \nMIS Sampling \nDisney BRDF\nVisibility Test\nInput Image\nTriplane\nAlbedo\nEnv Map\nMetallic\nRoughness\nGeometry\nRendering   Loss\nRendered\nGT Image\nNormal\nFigure 3. Our Differentiable Renderer. We estimate geometry, albedo,\nlighting, and normal maps from the triplane and metallic/roughness values\nfrom the image. We rasterize and interpolate these values as input to our\nshader (omitted here for simplicity). Our shader uses the Disney BRDF [3]\nand performs Monte Carlo integration. We further perform visibility testing\nto improve shadow modeling. Finally, we compare the rendered image with\nthe GT image and minimize the rendering loss.\nSurface\nSurface\nShadowed\nSurface Point p0\np1 \np2\nSampled ray\nDepth \ntest\nCamera\nFigure 4. Shadow Modeling. We perform visibility test-\ning in screen-space by marching along sampled rays. If\nany point along the ray has a ray depth which is farther\naway than the depth map, we consider the entire ray as\nshadowed.\n3.3. Interactive Editing\nA unique advantage of our two-stage design is that it nat-\nurally supports interactive editing of unseen regions in our\nproduced mesh. In most circumstances, the visible surface\nis determined by the input image and remains highly accu-\nrate, while the unseen surface is mainly based on the sam-\npled point cloud, which might not align with user intention.\nIn this case, editing the unseen surface of the mesh is fea-\nsible by altering the point cloud. Point clouds are perhaps\none of the most ﬂexible 3D representation for editing pur-\nposes because there are no topology constraints. Given the\nlow resolution of our point clouds, editing the point cloud\nis fairly efﬁcient and intuitive. Users can easily delete, du-\nplicate, stretch or recolor points in the point cloud. Our ef-\nﬁcient meshing model is able to produce the adjusted mesh\nin 0.3 seconds, which makes this process fairly interactive.\n3.4. Implementation Details\nPoint Sampling Stage.\nOur point diffusion model has 16\ntransformer blocks in total. Each transformer block consists\nof two Layer Normalization layer, one Multi-Head Atten-\ntion (MHA) layer and one MLP. We use a feature dimension\nof 1024 and 16 attention heads in each MHA layer. With\nmany emissive objects in our dataset, albedo can be visually\ndistinct from the input image and hard to learn. Therefore,\ninstead of directly generating albedo point clouds in the\npoint sampling stage, we learn to generate white-lit point\nclouds as a proxy target.\nMeshing Stage.\nOur triplane transformer consists of 4\ntwo-stream blocks [27]. Each two-stream block consists\nof three self-attentions and two cross-attentions. The main\ncomputation is carried out using 3,072 latent tokens, each\nwith a feature dimension of 1024. The MHA includes 16\nattention heads. The point cloud encoder is a vanilla trans-\nformer with 12 layers and 512 feature dimension, and the\nimage encoder is DINOv2-large. We use a tetrahedra reso-\nlution of 160 for DMTet. In our differentiable shader, we\nfollow Hasselgren et al. [22] and use a detached biased\nsampling scheme. We sample based on the specular lobe\n(GGX [59]), the 2D piecewise-linear distribution of the en-\nvironment map luminance and the hemispherical distribu-\ntion.\nSpeciﬁcally, we include 6 samples from the GGX\nlobe, 6 samples from the 2D piecewise-linear distribution\nof the luminance, and 4 samples from the hemispherical\ndistribution. The main body of the shader is implemented\nin PyTorch, while the screen-space shadowing and the 2D\npiecewise-linear distribution computation for the environ-\nment map are implemented as custom CUDA kernels for\nefﬁciency. The training of our meshing stage includes mul-\ntiple phases, where we increase the rendering resolution and\ndecrease the batch size at later training phases. We use GT\npoint clouds as input when training the meshing model. The\ncuration of our training data follows TripoSR [56].\n4. Experiments\n4.1. Evaluation\nDatasets.\nWe used two datasets for evaluation, GSO [16]\nand OmniObject3D [67]. We follow TripoSR [56] and re-\nmove simple box or cylindrical objects to avoid bias on\nsimple geometries. Each of the evaluation sets consists of\naround 250 objects. We render the objects with diverse az-\nimuth angles at different elevations, with randomly sampled\nHDRI environment maps. We also vary the focal length of\nthe camera to create more diverse test cases.\nMetrics.\nTo evaluate the geometry quality of the recon-\nstructed meshes, we use follow prior works [56, 69] and\nuse Chamfer Distance (CD) and F-score (FS) as our eval-\nuation metrics. CD measures the alignment between two\npoint clouds and is deﬁned as the average of accuracy and\n16864\n",
+      "blocks": [
+        {
+          "bbox": [
+            200.13,
+            118.44,
+            253.79,
+            136.55
+          ],
+          "type": 0,
+          "text": "Monte Carlo \nMIS Sampling"
+        },
+        {
+          "bbox": [
+            200.98,
+            92.21,
+            250.71,
+            100.45
+          ],
+          "type": 0,
+          "text": "Disney BRDF"
+        },
+        {
+          "bbox": [
+            202.42,
+            154.49,
+            249.25,
+            162.72
+          ],
+          "type": 0,
+          "text": "Visibility Test"
+        },
+        {
+          "bbox": [
+            62.49,
+            113.38,
+            106.01,
+            121.61
+          ],
+          "type": 0,
+          "text": "Input Image"
+        },
+        {
+          "bbox": [
+            67.73,
+            176.09,
+            97.25,
+            184.32
+          ],
+          "type": 0,
+          "text": "Triplane"
+        },
+        {
+          "bbox": [
+            135.02,
+            143.25,
+            160.76,
+            151.49
+          ],
+          "type": 0,
+          "text": "Albedo"
+        },
+        {
+          "bbox": [
+            131.72,
+            159.59,
+            164.21,
+            167.83
+          ],
+          "type": 0,
+          "text": "Env Map"
+        },
+        {
+          "bbox": [
+            134.25,
+            86.1,
+            162.16,
+            94.33
+          ],
+          "type": 0,
+          "text": "Metallic"
+        },
+        {
+          "bbox": [
+            127.77,
+            102.79,
+            169.43,
+            111.03
+          ],
+          "type": 0,
+          "text": "Roughness"
+        },
+        {
+          "bbox": [
+            129.76,
+            125.67,
+            321.86,
+            135.15
+          ],
+          "type": 0,
+          "text": "Geometry\nRendering   Loss"
+        },
+        {
+          "bbox": [
+            287.04,
+            178.71,
+            323.23,
+            186.94
+          ],
+          "type": 0,
+          "text": "Rendered"
+        },
+        {
+          "bbox": [
+            285.67,
+            113.69,
+            322.28,
+            121.92
+          ],
+          "type": 0,
+          "text": "GT Image"
+        },
+        {
+          "bbox": [
+            134.61,
+            176.59,
+            161.22,
+            184.82
+          ],
+          "type": 0,
+          "text": "Normal"
+        },
+        {
+          "bbox": [
+            58.5,
+            199.38,
+            330.76,
+            274.2
+          ],
+          "type": 0,
+          "text": "Figure 3. Our Differentiable Renderer. We estimate geometry, albedo,\nlighting, and normal maps from the triplane and metallic/roughness values\nfrom the image. We rasterize and interpolate these values as input to our\nshader (omitted here for simplicity). Our shader uses the Disney BRDF [3]\nand performs Monte Carlo integration. We further perform visibility testing\nto improve shadow modeling. Finally, we compare the rendered image with\nthe GT image and minimize the rendering loss."
+        },
+        {
+          "bbox": [
+            527.87,
+            80.84,
+            549.99,
+            89.38
+          ],
+          "type": 0,
+          "text": "Surface"
+        },
+        {
+          "bbox": [
+            527.87,
+            118.59,
+            549.99,
+            127.13
+          ],
+          "type": 0,
+          "text": "Surface"
+        },
+        {
+          "bbox": [
+            476.72,
+            99.86,
+            507.08,
+            108.4
+          ],
+          "type": 0,
+          "text": "Shadowed"
+        },
+        {
+          "bbox": [
+            350.94,
+            72.45,
+            397.23,
+            82.7
+          ],
+          "type": 0,
+          "text": "Surface Point p0"
+        },
+        {
+          "bbox": [
+            399.0,
+            89.49,
+            406.14,
+            99.75
+          ],
+          "type": 0,
+          "text": "p1"
+        },
+        {
+          "bbox": [
+            419.7,
+            102.4,
+            425.65,
+            112.65
+          ],
+          "type": 0,
+          "text": "p2"
+        },
+        {
+          "bbox": [
+            454.86,
+            130.45,
+            490.91,
+            138.99
+          ],
+          "type": 0,
+          "text": "Sampled ray"
+        },
+        {
+          "bbox": [
+            392.33,
+            108.94,
+            411.25,
+            125.19
+          ],
+          "type": 0,
+          "text": "Depth \ntest"
+        },
+        {
+          "bbox": [
+            379.91,
+            173.31,
+            402.76,
+            181.85
+          ],
+          "type": 0,
+          "text": "Camera"
+        },
+        {
+          "bbox": [
+            343.11,
+            199.38,
+            551.01,
+            252.29
+          ],
+          "type": 0,
+          "text": "Figure 4. Shadow Modeling. We perform visibility test-\ning in screen-space by marching along sampled rays. If\nany point along the ray has a ray depth which is farther\naway than the depth map, we consider the entire ray as\nshadowed."
+        },
+        {
+          "bbox": [
+            58.5,
+            282.6,
+            166.04,
+            293.56
+          ],
+          "type": 0,
+          "text": "3.3. Interactive Editing"
+        },
+        {
+          "bbox": [
+            58.5,
+            301.51,
+            294.75,
+            478.85
+          ],
+          "type": 0,
+          "text": "A unique advantage of our two-stage design is that it nat-\nurally supports interactive editing of unseen regions in our\nproduced mesh. In most circumstances, the visible surface\nis determined by the input image and remains highly accu-\nrate, while the unseen surface is mainly based on the sam-\npled point cloud, which might not align with user intention.\nIn this case, editing the unseen surface of the mesh is fea-\nsible by altering the point cloud. Point clouds are perhaps\none of the most ﬂexible 3D representation for editing pur-\nposes because there are no topology constraints. Given the\nlow resolution of our point clouds, editing the point cloud\nis fairly efﬁcient and intuitive. Users can easily delete, du-\nplicate, stretch or recolor points in the point cloud. Our ef-\nﬁcient meshing model is able to produce the adjusted mesh\nin 0.3 seconds, which makes this process fairly interactive."
+        },
+        {
+          "bbox": [
+            58.5,
+            488.22,
+            187.56,
+            499.18
+          ],
+          "type": 0,
+          "text": "3.4. Implementation Details"
+        },
+        {
+          "bbox": [
+            58.5,
+            507.02,
+            294.75,
+            624.69
+          ],
+          "type": 0,
+          "text": "Point Sampling Stage.\nOur point diffusion model has 16\ntransformer blocks in total. Each transformer block consists\nof two Layer Normalization layer, one Multi-Head Atten-\ntion (MHA) layer and one MLP. We use a feature dimension\nof 1024 and 16 attention heads in each MHA layer. With\nmany emissive objects in our dataset, albedo can be visually\ndistinct from the input image and hard to learn. Therefore,\ninstead of directly generating albedo point clouds in the\npoint sampling stage, we learn to generate white-lit point\nclouds as a proxy target."
+        },
+        {
+          "bbox": [
+            58.5,
+            631.59,
+            294.75,
+            713.4
+          ],
+          "type": 0,
+          "text": "Meshing Stage.\nOur triplane transformer consists of 4\ntwo-stream blocks [27]. Each two-stream block consists\nof three self-attentions and two cross-attentions. The main\ncomputation is carried out using 3,072 latent tokens, each\nwith a feature dimension of 1024. The MHA includes 16\nattention heads. The point cloud encoder is a vanilla trans-\nformer with 12 layers and 512 feature dimension, and the"
+        },
+        {
+          "bbox": [
+            317.25,
+            283.48,
+            553.5,
+            496.68
+          ],
+          "type": 0,
+          "text": "image encoder is DINOv2-large. We use a tetrahedra reso-\nlution of 160 for DMTet. In our differentiable shader, we\nfollow Hasselgren et al. [22] and use a detached biased\nsampling scheme. We sample based on the specular lobe\n(GGX [59]), the 2D piecewise-linear distribution of the en-\nvironment map luminance and the hemispherical distribu-\ntion.\nSpeciﬁcally, we include 6 samples from the GGX\nlobe, 6 samples from the 2D piecewise-linear distribution\nof the luminance, and 4 samples from the hemispherical\ndistribution. The main body of the shader is implemented\nin PyTorch, while the screen-space shadowing and the 2D\npiecewise-linear distribution computation for the environ-\nment map are implemented as custom CUDA kernels for\nefﬁciency. The training of our meshing stage includes mul-\ntiple phases, where we increase the rendering resolution and\ndecrease the batch size at later training phases. We use GT\npoint clouds as input when training the meshing model. The\ncuration of our training data follows TripoSR [56]."
+        },
+        {
+          "bbox": [
+            317.25,
+            511.27,
+            394.29,
+            523.22
+          ],
+          "type": 0,
+          "text": "4. Experiments"
+        },
+        {
+          "bbox": [
+            317.25,
+            531.73,
+            387.47,
+            542.69
+          ],
+          "type": 0,
+          "text": "4.1. Evaluation"
+        },
+        {
+          "bbox": [
+            317.25,
+            551.19,
+            553.5,
+            644.95
+          ],
+          "type": 0,
+          "text": "Datasets.\nWe used two datasets for evaluation, GSO [16]\nand OmniObject3D [67]. We follow TripoSR [56] and re-\nmove simple box or cylindrical objects to avoid bias on\nsimple geometries. Each of the evaluation sets consists of\naround 250 objects. We render the objects with diverse az-\nimuth angles at different elevations, with randomly sampled\nHDRI environment maps. We also vary the focal length of\nthe camera to create more diverse test cases."
+        },
+        {
+          "bbox": [
+            317.25,
+            655.5,
+            553.5,
+            713.4
+          ],
+          "type": 0,
+          "text": "Metrics.\nTo evaluate the geometry quality of the recon-\nstructed meshes, we use follow prior works [56, 69] and\nuse Chamfer Distance (CD) and F-score (FS) as our eval-\nuation metrics. CD measures the alignment between two\npoint clouds and is deﬁned as the average of accuracy and"
+        },
+        {
+          "bbox": [
+            294.75,
+            746.52,
+            317.25,
+            758.53
+          ],
+          "type": 0,
+          "text": "16864"
+        }
+      ],
+      "preview": null
+    },
+    {
+      "doc": "spar3d",
+      "page": 6,
+      "width": 612.0,
+      "height": 792.0,
+      "text": "Method\nCD↓\nFS@0.1↑\nFS@0.2↑\nFS@0.5↑\nPSNR↑\nSSIM↑\nLPIPS↓\nTime (s)↓\nShap-E [30]\n0.204\n0.359\n0.638\n0.922\n15.3\n0.802\n0.205\n3.1\nLN3Diff [32]\n0.174\n0.422\n0.703\n0.949\n17.1\n0.819\n0.169\n5.1\nLGM [55]\n0.196\n0.356\n0.635\n0.936\n17.0\n0.818\n0.184\n41.0\nCRM [63]\n0.161\n0.437\n0.735\n0.961\n17.5\n0.830\n0.169\n7.4\n3DTopia-XL [8]\n0.205\n0.383\n0.651\n0.913\n16.0\n0.818\n0.193\n40.6\nEra3D [34]\n0.181\n0.417\n0.690\n0.941\n16.9\n0.818\n0.173\n348.0\nTripoSR [56]\n0.145\n0.501\n0.784\n0.968\n18.5\n0.837\n0.151\n0.2\nInstantMesh [69]\n0.135\n0.545\n0.812\n0.971\n18.1\n0.838\n0.146\n36.1\nSF3D [2]\n0.137\n0.540\n0.806\n0.970\n18.0\n0.839\n0.145\n0.3\nSPAR3D (ours)\n0.120\n0.584\n0.850\n0.983\n18.6\n0.836\n0.139\n0.7\nTable 1. Quantitative Comparisons on GSO [16]. SPAR3D performs favorably to other state-of-the-art methods.\nMethod\nCD↓\nFS@0.1↑\nFS@0.2↑\nFS@0.5↑\nPSNR↑\nSSIM↑\nLPIPS↓\nTime (s)↓\nShap-E [30]\n0.212\n0.349\n0.624\n0.909\n14.8\n0.8006\n0.205\n3.1\nLN3Diff [32]\n0.160\n0.480\n0.744\n0.957\n16.7\n0.819\n0.161\n5.0\nLGM [55]\n0.200\n0.366\n0.638\n0.924\n16.1\n0.810\n0.188\n42.0\nCRM [63]\n0.155\n0.482\n0.765\n0.962\n17.0\n0.828\n0.162\n7.0\n3DTopia-XL [8]\n0.191\n0.407\n0.676\n0.931\n15.8\n0.817\n0.186\n41.2\nEra3D [34]\n0.185\n0.420\n0.685\n0.937\n16.4\n0.816\n0.167\n391.7\nTripoSR [56]\n0.144\n0.537\n0.785\n0.963\n18.0\n0.835\n0.147\n0.2\nInstantMesh [69]\n0.145\n0.546\n0.790\n0.962\n17.2\n0.832\n0.150\n34.7\nSF3D [2]\n0.138\n0.554\n0.800\n0.967\n17.4\n0.836\n0.145\n0.3\nSPAR3D (ours)\n0.122\n0.587\n0.845\n0.978\n17.9\n0.832\n0.140\n0.7\nTable 2. Quantitative Comparisons on OmniObject3D [67]. SPAR3D performs favorably to other state-of-the-art methods.\ncompleteness:\nd(S1, S2) =\n1\n2|S1|\nX\nx∈S1\nmin\ny∈S2 ∥x−y∥2+\n1\n2|S2|\nX\ny∈S2\nmin\nx∈S1 ∥x−y∥2\n(3)\nFS evaluates point cloud alignment by calculating the F-\nscore with a predeﬁned threshold.\nPredicted points that\nlie within the distance threshold are considered as correct\npredictions. A higher FS means better alignment between\nthe reconstructed shape and the groundtruth. To evaluate\nthe texture quality, we compute standard image metrics, in-\ncluding PSNR, SSIM and LPIPS, between images rendered\nfrom the predicted mesh and the groundtruth images.\nProtocol.\nTo calculate the metrics that are comparable\nacross methods, the meshes need to lie in the same coordi-\nnate system. To this end, we perform brute-force search in\nrotations to align each predicted mesh with the groundtruth\nmesh. Both the prediction and the groundtruth are normal-\nized before the brute-force alignment, and the alignment is\nfurther reﬁned with ICP.\nBaselines.\nWe compare SPAR3D with other efﬁcient\nmethods for single-view 3D generation or reconstruction [2,\n55, 56, 63, 69].\nWe use the ofﬁcial implementation for\nall baselines, and we evaluate the produced meshes un-\nder the same protocol. Speciﬁcally, we compare against\nTripoSR [56], LGM [55], CRM [63], InstantMesh [69],\nLN3Diff [32], Shap-E [30] and SF3D [2]. Among these\nbaselines, TripoSR and SF3D are pure regression-based ap-\nproaches; LGM, CRM and InstantMesh use multiview dif-\nfusion to generate pseudo multi-view images; LN3Diff and\nShap-E are purely diffusion-based 3D generative models.\n4.2. Main Results\nQuantitative Comparison.\nWe compare SPAR3D to\nother baselines on GSO and Omniobject3D quantitatively.\nAs shown in Tab. 1 and Tab. 2, SPAR3D outperforms all\nother regressive or generative baselines signiﬁcantly across\nmost metrics on both datasets. For SSIM, we observe that\nSPAR3D is slightly worse than the strongest baseline for\nthis metric. We ﬁnd that this relates to the Monte Carlo\nnoise from our shader. SPAR3D is also among the fastest re-\nconstruction models with an inference speed of 0.7 seconds\nper object, which is signiﬁcantly faster than 3D or multi-\nview diffusion-based approaches.\nQualitative Results.\nWe show qualitative results of dif-\nferent methods in Fig. 5. The reconstructed meshes from\npure regression-based approaches such as SF3D or TripoSR\nalign with the input image well, but the backside is of-\nten less accurate and over-smoothed. Multi-view diffusion-\nbased methods such as LGM, CRM and InstantMesh show\nmore details on the backside. However, the inconsistency\nin the synthesized views leads to clear artifacts and overall\nworse results. Pure generative approaches such as Shap-E\nand LN3Diff are able to produce sharp surfaces in their gen-\neration. However, many details are erroneous hallucinations\nthat do not accurately follow the input images, and the vis-\n16865\n",
+      "blocks": [
+        {
+          "bbox": [
+            79.05,
+            72.72,
+            532.95,
+            192.0
+          ],
+          "type": 0,
+          "text": "Method\nCD↓\nFS@0.1↑\nFS@0.2↑\nFS@0.5↑\nPSNR↑\nSSIM↑\nLPIPS↓\nTime (s)↓\nShap-E [30]\n0.204\n0.359\n0.638\n0.922\n15.3\n0.802\n0.205\n3.1\nLN3Diff [32]\n0.174\n0.422\n0.703\n0.949\n17.1\n0.819\n0.169\n5.1\nLGM [55]\n0.196\n0.356\n0.635\n0.936\n17.0\n0.818\n0.184\n41.0\nCRM [63]\n0.161\n0.437\n0.735\n0.961\n17.5\n0.830\n0.169\n7.4\n3DTopia-XL [8]\n0.205\n0.383\n0.651\n0.913\n16.0\n0.818\n0.193\n40.6\nEra3D [34]\n0.181\n0.417\n0.690\n0.941\n16.9\n0.818\n0.173\n348.0\nTripoSR [56]\n0.145\n0.501\n0.784\n0.968\n18.5\n0.837\n0.151\n0.2\nInstantMesh [69]\n0.135\n0.545\n0.812\n0.971\n18.1\n0.838\n0.146\n36.1\nSF3D [2]\n0.137\n0.540\n0.806\n0.970\n18.0\n0.839\n0.145\n0.3\nSPAR3D (ours)\n0.120\n0.584\n0.850\n0.983\n18.6\n0.836\n0.139\n0.7"
+        },
+        {
+          "bbox": [
+            100.34,
+            204.24,
+            511.66,
+            213.31
+          ],
+          "type": 0,
+          "text": "Table 1. Quantitative Comparisons on GSO [16]. SPAR3D performs favorably to other state-of-the-art methods."
+        },
+        {
+          "bbox": [
+            79.05,
+            222.9,
+            532.95,
+            342.18
+          ],
+          "type": 0,
+          "text": "Method\nCD↓\nFS@0.1↑\nFS@0.2↑\nFS@0.5↑\nPSNR↑\nSSIM↑\nLPIPS↓\nTime (s)↓\nShap-E [30]\n0.212\n0.349\n0.624\n0.909\n14.8\n0.8006\n0.205\n3.1\nLN3Diff [32]\n0.160\n0.480\n0.744\n0.957\n16.7\n0.819\n0.161\n5.0\nLGM [55]\n0.200\n0.366\n0.638\n0.924\n16.1\n0.810\n0.188\n42.0\nCRM [63]\n0.155\n0.482\n0.765\n0.962\n17.0\n0.828\n0.162\n7.0\n3DTopia-XL [8]\n0.191\n0.407\n0.676\n0.931\n15.8\n0.817\n0.186\n41.2\nEra3D [34]\n0.185\n0.420\n0.685\n0.937\n16.4\n0.816\n0.167\n391.7\nTripoSR [56]\n0.144\n0.537\n0.785\n0.963\n18.0\n0.835\n0.147\n0.2\nInstantMesh [69]\n0.145\n0.546\n0.790\n0.962\n17.2\n0.832\n0.150\n34.7\nSF3D [2]\n0.138\n0.554\n0.800\n0.967\n17.4\n0.836\n0.145\n0.3\nSPAR3D (ours)\n0.122\n0.587\n0.845\n0.978\n17.9\n0.832\n0.140\n0.7"
+        },
+        {
+          "bbox": [
+            58.5,
+            354.42,
+            531.58,
+            378.52
+          ],
+          "type": 0,
+          "text": "Table 2. Quantitative Comparisons on OmniObject3D [67]. SPAR3D performs favorably to other state-of-the-art methods.\ncompleteness:"
+        },
+        {
+          "bbox": [
+            58.5,
+            388.5,
+            127.09,
+            409.35
+          ],
+          "type": 0,
+          "text": "d(S1, S2) =\n1\n2|S1|"
+        },
+        {
+          "bbox": [
+            131.95,
+            385.34,
+            145.25,
+            394.3
+          ],
+          "type": 0,
+          "text": "X"
+        },
+        {
+          "bbox": [
+            129.82,
+            388.5,
+            226.33,
+            412.88
+          ],
+          "type": 0,
+          "text": "x∈S1\nmin\ny∈S2 ∥x−y∥2+\n1\n2|S2|"
+        },
+        {
+          "bbox": [
+            231.11,
+            385.34,
+            244.42,
+            394.3
+          ],
+          "type": 0,
+          "text": "X"
+        },
+        {
+          "bbox": [
+            229.07,
+            394.08,
+            297.22,
+            412.88
+          ],
+          "type": 0,
+          "text": "y∈S2\nmin\nx∈S1 ∥x−y∥2"
+        },
+        {
+          "bbox": [
+            58.5,
+            414.0,
+            294.75,
+            518.85
+          ],
+          "type": 0,
+          "text": "(3)\nFS evaluates point cloud alignment by calculating the F-\nscore with a predeﬁned threshold.\nPredicted points that\nlie within the distance threshold are considered as correct\npredictions. A higher FS means better alignment between\nthe reconstructed shape and the groundtruth. To evaluate\nthe texture quality, we compute standard image metrics, in-\ncluding PSNR, SSIM and LPIPS, between images rendered\nfrom the predicted mesh and the groundtruth images."
+        },
+        {
+          "bbox": [
+            58.5,
+            528.34,
+            294.75,
+            610.15
+          ],
+          "type": 0,
+          "text": "Protocol.\nTo calculate the metrics that are comparable\nacross methods, the meshes need to lie in the same coordi-\nnate system. To this end, we perform brute-force search in\nrotations to align each predicted mesh with the groundtruth\nmesh. Both the prediction and the groundtruth are normal-\nized before the brute-force alignment, and the alignment is\nfurther reﬁned with ICP."
+        },
+        {
+          "bbox": [
+            58.5,
+            619.64,
+            294.75,
+            713.4
+          ],
+          "type": 0,
+          "text": "Baselines.\nWe compare SPAR3D with other efﬁcient\nmethods for single-view 3D generation or reconstruction [2,\n55, 56, 63, 69].\nWe use the ofﬁcial implementation for\nall baselines, and we evaluate the produced meshes un-\nder the same protocol. Speciﬁcally, we compare against\nTripoSR [56], LGM [55], CRM [63], InstantMesh [69],\nLN3Diff [32], Shap-E [30] and SF3D [2]. Among these\nbaselines, TripoSR and SF3D are pure regression-based ap-"
+        },
+        {
+          "bbox": [
+            317.25,
+            368.56,
+            553.5,
+            402.43
+          ],
+          "type": 0,
+          "text": "proaches; LGM, CRM and InstantMesh use multiview dif-\nfusion to generate pseudo multi-view images; LN3Diff and\nShap-E are purely diffusion-based 3D generative models."
+        },
+        {
+          "bbox": [
+            317.25,
+            413.29,
+            398.23,
+            424.25
+          ],
+          "type": 0,
+          "text": "4.2. Main Results"
+        },
+        {
+          "bbox": [
+            317.25,
+            432.58,
+            553.5,
+            562.2
+          ],
+          "type": 0,
+          "text": "Quantitative Comparison.\nWe compare SPAR3D to\nother baselines on GSO and Omniobject3D quantitatively.\nAs shown in Tab. 1 and Tab. 2, SPAR3D outperforms all\nother regressive or generative baselines signiﬁcantly across\nmost metrics on both datasets. For SSIM, we observe that\nSPAR3D is slightly worse than the strongest baseline for\nthis metric. We ﬁnd that this relates to the Monte Carlo\nnoise from our shader. SPAR3D is also among the fastest re-\nconstruction models with an inference speed of 0.7 seconds\nper object, which is signiﬁcantly faster than 3D or multi-\nview diffusion-based approaches."
+        },
+        {
+          "bbox": [
+            317.25,
+            571.82,
+            553.5,
+            713.4
+          ],
+          "type": 0,
+          "text": "Qualitative Results.\nWe show qualitative results of dif-\nferent methods in Fig. 5. The reconstructed meshes from\npure regression-based approaches such as SF3D or TripoSR\nalign with the input image well, but the backside is of-\nten less accurate and over-smoothed. Multi-view diffusion-\nbased methods such as LGM, CRM and InstantMesh show\nmore details on the backside. However, the inconsistency\nin the synthesized views leads to clear artifacts and overall\nworse results. Pure generative approaches such as Shap-E\nand LN3Diff are able to produce sharp surfaces in their gen-\neration. However, many details are erroneous hallucinations\nthat do not accurately follow the input images, and the vis-"
+        },
+        {
+          "bbox": [
+            294.75,
+            746.52,
+            317.25,
+            758.53
+          ],
+          "type": 0,
+          "text": "16865"
+        }
+      ],
+      "preview": null
+    },
+    {
+      "doc": "spar3d",
+      "page": 7,
+      "width": 612.0,
+      "height": 792.0,
+      "text": "Input \nImage\nShap-E\nLN3Diff\nLGM\nCRM\nTripoSR\nInstant\nMesh\nSF3D\nOurs\nFigure 5. Qualitative Comparison. We compare SPAR3D to other state-of-the-art methods visually. SPAR3D not only aligns better with\nthe visible surfaces from images, but also generates higher-quality geometries and textures for the occluded surfaces.\nImage\nPoint Cloud\nMesh Output\nImage\nPoint Cloud\nMesh Output\nImage\nPoint Cloud\nMesh Output\nFigure 6. Generalization Results. We show qualitative results of SPAR3D on in-the-wild images from 2D generative models (top 2 rows)\nand ImageNet (bottom 2 rows). The reconstructed meshes exhibit accurate geometric structures with great textures, demonstrating a strong\ngeneralization performance of SPAR3D.\nible surfaces are often reconstructed incorrectly. Compared\nto prior art, the meshes produced by SPAR3D not only\nfaithfully resemble the input image, but also exhibit well-\ngenerated occluded parts with reasonable details. In Fig. 6,\nwe further show qualitative results of SPAR3D on in-the-\nwild images. The images are generated using text-to-image\ngenerative models or from the ImageNet validation set [14].\nThe high quality of the reconstructed meshes demonstrates\na strong generalization performance of SPAR3D. More re-\nsults and comparisons are included in the supplement.\n4.3. Editing Results\nThe usage of explicit point clouds as an intermediate rep-\nresentation enables interactive editing of the generated\nmeshes. Users can easily alter the unseen surface of the\nmesh by manipulating the point cloud. In Fig. 7, we show a\n16866\n",
+      "blocks": [
+        {
+          "bbox": [
+            80.99,
+            82.99,
+            102.34,
+            102.42
+          ],
+          "type": 0,
+          "text": "Input \nImage"
+        },
+        {
+          "bbox": [
+            78.85,
+            119.73,
+            104.47,
+            129.94
+          ],
+          "type": 0,
+          "text": "Shap-E"
+        },
+        {
+          "bbox": [
+            78.93,
+            152.92,
+            104.4,
+            163.13
+          ],
+          "type": 0,
+          "text": "LN3Diff"
+        },
+        {
+          "bbox": [
+            83.34,
+            186.11,
+            99.98,
+            196.33
+          ],
+          "type": 0,
+          "text": "LGM"
+        },
+        {
+          "bbox": [
+            82.92,
+            219.31,
+            100.41,
+            229.52
+          ],
+          "type": 0,
+          "text": "CRM"
+        },
+        {
+          "bbox": [
+            77.72,
+            252.5,
+            105.6,
+            262.71
+          ],
+          "type": 0,
+          "text": "TripoSR"
+        },
+        {
+          "bbox": [
+            80.13,
+            285.7,
+            103.19,
+            305.13
+          ],
+          "type": 0,
+          "text": "Instant\nMesh"
+        },
+        {
+          "bbox": [
+            81.85,
+            318.89,
+            101.47,
+            329.1
+          ],
+          "type": 0,
+          "text": "SF3D"
+        },
+        {
+          "bbox": [
+            83.34,
+            352.08,
+            99.98,
+            362.3
+          ],
+          "type": 0,
+          "text": "Ours"
+        },
+        {
+          "bbox": [
+            58.5,
+            375.66,
+            553.5,
+            395.69
+          ],
+          "type": 0,
+          "text": "Figure 5. Qualitative Comparison. We compare SPAR3D to other state-of-the-art methods visually. SPAR3D not only aligns better with\nthe visible surfaces from images, but also generates higher-quality geometries and textures for the occluded surfaces."
+        },
+        {
+          "bbox": [
+            81.44,
+            554.68,
+            530.62,
+            565.31
+          ],
+          "type": 0,
+          "text": "Image\nPoint Cloud\nMesh Output\nImage\nPoint Cloud\nMesh Output\nImage\nPoint Cloud\nMesh Output"
+        },
+        {
+          "bbox": [
+            58.5,
+            576.12,
+            553.5,
+            607.11
+          ],
+          "type": 0,
+          "text": "Figure 6. Generalization Results. We show qualitative results of SPAR3D on in-the-wild images from 2D generative models (top 2 rows)\nand ImageNet (bottom 2 rows). The reconstructed meshes exhibit accurate geometric structures with great textures, demonstrating a strong\ngeneralization performance of SPAR3D."
+        },
+        {
+          "bbox": [
+            58.5,
+            613.55,
+            294.75,
+            707.2
+          ],
+          "type": 0,
+          "text": "ible surfaces are often reconstructed incorrectly. Compared\nto prior art, the meshes produced by SPAR3D not only\nfaithfully resemble the input image, but also exhibit well-\ngenerated occluded parts with reasonable details. In Fig. 6,\nwe further show qualitative results of SPAR3D on in-the-\nwild images. The images are generated using text-to-image\ngenerative models or from the ImageNet validation set [14].\nThe high quality of the reconstructed meshes demonstrates"
+        },
+        {
+          "bbox": [
+            317.25,
+            613.55,
+            553.5,
+            635.47
+          ],
+          "type": 0,
+          "text": "a strong generalization performance of SPAR3D. More re-\nsults and comparisons are included in the supplement."
+        },
+        {
+          "bbox": [
+            317.25,
+            647.7,
+            407.98,
+            658.66
+          ],
+          "type": 0,
+          "text": "4.3. Editing Results"
+        },
+        {
+          "bbox": [
+            317.25,
+            667.57,
+            553.5,
+            713.4
+          ],
+          "type": 0,
+          "text": "The usage of explicit point clouds as an intermediate rep-\nresentation enables interactive editing of the generated\nmeshes. Users can easily alter the unseen surface of the\nmesh by manipulating the point cloud. In Fig. 7, we show a"
+        },
+        {
+          "bbox": [
+            294.75,
+            746.52,
+            317.25,
+            758.53
+          ],
+          "type": 0,
+          "text": "16866"
+        }
+      ],
+      "preview": null
+    },
+    {
+      "doc": "spar3d",
+      "page": 8,
+      "width": 612.0,
+      "height": 792.0,
+      "text": "Point Cloud\nMesh Output\nPoint Cloud\nMesh Output\nEdit\nEdit\nEdit\nEdit\nFigure 7. Editing Results. We show qualitative examples of interactive editing with SPAR3D. On the left two examples, we add a handle\nto the mug and a tail to the elephant doll by duplicating existing points. On the right two examples, we move or delete points to ﬁx\nimperfections and to improve local details on the mesh. All the edits are performed in Blender within a minute.\nfew editing examples with SPAR3D, either by adding major\nobject parts to the reconstruction, or improving undesirable\ngenerated details.\n4.4. Ablation\nWe ablate the key idea of SPAR3D, the point sampling\nstage, which can be seen as an addition to standard re-\ngression approaches. We consider a variant of our model\n(SPAR3D w/o Point), where we remove the point sampling\nstage and make SPAR3D a full regressive model. We com-\npare this variant with our full model on both GSO and Om-\nniobject3D. As shown in Tab. 3, our full SPAR3D signif-\nicantly outperforms the regressive variant, which validates\nthe effectiveness of our design. More ablation experiments\nare included in the supplement.\nMethod\nCD↓\nFS@0.1↑\nPSNR↑\nLPIPS↓\nSPAR3D w/o Point\n0.136\n0.506\n18.5\n0.146\nSPAR3D\n0.120\n0.584\n18.6\n0.139\nSPAR3D w/o Point\n0.140\n0.509\n17.8\n0.146\nSPAR3D\n0.122\n0.587\n17.9\n0.140\nTable 3. Ablation Study on GSO (top 2 rows) and Omniob-\nject3D (bottom 2 rows). Removing the point sampling stage leads\nto signiﬁcant performance drop.\n4.5. Analysis\nWe further design experiments to understand how SPAR3D\nworks. Our key assumption when designing SPAR3D is\nthat the two-stage design effectively separates the uncertain\npart (back-surface modeling) and the deterministic part (vis-\nible surface modeling) of the monocular 3D reconstruction\nproblem. Ideally, the meshing stage should mainly rely on\nthe input image for reconstructing the visible surface, while\nrelying on the point cloud to generate the back surface. To\nsee whether this is true, we design an experiment where we\nartiﬁcially use point clouds that conﬂict with the input im-\nSquirrel\nImage\nMesh Output (6 views)\nHorse \nPoint Cloud\nFigure 8. Generated Mesh with Conﬂicting Cues. Under con-\nﬂicting cues from images and point clouds, our model reconstructs\nthe visible surface based on the image, while generating the back-\nside surface based on the point cloud.\nage. In Fig. 8, we feed the input image of a squirrel and\nthe point cloud of a horse to the meshing model. As shown\nin the ﬁgure, the reconstructed mesh indeed aligns with the\nsquirrel image well on the visible surface, while the back\nsurface mainly adheres to the point cloud. This result vali-\ndates our assumption.\n5. Conclusion\nWe present SPAR3D, a simple yet effective approach for\nsingle-view 3D reconstruction. The core of our model is a\ntwo-stage design based on point sampling. We ﬁrst generate\na sparse point cloud via point diffusion, and then reconstruct\na highly detailed mesh from both the point cloud and the\nimage. This design enables us to take the best of regression-\nbased and generative modeling.\nEvaluated on standard\nbenchmarks and in-the-wild images, SPAR3D signiﬁcantly\noutperforms previous state-of-the-art methods with a fast\ninference speed. We will release our model upon publica-\ntion, and we hope our effort is useful for future research\ntowards scalable generation of high-quality 3D content.\n16867\n",
+      "blocks": [
+        {
+          "bbox": [
+            124.63,
+            227.5,
+            506.7,
+            238.13
+          ],
+          "type": 0,
+          "text": "Point Cloud\nMesh Output\nPoint Cloud\nMesh Output"
+        },
+        {
+          "bbox": [
+            171.37,
+            107.65,
+            185.14,
+            118.28
+          ],
+          "type": 0,
+          "text": "Edit"
+        },
+        {
+          "bbox": [
+            171.37,
+            185.84,
+            185.14,
+            196.47
+          ],
+          "type": 0,
+          "text": "Edit"
+        },
+        {
+          "bbox": [
+            408.82,
+            105.65,
+            422.59,
+            116.28
+          ],
+          "type": 0,
+          "text": "Edit"
+        },
+        {
+          "bbox": [
+            408.82,
+            185.22,
+            422.59,
+            195.85
+          ],
+          "type": 0,
+          "text": "Edit"
+        },
+        {
+          "bbox": [
+            58.5,
+            250.69,
+            553.5,
+            281.68
+          ],
+          "type": 0,
+          "text": "Figure 7. Editing Results. We show qualitative examples of interactive editing with SPAR3D. On the left two examples, we add a handle\nto the mug and a tail to the elephant doll by duplicating existing points. On the right two examples, we move or delete points to ﬁx\nimperfections and to improve local details on the mesh. All the edits are performed in Blender within a minute."
+        },
+        {
+          "bbox": [
+            58.5,
+            288.12,
+            294.75,
+            321.99
+          ],
+          "type": 0,
+          "text": "few editing examples with SPAR3D, either by adding major\nobject parts to the reconstruction, or improving undesirable\ngenerated details."
+        },
+        {
+          "bbox": [
+            58.5,
+            331.75,
+            118.48,
+            342.71
+          ],
+          "type": 0,
+          "text": "4.4. Ablation"
+        },
+        {
+          "bbox": [
+            58.5,
+            350.8,
+            294.75,
+            468.36
+          ],
+          "type": 0,
+          "text": "We ablate the key idea of SPAR3D, the point sampling\nstage, which can be seen as an addition to standard re-\ngression approaches. We consider a variant of our model\n(SPAR3D w/o Point), where we remove the point sampling\nstage and make SPAR3D a full regressive model. We com-\npare this variant with our full model on both GSO and Om-\nniobject3D. As shown in Tab. 3, our full SPAR3D signif-\nicantly outperforms the regressive variant, which validates\nthe effectiveness of our design. More ablation experiments\nare included in the supplement."
+        },
+        {
+          "bbox": [
+            65.55,
+            473.64,
+            287.71,
+            522.95
+          ],
+          "type": 0,
+          "text": "Method\nCD↓\nFS@0.1↑\nPSNR↑\nLPIPS↓\nSPAR3D w/o Point\n0.136\n0.506\n18.5\n0.146\nSPAR3D\n0.120\n0.584\n18.6\n0.139\nSPAR3D w/o Point\n0.140\n0.509\n17.8\n0.146\nSPAR3D\n0.122\n0.587\n17.9\n0.140"
+        },
+        {
+          "bbox": [
+            58.5,
+            534.98,
+            294.75,
+            565.97
+          ],
+          "type": 0,
+          "text": "Table 3. Ablation Study on GSO (top 2 rows) and Omniob-\nject3D (bottom 2 rows). Removing the point sampling stage leads\nto signiﬁcant performance drop."
+        },
+        {
+          "bbox": [
+            58.5,
+            576.79,
+            117.26,
+            587.75
+          ],
+          "type": 0,
+          "text": "4.5. Analysis"
+        },
+        {
+          "bbox": [
+            58.5,
+            595.84,
+            294.75,
+            713.4
+          ],
+          "type": 0,
+          "text": "We further design experiments to understand how SPAR3D\nworks. Our key assumption when designing SPAR3D is\nthat the two-stage design effectively separates the uncertain\npart (back-surface modeling) and the deterministic part (vis-\nible surface modeling) of the monocular 3D reconstruction\nproblem. Ideally, the meshing stage should mainly rely on\nthe input image for reconstructing the visible surface, while\nrelying on the point cloud to generate the back surface. To\nsee whether this is true, we design an experiment where we\nartiﬁcially use point clouds that conﬂict with the input im-"
+        },
+        {
+          "bbox": [
+            341.07,
+            329.25,
+            366.76,
+            348.12
+          ],
+          "type": 0,
+          "text": "Squirrel\nImage"
+        },
+        {
+          "bbox": [
+            331.88,
+            396.11,
+            503.95,
+            414.98
+          ],
+          "type": 0,
+          "text": "Mesh Output (6 views)\nHorse \nPoint Cloud"
+        },
+        {
+          "bbox": [
+            317.25,
+            425.13,
+            553.5,
+            467.08
+          ],
+          "type": 0,
+          "text": "Figure 8. Generated Mesh with Conﬂicting Cues. Under con-\nﬂicting cues from images and point clouds, our model reconstructs\nthe visible surface based on the image, while generating the back-\nside surface based on the point cloud."
+        },
+        {
+          "bbox": [
+            317.25,
+            478.0,
+            553.5,
+            547.74
+          ],
+          "type": 0,
+          "text": "age. In Fig. 8, we feed the input image of a squirrel and\nthe point cloud of a horse to the meshing model. As shown\nin the ﬁgure, the reconstructed mesh indeed aligns with the\nsquirrel image well on the visible surface, while the back\nsurface mainly adheres to the point cloud. This result vali-\ndates our assumption."
+        },
+        {
+          "bbox": [
+            317.25,
+            562.48,
+            386.34,
+            574.44
+          ],
+          "type": 0,
+          "text": "5. Conclusion"
+        },
+        {
+          "bbox": [
+            317.25,
+            582.89,
+            553.5,
+            713.4
+          ],
+          "type": 0,
+          "text": "We present SPAR3D, a simple yet effective approach for\nsingle-view 3D reconstruction. The core of our model is a\ntwo-stage design based on point sampling. We ﬁrst generate\na sparse point cloud via point diffusion, and then reconstruct\na highly detailed mesh from both the point cloud and the\nimage. This design enables us to take the best of regression-\nbased and generative modeling.\nEvaluated on standard\nbenchmarks and in-the-wild images, SPAR3D signiﬁcantly\noutperforms previous state-of-the-art methods with a fast\ninference speed. We will release our model upon publica-\ntion, and we hope our effort is useful for future research\ntowards scalable generation of high-quality 3D content."
+        },
+        {
+          "bbox": [
+            294.75,
+            746.52,
+            317.25,
+            758.53
+          ],
+          "type": 0,
+          "text": "16867"
+        }
+      ],
+      "preview": null
+    },
+    {
+      "doc": "spar3d",
+      "page": 9,
+      "width": 612.0,
+      "height": 792.0,
+      "text": "References\n[1] Mark Boss, Varun Jampani, Raphael Braun, Ce Liu,\nJonathan T. Barron, and Hendrik P.A. Lensch. Neural-pil:\nNeural pre-integrated lighting for reﬂectance decomposition.\nNeurIPS, 2021. 4\n[2] Mark Boss, Zixuan Huang, Aaryaman Vasishta, and Varun\nJampani.\nSf3d: Stable fast 3d mesh reconstruction with\nuv-unwrapping and illumination disentanglement.\narXiv\npreprint, 2024. 2, 4, 6\n[3] Brent Burley.\nPhysically-based shading at disney.\nACM\nTransactions on Graphics (SIGGRAPH), 2012. 4, 5\n[4] Ruojin Cai, Guandao Yang, Hadar Averbuch-Elor, Zekun\nHao, Serge Belongie, Noah Snavely, and Bharath Hariharan.\nLearning gradient ﬁelds for shape generation. In Computer\nVision–ECCV 2020: 16th European Conference, Glasgow,\nUK, August 23–28, 2020, Proceedings, Part III 16, pages\n364–381. Springer, 2020. 2\n[5] Angel X Chang, Thomas Funkhouser, Leonidas Guibas,\nPat Hanrahan, Qixing Huang, Zimo Li, Silvio Savarese,\nManolis Savva, Shuran Song, Hao Su, et al.\nShapenet:\nAn information-rich 3d model repository.\narXiv preprint\narXiv:1512.03012, 2015. 2\n[6] Hansheng Chen, Jiatao Gu, Anpei Chen, Wei Tian, Zhuowen\nTu, Lingjie Liu, and Hao Su. Single-stage diffusion nerf:\nA uniﬁed approach to 3d generation and reconstruction. In\nProceedings of the IEEE/CVF international conference on\ncomputer vision, pages 2416–2425, 2023. 2, 3\n[7] Ting Chen. On the importance of noise scheduling for diffu-\nsion models. arXiv preprint arXiv:2301.10972, 2023. 3\n[8] Zhaoxi Chen, Jiaxiang Tang, Yuhao Dong, Ziang Cao,\nFangzhou Hong, Yushi Lan, Tengfei Wang, Haozhe Xie,\nTong Wu, Shunsuke Saito, et al. 3dtopia-xl: Scaling high-\nquality 3d asset generation via primitive diffusion.\narXiv\npreprint arXiv:2409.12957, 2024. 6\n[9] Yen-Chi Cheng, Hsin-Ying Lee, Sergey Tulyakov, Alexan-\nder G Schwing, and Liang-Yan Gui. Sdfusion: Multimodal\n3d shape completion, reconstruction, and generation. In Pro-\nceedings of the IEEE/CVF Conference on Computer Vision\nand Pattern Recognition, pages 4456–4465, 2023. 2, 3\n[10] Gene Chou, Yuval Bahat, and Felix Heide. Diffusion-sdf:\nConditional generative modeling of signed distance func-\ntions. In Proceedings of the IEEE/CVF International Con-\nference on Computer Vision, pages 2262–2272, 2023. 2, 3\n[11] Christopher B Choy, Danfei Xu, JunYoung Gwak, Kevin\nChen, and Silvio Savarese. 3d-r2n2: A uniﬁed approach for\nsingle and multi-view 3d object reconstruction. In European\nconference on computer vision, pages 628–644. Springer,\n2016. 2\n[12] Matt Deitke, Dustin Schwenk, Jordi Salvador, Luca Weihs,\nOscar Michel, Eli VanderBilt, Ludwig Schmidt, Kiana\nEhsani, Aniruddha Kembhavi, and Ali Farhadi.\nObja-\nverse: A universe of annotated 3d objects. arXiv preprint\narXiv:2212.08051, 2022. 2\n[13] Congyue Deng, Chiyu Jiang, Charles R Qi, Xinchen Yan,\nYin Zhou, Leonidas Guibas, Dragomir Anguelov, et al.\nNerdi:\nSingle-view nerf synthesis with language-guided\ndiffusion as general image priors.\nIn Proceedings of\nthe IEEE/CVF conference on computer vision and pattern\nrecognition, pages 20637–20647, 2023. 3\n[14] Jia Deng, Wei Dong, Richard Socher, Li-Jia Li, Kai Li,\nand Li Fei-Fei. Imagenet: A large-scale hierarchical image\ndatabase. In 2009 IEEE conference on computer vision and\npattern recognition, pages 248–255. Ieee, 2009. 7\n[15] Prafulla Dhariwal and Alexander Nichol. Diffusion models\nbeat gans on image synthesis. Advances in neural informa-\ntion processing systems, 34:8780–8794, 2021. 3\n[16] Laura Downs, Anthony Francis, Nate Koenig, Brandon Kin-\nman, Ryan Hickman, Krista Reymann, Thomas B McHugh,\nand Vincent Vanhoucke. Google scanned objects: A high-\nquality dataset of 3d scanned household items. In 2022 In-\nternational Conference on Robotics and Automation (ICRA),\npages 2553–2560. IEEE, 2022. 5, 6\n[17] Jun Gao, Tianchang Shen, Zian Wang, Wenzheng Chen,\nKangxue Yin, Daiqing Li, Or Litany, Zan Gojcic, and Sanja\nFidler. Get3d: A generative model of high quality 3d tex-\ntured shapes learned from images. Advances In Neural In-\nformation Processing Systems, 35:31841–31854, 2022. 2\n[18] Lin Gao, Tong Wu, Yu-Jie Yuan, Ming-Xian Lin, Yu-Kun\nLai, and Hao Zhang. Tm-net: Deep generative networks for\ntextured meshes. ACM Transactions on Graphics (TOG), 40\n(6):1–15, 2021. 3\n[19] James AD Gardner, Bernhard Egger, and William AP Smith.\nReni++ a rotation-equivariant, scale-invariant, natural illu-\nmination prior. arXiv preprint arXiv:2311.09361, 2023. 4\n[20] Thibault Groueix, Matthew Fisher, Vladimir G. Kim, Bryan\nRussell, and Mathieu Aubry. AtlasNet: A Papier-Mˆach´e Ap-\nproach to Learning 3D Surface Generation. In Proceedings\nIEEE Conf. on Computer Vision and Pattern Recognition\n(CVPR), 2018. 2\n[21] Jiatao Gu, Alex Trevithick, Kai-En Lin, Joshua M Susskind,\nChristian Theobalt, Lingjie Liu, and Ravi Ramamoorthi.\nNerfdiff: Single-image view synthesis with nerf-guided dis-\ntillation from 3d-aware diffusion. In International Confer-\nence on Machine Learning, pages 11808–11826. PMLR,\n2023. 3\n[22] Jon Hasselgren, Nikolai Hofmann, and Jacob Munkberg.\nShape, Light, and Material Decomposition from Images us-\ning Monte Carlo Rendering and Denoising. Adv. Neural In-\nform. Process. Syst. (NeurIPS), 2022. 5\n[23] Jonathan Ho and Tim Salimans.\nClassiﬁer-free diffusion\nguidance. arXiv preprint arXiv:2207.12598, 2022. 3\n[24] Jonathan Ho, Ajay Jain, and Pieter Abbeel. Denoising dif-\nfusion probabilistic models. Advances in neural information\nprocessing systems, 33:6840–6851, 2020. 3\n[25] Yicong Hong, Kai Zhang, Jiuxiang Gu, Sai Bi, Yang Zhou,\nDifan Liu, Feng Liu, Kalyan Sunkavalli, Trung Bui, and Hao\nTan. Lrm: Large reconstruction model for single image to\n3d. arXiv preprint arXiv:2311.04400, 2023. 2\n[26] Zixuan Huang, Varun Jampani, Anh Thai, Yuanzhen Li, Ste-\nfan Stojanov, and James M Rehg. Shapeclipper: Scalable 3d\nshape learning from single-view images via geometric and\nclip-based consistency.\nIn Proceedings of the IEEE/CVF\n16868\n",
+      "blocks": [
+        {
+          "bbox": [
+            58.5,
+            95.86,
+            114.04,
+            107.81
+          ],
+          "type": 0,
+          "text": "References"
+        },
+        {
+          "bbox": [
+            58.5,
+            116.2,
+            294.75,
+            713.16
+          ],
+          "type": 0,
+          "text": "[1] Mark Boss, Varun Jampani, Raphael Braun, Ce Liu,\nJonathan T. Barron, and Hendrik P.A. Lensch. Neural-pil:\nNeural pre-integrated lighting for reﬂectance decomposition.\nNeurIPS, 2021. 4\n[2] Mark Boss, Zixuan Huang, Aaryaman Vasishta, and Varun\nJampani.\nSf3d: Stable fast 3d mesh reconstruction with\nuv-unwrapping and illumination disentanglement.\narXiv\npreprint, 2024. 2, 4, 6\n[3] Brent Burley.\nPhysically-based shading at disney.\nACM\nTransactions on Graphics (SIGGRAPH), 2012. 4, 5\n[4] Ruojin Cai, Guandao Yang, Hadar Averbuch-Elor, Zekun\nHao, Serge Belongie, Noah Snavely, and Bharath Hariharan.\nLearning gradient ﬁelds for shape generation. In Computer\nVision–ECCV 2020: 16th European Conference, Glasgow,\nUK, August 23–28, 2020, Proceedings, Part III 16, pages\n364–381. Springer, 2020. 2\n[5] Angel X Chang, Thomas Funkhouser, Leonidas Guibas,\nPat Hanrahan, Qixing Huang, Zimo Li, Silvio Savarese,\nManolis Savva, Shuran Song, Hao Su, et al.\nShapenet:\nAn information-rich 3d model repository.\narXiv preprint\narXiv:1512.03012, 2015. 2\n[6] Hansheng Chen, Jiatao Gu, Anpei Chen, Wei Tian, Zhuowen\nTu, Lingjie Liu, and Hao Su. Single-stage diffusion nerf:\nA uniﬁed approach to 3d generation and reconstruction. In\nProceedings of the IEEE/CVF international conference on\ncomputer vision, pages 2416–2425, 2023. 2, 3\n[7] Ting Chen. On the importance of noise scheduling for diffu-\nsion models. arXiv preprint arXiv:2301.10972, 2023. 3\n[8] Zhaoxi Chen, Jiaxiang Tang, Yuhao Dong, Ziang Cao,\nFangzhou Hong, Yushi Lan, Tengfei Wang, Haozhe Xie,\nTong Wu, Shunsuke Saito, et al. 3dtopia-xl: Scaling high-\nquality 3d asset generation via primitive diffusion.\narXiv\npreprint arXiv:2409.12957, 2024. 6\n[9] Yen-Chi Cheng, Hsin-Ying Lee, Sergey Tulyakov, Alexan-\nder G Schwing, and Liang-Yan Gui. Sdfusion: Multimodal\n3d shape completion, reconstruction, and generation. In Pro-\nceedings of the IEEE/CVF Conference on Computer Vision\nand Pattern Recognition, pages 4456–4465, 2023. 2, 3\n[10] Gene Chou, Yuval Bahat, and Felix Heide. Diffusion-sdf:\nConditional generative modeling of signed distance func-\ntions. In Proceedings of the IEEE/CVF International Con-\nference on Computer Vision, pages 2262–2272, 2023. 2, 3\n[11] Christopher B Choy, Danfei Xu, JunYoung Gwak, Kevin\nChen, and Silvio Savarese. 3d-r2n2: A uniﬁed approach for\nsingle and multi-view 3d object reconstruction. In European\nconference on computer vision, pages 628–644. Springer,\n2016. 2\n[12] Matt Deitke, Dustin Schwenk, Jordi Salvador, Luca Weihs,\nOscar Michel, Eli VanderBilt, Ludwig Schmidt, Kiana\nEhsani, Aniruddha Kembhavi, and Ali Farhadi.\nObja-\nverse: A universe of annotated 3d objects. arXiv preprint\narXiv:2212.08051, 2022. 2\n[13] Congyue Deng, Chiyu Jiang, Charles R Qi, Xinchen Yan,\nYin Zhou, Leonidas Guibas, Dragomir Anguelov, et al."
+        },
+        {
+          "bbox": [
+            317.25,
+            75.15,
+            553.5,
+            713.16
+          ],
+          "type": 0,
+          "text": "Nerdi:\nSingle-view nerf synthesis with language-guided\ndiffusion as general image priors.\nIn Proceedings of\nthe IEEE/CVF conference on computer vision and pattern\nrecognition, pages 20637–20647, 2023. 3\n[14] Jia Deng, Wei Dong, Richard Socher, Li-Jia Li, Kai Li,\nand Li Fei-Fei. Imagenet: A large-scale hierarchical image\ndatabase. In 2009 IEEE conference on computer vision and\npattern recognition, pages 248–255. Ieee, 2009. 7\n[15] Prafulla Dhariwal and Alexander Nichol. Diffusion models\nbeat gans on image synthesis. Advances in neural informa-\ntion processing systems, 34:8780–8794, 2021. 3\n[16] Laura Downs, Anthony Francis, Nate Koenig, Brandon Kin-\nman, Ryan Hickman, Krista Reymann, Thomas B McHugh,\nand Vincent Vanhoucke. Google scanned objects: A high-\nquality dataset of 3d scanned household items. In 2022 In-\nternational Conference on Robotics and Automation (ICRA),\npages 2553–2560. IEEE, 2022. 5, 6\n[17] Jun Gao, Tianchang Shen, Zian Wang, Wenzheng Chen,\nKangxue Yin, Daiqing Li, Or Litany, Zan Gojcic, and Sanja\nFidler. Get3d: A generative model of high quality 3d tex-\ntured shapes learned from images. Advances In Neural In-\nformation Processing Systems, 35:31841–31854, 2022. 2\n[18] Lin Gao, Tong Wu, Yu-Jie Yuan, Ming-Xian Lin, Yu-Kun\nLai, and Hao Zhang. Tm-net: Deep generative networks for\ntextured meshes. ACM Transactions on Graphics (TOG), 40\n(6):1–15, 2021. 3\n[19] James AD Gardner, Bernhard Egger, and William AP Smith.\nReni++ a rotation-equivariant, scale-invariant, natural illu-\nmination prior. arXiv preprint arXiv:2311.09361, 2023. 4\n[20] Thibault Groueix, Matthew Fisher, Vladimir G. Kim, Bryan\nRussell, and Mathieu Aubry. AtlasNet: A Papier-Mˆach´e Ap-\nproach to Learning 3D Surface Generation. In Proceedings\nIEEE Conf. on Computer Vision and Pattern Recognition\n(CVPR), 2018. 2\n[21] Jiatao Gu, Alex Trevithick, Kai-En Lin, Joshua M Susskind,\nChristian Theobalt, Lingjie Liu, and Ravi Ramamoorthi.\nNerfdiff: Single-image view synthesis with nerf-guided dis-\ntillation from 3d-aware diffusion. In International Confer-\nence on Machine Learning, pages 11808–11826. PMLR,\n2023. 3\n[22] Jon Hasselgren, Nikolai Hofmann, and Jacob Munkberg.\nShape, Light, and Material Decomposition from Images us-\ning Monte Carlo Rendering and Denoising. Adv. Neural In-\nform. Process. Syst. (NeurIPS), 2022. 5\n[23] Jonathan Ho and Tim Salimans.\nClassiﬁer-free diffusion\nguidance. arXiv preprint arXiv:2207.12598, 2022. 3\n[24] Jonathan Ho, Ajay Jain, and Pieter Abbeel. Denoising dif-\nfusion probabilistic models. Advances in neural information\nprocessing systems, 33:6840–6851, 2020. 3\n[25] Yicong Hong, Kai Zhang, Jiuxiang Gu, Sai Bi, Yang Zhou,\nDifan Liu, Feng Liu, Kalyan Sunkavalli, Trung Bui, and Hao\nTan. Lrm: Large reconstruction model for single image to\n3d. arXiv preprint arXiv:2311.04400, 2023. 2\n[26] Zixuan Huang, Varun Jampani, Anh Thai, Yuanzhen Li, Ste-\nfan Stojanov, and James M Rehg. Shapeclipper: Scalable 3d\nshape learning from single-view images via geometric and\nclip-based consistency.\nIn Proceedings of the IEEE/CVF"
+        },
+        {
+          "bbox": [
+            294.75,
+            746.52,
+            317.25,
+            758.53
+          ],
+          "type": 0,
+          "text": "16868"
+        }
+      ],
+      "preview": null
+    },
+    {
+      "doc": "spar3d",
+      "page": 10,
+      "width": 612.0,
+      "height": 792.0,
+      "text": "Conference on Computer Vision and Pattern Recognition,\n2023. 2\n[27] Zixuan Huang, Justin Johnson, Shoubhik Debnath, James M\nRehg, and Chao-Yuan Wu.\nPointinﬁnity:\nResolution-\ninvariant point diffusion models.\nIn Proceedings of the\nIEEE/CVF Conference on Computer Vision and Pattern\nRecognition, pages 10050–10060, 2024. 2, 3, 4, 5\n[28] Zixuan Huang, Stefan Stojanov, Anh Thai, Varun Jampani,\nand James M Rehg. Zeroshape: Regression-based zero-shot\nshape reconstruction. In Proceedings of the IEEE/CVF Con-\nference on Computer Vision and Pattern Recognition, pages\n10061–10071, 2024. 2\n[29] Le Hui, Rui Xu, Jin Xie, Jianjun Qian, and Jian Yang. Pro-\ngressive point cloud deconvolution generation network. In\nComputer Vision–ECCV 2020: 16th European Conference,\nGlasgow, UK, August 23–28, 2020, Proceedings, Part XV\n16, pages 397–413. Springer, 2020. 2\n[30] Heewoo Jun and Alex Nichol.\nShap-e:\nGenerat-\ning conditional 3d implicit functions.\narXiv preprint\narXiv:2305.02463, 2023. 2, 3, 6\n[31] Roman Klokov, Edmond Boyer, and Jakob Verbeek. Discrete\npoint ﬂow networks for efﬁcient point cloud generation. In\nEuropean Conference on Computer Vision, pages 694–710.\nSpringer, 2020. 3\n[32] Yushi Lan, Fangzhou Hong, Shuai Yang, Shangchen Zhou,\nXuyi Meng, Bo Dai, Xingang Pan, and Chen Change Loy.\nLn3diff: Scalable latent neural ﬁelds diffusion for speedy 3d\ngeneration. arXiv preprint arXiv:2403.12019, 2024. 2, 3, 6\n[33] Muheng Li, Yueqi Duan, Jie Zhou, and Jiwen Lu. Diffusion-\nsdf: Text-to-shape via voxelized diffusion. In Proceedings of\nthe IEEE/CVF Conference on Computer Vision and Pattern\nRecognition, pages 12642–12651, 2023. 2, 3\n[34] Peng Li, Yuan Liu, Xiaoxiao Long, Feihu Zhang, Cheng Lin,\nMengfei Li, Xingqun Qi, Shanghang Zhang, Wei Xue, Wen-\nhan Luo, et al. Era3d: high-resolution multiview diffusion\nusing efﬁcient row-wise attention. Advances in Neural In-\nformation Processing Systems, 37:55975–56000, 2024. 6\n[35] Minghua Liu, Ruoxi Shi, Linghao Chen, Zhuoyang Zhang,\nChao Xu, Xinyue Wei, Hansheng Chen, Chong Zeng, Ji-\nayuan Gu, and Hao Su. One-2-3-45++: Fast single image\nto 3d objects with consistent multi-view generation and 3d\ndiffusion. arXiv preprint arXiv:2311.07885, 2023. 2, 3\n[36] Ruoshi Liu, Rundi Wu, Basile Van Hoorick, Pavel Tok-\nmakov, Sergey Zakharov, and Carl Vondrick. Zero-1-to-3:\nZero-shot one image to 3d object.\nIn Proceedings of the\nIEEE/CVF International Conference on Computer Vision,\npages 9298–9309, 2023. 2\n[37] Yuan Liu, Cheng Lin, Zijiao Zeng, Xiaoxiao Long, Lingjie\nLiu, Taku Komura, and Wenping Wang. Syncdreamer: Gen-\nerating multiview-consistent images from a single-view im-\nage. arXiv preprint arXiv:2309.03453, 2023. 2, 3\n[38] Luke Melas-Kyriazi, Iro Laina, Christian Rupprecht, and\nAndrea Vedaldi. Realfusion: 360deg reconstruction of any\nobject from a single image. In Proceedings of the IEEE/CVF\nconference on computer vision and pattern recognition,\npages 8446–8455, 2023. 3\n[39] Lars Mescheder, Michael Oechsle, Michael Niemeyer, Se-\nbastian Nowozin, and Andreas Geiger. Occupancy networks:\nLearning 3d reconstruction in function space. In Proceedings\nof the IEEE/CVF Conference on Computer Vision and Pat-\ntern Recognition, pages 4460–4470, 2019. 2\n[40] Paritosh Mittal, Yen-Chi Cheng, Maneesh Singh, and Shub-\nham Tulsiani.\nAutosdf:\nShape priors for 3d comple-\ntion, reconstruction and generation.\nIn Proceedings of\nthe IEEE/CVF Conference on Computer Vision and Pattern\nRecognition, pages 306–315, 2022. 3\n[41] Alex Nichol, Heewoo Jun, Prafulla Dhariwal, Pamela\nMishkin, and Mark Chen. Point-e: A system for generat-\ning 3d point clouds from complex prompts. arXiv preprint\narXiv:2212.08751, 2022. 2, 3, 4\n[42] Maxime Oquab, Timoth´ee Darcet, Th´eo Moutakanni, Huy\nVo, Marc Szafraniec, Vasil Khalidov, Pierre Fernandez,\nDaniel Haziza, Francisco Massa, Alaaeldin El-Nouby, et al.\nDinov2: Learning robust visual features without supervision.\narXiv preprint arXiv:2304.07193, 2023. 4\n[43] Ben Poole, Ajay Jain, Jonathan T Barron, and Ben Milden-\nhall. Dreamfusion: Text-to-3d using 2d diffusion. In The\nEleventh International Conference on Learning Representa-\ntions, 2023. 3\n[44] Jeremy Reizenstein, Roman Shapovalov, Philipp Henzler,\nLuca Sbordone, Patrick Labatut, and David Novotny. Com-\nmon objects in 3d: Large-scale learning and evaluation of\nreal-life 3d category reconstruction. In Proceedings of the\nIEEE/CVF International Conference on Computer Vision,\npages 10901–10911, 2021. 2\n[45] Robin Rombach, Andreas Blattmann, Dominik Lorenz,\nPatrick Esser, and Bj¨orn Ommer.\nHigh-resolution image\nsynthesis with latent diffusion models.\nIn Proceedings of\nthe IEEE/CVF conference on computer vision and pattern\nrecognition, pages 10684–10695, 2022. 3\n[46] Tianchang Shen, Jun Gao, Kangxue Yin, Ming-Yu Liu, and\nSanja Fidler.\nDeep marching tetrahedra: a hybrid repre-\nsentation for high-resolution 3d shape synthesis. Advances\nin Neural Information Processing Systems, 34:6087–6101,\n2021. 4\n[47] Ruoxi Shi, Hansheng Chen, Zhuoyang Zhang, Minghua Liu,\nChao Xu, Xinyue Wei, Linghao Chen, Chong Zeng, and Hao\nSu. Zero123++: a single image to consistent multi-view dif-\nfusion base model, 2023. 2\n[48] Yichun Shi, Peng Wang, Jianglong Ye, Mai Long, Kejie Li,\nand Xiao Yang. Mvdream: Multi-view diffusion for 3d gen-\neration. arXiv preprint arXiv:2308.16512, 2023. 2, 3\n[49] Jaehyeok Shim, Changwoo Kang, and Kyungdon Joo.\nDiffusion-based signed distance ﬁelds for 3d shape gener-\nation. In Proceedings of the IEEE/CVF Conference on Com-\nputer Vision and Pattern Recognition, pages 20887–20897,\n2023.\n[50] J Ryan Shue, Eric Ryan Chan, Ryan Po, Zachary Ankner,\nJiajun Wu, and Gordon Wetzstein. 3d neural ﬁeld generation\nusing triplane diffusion. In Proceedings of the IEEE/CVF\nConference on Computer Vision and Pattern Recognition,\npages 20875–20886, 2023. 2, 3\n[51] Jiaming Song, Chenlin Meng, and Stefano Ermon. Denois-\ning diffusion implicit models. In International Conference\non Learning Representations, 2021. 3\n16869\n",
+      "blocks": [
+        {
+          "bbox": [
+            58.5,
+            75.08,
+            294.75,
+            713.16
+          ],
+          "type": 0,
+          "text": "Conference on Computer Vision and Pattern Recognition,\n2023. 2\n[27] Zixuan Huang, Justin Johnson, Shoubhik Debnath, James M\nRehg, and Chao-Yuan Wu.\nPointinﬁnity:\nResolution-\ninvariant point diffusion models.\nIn Proceedings of the\nIEEE/CVF Conference on Computer Vision and Pattern\nRecognition, pages 10050–10060, 2024. 2, 3, 4, 5\n[28] Zixuan Huang, Stefan Stojanov, Anh Thai, Varun Jampani,\nand James M Rehg. Zeroshape: Regression-based zero-shot\nshape reconstruction. In Proceedings of the IEEE/CVF Con-\nference on Computer Vision and Pattern Recognition, pages\n10061–10071, 2024. 2\n[29] Le Hui, Rui Xu, Jin Xie, Jianjun Qian, and Jian Yang. Pro-\ngressive point cloud deconvolution generation network. In\nComputer Vision–ECCV 2020: 16th European Conference,\nGlasgow, UK, August 23–28, 2020, Proceedings, Part XV\n16, pages 397–413. Springer, 2020. 2\n[30] Heewoo Jun and Alex Nichol.\nShap-e:\nGenerat-\ning conditional 3d implicit functions.\narXiv preprint\narXiv:2305.02463, 2023. 2, 3, 6\n[31] Roman Klokov, Edmond Boyer, and Jakob Verbeek. Discrete\npoint ﬂow networks for efﬁcient point cloud generation. In\nEuropean Conference on Computer Vision, pages 694–710.\nSpringer, 2020. 3\n[32] Yushi Lan, Fangzhou Hong, Shuai Yang, Shangchen Zhou,\nXuyi Meng, Bo Dai, Xingang Pan, and Chen Change Loy.\nLn3diff: Scalable latent neural ﬁelds diffusion for speedy 3d\ngeneration. arXiv preprint arXiv:2403.12019, 2024. 2, 3, 6\n[33] Muheng Li, Yueqi Duan, Jie Zhou, and Jiwen Lu. Diffusion-\nsdf: Text-to-shape via voxelized diffusion. In Proceedings of\nthe IEEE/CVF Conference on Computer Vision and Pattern\nRecognition, pages 12642–12651, 2023. 2, 3\n[34] Peng Li, Yuan Liu, Xiaoxiao Long, Feihu Zhang, Cheng Lin,\nMengfei Li, Xingqun Qi, Shanghang Zhang, Wei Xue, Wen-\nhan Luo, et al. Era3d: high-resolution multiview diffusion\nusing efﬁcient row-wise attention. Advances in Neural In-\nformation Processing Systems, 37:55975–56000, 2024. 6\n[35] Minghua Liu, Ruoxi Shi, Linghao Chen, Zhuoyang Zhang,\nChao Xu, Xinyue Wei, Hansheng Chen, Chong Zeng, Ji-\nayuan Gu, and Hao Su. One-2-3-45++: Fast single image\nto 3d objects with consistent multi-view generation and 3d\ndiffusion. arXiv preprint arXiv:2311.07885, 2023. 2, 3\n[36] Ruoshi Liu, Rundi Wu, Basile Van Hoorick, Pavel Tok-\nmakov, Sergey Zakharov, and Carl Vondrick. Zero-1-to-3:\nZero-shot one image to 3d object.\nIn Proceedings of the\nIEEE/CVF International Conference on Computer Vision,\npages 9298–9309, 2023. 2\n[37] Yuan Liu, Cheng Lin, Zijiao Zeng, Xiaoxiao Long, Lingjie\nLiu, Taku Komura, and Wenping Wang. Syncdreamer: Gen-\nerating multiview-consistent images from a single-view im-\nage. arXiv preprint arXiv:2309.03453, 2023. 2, 3\n[38] Luke Melas-Kyriazi, Iro Laina, Christian Rupprecht, and\nAndrea Vedaldi. Realfusion: 360deg reconstruction of any\nobject from a single image. In Proceedings of the IEEE/CVF\nconference on computer vision and pattern recognition,\npages 8446–8455, 2023. 3\n[39] Lars Mescheder, Michael Oechsle, Michael Niemeyer, Se-\nbastian Nowozin, and Andreas Geiger. Occupancy networks:"
+        },
+        {
+          "bbox": [
+            317.25,
+            75.08,
+            553.5,
+            713.16
+          ],
+          "type": 0,
+          "text": "Learning 3d reconstruction in function space. In Proceedings\nof the IEEE/CVF Conference on Computer Vision and Pat-\ntern Recognition, pages 4460–4470, 2019. 2\n[40] Paritosh Mittal, Yen-Chi Cheng, Maneesh Singh, and Shub-\nham Tulsiani.\nAutosdf:\nShape priors for 3d comple-\ntion, reconstruction and generation.\nIn Proceedings of\nthe IEEE/CVF Conference on Computer Vision and Pattern\nRecognition, pages 306–315, 2022. 3\n[41] Alex Nichol, Heewoo Jun, Prafulla Dhariwal, Pamela\nMishkin, and Mark Chen. Point-e: A system for generat-\ning 3d point clouds from complex prompts. arXiv preprint\narXiv:2212.08751, 2022. 2, 3, 4\n[42] Maxime Oquab, Timoth´ee Darcet, Th´eo Moutakanni, Huy\nVo, Marc Szafraniec, Vasil Khalidov, Pierre Fernandez,\nDaniel Haziza, Francisco Massa, Alaaeldin El-Nouby, et al.\nDinov2: Learning robust visual features without supervision.\narXiv preprint arXiv:2304.07193, 2023. 4\n[43] Ben Poole, Ajay Jain, Jonathan T Barron, and Ben Milden-\nhall. Dreamfusion: Text-to-3d using 2d diffusion. In The\nEleventh International Conference on Learning Representa-\ntions, 2023. 3\n[44] Jeremy Reizenstein, Roman Shapovalov, Philipp Henzler,\nLuca Sbordone, Patrick Labatut, and David Novotny. Com-\nmon objects in 3d: Large-scale learning and evaluation of\nreal-life 3d category reconstruction. In Proceedings of the\nIEEE/CVF International Conference on Computer Vision,\npages 10901–10911, 2021. 2\n[45] Robin Rombach, Andreas Blattmann, Dominik Lorenz,\nPatrick Esser, and Bj¨orn Ommer.\nHigh-resolution image\nsynthesis with latent diffusion models.\nIn Proceedings of\nthe IEEE/CVF conference on computer vision and pattern\nrecognition, pages 10684–10695, 2022. 3\n[46] Tianchang Shen, Jun Gao, Kangxue Yin, Ming-Yu Liu, and\nSanja Fidler.\nDeep marching tetrahedra: a hybrid repre-\nsentation for high-resolution 3d shape synthesis. Advances\nin Neural Information Processing Systems, 34:6087–6101,\n2021. 4\n[47] Ruoxi Shi, Hansheng Chen, Zhuoyang Zhang, Minghua Liu,\nChao Xu, Xinyue Wei, Linghao Chen, Chong Zeng, and Hao\nSu. Zero123++: a single image to consistent multi-view dif-\nfusion base model, 2023. 2\n[48] Yichun Shi, Peng Wang, Jianglong Ye, Mai Long, Kejie Li,\nand Xiao Yang. Mvdream: Multi-view diffusion for 3d gen-\neration. arXiv preprint arXiv:2308.16512, 2023. 2, 3\n[49] Jaehyeok Shim, Changwoo Kang, and Kyungdon Joo.\nDiffusion-based signed distance ﬁelds for 3d shape gener-\nation. In Proceedings of the IEEE/CVF Conference on Com-\nputer Vision and Pattern Recognition, pages 20887–20897,\n2023.\n[50] J Ryan Shue, Eric Ryan Chan, Ryan Po, Zachary Ankner,\nJiajun Wu, and Gordon Wetzstein. 3d neural ﬁeld generation\nusing triplane diffusion. In Proceedings of the IEEE/CVF\nConference on Computer Vision and Pattern Recognition,\npages 20875–20886, 2023. 2, 3\n[51] Jiaming Song, Chenlin Meng, and Stefano Ermon. Denois-\ning diffusion implicit models. In International Conference\non Learning Representations, 2021. 3"
+        },
+        {
+          "bbox": [
+            294.75,
+            746.52,
+            317.25,
+            758.53
+          ],
+          "type": 0,
+          "text": "16869"
+        }
+      ],
+      "preview": null
+    },
+    {
+      "doc": "spar3d",
+      "page": 11,
+      "width": 612.0,
+      "height": 792.0,
+      "text": "[52] Xingyuan Sun, Jiajun Wu, Xiuming Zhang, Zhoutong\nZhang, Chengkai Zhang, Tianfan Xue, Joshua B Tenenbaum,\nand William T Freeman. Pix3d: Dataset and methods for\nsingle-image 3d shape modeling.\nIn Proceedings of the\nIEEE conference on computer vision and pattern recogni-\ntion, pages 2974–2983, 2018. 2\n[53] Zeyi Sun, Ye Fang, Tong Wu, Pan Zhang, Yuhang Zang, Shu\nKong, Yuanjun Xiong, Dahua Lin, and Jiaqi Wang. Alpha-\nclip: A clip model focusing on wherever you want, 2023.\n4\n[54] Junshu Tang, Tengfei Wang, Bo Zhang, Ting Zhang, Ran Yi,\nLizhuang Ma, and Dong Chen. Make-it-3d: High-ﬁdelity 3d\ncreation from a single image with diffusion prior. In Pro-\nceedings of the IEEE/CVF international conference on com-\nputer vision, pages 22819–22829, 2023. 3\n[55] Jiaxiang Tang, Zhaoxi Chen, Xiaokang Chen, Tengfei Wang,\nGang Zeng, and Ziwei Liu. Lgm: Large multi-view gaussian\nmodel for high-resolution 3d content creation. arXiv preprint\narXiv:2402.05054, 2024. 2, 6\n[56] Dmitry Tochilkin, David Pankratz, Zexiang Liu, Zixuan\nHuang, , Adam Letts, Yangguang Li, Ding Liang, Christian\nLaforte, Varun Jampani, and Yan-Pei Cao. Triposr: Fast 3d\nobject reconstruction from a single image. arXiv preprint\narXiv:2403.02151, 2024. 2, 5, 6, 12\n[57] Diego Valsesia, Giulia Fracastoro, and Enrico Magli. Learn-\ning localized generative models for 3d point clouds via graph\nconvolution. In International conference on learning repre-\nsentations, 2018. 2\n[58] Eric Veach. Robust Monte Carlo Methods for Light Trans-\nport Simulation. PhD thesis, Stanford University, 1997. 4\n[59] Bruce Walter, Stephen R. Marschner, Hongsong Li, and Ken-\nneth E. Torrance. Microfacet models for refraction through\nrough surfaces.\nEurographics Symposium on Rendering,\n2007. 5\n[60] Haochen Wang, Xiaodan Du, Jiahao Li, Raymond A Yeh,\nand Greg Shakhnarovich. Score jacobian chaining: Lifting\npretrained 2d diffusion models for 3d generation. In Pro-\nceedings of the IEEE/CVF Conference on Computer Vision\nand Pattern Recognition, pages 12619–12629, 2023. 3\n[61] Nanyang Wang, Yinda Zhang, Zhuwen Li, Yanwei Fu, Wei\nLiu, and Yu-Gang Jiang. Pixel2mesh: Generating 3d mesh\nmodels from single rgb images. In Proceedings of the Euro-\npean conference on computer vision (ECCV), pages 52–67,\n2018. 2\n[62] Shuzhe Wang,\nVincent Leroy,\nYohann Cabon,\nBoris\nChidlovskii, and Jerome Revaud. Dust3r: Geometric 3d vi-\nsion made easy. In Proceedings of the IEEE/CVF Conference\non Computer Vision and Pattern Recognition, pages 20697–\n20709, 2024. 13\n[63] Zhengyi Wang, Yikai Wang, Yifei Chen, Chendong Xi-\nang, Shuo Chen, Dajiang Yu, Chongxuan Li, Hang Su,\nand Jun Zhu.\nCrm: Single image to 3d textured mesh\nwith convolutional reconstruction model.\narXiv preprint\narXiv:2403.05034, 2024. 2, 4, 6\n[64] Xinyue Wei, Kai Zhang, Sai Bi, Hao Tan, Fujun Luan,\nValentin Deschaintre, Kalyan Sunkavalli, Hao Su, and Zex-\niang Xu. Meshlrm: Large reconstruction model for high-\nquality meshes. arXiv preprint arXiv:2404.12385, 2024. 12\n[65] Chao-Yuan Wu, Justin Johnson, Jitendra Malik, Christoph\nFeichtenhofer, and Georgia Gkioxari.\nMultiview com-\npressive coding for 3d reconstruction.\narXiv preprint\narXiv:2301.08247, 2023. 2\n[66] Jiajun Wu, Yifan Wang, Tianfan Xue, Xingyuan Sun, Bill\nFreeman, and Josh Tenenbaum. Marrnet: 3d shape recon-\nstruction via 2.5 d sketches. Advances in neural information\nprocessing systems, 30, 2017. 2\n[67] Tong Wu, Jiarui Zhang, Xiao Fu, Yuxin Wang, Jiawei Ren,\nLiang Pan, Wayne Wu, Lei Yang, Jiaqi Wang, Chen Qian,\net al.\nOmniobject3d: Large-vocabulary 3d object dataset\nfor realistic perception, reconstruction and generation. arXiv\npreprint arXiv:2301.07525, 2023. 5, 6\n[68] Zhijie Wu, Xiang Wang, Di Lin, Dani Lischinski, Daniel\nCohen-Or, and Hui Huang. Sagnet: Structure-aware gen-\nerative network for 3d-shape modeling. ACM Transactions\non Graphics (TOG), 38(4):1–14, 2019. 3\n[69] Jiale Xu, Weihao Cheng, Yiming Gao, Xintao Wang,\nShenghua Gao, and Ying Shan. Instantmesh: Efﬁcient 3d\nmesh generation from a single image with sparse-view large\nreconstruction models.\narXiv preprint arXiv:2404.07191,\n2024. 2, 4, 5, 6\n[70] Qiangeng Xu, Weiyue Wang, Duygu Ceylan, Radomir\nMech, and Ulrich Neumann. Disn: Deep implicit surface\nnetwork for high-quality single-view 3d reconstruction. Ad-\nvances in neural information processing systems, 32, 2019.\n2\n[71] Guandao Yang, Xun Huang, Zekun Hao, Ming-Yu Liu, Serge\nBelongie, and Bharath Hariharan. Pointﬂow: 3d point cloud\ngeneration with continuous normalizing ﬂows. In Proceed-\nings of the IEEE/CVF international conference on computer\nvision, pages 4541–4550, 2019. 3\n[72] Lior Yariv, Omri Puny, Oran Gafni, and Yaron Lipman.\nMosaic-sdf for 3d generative models.\nIn Proceedings of\nthe IEEE/CVF Conference on Computer Vision and Pattern\nRecognition, pages 4630–4639, 2024. 2, 3\n[73] Kai Zhang, Sai Bi, Hao Tan, Yuanbo Xiangli, Nanxuan Zhao,\nKalyan Sunkavalli, and Zexiang Xu. Gs-lrm: Large recon-\nstruction model for 3d gaussian splatting.\narXiv preprint\narXiv:2404.19702, 2024. 2\n[74] Richard Zhang, Phillip Isola, Alexei A Efros, Eli Shechtman,\nand Oliver Wang. The unreasonable effectiveness of deep\nfeatures as a perceptual metric. In CVPR, 2018. 4\n[75] Zibo Zhao, Wen Liu, Xin Chen, Xianfang Zeng, Rui Wang,\nPei Cheng, BIN FU, Tao Chen, Gang YU, and Shenghua\nGao. Michelangelo: Conditional 3d shape generation based\non shape-image-text aligned latent representation. In Thirty-\nseventh Conference on Neural Information Processing Sys-\ntems, 2023. 2, 3\n16870\n",
+      "blocks": [
+        {
+          "bbox": [
+            58.5,
+            75.15,
+            294.75,
+            713.16
+          ],
+          "type": 0,
+          "text": "[52] Xingyuan Sun, Jiajun Wu, Xiuming Zhang, Zhoutong\nZhang, Chengkai Zhang, Tianfan Xue, Joshua B Tenenbaum,\nand William T Freeman. Pix3d: Dataset and methods for\nsingle-image 3d shape modeling.\nIn Proceedings of the\nIEEE conference on computer vision and pattern recogni-\ntion, pages 2974–2983, 2018. 2\n[53] Zeyi Sun, Ye Fang, Tong Wu, Pan Zhang, Yuhang Zang, Shu\nKong, Yuanjun Xiong, Dahua Lin, and Jiaqi Wang. Alpha-\nclip: A clip model focusing on wherever you want, 2023.\n4\n[54] Junshu Tang, Tengfei Wang, Bo Zhang, Ting Zhang, Ran Yi,\nLizhuang Ma, and Dong Chen. Make-it-3d: High-ﬁdelity 3d\ncreation from a single image with diffusion prior. In Pro-\nceedings of the IEEE/CVF international conference on com-\nputer vision, pages 22819–22829, 2023. 3\n[55] Jiaxiang Tang, Zhaoxi Chen, Xiaokang Chen, Tengfei Wang,\nGang Zeng, and Ziwei Liu. Lgm: Large multi-view gaussian\nmodel for high-resolution 3d content creation. arXiv preprint\narXiv:2402.05054, 2024. 2, 6\n[56] Dmitry Tochilkin, David Pankratz, Zexiang Liu, Zixuan\nHuang, , Adam Letts, Yangguang Li, Ding Liang, Christian\nLaforte, Varun Jampani, and Yan-Pei Cao. Triposr: Fast 3d\nobject reconstruction from a single image. arXiv preprint\narXiv:2403.02151, 2024. 2, 5, 6, 12\n[57] Diego Valsesia, Giulia Fracastoro, and Enrico Magli. Learn-\ning localized generative models for 3d point clouds via graph\nconvolution. In International conference on learning repre-\nsentations, 2018. 2\n[58] Eric Veach. Robust Monte Carlo Methods for Light Trans-\nport Simulation. PhD thesis, Stanford University, 1997. 4\n[59] Bruce Walter, Stephen R. Marschner, Hongsong Li, and Ken-\nneth E. Torrance. Microfacet models for refraction through\nrough surfaces.\nEurographics Symposium on Rendering,\n2007. 5\n[60] Haochen Wang, Xiaodan Du, Jiahao Li, Raymond A Yeh,\nand Greg Shakhnarovich. Score jacobian chaining: Lifting\npretrained 2d diffusion models for 3d generation. In Pro-\nceedings of the IEEE/CVF Conference on Computer Vision\nand Pattern Recognition, pages 12619–12629, 2023. 3\n[61] Nanyang Wang, Yinda Zhang, Zhuwen Li, Yanwei Fu, Wei\nLiu, and Yu-Gang Jiang. Pixel2mesh: Generating 3d mesh\nmodels from single rgb images. In Proceedings of the Euro-\npean conference on computer vision (ECCV), pages 52–67,\n2018. 2\n[62] Shuzhe Wang,\nVincent Leroy,\nYohann Cabon,\nBoris\nChidlovskii, and Jerome Revaud. Dust3r: Geometric 3d vi-\nsion made easy. In Proceedings of the IEEE/CVF Conference\non Computer Vision and Pattern Recognition, pages 20697–\n20709, 2024. 13\n[63] Zhengyi Wang, Yikai Wang, Yifei Chen, Chendong Xi-\nang, Shuo Chen, Dajiang Yu, Chongxuan Li, Hang Su,\nand Jun Zhu.\nCrm: Single image to 3d textured mesh\nwith convolutional reconstruction model.\narXiv preprint\narXiv:2403.05034, 2024. 2, 4, 6\n[64] Xinyue Wei, Kai Zhang, Sai Bi, Hao Tan, Fujun Luan,\nValentin Deschaintre, Kalyan Sunkavalli, Hao Su, and Zex-\niang Xu. Meshlrm: Large reconstruction model for high-\nquality meshes. arXiv preprint arXiv:2404.12385, 2024. 12"
+        },
+        {
+          "bbox": [
+            317.25,
+            75.15,
+            553.5,
+            620.11
+          ],
+          "type": 0,
+          "text": "[65] Chao-Yuan Wu, Justin Johnson, Jitendra Malik, Christoph\nFeichtenhofer, and Georgia Gkioxari.\nMultiview com-\npressive coding for 3d reconstruction.\narXiv preprint\narXiv:2301.08247, 2023. 2\n[66] Jiajun Wu, Yifan Wang, Tianfan Xue, Xingyuan Sun, Bill\nFreeman, and Josh Tenenbaum. Marrnet: 3d shape recon-\nstruction via 2.5 d sketches. Advances in neural information\nprocessing systems, 30, 2017. 2\n[67] Tong Wu, Jiarui Zhang, Xiao Fu, Yuxin Wang, Jiawei Ren,\nLiang Pan, Wayne Wu, Lei Yang, Jiaqi Wang, Chen Qian,\net al.\nOmniobject3d: Large-vocabulary 3d object dataset\nfor realistic perception, reconstruction and generation. arXiv\npreprint arXiv:2301.07525, 2023. 5, 6\n[68] Zhijie Wu, Xiang Wang, Di Lin, Dani Lischinski, Daniel\nCohen-Or, and Hui Huang. Sagnet: Structure-aware gen-\nerative network for 3d-shape modeling. ACM Transactions\non Graphics (TOG), 38(4):1–14, 2019. 3\n[69] Jiale Xu, Weihao Cheng, Yiming Gao, Xintao Wang,\nShenghua Gao, and Ying Shan. Instantmesh: Efﬁcient 3d\nmesh generation from a single image with sparse-view large\nreconstruction models.\narXiv preprint arXiv:2404.07191,\n2024. 2, 4, 5, 6\n[70] Qiangeng Xu, Weiyue Wang, Duygu Ceylan, Radomir\nMech, and Ulrich Neumann. Disn: Deep implicit surface\nnetwork for high-quality single-view 3d reconstruction. Ad-\nvances in neural information processing systems, 32, 2019.\n2\n[71] Guandao Yang, Xun Huang, Zekun Hao, Ming-Yu Liu, Serge\nBelongie, and Bharath Hariharan. Pointﬂow: 3d point cloud\ngeneration with continuous normalizing ﬂows. In Proceed-\nings of the IEEE/CVF international conference on computer\nvision, pages 4541–4550, 2019. 3\n[72] Lior Yariv, Omri Puny, Oran Gafni, and Yaron Lipman.\nMosaic-sdf for 3d generative models.\nIn Proceedings of\nthe IEEE/CVF Conference on Computer Vision and Pattern\nRecognition, pages 4630–4639, 2024. 2, 3\n[73] Kai Zhang, Sai Bi, Hao Tan, Yuanbo Xiangli, Nanxuan Zhao,\nKalyan Sunkavalli, and Zexiang Xu. Gs-lrm: Large recon-\nstruction model for 3d gaussian splatting.\narXiv preprint\narXiv:2404.19702, 2024. 2\n[74] Richard Zhang, Phillip Isola, Alexei A Efros, Eli Shechtman,\nand Oliver Wang. The unreasonable effectiveness of deep\nfeatures as a perceptual metric. In CVPR, 2018. 4\n[75] Zibo Zhao, Wen Liu, Xin Chen, Xianfang Zeng, Rui Wang,\nPei Cheng, BIN FU, Tao Chen, Gang YU, and Shenghua\nGao. Michelangelo: Conditional 3d shape generation based\non shape-image-text aligned latent representation. In Thirty-\nseventh Conference on Neural Information Processing Sys-\ntems, 2023. 2, 3"
+        },
+        {
+          "bbox": [
+            294.75,
+            746.52,
+            317.25,
+            758.53
+          ],
+          "type": 0,
+          "text": "16870"
+        }
+      ],
+      "preview": null
+    }
+  ]
+}

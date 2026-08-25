@@ -1,0 +1,198 @@
+\section{Experiments}
+\label{sec:experiments}
+We first describe the implementation details, datasets, and evaluation protocol, then report quantitative and qualitative results and ablations.
+% \subsection{Implementation Details}
+% TIGON is built upon TRELLIS and UniLat3D, which is implemented with PyTorch~\cite{pytorch}. During the finetuning phase, the learning rate is set to 1e-5 and trained for 50000 iterations. The training is conducted on 64 Nvidia A800 GPU. We use deepspeed zero-2~\cite{deepspeed} and FlashAttention~\cite{flashattention} for reducing GPU memory consumption and accelerating training.
+
+% \subsection{Implementation Details}
+% TIGON is implemented in PyTorch~\cite{pytorch} on top of TRELLIS and UniLat3D. 
+% For the image-conditioned branch, we use the UniLat3D released checkpoint. For the text-conditioned branch, since no official checkpoint is provided, we replace the DINO condition encoder of the image-conditioned UniLat3D model with the CLIP text encoder, and train a text-conditioned model from scratch with learning rate $1\times10^{-4}$ and 1000
+% {,}000 iterations.
+% During joint fine-tuning, we set the learning rate to $1\times10^{-5}$ and train the model for 50{,}000 iterations. 
+% We use a global batch size of 256 and adopt bfloat16 (BF16) for training.
+% All fine-tuning experiments are conducted on 64 NVIDIA A800 GPUs. 
+% We employ DeepSpeed ZeRO-2~\cite{deepspeed} to reduce GPU memory consumption, and use FlashAttention~\cite{flashattention} to further accelerate attention computation. Unless otherwise specified, we use 50 denoising steps and set the classifier-free guidance strength to 3 for all experiments.
+
+% \subsection{Implementation Details}
+% TIGON is implemented in PyTorch~\cite{pytorch}, building on the TRELLIS and UniLat3D frameworks. 
+% For the image-conditioned branch, we directly use the released UniLat3D checkpoint. 
+% For the text-conditioned branch, since no official model is available, we take the image-conditioned UniLat3D backbone, replace its DINO-based condition encoder with a CLIP text encoder, and train a text-conditioned model from scratch with a batch size of $256$, learning rate of $1\times10^{-4}$ for $1{,}000{,}000$ iterations.
+% During the subsequent joint fine-tuning stage, we set the learning rate to $1\times10^{-5}$ and train for $50{,}000$ iterations. 
+% We adopt a global batch size of $256$ and use bfloat16 (BF16) precision for fine-tuning. 
+% All fine-tuning experiments are conducted on $64$ NVIDIA A800 GPUs. 
+% We employ DeepSpeed ZeRO-2~\cite{deepspeed} to reduce memory consumption and FlashAttention~\cite{flashattention} to accelerate attention computation. 
+% Unless otherwise specified, we use $50$ denoising steps and set the classifier-free guidance strength to $3$ for all experiments.
+\subsection{Implementation Details}
+TIGON is implemented in PyTorch~\cite{pytorch} on top of TRELLIS and UniLat3D. 
+We use the released UniLat3D checkpoint for the image branch. 
+For the text branch, we reuse the UniLat3D backbone, replace its DINO-based condition encoder with a CLIP text encoder, and train from scratch for $1{,}000{,}000$ iterations with batch size $256$ and learning rate $1\times10^{-4}$.
+We then jointly fine-tune both branches and the cross-modal bridges for $50{,}000$ iterations with learning rate $1\times10^{-5}$ in BF16 on $64$ NVIDIA A800 GPUs, using DeepSpeed ZeRO-2~\cite{deepspeed} and FlashAttention~\cite{flashattention}. 
+% Unless otherwise specified, we use $50$ denoising steps and set the classifier-free guidance strength to $3$.
+
+
+
+\begin{table*}[t]
+\centering
+% \footnotesize
+\small
+\caption{Quantitative results on Toys4K (left) and UniLat1K (right). ``Cond.'' denotes conditioning modality (``I'': image, ``T'': text), and ``Rep.'' denotes output representation (``M.'': mesh, ``GS'': 3DGS).}
+\label{tab:toys4k}
+\setlength{\tabcolsep}{5.6pt}
+\begin{tabular}{lcc|cccc|cccc}
+\toprule
+\multirow{2}{*}{\textbf{Model}} & \multirow{2}{*}{\textbf{Cond.}} & \multirow{2}{*}{\textbf{Rep.}} &
+\multicolumn{4}{c|}{\textbf{Toys4K}} &
+\multicolumn{4}{c}{\textbf{UniLat1K}} \\
+ & & &
+\textbf{CLIP$\uparrow$} & \textbf{FD$_{\text{DINOv2}}\downarrow$} & \textbf{ULIP$\uparrow$} & \textbf{Uni3D$\uparrow$} &
+\textbf{CLIP$\uparrow$} & \textbf{FD$_{\text{DINOv2}}\downarrow$} & \textbf{ULIP$\uparrow$} & \textbf{Uni3D$\uparrow$} \\
+\midrule
+TripoSR~\cite{triposr}                & I & M.  & 83.14 & 596.44 & 27.37 & 24.38 & 83.37 & 652.27 & 25.90 & 23.96 \\
+TRELLIS                               & I & M.  & 89.09 & 171.44 & 39.97 & 35.61 & 89.40 & 233.53 & 39.37 & 35.40 \\
+TRELLIS                               & I & GS  & 90.50 &  98.75 &   -   &   -   & 90.83 & 177.20 &   -   &   -   \\
+Step1X-3D$^{\dagger}$~\cite{step1x}   & I & M.  & 84.77 & 361.44 & 34.15 & 30.04 & 85.36 & 402.25 & 33.62 & 30.38 \\
+Hunyuan3D-2.1$^{\dagger}$~\cite{hunyuan3d2025hunyuan3d2.1} & I & M.  & 87.57 & 171.91 & 40.22 & 35.70 & 87.27 & 249.66 & 39.58 & 35.54 \\
+Stable3DGen~\cite{ye2025hi3dgen}      & I & M.  &   -   &   -    & 35.52 & 31.76 &   -   &   -    & 35.26 & 32.08 \\
+Direct3D-S2~\cite{direct3ds2}         & I & M.  &   -   &   -    & 33.47 & 29.29 &   -   &   -    & 32.74 & 29.44 \\
+UniLat3D                              & I & M.  & 91.85 & 109.68 & 40.32 & 35.75 & 90.00 & 205.72 & 39.60 & 35.49 \\
+UniLat3D                              & I & GS  & 91.20 &  85.30 &   -   &   -   & 91.40 & 155.99 &   -   &   -   \\
+\rowcolor{rowgray} TIGON (Ours)       & I & GS  & 91.40 &  84.62 &   -   &   -   & 91.64 & 153.79 &   -   &   -   \\
+\midrule
+TRELLIS                               & T & M.  & 87.15 & 182.42 & 37.41 & 33.59 & 85.90 & 316.05 & 36.55 & 33.23 \\
+TRELLIS                               & T & GS  & 86.30 & 148.21 &   -   &   -   & 84.75 & 288.55 &   -   &   -   \\
+UniLat3D                              & T & M.  & 87.03 & 179.95 & 36.14 & 32.35 & 85.29 & 313.85 & 35.34 & 32.08 \\
+UniLat3D                              & T & GS  & 86.14 & 154.88 &   -   &   -   & 85.75 & 282.36 &   -   &   -   \\
+\rowcolor{rowgray} TIGON (Ours)       & T & GS  & 86.77 & 152.34 &   -   &   -   & 86.42 & 273.97 &   -   &   -   \\
+\midrule
+SimFusion (Ours)       & I+T & GS  & 91.95 &  66.78 &  - & -  & 92.09 & 136.97 & - & - \\
+\rowcolor{rowgray} TIGON (Ours)       & I+T & M.  & \textbf{92.97} &  80.77 & \textbf{41.36} & \textbf{36.68} & 90.91 & 176.69 & \textbf{40.95} & \textbf{36.74} \\
+\rowcolor{rowgray} TIGON (Ours)       & I+T & GS & 92.33 & \textbf{61.59} &   -   &   -   & \textbf{92.42} & \textbf{130.08} &   -   &   -   \\
+\bottomrule
+\end{tabular}
+\begin{flushleft}
+% \footnotesize
+$^{\dagger}$ Using non-public training data.
+\end{flushleft}
+\end{table*}
+
+\subsection{Datasets and Evaluation Protocol}
+\label{sec:eval_metric}
+\noindent\textbf{Training.} TIGON is trained on \textbf{TRELLIS-500K}. Please refer to the supplement for more details about this dataset.
+
+
+\noindent\textbf{Evaluation.} We evaluate on two test sets:
+\textbf{Toys4K} contains about 4K high-quality 3D objects from 105 categories and is widely used by TRELLIS and UniLat3D. \textbf{UniLat1K} is a harder 1K-object benchmark curated by UniLat3D, containing 500 high-quality Sketchfab assets and 500 Toys4K samples.
+
+% For methods that build on TRELLIS or UniLat3D, we re-train the released architectures on TRELLIS-500K under the authors' official settings.
+% For third-party systems with non-public training data (marked with † in the tables), we use the official checkpoints released by the authors.
+% Further details on training data, model initialization, and evaluation scripts are provided in the supplementary material.
+
+\noindent\textbf{Metrics and Protocol.}
+We use four metrics: CLIP~\cite{clip}, FD$_{\text{DINOv2}}$, ULIP~\cite{ulip}, and Uni3D~\cite{uni3d}. CLIP and FD$_{\text{DINOv2}}$ are computed from renderings of generated and ground-truth objects, while ULIP and Uni3D measure image--point-cloud alignment and are thus only reported for mesh outputs. To test robustness to viewpoint informativeness, each case is conditioned on three reference views (front, top, and bottom) instead of ideal views. We use public checkpoints for prior methods and re-evaluate them under this unified protocol; full metric definitions and rendering settings are provided in the supplement.
+
+
+\subsection{Quantitative Results}
+% Results on Toys4K and UniLat1K are reported in Table~\ref{tab:toys4k}. 
+% We evaluate TIGON under three conditioning regimes, \emph{i.e.}, text-only, image-only, and text+image. 
+% Joint text–image conditioning yields the best performance, while TIGON also attains competitive single-modality results. 
+
+% Results on Toys4K and UniLat1K are reported in Table~\ref{tab:toys4k}. 
+% We evaluate TIGON under three conditioning regimes, \emph{i.e.}, text-only, image-only, and text+image. 
+% In both single-modality settings, TIGON achieves performance comparable to prior SOTA methods, indicating that it can handle free-form conditioning inputs from either modality.
+% The largest improvements arise under text–image conditioning, 
+% showing that TIGON effectively integrates complementary visual and semantic cues to produce 3D assets that align more faithfully with the target.
+
+% Results on Toys4K and UniLat1K are reported in Table~\ref{tab:toys4k}. 
+% We evaluate TIGON under three conditioning regimes, \emph{i.e.}, text-only, image-only, and text-image. 
+% Across the two benchmarks, TIGON delivers competitive performance under both single-modality settings. The largest improvements arise under text–image setting, 
+% showing that TIGON effectively utilizes complementary information in image and text conditions.
+
+Results on Toys4K and UniLat1K are reported in Table~\ref{tab:toys4k}. 
+We evaluate TIGON under three conditioning regimes, \emph{i.e.}, text-only, image-only, and text–image. 
+TIGON is competitive in both single-modality settings, while the largest gains appear under text–image conditioning, showing effective use of complementary signals.
+
+\begin{figure*}
+\centering
+    \includegraphics[width=\textwidth]{tigon-main.png}
+    \caption{Qualitative comparison on Toys4K and UniLat1K against image-only and text-only variants of TRELLIS and UniLat3D. Dashed boxes mark artifacts from prior methods. Image-only models respect the reference view but must hallucinate unseen regions, while text-only models lack pixel-aligned cues and often produce low-fidelity geometry and appearance. Full prompts are provided in the supplement.}
+    \label{fig:main_comp}
+\end{figure*}
+
+\subsection{Qualitative Results}
+As shown in~\cref{fig:main_comp}, we compare TIGON with image-only and text-only variants of TRELLIS and UniLat3D.
+
+% \noindent\textbf{Image-Only Conditioning.}
+% With only a single reference view, large parts of shape and appearance are under-constrained, so image-only models must hallucinate unseen regions that often deviate from user intent. For example, given a top view of a trophy, many plausible 3D shapes fit the pixels, and TRELLIS/UniLat3D capture the overall style but fail to reconstruct a faithful trophy. Even when the view is more informative (\emph{e.g.}, the toaster in the last row), their image-only variants still produce distorted slots due to incomplete observation. By injecting semantic constraints through text, TIGON's joint text–image conditioning produces shapes that better adhere to both the description and the reference image.
+
+\noindent\textbf{Image-Only Conditioning.}
+With only one reference view, shape and appearance remain under-constrained, so image-only models must hallucinate unseen regions and often deviate from user intent. For example, given a top view of a trophy, TRELLIS/UniLat3D capture the overall style but fail to reconstruct a faithful trophy. Even with a more informative view (\emph{e.g.}, the toaster in the last row), they still produce distorted slots due to incomplete observation. Adding text supplies the missing semantics, so TIGON better matches both the description and the reference image.
+
+\noindent\textbf{Text-Only Conditioning.}
+Text provides high-level semantics but no pixel-aligned cues, leading to ambiguous geometry and lower visual fidelity. Introducing even a weak image cue markedly improves spatial alignment and appearance: in the third row of~\cref{fig:main_comp}, a top-view image of a game console combined with text produces much more faithful geometry than the text-only baseline. Overall, the visual results show that text and image address complementary failure modes, and that joint conditioning enables more controllable, higher-quality 3D generation.
+
+\begin{figure*}
+\centering
+    \includegraphics[width=\textwidth]{tigon-edit.png}
+    % \caption{Controllable generation under text and image conditions. When the image provides strong cues, TIGON uses text to modulate fine-grained attributes; when the image is low-information, text supplies semantic guidance, enabling flexible yet image-aligned generation.}
+    \caption{Controllable generation under text and image conditions.}
+    \label{fig:edit}
+\end{figure*}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{tigon-limitation.png}
+    \caption{Generation with conflicting text-image conditions.}
+    \label{fig:contradict}
+\end{figure}
+
+% To further demonstrate the controllability of TIGON, we fix the input image and vary the text prompt to obtain diverse 3D outputs. As shown in~\cref{fig:edit}, when the image is highly informative (\emph{e.g.}, a distinctive character), TIGON preserves identity while adjusting fine-grained attributes according to the text; when the image is ambiguous (\emph{e.g.}, a bottom view of a toaster), it relies more on the text and can generate semantically different objects, such as a telephone or a bed. This joint pixel-level alignment and semantic control offers greater flexibility than single-modality methods. We further observe in~\cref{fig:contradict} that when the image and text conditions explicitly contradict each other, TIGON tends to follow the image condition if the image already provides clear semantic guidance. A possible reason is that the image condition is typically more specific and less ambiguous than the text prompt. More qualitative results are provided in the supplement.
+
+To further demonstrate TIGON's controllability, we fix the input image and vary the text prompt to obtain diverse 3D outputs. As shown in~\cref{fig:edit}, when the image is highly informative (\emph{e.g.}, a distinctive character), TIGON preserves identity while adjusting fine-grained attributes according to the text; when the image is ambiguous (\emph{e.g.}, a bottom view of a toaster), it relies more on text and can generate semantically different objects, such as a telephone or a bed. This combination of pixel-level alignment and semantic control offers greater flexibility than single-modality methods. We further observe in~\cref{fig:contradict} that when the image and text explicitly conflict, TIGON tends to follow the image if it already provides clear semantic guidance, likely because images are usually more specific and less ambiguous than text. More qualitative results are provided in the supplement.
+
+% To further demonstrate controllability, we fix the input image and vary the text prompt. As shown in~\cref{fig:edit}, TIGON preserves identity when the image is highly informative, but relies more on text when the image is ambiguous. This joint pixel-level alignment and semantic control is more flexible than single-modality conditioning.
+
+
+\begin{table}[htbp]
+    \centering
+    % \footnotesize
+    \small
+    % \setlength{\tabcolsep}{5pt}
+    \caption{Ablations on Toys4K. ``Bridges'' denotes zero-initialized cross-modal bridges; ``Sim'', ``AW'', and ``AT'' denote three fusion strategies; ``FT'' denotes joint fine-tuning. The TIGON setting is highlighted in light gray.}
+    \begin{tabular}{ccccccc}
+        \toprule
+        \multirow{2}{*}{\textbf{Bridges}} & \multicolumn{3}{c}{\textbf{Fusion Strategy}} & \multirow{2}{*}{\textbf{FT}} & \multirow{2}{*}{\textbf{CLIP$\uparrow$}} & \multirow{2}{*}{\textbf{FD$_{\text{DINOv2}}\downarrow$}} \\
+        & \textbf{Sim} & \textbf{AW} & \textbf{AT} & & & \\
+        \midrule
+        & \checkmark & & & & 91.95 & 66.78 \\
+        & \checkmark & & & \checkmark & 92.05 & 66.04 \\
+        \rowcolor{rowgray}
+        \checkmark & \checkmark & & & \checkmark & 92.33 & 61.59 \\
+        \checkmark & & \checkmark & & \checkmark & 92.31 & 60.90 \\
+        \checkmark & & & \checkmark & \checkmark & 92.26 &  62.00\\
+        \bottomrule
+    \end{tabular}
+    \label{tab:ablation}
+\end{table}
+
+
+\subsection{Ablation Study}
+\label{sec:ablation}
+We study each TIGON component on Toys4K.
+% In this section, we demonstrate the effectiveness of each proposed components of TIGON by conducting ablation studies on the Toys4K dataset.
+
+\paragraph{Early-Fusion Strategy.}
+As shown in \cref{tab:ablation}, without cross-modal bridges, joint fine-tuning of the two branches only brings marginal improvement (66.78 $\rightarrow$ 66.04 in $\mathrm{FD}_{\text{DINOv2}}$). 
+Enabling cross-modal bridges yields a substantial gain (66.78 $\rightarrow$ 61.59 in $\mathrm{FD}_{\text{DINOv2}}$), underscoring the necessity of cross-modal information exchange. 
+Qualitatively, \cref{fig:ablation} shows that, without cross-modal bridges, the text- and image-conditioned branches diverge during denoising, producing inconsistent or abnormal structures; with bridges, they remain aligned and produce coherent result.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{tigon-ablation.png}
+    \caption{Effect of early fusion. Without cross-modal bridges, the two branches diverge during denoising. Full text prompt is available in the supplement.}
+    \label{fig:ablation}
+\end{figure}
+
+\paragraph{Late-Fusion Strategy.}
+As discussed in~\cref{sec:late_fusion}, a sophisticated learnable late-fusion strategy appears unnecessary. Under the same early-fusion setup and joint fine-tuning, simple averaging (\textbf{Sim}) already reaches 61.59 $\mathrm{FD}_{\text{DINOv2}}$ (Table~\ref{tab:ablation}), while adaptive weighting (\textbf{AW}) and attention-based fusion (\textbf{AT}) change this metric only slightly (60.90 and 62.00). We therefore adopt simple averaging by default.
+% As discussed in~\cref{sec:late_fusion}, a sophisticated learnable late-fusion mechanism appears unnecessary in our setting. Under the same early-fusion setup and joint fine-tuning, simple averaging (\textbf{Sim}) already achieves 61.59 FD (Table~\ref{tab:ablation}). Replacing averaging with adaptive weighting (\textbf{AW}) or an attention-based fusion module (\textbf{AT}) yields only marginal changes (60.90 and 62.00 FD, respectively), despite introducing additional parameters and complexity. These negligible gains suggest that the extra capacity of learnable fusion is not effectively utilized for this task. Therefore, we adopt the parameter-free simple averaging strategy as our default choice, as it offers a better trade-off between performance and model simplicity.
+

@@ -1,0 +1,633 @@
+{
+  "schema_version": "paper-traceability/1.0",
+  "paper": {
+    "title": "Image Generators are Generalist Vision Learners",
+    "source_mode": "latex-primary",
+    "report_path": "report.md"
+  },
+  "claims": [
+    {
+      "claim_id": "C1.1",
+      "section_id": "1",
+      "section_title": "论文身份与本次使用的证据包",
+      "claim_text": "论文研究对象是：能否把大型图像生成器 Nano Banana Pro 经过少量、多任务的视觉 instruction-tuning，转化为同时覆盖图像生成、2D 语义理解和单目 3D 理解的统一模型 Vision Banana。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "source package grounding",
+      "evidence": [
+        {"evidence_id":"E-C1.1-a","doc":"main","paragraph_id":"main.tex::p0014","quote":"The paper asks whether generative models develop representations suitable for visual understanding and tests this by finetuning a pretrained image generator on several vision tasks.","relation":"direct","page_hint":2,"locator_snippets":["whether visual generative models are secretly generalist vision learners"]},
+        {"evidence_id":"E-C1.1-b","doc":"main","paragraph_id":"main.tex::p0030","quote":"Vision Banana is instruction-tuned from Nano Banana Pro and evaluated across visual understanding and generation.","relation":"direct","page_hint":3,"locator_snippets":["a generalist vision model trained by performing a lightweight instruction-tuning"]}
+      ]
+    },
+    {
+      "claim_id": "C11.1",
+      "section_id": "11",
+      "section_title": "关键公式逐式解释",
+      "claim_text": "metric depth 的核心公式先将无界深度压缩为归一化距离：$$f(d,\\lambda,c)=1-\\left(1-\\frac{d}{\\lambda c}\\right)^{\\lambda+1},\\quad \\lambda<-1,$$ 随后再沿 RGB cube 的分段线性边路径编码颜色。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "formula explanation",
+      "evidence": [
+        {"evidence_id":"E-C11.1-a","doc":"main","paragraph_id":"main.tex::p0068","quote":"The paper defines a power transform from unbounded metric depth into a normalized interval before RGB encoding.","relation":"direct","page_hint":9,"locator_snippets":["We constrain the power transform"]}
+      ]
+    },
+    {
+      "claim_id": "C11.2",
+      "section_id": "11",
+      "section_title": "关键公式逐式解释",
+      "claim_text": "论文固定 `lambda=-3`、`c=10/3`，使近距离区域获得更高编码分辨率；该 power transform 与 RGB 路径都可逆，因此训练时可把真值 depth 编成图，推理时再把生成图解回米制深度。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "formula explanation",
+      "evidence": [
+        {"evidence_id":"E-C11.2-a","doc":"main","paragraph_id":"main.tex::p0068","quote":"The chosen parameters and motivation emphasize near-field accuracy before RGB interpolation.","relation":"direct","page_hint":9,"locator_snippets":["we set the shape parameter"]},
+        {"evidence_id":"E-C11.2-b","doc":"main","paragraph_id":"main.tex::p0071","quote":"Figure 5 depicts the bijection between metric depth and an RGB-cube edge path.","relation":"direct","page_hint":9,"locator_snippets":["A visualization of our bijection between scalar metric distances"]},
+        {"evidence_id":"E-C11.2-c","doc":"main","paragraph_id":"main.tex::p0073","quote":"Training encodes ground-truth depth and inference applies the inverse mapping to recover metric depth.","relation":"direct","page_hint":10,"locator_snippets":["During training, we apply this mapping to ground-truth metric depths"]}
+      ]
+    },
+    {
+      "claim_id": "C11.3",
+      "section_id": "11",
+      "section_title": "关键公式逐式解释",
+      "claim_text": "surface normal 不需要类似 depth 的非线性标量压缩：camera-space 的 `(x,y,z)` 三个方向分量可直接与 RGB 三通道对齐，论文用红、绿、蓝紫方向示例说明这种表示。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "formula explanation",
+      "evidence": [
+        {"evidence_id":"E-C11.3-a","doc":"main","paragraph_id":"main.tex::p0099","quote":"Surface-normal visualization is described as intrinsically aligned with RGB space.","relation":"direct","page_hint":12,"locator_snippets":["intrinsically aligned with the RGB color space"]},
+        {"evidence_id":"E-C11.3-b","doc":"main","paragraph_id":"main.tex::p0100","quote":"The paper uses a camera-space right-handed normal coordinate system.","relation":"direct","page_hint":12,"locator_snippets":["camera-space normal formulation"]},
+        {"evidence_id":"E-C11.3-c","doc":"main","paragraph_id":"main.tex::p0101","quote":"The listed directional examples map left, up, and camera-facing normals to characteristic RGB colors.","relation":"direct","page_hint":12,"locator_snippets":["Facing Left"]}
+      ]
+    },
+    {
+      "claim_id": "C12.1",
+      "section_id": "12",
+      "section_title": "Theory、proof 与 practice 的对应",
+      "claim_text": "论文没有 theorem、formal proof 或 generalization bound；唯一接近理论对象的是可逆 depth codec，其“证明”本质上是两个可逆映射的组合，而不是对生成预训练能力的理论保证。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "theory audit",
+      "evidence": [
+        {"evidence_id":"E-C12.1-a","doc":"main","paragraph_id":"main.tex::p0068","quote":"The paper's only displayed equation defines the engineering depth transform.","relation":"inference","page_hint":9,"locator_snippets":["To visualize depth maps as RGB images"]},
+        {"evidence_id":"E-C12.1-b","doc":"main","paragraph_id":"main.tex::p0073","quote":"The invertibility argument is stated as a composition of the false-color map and the power transform.","relation":"direct","page_hint":10,"locator_snippets":["their composition forms a bijection"]}
+      ]
+    },
+    {
+      "claim_id": "C12.2",
+      "section_id": "12",
+      "section_title": "Theory、proof 与 practice 的对应",
+      "claim_text": "codec 的理论对象与实现对象大致对齐，但“生成模型天然以 mode-seeking 方式解决多模态歧义”是 Discussion 中的机制解释，未由专门对照或理论分析验证，因此与实际系统只有松散对应。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "theory-practice mapping",
+      "evidence": [
+        {"evidence_id":"E-C12.2-a","doc":"main","paragraph_id":"main.tex::p0073","quote":"The codec is implemented in both forward training-target construction and inverse benchmark decoding.","relation":"direct","page_hint":10,"locator_snippets":["At inference, we apply the inverse mapping"]},
+        {"evidence_id":"E-C12.2-b","doc":"main","paragraph_id":"main.tex::p0112","quote":"The discussion asserts that generative models learn full distributions and handle ambiguity by design.","relation":"inference","page_hint":14,"locator_snippets":["Generative models, however, inherently learn the full data distribution"]}
+      ]
+    },
+    {
+      "claim_id": "C13.1",
+      "section_id": "13",
+      "section_title": "算法 / 模块流程与具体例子",
+      "claim_text": "完整流程是：选择视觉任务并构造可逆 RGB target → 将少量视觉样本低比例混入 NBP 原训练 mixture → 以自然语言 prompt instruction-tune 同一生成器 → 推理时生成 RGB answer image → 用确定性颜色匹配、聚类或逆变换得到 benchmark 输出。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "algorithm walkthrough",
+      "evidence": [
+        {"evidence_id":"E-C13.1-a","doc":"main","paragraph_id":"main.tex::p0032","quote":"The base generator is instruction-tuned with a low ratio of invertibly formatted vision data.","relation":"direct","page_hint":4,"locator_snippets":["instruction-tuning our base model"]},
+        {"evidence_id":"E-C13.1-b","doc":"main","paragraph_id":"main.tex::p0045","quote":"Semantic outputs are decoded by matching generated colors to prompt-specified classes.","relation":"direct","page_hint":6,"locator_snippets":["assign pixels to classes by matching its color"]},
+        {"evidence_id":"E-C13.1-c","doc":"main","paragraph_id":"main.tex::p0055","quote":"Instance masks are decoded through color clustering.","relation":"direct","page_hint":6,"locator_snippets":["dynamically assign colors to different instances"]},
+        {"evidence_id":"E-C13.1-d","doc":"main","paragraph_id":"main.tex::p0073","quote":"Metric depth uses forward RGB target construction and inverse metric decoding.","relation":"direct","page_hint":10,"locator_snippets":["decode the model's generated RGB images back into metric depth"]}
+      ]
+    },
+    {
+      "claim_id": "C14.1",
+      "section_id": "14",
+      "section_title": "逐模块深读：每个模块背后的作者思考",
+      "claim_text": "可逆 RGB codec 是对“任务专用输出 head”这一缺失机制的代理：理想系统会直接输出 masks、meters 和 normals，Vision Banana 则把它们嵌入生成器原生支持的 RGB 空间。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "module rationale",
+      "evidence": [
+        {"evidence_id":"E-C14.1-a","doc":"main","paragraph_id":"main.tex::p0032","quote":"The method aligns native image generation outputs with measurable geometry and semantic labels.","relation":"inference","page_hint":4,"locator_snippets":["align the model's emergent generative representations"]},
+        {"evidence_id":"E-C14.1-b","doc":"main","paragraph_id":"main.tex::p0073","quote":"The depth codec explicitly turns RGB generation into metric prediction without a regression head.","relation":"direct","page_hint":10,"locator_snippets":["their composition forms a bijection between metric depth"]}
+      ]
+    },
+    {
+      "claim_id": "C14.2",
+      "section_id": "14",
+      "section_title": "逐模块深读：每个模块背后的作者思考",
+      "claim_text": "低比例混合原训练 mixture 的功能是抗 catastrophic forgetting；生成 benchmark 接近 50/50 的人类偏好结果说明原生成能力大体保留，但论文未给样本量或置信区间。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "module rationale",
+      "evidence": [
+        {"evidence_id":"E-C14.2-a","doc":"main","paragraph_id":"main.tex::p0033","quote":"The paper reports 53.5 and 47.8 percent human-evaluation win rates and uses them to argue that generation is retained.","relation":"direct","page_hint":4,"locator_snippets":["In human evaluations, we obtain win rates of 53.5"]}
+      ]
+    },
+    {
+      "claim_id": "C14.3",
+      "section_id": "14",
+      "section_title": "逐模块深读：每个模块背后的作者思考",
+      "claim_text": "整个方法隐含地押注两点：基础生成器已学到足够的语义/几何先验，且少量格式对齐不会让模型主要依靠新视觉数据重新学习任务；论文结果支持这两点的可行性，却没有把二者分别识别出来。",
+      "interpretation_type": "plausible inference",
+      "research_role": "hidden assumption",
+      "evidence": [
+        {"evidence_id":"E-C14.3-a","doc":"main","paragraph_id":"main.tex::p0032","quote":"The authors characterize the vision data as a very low-ratio alignment of emergent representations.","relation":"inference","page_hint":4,"locator_snippets":["at a very low ratio"]},
+        {"evidence_id":"E-C14.3-b","doc":"main","paragraph_id":"main.tex::p0034","quote":"Training relies on in-house annotations and synthetic data, but exact volume and controlled alternatives are not reported in this method description.","relation":"inference","page_hint":4,"locator_snippets":["in-house model annotations for web-crawled 2D images"]}
+      ]
+    },
+    {
+      "claim_id": "C15.1",
+      "section_id": "15",
+      "section_title": "关键图表解读",
+      "claim_text": "Figure 1 清楚展示“一张输入图 + 一个 task prompt → 五种可解码视觉输出”的统一接口，并用雷达图表达跨任务优势；它是方法与结果地图，不是生成预训练因果性的直接证明。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "figure audit",
+      "evidence": [
+        {"evidence_id":"E-C15.1-a","doc":"main","paragraph_id":"main.tex::p0017","quote":"Figure 1 describes instruction-tuned NBP producing precise, benchmarkable task visualizations.","relation":"direct","page_hint":2,"locator_snippets":["can produce visualizations in a precise format"]},
+        {"evidence_id":"E-C15.1-b","doc":"main","paragraph_id":"main.tex::p0014","quote":"The causal interpretation rests on the proposed finetuning-and-evaluation test rather than the figure itself.","relation":"inference","page_hint":2,"locator_snippets":["If the finetuned model performs at or near SOTA"]}
+      ]
+    },
+    {
+      "claim_id": "C15.2",
+      "section_id": "15",
+      "section_title": "关键图表解读",
+      "claim_text": "Figures 2–4 展示颜色协议、动态实例颜色和自然语言 referring 的灵活性，尤其能处理 “patterns on the wall”、动作、非常规用途和中英文字样；这些图支持 prompt-following 与定性跨任务迁移，但没有提供失败率或挑选规则。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "figure audit",
+      "evidence": [
+        {"evidence_id":"E-C15.2-a","doc":"main","paragraph_id":"main.tex::p0049","quote":"Figure 2 shows multiple prompt styles and fine-grained semantic masks.","relation":"direct","page_hint":6,"locator_snippets":["It handles various prompting styles"]},
+        {"evidence_id":"E-C15.2-b","doc":"main","paragraph_id":"main.tex::p0053","quote":"Figure 3 shows per-class instance segmentation with different generated colors.","relation":"direct","page_hint":7,"locator_snippets":["It renders different instances with different colors"]},
+        {"evidence_id":"E-C15.2-c","doc":"main","paragraph_id":"main.tex::p0059","quote":"Figure 4 includes appearance, action, unusual-use, and multilingual referring examples.","relation":"direct","page_hint":8,"locator_snippets":["objects that have uncommon usage"]},
+        {"evidence_id":"E-C15.2-d","doc":"main","paragraph_id":"main.tex::p0063","quote":"The paper interprets additional free-form prompt examples as cross-task transfer.","relation":"direct","page_hint":8,"locator_snippets":["These observations suggest robust cross-task transfers"]}
+      ]
+    },
+    {
+      "claim_id": "C15.3",
+      "section_id": "15",
+      "section_title": "关键图表解读",
+      "claim_text": "Figures 5–8 分别展示 depth bijection、点云重建、单张手机照片的 vibe test 与 surface normal 细节；它们说明输出可解码且视觉上锐利，但 Figure 7 的单点地图测距和 Figure 8 的视觉锐度不能替代大规模几何准确性指标。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "figure audit",
+      "evidence": [
+        {"evidence_id":"E-C15.3-a","doc":"main","paragraph_id":"main.tex::p0071","quote":"Figure 5 visualizes the metric-depth to RGB bijection.","relation":"direct","page_hint":9,"locator_snippets":["metric distances corresponding to various RGB colors"]},
+        {"evidence_id":"E-C15.3-b","doc":"main","paragraph_id":"main.tex::p0094","quote":"Figure 6 shows depth visualizations decoded and unprojected into 3D point clouds.","relation":"direct","page_hint":11,"locator_snippets":["Demonstration of Vision Banana's metric depth estimation capabilities"]},
+        {"evidence_id":"E-C15.3-c","doc":"main","paragraph_id":"main.tex::p0096","quote":"Figure 7 compares one predicted distance with a Google Maps measurement.","relation":"direct","page_hint":12,"locator_snippets":["the AbsRel error at this point is around"]},
+        {"evidence_id":"E-C15.3-d","doc":"main","paragraph_id":"main.tex::p0108","quote":"Figure 8 visually compares Vision Banana and Lotus-2 normal maps.","relation":"direct","page_hint":13,"locator_snippets":["Comparison with SOTA surface normal estimation method"]},
+        {"evidence_id":"E-C15.3-e","doc":"main","paragraph_id":"main.tex::p0109","quote":"The text acknowledges that quantitative outdoor error can be worse despite claimed visual superiority.","relation":"direct","page_hint":13,"locator_snippets":["slightly higher quantitative errors on this benchmark"]}
+      ]
+    },
+    {
+      "claim_id": "C16.1",
+      "section_id": "16",
+      "section_title": "实验设计",
+      "claim_text": "训练任务覆盖 2D 的 semantic、instance、referring segmentation 与 3D 的 metric depth、surface normal；2D 使用 web-crawled 图像的 in-house model annotations，3D 使用 rendering engine synthetic data，并声明不包含评测 benchmark 的训练集。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "experimental design",
+      "evidence": [
+        {"evidence_id":"E-C16.1-a","doc":"main","paragraph_id":"main.tex::p0034","quote":"The method section enumerates the task families, data sources, and benchmark-training-set exclusion.","relation":"direct","page_hint":4,"locator_snippets":["no training data from our evaluation benchmarks is included"]}
+      ]
+    },
+    {
+      "claim_id": "C16.2",
+      "section_id": "16",
+      "section_title": "实验设计",
+      "claim_text": "实验将 Vision Banana 与 SAM 3、DINO-X、Depth Anything 3、DepthLM、Depth Pro、UniK3D、MoGe-2、Marigold、DSINE、StableNormal、Lotus-2 等 specialist 比较，同时以 GenAI-Bench 与 ImgEdit 的人类偏好检验生成能力保留。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "experimental design",
+      "evidence": [
+        {"evidence_id":"E-C16.2-a","doc":"main","paragraph_id":"main.tex::p0036","quote":"Table 2 covers the segmentation baseline families and evaluation protocols.","relation":"direct","page_hint":5,"locator_snippets":["state-of-the-art methods on various segmentation datasets"]},
+        {"evidence_id":"E-C16.2-b","doc":"main","paragraph_id":"main.tex::p0075","quote":"Table 3 lists the metric-depth specialists.","relation":"direct","page_hint":10,"locator_snippets":["DepthLM-7B"]},
+        {"evidence_id":"E-C16.2-c","doc":"main","paragraph_id":"main.tex::p0103","quote":"Table 4 lists the surface-normal specialists and metrics.","relation":"direct","page_hint":13,"locator_snippets":["Lotus-2-Normal"]},
+        {"evidence_id":"E-C16.2-d","doc":"main","paragraph_id":"main.tex::p0033","quote":"GenAI-Bench and ImgEdit human evaluations compare Vision Banana against NBP.","relation":"direct","page_hint":4,"locator_snippets":["benchmarking Vision Banana against the base Nano Banana Pro"]}
+      ]
+    },
+    {
+      "claim_id": "C16.3",
+      "section_id": "16",
+      "section_title": "实验设计",
+      "claim_text": "论文没有披露视觉样本数、准确 mixing ratio、训练步数、优化器、分辨率、算力、完整 prompt/decoder 规范或 NBP 架构，因此 benchmark 可读性强而复现性弱。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "reproducibility audit",
+      "evidence": [
+        {"evidence_id":"E-C16.3-a","doc":"main","paragraph_id":"main.tex::p0032","quote":"The training recipe is described only at the level of a very low vision-data ratio.","relation":"inference","page_hint":4,"locator_snippets":["at a very low ratio"]},
+        {"evidence_id":"E-C16.3-b","doc":"main","paragraph_id":"main.tex::p0034","quote":"The data description gives source categories but no counts or annotation and optimization details.","relation":"inference","page_hint":4,"locator_snippets":["To collect data for instruction tuning"]}
+      ]
+    },
+    {
+      "claim_id": "C17.1",
+      "section_id": "17",
+      "section_title": "实验作为故事证据：claims alignment audit",
+      "claim_text": "总表显示 Vision Banana 在 Cityscapes、RefCOCOg、ReasonSeg、共享四个 depth 数据集平均值和室内 normal 平均值上超过列出的强对手，在 SA-Co/Gold instance segmentation 与 image editing 上则略低于最佳对手或基础 NBP。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "results audit",
+      "evidence": [
+        {"evidence_id":"E-C17.1-a","doc":"main","paragraph_id":"main.tex::p0029","quote":"Table 1 summarizes the cross-task comparison and its claims against specialists and NBP.","relation":"direct","page_hint":3,"locator_snippets":["surpasses or rivals SOTA specialists across visual generation and understanding"]},
+        {"evidence_id":"E-C17.1-b","doc":"main","paragraph_id":"main.tex::p0024","quote":"The SA-Co/Gold row places Vision Banana below DINO-X.","relation":"direct","page_hint":3,"locator_snippets":["0.552"]},
+        {"evidence_id":"E-C17.1-c","doc":"main","paragraph_id":"main.tex::p0028","quote":"The image-editing row places Vision Banana slightly below NBP in pairwise win rate.","relation":"direct","page_hint":3,"locator_snippets":["47.8"]}
+      ]
+    },
+    {
+      "claim_id": "C17.2",
+      "section_id": "17",
+      "section_title": "实验作为故事证据：claims alignment audit",
+      "claim_text": "分割证据总体支持“统一模型可达到强 zero-shot transfer”，但 SA-Co/Gold 只随机评 500 queries，ReasonSeg 依赖 Gemini 2.5 Pro，RefCOCOg 仍落后 in-domain 训练方法，因此不能概括为全面超过所有 segmentation specialist。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "results audit",
+      "evidence": [
+        {"evidence_id":"E-C17.2-a","doc":"main","paragraph_id":"main.tex::p0036","quote":"The table caption records the 500-query subset and Gemini 2.5 Pro pairing.","relation":"direct","page_hint":5,"locator_snippets":["we evaluate our method on 500 randomly sampled queries"]},
+        {"evidence_id":"E-C17.2-b","doc":"main","paragraph_id":"main.tex::p0060","quote":"The authors acknowledge lagging SAM 3 and DINO-X-level instance-segmentation performance.","relation":"direct","page_hint":7,"locator_snippets":["still lags behind in instance segmentation"]},
+        {"evidence_id":"E-C17.2-c","doc":"main","paragraph_id":"main.tex::p0062","quote":"The referring-segmentation section notes a remaining gap to methods trained on RefCOCOg training data.","relation":"direct","page_hint":7,"locator_snippets":["there is still some gap from methods that are trained on the training split"]}
+      ]
+    },
+    {
+      "claim_id": "C17.3",
+      "section_id": "17",
+      "section_title": "实验作为故事证据：claims alignment audit",
+      "claim_text": "Depth 结果是论文最强证据之一：Vision Banana 在六集全平均达到 `delta_1=0.882`、AbsRel `0.116`，在与 Depth Anything 3 共同覆盖的四集平均为 `0.929` 对 `0.918`；但它在 NYU、KITTI 和 nuScenes 的逐集结果并非最佳。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "results audit",
+      "evidence": [
+        {"evidence_id":"E-C17.3-a","doc":"main","paragraph_id":"main.tex::p0077","quote":"The six-dataset average reports delta1 0.882 and AbsRel 0.116.","relation":"direct","page_hint":10,"locator_snippets":["0.882"]},
+        {"evidence_id":"E-C17.3-b","doc":"main","paragraph_id":"main.tex::p0084","quote":"The footnote reports the shared four-dataset comparison of 0.929 versus 0.918.","relation":"direct","page_hint":10,"locator_snippets":["our average on the same 4 datasets is 0.929"]},
+        {"evidence_id":"E-C17.3-c","doc":"main","paragraph_id":"main.tex::p0078","quote":"NYU has several specialist results above Vision Banana.","relation":"direct","page_hint":10,"locator_snippets":["NYU"]},
+        {"evidence_id":"E-C17.3-d","doc":"main","paragraph_id":"main.tex::p0082","quote":"Depth Anything 3 is stronger on KITTI.","relation":"direct","page_hint":10,"locator_snippets":["KITTI"]},
+        {"evidence_id":"E-C17.3-e","doc":"main","paragraph_id":"main.tex::p0083","quote":"Vision Banana is substantially weaker than several baselines on nuScenes.","relation":"direct","page_hint":10,"locator_snippets":["nuScenes"]}
+      ]
+    },
+    {
+      "claim_id": "C17.4",
+      "section_id": "17",
+      "section_title": "实验作为故事证据：claims alignment audit",
+      "claim_text": "Surface normal 的室内三集 mean/median 平均最佳，而 outdoor Virtual KITTI 2 略逊 Lotus-2；生成 win rate 53.5% 与 47.8% 接近持平，支持能力大体保留，但缺少统计不确定性。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "results audit",
+      "evidence": [
+        {"evidence_id":"E-C17.4-a","doc":"main","paragraph_id":"main.tex::p0102","quote":"The text reports best indoor average errors and competitive outdoor accuracy.","relation":"direct","page_hint":12,"locator_snippets":["lowest mean and median angular errors"]},
+        {"evidence_id":"E-C17.4-b","doc":"main","paragraph_id":"main.tex::p0103","quote":"The table shows Vision Banana slightly behind Lotus-2 on Virtual KITTI 2.","relation":"direct","page_hint":13,"locator_snippets":["29.063"]},
+        {"evidence_id":"E-C17.4-c","doc":"main","paragraph_id":"main.tex::p0033","quote":"The two generation human-evaluation win rates are reported without sample counts or confidence intervals in the method text.","relation":"direct","page_hint":4,"locator_snippets":["win rates of 53.5"]}
+      ]
+    },
+    {
+      "claim_id": "C1.2",
+      "section_id": "1",
+      "section_title": "论文身份与本次使用的证据包",
+      "claim_text": "本次阅读使用了与用户 PDF 标题、作者、摘要相匹配的 arXiv v1 LaTeX source，并重新编译出 PDF 与 SyncTeX，因此报告结论可回溯到源码段落和 PDF 页面。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "source package grounding",
+      "evidence": [
+        {"evidence_id":"E-C1.2-a","doc":"main","paragraph_id":"main.tex::p0005","quote":"The LaTeX title matches the supplied PDF title.","relation":"direct","page_hint":1,"locator_snippets":["Image Generators are Generalist Vision Learners"]},
+        {"evidence_id":"E-C1.2-b","doc":"main","paragraph_id":"main.tex::p0006","quote":"The LaTeX author block matches the supplied PDF author list.","relation":"direct","page_hint":1,"locator_snippets":["Valentin Gabeur"]},
+        {"evidence_id":"E-C1.2-c","doc":"main","paragraph_id":"main.tex::p0009","quote":"The LaTeX abstract matches the supplied PDF abstract and method description.","relation":"direct","page_hint":1,"locator_snippets":["Recent works show that image and video generators exhibit zero-shot"]}
+      ]
+    },
+    {
+      "claim_id": "C2.1",
+      "section_id": "2",
+      "section_title": "一句话论点与 research equation",
+      "claim_text": "论文的 research equation 是：强图像生成器已经学到丰富世界先验，但其自由 RGB 输出无法稳定解码为标准视觉任务答案；Vision Banana 用低比例视觉任务数据和可逆 RGB 编码进行 instruction-tuning，把“不可测的生成能力”替换为“可提示、可解码、可评测的统一视觉接口”。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "research equation",
+      "evidence": [
+        {"evidence_id":"E-C2.1-a","doc":"main","paragraph_id":"main.tex::p0018","quote":"The paper maps visual tasks to decodable RGB outputs and changes tasks by prompts while sharing model weights.","relation":"direct","page_hint":3,"locator_snippets":["the model is instructed to produce RGB images that can be decoded"]},
+        {"evidence_id":"E-C2.1-b","doc":"main","paragraph_id":"main.tex::p0032","quote":"Vision Banana is aligned with a very low ratio of invertibly formatted vision-task data.","relation":"direct","page_hint":4,"locator_snippets":["mix vision task data into Nano Banana Pro's own training mixture at a very low ratio"]}
+      ]
+    },
+    {
+      "claim_id": "C3.1",
+      "section_id": "3",
+      "section_title": "标题逐词解释",
+      "claim_text": "标题中的 “Image Generators” 指大型预训练图像生成模型，“Generalist” 指单套共享权重跨生成与多种理解任务工作，“Vision Learners” 则强调作者把这些能力归因于生成预训练所形成的通用视觉表示，而不只是 instruction-tuning 后的任务适配。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "title interpretation",
+      "evidence": [
+        {"evidence_id":"E-C3.1-a","doc":"main","paragraph_id":"main.tex::p0014","quote":"The paper defines a generalist vision learner in terms of internal representations suitable for understanding tasks.","relation":"direct","page_hint":2,"locator_snippets":["develop internal representations that are suitable for visual understanding tasks"]},
+        {"evidence_id":"E-C3.1-b","doc":"main","paragraph_id":"main.tex::p0030","quote":"The same Vision Banana model is reported across generation, 2D understanding, and 3D understanding.","relation":"direct","page_hint":3,"locator_snippets":["excels at both visual understanding and generation"]},
+        {"evidence_id":"E-C3.1-c","doc":"main","paragraph_id":"main.tex::p0031","quote":"The authors attribute the result to generative vision pretraining and propose it as a foundation-model paradigm.","relation":"direct","page_hint":3,"locator_snippets":["generative vision pretraining playing a foundational role"]}
+      ]
+    },
+    {
+      "claim_id": "C4.1",
+      "section_id": "4",
+      "section_title": "论文真正解决的问题",
+      "claim_text": "直接问题不是“生成器能否偶尔画出像深度图或分割图的图像”，而是能否让生成输出严格服从格式、可逆解码并在标准 benchmark 上量化，同时不牺牲原有生成能力。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "problem definition",
+      "evidence": [
+        {"evidence_id":"E-C4.1-a","doc":"main","paragraph_id":"main.tex::p0014","quote":"The proposed test requires near-SOTA benchmark performance and retained generation capability.","relation":"direct","page_hint":2,"locator_snippets":["while retaining its image generation capabilities"]},
+        {"evidence_id":"E-C4.1-b","doc":"main","paragraph_id":"main.tex::p0032","quote":"The method aligns outputs to invertible task formats for quantitative assessment.","relation":"direct","page_hint":4,"locator_snippets":["a generated depth heatmap must be invertible back to physical depth values"]}
+      ]
+    },
+    {
+      "claim_id": "C4.2",
+      "section_id": "4",
+      "section_title": "论文真正解决的问题",
+      "claim_text": "实际痛点是现有路线在两个极端间摆动：zero-shot 生成器有通用性却难以稳定评测，任务 specialist 能达到 SOTA 却依赖专用结构、损失和 full-finetuning，并损失跨任务与生成能力的统一性。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "gap statement",
+      "evidence": [
+        {"evidence_id":"E-C4.2-a","doc":"main","paragraph_id":"main.tex::p0015","quote":"Prior generators do not strictly follow decodable formats, whereas task-specific adaptations sacrifice generality.","relation":"direct","page_hint":2,"locator_snippets":["they sacrifice the model's generality across other understanding and generation tasks"]}
+      ]
+    },
+    {
+      "claim_id": "C5.1",
+      "section_id": "5",
+      "section_title": "科学问题阶梯",
+      "claim_text": "论文的问题阶梯从“如何把 dense prediction 编码成生成图像”，上升到“一个模型能否用统一输出接口处理生成与理解”，再上升到“生成式预训练是否可以像 LLM pretraining 一样成为视觉 foundation model 的主干范式”。",
+      "interpretation_type": "plausible inference",
+      "research_role": "scientific problem ladder",
+      "evidence": [
+        {"evidence_id":"E-C5.1-a","doc":"main","paragraph_id":"main.tex::p0031","quote":"The introduction links a universal image-generation interface to a possible foundation-model paradigm shift.","relation":"inference","page_hint":3,"locator_snippets":["image generation can serve as a universal interface for unified visual understanding"]},
+        {"evidence_id":"E-C5.1-b","doc":"main","paragraph_id":"main.tex::p0110","quote":"The discussion explicitly compares generative vision pretraining with the language-model paradigm.","relation":"inference","page_hint":14,"locator_snippets":["computer vision is approaching a similar paradigm shift"]}
+      ]
+    },
+    {
+      "claim_id": "C6.1",
+      "section_id": "6",
+      "section_title": "作者可能如何发现这个方向",
+      "claim_text": "一个可信的作者侧发现路径是：先观察强图像/视频生成器会 zero-shot 画出深度图、分割图等“像答案的图”，再发现这些图因颜色和格式不稳定而无法严谨评测，随后借鉴 LLM instruction-tuning，把任务学习缩减为输出协议对齐。",
+      "interpretation_type": "plausible inference",
+      "research_role": "direction reconstruction",
+      "evidence": [
+        {"evidence_id":"E-C6.1-a","doc":"main","paragraph_id":"main.tex::p0015","quote":"Prior work observed zero-shot task-like visualizations but lacked strict decodable formatting and modern benchmark performance.","relation":"inference","page_hint":2,"locator_snippets":["can generate visual content that look like RGB visualizations of computer vision outputs"]},
+        {"evidence_id":"E-C6.1-b","doc":"main","paragraph_id":"main.tex::p0018","quote":"The paper explicitly imports the LLM base-model and instruction-tuning analogy.","relation":"inference","page_hint":3,"locator_snippets":["We take an approach motivated by recent advancements in large language models"]},
+        {"evidence_id":"E-C6.1-c","doc":"main","paragraph_id":"main.tex::p0032","quote":"The method is framed as alignment into measurable physical geometry and semantic labels.","relation":"inference","page_hint":4,"locator_snippets":["align the model's emergent generative representations into measurable physical geometry"]}
+      ]
+    },
+    {
+      "claim_id": "C7.1",
+      "section_id": "7",
+      "section_title": "作者如何搭建论文故事",
+      "claim_text": "论文故事遵循 challenge → failure mode → design principle → module → evidence：自由生成不可测 → 设计可逆 RGB codec；多任务容易遗忘生成 → 低比例混合原训练数据；task-specific specialization 破坏统一性 → 全任务共享权重、仅切换 prompt；最终以多 benchmark 和生成保真评测闭环。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "story construction",
+      "evidence": [
+        {"evidence_id":"E-C7.1-a","doc":"main","paragraph_id":"main.tex::p0018","quote":"The unified design shares weights, changes prompts, and keeps all outputs as RGB images.","relation":"direct","page_hint":3,"locator_snippets":["after instruction tuning, the weights are shared among all tasks"]},
+        {"evidence_id":"E-C7.1-b","doc":"main","paragraph_id":"main.tex::p0032","quote":"Invertible formats solve quantitative evaluation and a low vision-data ratio performs alignment.","relation":"direct","page_hint":4,"locator_snippets":["vision tasks formatted in such invertible manners"]},
+        {"evidence_id":"E-C7.1-c","doc":"main","paragraph_id":"main.tex::p0033","quote":"Generation benchmarks are used to test whether the low-ratio mixture preserves the base model's generative priors.","relation":"direct","page_hint":4,"locator_snippets":["ensuring that our vision task alignment does not degrade the model's original generative priors"]}
+      ]
+    },
+    {
+      "claim_id": "C8.1",
+      "section_id": "8",
+      "section_title": "Related work、关键引用及其叙事作用",
+      "claim_text": "Wiedemer et al. 与 Zuo et al. 的作用是提供“强生成器已有 zero-shot 视觉理解迹象”的起点，但论文把缺口定位为这些输出缺乏严格格式遵循和现代 benchmark 级性能。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "citation logic",
+      "evidence": [
+        {"evidence_id":"E-C8.1-a","doc":"main","paragraph_id":"main.tex::p0015","quote":"The cited zero-shot generator studies motivate the work but are described as lacking strict output formats and SOTA benchmark results.","relation":"direct","page_hint":2,"locator_snippets":["those methods do not provide state-of-the-art results on modern benchmarks"]}
+      ]
+    },
+    {
+      "claim_id": "C8.2",
+      "section_id": "8",
+      "section_title": "Related work、关键引用及其叙事作用",
+      "claim_text": "Marigold、Lotus/Lotus-2、StableNormal、Depth Anything 3 和 SAM 3 等工作构成 specialist 压力：它们证明生成先验或专用设计可以做好单任务，却也让 Vision Banana 必须证明统一模型能够与专用系统竞争。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "citation logic",
+      "evidence": [
+        {"evidence_id":"E-C8.2-a","doc":"main","paragraph_id":"main.tex::p0015","quote":"The introduction contrasts task-specific generation adaptations and full finetuning with the desired generality.","relation":"direct","page_hint":2,"locator_snippets":["adapt the generation architectures by adding specialized modules and performing full-finetuning"]},
+        {"evidence_id":"E-C8.2-b","doc":"main","paragraph_id":"main.tex::p0066","quote":"The depth section positions recent specialists as relying on intrinsics, specialized architectures, or domain-specific objectives.","relation":"direct","page_hint":9,"locator_snippets":["employing specialized architectures and domain-specific loss functions"]}
+      ]
+    },
+    {
+      "claim_id": "C8.3",
+      "section_id": "8",
+      "section_title": "Related work、关键引用及其叙事作用",
+      "claim_text": "GPT/PaLM 与 InstructGPT/FLAN 的引用不是装饰，而是提供 base generative pretraining → instruction alignment → zero-shot task following 的完整叙事模板。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "citation logic",
+      "evidence": [
+        {"evidence_id":"E-C8.3-a","doc":"main","paragraph_id":"main.tex::p0018","quote":"The paper directly analogizes LLM generative pretraining and instruction-tuning to its visual base-model alignment strategy.","relation":"direct","page_hint":3,"locator_snippets":["instruction-tuning guides them to follow specific tasks"]}
+      ]
+    },
+    {
+      "claim_id": "C9.1",
+      "section_id": "9",
+      "section_title": "Main idea",
+      "claim_text": "Vision Banana 的核心不是新增 task head，而是把每个视觉任务的答案参数化成 RGB 图像，使 NBP 的原生生成接口既是计算接口也是通信接口：模型读入图像与自然语言指令，生成答案图，再由确定性 decoder 转回结构化输出。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "main idea",
+      "evidence": [
+        {"evidence_id":"E-C9.1-a","doc":"main","paragraph_id":"main.tex::p0018","quote":"Prompts specify decodable RGB visualizations, while the same model weights are shared across tasks.","relation":"direct","page_hint":3,"locator_snippets":["only the prompt changes"]},
+        {"evidence_id":"E-C9.1-b","doc":"main","paragraph_id":"main.tex::p0032","quote":"The generated visualizations are decoded back into physical geometry or semantic labels for evaluation.","relation":"direct","page_hint":4,"locator_snippets":["decoded back to visual task outputs for quantitative evaluation"]}
+      ]
+    },
+    {
+      "claim_id": "C10.1",
+      "section_id": "10",
+      "section_title": "符号、概念与记号",
+      "claim_text": "论文的主要表示对象包括 semantic mask、instance mask、referring mask、metric depth `d`、归一化深度 `f(d, lambda, c)` 与 camera-space surface normal `(x, y, z)`；它们最终都被表示为 RGB 像素并通过规则解码。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "notation grounding",
+      "evidence": [
+        {"evidence_id":"E-C10.1-a","doc":"main","paragraph_id":"main.tex::p0045","quote":"Semantic classes are represented by prompt-specified colors and decoded through color matching.","relation":"direct","page_hint":6,"locator_snippets":["We prompt the model to generate a visualization image where each pixel is colored according to its class"]},
+        {"evidence_id":"E-C10.1-b","doc":"main","paragraph_id":"main.tex::p0055","quote":"Instance masks are dynamically colored and decoded by clustering similar pixels.","relation":"direct","page_hint":6,"locator_snippets":["cluster pixels that have similar colors by thresholding"]},
+        {"evidence_id":"E-C10.1-c","doc":"main","paragraph_id":"main.tex::p0068","quote":"Metric depth is transformed from an unbounded scalar into normalized RGB coordinates.","relation":"direct","page_hint":9,"locator_snippets":["mapping between unbounded depth values"]},
+        {"evidence_id":"E-C10.1-d","doc":"main","paragraph_id":"main.tex::p0099","quote":"Surface normals are unit vectors whose components align naturally with RGB channels.","relation":"direct","page_hint":12,"locator_snippets":["Surface normals, which are unit vectors"]}
+      ]
+    },
+    {
+      "claim_id": "C10.2",
+      "section_id": "10",
+      "section_title": "符号、概念与记号",
+      "claim_text": "核心评测指标包括 segmentation 的 mIoU/cIoU/gIoU/`pmF_1`，depth 的 `delta_1` 与 AbsRel，以及 surface normal 的 mean/median angular error；不同表格的“平均”口径并不完全相同，必须结合共享数据集说明阅读。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "metric grounding",
+      "evidence": [
+        {"evidence_id":"E-C10.2-a","doc":"main","paragraph_id":"main.tex::p0036","quote":"The segmentation table specifies mIoU, pmF1, cIoU, and gIoU metrics and zero-shot protocol notes.","relation":"direct","page_hint":5,"locator_snippets":["compared with state-of-the-art methods on various segmentation datasets"]},
+        {"evidence_id":"E-C10.2-b","doc":"main","paragraph_id":"main.tex::p0084","quote":"The depth table explains shared four-dataset averages and partial baseline coverage.","relation":"direct","page_hint":10,"locator_snippets":["average on the same 4 datasets"]},
+        {"evidence_id":"E-C10.2-c","doc":"main","paragraph_id":"main.tex::p0103","quote":"The surface-normal table reports mean and median angular errors for indoor and outdoor datasets.","relation":"direct","page_hint":13,"locator_snippets":["Surface normal estimation results"]}
+      ]
+    },
+    {
+      "claim_id": "C18.1",
+      "section_id": "18",
+      "section_title": "Reviewer-lens audit",
+      "claim_text": "从 novelty 与 significance 看，论文用极简 RGB interface 把闭源强生成器转成统一 2D/3D generalist，并在多个 specialist benchmark 上取得强结果，具有很高范式启发性。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "reviewer audit",
+      "evidence": [
+        {"evidence_id":"E-C18.1-a","doc":"main","paragraph_id":"main.tex::p0018","quote":"The method unifies tasks through shared weights, prompts, and decodable RGB outputs.","relation":"inference","page_hint":3,"locator_snippets":["supports a wide variety of tasks with a single unified model"]},
+        {"evidence_id":"E-C18.1-b","doc":"main","paragraph_id":"main.tex::p0029","quote":"The cross-task table reports specialist-level results for 2D, 3D, and generation.","relation":"inference","page_hint":3,"locator_snippets":["surpasses or rivals SOTA specialists"]}
+      ]
+    },
+    {
+      "claim_id": "C18.2",
+      "section_id": "18",
+      "section_title": "Reviewer-lens audit",
+      "claim_text": "从 technical soundness 看，结果本身可信度较高，但“预训练已学会、调优只是格式解锁”的因果解释没有由从零训练、不同预训练目标、冻结 probe、数据量 scaling 或 task-data ablation 隔离。",
+      "interpretation_type": "plausible inference",
+      "research_role": "reviewer audit",
+      "evidence": [
+        {"evidence_id":"E-C18.2-a","doc":"main","paragraph_id":"main.tex::p0014","quote":"The paper treats strong post-finetuning performance as evidence of pre-existing internal representations.","relation":"inference","page_hint":2,"locator_snippets":["then there is strong evidence that the image generator was indeed a foundation model"]},
+        {"evidence_id":"E-C18.2-b","doc":"main","paragraph_id":"main.tex::p0032","quote":"The method describes low-ratio instruction tuning but no from-scratch or alternative-pretraining control.","relation":"inference","page_hint":4,"locator_snippets":["This process allows us to align the model's emergent generative representations"]},
+        {"evidence_id":"E-C18.2-c","doc":"main","paragraph_id":"main.tex::p0034","quote":"The task-data source description does not provide scaling or causal ablation details.","relation":"inference","page_hint":4,"locator_snippets":["synthetic data from rendering engines for 3D tasks"]}
+      ]
+    },
+    {
+      "claim_id": "C18.3",
+      "section_id": "18",
+      "section_title": "Reviewer-lens audit",
+      "claim_text": "从 rigor 与 reproducibility 看，proprietary NBP、in-house annotations、未披露数据量/训练细节、ReasonSeg 外部 Gemini、SA-Co 子集与不完整 baseline dataset coverage 都限制了独立验证。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "reviewer audit",
+      "evidence": [
+        {"evidence_id":"E-C18.3-a","doc":"main","paragraph_id":"main.tex::p0034","quote":"The vision-task data uses in-house annotations and synthetic rendering data.","relation":"direct","page_hint":4,"locator_snippets":["in-house model annotations"]},
+        {"evidence_id":"E-C18.3-b","doc":"main","paragraph_id":"main.tex::p0036","quote":"Table 2 notes both the external Gemini 2.5 Pro component and the 500-query SA-Co subset.","relation":"direct","page_hint":5,"locator_snippets":["We use Gemini 2.5 Pro in our case"]},
+        {"evidence_id":"E-C18.3-c","doc":"main","paragraph_id":"main.tex::p0084","quote":"Table 3 documents partial dataset coverage for major depth baselines.","relation":"direct","page_hint":10,"locator_snippets":["partial"]}
+      ]
+    },
+    {
+      "claim_id": "C19.1",
+      "section_id": "19",
+      "section_title": "创新点与逐条证据审计",
+      "claim_text": "论文三层贡献的证据强度不同：统一 RGB generalist 的工程贡献有强 benchmark 支持，保持生成能力有中等人类评测支持，而“生成预训练是视觉 foundation paradigm”主要由迁移效率与广度间接支持。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "contribution audit",
+      "evidence": [
+        {"evidence_id":"E-C19.1-a","doc":"main","paragraph_id":"main.tex::p0029","quote":"Table 1 provides the strongest direct cross-task benchmark evidence.","relation":"direct","page_hint":3,"locator_snippets":["across visual generation and understanding"]},
+        {"evidence_id":"E-C19.1-b","doc":"main","paragraph_id":"main.tex::p0033","quote":"Generation retention is supported by two human-evaluation win rates and qualitative examples.","relation":"direct","page_hint":4,"locator_snippets":["does not forget its generative nature"]},
+        {"evidence_id":"E-C19.1-c","doc":"main","paragraph_id":"main.tex::p0110","quote":"The foundation-model paradigm claim is made in the discussion as an interpretation of the system results.","relation":"inference","page_hint":14,"locator_snippets":["We are witnessing a paradigm shift for computer vision"]}
+      ]
+    },
+    {
+      "claim_id": "C20.1",
+      "section_id": "20",
+      "section_title": "值得学习的 story-making pattern",
+      "claim_text": "这篇论文最值得复用的是 replacement story：容易场景中的结构化 task head `Y` 在统一生成器中不可用，于是作者构造可逆 RGB protocol `Z`，让生成器在不离开原生输出空间的情况下承担 `Y` 的功能。",
+      "interpretation_type": "plausible inference",
+      "research_role": "story pattern",
+      "evidence": [
+        {"evidence_id":"E-C20.1-a","doc":"main","paragraph_id":"main.tex::p0015","quote":"The paper rejects specialist modules and full finetuning as sacrificing generality.","relation":"inference","page_hint":2,"locator_snippets":["adding specialized modules"]},
+        {"evidence_id":"E-C20.1-b","doc":"main","paragraph_id":"main.tex::p0018","quote":"The replacement stays in the native RGB output space and uses prompt-defined decodable schemes.","relation":"inference","page_hint":3,"locator_snippets":["produce RGB images that can be decoded"]},
+        {"evidence_id":"E-C20.1-c","doc":"main","paragraph_id":"main.tex::p0032","quote":"Invertible task visualizations act as a measurable surrogate for task-specific outputs.","relation":"inference","page_hint":4,"locator_snippets":["formatted in such invertible manners"]}
+      ]
+    },
+    {
+      "claim_id": "C20.2",
+      "section_id": "20",
+      "section_title": "值得学习的 story-making pattern",
+      "claim_text": "第二个可复用模式是 “capability vs interface” 分离：把弱表现重新诊断为能力不足还是答题协议不匹配，再用最小对齐实验检验隐藏能力是否已经存在。",
+      "interpretation_type": "plausible inference",
+      "research_role": "story pattern",
+      "evidence": [
+        {"evidence_id":"E-C20.2-a","doc":"main","paragraph_id":"main.tex::p0018","quote":"Instruction tuning is presented as teaching the model to follow requested visual formats rather than changing the task architecture.","relation":"inference","page_hint":3,"locator_snippets":["align the model to produce visual output in desired formats"]},
+        {"evidence_id":"E-C20.2-b","doc":"main","paragraph_id":"main.tex::p0032","quote":"The authors explicitly call the process alignment of emergent representations into measurable outputs.","relation":"inference","page_hint":4,"locator_snippets":["emergent generative representations"]}
+      ]
+    },
+    {
+      "claim_id": "C21.1",
+      "section_id": "21",
+      "section_title": "弱点、限制与改进空间",
+      "claim_text": "作者明确承认当前任务多样性仍有限、输入局限于 monocular image、尚未扩展 multi-view/video，与轻量 specialist 相比计算开销显著更高。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "limitation audit",
+      "evidence": [
+        {"evidence_id":"E-C21.1-a","doc":"main","paragraph_id":"main.tex::p0113","quote":"The future-work section identifies task diversity, monocular inputs, multi-view/video extension, and high compute overhead.","relation":"direct","page_hint":14,"locator_snippets":["currently incurs a significantly higher computational overhead"]}
+      ]
+    },
+    {
+      "claim_id": "C21.2",
+      "section_id": "21",
+      "section_title": "弱点、限制与改进空间",
+      "claim_text": "更深的限制是不可复现与因果混杂：NBP 和 in-house data 不公开，训练 recipe 只描述为“very low ratio”，也没有证明相同视觉数据在弱预训练或随机初始化模型上不能学到相近能力。",
+      "interpretation_type": "plausible inference",
+      "research_role": "limitation audit",
+      "evidence": [
+        {"evidence_id":"E-C21.2-a","doc":"main","paragraph_id":"main.tex::p0032","quote":"The recipe gives only a qualitative very-low-ratio description.","relation":"inference","page_hint":4,"locator_snippets":["at a very low ratio"]},
+        {"evidence_id":"E-C21.2-b","doc":"main","paragraph_id":"main.tex::p0034","quote":"The in-house and synthetic data description provides no controlled weaker-pretraining baseline.","relation":"inference","page_hint":4,"locator_snippets":["in-house model annotations for web-crawled 2D images"]}
+      ]
+    },
+    {
+      "claim_id": "C21.3",
+      "section_id": "21",
+      "section_title": "弱点、限制与改进空间",
+      "claim_text": "RGB protocol 还引入颜色偏移、量化、聚类阈值、codec sensitivity 与生成锐化等新误差源；论文展示了可行性，但没有系统报告 decoding failure、calibration 或 uncertainty。",
+      "interpretation_type": "plausible inference",
+      "research_role": "limitation audit",
+      "evidence": [
+        {"evidence_id":"E-C21.3-a","doc":"main","paragraph_id":"main.tex::p0045","quote":"Semantic decoding depends on generated colors matching prompt-specified class colors.","relation":"inference","page_hint":6,"locator_snippets":["matching its color according to the prompt"]},
+        {"evidence_id":"E-C21.3-b","doc":"main","paragraph_id":"main.tex::p0055","quote":"Instance decoding depends on threshold-based color clustering.","relation":"inference","page_hint":6,"locator_snippets":["by thresholding"]},
+        {"evidence_id":"E-C21.3-c","doc":"main","paragraph_id":"main.tex::p0073","quote":"Depth decoding projects RGB values onto the nearest path segment before inversion.","relation":"inference","page_hint":10,"locator_snippets":["projecting the RGB values onto the nearest line segment"]}
+      ]
+    },
+    {
+      "claim_id": "C22.1",
+      "section_id": "22",
+      "section_title": "创新类型与边界判断",
+      "claim_text": "该工作主要属于 cross-pollinated 与 conceptually reframing：它没有提出全新 backbone 或学习定理，而是把 LLM instruction-tuning、生成模型先验和 task visualization codec 组合成“生成即理解接口”的新范式证据。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "innovation classification",
+      "evidence": [
+        {"evidence_id":"E-C22.1-a","doc":"main","paragraph_id":"main.tex::p0015","quote":"The paper contrasts its unified approach with prior specialized generator adaptations.","relation":"inference","page_hint":2,"locator_snippets":["This is not the first paper to use image and video generators"]},
+        {"evidence_id":"E-C22.1-b","doc":"main","paragraph_id":"main.tex::p0018","quote":"The main conceptual import is the LLM base-model and instruction-tuning analogy plus RGB task outputs.","relation":"inference","page_hint":3,"locator_snippets":["Analogously, we position a visual generative model as a base model"]},
+        {"evidence_id":"E-C22.1-c","doc":"main","paragraph_id":"main.tex::p0111","quote":"The discussion acknowledges prior RGB encodings while claiming the powerful generator makes the simple design competitive.","relation":"direct","page_hint":14,"locator_snippets":["we are not the first to encode vision outputs as RGB"]}
+      ]
+    },
+    {
+      "claim_id": "C23.1",
+      "section_id": "23",
+      "section_title": "未来方向与 boundary-pushing ideas",
+      "claim_text": "论文原生提出扩大 instruction-tuned task diversity、支持 multi-view/video、研究 video generator 的时序表示、与 LLM 协同推理，以及降低推理开销。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "future direction",
+      "evidence": [
+        {"evidence_id":"E-C23.1-a","doc":"main","paragraph_id":"main.tex::p0113","quote":"The future-work paragraph lists task scaling, multi-view and video inputs, video generators, LLM integration, and efficiency.","relation":"direct","page_hint":14,"locator_snippets":["scaling the diversity of instruction-tuned tasks"]}
+      ]
+    },
+    {
+      "claim_id": "C23.2",
+      "section_id": "23",
+      "section_title": "未来方向与 boundary-pushing ideas",
+      "claim_text": "最关键的下一步是做因果识别：固定视觉任务数据和训练预算，对比生成预训练、判别预训练、随机初始化、冻结 probe 与不同 tuning 数据量，测出“已有表示”和“新任务学习”各占多少。",
+      "interpretation_type": "speculation",
+      "research_role": "boundary direction",
+      "evidence": [
+        {"evidence_id":"E-C23.2-a","doc":"main","paragraph_id":"main.tex::p0014","quote":"The paper's central inference treats post-finetuning SOTA performance as evidence of pre-existing representations.","relation":"inference","page_hint":2,"locator_snippets":["there is strong evidence that the image generator was indeed a foundation model"]},
+        {"evidence_id":"E-C23.2-b","doc":"main","paragraph_id":"main.tex::p0032","quote":"The alignment recipe is qualitative and therefore motivates controlled pretraining and data-scale comparisons.","relation":"inference","page_hint":4,"locator_snippets":["at a very low ratio"]},
+        {"evidence_id":"E-C23.2-c","doc":"main","paragraph_id":"main.tex::p0034","quote":"The current task data contains in-house and synthetic supervision whose contribution is not isolated.","relation":"inference","page_hint":4,"locator_snippets":["synthetic data from rendering engines"]}
+      ]
+    },
+    {
+      "claim_id": "C23.3",
+      "section_id": "23",
+      "section_title": "未来方向与 boundary-pushing ideas",
+      "claim_text": "第二条强方向是 uncertainty-aware codec：让 RGB decoder 输出置信度，分析离 manifold 颜色如何传播为 mask/depth/normal 误差，并学习对 metric 最优而非仅视觉友好的编码路径。",
+      "interpretation_type": "speculation",
+      "research_role": "boundary direction",
+      "evidence": [
+        {"evidence_id":"E-C23.3-a","doc":"main","paragraph_id":"main.tex::p0073","quote":"Current depth decoding projects arbitrary RGB values to the nearest path segment and then inverts, motivating uncertainty and error-propagation analysis.","relation":"inference","page_hint":10,"locator_snippets":["projecting the RGB values onto the nearest line segment"]}
+      ]
+    },
+    {
+      "claim_id": "C23.4",
+      "section_id": "23",
+      "section_title": "未来方向与 boundary-pushing ideas",
+      "claim_text": "更具边界性的测试是破坏当前隐藏假设：使用极端 OOD 物体尺度、非摄影成像、多解几何、动态遮挡和长视频，检验所谓世界先验与 generative mode handling 何时失效。",
+      "interpretation_type": "speculation",
+      "research_role": "boundary direction",
+      "evidence": [
+        {"evidence_id":"E-C23.4-a","doc":"main","paragraph_id":"main.tex::p0066","quote":"The metric-depth argument depends on broad world knowledge and priors about object sizes and distances.","relation":"inference","page_hint":9,"locator_snippets":["stronger priors on object sizes and distances"]},
+        {"evidence_id":"E-C23.4-b","doc":"main","paragraph_id":"main.tex::p0112","quote":"The ambiguity-handling claim depends on the generative model learning and selecting modes of the output distribution.","relation":"inference","page_hint":14,"locator_snippets":["managing ambiguity by design"]}
+      ]
+    },
+    {
+      "claim_id": "C24.1",
+      "section_id": "24",
+      "section_title": "简单、生动、技术上忠实的故事",
+      "claim_text": "可以把 NBP 想成一个见过海量世界、会画画却不按答题卡填涂的学生；Vision Banana 没有给它为每门课换一颗脑袋，而是教它把 mask、米制深度和法向量都涂成可机器读回的颜色答题卡。",
+      "interpretation_type": "plausible inference",
+      "research_role": "vivid summary",
+      "evidence": [
+        {"evidence_id":"E-C24.1-a","doc":"main","paragraph_id":"main.tex::p0018","quote":"The model shares weights, changes prompts, and outputs task answers as decodable RGB images.","relation":"inference","page_hint":3,"locator_snippets":["the weights are shared among all tasks"]},
+        {"evidence_id":"E-C24.1-b","doc":"main","paragraph_id":"main.tex::p0032","quote":"Instruction tuning aligns a generative base model to measurable geometry and labels.","relation":"inference","page_hint":4,"locator_snippets":["measurable physical geometry and semantic labels"]}
+      ]
+    },
+    {
+      "claim_id": "C25.1",
+      "section_id": "25",
+      "section_title": "本次使用的来源",
+      "claim_text": "本报告以用户提供的 `2604.20329v1.pdf`、匹配的 arXiv v1 LaTeX source、重新编译的 PDF/SyncTeX、论文项目页与 arXiv metadata 为来源；没有使用 OpenReview 评审材料。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "source package grounding",
+      "evidence": [
+        {"evidence_id":"E-C25.1-a","doc":"main","paragraph_id":"main.tex::p0005","quote":"The matched source carries the same paper title.","relation":"direct","page_hint":1,"locator_snippets":["Image Generators are Generalist Vision Learners"]},
+        {"evidence_id":"E-C25.1-b","doc":"main","paragraph_id":"main.tex::p0009","quote":"The matched source carries the same abstract content.","relation":"direct","page_hint":1,"locator_snippets":["We introduce Vision Banana"]},
+        {"evidence_id":"E-C25.1-c","doc":"main","paragraph_id":"main.tex::p0010","quote":"The paper source identifies the official project page.","relation":"direct","page_hint":1,"locator_snippets":["Project Page"]}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,90 @@
+\section{Training}
+
+\subsection{Hunyuan3D-Shape}
+\label{subsec:shape}
+
+Shape generation serves as the cornerstone of 3D generation, playing a crucial role in determining the usability of a 3D asset. Drawing inspiration from the success of the latent diffusion model~\cite{rombach2022high,zhang20233dshape2vecset, zhao2023michelangelo,zhang2024clay} in shape generation, we have adopted the generative diffusion model as the architecture for our shape model. Our shape generation model is composed of two main components: (1) an autoencoder, Hunyuan3D-ShapeVAE (Sec.~\ref{subsubsec:vae}), which compresses the shape of a 3D asset, represented by a polygon mesh, into a sequence of continuous tokens within the latent space; and (2) a flow-based diffusion model, Hunyuan3D-DiT (Sec.~\ref{subsubsec:dit}), which is trained on the latent space of ShapeVAE to predict object token sequences from a user-provided image. These predicted tokens are then decoded back into a polygon mesh using the VAE decoder. The specifics of these models are detailed below.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.94\linewidth]{fig/dit.pdf}
+    \caption{Overall pipeline for shape generation. Given a single image input, combining Hunyuan3D-DiT and Hunyuan3D-VAE can generate a high-quality and high-fidelity 3D shape.}
+    \vspace{-4mm}
+    \label{fig:dit}
+\end{figure}
+
+\begin{wrapfigure}{r}[1mm]{0pt}
+\centering
+\includegraphics[width=0.5\linewidth]{fig/blocks.pdf}
+\caption{Overview of DiT block. We adopt the DiT implemented by Hunyuan-DiT~\cite{li2024hunyuandit} in our pipeline.}
+\label{fig:blocks}
+% \vspace{-5mm}
+\end{wrapfigure}
+
+
+
+\subsubsection{Hunyuan3D-ShapeVAE}
+\label{subsubsec:vae}
+
+Hunyuan3D-ShapeVAE utilizes vector sets introduced by 3DShape2VecSet~\cite{zhang20233dshape2vecset}, and also used in the recent project Dora~\cite{zhang2024clay,chen2024dora}. Following these works, we employ a variational encoder-decoder transformer for compact shape representations. We use 3D coordinates and the normal vectors from point clouds sampled from the surfaces of 3D shapes as inputs for the encoder. The decoder is designed to predict the Signed Distance Function (SDF) of the 3D shape, which can be further transformed into a triangle mesh using the marching cube algorithm.
+
+
+% The overall network architecture is illustrated in \ref{fig:vae1}.
+
+
+
+
+\textbf{Encoder.} For an input mesh, we first gather uniformly sampled surface point clouds $P_u \in \mathbb{R}^{M \times 3}$ and importance sampled point clouds $P_i \in \mathbb{R}^{N \times 3}$. The encoding process begins by applying Farthest Point Sampling (FPS) separately to $P_u$ and $P_i$ to generate query points $Q_u \in \mathbb{R}^{M' \times 3}$ and $Q_i \in \mathbb{R}^{N' \times 3}$ respectively. We then concatenate these points to form the final point cloud $P \in \mathbb{R}^{(M+N) \times 3}$ and query set $Q \in \mathbb{R}^{(M'+N') \times 3}$. Both $P$ and $Q$ are encoded by Fourier positional followed by linear projection, yielding encoded features $X_p \in \mathbb{R}^{(M+N) \times d}$ and $X_q \in \mathbb{R}^{(M'+N') \times d}$, where $d$ is the dimension. These features are processed through cross-attention and self-attention layers to obtain the hidden shape representation $H_s \in \mathbb{R}^{(M'+N') \times d}$. Following the variational autoencoder framework, we apply final linear projections to $H_s$ to predict the mean $\mathrm{E}(Z_s) \in \mathbb{R}^{(M'+N') \times d_0}$ and variance $\mathrm{Var}(Z_s) \in \mathbb{R}^{(M'+N') \times d_0}$ of the latent shape embedding, with $d_0$ being the latent dimension.
+
+\textbf{Decoder.} The decoder $\mathcal{D}_s$ reconstructs a 3D neural field from the latent shape embedding $Z_s$. Initially, a projection layer maps the $d_0$-dimensional latent embedding to the transformer's hidden dimension $d$. Subsequent self-attention layers refine these embeddings, followed by a point perceiver module that queries a 3D grid $Q_g \in \mathbb{R}^{ (H \times W \times D) \times 3}$ to generate a neural field $F_g \in \mathbb{R}^{ (F_n \times W \times D) \times d}$. A final linear projection converts $F_g$ into a Sign Distance Function (SDF) $F_{sdf} \in \mathbb{R}^{ (F_o \times W \times D) \times 1}$, which is subsequently converted to a triangle mesh via marching cubes during inference.
+
+\textbf{Training Strategy \& Implementation.}  We employ two losses to supervise the model training, including (1) the reconstruction loss that computes MSE loss between predicted SDF $\mathcal{D}_s (x | Z_s)$ and ground truth $\mathrm{SDF}(x)$, and (2) the KL-divergence loss $\mathcal{L}_{KL}$ to make the latent space compact and continuous. The overall training loss $\mathcal{L}_r$ can be written as,
+\begin{equation}
+    \mathcal{L}_r = \mathbb{E}_{ x \in \mathbb{R}^3 } [ \mathrm{MSE} ( \mathcal{D}_s (x | Z_s), \mathrm{SDF}(x) ) ] + \gamma \mathcal{L}_{KL}
+\end{equation}
+where $\gamma$ is the loss weight of KL loss.
+To optimize computational efficiency, we implement a multi-resolution training strategy where latent token sequence lengths vary dynamically, with a maximum sequence length of 3072. 
+
+
+\subsubsection{Hunyuan3D-DiT}
+\label{subsubsec:dit}
+Hunyuan3D-DiT is a flow-based diffusion model designed to generate detailed and high-resolution 3D shapes based on image conditions.
+
+\textbf{Condition encoder.} To capture detailed image features, we employ a large image encoder, DINOv2 Giant~\cite{oquab2023dinov2} with an image size of $518 \times 518$. Additionally, we remove the background from the input image, resize the object to a standard size, center it, and fill the background with white.
+
+\textbf{DiT block.} Inspired by Hunyuan-DiT~\cite{li2024hunyuandit} and TripoSG~\cite{li2025triposg}, we adopt transformers structure as shown in Fig.~\ref{fig:dit}. We stack the 21 Transformer layers to learn the latent codes. As shown in Fig.~\ref{fig:blocks}, in each Transformer layer, we leverage the dimension concatenation to introduce the skip connection of the latent code. Similar to previous methods~\cite{zhang2024clay, li2024craftsman}, we employ the cross-attention layer to project the image condition into the latent code. In addition, an MOE layer is used to enhance the representation learning of the latent code.
+
+
+
+
+
+
+\textbf{Training \& Inference.} We train our model using the flow matching objective~\cite{lipman2022flow,esser2024scaling}. Flow matching defines a probability path between Gaussian and data distributions, training the model to predict the velocity field $u_t = \frac{x_t}{d_t}$ that moves sample $x_t$ towards data $x_1$. We use the affine path with a conditional optimal transport schedule as specified in~\cite{lipman2024flowmatchingguidecode}, where $x_t = ( 1-t ) \times x_0 + t \times x_1$, $u_t = x_1 - x_0$. The training loss is formulated as,
+\begin{equation}
+    \mathcal{L} = \mathbb{E}_{t,x_0,x_1} [ \parallel u_\theta(x_t,c,t) - u_t \parallel_2^2 ],
+\end{equation}
+where $t \sim \mathbb{U}(0,1)$ and $c$ represents model condition. During inference, we randomly sample a starting point and use a first-order Euler ordinary differential equation (ODE) solver to compute $x_1$ with our diffusion model $u_\theta(x_t,c,t)$.
+
+\subsection{Hunyuan3D-Paint}
+Traditional color textures are no longer sufficient to meet the demands for photorealistic 3D asset generation. Therefore, we introduce a PBR material texture synthesis framework advancing beyond conventional RGB texture maps. We adhere to the BRDF model and simultaneously output albedo, roughness, and metallic maps from multiple viewpoints, aiming to accurately describe the surface reflectance properties of generated 3D assets and precisely simulate the distribution of geometric micro-surfaces, resulting in more realistic and detailed rendering effects. Further, we introduce 3D-Aware RoPE to inject spatial information, significantly improving cross-view consistency and enabling seamless texturing.
+% \subsubsection{PBR material generation model}
+
+\textbf{Basic Architecture.} Building on the multiview texture generation architecture of Hunyuan3D-2~\cite{zhao2025hunyuan3d}, we introduce a novel material generation framework, as is shown in the left side of Fig.\ref{fig:texture_pipe}. The framework implements the Disney Principled BRDF model~\cite{burley2012physically} to generate high-quality PBR material maps.
+We retain the reference image feature injection mechanism of ReferenceNet, while concatenating both geometry-rendered normal maps and CCM (canonical coordinate map) with latent noise. 
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\textwidth]{fig/tex_pipe.pdf}
+    \caption{Overview of material generation framework. }
+    \label{fig:texture_pipe}
+\end{figure}
+
+\textbf{Spatial-Aligned Multi-Attention Module.} We employ a pre-trained VAE for multi-channel material image compression while implementing a parallel dual-branch UNet architecture~\cite{he2025materialmvpilluminationinvariantmaterialgeneration} for material generation. As shown in the right side of Fig.\ref{fig:texture_pipe}, we implement parallel multi-attention modules~\cite{feng2025romantexdecoupling3dawarerotary} comprising self-attention, multi-view attention, and reference attention for both albedo and metallic-roughness (MR) maps. To model the physical relationships between albedo/MR maps and reference images, and to achieve spatial alignment between MR and albedo maps, we directly propagate the computed outputs from the albedo reference attention module to the MR branch.
+
+\textbf{3D-Aware RoPE.} To address texture seams and ghosting artifacts caused by local inconsistencies across neibor views, 3D-Aware RoPE~\cite{feng2025romantexdecoupling3dawarerotary} is introduced into the multiview attention block for enhanced cross-view coherence. Specifically, by downsampling the 3D coordinate volume, we construct multi-resolution 3D coordinate encodings aligned with the UNet hierarchy levels. These encodings are additively fused with corresponding hidden states, thereby integrating cross-view interactions into 3D space to enforce multi-view consistency.
+
+\textbf{Illumination-Invariant Training Strategy.}
+To generate light- and shadow-free albedo map and accurate MR map, we posit an intuitive insight: while rendering results of the same object differ under diverse lighting, its intrinsic material properties should remain consistent. Consequently, we design an illumination-invariant training strategy~\cite{he2025materialmvpilluminationinvariantmaterialgeneration} to enforce this property. Specifically, consistency loss is computed by adopting two sets of training samples containing reference images of the same object rendered by different lighting conditions.
+
+
+\textbf{Experimental Setup.} Our model is initialized from the Zero-SNR checkpoint~\cite{lin2024common} of Stable Diffusion 2.1 and optimized using the AdamW at a learning rate of $5 \times 10^{-5}$. The training protocol incorporates 2000 warm-up steps, requiring approximately 180 GPU-days.

@@ -1,0 +1,1014 @@
+{
+  "paper": {
+    "title": "Text-Image Conditioned 3D Generation (TIGON)",
+    "source_mode": "latex-primary",
+    "report_path": "report.md"
+  },
+  "claims": {
+    "C1.3": {
+      "claim_id": "C1.3",
+      "section_id": "1",
+      "section_title": "论文身份与证据包",
+      "claim_text": "TIGON 的正式论文题名是 Text-Image Conditioned 3D Generation，发表于 CVPR 2026；TIGON 是方法/代码名。",
+      "claim_text_html": "TIGON 的正式论文题名是 Text-Image Conditioned 3D Generation，发表于 CVPR 2026；TIGON 是方法/代码名。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C1.3-a",
+          "doc": "tigon",
+          "quote": "Text-Image Conditioned 3D Generation",
+          "quote_html": "Text-Image Conditioned 3D Generation",
+          "relation": "direct",
+          "paragraph_id": "main.tex::p0005",
+          "tex_file": "main.tex",
+          "section_path": [],
+          "paragraph_text": "\\title{Text–Image Conditioned 3D Generation}",
+          "paragraph_html": "Text–Image Conditioned 3D Generation",
+          "line_start": 33,
+          "line_end": 33,
+          "match_source": "pdf-search",
+          "matches": [
+            {
+              "page": 3,
+              "rect": [
+                315.25,
+                228.03,
+                533.67,
+                243.98
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C2.3": {
+      "claim_id": "C2.3",
+      "section_id": "2",
+      "section_title": "一句话论点与研究方程",
+      "claim_text": "低信息图像会使未观测区域失约束，纯文本缺像素级细节；TIGON 以持续跨模态交互让 image 与 text 在生成轨迹中互补。",
+      "claim_text_html": "低信息图像会使未观测区域失约束，纯文本缺像素级细节；TIGON 以持续跨模态交互让 image 与 text 在生成轨迹中互补。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C2.3-a",
+          "doc": "tigon",
+          "quote": "image-conditioned models",
+          "quote_html": "image-conditioned models",
+          "relation": "direct",
+          "paragraph_id": "0_abstract.tex::p0001",
+          "tex_file": "0_abstract.tex",
+          "section_path": [
+            "Abstract"
+          ],
+          "paragraph_text": "High-quality 3D assets are essential for VR/AR, industrial design, and entertainment, motivating growing interest in generative models that create 3D content from user prompts. Most existing 3D generators, however, rely on a single conditioning modality: image-conditioned models achieve high visual fidelity by exploiting pixel-aligned cues bhaodeut suffer from viewpoint bias when the input view is limited or ambiguous, while text-conditioned models provide broad semantic guidance yet lack low-level visual detail. This limits how users can express intent and raises a natural question: can these two modalities be combined for more flexible and faithful 3D generation? Our diagnostic study shows that even simple late fusion of text- and image-conditioned predictions outperforms single-modality models, revealing strong cross-modal complementarity. We therefore formalize \\textbf{Text–Image Conditioned 3D Generation}, which requires joint reasoning over a visual exemplar and a textual specification. To address this task, we introduce \\textbf{TIGON}, a minimalist dual-branch baseline with separate image- and text-conditioned backbones and lightweight cross-modal fusion. Extensive experiments show that text–image conditioning consistently improves over single-modality methods, highlighting complementary vision–language guidance as a promising direction for future 3D generation research. Project page: \\url{https://jumpat.github.io/tigon-page}",
+          "paragraph_html": "High-quality 3D assets are essential for VR/AR, industrial design, and entertainment, motivating growing interest in generative models that create 3D content from user prompts. Most existing 3D generators, however, rely on a single conditioning modality: image-conditioned models achieve high visual fidelity by exploiting pixel-aligned cues bhaodeut suffer from viewpoint bias when the input view is limited or ambiguous, while text-conditioned models provide broad semantic guidance yet lack low-level visual detail. This limits how users can express intent and raises a natural question: can these two modalities be combined for more flexible and faithful 3D generation? Our diagnostic study shows that even simple late fusion of text- and image-conditioned predictions outperforms single-modality models, revealing strong cross-modal complementarity. We therefore formalize Text–Image Conditioned 3D Generation, which requires joint reasoning over a visual exemplar and a textual specification. To address this task, we introduce TIGON, a minimalist dual-branch baseline with separate image- and text-conditioned backbones and lightweight cross-modal fusion. Extensive experiments show that text–image conditioning consistently improves over single-modality methods, highlighting complementary vision–language guidance as a promising direction for future 3D generation research. Project page: https://jumpat.github.io/tigon-page",
+          "line_start": 7,
+          "line_end": 7,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 1,
+              "rect": [
+                56.5,
+                294.0,
+                296.75,
+                606.51
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C4.3": {
+      "claim_id": "C4.3",
+      "section_id": "4",
+      "section_title": "真正解决的问题",
+      "claim_text": "论文定义 joint text-image conditioned native 3D generation，要求输出同时忠于参考图外观/几何并符合文本语义。",
+      "claim_text_html": "论文定义 joint text-image conditioned native 3D generation，要求输出同时忠于参考图外观/几何并符合文本语义。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C4.3-a",
+          "doc": "tigon",
+          "quote": "Text--Image Conditioned 3D Generation",
+          "quote_html": "Text--Image Conditioned 3D Generation",
+          "relation": "direct",
+          "paragraph_id": "1_intro.tex::p0004",
+          "tex_file": "1_intro.tex",
+          "section_path": [
+            "Introduction"
+          ],
+          "paragraph_text": "These observations raise a natural question of whether image and text conditions can provide complementary information for more flexible 3D generation. Intuitively, images anchor the result to the actual observed view, supplying reliable geometry and appearance cues, while text can specify additional semantics to disambiguate unobserved regions (\\emph{e.g.}, ``with a long coiled tiger tail''). In a diagnostic study, we find that conditioning on a low-information view degrades performance, but adding a textual description and fusing the image- and text-conditioned predictions noticeably recovers quality. This motivates us to move beyond single-modality settings and introduce \\textbf{Text--Image Conditioned 3D Generation}\\footnote{Here we focus on the \\emph{native} 3D generation setting, where the model directly generates a 3D representation under joint text--image conditioning.}, which requires the 3D generator to jointly reason over the visual exemplar and the textual specification, and to generate a consistent 3D asset that is simultaneously faithful to the image-conditioned appearance/geometry and aligned with the text-defined semantics.",
+          "paragraph_html": "These observations raise a natural question of whether image and text conditions can provide complementary information for more flexible 3D generation. Intuitively, images anchor the result to the actual observed view, supplying reliable geometry and appearance cues, while text can specify additional semantics to disambiguate unobserved regions (e.g., &quot;with a long coiled tiger tail&quot;). In a diagnostic study, we find that conditioning on a low-information view degrades performance, but adding a textual description and fusing the image- and text-conditioned predictions noticeably recovers quality. This motivates us to move beyond single-modality settings and introduce Text--Image Conditioned 3D GenerationHere we focus on the native 3D generation setting, where the model directly generates a 3D representation under joint text--image conditioning., which requires the 3D generator to jointly reason over the visual exemplar and the textual specification, and to generate a consistent 3D asset that is simultaneously faithful to the image-conditioned appearance/geometry and aligned with the text-defined semantics.",
+          "line_start": 17,
+          "line_end": 17,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 2,
+              "rect": [
+                56.5,
+                72.41,
+                296.75,
+                714.93
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C9.3": {
+      "claim_id": "C9.3",
+      "section_id": "9",
+      "section_title": "核心方法",
+      "claim_text": "TIGON 以 UniLat3D 为方便的单阶段 latent generator，保留 two modality-specific DiT backbones，并插入双向 cross-modal bridges。",
+      "claim_text_html": "TIGON 以 UniLat3D 为方便的单阶段 latent generator，保留 two modality-specific DiT backbones，并插入双向 cross-modal bridges。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C9.3-a",
+          "doc": "tigon",
+          "quote": "single-stage 3D generator",
+          "quote_html": "single-stage 3D generator",
+          "relation": "direct",
+          "paragraph_id": "3_method.tex::p0005",
+          "tex_file": "3_method.tex",
+          "section_path": [
+            "Preliminaries"
+          ],
+          "paragraph_text": "\\paragraph{UniLat3D.} Based on TRELLIS, UniLat3D~\\cite{unilat} offers a more convenient single-stage 3D generator. Given view-aggregated features $\\mathbf{F}$, it encodes them as \\begin{equation} \\mathbf{z}_{\\text{uni}} = \\mathcal{E}_{\\text{uni}}(\\mathbf{F}), \\quad \\mathbf{z}_{\\text{uni}} \\in \\mathbb{R}^{16 \\times 16 \\times 16 \\times c}, \\end{equation} and directly decodes to a 3D output $\\mathcal{O} = \\mathcal{D}_{\\text{uni}}(\\mathbf{z}_{\\text{uni}})$. A single rectified-flow model predicts $\\tilde{\\mathbf{z}}_{\\text{uni}}$ during generation. We adopt UniLat3D for its simplicity and compatibility with our conditioning study.",
+          "paragraph_html": "UniLat3D. Based on TRELLIS, UniLat3D~unilat offers a more convenient single-stage 3D generator. Given view-aggregated features <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\mathbf{F}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mi>&#x1D405;</mi></mrow></math></span>, it encodes them as <span class=\"math-rendered math-rendered--block\" data-latex=\"\\mathbf{z}_{\\text{uni}} = \\mathcal{E}_{\\text{uni}}(\\mathbf{F}), \\quad \\mathbf{z}_{\\text{uni}} \\in \\mathbb{R}^{16 \\times 16 \\times 16 \\times c},\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><msub><mi>&#x1D433;</mi><mrow><mtext>uni</mtext></mrow></msub><mo>&#x0003D;</mo><msub><mi>&#x02130;</mi><mrow><mtext>uni</mtext></mrow></msub><mo stretchy=\"false\">&#x00028;</mo><mi>&#x1D405;</mi><mo stretchy=\"false\">&#x00029;</mo><mo>&#x0002C;</mo><mspace width=\"1em\" /><msub><mi>&#x1D433;</mi><mrow><mtext>uni</mtext></mrow></msub><mo>&#x02208;</mo><msup><mi>&#x0211D;</mi><mrow><mn>16</mn><mo>&#x000D7;</mo><mn>16</mn><mo>&#x000D7;</mo><mn>16</mn><mo>&#x000D7;</mo><mi>c</mi></mrow></msup><mo>&#x0002C;</mo></mrow></math></span> and directly decodes to a 3D output <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\mathcal{O} = \\mathcal{D}_{\\text{uni}}(\\mathbf{z}_{\\text{uni}})\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mi>&#x1D4AA;</mi><mo>&#x0003D;</mo><msub><mi>&#x1D49F;</mi><mrow><mtext>uni</mtext></mrow></msub><mo stretchy=\"false\">&#x00028;</mo><msub><mi>&#x1D433;</mi><mrow><mtext>uni</mtext></mrow></msub><mo stretchy=\"false\">&#x00029;</mo></mrow></math></span>. A single rectified-flow model predicts <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\tilde{\\mathbf{z}}_{\\text{uni}}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msub><mover><mrow><mi>&#x1D433;</mi></mrow><mo stretchy=\"false\">&#x0007E;</mo></mover><mrow><mtext>uni</mtext></mrow></msub></mrow></math></span> during generation. We adopt UniLat3D for its simplicity and compatibility with our conditioning study.",
+          "line_start": 54,
+          "line_end": 60,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 3,
+              "rect": [
+                56.5,
+                606.45,
+                296.75,
+                715.41
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C11.3": {
+      "claim_id": "C11.3",
+      "section_id": "11",
+      "section_title": "公式与表示",
+      "claim_text": "每个 latent 的 rectified-flow 从 Gaussian 噪声开始，模型预测 velocity 并按时间步积分；融合发生在 velocity 与中间特征而非最终 mesh。",
+      "claim_text_html": "每个 latent 的 rectified-flow 从 Gaussian 噪声开始，模型预测 velocity 并按时间步积分；融合发生在 velocity 与中间特征而非最终 mesh。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C11.3-a",
+          "doc": "tigon",
+          "quote": "Sampling with Rectified Flow",
+          "quote_html": "Sampling with Rectified Flow",
+          "relation": "direct",
+          "paragraph_id": "3_method.tex::p0004",
+          "tex_file": "3_method.tex",
+          "section_path": [
+            "Preliminaries"
+          ],
+          "paragraph_text": "\\paragraph{Sampling with Rectified Flow.} For each latent $\\ell \\in \\{\\text{geo}, \\text{SLAT}\\}$ with decoder $\\mathcal{D}_\\ell \\in \\{\\mathcal{D}_{\\text{geo}}, \\mathcal{D}_{\\text{app}}\\}$ and a chosen condition $\\mathbf{c}$ (image $\\mathbf{I}$ or text $\\mathbf{T}$), inference integrates the rectified-flow ODE from noise to data. Let $1 = t_0 > t_1 > \\cdots > t_K = 0$ be a fixed schedule and initialize $\\tilde{\\mathbf{z}}_{\\ell, t_0} \\sim \\mathcal{N}(\\mathbf{0}, \\mathbb{I}^{c})$, where $c$ is the latent dimension. At step $k$, \\begin{equation} \\begin{aligned} &\\mathbf{v}_{\\ell, k} = \\mathcal{F}_{\\ell}\\!\\left(\\tilde{\\mathbf{z}}_{\\ell, t_k},\\, t_k;\\, \\mathbf{c}\\right),\\\\ &\\tilde{\\mathbf{z}}_{\\ell, t_{k+1}} = \\tilde{\\mathbf{z}}_{\\ell, t_k} - (t_k - t_{k+1})\\, \\mathbf{v}_{\\ell, k}, \\end{aligned} \\end{equation} yielding $\\tilde{\\mathbf{z}}_{\\ell, 0}$ after $K$ steps. Decoding $\\tilde{\\mathbf{z}}_{\\text{geo}, 0}$ with $\\mathcal{D}_{\\text{geo}}$ produces the activated voxels, and decoding $\\tilde{\\mathbf{z}}_{\\text{SLAT}, 0}$ with $\\mathcal{D}_{\\text{app}}$ gives the final 3D output $\\mathcal{O}$.",
+          "paragraph_html": "Sampling with Rectified Flow. For each latent <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\ell \\in \\{\\text{geo}, \\text{SLAT}\\}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mi>&#x02113;</mi><mo>&#x02208;</mo><mo stretchy=\"false\">&#x0007B;</mo><mtext>geo</mtext><mo>&#x0002C;</mo><mtext>SLAT</mtext><mo stretchy=\"false\">&#x0007D;</mo></mrow></math></span> with decoder <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\mathcal{D}_\\ell \\in \\{\\mathcal{D}_{\\text{geo}}, \\mathcal{D}_{\\text{app}}\\}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msub><mi>&#x1D49F;</mi><mi>&#x02113;</mi></msub><mo>&#x02208;</mo><mo stretchy=\"false\">&#x0007B;</mo><msub><mi>&#x1D49F;</mi><mrow><mtext>geo</mtext></mrow></msub><mo>&#x0002C;</mo><msub><mi>&#x1D49F;</mi><mrow><mtext>app</mtext></mrow></msub><mo stretchy=\"false\">&#x0007D;</mo></mrow></math></span> and a chosen condition <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\mathbf{c}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mi>&#x1D41C;</mi></mrow></math></span> (image <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\mathbf{I}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mi>&#x1D408;</mi></mrow></math></span> or text <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\mathbf{T}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mi>&#x1D413;</mi></mrow></math></span>), inference integrates the rectified-flow ODE from noise to data. Let <span class=\"math-rendered math-rendered--inline\" data-latex=\"1 = t_0 &gt; t_1 &gt; \\cdots &gt; t_K = 0\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mn>1</mn><mo>&#x0003D;</mo><msub><mi>t</mi><mn>0</mn></msub><mo>&#x0003E;</mo><msub><mi>t</mi><mn>1</mn></msub><mo>&#x0003E;</mo><mo>&#x022EF;</mo><mo>&#x0003E;</mo><msub><mi>t</mi><mi>K</mi></msub><mo>&#x0003D;</mo><mn>0</mn></mrow></math></span> be a fixed schedule and initialize <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\tilde{\\mathbf{z}}_{\\ell, t_0} \\sim \\mathcal{N}(\\mathbf{0}, \\mathbb{I}^{c})\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msub><mover><mrow><mi>&#x1D433;</mi></mrow><mo stretchy=\"false\">&#x0007E;</mo></mover><mrow><mi>&#x02113;</mi><mo>&#x0002C;</mo><msub><mi>t</mi><mn>0</mn></msub></mrow></msub><mi>&#x0007E;</mi><mi>&#x1D4A9;</mi><mo stretchy=\"false\">&#x00028;</mo><mrow><mn mathvariant=\"bold\">0</mn></mrow><mo>&#x0002C;</mo><msup><mi>&#x1D540;</mi><mrow><mi>c</mi></mrow></msup><mo stretchy=\"false\">&#x00029;</mo></mrow></math></span>, where <span class=\"math-rendered math-rendered--inline\" data-latex=\"c\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mi>c</mi></mrow></math></span> is the latent dimension. At step <span class=\"math-rendered math-rendered--inline\" data-latex=\"k\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mi>k</mi></mrow></math></span>, <span class=\"math-rendered math-rendered--block\" data-latex=\"\\mathbf{v}_{\\ell, k} = \\mathcal{F}_{\\ell}\\!\\left(\\tilde{\\mathbf{z}}_{\\ell, t_k},\\, t_k;\\, \\mathbf{c}\\right), ; \\tilde{\\mathbf{z}}_{\\ell, t_{k+1}} = \\tilde{\\mathbf{z}}_{\\ell, t_k} - (t_k - t_{k+1})\\, \\mathbf{v}_{\\ell, k},\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><msub><mi>&#x1D42F;</mi><mrow><mi>&#x02113;</mi><mo>&#x0002C;</mo><mi>k</mi></mrow></msub><mo>&#x0003D;</mo><msub><mi>&#x02131;</mi><mrow><mi>&#x02113;</mi></mrow></msub><mspace width=\"negativethinmathspace\" /><mrow><mo stretchy=\"true\" fence=\"true\" form=\"prefix\">&#x00028;</mo><msub><mover><mrow><mi>&#x1D433;</mi></mrow><mo stretchy=\"false\">&#x0007E;</mo></mover><mrow><mi>&#x02113;</mi><mo>&#x0002C;</mo><msub><mi>t</mi><mi>k</mi></msub></mrow></msub><mo>&#x0002C;</mo><mspace width=\"0.167em\" /><msub><mi>t</mi><mi>k</mi></msub><mi>;</mi><mspace width=\"0.167em\" /><mi>&#x1D41C;</mi><mo stretchy=\"true\" fence=\"true\" form=\"postfix\">&#x00029;</mo></mrow><mo>&#x0002C;</mo><mi>;</mi><msub><mover><mrow><mi>&#x1D433;</mi></mrow><mo stretchy=\"false\">&#x0007E;</mo></mover><mrow><mi>&#x02113;</mi><mo>&#x0002C;</mo><msub><mi>t</mi><mrow><mi>k</mi><mo>&#x0002B;</mo><mn>1</mn></mrow></msub></mrow></msub><mo>&#x0003D;</mo><msub><mover><mrow><mi>&#x1D433;</mi></mrow><mo stretchy=\"false\">&#x0007E;</mo></mover><mrow><mi>&#x02113;</mi><mo>&#x0002C;</mo><msub><mi>t</mi><mi>k</mi></msub></mrow></msub><mo>&#x02212;</mo><mo stretchy=\"false\">&#x00028;</mo><msub><mi>t</mi><mi>k</mi></msub><mo>&#x02212;</mo><msub><mi>t</mi><mrow><mi>k</mi><mo>&#x0002B;</mo><mn>1</mn></mrow></msub><mo stretchy=\"false\">&#x00029;</mo><mspace width=\"0.167em\" /><msub><mi>&#x1D42F;</mi><mrow><mi>&#x02113;</mi><mo>&#x0002C;</mo><mi>k</mi></mrow></msub><mo>&#x0002C;</mo></mrow></math></span> yielding <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\tilde{\\mathbf{z}}_{\\ell, 0}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msub><mover><mrow><mi>&#x1D433;</mi></mrow><mo stretchy=\"false\">&#x0007E;</mo></mover><mrow><mi>&#x02113;</mi><mo>&#x0002C;</mo><mn>0</mn></mrow></msub></mrow></math></span> after <span class=\"math-rendered math-rendered--inline\" data-latex=\"K\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mi>K</mi></mrow></math></span> steps. Decoding <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\tilde{\\mathbf{z}}_{\\text{geo}, 0}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msub><mover><mrow><mi>&#x1D433;</mi></mrow><mo stretchy=\"false\">&#x0007E;</mo></mover><mrow><mtext>geo</mtext><mo>&#x0002C;</mo><mn>0</mn></mrow></msub></mrow></math></span> with <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\mathcal{D}_{\\text{geo}}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msub><mi>&#x1D49F;</mi><mrow><mtext>geo</mtext></mrow></msub></mrow></math></span> produces the activated voxels, and decoding <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\tilde{\\mathbf{z}}_{\\text{SLAT}, 0}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msub><mover><mrow><mi>&#x1D433;</mi></mrow><mo stretchy=\"false\">&#x0007E;</mo></mover><mrow><mtext>SLAT</mtext><mo>&#x0002C;</mo><mn>0</mn></mrow></msub></mrow></math></span> with <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\mathcal{D}_{\\text{app}}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msub><mi>&#x1D49F;</mi><mrow><mtext>app</mtext></mrow></msub></mrow></math></span> gives the final 3D output <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\mathcal{O}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mi>&#x1D4AA;</mi></mrow></math></span>.",
+          "line_start": 36,
+          "line_end": 50,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 3,
+              "rect": [
+                56.5,
+                444.33,
+                296.76,
+                594.76
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C14.3": {
+      "claim_id": "C14.3",
+      "section_id": "14",
+      "section_title": "模块思维",
+      "claim_text": "zero-initialized bridge 的目的不是取代单模态 backbone，而是让两条生成轨迹在联合微调时逐步交换信息、避免一开始破坏已训练能力。",
+      "claim_text_html": "zero-initialized bridge 的目的不是取代单模态 backbone，而是让两条生成轨迹在联合微调时逐步交换信息、避免一开始破坏已训练能力。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C14.3-a",
+          "doc": "tigon",
+          "quote": "cross-modal bridges",
+          "quote_html": "cross-modal bridges",
+          "relation": "inference",
+          "paragraph_id": "4_experiments.tex::p0021",
+          "tex_file": "4_experiments.tex",
+          "section_path": [
+            "Experiments",
+            "Ablation Study"
+          ],
+          "paragraph_text": "\\paragraph{Early-Fusion Strategy.} As shown in \\cref{tab:ablation}, without cross-modal bridges, joint fine-tuning of the two branches only brings marginal improvement (66.78 $\\rightarrow$ 66.04 in $\\mathrm{FD}_{\\text{DINOv2}}$). Enabling cross-modal bridges yields a substantial gain (66.78 $\\rightarrow$ 61.59 in $\\mathrm{FD}_{\\text{DINOv2}}$), underscoring the necessity of cross-modal information exchange. Qualitatively, \\cref{fig:ablation} shows that, without cross-modal bridges, the text- and image-conditioned branches diverge during denoising, producing inconsistent or abnormal structures; with bridges, they remain aligned and produce coherent result.",
+          "paragraph_html": "Early-Fusion Strategy. As shown in tab:ablation, without cross-modal bridges, joint fine-tuning of the two branches only brings marginal improvement (66.78 <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\rightarrow\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mo>&#x02192;</mo></mrow></math></span> 66.04 in <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\mathrm{FD}_{\\text{DINOv2}}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msub><mrow><mi mathvariant=\"normal\">F</mi><mi mathvariant=\"normal\">D</mi></mrow><mrow><mtext>DINOv2</mtext></mrow></msub></mrow></math></span>). Enabling cross-modal bridges yields a substantial gain (66.78 <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\rightarrow\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mo>&#x02192;</mo></mrow></math></span> 61.59 in <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\mathrm{FD}_{\\text{DINOv2}}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msub><mrow><mi mathvariant=\"normal\">F</mi><mi mathvariant=\"normal\">D</mi></mrow><mrow><mtext>DINOv2</mtext></mrow></msub></mrow></math></span>), underscoring the necessity of cross-modal information exchange. Qualitatively, fig:ablation shows that, without cross-modal bridges, the text- and image-conditioned branches diverge during denoising, producing inconsistent or abnormal structures; with bridges, they remain aligned and produce coherent result.",
+          "line_start": 183,
+          "line_end": 186,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 8,
+              "rect": [
+                56.5,
+                540.27,
+                296.75,
+                661.92
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C16.3": {
+      "claim_id": "C16.3",
+      "section_id": "16",
+      "section_title": "实验设计",
+      "claim_text": "TIGON 在 TRELLIS-500K 训练，于 Toys4K 与 UniLat1K 评测 image-only、text-only、image+text，并用 CLIP、FD_DINOv2、ULIP、Uni3D。",
+      "claim_text_html": "TIGON 在 TRELLIS-500K 训练，于 Toys4K 与 UniLat1K 评测 image-only、text-only、image+text，并用 CLIP、FD_DINOv2、ULIP、Uni3D。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C16.3-a",
+          "doc": "tigon",
+          "quote": "TRELLIS-500K",
+          "quote_html": "TRELLIS-500K",
+          "relation": "direct",
+          "paragraph_id": "4_experiments.tex::p0006",
+          "tex_file": "4_experiments.tex",
+          "section_path": [
+            "Experiments",
+            "Datasets and Evaluation Protocol"
+          ],
+          "paragraph_text": "\\label{sec:eval_metric} \\noindent\\textbf{Training.} TIGON is trained on \\textbf{TRELLIS-500K}. Please refer to the supplement for more details about this dataset.",
+          "paragraph_html": ". TIGON is trained on TRELLIS-500K. Please refer to the supplement for more details about this dataset.",
+          "line_start": 79,
+          "line_end": 80,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 5,
+              "rect": [
+                315.25,
+                336.9,
+                555.5,
+                566.91
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C17.3": {
+      "claim_id": "C17.3",
+      "section_id": "17",
+      "section_title": "实验—主张对齐",
+      "claim_text": "TIGON 的最大增益出现在 image+text：Toys4K 的 GS 输出为 CLIP 92.33、FD_DINOv2 61.59；bridge ablation 把 FD_DINOv2 从 66.78 降到 61.59。",
+      "claim_text_html": "TIGON 的最大增益出现在 image+text：Toys4K 的 GS 输出为 CLIP 92.33、FD_DINOv2 61.59；bridge ablation 把 FD_DINOv2 从 66.78 降到 61.59。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C17.3-a",
+          "doc": "tigon",
+          "quote": "TIGON (Ours)",
+          "quote_html": "TIGON (Ours)",
+          "relation": "direct",
+          "paragraph_id": "4_experiments.tex::p0004",
+          "tex_file": "4_experiments.tex",
+          "section_path": [
+            "Experiments",
+            "Implementation Details"
+          ],
+          "paragraph_text": "\\small \\caption{Quantitative results on Toys4K (left) and UniLat1K (right). ``Cond.'' denotes conditioning modality (``I'': image, ``T'': text), and ``Rep.'' denotes output representation (``M.'': mesh, ``GS'': 3DGS).} \\label{tab:toys4k} \\setlength{\\tabcolsep}{5.6pt} \\begin{tabular}{lcc|cccc|cccc} \\toprule \\multirow{2}{*}{\\textbf{Model}} & \\multirow{2}{*}{\\textbf{Cond.}} & \\multirow{2}{*}{\\textbf{Rep.}} & \\multicolumn{4}{c|}{\\textbf{Toys4K}} & \\multicolumn{4}{c}{\\textbf{UniLat1K}} \\\\ & & & \\textbf{CLIP$\\uparrow$} & \\textbf{FD$_{\\text{DINOv2}}\\downarrow$} & \\textbf{ULIP$\\uparrow$} & \\textbf{Uni3D$\\uparrow$} & \\textbf{CLIP$\\uparrow$} & \\textbf{FD$_{\\text{DINOv2}}\\downarrow$} & \\textbf{ULIP$\\uparrow$} & \\textbf{Uni3D$\\uparrow$} \\\\ \\midrule TripoSR~\\cite{triposr} & I & M. & 83.14 & 596.44 & 27.37 & 24.38 & 83.37 & 652.27 & 25.90 & 23.96 \\\\ TRELLIS & I & M. & 89.09 & 171.44 & 39.97 & 35.61 & 89.40 & 233.53 & 39.37 & 35.40 \\\\ TRELLIS & I & GS & 90.50 & 98.75 & - & - & 90.83 & 177.20 & - & - \\\\ Step1X-3D$^{\\dagger}$~\\cite{step1x} & I & M. & 84.77 & 361.44 & 34.15 & 30.04 & 85.36 & 402.25 & 33.62 & 30.38 \\\\ Hunyuan3D-2.1$^{\\dagger}$~\\cite{hunyuan3d2025hunyuan3d2.1} & I & M. & 87.57 & 171.91 & 40.22 & 35.70 & 87.27 & 249.66 & 39.58 & 35.54 \\\\ Stable3DGen~\\cite{ye2025hi3dgen} & I & M. & - & - & 35.52 & 31.76 & - & - & 35.26 & 32.08 \\\\ Direct3D-S2~\\cite{direct3ds2} & I & M. & - & - & 33.47 & 29.29 & - & - & 32.74 & 29.44 \\\\ UniLat3D & I & M. & 91.85 & 109.68 & 40.32 & 35.75 & 90.00 & 205.72 & 39.60 & 35.49 \\\\ UniLat3D & I & GS & 91.20 & 85.30 & - & - & 91.40 & 155.99 & - & - \\\\ \\rowcolor{rowgray} TIGON (Ours) & I & GS & 91.40 & 84.62 & - & - & 91.64 & 153.79 & - & - \\\\ \\midrule TRELLIS & T & M. & 87.15 & 182.42 & 37.41 & 33.59 & 85.90 & 316.05 & 36.55 & 33.23 \\\\ TRELLIS & T & GS & 86.30 & 148.21 & - & - & 84.75 & 288.55 & - & - \\\\ UniLat3D & T & M. & 87.03 & 179.95 & 36.14 & 32.35 & 85.29 & 313.85 & 35.34 & 32.08 \\\\ UniLat3D & T & GS & 86.14 & 154.88 & - & - & 85.75 & 282.36 & - & - \\\\ \\rowcolor{rowgray} TIGON (Ours) & T & GS & 86.77 & 152.34 & - & - & 86.42 & 273.97 & - & - \\\\ \\midrule SimFusion (Ours) & I+T & GS & 91.95 & 66.78 & - & - & 92.09 & 136.97 & - & - \\\\ \\rowcolor{rowgray} TIGON (Ours) & I+T & M. & \\textbf{92.97} & 80.77 & \\textbf{41.36} & \\textbf{36.68} & 90.91 & 176.69 & \\textbf{40.95} & \\textbf{36.74} \\\\ \\rowcolor{rowgray} TIGON (Ours) & I+T & GS & 92.33 & \\textbf{61.59} & - & - & \\textbf{92.42} & \\textbf{130.08} & - & - \\\\ \\bottomrule \\end{tabular} \\begin{flushleft}",
+          "paragraph_html": "Quantitative results on Toys4K (left) and UniLat1K (right). &quot;Cond.&quot; denotes conditioning modality (&quot;I&quot;: image, &quot;T&quot;: text), and &quot;Rep.&quot; denotes output representation (&quot;M.&quot;: mesh, &quot;GS&quot;: 3DGS). 5.6pt lcc|cccc|cccc 2*Model &amp; 2*Cond. &amp; 2*Rep. &amp; 4c|Toys4K &amp; 4cUniLat1K &amp; &amp; &amp; CLIP<span class=\"math-rendered math-rendered--inline\" data-latex=\"\\uparrow\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mo>&#x02191;</mo></mrow></math></span> &amp; FD<span class=\"math-rendered math-rendered--inline\" data-latex=\"_{\\text{DINOv2}}\\downarrow\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msub><mi /><mrow><mtext>DINOv2</mtext></mrow></msub><mo>&#x02193;</mo></mrow></math></span> &amp; ULIP<span class=\"math-rendered math-rendered--inline\" data-latex=\"\\uparrow\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mo>&#x02191;</mo></mrow></math></span> &amp; Uni3D<span class=\"math-rendered math-rendered--inline\" data-latex=\"\\uparrow\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mo>&#x02191;</mo></mrow></math></span> &amp; CLIP<span class=\"math-rendered math-rendered--inline\" data-latex=\"\\uparrow\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mo>&#x02191;</mo></mrow></math></span> &amp; FD<span class=\"math-rendered math-rendered--inline\" data-latex=\"_{\\text{DINOv2}}\\downarrow\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msub><mi /><mrow><mtext>DINOv2</mtext></mrow></msub><mo>&#x02193;</mo></mrow></math></span> &amp; ULIP<span class=\"math-rendered math-rendered--inline\" data-latex=\"\\uparrow\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mo>&#x02191;</mo></mrow></math></span> &amp; Uni3D<span class=\"math-rendered math-rendered--inline\" data-latex=\"\\uparrow\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mo>&#x02191;</mo></mrow></math></span> TripoSR~triposr &amp; I &amp; M. &amp; 83.14 &amp; 596.44 &amp; 27.37 &amp; 24.38 &amp; 83.37 &amp; 652.27 &amp; 25.90 &amp; 23.96 TRELLIS &amp; I &amp; M. &amp; 89.09 &amp; 171.44 &amp; 39.97 &amp; 35.61 &amp; 89.40 &amp; 233.53 &amp; 39.37 &amp; 35.40 TRELLIS &amp; I &amp; GS &amp; 90.50 &amp; 98.75 &amp; - &amp; - &amp; 90.83 &amp; 177.20 &amp; - &amp; - Step1X-3D<span class=\"math-rendered math-rendered--inline\" data-latex=\"^{\\dagger}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msup><mi /><mrow><mi>&#x02020;</mi></mrow></msup></mrow></math></span>~step1x &amp; I &amp; M. &amp; 84.77 &amp; 361.44 &amp; 34.15 &amp; 30.04 &amp; 85.36 &amp; 402.25 &amp; 33.62 &amp; 30.38 Hunyuan3D-2.1<span class=\"math-rendered math-rendered--inline\" data-latex=\"^{\\dagger}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msup><mi /><mrow><mi>&#x02020;</mi></mrow></msup></mrow></math></span>~hunyuan3d2025hunyuan3d2.1 &amp; I &amp; M. &amp; 87.57 &amp; 171.91 &amp; 40.22 &amp; 35.70 &amp; 87.27 &amp; 249.66 &amp; 39.58 &amp; 35.54 Stable3DGen~ye2025hi3dgen &amp; I &amp; M. &amp; - &amp; - &amp; 35.52 &amp; 31.76 &amp; - &amp; - &amp; 35.26 &amp; 32.08 Direct3D-S2~direct3ds2 &amp; I &amp; M. &amp; - &amp; - &amp; 33.47 &amp; 29.29 &amp; - &amp; - &amp; 32.74 &amp; 29.44 UniLat3D &amp; I &amp; M. &amp; 91.85 &amp; 109.68 &amp; 40.32 &amp; 35.75 &amp; 90.00 &amp; 205.72 &amp; 39.60 &amp; 35.49 UniLat3D &amp; I &amp; GS &amp; 91.20 &amp; 85.30 &amp; - &amp; - &amp; 91.40 &amp; 155.99 &amp; - &amp; - rowgray TIGON (Ours) &amp; I &amp; GS &amp; 91.40 &amp; 84.62 &amp; - &amp; - &amp; 91.64 &amp; 153.79 &amp; - &amp; - TRELLIS &amp; T &amp; M. &amp; 87.15 &amp; 182.42 &amp; 37.41 &amp; 33.59 &amp; 85.90 &amp; 316.05 &amp; 36.55 &amp; 33.23 TRELLIS &amp; T &amp; GS &amp; 86.30 &amp; 148.21 &amp; - &amp; - &amp; 84.75 &amp; 288.55 &amp; - &amp; - UniLat3D &amp; T &amp; M. &amp; 87.03 &amp; 179.95 &amp; 36.14 &amp; 32.35 &amp; 85.29 &amp; 313.85 &amp; 35.34 &amp; 32.08 UniLat3D &amp; T &amp; GS &amp; 86.14 &amp; 154.88 &amp; - &amp; - &amp; 85.75 &amp; 282.36 &amp; - &amp; - rowgray TIGON (Ours) &amp; T &amp; GS &amp; 86.77 &amp; 152.34 &amp; - &amp; - &amp; 86.42 &amp; 273.97 &amp; - &amp; - SimFusion (Ours) &amp; I+T &amp; GS &amp; 91.95 &amp; 66.78 &amp; - &amp; - &amp; 92.09 &amp; 136.97 &amp; - &amp; - rowgray TIGON (Ours) &amp; I+T &amp; M. &amp; 92.97 &amp; 80.77 &amp; 41.36 &amp; 36.68 &amp; 90.91 &amp; 176.69 &amp; 40.95 &amp; 36.74 rowgray TIGON (Ours) &amp; I+T &amp; GS &amp; 92.33 &amp; 61.59 &amp; - &amp; - &amp; 92.42 &amp; 130.08 &amp; - &amp; -",
+          "line_start": 37,
+          "line_end": 72,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 6,
+              "rect": [
+                56.5,
+                70.87,
+                555.5,
+                343.11
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C21.3": {
+      "claim_id": "C21.3",
+      "section_id": "21",
+      "section_title": "局限",
+      "claim_text": "当 image 与 text 明确冲突且图像语义清晰时，模型倾向跟随图像；论文没有显式冲突检测或可调 modality priority。",
+      "claim_text_html": "当 image 与 text 明确冲突且图像语义清晰时，模型倾向跟随图像；论文没有显式冲突检测或可调 modality priority。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C21.3-a",
+          "doc": "tigon",
+          "quote": "explicitly conflict",
+          "quote_html": "explicitly conflict",
+          "relation": "inference",
+          "paragraph_id": "4_experiments.tex::p0017",
+          "tex_file": "4_experiments.tex",
+          "section_path": [
+            "Experiments",
+            "Qualitative Results"
+          ],
+          "paragraph_text": "To further demonstrate TIGON's controllability, we fix the input image and vary the text prompt to obtain diverse 3D outputs. As shown in~\\cref{fig:edit}, when the image is highly informative (\\emph{e.g.}, a distinctive character), TIGON preserves identity while adjusting fine-grained attributes according to the text; when the image is ambiguous (\\emph{e.g.}, a bottom view of a toaster), it relies more on text and can generate semantically different objects, such as a telephone or a bed. This combination of pixel-level alignment and semantic control offers greater flexibility than single-modality methods. We further observe in~\\cref{fig:contradict} that when the image and text explicitly conflict, TIGON tends to follow the image if it already provides clear semantic guidance, likely because images are usually more specific and less ambiguous than text. More qualitative results are provided in the supplement.",
+          "paragraph_html": "To further demonstrate TIGON&#x27;s controllability, we fix the input image and vary the text prompt to obtain diverse 3D outputs. As shown in~fig:edit, when the image is highly informative (e.g., a distinctive character), TIGON preserves identity while adjusting fine-grained attributes according to the text; when the image is ambiguous (e.g., a bottom view of a toaster), it relies more on text and can generate semantically different objects, such as a telephone or a bed. This combination of pixel-level alignment and semantic control offers greater flexibility than single-modality methods. We further observe in~fig:contradict that when the image and text explicitly conflict, TIGON tends to follow the image if it already provides clear semantic guidance, likely because images are usually more specific and less ambiguous than text. More qualitative results are provided in the supplement.",
+          "line_start": 150,
+          "line_end": 150,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 6,
+              "rect": [
+                56.5,
+                391.82,
+                555.5,
+                715.41
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C20.1": {
+      "claim_id": "C20.1",
+      "section_id": "20",
+      "section_title": "可复用论文模式",
+      "claim_text": "TIGON 的可复用模式是先用低信息视角诊断单模态失败，再验证最小 late fusion，最后用 early bridge 与消融证明真正必要的交互。",
+      "claim_text_html": "TIGON 的可复用模式是先用低信息视角诊断单模态失败，再验证最小 late fusion，最后用 early bridge 与消融证明真正必要的交互。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C20.1-a",
+          "doc": "tigon",
+          "quote": "cross-modal bridges",
+          "quote_html": "cross-modal bridges",
+          "relation": "inference",
+          "paragraph_id": "4_experiments.tex::p0021",
+          "tex_file": "4_experiments.tex",
+          "section_path": [
+            "Experiments",
+            "Ablation Study"
+          ],
+          "paragraph_text": "\\paragraph{Early-Fusion Strategy.} As shown in \\cref{tab:ablation}, without cross-modal bridges, joint fine-tuning of the two branches only brings marginal improvement (66.78 $\\rightarrow$ 66.04 in $\\mathrm{FD}_{\\text{DINOv2}}$). Enabling cross-modal bridges yields a substantial gain (66.78 $\\rightarrow$ 61.59 in $\\mathrm{FD}_{\\text{DINOv2}}$), underscoring the necessity of cross-modal information exchange. Qualitatively, \\cref{fig:ablation} shows that, without cross-modal bridges, the text- and image-conditioned branches diverge during denoising, producing inconsistent or abnormal structures; with bridges, they remain aligned and produce coherent result.",
+          "paragraph_html": "Early-Fusion Strategy. As shown in tab:ablation, without cross-modal bridges, joint fine-tuning of the two branches only brings marginal improvement (66.78 <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\rightarrow\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mo>&#x02192;</mo></mrow></math></span> 66.04 in <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\mathrm{FD}_{\\text{DINOv2}}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msub><mrow><mi mathvariant=\"normal\">F</mi><mi mathvariant=\"normal\">D</mi></mrow><mrow><mtext>DINOv2</mtext></mrow></msub></mrow></math></span>). Enabling cross-modal bridges yields a substantial gain (66.78 <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\rightarrow\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mo>&#x02192;</mo></mrow></math></span> 61.59 in <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\mathrm{FD}_{\\text{DINOv2}}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msub><mrow><mi mathvariant=\"normal\">F</mi><mi mathvariant=\"normal\">D</mi></mrow><mrow><mtext>DINOv2</mtext></mrow></msub></mrow></math></span>), underscoring the necessity of cross-modal information exchange. Qualitatively, fig:ablation shows that, without cross-modal bridges, the text- and image-conditioned branches diverge during denoising, producing inconsistent or abnormal structures; with bridges, they remain aligned and produce coherent result.",
+          "line_start": 183,
+          "line_end": 186,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 8,
+              "rect": [
+                56.5,
+                540.27,
+                296.75,
+                661.92
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C22.1": {
+      "claim_id": "C22.1",
+      "section_id": "22",
+      "section_title": "创新边界判断",
+      "claim_text": "TIGON 是明确任务定义与轻量 cross-modal fusion 的概念推进，但没有越过“通用条件对齐”到“医学事实核验”的边界。",
+      "claim_text_html": "TIGON 是明确任务定义与轻量 cross-modal fusion 的概念推进，但没有越过“通用条件对齐”到“医学事实核验”的边界。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C22.1-a",
+          "doc": "tigon",
+          "quote": "jointly reason",
+          "quote_html": "jointly reason",
+          "relation": "inference",
+          "paragraph_id": "1_intro.tex::p0004",
+          "tex_file": "1_intro.tex",
+          "section_path": [
+            "Introduction"
+          ],
+          "paragraph_text": "These observations raise a natural question of whether image and text conditions can provide complementary information for more flexible 3D generation. Intuitively, images anchor the result to the actual observed view, supplying reliable geometry and appearance cues, while text can specify additional semantics to disambiguate unobserved regions (\\emph{e.g.}, ``with a long coiled tiger tail''). In a diagnostic study, we find that conditioning on a low-information view degrades performance, but adding a textual description and fusing the image- and text-conditioned predictions noticeably recovers quality. This motivates us to move beyond single-modality settings and introduce \\textbf{Text--Image Conditioned 3D Generation}\\footnote{Here we focus on the \\emph{native} 3D generation setting, where the model directly generates a 3D representation under joint text--image conditioning.}, which requires the 3D generator to jointly reason over the visual exemplar and the textual specification, and to generate a consistent 3D asset that is simultaneously faithful to the image-conditioned appearance/geometry and aligned with the text-defined semantics.",
+          "paragraph_html": "These observations raise a natural question of whether image and text conditions can provide complementary information for more flexible 3D generation. Intuitively, images anchor the result to the actual observed view, supplying reliable geometry and appearance cues, while text can specify additional semantics to disambiguate unobserved regions (e.g., &quot;with a long coiled tiger tail&quot;). In a diagnostic study, we find that conditioning on a low-information view degrades performance, but adding a textual description and fusing the image- and text-conditioned predictions noticeably recovers quality. This motivates us to move beyond single-modality settings and introduce Text--Image Conditioned 3D GenerationHere we focus on the native 3D generation setting, where the model directly generates a 3D representation under joint text--image conditioning., which requires the 3D generator to jointly reason over the visual exemplar and the textual specification, and to generate a consistent 3D asset that is simultaneously faithful to the image-conditioned appearance/geometry and aligned with the text-defined semantics.",
+          "line_start": 17,
+          "line_end": 17,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 2,
+              "rect": [
+                56.5,
+                72.41,
+                296.75,
+                714.93
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C23.3": {
+      "claim_id": "C23.3",
+      "section_id": "23",
+      "section_title": "医学教育路线",
+      "claim_text": "TIGON 适合验证文字是否改善条件遵循，不适合直接作为医学 mesh 生产 winner；公开 checkpoint 主要服务 Gaussian 渲染输出。",
+      "claim_text_html": "TIGON 适合验证文字是否改善条件遵循，不适合直接作为医学 mesh 生产 winner；公开 checkpoint 主要服务 Gaussian 渲染输出。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C23.3-a",
+          "doc": "tigon",
+          "quote": "largest gains appear",
+          "quote_html": "largest gains appear",
+          "relation": "inference",
+          "paragraph_id": "4_experiments.tex::p0009",
+          "tex_file": "4_experiments.tex",
+          "section_path": [
+            "Experiments",
+            "Quantitative Results"
+          ],
+          "paragraph_text": "Results on Toys4K and UniLat1K are reported in Table~\\ref{tab:toys4k}. We evaluate TIGON under three conditioning regimes, \\emph{i.e.}, text-only, image-only, and text–image. TIGON is competitive in both single-modality settings, while the largest gains appear under text–image conditioning, showing effective use of complementary signals.",
+          "paragraph_html": "Results on Toys4K and UniLat1K are reported in Table~tab:toys4k. We evaluate TIGON under three conditioning regimes, i.e., text-only, image-only, and text–image. TIGON is competitive in both single-modality settings, while the largest gains appear under text–image conditioning, showing effective use of complementary signals.",
+          "line_start": 110,
+          "line_end": 112,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 5,
+              "rect": [
+                315.25,
+                591.33,
+                555.5,
+                665.07
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C3.3": {
+      "claim_id": "C3.3",
+      "section_id": "3",
+      "section_title": "标题解读",
+      "claim_text": "标题把论文的对象、条件或关键 representation 准确地压缩成一个技术承诺；此处的逐词解读是基于论文摘要与方法的推断。",
+      "claim_text_html": "标题把论文的对象、条件或关键 representation 准确地压缩成一个技术承诺；此处的逐词解读是基于论文摘要与方法的推断。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C3.3-a",
+          "doc": "tigon",
+          "quote": "image-conditioned models",
+          "quote_html": "image-conditioned models",
+          "relation": "inference",
+          "paragraph_id": "0_abstract.tex::p0001",
+          "tex_file": "0_abstract.tex",
+          "section_path": [
+            "Abstract"
+          ],
+          "paragraph_text": "High-quality 3D assets are essential for VR/AR, industrial design, and entertainment, motivating growing interest in generative models that create 3D content from user prompts. Most existing 3D generators, however, rely on a single conditioning modality: image-conditioned models achieve high visual fidelity by exploiting pixel-aligned cues bhaodeut suffer from viewpoint bias when the input view is limited or ambiguous, while text-conditioned models provide broad semantic guidance yet lack low-level visual detail. This limits how users can express intent and raises a natural question: can these two modalities be combined for more flexible and faithful 3D generation? Our diagnostic study shows that even simple late fusion of text- and image-conditioned predictions outperforms single-modality models, revealing strong cross-modal complementarity. We therefore formalize \\textbf{Text–Image Conditioned 3D Generation}, which requires joint reasoning over a visual exemplar and a textual specification. To address this task, we introduce \\textbf{TIGON}, a minimalist dual-branch baseline with separate image- and text-conditioned backbones and lightweight cross-modal fusion. Extensive experiments show that text–image conditioning consistently improves over single-modality methods, highlighting complementary vision–language guidance as a promising direction for future 3D generation research. Project page: \\url{https://jumpat.github.io/tigon-page}",
+          "paragraph_html": "High-quality 3D assets are essential for VR/AR, industrial design, and entertainment, motivating growing interest in generative models that create 3D content from user prompts. Most existing 3D generators, however, rely on a single conditioning modality: image-conditioned models achieve high visual fidelity by exploiting pixel-aligned cues bhaodeut suffer from viewpoint bias when the input view is limited or ambiguous, while text-conditioned models provide broad semantic guidance yet lack low-level visual detail. This limits how users can express intent and raises a natural question: can these two modalities be combined for more flexible and faithful 3D generation? Our diagnostic study shows that even simple late fusion of text- and image-conditioned predictions outperforms single-modality models, revealing strong cross-modal complementarity. We therefore formalize Text–Image Conditioned 3D Generation, which requires joint reasoning over a visual exemplar and a textual specification. To address this task, we introduce TIGON, a minimalist dual-branch baseline with separate image- and text-conditioned backbones and lightweight cross-modal fusion. Extensive experiments show that text–image conditioning consistently improves over single-modality methods, highlighting complementary vision–language guidance as a promising direction for future 3D generation research. Project page: https://jumpat.github.io/tigon-page",
+          "line_start": 7,
+          "line_end": 7,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 1,
+              "rect": [
+                56.5,
+                294.0,
+                296.75,
+                606.51
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C5.3": {
+      "claim_id": "C5.3",
+      "section_id": "5",
+      "section_title": "科学问题阶梯",
+      "claim_text": "直接任务只是单图或条件 3D 生成；更上层的问题是如何在不完整观测下表达不确定性，同时把可发布资产的几何事实与视觉呈现分开。",
+      "claim_text_html": "直接任务只是单图或条件 3D 生成；更上层的问题是如何在不完整观测下表达不确定性，同时把可发布资产的几何事实与视觉呈现分开。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C5.3-a",
+          "doc": "tigon",
+          "quote": "Text--Image Conditioned 3D Generation",
+          "quote_html": "Text--Image Conditioned 3D Generation",
+          "relation": "inference",
+          "paragraph_id": "1_intro.tex::p0004",
+          "tex_file": "1_intro.tex",
+          "section_path": [
+            "Introduction"
+          ],
+          "paragraph_text": "These observations raise a natural question of whether image and text conditions can provide complementary information for more flexible 3D generation. Intuitively, images anchor the result to the actual observed view, supplying reliable geometry and appearance cues, while text can specify additional semantics to disambiguate unobserved regions (\\emph{e.g.}, ``with a long coiled tiger tail''). In a diagnostic study, we find that conditioning on a low-information view degrades performance, but adding a textual description and fusing the image- and text-conditioned predictions noticeably recovers quality. This motivates us to move beyond single-modality settings and introduce \\textbf{Text--Image Conditioned 3D Generation}\\footnote{Here we focus on the \\emph{native} 3D generation setting, where the model directly generates a 3D representation under joint text--image conditioning.}, which requires the 3D generator to jointly reason over the visual exemplar and the textual specification, and to generate a consistent 3D asset that is simultaneously faithful to the image-conditioned appearance/geometry and aligned with the text-defined semantics.",
+          "paragraph_html": "These observations raise a natural question of whether image and text conditions can provide complementary information for more flexible 3D generation. Intuitively, images anchor the result to the actual observed view, supplying reliable geometry and appearance cues, while text can specify additional semantics to disambiguate unobserved regions (e.g., &quot;with a long coiled tiger tail&quot;). In a diagnostic study, we find that conditioning on a low-information view degrades performance, but adding a textual description and fusing the image- and text-conditioned predictions noticeably recovers quality. This motivates us to move beyond single-modality settings and introduce Text--Image Conditioned 3D GenerationHere we focus on the native 3D generation setting, where the model directly generates a 3D representation under joint text--image conditioning., which requires the 3D generator to jointly reason over the visual exemplar and the textual specification, and to generate a consistent 3D asset that is simultaneously faithful to the image-conditioned appearance/geometry and aligned with the text-defined semantics.",
+          "line_start": 17,
+          "line_end": 17,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 2,
+              "rect": [
+                56.5,
+                72.41,
+                296.75,
+                714.93
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C6.3": {
+      "claim_id": "C6.3",
+      "section_id": "6",
+      "section_title": "作者可能的发现路径",
+      "claim_text": "一种合理的作者侧路径是先发现已有范式的隐藏假设，再保留其强项并把失败环节替换为新的中间表示、模块或条件机制。",
+      "claim_text_html": "一种合理的作者侧路径是先发现已有范式的隐藏假设，再保留其强项并把失败环节替换为新的中间表示、模块或条件机制。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C6.3-a",
+          "doc": "tigon",
+          "quote": "Text--Image Conditioned 3D Generation",
+          "quote_html": "Text--Image Conditioned 3D Generation",
+          "relation": "inference",
+          "paragraph_id": "1_intro.tex::p0004",
+          "tex_file": "1_intro.tex",
+          "section_path": [
+            "Introduction"
+          ],
+          "paragraph_text": "These observations raise a natural question of whether image and text conditions can provide complementary information for more flexible 3D generation. Intuitively, images anchor the result to the actual observed view, supplying reliable geometry and appearance cues, while text can specify additional semantics to disambiguate unobserved regions (\\emph{e.g.}, ``with a long coiled tiger tail''). In a diagnostic study, we find that conditioning on a low-information view degrades performance, but adding a textual description and fusing the image- and text-conditioned predictions noticeably recovers quality. This motivates us to move beyond single-modality settings and introduce \\textbf{Text--Image Conditioned 3D Generation}\\footnote{Here we focus on the \\emph{native} 3D generation setting, where the model directly generates a 3D representation under joint text--image conditioning.}, which requires the 3D generator to jointly reason over the visual exemplar and the textual specification, and to generate a consistent 3D asset that is simultaneously faithful to the image-conditioned appearance/geometry and aligned with the text-defined semantics.",
+          "paragraph_html": "These observations raise a natural question of whether image and text conditions can provide complementary information for more flexible 3D generation. Intuitively, images anchor the result to the actual observed view, supplying reliable geometry and appearance cues, while text can specify additional semantics to disambiguate unobserved regions (e.g., &quot;with a long coiled tiger tail&quot;). In a diagnostic study, we find that conditioning on a low-information view degrades performance, but adding a textual description and fusing the image- and text-conditioned predictions noticeably recovers quality. This motivates us to move beyond single-modality settings and introduce Text--Image Conditioned 3D GenerationHere we focus on the native 3D generation setting, where the model directly generates a 3D representation under joint text--image conditioning., which requires the 3D generator to jointly reason over the visual exemplar and the textual specification, and to generate a consistent 3D asset that is simultaneously faithful to the image-conditioned appearance/geometry and aligned with the text-defined semantics.",
+          "line_start": 17,
+          "line_end": 17,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 2,
+              "rect": [
+                56.5,
+                72.41,
+                296.75,
+                714.93
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C7.3": {
+      "claim_id": "C7.3",
+      "section_id": "7",
+      "section_title": "论文叙事构造",
+      "claim_text": "论文的叙事闭环是“明确失败模式 → 给出设计原则 → 放入模块 → 用主表、图或消融检验”；这是证据支持的结构性解读。",
+      "claim_text_html": "论文的叙事闭环是“明确失败模式 → 给出设计原则 → 放入模块 → 用主表、图或消融检验”；这是证据支持的结构性解读。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C7.3-a",
+          "doc": "tigon",
+          "quote": "single-stage 3D generator",
+          "quote_html": "single-stage 3D generator",
+          "relation": "inference",
+          "paragraph_id": "3_method.tex::p0005",
+          "tex_file": "3_method.tex",
+          "section_path": [
+            "Preliminaries"
+          ],
+          "paragraph_text": "\\paragraph{UniLat3D.} Based on TRELLIS, UniLat3D~\\cite{unilat} offers a more convenient single-stage 3D generator. Given view-aggregated features $\\mathbf{F}$, it encodes them as \\begin{equation} \\mathbf{z}_{\\text{uni}} = \\mathcal{E}_{\\text{uni}}(\\mathbf{F}), \\quad \\mathbf{z}_{\\text{uni}} \\in \\mathbb{R}^{16 \\times 16 \\times 16 \\times c}, \\end{equation} and directly decodes to a 3D output $\\mathcal{O} = \\mathcal{D}_{\\text{uni}}(\\mathbf{z}_{\\text{uni}})$. A single rectified-flow model predicts $\\tilde{\\mathbf{z}}_{\\text{uni}}$ during generation. We adopt UniLat3D for its simplicity and compatibility with our conditioning study.",
+          "paragraph_html": "UniLat3D. Based on TRELLIS, UniLat3D~unilat offers a more convenient single-stage 3D generator. Given view-aggregated features <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\mathbf{F}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mi>&#x1D405;</mi></mrow></math></span>, it encodes them as <span class=\"math-rendered math-rendered--block\" data-latex=\"\\mathbf{z}_{\\text{uni}} = \\mathcal{E}_{\\text{uni}}(\\mathbf{F}), \\quad \\mathbf{z}_{\\text{uni}} \\in \\mathbb{R}^{16 \\times 16 \\times 16 \\times c},\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><msub><mi>&#x1D433;</mi><mrow><mtext>uni</mtext></mrow></msub><mo>&#x0003D;</mo><msub><mi>&#x02130;</mi><mrow><mtext>uni</mtext></mrow></msub><mo stretchy=\"false\">&#x00028;</mo><mi>&#x1D405;</mi><mo stretchy=\"false\">&#x00029;</mo><mo>&#x0002C;</mo><mspace width=\"1em\" /><msub><mi>&#x1D433;</mi><mrow><mtext>uni</mtext></mrow></msub><mo>&#x02208;</mo><msup><mi>&#x0211D;</mi><mrow><mn>16</mn><mo>&#x000D7;</mo><mn>16</mn><mo>&#x000D7;</mo><mn>16</mn><mo>&#x000D7;</mo><mi>c</mi></mrow></msup><mo>&#x0002C;</mo></mrow></math></span> and directly decodes to a 3D output <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\mathcal{O} = \\mathcal{D}_{\\text{uni}}(\\mathbf{z}_{\\text{uni}})\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mi>&#x1D4AA;</mi><mo>&#x0003D;</mo><msub><mi>&#x1D49F;</mi><mrow><mtext>uni</mtext></mrow></msub><mo stretchy=\"false\">&#x00028;</mo><msub><mi>&#x1D433;</mi><mrow><mtext>uni</mtext></mrow></msub><mo stretchy=\"false\">&#x00029;</mo></mrow></math></span>. A single rectified-flow model predicts <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\tilde{\\mathbf{z}}_{\\text{uni}}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msub><mover><mrow><mi>&#x1D433;</mi></mrow><mo stretchy=\"false\">&#x0007E;</mo></mover><mrow><mtext>uni</mtext></mrow></msub></mrow></math></span> during generation. We adopt UniLat3D for its simplicity and compatibility with our conditioning study.",
+          "line_start": 54,
+          "line_end": 60,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 3,
+              "rect": [
+                56.5,
+                606.45,
+                296.75,
+                715.41
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C8.3": {
+      "claim_id": "C8.3",
+      "section_id": "8",
+      "section_title": "相关工作与关键引用",
+      "claim_text": "相关工作在本文中承担方法祖先、对照压力或局限性证据的角色，而不是可直接横向排名的列表。",
+      "claim_text_html": "相关工作在本文中承担方法祖先、对照压力或局限性证据的角色，而不是可直接横向排名的列表。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C8.3-a",
+          "doc": "tigon",
+          "quote": "Text--Image Conditioned 3D Generation",
+          "quote_html": "Text--Image Conditioned 3D Generation",
+          "relation": "inference",
+          "paragraph_id": "1_intro.tex::p0004",
+          "tex_file": "1_intro.tex",
+          "section_path": [
+            "Introduction"
+          ],
+          "paragraph_text": "These observations raise a natural question of whether image and text conditions can provide complementary information for more flexible 3D generation. Intuitively, images anchor the result to the actual observed view, supplying reliable geometry and appearance cues, while text can specify additional semantics to disambiguate unobserved regions (\\emph{e.g.}, ``with a long coiled tiger tail''). In a diagnostic study, we find that conditioning on a low-information view degrades performance, but adding a textual description and fusing the image- and text-conditioned predictions noticeably recovers quality. This motivates us to move beyond single-modality settings and introduce \\textbf{Text--Image Conditioned 3D Generation}\\footnote{Here we focus on the \\emph{native} 3D generation setting, where the model directly generates a 3D representation under joint text--image conditioning.}, which requires the 3D generator to jointly reason over the visual exemplar and the textual specification, and to generate a consistent 3D asset that is simultaneously faithful to the image-conditioned appearance/geometry and aligned with the text-defined semantics.",
+          "paragraph_html": "These observations raise a natural question of whether image and text conditions can provide complementary information for more flexible 3D generation. Intuitively, images anchor the result to the actual observed view, supplying reliable geometry and appearance cues, while text can specify additional semantics to disambiguate unobserved regions (e.g., &quot;with a long coiled tiger tail&quot;). In a diagnostic study, we find that conditioning on a low-information view degrades performance, but adding a textual description and fusing the image- and text-conditioned predictions noticeably recovers quality. This motivates us to move beyond single-modality settings and introduce Text--Image Conditioned 3D GenerationHere we focus on the native 3D generation setting, where the model directly generates a 3D representation under joint text--image conditioning., which requires the 3D generator to jointly reason over the visual exemplar and the textual specification, and to generate a consistent 3D asset that is simultaneously faithful to the image-conditioned appearance/geometry and aligned with the text-defined semantics.",
+          "line_start": 17,
+          "line_end": 17,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 2,
+              "rect": [
+                56.5,
+                72.41,
+                296.75,
+                714.93
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C10.3": {
+      "claim_id": "C10.3",
+      "section_id": "10",
+      "section_title": "符号、概念与记号",
+      "claim_text": "本报告只将符号解释为算法中实际使用的对象；任何符号都不应被误读为输入图像已提供的医学事实。",
+      "claim_text_html": "本报告只将符号解释为算法中实际使用的对象；任何符号都不应被误读为输入图像已提供的医学事实。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C10.3-a",
+          "doc": "tigon",
+          "quote": "Sampling with Rectified Flow",
+          "quote_html": "Sampling with Rectified Flow",
+          "relation": "inference",
+          "paragraph_id": "3_method.tex::p0004",
+          "tex_file": "3_method.tex",
+          "section_path": [
+            "Preliminaries"
+          ],
+          "paragraph_text": "\\paragraph{Sampling with Rectified Flow.} For each latent $\\ell \\in \\{\\text{geo}, \\text{SLAT}\\}$ with decoder $\\mathcal{D}_\\ell \\in \\{\\mathcal{D}_{\\text{geo}}, \\mathcal{D}_{\\text{app}}\\}$ and a chosen condition $\\mathbf{c}$ (image $\\mathbf{I}$ or text $\\mathbf{T}$), inference integrates the rectified-flow ODE from noise to data. Let $1 = t_0 > t_1 > \\cdots > t_K = 0$ be a fixed schedule and initialize $\\tilde{\\mathbf{z}}_{\\ell, t_0} \\sim \\mathcal{N}(\\mathbf{0}, \\mathbb{I}^{c})$, where $c$ is the latent dimension. At step $k$, \\begin{equation} \\begin{aligned} &\\mathbf{v}_{\\ell, k} = \\mathcal{F}_{\\ell}\\!\\left(\\tilde{\\mathbf{z}}_{\\ell, t_k},\\, t_k;\\, \\mathbf{c}\\right),\\\\ &\\tilde{\\mathbf{z}}_{\\ell, t_{k+1}} = \\tilde{\\mathbf{z}}_{\\ell, t_k} - (t_k - t_{k+1})\\, \\mathbf{v}_{\\ell, k}, \\end{aligned} \\end{equation} yielding $\\tilde{\\mathbf{z}}_{\\ell, 0}$ after $K$ steps. Decoding $\\tilde{\\mathbf{z}}_{\\text{geo}, 0}$ with $\\mathcal{D}_{\\text{geo}}$ produces the activated voxels, and decoding $\\tilde{\\mathbf{z}}_{\\text{SLAT}, 0}$ with $\\mathcal{D}_{\\text{app}}$ gives the final 3D output $\\mathcal{O}$.",
+          "paragraph_html": "Sampling with Rectified Flow. For each latent <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\ell \\in \\{\\text{geo}, \\text{SLAT}\\}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mi>&#x02113;</mi><mo>&#x02208;</mo><mo stretchy=\"false\">&#x0007B;</mo><mtext>geo</mtext><mo>&#x0002C;</mo><mtext>SLAT</mtext><mo stretchy=\"false\">&#x0007D;</mo></mrow></math></span> with decoder <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\mathcal{D}_\\ell \\in \\{\\mathcal{D}_{\\text{geo}}, \\mathcal{D}_{\\text{app}}\\}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msub><mi>&#x1D49F;</mi><mi>&#x02113;</mi></msub><mo>&#x02208;</mo><mo stretchy=\"false\">&#x0007B;</mo><msub><mi>&#x1D49F;</mi><mrow><mtext>geo</mtext></mrow></msub><mo>&#x0002C;</mo><msub><mi>&#x1D49F;</mi><mrow><mtext>app</mtext></mrow></msub><mo stretchy=\"false\">&#x0007D;</mo></mrow></math></span> and a chosen condition <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\mathbf{c}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mi>&#x1D41C;</mi></mrow></math></span> (image <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\mathbf{I}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mi>&#x1D408;</mi></mrow></math></span> or text <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\mathbf{T}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mi>&#x1D413;</mi></mrow></math></span>), inference integrates the rectified-flow ODE from noise to data. Let <span class=\"math-rendered math-rendered--inline\" data-latex=\"1 = t_0 &gt; t_1 &gt; \\cdots &gt; t_K = 0\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mn>1</mn><mo>&#x0003D;</mo><msub><mi>t</mi><mn>0</mn></msub><mo>&#x0003E;</mo><msub><mi>t</mi><mn>1</mn></msub><mo>&#x0003E;</mo><mo>&#x022EF;</mo><mo>&#x0003E;</mo><msub><mi>t</mi><mi>K</mi></msub><mo>&#x0003D;</mo><mn>0</mn></mrow></math></span> be a fixed schedule and initialize <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\tilde{\\mathbf{z}}_{\\ell, t_0} \\sim \\mathcal{N}(\\mathbf{0}, \\mathbb{I}^{c})\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msub><mover><mrow><mi>&#x1D433;</mi></mrow><mo stretchy=\"false\">&#x0007E;</mo></mover><mrow><mi>&#x02113;</mi><mo>&#x0002C;</mo><msub><mi>t</mi><mn>0</mn></msub></mrow></msub><mi>&#x0007E;</mi><mi>&#x1D4A9;</mi><mo stretchy=\"false\">&#x00028;</mo><mrow><mn mathvariant=\"bold\">0</mn></mrow><mo>&#x0002C;</mo><msup><mi>&#x1D540;</mi><mrow><mi>c</mi></mrow></msup><mo stretchy=\"false\">&#x00029;</mo></mrow></math></span>, where <span class=\"math-rendered math-rendered--inline\" data-latex=\"c\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mi>c</mi></mrow></math></span> is the latent dimension. At step <span class=\"math-rendered math-rendered--inline\" data-latex=\"k\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mi>k</mi></mrow></math></span>, <span class=\"math-rendered math-rendered--block\" data-latex=\"\\mathbf{v}_{\\ell, k} = \\mathcal{F}_{\\ell}\\!\\left(\\tilde{\\mathbf{z}}_{\\ell, t_k},\\, t_k;\\, \\mathbf{c}\\right), ; \\tilde{\\mathbf{z}}_{\\ell, t_{k+1}} = \\tilde{\\mathbf{z}}_{\\ell, t_k} - (t_k - t_{k+1})\\, \\mathbf{v}_{\\ell, k},\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><msub><mi>&#x1D42F;</mi><mrow><mi>&#x02113;</mi><mo>&#x0002C;</mo><mi>k</mi></mrow></msub><mo>&#x0003D;</mo><msub><mi>&#x02131;</mi><mrow><mi>&#x02113;</mi></mrow></msub><mspace width=\"negativethinmathspace\" /><mrow><mo stretchy=\"true\" fence=\"true\" form=\"prefix\">&#x00028;</mo><msub><mover><mrow><mi>&#x1D433;</mi></mrow><mo stretchy=\"false\">&#x0007E;</mo></mover><mrow><mi>&#x02113;</mi><mo>&#x0002C;</mo><msub><mi>t</mi><mi>k</mi></msub></mrow></msub><mo>&#x0002C;</mo><mspace width=\"0.167em\" /><msub><mi>t</mi><mi>k</mi></msub><mi>;</mi><mspace width=\"0.167em\" /><mi>&#x1D41C;</mi><mo stretchy=\"true\" fence=\"true\" form=\"postfix\">&#x00029;</mo></mrow><mo>&#x0002C;</mo><mi>;</mi><msub><mover><mrow><mi>&#x1D433;</mi></mrow><mo stretchy=\"false\">&#x0007E;</mo></mover><mrow><mi>&#x02113;</mi><mo>&#x0002C;</mo><msub><mi>t</mi><mrow><mi>k</mi><mo>&#x0002B;</mo><mn>1</mn></mrow></msub></mrow></msub><mo>&#x0003D;</mo><msub><mover><mrow><mi>&#x1D433;</mi></mrow><mo stretchy=\"false\">&#x0007E;</mo></mover><mrow><mi>&#x02113;</mi><mo>&#x0002C;</mo><msub><mi>t</mi><mi>k</mi></msub></mrow></msub><mo>&#x02212;</mo><mo stretchy=\"false\">&#x00028;</mo><msub><mi>t</mi><mi>k</mi></msub><mo>&#x02212;</mo><msub><mi>t</mi><mrow><mi>k</mi><mo>&#x0002B;</mo><mn>1</mn></mrow></msub><mo stretchy=\"false\">&#x00029;</mo><mspace width=\"0.167em\" /><msub><mi>&#x1D42F;</mi><mrow><mi>&#x02113;</mi><mo>&#x0002C;</mo><mi>k</mi></mrow></msub><mo>&#x0002C;</mo></mrow></math></span> yielding <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\tilde{\\mathbf{z}}_{\\ell, 0}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msub><mover><mrow><mi>&#x1D433;</mi></mrow><mo stretchy=\"false\">&#x0007E;</mo></mover><mrow><mi>&#x02113;</mi><mo>&#x0002C;</mo><mn>0</mn></mrow></msub></mrow></math></span> after <span class=\"math-rendered math-rendered--inline\" data-latex=\"K\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mi>K</mi></mrow></math></span> steps. Decoding <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\tilde{\\mathbf{z}}_{\\text{geo}, 0}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msub><mover><mrow><mi>&#x1D433;</mi></mrow><mo stretchy=\"false\">&#x0007E;</mo></mover><mrow><mtext>geo</mtext><mo>&#x0002C;</mo><mn>0</mn></mrow></msub></mrow></math></span> with <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\mathcal{D}_{\\text{geo}}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msub><mi>&#x1D49F;</mi><mrow><mtext>geo</mtext></mrow></msub></mrow></math></span> produces the activated voxels, and decoding <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\tilde{\\mathbf{z}}_{\\text{SLAT}, 0}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msub><mover><mrow><mi>&#x1D433;</mi></mrow><mo stretchy=\"false\">&#x0007E;</mo></mover><mrow><mtext>SLAT</mtext><mo>&#x0002C;</mo><mn>0</mn></mrow></msub></mrow></math></span> with <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\mathcal{D}_{\\text{app}}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msub><mi>&#x1D49F;</mi><mrow><mtext>app</mtext></mrow></msub></mrow></math></span> gives the final 3D output <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\mathcal{O}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mi>&#x1D4AA;</mi></mrow></math></span>.",
+          "line_start": 36,
+          "line_end": 50,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 3,
+              "rect": [
+                56.5,
+                444.33,
+                296.76,
+                594.76
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C12.3": {
+      "claim_id": "C12.3",
+      "section_id": "12",
+      "section_title": "理论、证明与实践映射",
+      "claim_text": "论文的训练目标或表示公式说明优化对象与实现步骤，但通常不是医学拓扑正确性的证明。",
+      "claim_text_html": "论文的训练目标或表示公式说明优化对象与实现步骤，但通常不是医学拓扑正确性的证明。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C12.3-a",
+          "doc": "tigon",
+          "quote": "Sampling with Rectified Flow",
+          "quote_html": "Sampling with Rectified Flow",
+          "relation": "inference",
+          "paragraph_id": "3_method.tex::p0004",
+          "tex_file": "3_method.tex",
+          "section_path": [
+            "Preliminaries"
+          ],
+          "paragraph_text": "\\paragraph{Sampling with Rectified Flow.} For each latent $\\ell \\in \\{\\text{geo}, \\text{SLAT}\\}$ with decoder $\\mathcal{D}_\\ell \\in \\{\\mathcal{D}_{\\text{geo}}, \\mathcal{D}_{\\text{app}}\\}$ and a chosen condition $\\mathbf{c}$ (image $\\mathbf{I}$ or text $\\mathbf{T}$), inference integrates the rectified-flow ODE from noise to data. Let $1 = t_0 > t_1 > \\cdots > t_K = 0$ be a fixed schedule and initialize $\\tilde{\\mathbf{z}}_{\\ell, t_0} \\sim \\mathcal{N}(\\mathbf{0}, \\mathbb{I}^{c})$, where $c$ is the latent dimension. At step $k$, \\begin{equation} \\begin{aligned} &\\mathbf{v}_{\\ell, k} = \\mathcal{F}_{\\ell}\\!\\left(\\tilde{\\mathbf{z}}_{\\ell, t_k},\\, t_k;\\, \\mathbf{c}\\right),\\\\ &\\tilde{\\mathbf{z}}_{\\ell, t_{k+1}} = \\tilde{\\mathbf{z}}_{\\ell, t_k} - (t_k - t_{k+1})\\, \\mathbf{v}_{\\ell, k}, \\end{aligned} \\end{equation} yielding $\\tilde{\\mathbf{z}}_{\\ell, 0}$ after $K$ steps. Decoding $\\tilde{\\mathbf{z}}_{\\text{geo}, 0}$ with $\\mathcal{D}_{\\text{geo}}$ produces the activated voxels, and decoding $\\tilde{\\mathbf{z}}_{\\text{SLAT}, 0}$ with $\\mathcal{D}_{\\text{app}}$ gives the final 3D output $\\mathcal{O}$.",
+          "paragraph_html": "Sampling with Rectified Flow. For each latent <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\ell \\in \\{\\text{geo}, \\text{SLAT}\\}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mi>&#x02113;</mi><mo>&#x02208;</mo><mo stretchy=\"false\">&#x0007B;</mo><mtext>geo</mtext><mo>&#x0002C;</mo><mtext>SLAT</mtext><mo stretchy=\"false\">&#x0007D;</mo></mrow></math></span> with decoder <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\mathcal{D}_\\ell \\in \\{\\mathcal{D}_{\\text{geo}}, \\mathcal{D}_{\\text{app}}\\}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msub><mi>&#x1D49F;</mi><mi>&#x02113;</mi></msub><mo>&#x02208;</mo><mo stretchy=\"false\">&#x0007B;</mo><msub><mi>&#x1D49F;</mi><mrow><mtext>geo</mtext></mrow></msub><mo>&#x0002C;</mo><msub><mi>&#x1D49F;</mi><mrow><mtext>app</mtext></mrow></msub><mo stretchy=\"false\">&#x0007D;</mo></mrow></math></span> and a chosen condition <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\mathbf{c}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mi>&#x1D41C;</mi></mrow></math></span> (image <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\mathbf{I}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mi>&#x1D408;</mi></mrow></math></span> or text <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\mathbf{T}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mi>&#x1D413;</mi></mrow></math></span>), inference integrates the rectified-flow ODE from noise to data. Let <span class=\"math-rendered math-rendered--inline\" data-latex=\"1 = t_0 &gt; t_1 &gt; \\cdots &gt; t_K = 0\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mn>1</mn><mo>&#x0003D;</mo><msub><mi>t</mi><mn>0</mn></msub><mo>&#x0003E;</mo><msub><mi>t</mi><mn>1</mn></msub><mo>&#x0003E;</mo><mo>&#x022EF;</mo><mo>&#x0003E;</mo><msub><mi>t</mi><mi>K</mi></msub><mo>&#x0003D;</mo><mn>0</mn></mrow></math></span> be a fixed schedule and initialize <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\tilde{\\mathbf{z}}_{\\ell, t_0} \\sim \\mathcal{N}(\\mathbf{0}, \\mathbb{I}^{c})\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msub><mover><mrow><mi>&#x1D433;</mi></mrow><mo stretchy=\"false\">&#x0007E;</mo></mover><mrow><mi>&#x02113;</mi><mo>&#x0002C;</mo><msub><mi>t</mi><mn>0</mn></msub></mrow></msub><mi>&#x0007E;</mi><mi>&#x1D4A9;</mi><mo stretchy=\"false\">&#x00028;</mo><mrow><mn mathvariant=\"bold\">0</mn></mrow><mo>&#x0002C;</mo><msup><mi>&#x1D540;</mi><mrow><mi>c</mi></mrow></msup><mo stretchy=\"false\">&#x00029;</mo></mrow></math></span>, where <span class=\"math-rendered math-rendered--inline\" data-latex=\"c\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mi>c</mi></mrow></math></span> is the latent dimension. At step <span class=\"math-rendered math-rendered--inline\" data-latex=\"k\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mi>k</mi></mrow></math></span>, <span class=\"math-rendered math-rendered--block\" data-latex=\"\\mathbf{v}_{\\ell, k} = \\mathcal{F}_{\\ell}\\!\\left(\\tilde{\\mathbf{z}}_{\\ell, t_k},\\, t_k;\\, \\mathbf{c}\\right), ; \\tilde{\\mathbf{z}}_{\\ell, t_{k+1}} = \\tilde{\\mathbf{z}}_{\\ell, t_k} - (t_k - t_{k+1})\\, \\mathbf{v}_{\\ell, k},\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><msub><mi>&#x1D42F;</mi><mrow><mi>&#x02113;</mi><mo>&#x0002C;</mo><mi>k</mi></mrow></msub><mo>&#x0003D;</mo><msub><mi>&#x02131;</mi><mrow><mi>&#x02113;</mi></mrow></msub><mspace width=\"negativethinmathspace\" /><mrow><mo stretchy=\"true\" fence=\"true\" form=\"prefix\">&#x00028;</mo><msub><mover><mrow><mi>&#x1D433;</mi></mrow><mo stretchy=\"false\">&#x0007E;</mo></mover><mrow><mi>&#x02113;</mi><mo>&#x0002C;</mo><msub><mi>t</mi><mi>k</mi></msub></mrow></msub><mo>&#x0002C;</mo><mspace width=\"0.167em\" /><msub><mi>t</mi><mi>k</mi></msub><mi>;</mi><mspace width=\"0.167em\" /><mi>&#x1D41C;</mi><mo stretchy=\"true\" fence=\"true\" form=\"postfix\">&#x00029;</mo></mrow><mo>&#x0002C;</mo><mi>;</mi><msub><mover><mrow><mi>&#x1D433;</mi></mrow><mo stretchy=\"false\">&#x0007E;</mo></mover><mrow><mi>&#x02113;</mi><mo>&#x0002C;</mo><msub><mi>t</mi><mrow><mi>k</mi><mo>&#x0002B;</mo><mn>1</mn></mrow></msub></mrow></msub><mo>&#x0003D;</mo><msub><mover><mrow><mi>&#x1D433;</mi></mrow><mo stretchy=\"false\">&#x0007E;</mo></mover><mrow><mi>&#x02113;</mi><mo>&#x0002C;</mo><msub><mi>t</mi><mi>k</mi></msub></mrow></msub><mo>&#x02212;</mo><mo stretchy=\"false\">&#x00028;</mo><msub><mi>t</mi><mi>k</mi></msub><mo>&#x02212;</mo><msub><mi>t</mi><mrow><mi>k</mi><mo>&#x0002B;</mo><mn>1</mn></mrow></msub><mo stretchy=\"false\">&#x00029;</mo><mspace width=\"0.167em\" /><msub><mi>&#x1D42F;</mi><mrow><mi>&#x02113;</mi><mo>&#x0002C;</mo><mi>k</mi></mrow></msub><mo>&#x0002C;</mo></mrow></math></span> yielding <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\tilde{\\mathbf{z}}_{\\ell, 0}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msub><mover><mrow><mi>&#x1D433;</mi></mrow><mo stretchy=\"false\">&#x0007E;</mo></mover><mrow><mi>&#x02113;</mi><mo>&#x0002C;</mo><mn>0</mn></mrow></msub></mrow></math></span> after <span class=\"math-rendered math-rendered--inline\" data-latex=\"K\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mi>K</mi></mrow></math></span> steps. Decoding <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\tilde{\\mathbf{z}}_{\\text{geo}, 0}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msub><mover><mrow><mi>&#x1D433;</mi></mrow><mo stretchy=\"false\">&#x0007E;</mo></mover><mrow><mtext>geo</mtext><mo>&#x0002C;</mo><mn>0</mn></mrow></msub></mrow></math></span> with <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\mathcal{D}_{\\text{geo}}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msub><mi>&#x1D49F;</mi><mrow><mtext>geo</mtext></mrow></msub></mrow></math></span> produces the activated voxels, and decoding <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\tilde{\\mathbf{z}}_{\\text{SLAT}, 0}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msub><mover><mrow><mi>&#x1D433;</mi></mrow><mo stretchy=\"false\">&#x0007E;</mo></mover><mrow><mtext>SLAT</mtext><mo>&#x0002C;</mo><mn>0</mn></mrow></msub></mrow></math></span> with <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\mathcal{D}_{\\text{app}}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msub><mi>&#x1D49F;</mi><mrow><mtext>app</mtext></mrow></msub></mrow></math></span> gives the final 3D output <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\mathcal{O}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mi>&#x1D4AA;</mi></mrow></math></span>.",
+          "line_start": 36,
+          "line_end": 50,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 3,
+              "rect": [
+                56.5,
+                444.33,
+                296.76,
+                594.76
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C13.3": {
+      "claim_id": "C13.3",
+      "section_id": "13",
+      "section_title": "算法/模块 walkthrough",
+      "claim_text": "把论文实现成可复现实验时，应按输入条件、latent/中间状态、decoder、输出 artifact 与 QC 依次展开，而不能只复刻最终截图。",
+      "claim_text_html": "把论文实现成可复现实验时，应按输入条件、latent/中间状态、decoder、输出 artifact 与 QC 依次展开，而不能只复刻最终截图。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C13.3-a",
+          "doc": "tigon",
+          "quote": "single-stage 3D generator",
+          "quote_html": "single-stage 3D generator",
+          "relation": "inference",
+          "paragraph_id": "3_method.tex::p0005",
+          "tex_file": "3_method.tex",
+          "section_path": [
+            "Preliminaries"
+          ],
+          "paragraph_text": "\\paragraph{UniLat3D.} Based on TRELLIS, UniLat3D~\\cite{unilat} offers a more convenient single-stage 3D generator. Given view-aggregated features $\\mathbf{F}$, it encodes them as \\begin{equation} \\mathbf{z}_{\\text{uni}} = \\mathcal{E}_{\\text{uni}}(\\mathbf{F}), \\quad \\mathbf{z}_{\\text{uni}} \\in \\mathbb{R}^{16 \\times 16 \\times 16 \\times c}, \\end{equation} and directly decodes to a 3D output $\\mathcal{O} = \\mathcal{D}_{\\text{uni}}(\\mathbf{z}_{\\text{uni}})$. A single rectified-flow model predicts $\\tilde{\\mathbf{z}}_{\\text{uni}}$ during generation. We adopt UniLat3D for its simplicity and compatibility with our conditioning study.",
+          "paragraph_html": "UniLat3D. Based on TRELLIS, UniLat3D~unilat offers a more convenient single-stage 3D generator. Given view-aggregated features <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\mathbf{F}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mi>&#x1D405;</mi></mrow></math></span>, it encodes them as <span class=\"math-rendered math-rendered--block\" data-latex=\"\\mathbf{z}_{\\text{uni}} = \\mathcal{E}_{\\text{uni}}(\\mathbf{F}), \\quad \\mathbf{z}_{\\text{uni}} \\in \\mathbb{R}^{16 \\times 16 \\times 16 \\times c},\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><msub><mi>&#x1D433;</mi><mrow><mtext>uni</mtext></mrow></msub><mo>&#x0003D;</mo><msub><mi>&#x02130;</mi><mrow><mtext>uni</mtext></mrow></msub><mo stretchy=\"false\">&#x00028;</mo><mi>&#x1D405;</mi><mo stretchy=\"false\">&#x00029;</mo><mo>&#x0002C;</mo><mspace width=\"1em\" /><msub><mi>&#x1D433;</mi><mrow><mtext>uni</mtext></mrow></msub><mo>&#x02208;</mo><msup><mi>&#x0211D;</mi><mrow><mn>16</mn><mo>&#x000D7;</mo><mn>16</mn><mo>&#x000D7;</mo><mn>16</mn><mo>&#x000D7;</mo><mi>c</mi></mrow></msup><mo>&#x0002C;</mo></mrow></math></span> and directly decodes to a 3D output <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\mathcal{O} = \\mathcal{D}_{\\text{uni}}(\\mathbf{z}_{\\text{uni}})\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mi>&#x1D4AA;</mi><mo>&#x0003D;</mo><msub><mi>&#x1D49F;</mi><mrow><mtext>uni</mtext></mrow></msub><mo stretchy=\"false\">&#x00028;</mo><msub><mi>&#x1D433;</mi><mrow><mtext>uni</mtext></mrow></msub><mo stretchy=\"false\">&#x00029;</mo></mrow></math></span>. A single rectified-flow model predicts <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\tilde{\\mathbf{z}}_{\\text{uni}}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msub><mover><mrow><mi>&#x1D433;</mi></mrow><mo stretchy=\"false\">&#x0007E;</mo></mover><mrow><mtext>uni</mtext></mrow></msub></mrow></math></span> during generation. We adopt UniLat3D for its simplicity and compatibility with our conditioning study.",
+          "line_start": 54,
+          "line_end": 60,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 3,
+              "rect": [
+                56.5,
+                606.45,
+                296.75,
+                715.41
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C15.3": {
+      "claim_id": "C15.3",
+      "section_id": "15",
+      "section_title": "图表解读",
+      "claim_text": "论文中的 pipeline、主表与消融图支持其具体通用资产主张；图中可见的质量不自动扩展为看不见的结构真实性。",
+      "claim_text_html": "论文中的 pipeline、主表与消融图支持其具体通用资产主张；图中可见的质量不自动扩展为看不见的结构真实性。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C15.3-a",
+          "doc": "tigon",
+          "quote": "TIGON (Ours)",
+          "quote_html": "TIGON (Ours)",
+          "relation": "inference",
+          "paragraph_id": "4_experiments.tex::p0004",
+          "tex_file": "4_experiments.tex",
+          "section_path": [
+            "Experiments",
+            "Implementation Details"
+          ],
+          "paragraph_text": "\\small \\caption{Quantitative results on Toys4K (left) and UniLat1K (right). ``Cond.'' denotes conditioning modality (``I'': image, ``T'': text), and ``Rep.'' denotes output representation (``M.'': mesh, ``GS'': 3DGS).} \\label{tab:toys4k} \\setlength{\\tabcolsep}{5.6pt} \\begin{tabular}{lcc|cccc|cccc} \\toprule \\multirow{2}{*}{\\textbf{Model}} & \\multirow{2}{*}{\\textbf{Cond.}} & \\multirow{2}{*}{\\textbf{Rep.}} & \\multicolumn{4}{c|}{\\textbf{Toys4K}} & \\multicolumn{4}{c}{\\textbf{UniLat1K}} \\\\ & & & \\textbf{CLIP$\\uparrow$} & \\textbf{FD$_{\\text{DINOv2}}\\downarrow$} & \\textbf{ULIP$\\uparrow$} & \\textbf{Uni3D$\\uparrow$} & \\textbf{CLIP$\\uparrow$} & \\textbf{FD$_{\\text{DINOv2}}\\downarrow$} & \\textbf{ULIP$\\uparrow$} & \\textbf{Uni3D$\\uparrow$} \\\\ \\midrule TripoSR~\\cite{triposr} & I & M. & 83.14 & 596.44 & 27.37 & 24.38 & 83.37 & 652.27 & 25.90 & 23.96 \\\\ TRELLIS & I & M. & 89.09 & 171.44 & 39.97 & 35.61 & 89.40 & 233.53 & 39.37 & 35.40 \\\\ TRELLIS & I & GS & 90.50 & 98.75 & - & - & 90.83 & 177.20 & - & - \\\\ Step1X-3D$^{\\dagger}$~\\cite{step1x} & I & M. & 84.77 & 361.44 & 34.15 & 30.04 & 85.36 & 402.25 & 33.62 & 30.38 \\\\ Hunyuan3D-2.1$^{\\dagger}$~\\cite{hunyuan3d2025hunyuan3d2.1} & I & M. & 87.57 & 171.91 & 40.22 & 35.70 & 87.27 & 249.66 & 39.58 & 35.54 \\\\ Stable3DGen~\\cite{ye2025hi3dgen} & I & M. & - & - & 35.52 & 31.76 & - & - & 35.26 & 32.08 \\\\ Direct3D-S2~\\cite{direct3ds2} & I & M. & - & - & 33.47 & 29.29 & - & - & 32.74 & 29.44 \\\\ UniLat3D & I & M. & 91.85 & 109.68 & 40.32 & 35.75 & 90.00 & 205.72 & 39.60 & 35.49 \\\\ UniLat3D & I & GS & 91.20 & 85.30 & - & - & 91.40 & 155.99 & - & - \\\\ \\rowcolor{rowgray} TIGON (Ours) & I & GS & 91.40 & 84.62 & - & - & 91.64 & 153.79 & - & - \\\\ \\midrule TRELLIS & T & M. & 87.15 & 182.42 & 37.41 & 33.59 & 85.90 & 316.05 & 36.55 & 33.23 \\\\ TRELLIS & T & GS & 86.30 & 148.21 & - & - & 84.75 & 288.55 & - & - \\\\ UniLat3D & T & M. & 87.03 & 179.95 & 36.14 & 32.35 & 85.29 & 313.85 & 35.34 & 32.08 \\\\ UniLat3D & T & GS & 86.14 & 154.88 & - & - & 85.75 & 282.36 & - & - \\\\ \\rowcolor{rowgray} TIGON (Ours) & T & GS & 86.77 & 152.34 & - & - & 86.42 & 273.97 & - & - \\\\ \\midrule SimFusion (Ours) & I+T & GS & 91.95 & 66.78 & - & - & 92.09 & 136.97 & - & - \\\\ \\rowcolor{rowgray} TIGON (Ours) & I+T & M. & \\textbf{92.97} & 80.77 & \\textbf{41.36} & \\textbf{36.68} & 90.91 & 176.69 & \\textbf{40.95} & \\textbf{36.74} \\\\ \\rowcolor{rowgray} TIGON (Ours) & I+T & GS & 92.33 & \\textbf{61.59} & - & - & \\textbf{92.42} & \\textbf{130.08} & - & - \\\\ \\bottomrule \\end{tabular} \\begin{flushleft}",
+          "paragraph_html": "Quantitative results on Toys4K (left) and UniLat1K (right). &quot;Cond.&quot; denotes conditioning modality (&quot;I&quot;: image, &quot;T&quot;: text), and &quot;Rep.&quot; denotes output representation (&quot;M.&quot;: mesh, &quot;GS&quot;: 3DGS). 5.6pt lcc|cccc|cccc 2*Model &amp; 2*Cond. &amp; 2*Rep. &amp; 4c|Toys4K &amp; 4cUniLat1K &amp; &amp; &amp; CLIP<span class=\"math-rendered math-rendered--inline\" data-latex=\"\\uparrow\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mo>&#x02191;</mo></mrow></math></span> &amp; FD<span class=\"math-rendered math-rendered--inline\" data-latex=\"_{\\text{DINOv2}}\\downarrow\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msub><mi /><mrow><mtext>DINOv2</mtext></mrow></msub><mo>&#x02193;</mo></mrow></math></span> &amp; ULIP<span class=\"math-rendered math-rendered--inline\" data-latex=\"\\uparrow\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mo>&#x02191;</mo></mrow></math></span> &amp; Uni3D<span class=\"math-rendered math-rendered--inline\" data-latex=\"\\uparrow\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mo>&#x02191;</mo></mrow></math></span> &amp; CLIP<span class=\"math-rendered math-rendered--inline\" data-latex=\"\\uparrow\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mo>&#x02191;</mo></mrow></math></span> &amp; FD<span class=\"math-rendered math-rendered--inline\" data-latex=\"_{\\text{DINOv2}}\\downarrow\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msub><mi /><mrow><mtext>DINOv2</mtext></mrow></msub><mo>&#x02193;</mo></mrow></math></span> &amp; ULIP<span class=\"math-rendered math-rendered--inline\" data-latex=\"\\uparrow\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mo>&#x02191;</mo></mrow></math></span> &amp; Uni3D<span class=\"math-rendered math-rendered--inline\" data-latex=\"\\uparrow\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mo>&#x02191;</mo></mrow></math></span> TripoSR~triposr &amp; I &amp; M. &amp; 83.14 &amp; 596.44 &amp; 27.37 &amp; 24.38 &amp; 83.37 &amp; 652.27 &amp; 25.90 &amp; 23.96 TRELLIS &amp; I &amp; M. &amp; 89.09 &amp; 171.44 &amp; 39.97 &amp; 35.61 &amp; 89.40 &amp; 233.53 &amp; 39.37 &amp; 35.40 TRELLIS &amp; I &amp; GS &amp; 90.50 &amp; 98.75 &amp; - &amp; - &amp; 90.83 &amp; 177.20 &amp; - &amp; - Step1X-3D<span class=\"math-rendered math-rendered--inline\" data-latex=\"^{\\dagger}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msup><mi /><mrow><mi>&#x02020;</mi></mrow></msup></mrow></math></span>~step1x &amp; I &amp; M. &amp; 84.77 &amp; 361.44 &amp; 34.15 &amp; 30.04 &amp; 85.36 &amp; 402.25 &amp; 33.62 &amp; 30.38 Hunyuan3D-2.1<span class=\"math-rendered math-rendered--inline\" data-latex=\"^{\\dagger}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msup><mi /><mrow><mi>&#x02020;</mi></mrow></msup></mrow></math></span>~hunyuan3d2025hunyuan3d2.1 &amp; I &amp; M. &amp; 87.57 &amp; 171.91 &amp; 40.22 &amp; 35.70 &amp; 87.27 &amp; 249.66 &amp; 39.58 &amp; 35.54 Stable3DGen~ye2025hi3dgen &amp; I &amp; M. &amp; - &amp; - &amp; 35.52 &amp; 31.76 &amp; - &amp; - &amp; 35.26 &amp; 32.08 Direct3D-S2~direct3ds2 &amp; I &amp; M. &amp; - &amp; - &amp; 33.47 &amp; 29.29 &amp; - &amp; - &amp; 32.74 &amp; 29.44 UniLat3D &amp; I &amp; M. &amp; 91.85 &amp; 109.68 &amp; 40.32 &amp; 35.75 &amp; 90.00 &amp; 205.72 &amp; 39.60 &amp; 35.49 UniLat3D &amp; I &amp; GS &amp; 91.20 &amp; 85.30 &amp; - &amp; - &amp; 91.40 &amp; 155.99 &amp; - &amp; - rowgray TIGON (Ours) &amp; I &amp; GS &amp; 91.40 &amp; 84.62 &amp; - &amp; - &amp; 91.64 &amp; 153.79 &amp; - &amp; - TRELLIS &amp; T &amp; M. &amp; 87.15 &amp; 182.42 &amp; 37.41 &amp; 33.59 &amp; 85.90 &amp; 316.05 &amp; 36.55 &amp; 33.23 TRELLIS &amp; T &amp; GS &amp; 86.30 &amp; 148.21 &amp; - &amp; - &amp; 84.75 &amp; 288.55 &amp; - &amp; - UniLat3D &amp; T &amp; M. &amp; 87.03 &amp; 179.95 &amp; 36.14 &amp; 32.35 &amp; 85.29 &amp; 313.85 &amp; 35.34 &amp; 32.08 UniLat3D &amp; T &amp; GS &amp; 86.14 &amp; 154.88 &amp; - &amp; - &amp; 85.75 &amp; 282.36 &amp; - &amp; - rowgray TIGON (Ours) &amp; T &amp; GS &amp; 86.77 &amp; 152.34 &amp; - &amp; - &amp; 86.42 &amp; 273.97 &amp; - &amp; - SimFusion (Ours) &amp; I+T &amp; GS &amp; 91.95 &amp; 66.78 &amp; - &amp; - &amp; 92.09 &amp; 136.97 &amp; - &amp; - rowgray TIGON (Ours) &amp; I+T &amp; M. &amp; 92.97 &amp; 80.77 &amp; 41.36 &amp; 36.68 &amp; 90.91 &amp; 176.69 &amp; 40.95 &amp; 36.74 rowgray TIGON (Ours) &amp; I+T &amp; GS &amp; 92.33 &amp; 61.59 &amp; - &amp; - &amp; 92.42 &amp; 130.08 &amp; - &amp; -",
+          "line_start": 37,
+          "line_end": 72,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 6,
+              "rect": [
+                56.5,
+                70.87,
+                555.5,
+                343.11
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C18.3": {
+      "claim_id": "C18.3",
+      "section_id": "18",
+      "section_title": "Reviewer-lens audit",
+      "claim_text": "从审稿视角，应把作者协议内的优越性、训练/依赖门槛、数据/许可不确定性以及医学迁移缺口分开评价。",
+      "claim_text_html": "从审稿视角，应把作者协议内的优越性、训练/依赖门槛、数据/许可不确定性以及医学迁移缺口分开评价。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C18.3-a",
+          "doc": "tigon",
+          "quote": "TRELLIS-500K",
+          "quote_html": "TRELLIS-500K",
+          "relation": "inference",
+          "paragraph_id": "4_experiments.tex::p0006",
+          "tex_file": "4_experiments.tex",
+          "section_path": [
+            "Experiments",
+            "Datasets and Evaluation Protocol"
+          ],
+          "paragraph_text": "\\label{sec:eval_metric} \\noindent\\textbf{Training.} TIGON is trained on \\textbf{TRELLIS-500K}. Please refer to the supplement for more details about this dataset.",
+          "paragraph_html": ". TIGON is trained on TRELLIS-500K. Please refer to the supplement for more details about this dataset.",
+          "line_start": 79,
+          "line_end": 80,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 5,
+              "rect": [
+                315.25,
+                336.9,
+                555.5,
+                566.91
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C19.3": {
+      "claim_id": "C19.3",
+      "section_id": "19",
+      "section_title": "创新点与支持审计",
+      "claim_text": "贡献应逐条绑定其对应的表示、模块、消融或 benchmark，而不能把系统总结果一概归因给单一新意。",
+      "claim_text_html": "贡献应逐条绑定其对应的表示、模块、消融或 benchmark，而不能把系统总结果一概归因给单一新意。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C19.3-a",
+          "doc": "tigon",
+          "quote": "TIGON (Ours)",
+          "quote_html": "TIGON (Ours)",
+          "relation": "inference",
+          "paragraph_id": "4_experiments.tex::p0004",
+          "tex_file": "4_experiments.tex",
+          "section_path": [
+            "Experiments",
+            "Implementation Details"
+          ],
+          "paragraph_text": "\\small \\caption{Quantitative results on Toys4K (left) and UniLat1K (right). ``Cond.'' denotes conditioning modality (``I'': image, ``T'': text), and ``Rep.'' denotes output representation (``M.'': mesh, ``GS'': 3DGS).} \\label{tab:toys4k} \\setlength{\\tabcolsep}{5.6pt} \\begin{tabular}{lcc|cccc|cccc} \\toprule \\multirow{2}{*}{\\textbf{Model}} & \\multirow{2}{*}{\\textbf{Cond.}} & \\multirow{2}{*}{\\textbf{Rep.}} & \\multicolumn{4}{c|}{\\textbf{Toys4K}} & \\multicolumn{4}{c}{\\textbf{UniLat1K}} \\\\ & & & \\textbf{CLIP$\\uparrow$} & \\textbf{FD$_{\\text{DINOv2}}\\downarrow$} & \\textbf{ULIP$\\uparrow$} & \\textbf{Uni3D$\\uparrow$} & \\textbf{CLIP$\\uparrow$} & \\textbf{FD$_{\\text{DINOv2}}\\downarrow$} & \\textbf{ULIP$\\uparrow$} & \\textbf{Uni3D$\\uparrow$} \\\\ \\midrule TripoSR~\\cite{triposr} & I & M. & 83.14 & 596.44 & 27.37 & 24.38 & 83.37 & 652.27 & 25.90 & 23.96 \\\\ TRELLIS & I & M. & 89.09 & 171.44 & 39.97 & 35.61 & 89.40 & 233.53 & 39.37 & 35.40 \\\\ TRELLIS & I & GS & 90.50 & 98.75 & - & - & 90.83 & 177.20 & - & - \\\\ Step1X-3D$^{\\dagger}$~\\cite{step1x} & I & M. & 84.77 & 361.44 & 34.15 & 30.04 & 85.36 & 402.25 & 33.62 & 30.38 \\\\ Hunyuan3D-2.1$^{\\dagger}$~\\cite{hunyuan3d2025hunyuan3d2.1} & I & M. & 87.57 & 171.91 & 40.22 & 35.70 & 87.27 & 249.66 & 39.58 & 35.54 \\\\ Stable3DGen~\\cite{ye2025hi3dgen} & I & M. & - & - & 35.52 & 31.76 & - & - & 35.26 & 32.08 \\\\ Direct3D-S2~\\cite{direct3ds2} & I & M. & - & - & 33.47 & 29.29 & - & - & 32.74 & 29.44 \\\\ UniLat3D & I & M. & 91.85 & 109.68 & 40.32 & 35.75 & 90.00 & 205.72 & 39.60 & 35.49 \\\\ UniLat3D & I & GS & 91.20 & 85.30 & - & - & 91.40 & 155.99 & - & - \\\\ \\rowcolor{rowgray} TIGON (Ours) & I & GS & 91.40 & 84.62 & - & - & 91.64 & 153.79 & - & - \\\\ \\midrule TRELLIS & T & M. & 87.15 & 182.42 & 37.41 & 33.59 & 85.90 & 316.05 & 36.55 & 33.23 \\\\ TRELLIS & T & GS & 86.30 & 148.21 & - & - & 84.75 & 288.55 & - & - \\\\ UniLat3D & T & M. & 87.03 & 179.95 & 36.14 & 32.35 & 85.29 & 313.85 & 35.34 & 32.08 \\\\ UniLat3D & T & GS & 86.14 & 154.88 & - & - & 85.75 & 282.36 & - & - \\\\ \\rowcolor{rowgray} TIGON (Ours) & T & GS & 86.77 & 152.34 & - & - & 86.42 & 273.97 & - & - \\\\ \\midrule SimFusion (Ours) & I+T & GS & 91.95 & 66.78 & - & - & 92.09 & 136.97 & - & - \\\\ \\rowcolor{rowgray} TIGON (Ours) & I+T & M. & \\textbf{92.97} & 80.77 & \\textbf{41.36} & \\textbf{36.68} & 90.91 & 176.69 & \\textbf{40.95} & \\textbf{36.74} \\\\ \\rowcolor{rowgray} TIGON (Ours) & I+T & GS & 92.33 & \\textbf{61.59} & - & - & \\textbf{92.42} & \\textbf{130.08} & - & - \\\\ \\bottomrule \\end{tabular} \\begin{flushleft}",
+          "paragraph_html": "Quantitative results on Toys4K (left) and UniLat1K (right). &quot;Cond.&quot; denotes conditioning modality (&quot;I&quot;: image, &quot;T&quot;: text), and &quot;Rep.&quot; denotes output representation (&quot;M.&quot;: mesh, &quot;GS&quot;: 3DGS). 5.6pt lcc|cccc|cccc 2*Model &amp; 2*Cond. &amp; 2*Rep. &amp; 4c|Toys4K &amp; 4cUniLat1K &amp; &amp; &amp; CLIP<span class=\"math-rendered math-rendered--inline\" data-latex=\"\\uparrow\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mo>&#x02191;</mo></mrow></math></span> &amp; FD<span class=\"math-rendered math-rendered--inline\" data-latex=\"_{\\text{DINOv2}}\\downarrow\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msub><mi /><mrow><mtext>DINOv2</mtext></mrow></msub><mo>&#x02193;</mo></mrow></math></span> &amp; ULIP<span class=\"math-rendered math-rendered--inline\" data-latex=\"\\uparrow\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mo>&#x02191;</mo></mrow></math></span> &amp; Uni3D<span class=\"math-rendered math-rendered--inline\" data-latex=\"\\uparrow\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mo>&#x02191;</mo></mrow></math></span> &amp; CLIP<span class=\"math-rendered math-rendered--inline\" data-latex=\"\\uparrow\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mo>&#x02191;</mo></mrow></math></span> &amp; FD<span class=\"math-rendered math-rendered--inline\" data-latex=\"_{\\text{DINOv2}}\\downarrow\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msub><mi /><mrow><mtext>DINOv2</mtext></mrow></msub><mo>&#x02193;</mo></mrow></math></span> &amp; ULIP<span class=\"math-rendered math-rendered--inline\" data-latex=\"\\uparrow\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mo>&#x02191;</mo></mrow></math></span> &amp; Uni3D<span class=\"math-rendered math-rendered--inline\" data-latex=\"\\uparrow\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mo>&#x02191;</mo></mrow></math></span> TripoSR~triposr &amp; I &amp; M. &amp; 83.14 &amp; 596.44 &amp; 27.37 &amp; 24.38 &amp; 83.37 &amp; 652.27 &amp; 25.90 &amp; 23.96 TRELLIS &amp; I &amp; M. &amp; 89.09 &amp; 171.44 &amp; 39.97 &amp; 35.61 &amp; 89.40 &amp; 233.53 &amp; 39.37 &amp; 35.40 TRELLIS &amp; I &amp; GS &amp; 90.50 &amp; 98.75 &amp; - &amp; - &amp; 90.83 &amp; 177.20 &amp; - &amp; - Step1X-3D<span class=\"math-rendered math-rendered--inline\" data-latex=\"^{\\dagger}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msup><mi /><mrow><mi>&#x02020;</mi></mrow></msup></mrow></math></span>~step1x &amp; I &amp; M. &amp; 84.77 &amp; 361.44 &amp; 34.15 &amp; 30.04 &amp; 85.36 &amp; 402.25 &amp; 33.62 &amp; 30.38 Hunyuan3D-2.1<span class=\"math-rendered math-rendered--inline\" data-latex=\"^{\\dagger}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msup><mi /><mrow><mi>&#x02020;</mi></mrow></msup></mrow></math></span>~hunyuan3d2025hunyuan3d2.1 &amp; I &amp; M. &amp; 87.57 &amp; 171.91 &amp; 40.22 &amp; 35.70 &amp; 87.27 &amp; 249.66 &amp; 39.58 &amp; 35.54 Stable3DGen~ye2025hi3dgen &amp; I &amp; M. &amp; - &amp; - &amp; 35.52 &amp; 31.76 &amp; - &amp; - &amp; 35.26 &amp; 32.08 Direct3D-S2~direct3ds2 &amp; I &amp; M. &amp; - &amp; - &amp; 33.47 &amp; 29.29 &amp; - &amp; - &amp; 32.74 &amp; 29.44 UniLat3D &amp; I &amp; M. &amp; 91.85 &amp; 109.68 &amp; 40.32 &amp; 35.75 &amp; 90.00 &amp; 205.72 &amp; 39.60 &amp; 35.49 UniLat3D &amp; I &amp; GS &amp; 91.20 &amp; 85.30 &amp; - &amp; - &amp; 91.40 &amp; 155.99 &amp; - &amp; - rowgray TIGON (Ours) &amp; I &amp; GS &amp; 91.40 &amp; 84.62 &amp; - &amp; - &amp; 91.64 &amp; 153.79 &amp; - &amp; - TRELLIS &amp; T &amp; M. &amp; 87.15 &amp; 182.42 &amp; 37.41 &amp; 33.59 &amp; 85.90 &amp; 316.05 &amp; 36.55 &amp; 33.23 TRELLIS &amp; T &amp; GS &amp; 86.30 &amp; 148.21 &amp; - &amp; - &amp; 84.75 &amp; 288.55 &amp; - &amp; - UniLat3D &amp; T &amp; M. &amp; 87.03 &amp; 179.95 &amp; 36.14 &amp; 32.35 &amp; 85.29 &amp; 313.85 &amp; 35.34 &amp; 32.08 UniLat3D &amp; T &amp; GS &amp; 86.14 &amp; 154.88 &amp; - &amp; - &amp; 85.75 &amp; 282.36 &amp; - &amp; - rowgray TIGON (Ours) &amp; T &amp; GS &amp; 86.77 &amp; 152.34 &amp; - &amp; - &amp; 86.42 &amp; 273.97 &amp; - &amp; - SimFusion (Ours) &amp; I+T &amp; GS &amp; 91.95 &amp; 66.78 &amp; - &amp; - &amp; 92.09 &amp; 136.97 &amp; - &amp; - rowgray TIGON (Ours) &amp; I+T &amp; M. &amp; 92.97 &amp; 80.77 &amp; 41.36 &amp; 36.68 &amp; 90.91 &amp; 176.69 &amp; 40.95 &amp; 36.74 rowgray TIGON (Ours) &amp; I+T &amp; GS &amp; 92.33 &amp; 61.59 &amp; - &amp; - &amp; 92.42 &amp; 130.08 &amp; - &amp; -",
+          "line_start": 37,
+          "line_end": 72,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 6,
+              "rect": [
+                56.5,
+                70.87,
+                555.5,
+                343.11
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C24.3": {
+      "claim_id": "C24.3",
+      "section_id": "24",
+      "section_title": "通俗故事",
+      "claim_text": "把论文记成“用一个被约束的代理机制处理 2D 中缺失的 3D 信息”，比把它记成模型名或单一分数更接近其可复用洞见。",
+      "claim_text_html": "把论文记成“用一个被约束的代理机制处理 2D 中缺失的 3D 信息”，比把它记成模型名或单一分数更接近其可复用洞见。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C24.3-a",
+          "doc": "tigon",
+          "quote": "image-conditioned models",
+          "quote_html": "image-conditioned models",
+          "relation": "inference",
+          "paragraph_id": "0_abstract.tex::p0001",
+          "tex_file": "0_abstract.tex",
+          "section_path": [
+            "Abstract"
+          ],
+          "paragraph_text": "High-quality 3D assets are essential for VR/AR, industrial design, and entertainment, motivating growing interest in generative models that create 3D content from user prompts. Most existing 3D generators, however, rely on a single conditioning modality: image-conditioned models achieve high visual fidelity by exploiting pixel-aligned cues bhaodeut suffer from viewpoint bias when the input view is limited or ambiguous, while text-conditioned models provide broad semantic guidance yet lack low-level visual detail. This limits how users can express intent and raises a natural question: can these two modalities be combined for more flexible and faithful 3D generation? Our diagnostic study shows that even simple late fusion of text- and image-conditioned predictions outperforms single-modality models, revealing strong cross-modal complementarity. We therefore formalize \\textbf{Text–Image Conditioned 3D Generation}, which requires joint reasoning over a visual exemplar and a textual specification. To address this task, we introduce \\textbf{TIGON}, a minimalist dual-branch baseline with separate image- and text-conditioned backbones and lightweight cross-modal fusion. Extensive experiments show that text–image conditioning consistently improves over single-modality methods, highlighting complementary vision–language guidance as a promising direction for future 3D generation research. Project page: \\url{https://jumpat.github.io/tigon-page}",
+          "paragraph_html": "High-quality 3D assets are essential for VR/AR, industrial design, and entertainment, motivating growing interest in generative models that create 3D content from user prompts. Most existing 3D generators, however, rely on a single conditioning modality: image-conditioned models achieve high visual fidelity by exploiting pixel-aligned cues bhaodeut suffer from viewpoint bias when the input view is limited or ambiguous, while text-conditioned models provide broad semantic guidance yet lack low-level visual detail. This limits how users can express intent and raises a natural question: can these two modalities be combined for more flexible and faithful 3D generation? Our diagnostic study shows that even simple late fusion of text- and image-conditioned predictions outperforms single-modality models, revealing strong cross-modal complementarity. We therefore formalize Text–Image Conditioned 3D Generation, which requires joint reasoning over a visual exemplar and a textual specification. To address this task, we introduce TIGON, a minimalist dual-branch baseline with separate image- and text-conditioned backbones and lightweight cross-modal fusion. Extensive experiments show that text–image conditioning consistently improves over single-modality methods, highlighting complementary vision–language guidance as a promising direction for future 3D generation research. Project page: https://jumpat.github.io/tigon-page",
+          "line_start": 7,
+          "line_end": 7,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 1,
+              "rect": [
+                56.5,
+                294.0,
+                296.75,
+                606.51
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C25.3": {
+      "claim_id": "C25.3",
+      "section_id": "25",
+      "section_title": "来源使用说明",
+      "claim_text": "本报告使用与目标版本匹配的官方 LaTeX source 作为结构化证据，并用官方 PDF 检查页码、表格和图形。",
+      "claim_text_html": "本报告使用与目标版本匹配的官方 LaTeX source 作为结构化证据，并用官方 PDF 检查页码、表格和图形。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C25.3-a",
+          "doc": "tigon",
+          "quote": "Text-Image Conditioned 3D Generation",
+          "quote_html": "Text-Image Conditioned 3D Generation",
+          "relation": "direct",
+          "paragraph_id": "main.tex::p0005",
+          "tex_file": "main.tex",
+          "section_path": [],
+          "paragraph_text": "\\title{Text–Image Conditioned 3D Generation}",
+          "paragraph_html": "Text–Image Conditioned 3D Generation",
+          "line_start": 33,
+          "line_end": 33,
+          "match_source": "pdf-search",
+          "matches": [
+            {
+              "page": 3,
+              "rect": [
+                315.25,
+                228.03,
+                533.67,
+                243.98
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

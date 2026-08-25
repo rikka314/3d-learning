@@ -1,0 +1,46 @@
+{
+  "schema_version": "paper-reader-artifacts/1.0",
+  "paper": {
+    "title": "基于2D的3D生成与医学教育资产：四篇核心论文精读",
+    "source_mode": "pdf-primary"
+  },
+  "report": {
+    "markdown": "report.md"
+  },
+  "traceability_manifest": "traceability_manifest.json",
+  "research_lens": "research_lens.json",
+  "documents": [
+    {
+      "doc": "spar3d",
+      "label": "SPAR3D",
+      "pdf": "../spar3d/latex_run/source/main.pdf"
+    },
+    {
+      "doc": "hunyuan3d_2_1",
+      "label": "Hunyuan3D 2.1",
+      "pdf": "../hunyuan3d_2_1/latex_run/source/neurips_2025.pdf"
+    },
+    {
+      "doc": "tigon",
+      "label": "TIGON",
+      "pdf": "../tigon/latex_run/source/main.pdf"
+    },
+    {
+      "doc": "trellis_2",
+      "label": "TRELLIS.2 / O-Voxel",
+      "pdf": "../trellis_2/latex_run/source/main.pdf"
+    },
+    {
+      "doc": "route",
+      "label": "原路线报告",
+      "pdf": "project_route_report.pdf"
+    }
+  ],
+  "storyboard": {
+    "manifest": "storyboard_manifest.json",
+    "prompts": "storyboard_prompts.md",
+    "images": [],
+    "status": "prompts-only"
+  },
+  "reader_output": "reader_bundle"
+}

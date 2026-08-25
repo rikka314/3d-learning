@@ -1,0 +1,82 @@
+\section{Evaluation}
+To assess the effectiveness of a 3D generative model, we conduct experiments focusing on three key areas: (1) 3D Shape Generation (untextured shape evaluation), (2) Texture Synthesis, and (3) Complete 3D asset creation (textured 3D shapes).
+
+\begin{table}
+\centering
+\small
+\begin{tabular}{l|cccccc}
+\hline
+Models & ULIP-T ($\uparrow$) & ULIP-I ($\uparrow$) & Uni3D-T ($\uparrow$)& Uni3D-I ($\uparrow$) \\ \hline
+Michelangelo~\cite{zhao2023michelangelo} & 0.0752 & 0.1152 & 0.2133 & 0.2611 \\
+Craftsman 1.5~\cite{li2024craftsman}    & 0.0745 & 0.1296 & 0.2375 & 0.2987 \\
+TripoSG~\cite{li2025triposg} & 0.0767 &  0.1225 &  0.2506 & 0.3129 \\
+Step1X-3D~\cite{li2025step1x}    &   0.0735 & 0.1183 & 0.2554 & 0.3195 \\
+Trellis~\cite{xiang2024structured} & 0.0769 & 0.1267 & 0.2496 & 0.3116 \\
+Direct3D-S2~\cite{wu2025direct3ds2gigascale3dgeneration} & 0.0706 & 0.1134 & 0.2346 & 0.2930\\
+Hunyuan3D-DiT & \textbf{0.0774} & \bf{0.1395} & \textbf{0.2556} & \textbf{0.3213} \\ \hline
+\end{tabular}
+\vspace{3mm}
+\caption{The quantitative comparison for shape generation. The Hunyuan3D-DiT presents the best performance.}
+\label{tab:shapegen_transposed}
+\end{table}
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\linewidth]{fig/geo_compare.pdf}
+    \caption{The qualitative comparisons for image-to-shape generation.}
+    \label{fig:geo_compare}
+\end{figure}
+
+
+
+
+\subsection{3D Shape Generation}
+Shape generation is crucial for 3D generation, as detailed and high-resolution meshes provide the groundwork for subsequent tasks. In this section, we evaluate the 3D shape generation capabilities of Hunyuan3D-DiT, focusing on shape creation.
+
+\textbf{Metrics.} To evaluate shape generation performance, we used ULIP~\cite{xue2023ulip} and Uni3D~\cite{zhouuni3d} to measure the similarity between the generated mesh and input images. Specifically, we sampled 8,192 surface points from the generated mesh as the point cloud modality. We then utilized the caption of the input image obtained from an existing VLM model as the text modality. Finally, we applied the ULIP models to obtain the ULIP-I and ULIP-T scores, which measure the similarity between the point cloud and text, as well as the similarity between the point cloud and image, respectively. In this context, the text caption comes from a VLM model. We also employed the same process to obtain the Uni3D-I and Uni3D-T scores based on the Uni3D model.
+
+\textbf{Comparison with Shape Generation Models.} We compared Shape Quality with several leading models, including open-source options like Direct3D-S2~\cite{wu2025direct3ds2gigascale3dgeneration}, Step1X-3D~\cite{li2025step1x}, and TripoSG~\cite{li2025triposg}. ~\Cref{tab:shapegen_transposed} presents a numerical comparison between Hunyuan3D-DiT and other methods, showing that Hunyuan3D-DiT delivers the most accurate results. Additionally, the visual comparison in Fig.~\ref{fig:geo_compare} confirms the adherence of Hunyuan3D-DiT to image prompts, including the faithful capture of intricate details (details of roly-poly toys, the number of calculator buttons, the number of teeth on a rake, and the structure of a fighter jet), and its ability to produce watertight meshes ready for downstream applications.
+
+\subsection{Texture Map Synthesis}
+\label{sec:texture_sythesis}
+
+As texture maps directly influence the visual appeal of textured 3D assets, we conduct comprehensive quantitative and qualitative comparisons of texture generation methodologies across both academic and industrial domains.
+
+\textbf{Comparison with Texture Synthesis Models.} To quantify the similarity between generated textures and ground truth, we employ Fréchet Inception Distance (FID)~\cite{heusel2017gans}, CLIP-based FID (CLIP-FID)~\cite{radford2021learning}, and Learned Perceptual Image Patch Similarity (LPIPS)~\cite{zhang2018unreasonable} metrics on Hunyuan3D-Paint and baseline image-to-texture models, including SyncMVD-IPA~\cite{liu2024text}, TexGen~\cite{yu2024texgen} and Hunyuan3D-2.0~\cite{zhao2025hunyuan3d}. Given an untextured shape and a single image, we compare these models with our results through both quantitative and qualitative evaluations. The quantitative results are shown in Tab.~\ref{tab:img2tex}, while the qualitative results are illustrated in Figure~\ref{fig:tex_comp}. These evaluations clearly demonstrate the superiority of our method over all comparative approaches.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\linewidth]{fig/tex_comp.pdf}
+    \caption{The qualitative comparisons for texture synthesis.}
+    \label{fig:tex_comp}
+\end{figure}
+
+\begin{table}
+\centering
+\small
+\begin{tabular}{l|cccccc}
+\toprule
+\textbf{Method} & {CLIP-FID ($\downarrow$}) & {CMMD ($\downarrow$)} & {CLIP-I ($\uparrow$)} & {LPIPS ($\downarrow$)} \\
+\midrule
+SyncMVD-IPA~\cite{liu2024text}     & 28.39 & 2.397 & 0.8823 & 0.1423 \\
+TexGen~\cite{yu2024texgen}         & 28.24 & 2.448 & 0.8818 & 0.1331 \\
+Hunyuan3D-2.0~\cite{zhao2025hunyuan3d} & 26.44 & 2.318 & 0.8893 & 0.1261 \\
+Hunyuan3D-Paint & \bf{24.78} & \bf{2.191} & \bf{0.9207} & \bf{0.1211} \\
+\bottomrule
+\end{tabular}
+\caption{The quantitative comparison for texture generation. Hunyuan3D-Paint achieves the best performance.}
+\label{tab:img2tex}
+\end{table}
+
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\linewidth]{fig/e2e.pdf}
+    \vspace{-5mm}
+    \caption{The qualitative comparisons for image-to-3D generation.}
+    \label{fig:e2e}
+\end{figure}
+
+\textbf{Comparison with Image-to-3D Models.}
+We also conduct visualized comparison with publicly accessible 3D generation algorithms, including the open-source Step1X-3D~\cite{li2025step1x} and 3DTopia-XL~\cite{chen20243dtopia}, alongside the commercial Model 1 and Model 2. Given a single image, all compared methods can form geometry and corresponding PBR material maps. Specifically, we assess the end-to-end quality across these methods, as shown in Fig.~\ref{fig:e2e}. These results demonstrate that our model not only generates PBR material maps with the highest fidelity but also effectively mitigates shortcomings associated with lower-quality geometries. This leads to superior end-to-end performance compared to existing methods.

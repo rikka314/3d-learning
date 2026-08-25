@@ -1,0 +1,34 @@
+{
+  "schema_version": "paper-storyboard/1.0",
+  "source_report": "report.md",
+  "style": "connected cartoon storyboard; prompts-only because no image-generation tool is exposed in this runtime",
+  "panels": [
+    {
+      "panel_id": "S1",
+      "title": "单图的盲区",
+      "report_claim_ids": [
+        "C4.2"
+      ],
+      "visual_metaphor": "同一位解剖学教师透过一个小窗口观察模型",
+      "prompt": "Scientific educational cartoon, one teacher sees only the front of a 3D object through a window; the hidden back is marked uncertain; no text."
+    },
+    {
+      "panel_id": "S2",
+      "title": "论文的替代机制",
+      "report_claim_ids": [
+        "C9.2"
+      ],
+      "visual_metaphor": "教师把信息放入对应的模型组件",
+      "prompt": "Scientific educational cartoon, same teacher uses a clearly labeled conceptual mechanism inspired by Hunyuan3D 2.1 to turn partial visual evidence into a 3D candidate; no equations or text."
+    },
+    {
+      "panel_id": "S3",
+      "title": "医学发布门",
+      "report_claim_ids": [
+        "C23.2"
+      ],
+      "visual_metaphor": "canonical anatomy 作为校准尺",
+      "prompt": "Scientific educational cartoon, same teacher compares a generated 3D candidate with a verified anatomy reference, checks landmarks and connections, and rejects an incorrect candidate; no text."
+    }
+  ]
+}

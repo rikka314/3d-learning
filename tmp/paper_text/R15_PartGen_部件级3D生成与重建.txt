@@ -1,0 +1,821 @@
+                         This CVPR paper is the Open Access version, provided by the Computer Vision Foundation.
+                                      Except for this watermark, it is identical to the accepted version;
+                                the final published version of the proceedings is available on IEEE Xplore.
+
+
+
+
+                      PartGen: Part-level 3D Generation and Reconstruction
+                               with Multi-View Diffusion Models
+
+                     Minghao Chen1,2 Roman Shapovalov2 Iro Laina1 Tom Monnier2
+                           Jianyuan Wang1,2 David Novotny2 Andrea Vedaldi1,2
+                          1
+                            Visual Geometry Group, University of Oxford 2 Meta AI
+                                                silent-chen.github.io/PartGen
+
+
+   Part-Aware Text-to-3D                        Selected Parts             Part-Aware Image-to-3D                             Selected Parts
+
+   Text prompt                                                             Input Image
+
+
+
+  > A beagle in
+   a detective’s
+      outfit
+
+
+
+
+   3D Decomposition                             Selected Parts             3D Part Editing
+   Unstructured 3D
+
+
+
+
+                                                                             Original          “Magician hat”   “Brown hat with    “Red hat with
+                                                                                                                 police badge"     blue texture”
+
+
+Figure 1. We introduce PartGen, a pipeline that generates compositional 3D objects similar to a human artist. It can start from text,
+an image, or an existing, unstructured 3D object. It consists of a multi-view diffusion model that identifies plausible parts automatically
+and another that completes and reconstructs them in 3D, accounting for their context, i.e., the other parts, to ensure that they fit together
+correctly. Additionally, PartGen enables 3D part editing based on text instructions, enhancing flexibility and control in 3D object creation.
+
+                                                                          3D object, dividing it into meaningful components. A sec-
+                           Abstract                                       ond multi-view diffusion model then processes each part in-
+                                                                          dividually, filling in occlusions and generating completed
+Text- or image-to-3D generators and 3D scanners can now                   views, which are subsequently passed to a 3D reconstruc-
+produce 3D assets with high-quality shapes and textures,                  tion network. The completion process ensures that the re-
+but as single, fused entities lacking meaningful structure.               constructed parts integrate cohesively by considering the
+In contrast, most applications and creative workflows re-                 context of the entire object, compensating for missing infor-
+quire 3D assets to be composed of distinct, meaningful                    mation caused by occlusions and, in extreme cases, hallu-
+parts that can be independently manipulated. To bridge                    cinating entirely invisible parts based on contextual cues.
+this gap, we introduce PartGen, a novel approach for gen-                 We evaluate PartGen on both generated and real 3D assets,
+erating, from text, images, or unstructured 3D objects, 3D                demonstrating significant improvements over segmentation
+objects composed of meaningful parts. Our method lever-                   and part completion baselines. We also showcase down-
+ages a multi-view diffusion model to extract plausible and                stream applications such as text-guided 3D part editing.
+view-consistent part segmentations from multiple views of a
+
+    Work completed during Minghao Chen’s internship at Meta.
+
+
+
+
+                                                                   5881
+1. Introduction                                                          view-consistent coloring problem, fine-tuning a multi-view
+                                                                         image generator to produce several color-coded segmenta-
+It is now possible to obtain high-quality 3D objects from                tion maps of the given 3D object. We do not assume any
+text or images via 3D generation [12, 14, 18, 47, 52, 54,                explicit or deterministic taxonomy of parts. Instead, we
+73, 79] and 3D scanning [15, 59, 85]. However, the objects               train the model on a large collection of artist-created data,
+obtained in this manner are usually monolithic and unstruc-              capturing how 3D artists typically decompose objects into
+tured, represented by a single neural field, mixture of Gaus-            parts. This approach has two key benefits. First, it lever-
+sians, or mesh. This is insufficient in a professional setting,          ages an image generator that is already trained to be view-
+where the structure of an asset is of paramount importance.              consistent. Second, it reduces obtaining multiple plausible
+For example, 3D artists often use parts to facilitate reusing,           segmentations of the object to drawing multiple samples
+editing, and animating 3D objects.                                       from the model. In practice, we show that this approach
+    In this paper, we thus consider the problem of obtain-               better captures the artists’ intent compared to fine-tuning a
+ing structured 3D objects that comprise several meaningful               model like SAM [33] or SAM2 [67] for the same task.
+parts, akin to the models produced by 3D artists. For in-                    Second, we fine-tune another multi-view image genera-
+stance, an artist may wish to decompose the 3D model of                  tor to complete the segmented parts while accounting for
+a person into its clothes and accessories, as well as various            the context of the object as a whole. In this manner, parts
+anatomical features like hair, eyes, teeth, and limbs. When              which are only partially visible, or even invisible, in the
+a 3D object is generated or scanned, however, its parts are              original input views, are revealed in full to the 3D recon-
+usually ‘fused’ together. This is undesirable because the                struction network. This has the benefit of removing most of
+parts may carry different semantics, materials, or motion.               the ambiguity in the reconstruction task, which is important
+Parts may also be physically detachable and interchange-                 because the 3D reconstructor network is deterministic and
+able, and an artist may wish to remove, replace, or edit                 cannot handle ambiguity well. Furthermore, because com-
+them independently. In video games, parts often need to                  pletion is contextual, the resulting parts fit together well,
+be reconfigured dynamically, e.g., to represent a character              forming a coherent 3D object despite the fact that the parts
+picking up a weapon or changing clothes. Parts are also im-              are reconstructed independently.
+portant for 3D understanding in robotics, embodied AI, and                   We show that PartGen can be applied to different input
+spatial intelligence [44, 49].                                           modalities: starting from text, an image, or a real-world 3D
+    Inspired by these requirements, we introduce PartGen,                scan, PartGen can generate 3D assets with meaningful parts.
+a method to upgrade existing 3D generation pipelines from                We assess our method empirically on a large collection of
+producing unstructured 3D objects to generating composi-                 3D assets produced by 3D artists or scanned, both quantita-
+tions of meaningful 3D parts (Fig. 1). To do so, we address              tively and qualitatively. We also demonstrate that PartGen
+two key questions: (1) how to automatically segment a 3D                 can be easily extended to the task of 3D part editing.
+object into parts, and (2) how to extract high-quality, com-
+plete 3D parts even when these are only partially—or not at
+                                                                         2. Related Work
+all—visible from the exterior of the 3D object.
+    Part segmentation and completion are highly ambiguous                3D generation from text and images. The problem of
+tasks. Since different artists may find it useful to decom-              generating 3D assets from text or images has been thor-
+pose the same object in different ways, there is no ‘gold-               oughly studied in the literature. Some authors have built
+standard’ segmentation for any given 3D object. Hence, the               generators from scratch. For instance, CodeNeRF [28]
+goal is to model the distribution of plausible part decompo-             learns a latent code for NeRF in a Variational Autoencoder
+sitions rather than a single one. Furthermore, current 3D re-            fashion, while Shap-E [29] and 3DGen [21] do so using la-
+construction and generation methods only model an object’s               tent diffusion. PC2 [51] and Point-E [58] diffuse a point
+visible outer surface, omitting internal details. Therefore,             cloud, and MosaicSDF [91] uses a semi-explicit SDF-based
+decomposing an object into parts often requires completing               representation. However, 3D training data is scarce, which
+or even hallucinating them entirely.                                     makes it difficult to train text-based 3D generators directly.
+    To model this ambiguity, we base part segmentation and                  DreamFusion [62] demonstrated for the first time that
+completion on generative models. We note that most state-                3D assets can be extracted from text-to-image (T2I) dif-
+of-the-art 3D generation pipelines [12, 14, 18, 36, 47, 52,              fusion models with the Score Distillation Sampling (SDS)
+54, 73, 79] start by generating several consistent 2D views              loss. Variants of DreamFusion explore representations
+of the object, and then apply a 3D reconstruction network                like hash grids [38, 63], meshes [38], and 3D Gaussians
+to those images to recover the 3D object. We build upon                  (3DGS) [9, 75, 93], tweaks to the SDS loss [26, 81, 83, 101],
+this two-stage scheme and address part segmentation and                  conditioning on an input image [50, 63, 74, 76, 95], regular-
+completion before 3D reconstruction is carried out.                      izing normals or depth [65, 71, 74], and extensions of SDS
+    First, we cast part segmentation as a stochastic multi-              to 3D editing tasks [7, 60, 69, 72, 102, 103].
+
+
+
+                                                                  5882
+   Other works focus on improving the 3D awareness of the                 but builds a mixture of NeRFs. NeuForm [39] and Diff-
+T2I model, simplifying the extraction of a 3D output and es-              Facto [57] learn representations that afford part-based con-
+chewing the need for slow SDS optimization. Inspired by                   trol. DBW [56] decomposes real-world scenes with tex-
+3DIM [84], Zero-1-to-3 [43] fine-tunes the 2D generator to                tured superquadric primitives.
+output novel views of the object. Two-stage approaches [6,
+                                                                          Semantic Part-Based Representations. Others have con-
+10, 18, 22–24, 41, 45, 46, 52, 71, 77, 82, 86, 88–90] take the
+                                                                          sidered 3D parts that are semantic. PartSLIP [42] and Part-
+output of a text- or image-to-multi-view model that gener-
+                                                                          SLIP++ [100] use vision-language models to segment ob-
+ates multiple views of the object and reconstruct the latter
+                                                                          jects into parts using point clouds as the representation.
+using multi-view reconstruction methods like NeRF [55] or
+                                                                          Part123 [40] is conceptually similar to Contrastive Lift [2],
+3DGS [30]. Other approaches reduce the number of input
+                                                                          but applied to objects rather than scenes, and to the output
+views generated and learn a fast feed-forward network for
+                                                                          of a monocular reconstruction network instead of NeRF.
+3D reconstruction. Perhaps the most notable example is
+                                                                             In this paper, we address a problem different from the
+Instant3D [36], based on the Large Reconstruction Model
+                                                                          ones above. We generate compositional 3D objects from
+(LRM) [25]. Recently, there has been a focus on 3D com-
+                                                                          various modalities using multi-view diffusion models for
+positional generation [11, 37, 61, 104]. D3LL [17] learns
+                                                                          segmentation and completion. Parts are meaningfully seg-
+3D object composition through distillation from a 2D T2I
+                                                                          mented, fully reconstructed, and correctly assembled. We
+generator. ComboVerse [8] starts from a single image, but
+                                                                          handle the ambiguity of these tasks in a generative way.
+mostly at the level of different objects instead of their parts,
+performing single-view inpainting and reconstruction, and
+using SDS for composition.                                                3. Method
+                                                                          This section introduces PartGen, our framework for gener-
+3D segmentation. Our work decomposes a given 3D ob-
+                                                                          ating 3D objects composed of several 3D parts. Each part
+ject into parts. Several works have considered segmenting
+                                                                          is a distinct, human-interpretable, self-contained and com-
+3D objects or scenes represented in an unstructured manner,
+                                                                          plete element. PartGen can take different modalities as in-
+often as neural fields or 3D Gaussian mixtures. Semantic-                 put (text prompts, image prompts, or 3D assets) and per-
+NeRF [98] was the first to fuse 2D semantic segmentation                  forms part segmentation and completion by repurposing a
+maps in 3D with neural fields. DFF [34] and N3F [80] pro-                 powerful multi-view diffusion model for these two tasks.
+pose mapping 2D features to 3D fields, allowing for super-
+                                                                          An overview of PartGen is given in Fig. 2.
+vised and unsupervised segmentation. LERF [31] extends
+                                                                             The rest of the section is organized as follows. In
+this concept to language-aware features like CLIP [66].
+                                                                          Sec. 3.1, we introduce the necessary background on multi-
+Contrastive Lift [2] considers instance segmentation, fusing
+                                                                          view diffusion and briefly describe how PartGen can be ap-
+information from several independently segmented views
+                                                                          plied to text, image, or 3D model inputs. Then, in Secs. 3.2
+using a contrastive formulation. GARField [32] and Om-
+                                                                          to 3.4, we describe how PartGen automatically segments,
+niSeg3D [94] consider that concepts exist at different lev-
+                                                                          completes, and reconstructs meaningful parts in 3D. In
+els of scale, which they identify with the help of SAM [33].
+                                                                          Sec. 3.5, we describe the dataset used to train PartGen.
+LangSplat [64] leverages both CLIP and SAM, creating dis-
+tinct 3D language fields to model each SAM scale explicitly,              3.1. Background on 3D generation
+while N2F2 [3] automates binding the correct scale to each
+concept. Neural Part Priors [4] completes and decomposes                  First, we provide essential background on multi-view diffu-
+3D scans with learned part priors in a test-time optimization             sion models for 3D generation [36, 71, 73]. These methods
+manner. Finally, Uni3D [99] learns a ‘foundation’ model                   typically adopt a two-stage approach to 3D generation.
+for 3D point clouds, enabling zero-shot segmentation.                        In the first stage, given a prompt y, an image generator Φ
+                                                                          outputs several 2D views of the object from different van-
+Primitive-based representations. Some authors propose                     tage points. Depending on the nature of y, the network Φ is
+representing 3D objects as a mixture of primitives [96],                  either a text-to-image (T2I) model [36, 71] or an image-to-
+which can be seen as related to parts, although they are usu-             image (I2I) model [70, 82]. Here, we assume that the net-
+ally non-semantic. For example, SIF [19] represents an oc-                work outputs four views from the four cardinal directions
+cupancy function as a mixture of 3D Gaussians. LDIF [20]                  around the object, each with a resolution of H × W ; these
+uses the Gaussians to window local occupancy functions                    are arranged in a 2 × 2 grid, forming a single ‘multi-view’
+implemented as neural fields [53]. Neural Template [27]                   image I ∈ R3×2H×2W . This model thus provides a prob-
+and SPAGHETTI [1] learn to decompose shapes in a simi-                    abilistic mapping I ∼ p(I | Φ, y). In addition to text and
+lar manner using an auto-decoding setup. SALAD [35] uses                  images, the input y can also be an existing 3D model. In
+SPAGHETTI as the latent representation for a diffusion-                   this case, I is obtained by rendering the 3D model from the
+based generator. PartNeRF [78] is conceptually similar                    four cardinal views.
+
+
+
+                                                                   5883
+                      <Text Prompt> or
+
+
+                        Conditional Multi-View
+
+
+
+
+                                                                                                             Reconstruction Network
+                                                                      Completion Network
+                             Generator
+
+
+
+
+                                                                        Muti-View Part
+                     Segmentation
+                       Multi-View
+
+
+
+
+                                                       +
+
+
+
+      Grid View                     Segmentation Map
+                                                                                           Completed Parts                            3D Parts and Object
+
+
+Figure 2. Overview of PartGen. Our method begins with text, single images, or existing 3D objects to obtain an initial grid view of the
+object. This view is then processed by a diffusion-based segmentation network to achieve multi-view consistent part segmentation. Next,
+the segmented parts, along with contextual information, are input into a multi-view part completion network to generate a fully completed
+view of each part. Finally, a pre-trained reconstruction model generates the 3D parts.
+
+    The 2D views I are subsequently passed to a Reconstruc-                   We train the model using a dataset of artist-created 3D
+tion Model (RM) [36, 73, 87], denoted as Ψ, i.e., a neu-                  objects (Sec. 3.5), where each object L is annotated with a
+ral network that reconstructs the 3D object L in both shape               possible decomposition into 3D parts, L = (S1 , . . . , SS ).
+and appearance. The generator Φ is obtained by fine-tuning                The input to the model is a multi-view image I, and the
+an image generation model pre-trained on Internet-scale 2D                output is a set of multi-view part masks M 1 , M 2 , . . . , M S
+data, which is a significant advantage compared to learning               corresponding to parts S1 , . . . , SS . To fine-tune the multi-
+a 3D generator directly, as 3D training data is scarce.                   view image generators Φ for this task, we quantize the
+    There are many possible choices for the base image gen-               RGB space into Q different (and fixed) colors c1 , . . . , cQ ∈
+eration and 3D reconstruction models. In the experiments,                 [0, 1]3 . For each training sample L = (Sk )Sk=1 , we assign
+we follow AssetGen [73] and obtain Φ by fine-tuning a pre-                colors to the parts, mapping part Sk to color cπk , where
+trained text-to-image diffusion model with an architecture                π is a random permutation on {1, . . . , Q} (we assume that
+similar to Emu [13], an image generator based on latent dif-              Q ≥ S). Given this mapping, we render the segmenta-
+fusion using 8 latent dimensions. Details of the fine-tuning              tion map as a multi-view RGB image C ∈ [0, 1]3×2H×2W
+strategy are given in Sec. 4.4 and the sup. mat. For the RM               (Fig. 4). Then, we obtain Φseg by fine-tuning Φ to: (1) take
+Ψ, we use LightplaneLRM [5], trained on our dataset.                      as conditioning the multi-view image I, and (2) generate the
+                                                                          color-coded multi-view segmentation map C, hence sam-
+3.2. Multi-view part segmentation                                         pling C ∼ p(C | Φseg , I).
+The first contribution of our paper is a method for decom-
+posing a 3D object into its constituent parts. Inspired by                   This approach can produce alternative segmentations by
+multi-view diffusion approaches, we frame this decompo-                   simply re-running Φseg , which is stochastic. It further ex-
+sition problem as a multi-view segmentation task instead of               ploits the fact that Φseg is stochastic to discount the specific
+direct 3D segmentation. Specifically, the goal is to map I                ‘naming’ or coloring of the parts, which is arbitrary. Nam-
+to a collection of 2D masks M 1 , . . . , M S ∈ {0, 1}2H×2W ,             ing is a technical issue in instance segmentation that usually
+one for each visible part of the object. Notably, both the                requires ad-hoc solutions, but here it is implicitly addressed
+image I and the masks Mi are multi-view grids.                            by the stochastic nature of the model.
+    Addressing 3D object segmentation through the lens of
+multi-view diffusion offers several advantages. First, it al-                To extract the segments at test time, we sample the color-
+lows us to repurpose existing multi-view models Φ, which,                 coded segmentation map C and simply quantize it based on
+as described in Sec. 3.1, are already pre-trained to produce              the reference colors c1 , . . . , cQ , discarding parts that con-
+multi-view consistent generations in the RGB domain. Sec-                 tain only a few pixels.
+ond, it integrates easily with established multi-view frame-
+works. Third, decomposing an object into parts is an inher-               Implementation details. The network Φseg has the same
+ently non-deterministic, ambiguous task as it depends on                  architecture as the network Φ with some changes to allow
+the desired granularity, application requirements, and artis-             conditioning on the multi-view image I: we encode it into
+tic intent. By learning this task with probabilistic diffusion            latent space with the VAE and stack it with the noised latent
+models, we can capture this ambiguity effectively.                        as the input to the diffusion network.
+
+
+
+                                                                  5884
+     Whole object     Part 1     Part 2             Part N
+                                                                           3.4. Part reconstruction
+                                                                           Given a multi-view part image J,   ˆ the final step is to re-
+                                            …
+                                                                           construct the part in 3D. Because the part views are now
+                                                                           complete and consistent, we can simply use the RM to
+                                                                           obtain a predicted reconstruction Ŝ = Ψ(J)   ˆ of the part.
+                                            …                              We found that the RM does not require fine-tuning to re-
+                                                                           construct object parts, so any good-quality reconstruction
+                                                                           model is likely to work well here.
+
+                                            …                              3.5. Training data
+                                                                           To train the various models, we require a dataset of 3D
+                                                                           objects consisting of multiple parts. We constructed this
+Figure 3. Training data. We obtain a dataset of 3D objects de-             dataset from a collection of 140k 3D artist-generated assets,
+composed into parts from artist-created assets. These come ‘natu-          licensed for AI training from a commercial source. Each as-
+rally’ segmented into parts according to the artist’s design.              set L is stored as a GLTF scene that generally contains sev-
+                                                                           eral watertight meshes (S1 , . . . , SS ). These usually corre-
+3.3. Contextual part completion                                            spond to parts as created by the original artists, for instance
+                                                                           for editing convenience. Example objects from the dataset
+Our method so far has produced a multi-view image I of                     are shown in Fig. 3.
+the 3D object along with 2D segments M 1 , M 2 , . . . , M S .
+                                                                           Multi-view generator data. To train the multi-view gen-
+What remains is to convert these into full 3D part recon-
+                                                                           erator models Φ, first of all, we have to render the target
+structions. Given a mask M , we could submit the masked
+                                                                           multi-view images I consisting of 4 views of the full ob-
+image I ⊙ M to the RM Ψ to obtain a 3D reconstruction
+                                                                           ject. Following Instant3D [36], we rendered shaded colors
+of the part, i.e., Ŝ = Ψ(I ⊙ M ). However,some parts can
+                                                                           I from the 4 views from the orthogonal azimuths and 20◦
+be heavily occluded by other parts and, in extreme cases,
+                                                                           elevation and arranged them in a 2 × 2 grid. In the case
+may be entirely invisible. While we could train the RM to
+                                                                           of text conditioning, the training data consists of the pairs
+handle such occlusions, in practice, this approach does not
+                                                                           {(In , yn )}N
+                                                                                       n=1 of multi-view images and their text captions.
+work well because part completion is inherently a stochastic
+                                                                           Following AssetGen [73], we chose the 10k highest-quality
+problem, whereas the RM is deterministic.
+                                                                           assets and generated their text captions using a CAP3D-like
+    To solve this problem, we repurpose yet again the multi-               pipeline [48] that used the LLAMA3 model [16]. In the
+view generator Φ, this time to perform part completion. The                case of image conditioning, we use all 140k models, and the
+latter model is able to generate a full object from text or a              conditioning yn comes in the form of single renders from a
+single image, so, properly fine-tuned, it should be able to                randomly sampled direction.
+hallucinate any missing portion of a part.
+                                                                           Part segmentation and completion data. To train the part
+    Formally, we fine-tune Φ into a completion model Φcomp
+                                                                           segmentation and completion networks, we need to addi-
+which maps the masked multi-view part image I ⊙ M to the
+                                                                           tionally render the multi-view part images and their depth
+completed multi-view part image Jˆ ∼ p(Jˆ | Φcomp , I ⊙M ).
+                                                                           maps. We filter the dataset to avoid having excessively gran-
+However, we note that sometimes parts are barely visible, so
+                                                                           ular parts that likely lack semantic meaning. To this end, we
+the masked image I ⊙ M provides very little information.
+                                                                           first cull the parts that take less than 5% of the object vol-
+Because we need the generated part to fit well with the other
+                                                                           ume, and then remove the assets that have more than 10
+parts and the whole object, we provide the model with the
+                                                                           parts or consist of a single monolithic part. This results in
+unmasked image I for context. Thus, we condition p(Jˆ |
+                                                                           a dataset of 45k objects containing a total of 210k parts.
+I ⊙ M, I, M ) on the masked image I ⊙ M , the unmasked
+                                                                           Given an object L = (Ss )Ss=1 , we render the corresponding
+image I, and the mask M . The importance of the context I
+                                                                           multi-view images (J s )Ss=1 (shown in Fig. 3) and the corre-
+increases with the extent of the occlusion.
+                                                                           sponding depth maps (δ s )Ss=1 from the same viewpoints.
+Implementation details. The network architecture resem-                        The segmentation diffusion network is trained on the
+bles that of Sec. 3.2, but extends the conditioning, motivated             dataset of pairs {(In , Mn )}N  n=1 , where the segmentation
+by the inpainting setup in [68]. We apply the pre-trained                  map M = [M k ]Sk=1 is a stack of multi-view binary part
+VAE separately to the masked image I ⊙ M and the context                   masks M k ∈ {0, 1}2H×2W . Each mask shows the pixels
+                                                                                                                                k
+image I, yielding 2 × 8 channels, and stack them with the                  where the corresponding part is visible in I: Mi,j      = [k =
+                                                                                      l
+8D noise image and the unencoded part mask M to obtain                     argminl δi,j ], where k, l ∈ {1, . . . , S} and brackets denote
+the 25-channel input to the diffusion model.                               Iverson brackets. The part completion network is trained on
+
+
+
+                                                                    5885
+              Input                   SAM2         SAM2-finetune              SAM2–4 view               Part123      Ours Sample 1   Ours Sample 2   Ours Sample 3
+
+
+
+
+Figure 4. Examples of automatic multi-view part segmentations. By running our method several times, we obtain diverse segmentations,
+covering the space of artist intents better than alternatives.
+
+                                        Automatic         Seeded                                       4. Experiments
+ Method                               mAP50 ↑ mAP75 ↑ mAP50 ↑ mAP75 ↑
+                                                                                                       We first individually evaluate the two main components of
+ Part123 [40]                          11.5         7.4            10.3           6.5
+                                                                                                       our pipeline, namely part segmentation (Sec. 4.1) and part
+ SAM2† [67]                            20.3        11.8            24.6          13.1
+                                                                                                       completion and reconstruction (Sec. 4.2). We then evalu-
+ SAM2∗ [67]                            37.4        27.0            44.2          30.1
+ SAM2 [67]                             35.3        23.4            41.4          27.4                  ate how well the decomposed reconstruction matches the
+ PartGen (1 sample)                    45.2        32.9            44.9          33.5                  original object (Sec. 4.3). For all experiments, we use 100
+ PartGen (5 samples)                   54.2        33.9            51.3          32.9                  held-out objects from the dataset described in Sec. 3.5.
+ PartGen (10 samples)                  59.3        38.5            53.7          35.4
+                                                                                                       4.1. Part Segmentation
+Table 1. Segmentation results. SAM2∗ is fine-tuned on our data
+and SAM2† is fine-tuned for multi-view segmentation.
+                                                                                                       Evaluation protocol. We set up two settings for the seg-
+                                                                                                       mentation task. One is automatic part segmentation, where
+                                                                                                       the input is the multi-view image I, and the method is re-
+                                                                                                       quired to output all parts of the object M 1 , . . . , M S . The
+   Context   Incomplete Part   Mask           GT    Ours Sample 1 Ours Sample 2 Ours Sample 3
+                                                                                                       other is seeded segmentation, where we assume that users
+                                                                                                       provide a point as an additional input for a specific mask. In
+                                                                                                       this case, the segmentation algorithm is regarded as a black
+                                                                                                       box M̂ = A(I) mapping the multi-view image I to a ranked
+                                                                                                       list of N part segmentations (which can, in general, par-
+                                                                                                       tially overlap). This ranked list is obtained by scoring can-
+                                                                                                       didate regions and removing redundant ones — more details
+                                                                                                       are provided in the sup. mat. We then match these segments
+                                                                                                       to the ground-truth segments Mk and report mean Average
+                                                                                                       Precision (mAP). This precision can be low due to the in-
+                                                                                                       herent ambiguity of the problem: the parts predicted by the
+                                                                                                       algorithm will not match any particular artist’s choice.
+Figure 5. Qualitative results of part completion. The images
+with blue borders are the inputs. Our algorithm produces various                                       Baselines. We consider the original and fine-tuned
+plausible completions across different runs. Even when given an                                        SAM2 [67] as our baselines for multi-view segmentation.
+empty (i.e., invisible) part, PartGen attempts to generate internal                                    We fine-tune SAM2 in two different ways. First, we
+structures inside the object, such as sand or inner wheels.                                            fine-tune SAM2’s mask decoder on our dataset, given the
+                                                                                                       ground-truth masks and randomly selected seed points for
+                                                                                                       different views. Second, we concatenate the four orthogo-
+                                                                                                       nal views in a multi-view image I and fine-tune SAM2 to
+                                                               ′
+the dataset of triplets {(In′ , Jn′ , Mn′ )}N
+                                            n′ =1 . All the com-                                       predict the multi-view mask M (in this case, the seed point
+ponents are produced in the way described above.                                                       randomly falls in one of the views). SAM2 produces three
+
+
+
+                                                                                                5886
+ (a) 3D Decomposition
+        Input        Reconstructed 3D     Example Parts       Input     Reconstructed 3D       Example Parts            Input         Reconstructed 3D     Example Parts
+
+
+
+
+                                                                                      View completion J 3D reconstruction S
+                     Method                               Compl. Multi-view Context CLIP↑ LPIPS↓ PSNR↑ CLIP↑ LPIPS↓ PSNR↑
+                     Oracle (Jˆ = J)                         GT               —            —      1.0          0.0       ∞            0.957    0.027     18.91
+                     PartGen (Jˆ = B(I ⊙ M, I))               ✓          ✓            ✓      0.974         0.015       21.38          0.936    0.039     17.16
+                                   (Jˆ = B(I ⊙ M ))           ✓          ✓            ✗
+                      w/o contextimage_to_repr_3d_id00017_a_chihuahua_wearing_a_tutu_images_render
+                                                                                             0.951         0.028       16.80          0.923    0.046     14.83
+                      single view (Jˆv = B(Iv ⊙ Mv , Iv ))    ✓          ✗            ✓      0.944         0.031       15.92          0.922    0.051     13.25
+                     None (Jˆ = I ⊙ M )                       ✗               —            —    0.932      0.039       13.24          0.913    0.059     12.32
+
+Table 2. Part completion results. We first evaluate view part completion by computing scores w.r.t. the ground-truth multi-view part
+image J. Then, we evaluate 3D part reconstruction by reconstructing each part S and rendering it. See text for details.
+
+    (a) Part-Aware Text-to-3D
+        Input          Generated 3D       Example Parts       Input     Generated 3D           Example Parts             Input        Generated 3D         Example Parts
+
+
+
+                                                           > A cat                                                   > A gummy
+    > A chihuahua                                          wearing a lion                                            bear driving a
+    wearing a tutu                                         costume                                                   convertible
+
+
+
+
+    (b) Part-Aware Image-to-3D
+        Input          Generated 3D       Example Parts       Input     Generated 3D           Example Parts             Input         Generated 3D        Example Parts
+
+
+
+
+    (c) 3D Decomposition
+         Input       Reconstructed 3D     Example Parts       Input         Reconstructed 3D   Example Parts             Input        Reconstructed 3D     Example Parts
+
+
+
+
+Figure 6. Examples of applications. PartGen can effectively generate or reconstruct 3D objects with meaningful and realistic parts in
+different scenarios: a) Part-aware text-to-3D generation; b) Part-aware image-to-3D generation; c) 3D decomposition. Some assets, like
+the hamburger and the blocks, consist of more than three parts, but we display only three for a more visually balanced arrangement.
+
+regions for each input image and seed point. For automatic                                  image J k of the part, as described in Sec. 3.5. We choose
+segmentation, we seed SAM2 with a set of query points                                       one random part index k per model and omit it from the
+spread over the object, obtaining three different regions for                               notation below for conciseness.
+each seed point. For seeded segmentation, we simply return
+the regions that SAM2 outputs for the given seed point. We
+also provide a comparison with recent work, Part123 [40].                                   Evaluation protocol. The completion algorithm and its
+Results. We report the results in Tab. 1. As shown in the                                   baselines are treated as a black box Jˆ = B(I ⊙ M, I)
+                                                                                            that predicts the completed multi-view image J. ˆ We then
+table, mAP results for our method are much higher than oth-
+ers, including SAM2 fine-tuned on our data. This is pri-                                    compare Jˆ to the ground-truth render J using Peak Signal-
+marily because of the ambiguity of the segmentation task,                                   to-Noise Ratio (PSNR) of the foreground pixels, Learned
+which is better captured by our generator-based approach.                                   Perceptual Image Patch Similarity (LPIPS) [97], and CLIP
+We further provide qualitative comparisons in Fig. 4.                                       similarity [66]. The latter is an important metric since the
+                                                                                            completion task is highly ambiguous, which motivates eval-
+4.2. Part completion and reconstruction                                                     uating semantic similarity. We also evaluate the quality of
+                                                                                            the reconstruction of the predicted completions by compar-
+We utilize the same test data as in Sec. 4.1, forming tuples                                ing the reconstructed object part Ŝ = Ψ(J)ˆ to the ground-
+(Sk , I, M k , J k ) consisting of the 3D object part Sk , the full                         truth part S using the same metrics, but averaged after ren-
+multi-view image I, the part mask M k , and the multi-view                                  dering the part to four random novel viewpoints.
+
+
+
+                                                                                     5887
+                                                                                        Results. Table 3 shows that our method achieves perfor-
+                                                                                        mance comparable to directly reconstructing the objects us-
+                                                                                        ing the RM (L̂ = Ψ(I)), with the additional benefit of pro-
+                                                                                        ducing the reconstruction structured into parts, which are
+                                                                                        useful for downstream applications such as editing.
+       Original   “White T-shirt with   “Hawaii shirt”    “Cloth with colorful
+                        logo”                                   texture”                4.4. Applications
+                                                                                        Part-aware text-to-3D generation. First, we apply Part-
+                                                                                        Gen to part-aware text-to-3D generation. We train a text-
+                                                                                        to-multi-view generator similar to [73], which takes a text
+                                                                                        prompt as input and outputs a grid of four views. For il-
+       Original    “Black magic hat”     “White hat”        “Cowboy hat”                lustration, we use the prompts from DreamFusion [62]. As
+                                                                                        shown in Fig. 6, PartGen can effectively generate 3D ob-
+                                                                                        jects with distinct and completed parts, even in challenging
+                                                                                        cases with heavy occlusions, such as the gummy bear. Ad-
+                                                                                        ditional examples are provided in the sup. mat.
+       Original      “pink cup with     “Green cup with “Yellow cup with a
+                    square bottom”         cute logo”       smile on it”                Part-aware image-to-3D generation. Next, we consider
+Figure 7. 3D part editing. We can edit the appearance and shape                         part-aware image-to-3D generation using images from [23,
+of the 3D objects with text prompt.                                                     86]. Building upon the text-to-multi-view generator, we fur-
+                                                                                        ther fine-tune the generator to accept images as input with a
+                                                                                        strategy similar to [92]. Further training details are provided
+    Method                               CLIP↑ LPIPS↓ PSNR↑
+                                                                                        in the sup. mat. Results are shown in Fig. 6, demonstrating
+    PartGen (L̂ = k Ψ(Jˆk )) 0.952
+                       S
+                                                         0.065       20.33              that PartGen is successful in this case too.
+    Unstructured (L̂ = Ψ(I)) 0.955                       0.064       20.47              Real-world 3D object decomposition. PartGen can also
+Table 3. Model reassembling results. The quality of 3D recon-                           decompose real-world 3D objects. We demonstrate this
+struction of the object as a whole is close to that of the part-based                   using objects from Google Scanned Objects (GSO) [15].
+one, showing that the predicted parts fit together well.                                Given a 3D object from GSO, we render different views to
+                                                                                        obtain an image grid and then apply PartGen as described
+                                                                                        above. The last row of Fig. 6 shows that PartGen can effec-
+Results. We compare our part completion algorithm (Jˆ =
+                                                                                        tively decompose real-world 3D objects.
+B(I ⊙ M, I)) to several baselines: using no completion
+(Jˆ = I ⊙ M ), omitting the context (Jˆ = B(I ⊙ M )),                                   3D part editing. Finally, we show that once the 3D parts
+and completing single views independently (Jˆv = B(Iv ⊙                                 are decomposed, they can be further modified individually.
+Mv , Iv )). The latter two are fine-tuned based on Φ. We also                           As illustrated in Fig. 7, a variant of our method enables ef-
+compare to an oracle (Jˆ = J), that uses complete ground-                               fective editing of the shape and texture of parts based on tex-
+truth parts, providing the upper bound on part reconstruc-                              tual prompts. This part-based editing prevents unintended
+tion performance, where the only bottleneck is the RM.                                  modifications to other parts of the 3D object. The details of
+   As shown in Tab. 2, our model largely surpasses the                                  the 3D editing model are provided in the sup. mat.
+baselines. Both joint multi-view reasoning and contextual
+part completion are important for good performance. We                                  5. Conclusion
+further provide qualitative results in Fig. 5.
+                                                                                        We have introduced PartGen, an approach to generate 3D
+                                                                                        objects as compositions of 3D parts, given as input text,
+4.3. Reassembling parts
+                                                                                        images, or unstructured 3D objects. PartGen can recon-
+Evaluation protocol. Starting from the multi-view image                                 struct 3D parts that are minimally or even not visible, utiliz-
+I of a 3D object L, we run the segmentation algorithm to                                ing the guidance of a multi-view diffusion prior. We have
+obtain segmentation (M̂ 1 , . . . , M̂ S ), reconstruct each 3D                         also shown several applications of PartGen, including text-
+part as Ŝk = Ψ(Jˆk ), and reassemble the 3D object L̂ by                               guided part editing. This is a promising step toward the
+merging the 3D parts {Ŝ1 , . . . , ŜN }. Detailed implementa-                         generation of 3D assets that are more useful in professional
+tion of part reassembling                                                               workflows.
+                       S is included in the sup. mat. We
+then compare L̂ = k Ψ(Jˆk ) to the whole-object recon-                                  Acknowledgements. This research was partially supported
+struction L̂ = Ψ(I), i.e. without decomposing the object                                by ERC-CoG UNION 101001212 and EPSRC VisualAI
+into parts, using the same protocol as for our method.                                  EP/T028572/1.
+
+
+
+                                                                                 5888
+References                                                                [16] Abhimanyu Dubey, Abhinav Jauhri, Abhinav Pandey, Ab-
+                                                                               hishek Kadian, Ahmad Al-Dahle, Aiesha Letman, Akhil
+ [1] Hertz Amir, Perel Or, Giryes Raja, Sorkine-Hornung Olga,                  Mathur, Alan Schelten, Amy Yang, Angela Fan, Anirudh
+     and Cohen-Or Daniel. SPAGHETTI: editing implicit                          Goyal, Anthony Hartshorn, Aobo Yang, Archi Mitra,
+     shapes through part aware generation. In ACM Transac-                     Archie Sravankumar, Artem Korenev, Arthur Hinsvark,
+     tions on Graphics, 2022. 3                                                Arun Rao, Aston Zhang, Aurélien Rodriguez, Austen
+ [2] Yash Sanjay Bhalgat, Iro Laina, Joao F. Henriques, Andrea                 Gregerson, Ava Spataru, Baptiste Rozière, Bethany Biron,
+     Vedaldi, and Andrew Zisserman. Contrastive Lift: 3D ob-                   Binh Tang, Bobbie Chern, Charlotte Caucheteux, Chaya
+     ject instance segmentation by slow-fast contrastive fusion.               Nayak, Chloe Bi, Chris Marra, Chris McConnell, Chris-
+     In Proc. NeurIPS, 2023. 3                                                 tian Keller, Christophe Touret, Chunyang Wu, Corinne
+ [3] Yash Sanjay Bhalgat, Iro Laina, Joao F. Henriques, Andrew                 Wong, Cristian Canton Ferrer, Cyrus Nikolaidis, Damien
+     Zisserman, and Andrea Vedaldi. N2F2: Hierarchical scene                   Allonsius, Daniel Song, Danielle Pintz, Danny Livshits,
+     understanding with nested neural feature fields. In Proc.                 David Esiobu, Dhruv Choudhary, Dhruv Mahajan, Diego
+     ECCV, 2024. 3                                                             Garcia-Olano, Diego Perino, Dieuwke Hupkes, Egor
+ [4] Aleksei Bokhovkin and Angela Dai. Neural part priors:                     Lakomkin, Ehab AlBadawy, Elina Lobanova, Emily Di-
+     Learning to optimize part-based object completion in rgb-d                nan, Eric Michael Smith, Filip Radenovic, Frank Zhang,
+     scans. In Proc. CVPR, 2023. 3                                             Gabriel Synnaeve, Gabrielle Lee, Georgia Lewis Ander-
+ [5] Ang Cao, Justin Johnson, Andrea Vedaldi, and David                        son, Graeme Nail, Grégoire Mialon, Guan Pang, Guillem
+     Novotny. Lightplane: Highly-scalable components for neu-                  Cucurell, Hailey Nguyen, Hannah Korevaar, Hu Xu, Hugo
+     ral 3d fields. In Proc. 3DV, 2025. 4                                      Touvron, Iliyan Zarov, Imanol Arrieta Ibarra, Isabel M.
+ [6] Eric R. Chan, Koki Nagano, Matthew A. Chan, Alexan-                       Kloumann, Ishan Misra, Ivan Evtimov, Jade Copet, Jaewon
+     der W. Bergman, Jeong Joon Park, Axel Levy, Miika Ait-                    Lee, Jan Geffert, Jana Vranes, Jason Park, Jay Mahadeokar,
+     tala, Shalini De Mello, Tero Karras, and Gordon Wetzstein.                Jeet Shah, Jelmer van der Linde, Jennifer Billock, Jenny
+     Generative novel view synthesis with 3D-aware diffusion                   Hong, Jenya Lee, Jeremy Fu, Jianfeng Chi, Jianyu Huang,
+     models. In Proc. ICCV, 2023. 3                                            Jiawen Liu, Jie Wang, Jiecao Yu, Joanna Bitton, Joe Spisak,
+ [7] Minghao Chen, Junyu Xie, Iro Laina, and Andrea Vedaldi.                   Jongsoo Park, Joseph Rocca, Joshua Johnstun, Joshua Saxe,
+     SHAP-EDITOR: Instruction-guided latent 3D editing in                      Junteng Jia, Kalyan Vasuden Alwala, Kartikeya Upasani,
+     seconds. In Proc. CVPR, 2024. 2                                           Kate Plawiak, Ke Li, Kenneth Heafield, and Kevin Stone.
+                                                                               The Llama 3 herd of models. arXiv, 2407.21783, 2024. 5
+ [8] Yongwei Chen, Tengfei Wang, Tong Wu, Xingang Pan, Kui
+     Jia, and Ziwei Liu. Comboverse: Compositional 3d assets              [17] Dave Epstein, Ben Poole, Ben Mildenhall, Alexei A. Efros,
+     creation using spatially-aware diffusion guidance. In Proc.               and Aleksander Holynski. Disentangled 3d scene genera-
+     ECCV, 2024. 3                                                             tion with layout learning. arXiv, abs/2402.16936, 2024. 3
+ [9] Zilong Chen, Feng Wang, and Huaping Liu. Text-to-3D                  [18] Ruiqi Gao, Aleksander Holynski, Philipp Henzler,
+     using Gaussian splatting. arXiv, 2309.16585, 2023. 2                      Arthur Brussee, Ricardo Martin-Brualla, Pratul Srinivasan,
+                                                                               Jonathan T. Barron, and Ben Poole. CAT3D: create any-
+[10] Zilong Chen, Yikai Wang, Feng Wang, Zhengyi Wang, and
+                                                                               thing in 3d with multi-view diffusion models. arXiv,
+     Huaping Liu. V3D: Video diffusion models are effective
+                                                                               2405.10314, 2024. 2, 3
+     3D generators. arXiv, 2403.06738, 2024. 3
+[11] Dana Cohen-Bar, Elad Richardson, Gal Metzer, Raja                    [19] Kyle Genova, Forrester Cole, Daniel Vlasic, Aaron Sarna,
+     Giryes, and Daniel Cohen-Or. Set-the-scene: Global-local                  William T. Freeman, and Thomas Funkhouser. Learning
+     training for generating controllable nerf scenes. In Proc.                shape templates with structured implicit functions. In Proc.
+     ICCV Workshops, 2023. 3                                                   CVPR, 2019. 3
+[12] CSM. CSM text-to-3D cube 2.0, 2024. 2                                [20] Kyle Genova, Forrester Cole, Avneesh Sud, Aaron Sarna,
+                                                                               and Thomas A. Funkhouser. Local deep implicit functions
+[13] Xiaoliang Dai, Ji Hou, Chih-Yao Ma, Sam S. Tsai, Jialiang
+                                                                               for 3D shape. In Proc. CVPR, 2020. 3
+     Wang, Rui Wang, Peizhao Zhang, Simon Vandenhende, Xi-
+     aofang Wang, Abhimanyu Dubey, Matthew Yu, Abhishek                   [21] Anchit Gupta, Wenhan Xiong, Yixin Nie, Ian Jones, and
+     Kadian, Filip Radenovic, Dhruv Mahajan, Kunpeng Li, Yue                   Barlas Oguz. 3DGen: Triplane latent diffusion for textured
+     Zhao, Vladan Petrovic, Mitesh Kumar Singh, Simran Mot-                    mesh generation. corr, abs/2303.05371, 2023. 2
+     wani, Yi Wen, Yiwen Song, Roshan Sumbaly, Vignesh Ra-                [22] Junlin Han, Jianyuan Wang, Andrea Vedaldi, Philip Torr,
+     manathan, Zijian He, Peter Vajda, and Devi Parikh. Emu:                   and Filippos Kokkinos. Flex3d: Feed-forward 3d genera-
+     Enhancing image generation models using photogenic nee-                   tion with flexible reconstruction model and input view cu-
+     dles in a haystack. CoRR, abs/2309.15807, 2023. 4                         ration. arXiv, 2410.00890, 2024. 3
+[14] Deemos. Rodin text-to-3D gen-1 (0525) v0.5, 2024. 2                  [23] Junlin Han, Filippos Kokkinos, and Philip Torr. Vfusion3d:
+[15] Laura Downs, Anthony Francis, Nate Koenig, Brandon                        Learning scalable 3d generative models from video diffu-
+     Kinman, Ryan Hickman, Krista Reymann, Thomas B                            sion models. In Proc. ECCV, 2025. 8
+     McHugh, and Vincent Vanhoucke. Google scanned objects:               [24] Lukas Höllein, Aljaz Bozic, Norman Müller, David
+     A high-quality dataset of 3d scanned household items. In                  Novotný, Hung-Yu Tseng, Christian Richardt, Michael
+     Proc. ICRA, 2022. 2, 8                                                    Zollhöfer, and Matthias Nießner. ViewDiff: 3D-consistent
+
+
+
+
+                                                                   5889
+     image generation with text-to-image models. In Proc.                    [40] Anran Liu, Cheng Lin, Yuan Liu, Xiaoxiao Long, Zhiyang
+     CVPR, 2024. 3                                                                Dou, Hao-Xiang Guo, Ping Luo, and Wenping Wang.
+[25] Yicong Hong, Kai Zhang, Jiuxiang Gu, Sai Bi, Yang Zhou,                      Part123: Part-aware 3d reconstruction from a single-view
+     Difan Liu, Feng Liu, Kalyan Sunkavalli, Trung Bui, and                       image. arXiv, 2405.16888, 2024. 3, 6, 7
+     Hao Tan. LRM: Large reconstruction model for single im-                 [41] Minghua Liu, Chao Xu, Haian Jin, Linghao Chen,
+     age to 3D. In Proc. ICLR, 2024. 3                                            Mukund Varma T, Zexiang Xu, and Hao Su. One-2-3-45:
+[26] Yukun Huang, Jianan Wang, Yukai Shi, Xianbiao Qi,                            Any single image to 3D mesh in 45 seconds without per-
+     Zheng-Jun Zha, and Lei Zhang. Dreamtime: An im-                              shape optimization. In Proc. NeurIPS, 2023. 3
+     proved optimization strategy for text-to-3D content cre-                [42] Minghua Liu, Yinhao Zhu, Hong Cai, Shizhong Han, Zhan
+     ation. CoRR, abs/2306.12422, 2023. 2                                         Ling, Fatih Porikli, and Hao Su. PartSLIP: low-shot part
+[27] Ka-Hei Hui, Ruihui Li, Jingyu Hu, and Chi-Wing Fu. Neu-                      segmentation for 3D point clouds via pretrained image-
+     ral template: Topology-aware reconstruction and disentan-                    language models. In Proc. CVPR, 2023. 3
+     gled generation of 3d meshes. In Proc. CVPR, 2022. 3                    [43] Ruoshi Liu, Rundi Wu, Basile Van Hoorick, Pavel Tok-
+[28] Wonbong Jang and Lourdes Agapito. CodeNeRF: Disen-                           makov, Sergey Zakharov, and Carl Vondrick. Zero-1-to-3:
+     tangled neural radiance fields for object categories. In Proc.               Zero-shot one image to 3D object. In Proc. ICCV, 2023. 3
+     ICCV, 2021. 2                                                           [44] Weiyu Liu, Jiayuan Mao, Joy Hsu, Tucker Hermans, Ani-
+[29] Heewoo Jun and Alex Nichol. Shap-E: Generating condi-                        mesh Garg, and Jiajun Wu. Composable part-based manip-
+     tional 3D implicit functions. arXiv, 2305.02463, 2023. 2                     ulation. 2023. 2
+                                                                             [45] Yuan Liu, Cheng Lin, Zijiao Zeng, Xiaoxiao Long, Lingjie
+[30] Bernhard Kerbl, Georgios Kopanas, Thomas Leimkühler,
+                                                                                  Liu, Taku Komura, and Wenping Wang. SyncDreamer:
+     and George Drettakis. 3D Gaussian Splatting for real-time
+                                                                                  Generating multiview-consistent images from a single-view
+     radiance field rendering. Proc. SIGGRAPH, 42(4), 2023. 3
+                                                                                  image. arXiv, 2309.03453, 2023. 3
+[31] Justin Kerr, Chung Min Kim, Ken Goldberg, Angjoo
+                                                                             [46] Xiaoxiao Long, Yuanchen Guo, Cheng Lin, Yuan Liu,
+     Kanazawa, and Matthew Tancik. LERF: language embed-
+                                                                                  Zhiyang Dou, Lingjie Liu, Yuexin Ma, Song-Hai Zhang,
+     ded radiance fields. In Proc. ICCV, 2023. 3
+                                                                                  Marc Habermann, Christian Theobalt, and Wenping Wang.
+[32] Chung Min Kim, Mingxuan Wu, Justin Kerr, Ken                                 Wonder3D: Single image to 3D using cross-domain diffu-
+     Goldberg, Matthew Tancik, and Angjoo Kanazawa.                               sion. arXiv.cs, abs/2310.15008, 2023. 3
+     Garfield: Group anything with radiance fields. arXiv.cs,
+                                                                             [47] LumaAI. Genie text-to-3D v1.0, 2024. 2
+     abs/2401.09419, 2024. 3
+                                                                             [48] Tiange Luo, Chris Rockwell, Honglak Lee, and Justin John-
+[33] Alexander Kirillov, Eric Mintun, Nikhila Ravi, Hanzi                         son. Scalable 3d captioning with pretrained models. arXiv,
+     Mao, Chloe Rolland, Laura Gustafson, Tete Xiao, Spencer                      2306.07279, 2023. 5
+     Whitehead, Alexander C. Berg, Wan-Yen Lo, Piotr Dollár,                [49] Oier Mees, Jessica Borja-Diaz, and Wolfram Burgard.
+     and Ross Girshick. Segment anything. In Proc. CVPR,                          Grounding language with visual affordances over unstruc-
+     2023. 2, 3                                                                   tured data. In Proc. ICRA, 2023. 2
+[34] Sosuke Kobayashi, Eiichi Matsumoto, and Vincent Sitz-                   [50] Luke Melas-Kyriazi, Christian Rupprecht, Iro Laina, and
+     mann. Decomposing NeRF for editing via feature field dis-                    Andrea Vedaldi. RealFusion: 360 reconstruction of any ob-
+     tillation. In Proc. NeurIPS, 2022. 3                                         ject from a single image. In Proc. CVPR, 2023. 2
+[35] Juil Koo, Seungwoo Yoo, Minh Hieu Nguyen, and Min-                      [51] Luke Melas-Kyriazi, Christian Rupprecht, and Andrea
+     hyuk Sung. SALAD: part-level latent diffusion for 3D                         Vedaldi. PC2: Projection-conditioned point cloud diffusion
+     shape generation and manipulation. In Proc. ICCV, 2023.                      for single-image 3d reconstruction. In Proc. CVPR, 2023.
+     3                                                                            2
+[36] Jiahao Li, Hao Tan, Kai Zhang, Zexiang Xu, Fujun                        [52] Luke Melas-Kyriazi, Iro Laina, Christian Rupprecht, Na-
+     Luan, Yinghao Xu, Yicong Hong, Kalyan Sunkavalli, Greg                       talia Neverova, Andrea Vedaldi, Oran Gafni, and Filippos
+     Shakhnarovich, and Sai Bi. Instant3D: Fast text-to-3D with                   Kokkinos. IM-3D: Iterative multiview diffusion and recon-
+     sparse-view generation and large reconstruction model.                       struction for high-quality 3D generation. In Proc. ICML,
+     Proc. ICLR, 2024. 2, 3, 4, 5                                                 2024. 2, 3
+[37] Yuhan Li, Yishun Dou, Yue Shi, Yu Lei, Xuanhong Chen,                   [53] L. Mescheder, M. Oechsle, M. Niemeyer, S. Nowozin, and
+     Yi Zhang, Peng Zhou, and Bingbing Ni. Focaldreamer:                          A. Geiger. Occupancy Networks: Learning 3D reconstruc-
+     Text-driven 3d editing via focal-fusion assembly. arXiv,                     tion in function space. In Proc. CVPR, 2019. 3
+     2308.10608, 2023. 3                                                     [54] Meshy. Meshy text-to-3D v3.0, 2024. 2
+[38] Chen-Hsuan Lin, Jun Gao, Luming Tang, Towaki                            [55] Ben Mildenhall, Pratul P. Srinivasan, Matthew Tancik,
+     Takikawa, Xiaohui Zeng, Xun Huang, Karsten Kreis,                            Jonathan T. Barron, Ravi Ramamoorthi, and Ren Ng.
+     Sanja Fidler, Ming-Yu Liu, and Tsung-Yi Lin. Magic3D:                        NeRF: Representing scenes as neural radiance fields for
+     High-resolution text-to-3D content creation. arXiv.cs,                       view synthesis. In Proc. ECCV, 2020. 3
+     abs/2211.10440, 2022. 2                                                 [56] Tom Monnier, Jake Austin, Angjoo Kanazawa, Alexei
+[39] Connor Lin, Niloy Mitra, Gordon Wetzstein, Leonidas J.                       Efros, and Mathieu Aubry. Differentiable blocks world:
+     Guibas, and Paul Guerrero. NeuForm: adaptive overfitting                     Qualitative 3d decomposition by rendering primitives. In
+     for neural shape editing. In Proc. NeurIPS, 2022. 3                          Proc. NeurIPS, 2023. 3
+
+
+
+
+                                                                      5890
+[57] George Kiyohiro Nakayama, Mikaela Angelina Uy, Jiahui                      and Hao Su. Zero123++: a single image to consistent multi-
+     Huang, Shi-Min Hu, Ke Li, and Leonidas Guibas. Diff-                       view diffusion base model. arXiv.cs, abs/2310.15110, 2023.
+     Facto: controllable part-based 3D point cloud generation                   3
+     with cross diffusion. In Proc. ICCV, 2023. 3                          [71] Yichun Shi, Peng Wang, Jianglong Ye, Mai Long, Kejie Li,
+[58] Alex Nichol, Heewoo Jun, Prafulla Dhariwal, Pamela                         and Xiao Yang. MVDream: Multi-view diffusion for 3D
+     Mishkin, and Mark Chen. Point-E: A system for gener-                       generation. In Proc. ICLR, 2024. 2, 3
+     ating 3D point clouds from complex prompts. arXiv.cs,                 [72] Aleksandar Shtedritski, Christian Rupprecht, and Andrea
+     abs/2212.08751, 2022. 2                                                    Vedaldi. What does clip know about a red circle? visual
+[59] Xiaqing Pan, Nicholas Charron, Yongqian Yang, Scott Pe-                    prompt engineering for vlms. In Proc. ICCV, 2023. 2
+     ters, Thomas Whelan, Chen Kong, Omkar Parkhi, Richard                 [73] Yawar Siddiqui, Filippos Kokkinos, Tom Monnier, Mahen-
+     Newcombe, and Carl Yuheng Ren. Aria digital twin: A                        dra Kariya, Yanir Kleiman, Emilien Garreau, Oran Gafni,
+     new benchmark dataset for egocentric 3d machine percep-                    Natalia Neverova, Andrea Vedaldi, Roman Shapovalov, and
+     tion. arXiv, 2306.06362, 2023. 2                                           David Novotny. Meta 3D Asset Gen: Text-to-mesh gener-
+[60] Jangho Park, Gihyun Kwon, and Jong Chul Ye. ED-NeRF:                       ation with high-quality geometry, texture, and PBR materi-
+     Efficient text-guided editing of 3D scene using latent space               als. In Proc. NeurIPS, 2024. 2, 3, 4, 5, 8
+     nerf. arXiv.cs, abs/2310.02712, 2023. 2                               [74] Jingxiang Sun, Bo Zhang, Ruizhi Shao, Lizhen Wang, Wen
+[61] Ryan Po and Gordon Wetzstein. Compositional 3d scene                       Liu, Zhenda Xie, and Yebin Liu. DreamCraft3D: Hier-
+     generation using locally conditioned diffusion. arXiv,                     archical 3D generation with bootstrapped diffusion prior.
+     2303.12218, 2023. 3                                                        arXiv.cs, abs/2310.16818, 2023. 2
+[62] Ben Poole, Ajay Jain, Jonathan T. Barron, and Ben Milden-             [75] Jiaxiang Tang, Jiawei Ren, Hang Zhou, Ziwei Liu, and
+     hall. DreamFusion: Text-to-3D using 2D diffusion. In Proc.                 Gang Zeng. DreamGaussian: Generative gaussian splat-
+     ICLR, 2023. 2, 8                                                           ting for efficient 3D content creation. arXiv, 2309.16653,
+[63] Guocheng Qian, Jinjie Mai, Abdullah Hamdi, Jian Ren,                       2023. 2
+     Aliaksandr Siarohin, Bing Li, Hsin-Ying Lee, Ivan Sko-                [76] Junshu Tang, Tengfei Wang, Bo Zhang, Ting Zhang, Ran
+     rokhodov, Peter Wonka, Sergey Tulyakov, and Bernard                        Yi, Lizhuang Ma, and Dong Chen. Make-It-3D: High-
+     Ghanem. Magic123: One image to high-quality 3D object                      fidelity 3d creation from A single image with diffusion
+     generation using both 2D and 3D diffusion priors. arXiv.cs,                prior. arXiv.cs, abs/2303.14184, 2023. 2
+     abs/2306.17843, 2023. 2                                               [77] Shitao Tang, Jiacheng Chen, Dilin Wang, Chengzhou Tang,
+[64] Minghan Qin, Wanhua Li, Jiawei Zhou, Haoqian Wang, and                     Fuyang Zhang, Yuchen Fan, Vikas Chandra, Yasutaka Fu-
+     Hanspeter Pfister. LangSplat: 3D language Gaussian splat-                  rukawa, and Rakesh Ranjan. MVDiffusion++: A dense
+     ting. In Proc. CVPR, 2024. 3                                               high-resolution multi-view diffusion model for single or
+[65] Lingteng Qiu, Guanying Chen, Xiaodong Gu, Qi Zuo,                          sparse-view 3d object reconstruction. arXiv, 2402.12712,
+     Mutian Xu, Yushuang Wu, Weihao Yuan, Zilong Dong,                          2024. 3
+     Liefeng Bo, and Xiaoguang Han. Richdreamer: A gen-                    [78] Konstantinos Tertikas, Despoina Paschalidou, Boxiao Pan,
+     eralizable normal-depth diffusion model for detail richness                Jeong Joon Park, Mikaela Angelina Uy, Ioannis Z. Emiris,
+     in text-to-3D. arXiv.cs, abs/2311.16918, 2023. 2                           Yannis Avrithis, and Leonidas J. Guibas. PartNeRF: Gen-
+[66] Alec Radford, Jong Wook Kim, Chris Hallacy, Aditya                         erating part-aware editable 3D shapes without 3D supervi-
+     Ramesh, Gabriel Goh, Sandhini Agarwal, Girish Sastry,                      sion. arXiv.cs, abs/2303.09554, 2023. 3
+     Amanda Askell, Pamela Mishkin, Jack Clark, Gretchen                   [79] TripoAI. Tripo3D text-to-3D, 2024. 2
+     Krueger, and Ilya Sutskever. Learning transferable visual             [80] Vadim Tschernezki, Iro Laina, Diane Larlus, and Andrea
+     models from natural language supervision. In Proc. ICML,                   Vedaldi. Neural Feature Fusion Fields: 3D distillation of
+     pages 8748–8763, 2021. 3, 7                                                self-supervised 2D image representation. In Proc. 3DV,
+[67] Nikhila Ravi, Valentin Gabeur, Yuan-Ting Hu, Ronghang                      2022. 3
+     Hu, Chaitanya Ryali, Tengyu Ma, Haitham Khedr, Roman                  [81] Haochen Wang, Xiaodan Du, Jiahao Li, Raymond A. Yeh,
+     Rädle, Chloe Rolland, Laura Gustafson, Eric Mintun, Junt-                 and Greg Shakhnarovich. Score Jacobian chaining: Lifting
+     ing Pan, Kalyan Vasudev Alwala, Nicolas Carion, Chao-                      pretrained 2D diffusion models for 3D generation. In Proc.
+     Yuan Wu, Ross Girshick, Piotr Dollár, and Christoph Fe-                   CVPR, 2023. 2
+     ichtenhofer. SAM 2: Segment anything in images and                    [82] Peng Wang and Yichun Shi. ImageDream: Image-prompt
+     videos. arXiv, 2408.00714, 2024. 2, 6                                      multi-view diffusion for 3D generation. In Proc. ICLR,
+[68] Robin Rombach, Andreas Blattmann, Dominik Lorenz,                          2024. 3
+     Patrick Esser, and Björn Ommer. High-resolution image                [83] Zhengyi Wang, Cheng Lu, Yikai Wang, Fan Bao, Chongx-
+     synthesis with latent diffusion models. In Proc. CVPR,                     uan Li, Hang Su, and Jun Zhu. ProlificDreamer: High-
+     2022. 5                                                                    fidelity and diverse text-to-3D generation with variational
+[69] Etai Sella, Gal Fiebelman, Peter Hedman, and Hadar                         score distillation. arXiv.cs, abs/2305.16213, 2023. 2
+     Averbuch-Elor. Vox-e: Text-guided voxel editing of 3d ob-             [84] Daniel Watson, William Chan, Ricardo Martin-Brualla,
+     jects. In Proc. ICCV, 2023. 2                                              Jonathan Ho, Andrea Tagliasacchi, and Mohammad
+[70] Ruoxi Shi, Hansheng Chen, Zhuoyang Zhang, Minghua                          Norouzi. Novel view synthesis with diffusion models. In
+     Liu, Chao Xu, Xinyue Wei, Linghao Chen, Chong Zeng,                        Proc. ICLR, 2023. 3
+
+
+
+
+                                                                    5891
+[85] Tong Wu, Jiarui Zhang, Xiao Fu, Yuxin Wang, Liang Pan                   [99] Junsheng Zhou, Jinsheng Wang, Baorui Ma, Yu-Shen Liu,
+     Jiawei Ren, Wayne Wu, Lei Yang, Jiaqi Wang, Chen                             Tiejun Huang, and Xinlong Wang. Uni3D: Exploring uni-
+     Qian, Dahua Lin, and Ziwei Liu. Omniobject3d: Large-                         fied 3D representation at scale. In Proc. ICLR, 2024. 3
+     vocabulary 3d object dataset for realistic perception, recon-          [100] Yuchen Zhou, Jiayuan Gu, Xuanlin Li, Minghua Liu, Yun-
+     struction and generation. In Proc. CVPR, 2023. 2                             hao Fang, and Hao Su. PartSLIP++: enhancing low-shot
+[86] Jiale Xu, Weihao Cheng, Yiming Gao, Xintao Wang,                             3d part segmentation via multi-view instance segmentation
+     Shenghua Gao, and Ying Shan. InstantMesh: efficient 3D                       and maximum likelihood estimation. arXiv, 2312.03015,
+     mesh generation from a single image with sparse-view large                   2023. 3
+     reconstruction models. arXiv, 2404.07191, 2024. 3, 8                   [101] Junzhe Zhu and Peiye Zhuang.           HiFA: High-fidelity
+[87] Yinghao Xu, Zifan Shi, Wang Yifan, Hansheng Chen,                            text-to-3D with advanced diffusion guidance.           arXiv,
+     Ceyuan Yang, Sida Peng, Yujun Shen, and Gordon Wet-                          abs/2305.18766, 2023. 2
+     zstein. GRM: Large gaussian reconstruction model for effi-             [102] Jingyu Zhuang, Chen Wang, Liang Lin, Lingjie Liu, and
+     cient 3D reconstruction and generation. arXiv, 2403.14621,                   Guanbin Li. DreamEditor: Text-driven 3D scene editing
+     2024. 4                                                                      with neural fields. In Proc. SIGGRAPH, 2023. 2
+[88] Yinghao Xu, Hao Tan, Fujun Luan, Sai Bi, Peng Wang, Ji-                [103] Jingyu Zhuang, Di Kang, Yan-Pei Cao, Guanbin Li, Liang
+     ahao Li, Zifan Shi, Kalyan Sunkavalli, Gordon Wetzstein,                     Lin, and Ying Shan. Tip-editor: An accurate 3d editor
+     Zexiang Xu, and Kai Zhang. DMV3D: Denoising multi-                           following both text-prompts and image-prompts. In ACM
+     view diffusion using 3D large reconstruction model. In                       Trans. on Graphics (TOG), 2024. 2
+     Proc. ICLR, 2024. 3                                                    [104] Yan Zizheng, Zhou Jiapeng, Meng Fanpeng, Wu Yushuang,
+[89] Jiayu Yang, Ziang Cheng, Yunfei Duan, Pan Ji, and Hong-                      Qiu Lingteng, Ye Zisheng, Cui Shuguang, Chen Guanying,
+     dong Li. ConsistNet: Enforcing 3D consistency for multi-                     and Han Xiaoguang. Dreamdissector: Learning disentan-
+     view images diffusion. arXiv.cs, abs/2310.10343, 2023.                       gled text-to-3d generation from 2d diffusion priors. In Proc.
+[90] Yunhan Yang, Yukun Huang, Xiaoyang Wu, Yuan-Chen                             ECCV, 2024. 3
+     Guo, Song-Hai Zhang, Hengshuang Zhao, Tong He, and
+     Xihui Liu. DreamComposer: Controllable 3D object gener-
+     ation via multi-view conditions. arXiv.cs, abs/2312.03611,
+     2023. 3
+[91] Lior Yariv, Omri Puny, Natalia Neverova, Oran Gafni, and
+     Yaron Lipman. Mosaic-SDF for 3D generative models.
+     arXiv.cs, abs/2312.09222, 2023. 2
+[92] Hu Ye, Jun Zhang, Sibo Liu, Xiao Han, and Wei Yang. Ip-
+     adapter: Text compatible image prompt adapter for text-to-
+     image diffusion models. arXiv, 2308.06721, 2023. 8
+[93] Taoran Yi, Jiemin Fang, Guanjun Wu, Lingxi Xie, Xi-
+     aopeng Zhang, Wenyu Liu, Qi Tian, and Xinggang Wang.
+     GaussianDreamer: Fast generation from text to 3D gaussian
+     splatting with point cloud priors. arXiv.cs, abs/2310.08529,
+     2023. 2
+[94] Haiyang Ying, Yixuan Yin, Jinzhi Zhang, Fan Wang, Tao
+     Yu, Ruqi Huang, and Lu Fang. Omniseg3d: Omniversal 3d
+     segmentation via hierarchical contrastive learning. In Proc.
+     CVPR, 2024. 3
+[95] Wangbo Yu, Li Yuan, Yan-Pei Cao, Xiangjun Gao, Xiaoyu
+     Li, Long Quan, Ying Shan, and Yonghong Tian. HiFi-123:
+     Towards high-fidelity one image to 3D content generation.
+     arXiv.cs, abs/2310.06744, 2023. 2
+[96] Guanqi Zhan, Qingnan Fan, Kaichun Mo, Lin Shao, Bao-
+     quan Chen, Leonidas J Guibas, Hao Dong, et al. Genera-
+     tive 3d part assembly via dynamic graph learning. In Proc.
+     NeurIPS, 2020. 3
+[97] Richard Zhang, Phillip Isola, Alexei A. Efros, Eli Shecht-
+     man, and Oliver Wang. The unreasonable effectiveness of
+     deep features as a perceptual metric. In Proc. CVPR, pages
+     586–595, 2018. 7
+[98] Shuaifeng Zhi, Tristan Laidlow, Stefan Leutenegger, and
+     Andrew J. Davison. In-place scene labelling and under-
+     standing with implicit scene representation. In Proc. ICCV,
+     2021. 3
+
+
+
+
+                                                                     5892
+

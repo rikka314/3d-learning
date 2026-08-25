@@ -1,0 +1,1044 @@
+{
+  "paper": {
+    "title": "Native and Compact Structured Latents for 3D Generation (TRELLIS.2)",
+    "source_mode": "latex-primary",
+    "report_path": "report.md"
+  },
+  "claims": {
+    "C1.4": {
+      "claim_id": "C1.4",
+      "section_id": "1",
+      "section_title": "论文身份与证据包",
+      "claim_text": "Native and Compact Structured Latents for 3D Generation 是 CVPR 2026 论文；其 arXiv 版本先于正式 proceedings。",
+      "claim_text_html": "Native and Compact Structured Latents for 3D Generation 是 CVPR 2026 论文；其 arXiv 版本先于正式 proceedings。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C1.4-a",
+          "doc": "trellis_2",
+          "quote": "Native and Compact Structured Latents",
+          "quote_html": "Native and Compact Structured Latents",
+          "relation": "direct",
+          "paragraph_id": "main.tex::p0009",
+          "tex_file": "main.tex",
+          "section_path": [],
+          "paragraph_text": "\\title{\\textcolor{black}{Native and Compact Structured Latents for 3D Generation}\\thanks{Open-source project; see our \\href{https://microsoft.github.io/TRELLIS.2}{project page} for code, model, and data.}}",
+          "paragraph_html": "blackNative and Compact Structured Latents for 3D Generation Open-source project; see our https://microsoft.github.io/TRELLIS.2project page for code, model, and data.",
+          "line_start": 48,
+          "line_end": 48,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 1,
+              "rect": [
+                56.5,
+                101.81,
+                555.5,
+                715.92
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C2.4": {
+      "claim_id": "C2.4",
+      "section_id": "2",
+      "section_title": "一句话论点与研究方程",
+      "claim_text": "iso-surface latent 难表达开放、non-manifold、内部封闭结构且常丢 PBR；TRELLIS.2 用原生 O-Voxel 与 sparse compression latent 替代。",
+      "claim_text_html": "iso-surface latent 难表达开放、non-manifold、内部封闭结构且常丢 PBR；TRELLIS.2 用原生 O-Voxel 与 sparse compression latent 替代。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C2.4-a",
+          "doc": "trellis_2",
+          "quote": "intrinsic limitations",
+          "quote_html": "intrinsic limitations",
+          "relation": "direct",
+          "paragraph_id": "main.tex::p0016",
+          "tex_file": "main.tex",
+          "section_path": [
+            "Introduction"
+          ],
+          "paragraph_text": "Despite the progress, the field still lacks fundamental representations that can both faithfully capture the \\emph{full-spectrum information} of \\emph{arbitrary} 3D assets and effectively be processed into latents with neural networks. Recent large 3D generation models~\\cite{zhang2024clay,xiang2025structured,chen20243dtopia,chen2025dora,wu2025direct3d,he2025sparseflex,li2025sparc3d} predominantly leverage \\emph{iso-surface fields} (\\eg, signed distance function, Flexicubes~\\cite{shen2023flexicubes}) to represent geometry, which have \\emph{intrinsic limitations in handling open surfaces, non-manifold geometry, and enclosed interior structures}. Moreover, most existing works focus on 3D shape generation while \\emph{neglecting the appearance and material information} inherent in 3D assets that are fundamentally correlated with shape. \\cite{xiang2025structured} introduces a structured 3D latent (SLAT) representation that jointly models geometry and appearance, but its reliance on multiview 2D image feature input and pure rendering-based supervision leads to deficiencies in capturing complex structures and materials.",
+          "paragraph_html": "Despite the progress, the field still lacks fundamental representations that can both faithfully capture the full-spectrum information of arbitrary 3D assets and effectively be processed into latents with neural networks. Recent large 3D generation models~zhang2024clay,xiang2025structured,chen20243dtopia,chen2025dora,wu2025direct3d,he2025sparseflex,li2025sparc3d predominantly leverage iso-surface fields ( , signed distance function, Flexicubes~shen2023flexicubes) to represent geometry, which have intrinsic limitations in handling open surfaces, non-manifold geometry, and enclosed interior structures. Moreover, most existing works focus on 3D shape generation while neglecting the appearance and material information inherent in 3D assets that are fundamentally correlated with shape. xiang2025structured introduces a structured 3D latent (SLAT) representation that jointly models geometry and appearance, but its reliance on multiview 2D image feature input and pure rendering-based supervision leads to deficiencies in capturing complex structures and materials.",
+          "line_start": 92,
+          "line_end": 92,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 2,
+              "rect": [
+                56.5,
+                91.42,
+                296.75,
+                715.41
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C4.4": {
+      "claim_id": "C4.4",
+      "section_id": "4",
+      "section_title": "真正解决的问题",
+      "claim_text": "论文追求既能被神经网络压缩又能保留任意拓扑和完整 material 的 3D-native representation，而不是只提高单一 render 分数。",
+      "claim_text_html": "论文追求既能被神经网络压缩又能保留任意拓扑和完整 material 的 3D-native representation，而不是只提高单一 render 分数。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C4.4-a",
+          "doc": "trellis_2",
+          "quote": "complex topologies",
+          "quote_html": "complex topologies",
+          "relation": "direct",
+          "paragraph_id": "main.tex::p0014",
+          "tex_file": "main.tex",
+          "section_path": [
+            "Abstract"
+          ],
+          "paragraph_text": "Recent advancements in 3D generative modeling have significantly improved the generation realism, yet the field is still hampered by existing representations, which struggle to capture assets with complex topologies and detailed appearance. This paper presents an approach for learning a structured latent representation from native 3D data to address this challenge. At its core is a new sparse voxel structure called O-Voxel, an omni-voxel representation that encodes both geometry and appearance. O-Voxel can robustly model arbitrary topology, including open, non-manifold, and fully-enclosed surfaces, while capturing comprehensive surface attributes beyond texture color, such as physically-based rendering parameters. Based on O-Voxel, we design a Sparse Compression VAE which provides a high spatial compression rate and a compact latent space. We train large-scale flow-matching models comprising 4B parameters for 3D generation using diverse public 3D asset datasets. Despite their scale, inference remains highly efficient. Meanwhile, the geometry and material quality of our generated assets far exceed those of existing models. We believe our approach offers a significant advancement in 3D generative modeling.",
+          "paragraph_html": "Recent advancements in 3D generative modeling have significantly improved the generation realism, yet the field is still hampered by existing representations, which struggle to capture assets with complex topologies and detailed appearance. This paper presents an approach for learning a structured latent representation from native 3D data to address this challenge. At its core is a new sparse voxel structure called O-Voxel, an omni-voxel representation that encodes both geometry and appearance. O-Voxel can robustly model arbitrary topology, including open, non-manifold, and fully-enclosed surfaces, while capturing comprehensive surface attributes beyond texture color, such as physically-based rendering parameters. Based on O-Voxel, we design a Sparse Compression VAE which provides a high spatial compression rate and a compact latent space. We train large-scale flow-matching models comprising 4B parameters for 3D generation using diverse public 3D asset datasets. Despite their scale, inference remains highly efficient. Meanwhile, the geometry and material quality of our generated assets far exceed those of existing models. We believe our approach offers a significant advancement in 3D generative modeling.",
+          "line_start": 82,
+          "line_end": 83,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 1,
+              "rect": [
+                56.5,
+                521.78,
+                555.5,
+                670.82
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C9.4": {
+      "claim_id": "C9.4",
+      "section_id": "9",
+      "section_title": "核心方法",
+      "claim_text": "O-Voxel 是 active voxel 上的 `(shape feature, material feature, coordinate)` 集合；Flexible Dual Grid 负责 mesh topology，volumetric attributes 负责 PBR。",
+      "claim_text_html": "O-Voxel 是 active voxel 上的 `(shape feature, material feature, coordinate)` 集合；Flexible Dual Grid 负责 mesh topology，volumetric attributes 负责 PBR。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C9.4-a",
+          "doc": "trellis_2",
+          "quote": "collection of feature tuples",
+          "quote_html": "collection of feature tuples",
+          "relation": "direct",
+          "paragraph_id": "main.tex::p0026",
+          "tex_file": "main.tex",
+          "section_path": [
+            "Method",
+            "O-Voxel: A Native 3D Representation"
+          ],
+          "paragraph_text": "Given a 3D asset, O-Voxel represents it as a collection of feature tuples associated with \\emph{sparse} voxels on a regular 3D grid of resolution $N\\times N \\times N$: \\begin{equation} \\boldsymbol{f} = \\{(\\boldsymbol{f}^{\\text{shape}}_i, \\boldsymbol{f}^{\\text{mat}}_i, \\boldsymbol{p}_i)\\}_{i=1}^{L}, \\label{eq:N3xus} \\end{equation} where $\\boldsymbol{f}^{\\text{shape}}_i$ encodes local geometric information, $\\boldsymbol{f}^{\\text{mat}}_i$ encodes material properties, and $\\boldsymbol{p}_i \\in \\{0,1,\\ldots,N-1\\}^3$ denotes the coordinate of the $i$-th active voxel. Empty voxels that do not intersect with the asset are set inactive.",
+          "paragraph_html": "Given a 3D asset, O-Voxel represents it as a collection of feature tuples associated with sparse voxels on a regular 3D grid of resolution <span class=\"math-rendered math-rendered--inline\" data-latex=\"N\\times N \\times N\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mi>N</mi><mo>&#x000D7;</mo><mi>N</mi><mo>&#x000D7;</mo><mi>N</mi></mrow></math></span>: <span class=\"math-rendered math-rendered--block\" data-latex=\"\\boldsymbol{f} = \\{(\\boldsymbol{f}^{\\text{shape}}_i, \\boldsymbol{f}^{\\text{mat}}_i, \\boldsymbol{p}_i)\\}_{i=1}^{L},\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mrow><mi mathvariant=\"bold-italic\">f</mi></mrow><mo>&#x0003D;</mo><mo stretchy=\"false\">&#x0007B;</mo><mo stretchy=\"false\">&#x00028;</mo><msubsup><mrow><mi mathvariant=\"bold-italic\">f</mi></mrow><mi>i</mi><mrow><mtext>shape</mtext></mrow></msubsup><mo>&#x0002C;</mo><msubsup><mrow><mi mathvariant=\"bold-italic\">f</mi></mrow><mi>i</mi><mrow><mtext>mat</mtext></mrow></msubsup><mo>&#x0002C;</mo><msub><mrow><mi mathvariant=\"bold-italic\">p</mi></mrow><mi>i</mi></msub><mo stretchy=\"false\">&#x00029;</mo><msubsup><mo stretchy=\"false\">&#x0007D;</mo><mrow><mi>i</mi><mo>&#x0003D;</mo><mn>1</mn></mrow><mrow><mi>L</mi></mrow></msubsup><mo>&#x0002C;</mo></mrow></math></span> where <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\boldsymbol{f}^{\\text{shape}}_i\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msubsup><mrow><mi mathvariant=\"bold-italic\">f</mi></mrow><mi>i</mi><mrow><mtext>shape</mtext></mrow></msubsup></mrow></math></span> encodes local geometric information, <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\boldsymbol{f}^{\\text{mat}}_i\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msubsup><mrow><mi mathvariant=\"bold-italic\">f</mi></mrow><mi>i</mi><mrow><mtext>mat</mtext></mrow></msubsup></mrow></math></span> encodes material properties, and <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\boldsymbol{p}_i \\in \\{0,1,\\ldots,N-1\\}^3\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msub><mrow><mi mathvariant=\"bold-italic\">p</mi></mrow><mi>i</mi></msub><mo>&#x02208;</mo><mo stretchy=\"false\">&#x0007B;</mo><mn>0</mn><mo>&#x0002C;</mo><mn>1</mn><mo>&#x0002C;</mo><mi>&#x02026;</mi><mo>&#x0002C;</mo><mi>N</mi><mo>&#x02212;</mo><mn>1</mn><msup><mo stretchy=\"false\">&#x0007D;</mo><mn>3</mn></msup></mrow></math></span> denotes the coordinate of the <span class=\"math-rendered math-rendered--inline\" data-latex=\"i\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mi>i</mi></mrow></math></span>-th active voxel. Empty voxels that do not intersect with the asset are set inactive.",
+          "line_start": 157,
+          "line_end": 164,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 3,
+              "rect": [
+                315.25,
+                360.25,
+                555.51,
+                479.3
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C11.4": {
+      "claim_id": "C11.4",
+      "section_id": "11",
+      "section_title": "公式与表示",
+      "claim_text": "Flexible Dual Grid 以 QEF 定位 dual vertex，并加入 boundary-edge 与位置正则项；PBR material feature 是 base color、metallic、roughness、opacity。",
+      "claim_text_html": "Flexible Dual Grid 以 QEF 定位 dual vertex，并加入 boundary-edge 与位置正则项；PBR material feature 是 base color、metallic、roughness、opacity。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C11.4-a",
+          "doc": "trellis_2",
+          "quote": "quadratic error function",
+          "quote_html": "quadratic error function",
+          "relation": "direct",
+          "paragraph_id": "main.tex::p0029",
+          "tex_file": "main.tex",
+          "section_path": [
+            "Method",
+            "O-Voxel: A Native 3D Representation",
+            "Flexible Dual Grid for Shape"
+          ],
+          "paragraph_text": "This formulation is inspired by Dual Contouring (DC)~\\cite{ju2002dual,chen2022neural}, an algorithm to extract surfaces from a signed grid with edges tagged by Hermite data (\\ie, intersection points and normals). The original DC was designed to process descritized scalar fields such as SDFs. Different from DC, we \\emph{do not utilize any field representation}. Our approach is straightforward: we directly use the asset’s mesh surface to determine edge intersection flags (rather than detecting sign changes as in DC) and to assign Hermite data. Each edge that intersects the mesh activates the corresponding dual face, and the associated Hermite data are then used to adjust the positions of the dual vertices. Given Hermite data $\\{\\boldsymbol{q}_i, \\boldsymbol{n}_i\\}$, we compute the dual vertex $\\boldsymbol{v}$ in closed form using the following quadratic error function (QEF): \\begin{equation}\\label{eq:qef} \\min_{\\boldsymbol{v}\\in\\text{voxel}} e(\\boldsymbol{v}) = \\sum_i d_{\\Pi,i}^2 + \\lambda_{\\text{bound}} \\sum_j d_{L,j}^2 + \\lambda_{\\text{reg}}\\, d_{\\hat{\\boldsymbol{q}}}^2. \\end{equation} The original QEF in DC only contains the first component, which measures the squared distance from $\\boldsymbol{v}$ to the plane determined by $\\{\\boldsymbol{q}_i,\\boldsymbol{n}_i\\}$, $d_{\\Pi,i}^2=(\\boldsymbol{n}_i\\cdot(\\boldsymbol{v}-\\boldsymbol{q}_i))^2$. We introduce an additional error term that penalizes the distance between $\\boldsymbol{v}$ and any boundary edges of the mesh intersecting the primal cell, $d_{L,j}^2 = \\left\\| (\\boldsymbol{v} - \\boldsymbol{o}_j) - ((\\boldsymbol{v} - \\boldsymbol{o}_j) \\cdot \\boldsymbol{d}_j)\\boldsymbol{d}_j \\right\\|^2$, as well as a regularization term that encourages $\\boldsymbol{v}$ to stay close to the average of the intersecting points, $d_{\\hat{\\boldsymbol{q}}}^2 = \\|\\boldsymbol{v} - \\bar{\\boldsymbol{q}}\\|^2$. The former guides the dual vertex to align with boundary edges, improving the representation of open surfaces, while the latter encourages a smoother vertex distribution and stabilizes the QEF optimization against singularities.",
+          "paragraph_html": "This formulation is inspired by Dual Contouring (DC)~ju2002dual,chen2022neural, an algorithm to extract surfaces from a signed grid with edges tagged by Hermite data ( , intersection points and normals). The original DC was designed to process descritized scalar fields such as SDFs. Different from DC, we do not utilize any field representation. Our approach is straightforward: we directly use the asset’s mesh surface to determine edge intersection flags (rather than detecting sign changes as in DC) and to assign Hermite data. Each edge that intersects the mesh activates the corresponding dual face, and the associated Hermite data are then used to adjust the positions of the dual vertices. Given Hermite data <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\{\\boldsymbol{q}_i, \\boldsymbol{n}_i\\}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mo stretchy=\"false\">&#x0007B;</mo><msub><mrow><mi mathvariant=\"bold-italic\">q</mi></mrow><mi>i</mi></msub><mo>&#x0002C;</mo><msub><mrow><mi mathvariant=\"bold-italic\">n</mi></mrow><mi>i</mi></msub><mo stretchy=\"false\">&#x0007D;</mo></mrow></math></span>, we compute the dual vertex <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\boldsymbol{v}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mrow><mi mathvariant=\"bold-italic\">v</mi></mrow></mrow></math></span> in closed form using the following quadratic error function (QEF): <span class=\"math-rendered math-rendered--block\" data-latex=\"\\min_{\\boldsymbol{v}\\in\\text{voxel}} e(\\boldsymbol{v}) = \\sum_i d_{\\Pi,i}^2 + \\lambda_{\\text{bound}} \\sum_j d_{L,j}^2 + \\lambda_{\\text{reg}}\\, d_{\\hat{\\boldsymbol{q}}}^2.\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><msub><mo>min</mo><mrow><mrow><mi mathvariant=\"bold-italic\">v</mi></mrow><mo>&#x02208;</mo><mtext>voxel</mtext></mrow></msub><mi>e</mi><mo stretchy=\"false\">&#x00028;</mo><mrow><mi mathvariant=\"bold-italic\">v</mi></mrow><mo stretchy=\"false\">&#x00029;</mo><mo>&#x0003D;</mo><munder><mo>&#x02211;</mo><mi>i</mi></munder><msubsup><mi>d</mi><mrow><mi>&#x003A0;</mi><mo>&#x0002C;</mo><mi>i</mi></mrow><mn>2</mn></msubsup><mo>&#x0002B;</mo><msub><mi>&#x003BB;</mi><mrow><mtext>bound</mtext></mrow></msub><munder><mo>&#x02211;</mo><mi>j</mi></munder><msubsup><mi>d</mi><mrow><mi>L</mi><mo>&#x0002C;</mo><mi>j</mi></mrow><mn>2</mn></msubsup><mo>&#x0002B;</mo><msub><mi>&#x003BB;</mi><mrow><mtext>reg</mtext></mrow></msub><mspace width=\"0.167em\" /><msubsup><mi>d</mi><mrow><mover accent=\"true\"><mrow><mrow><mi mathvariant=\"bold-italic\">q</mi></mrow></mrow><mo>&#x0005E;</mo></mover></mrow><mn>2</mn></msubsup><mo>&#x0002E;</mo></mrow></math></span> The original QEF in DC only contains the first component, which measures the squared distance from <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\boldsymbol{v}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mrow><mi mathvariant=\"bold-italic\">v</mi></mrow></mrow></math></span> to the plane determined by <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\{\\boldsymbol{q}_i,\\boldsymbol{n}_i\\}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mo stretchy=\"false\">&#x0007B;</mo><msub><mrow><mi mathvariant=\"bold-italic\">q</mi></mrow><mi>i</mi></msub><mo>&#x0002C;</mo><msub><mrow><mi mathvariant=\"bold-italic\">n</mi></mrow><mi>i</mi></msub><mo stretchy=\"false\">&#x0007D;</mo></mrow></math></span>, <span class=\"math-rendered math-rendered--inline\" data-latex=\"d_{\\Pi,i}^2=(\\boldsymbol{n}_i\\cdot(\\boldsymbol{v}-\\boldsymbol{q}_i))^2\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msubsup><mi>d</mi><mrow><mi>&#x003A0;</mi><mo>&#x0002C;</mo><mi>i</mi></mrow><mn>2</mn></msubsup><mo>&#x0003D;</mo><mo stretchy=\"false\">&#x00028;</mo><msub><mrow><mi mathvariant=\"bold-italic\">n</mi></mrow><mi>i</mi></msub><mo>&#x000B7;</mo><mo stretchy=\"false\">&#x00028;</mo><mrow><mi mathvariant=\"bold-italic\">v</mi></mrow><mo>&#x02212;</mo><msub><mrow><mi mathvariant=\"bold-italic\">q</mi></mrow><mi>i</mi></msub><mo stretchy=\"false\">&#x00029;</mo><msup><mo stretchy=\"false\">&#x00029;</mo><mn>2</mn></msup></mrow></math></span>. We introduce an additional error term that penalizes the distance between <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\boldsymbol{v}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mrow><mi mathvariant=\"bold-italic\">v</mi></mrow></mrow></math></span> and any boundary edges of the mesh intersecting the primal cell, <span class=\"math-rendered math-rendered--inline\" data-latex=\"d_{L,j}^2 = \\left\\| (\\boldsymbol{v} - \\boldsymbol{o}_j) - ((\\boldsymbol{v} - \\boldsymbol{o}_j) \\cdot \\boldsymbol{d}_j)\\boldsymbol{d}_j \\right\\|^2\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msubsup><mi>d</mi><mrow><mi>L</mi><mo>&#x0002C;</mo><mi>j</mi></mrow><mn>2</mn></msubsup><mo>&#x0003D;</mo><msup><mrow><mo stretchy=\"true\" fence=\"true\" form=\"prefix\">&#x02016;</mo><mo stretchy=\"false\">&#x00028;</mo><mrow><mi mathvariant=\"bold-italic\">v</mi></mrow><mo>&#x02212;</mo><msub><mrow><mi mathvariant=\"bold-italic\">o</mi></mrow><mi>j</mi></msub><mo stretchy=\"false\">&#x00029;</mo><mo>&#x02212;</mo><mo stretchy=\"false\">&#x00028;</mo><mo stretchy=\"false\">&#x00028;</mo><mrow><mi mathvariant=\"bold-italic\">v</mi></mrow><mo>&#x02212;</mo><msub><mrow><mi mathvariant=\"bold-italic\">o</mi></mrow><mi>j</mi></msub><mo stretchy=\"false\">&#x00029;</mo><mo>&#x000B7;</mo><msub><mrow><mi mathvariant=\"bold-italic\">d</mi></mrow><mi>j</mi></msub><mo stretchy=\"false\">&#x00029;</mo><msub><mrow><mi mathvariant=\"bold-italic\">d</mi></mrow><mi>j</mi></msub><mo stretchy=\"true\" fence=\"true\" form=\"postfix\">&#x02016;</mo></mrow><mn>2</mn></msup></mrow></math></span>, as well as a regularization term that encourages <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\boldsymbol{v}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mrow><mi mathvariant=\"bold-italic\">v</mi></mrow></mrow></math></span> to stay close to the average of the intersecting points, <span class=\"math-rendered math-rendered--inline\" data-latex=\"d_{\\hat{\\boldsymbol{q}}}^2 = \\|\\boldsymbol{v} - \\bar{\\boldsymbol{q}}\\|^2\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msubsup><mi>d</mi><mrow><mover accent=\"true\"><mrow><mrow><mi mathvariant=\"bold-italic\">q</mi></mrow></mrow><mo>&#x0005E;</mo></mover></mrow><mn>2</mn></msubsup><mo>&#x0003D;</mo><mo fence=\"false\" stretchy=\"false\">&#x02016;</mo><mrow><mi mathvariant=\"bold-italic\">v</mi></mrow><mo>&#x02212;</mo><mover><mrow><mrow><mi mathvariant=\"bold-italic\">q</mi></mrow></mrow><mo stretchy=\"true\">&#x000AF;</mo></mover><msup><mo fence=\"false\" stretchy=\"false\">&#x02016;</mo><mn>2</mn></msup></mrow></math></span>. The former guides the dual vertex to align with boundary edges, improving the representation of open surfaces, while the latter encourages a smoother vertex distribution and stabilizes the QEF optimization against singularities.",
+          "line_start": 183,
+          "line_end": 196,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 3,
+              "rect": [
+                315.25,
+                498.21,
+                555.5,
+                715.41
+              ],
+              "granularity": "paragraph-block"
+            },
+            {
+              "page": 4,
+              "rect": [
+                56.5,
+                72.41,
+                296.76,
+                698.82
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C14.4": {
+      "claim_id": "C14.4",
+      "section_id": "14",
+      "section_title": "模块思维",
+      "claim_text": "SC-VAE 的代理作用是把高分辨率 O-Voxel 变成可被大型 flow model 处理的 compact structured latent，同时避免旧方法靠多视图 bake 合成外观。",
+      "claim_text_html": "SC-VAE 的代理作用是把高分辨率 O-Voxel 变成可被大型 flow model 处理的 compact structured latent，同时避免旧方法靠多视图 bake 合成外观。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C14.4-a",
+          "doc": "trellis_2",
+          "quote": "16x spatial downsampling",
+          "quote_html": "16x spatial downsampling",
+          "relation": "inference",
+          "paragraph_id": "main.tex::p0019",
+          "tex_file": "main.tex",
+          "section_path": [
+            "Introduction"
+          ],
+          "paragraph_text": "Given the O-Voxel representation, we design a sparse 3D variational autoencoder to learn a proper latent space. This leads to a \\emph{native} structured latent space compared to that in \\cite{xiang2025structured} which is built from multiview 2D information. Furthermore, we aim for a \\emph{compact} latent space to support efficient and high-resolution 3D generation. Utilizing a residual autoencoding design~\\cite{chen2024deep} applied to sparse voxel structure, our VAE achieves a \\emph{16$\\times$ spatial downsampling}, a high ratio not seen in prior voxel-based methods. Our approach encodes a fully textured asset with \\emph{$\\textrm{1024}^\\textrm{3}$ resolution into only $\\sim$9.6K latent tokens} with negligible perceptual degradation upon reconstruction. Experiments show that our reconstruction quality surpasses prior methods by a wide margin, albeit using substantially fewer tokens. In addition to enabling high-resolution 3D generation, our compact latent space also facilitates the scaling of the generative model.",
+          "paragraph_html": "Given the O-Voxel representation, we design a sparse 3D variational autoencoder to learn a proper latent space. This leads to a native structured latent space compared to that in xiang2025structured which is built from multiview 2D information. Furthermore, we aim for a compact latent space to support efficient and high-resolution 3D generation. Utilizing a residual autoencoding design~chen2024deep applied to sparse voxel structure, our VAE achieves a 16<span class=\"math-rendered math-rendered--inline\" data-latex=\"\\times\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mo>&#x000D7;</mo></mrow></math></span> spatial downsampling, a high ratio not seen in prior voxel-based methods. Our approach encodes a fully textured asset with <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\textrm{1024}^\\textrm{3}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msup><mtext>1024</mtext><mtext>3</mtext></msup></mrow></math></span> resolution into only <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\sim\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mi>&#x0007E;</mi></mrow></math></span>9.6K latent tokens with negligible perceptual degradation upon reconstruction. Experiments show that our reconstruction quality surpasses prior methods by a wide margin, albeit using substantially fewer tokens. In addition to enabling high-resolution 3D generation, our compact latent space also facilitates the scaling of the generative model.",
+          "line_start": 101,
+          "line_end": 102,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 2,
+              "rect": [
+                56.5,
+                70.79,
+                555.5,
+                715.41
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C16.4": {
+      "claim_id": "C16.4",
+      "section_id": "16",
+      "section_title": "实验设计",
+      "claim_text": "论文分别评估 reconstruction、image-to-3D、shape-conditioned texture、ablation 与 resolution scaling，并以 normal/PBR/用户研究补充数值指标。",
+      "claim_text_html": "论文分别评估 reconstruction、image-to-3D、shape-conditioned texture、ablation 与 resolution scaling，并以 normal/PBR/用户研究补充数值指标。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C16.4-a",
+          "doc": "trellis_2",
+          "quote": "geometry and material quality",
+          "quote_html": "geometry and material quality",
+          "relation": "direct",
+          "paragraph_id": "main.tex::p0014",
+          "tex_file": "main.tex",
+          "section_path": [
+            "Abstract"
+          ],
+          "paragraph_text": "Recent advancements in 3D generative modeling have significantly improved the generation realism, yet the field is still hampered by existing representations, which struggle to capture assets with complex topologies and detailed appearance. This paper presents an approach for learning a structured latent representation from native 3D data to address this challenge. At its core is a new sparse voxel structure called O-Voxel, an omni-voxel representation that encodes both geometry and appearance. O-Voxel can robustly model arbitrary topology, including open, non-manifold, and fully-enclosed surfaces, while capturing comprehensive surface attributes beyond texture color, such as physically-based rendering parameters. Based on O-Voxel, we design a Sparse Compression VAE which provides a high spatial compression rate and a compact latent space. We train large-scale flow-matching models comprising 4B parameters for 3D generation using diverse public 3D asset datasets. Despite their scale, inference remains highly efficient. Meanwhile, the geometry and material quality of our generated assets far exceed those of existing models. We believe our approach offers a significant advancement in 3D generative modeling.",
+          "paragraph_html": "Recent advancements in 3D generative modeling have significantly improved the generation realism, yet the field is still hampered by existing representations, which struggle to capture assets with complex topologies and detailed appearance. This paper presents an approach for learning a structured latent representation from native 3D data to address this challenge. At its core is a new sparse voxel structure called O-Voxel, an omni-voxel representation that encodes both geometry and appearance. O-Voxel can robustly model arbitrary topology, including open, non-manifold, and fully-enclosed surfaces, while capturing comprehensive surface attributes beyond texture color, such as physically-based rendering parameters. Based on O-Voxel, we design a Sparse Compression VAE which provides a high spatial compression rate and a compact latent space. We train large-scale flow-matching models comprising 4B parameters for 3D generation using diverse public 3D asset datasets. Despite their scale, inference remains highly efficient. Meanwhile, the geometry and material quality of our generated assets far exceed those of existing models. We believe our approach offers a significant advancement in 3D generative modeling.",
+          "line_start": 82,
+          "line_end": 83,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 1,
+              "rect": [
+                56.5,
+                521.78,
+                555.5,
+                670.82
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C17.4": {
+      "claim_id": "C17.4",
+      "section_id": "17",
+      "section_title": "实验—主张对齐",
+      "claim_text": "论文报告 4B models 在 H100 上约 3s/17s/60s 生成 512^3/1024^3/1536^3 资产；这是上界参照，不能直接外推消费卡。",
+      "claim_text_html": "论文报告 4B models 在 H100 上约 3s/17s/60s 生成 512^3/1024^3/1536^3 资产；这是上界参照，不能直接外推消费卡。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C17.4-a",
+          "doc": "trellis_2",
+          "quote": "3s",
+          "quote_html": "3s",
+          "relation": "direct",
+          "paragraph_id": "main.tex::p0020",
+          "tex_file": "main.tex",
+          "section_path": [
+            "Introduction"
+          ],
+          "paragraph_text": "We train large flow-matching generative models in the learned latent space for image-to-3D generation. The models contain about \\emph{4 billion} parameters in total and are trained on diverse public 3D asset datasets. Despite their scale, \\emph{inference remains highly efficient}: it takes only $\\sim$3s for $512^3$ fully-textured assets generation, $\\sim$17s for the $1024^3$ resolution, and $\\sim$60s for the $1536^3$ resolution on a NVIDIA H100 GPU, which are significantly faster than existing large 3D generation models. Meanwhile, the geometry and material quality of our generated assets far exceed those of existing models, as demonstrated in our experiments. \\textbf{\\emph{All our model, code, and dataset will be publicly released to facilitate reproduction and further research.}}",
+          "paragraph_html": "We train large flow-matching generative models in the learned latent space for image-to-3D generation. The models contain about 4 billion parameters in total and are trained on diverse public 3D asset datasets. Despite their scale, inference remains highly efficient: it takes only <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\sim\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mi>&#x0007E;</mi></mrow></math></span>3s for <span class=\"math-rendered math-rendered--inline\" data-latex=\"512^3\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msup><mn>512</mn><mn>3</mn></msup></mrow></math></span> fully-textured assets generation, <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\sim\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mi>&#x0007E;</mi></mrow></math></span>17s for the <span class=\"math-rendered math-rendered--inline\" data-latex=\"1024^3\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msup><mn>1024</mn><mn>3</mn></msup></mrow></math></span> resolution, and <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\sim\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mi>&#x0007E;</mi></mrow></math></span>60s for the <span class=\"math-rendered math-rendered--inline\" data-latex=\"1536^3\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msup><mn>1536</mn><mn>3</mn></msup></mrow></math></span> resolution on a NVIDIA H100 GPU, which are significantly faster than existing large 3D generation models. Meanwhile, the geometry and material quality of our generated assets far exceed those of existing models, as demonstrated in our experiments. All our model, code, and dataset will be publicly released to facilitate reproduction and further research.",
+          "line_start": 105,
+          "line_end": 107,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 2,
+              "rect": [
+                315.25,
+                72.41,
+                555.5,
+                409.91
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C21.4": {
+      "claim_id": "C21.4",
+      "section_id": "21",
+      "section_title": "局限",
+      "claim_text": "O-Voxel 仍受 voxel resolution 限制，近距离平行面会 alias；稀疏 decoder 也可能产生小孔，并且表示未显式编码 part/semantic graph。",
+      "claim_text_html": "O-Voxel 仍受 voxel resolution 限制，近距离平行面会 alias；稀疏 decoder 也可能产生小孔，并且表示未显式编码 part/semantic graph。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C21.4-a",
+          "doc": "trellis_2",
+          "quote": "bounded by its spatial resolution",
+          "quote_html": "bounded by its spatial resolution",
+          "relation": "inference",
+          "paragraph_id": "main.tex::p0149",
+          "tex_file": "main.tex",
+          "section_path": [
+            "Limitation Discussion and Future Work"
+          ],
+          "paragraph_text": "First, similar to other voxel-based methods, O-Voxel's representation power is bounded by its spatial resolution. For detailed geometric features smaller than the voxel size, the Flexible Dual Grid formulation could produce aliasing artifacts. For example, when two parallel surfaces that are very close to each other intersect the same voxel, the QEF solver, by design, will place the dual vertex at a position that minimizes the error to both surfaces, often resulting in a vertex located between them rather than accurately on one. Similarly, the volumetric material attributes in such a voxel will be an average of the properties of both surfaces, leading to blurred appearance.",
+          "paragraph_html": "First, similar to other voxel-based methods, O-Voxel&#x27;s representation power is bounded by its spatial resolution. For detailed geometric features smaller than the voxel size, the Flexible Dual Grid formulation could produce aliasing artifacts. For example, when two parallel surfaces that are very close to each other intersect the same voxel, the QEF solver, by design, will place the dual vertex at a position that minimizes the error to both surfaces, often resulting in a vertex located between them rather than accurately on one. Similarly, the volumetric material attributes in such a voxel will be an average of the properties of both surfaces, leading to blurred appearance.",
+          "line_start": 1068,
+          "line_end": 1070,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 17,
+              "rect": [
+                56.5,
+                234.8,
+                296.75,
+                595.46
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C20.1": {
+      "claim_id": "C20.1",
+      "section_id": "20",
+      "section_title": "可复用论文模式",
+      "claim_text": "TRELLIS.2 的可复用模式是先设计能无损承载目标事实的 native representation，再以 sparse VAE 压缩到大模型可生成的 latent。",
+      "claim_text_html": "TRELLIS.2 的可复用模式是先设计能无损承载目标事实的 native representation，再以 sparse VAE 压缩到大模型可生成的 latent。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C20.1-a",
+          "doc": "trellis_2",
+          "quote": "native structured latent space",
+          "quote_html": "native structured latent space",
+          "relation": "inference",
+          "paragraph_id": "main.tex::p0019",
+          "tex_file": "main.tex",
+          "section_path": [
+            "Introduction"
+          ],
+          "paragraph_text": "Given the O-Voxel representation, we design a sparse 3D variational autoencoder to learn a proper latent space. This leads to a \\emph{native} structured latent space compared to that in \\cite{xiang2025structured} which is built from multiview 2D information. Furthermore, we aim for a \\emph{compact} latent space to support efficient and high-resolution 3D generation. Utilizing a residual autoencoding design~\\cite{chen2024deep} applied to sparse voxel structure, our VAE achieves a \\emph{16$\\times$ spatial downsampling}, a high ratio not seen in prior voxel-based methods. Our approach encodes a fully textured asset with \\emph{$\\textrm{1024}^\\textrm{3}$ resolution into only $\\sim$9.6K latent tokens} with negligible perceptual degradation upon reconstruction. Experiments show that our reconstruction quality surpasses prior methods by a wide margin, albeit using substantially fewer tokens. In addition to enabling high-resolution 3D generation, our compact latent space also facilitates the scaling of the generative model.",
+          "paragraph_html": "Given the O-Voxel representation, we design a sparse 3D variational autoencoder to learn a proper latent space. This leads to a native structured latent space compared to that in xiang2025structured which is built from multiview 2D information. Furthermore, we aim for a compact latent space to support efficient and high-resolution 3D generation. Utilizing a residual autoencoding design~chen2024deep applied to sparse voxel structure, our VAE achieves a 16<span class=\"math-rendered math-rendered--inline\" data-latex=\"\\times\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mo>&#x000D7;</mo></mrow></math></span> spatial downsampling, a high ratio not seen in prior voxel-based methods. Our approach encodes a fully textured asset with <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\textrm{1024}^\\textrm{3}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msup><mtext>1024</mtext><mtext>3</mtext></msup></mrow></math></span> resolution into only <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\sim\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mi>&#x0007E;</mi></mrow></math></span>9.6K latent tokens with negligible perceptual degradation upon reconstruction. Experiments show that our reconstruction quality surpasses prior methods by a wide margin, albeit using substantially fewer tokens. In addition to enabling high-resolution 3D generation, our compact latent space also facilitates the scaling of the generative model.",
+          "line_start": 101,
+          "line_end": 102,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 2,
+              "rect": [
+                56.5,
+                70.79,
+                555.5,
+                715.41
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C22.1": {
+      "claim_id": "C22.1",
+      "section_id": "22",
+      "section_title": "创新边界判断",
+      "claim_text": "O-Voxel 是表示层面的显著推进，但未显式建模 part-level semantic graph；因此对解剖教育仍是高端候选生成器而不是发布证明。",
+      "claim_text_html": "O-Voxel 是表示层面的显著推进，但未显式建模 part-level semantic graph；因此对解剖教育仍是高端候选生成器而不是发布证明。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C22.1-a",
+          "doc": "trellis_2",
+          "quote": "does not explicitly encode",
+          "quote_html": "does not explicitly encode",
+          "relation": "inference",
+          "paragraph_id": "main.tex::p0151",
+          "tex_file": "main.tex",
+          "section_path": [
+            "Limitation Discussion and Future Work"
+          ],
+          "paragraph_text": "Finally, our O-Voxel is currently focused on geometry and material and it does not explicitly encode higher-level structural or semantic information. A significant direction for future research is to extend our representation to incorporate part-level segmentation and a graph-based topological structure. Such a structured representation would unlock an even wider range of downstream applications.",
+          "paragraph_html": "Finally, our O-Voxel is currently focused on geometry and material and it does not explicitly encode higher-level structural or semantic information. A significant direction for future research is to extend our representation to incorporate part-level segmentation and a graph-based topological structure. Such a structured representation would unlock an even wider range of downstream applications.",
+          "line_start": 1074,
+          "line_end": 1075,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 17,
+              "rect": [
+                56.5,
+                234.8,
+                296.75,
+                595.46
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C23.4": {
+      "claim_id": "C23.4",
+      "section_id": "23",
+      "section_title": "医学教育路线",
+      "claim_text": "TRELLIS.2 是复杂拓扑/PBR 上界，但医学价值取决于后置 landmark、part graph、topology QC 与人工审核，而非 O-Voxel 自身。",
+      "claim_text_html": "TRELLIS.2 是复杂拓扑/PBR 上界，但医学价值取决于后置 landmark、part graph、topology QC 与人工审核，而非 O-Voxel 自身。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C23.4-a",
+          "doc": "trellis_2",
+          "quote": "does not explicitly encode",
+          "quote_html": "does not explicitly encode",
+          "relation": "inference",
+          "paragraph_id": "main.tex::p0151",
+          "tex_file": "main.tex",
+          "section_path": [
+            "Limitation Discussion and Future Work"
+          ],
+          "paragraph_text": "Finally, our O-Voxel is currently focused on geometry and material and it does not explicitly encode higher-level structural or semantic information. A significant direction for future research is to extend our representation to incorporate part-level segmentation and a graph-based topological structure. Such a structured representation would unlock an even wider range of downstream applications.",
+          "paragraph_html": "Finally, our O-Voxel is currently focused on geometry and material and it does not explicitly encode higher-level structural or semantic information. A significant direction for future research is to extend our representation to incorporate part-level segmentation and a graph-based topological structure. Such a structured representation would unlock an even wider range of downstream applications.",
+          "line_start": 1074,
+          "line_end": 1075,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 17,
+              "rect": [
+                56.5,
+                234.8,
+                296.75,
+                595.46
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C3.4": {
+      "claim_id": "C3.4",
+      "section_id": "3",
+      "section_title": "标题解读",
+      "claim_text": "标题把论文的对象、条件或关键 representation 准确地压缩成一个技术承诺；此处的逐词解读是基于论文摘要与方法的推断。",
+      "claim_text_html": "标题把论文的对象、条件或关键 representation 准确地压缩成一个技术承诺；此处的逐词解读是基于论文摘要与方法的推断。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C3.4-a",
+          "doc": "trellis_2",
+          "quote": "intrinsic limitations",
+          "quote_html": "intrinsic limitations",
+          "relation": "inference",
+          "paragraph_id": "main.tex::p0016",
+          "tex_file": "main.tex",
+          "section_path": [
+            "Introduction"
+          ],
+          "paragraph_text": "Despite the progress, the field still lacks fundamental representations that can both faithfully capture the \\emph{full-spectrum information} of \\emph{arbitrary} 3D assets and effectively be processed into latents with neural networks. Recent large 3D generation models~\\cite{zhang2024clay,xiang2025structured,chen20243dtopia,chen2025dora,wu2025direct3d,he2025sparseflex,li2025sparc3d} predominantly leverage \\emph{iso-surface fields} (\\eg, signed distance function, Flexicubes~\\cite{shen2023flexicubes}) to represent geometry, which have \\emph{intrinsic limitations in handling open surfaces, non-manifold geometry, and enclosed interior structures}. Moreover, most existing works focus on 3D shape generation while \\emph{neglecting the appearance and material information} inherent in 3D assets that are fundamentally correlated with shape. \\cite{xiang2025structured} introduces a structured 3D latent (SLAT) representation that jointly models geometry and appearance, but its reliance on multiview 2D image feature input and pure rendering-based supervision leads to deficiencies in capturing complex structures and materials.",
+          "paragraph_html": "Despite the progress, the field still lacks fundamental representations that can both faithfully capture the full-spectrum information of arbitrary 3D assets and effectively be processed into latents with neural networks. Recent large 3D generation models~zhang2024clay,xiang2025structured,chen20243dtopia,chen2025dora,wu2025direct3d,he2025sparseflex,li2025sparc3d predominantly leverage iso-surface fields ( , signed distance function, Flexicubes~shen2023flexicubes) to represent geometry, which have intrinsic limitations in handling open surfaces, non-manifold geometry, and enclosed interior structures. Moreover, most existing works focus on 3D shape generation while neglecting the appearance and material information inherent in 3D assets that are fundamentally correlated with shape. xiang2025structured introduces a structured 3D latent (SLAT) representation that jointly models geometry and appearance, but its reliance on multiview 2D image feature input and pure rendering-based supervision leads to deficiencies in capturing complex structures and materials.",
+          "line_start": 92,
+          "line_end": 92,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 2,
+              "rect": [
+                56.5,
+                91.42,
+                296.75,
+                715.41
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C5.4": {
+      "claim_id": "C5.4",
+      "section_id": "5",
+      "section_title": "科学问题阶梯",
+      "claim_text": "直接任务只是单图或条件 3D 生成；更上层的问题是如何在不完整观测下表达不确定性，同时把可发布资产的几何事实与视觉呈现分开。",
+      "claim_text_html": "直接任务只是单图或条件 3D 生成；更上层的问题是如何在不完整观测下表达不确定性，同时把可发布资产的几何事实与视觉呈现分开。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C5.4-a",
+          "doc": "trellis_2",
+          "quote": "complex topologies",
+          "quote_html": "complex topologies",
+          "relation": "inference",
+          "paragraph_id": "main.tex::p0014",
+          "tex_file": "main.tex",
+          "section_path": [
+            "Abstract"
+          ],
+          "paragraph_text": "Recent advancements in 3D generative modeling have significantly improved the generation realism, yet the field is still hampered by existing representations, which struggle to capture assets with complex topologies and detailed appearance. This paper presents an approach for learning a structured latent representation from native 3D data to address this challenge. At its core is a new sparse voxel structure called O-Voxel, an omni-voxel representation that encodes both geometry and appearance. O-Voxel can robustly model arbitrary topology, including open, non-manifold, and fully-enclosed surfaces, while capturing comprehensive surface attributes beyond texture color, such as physically-based rendering parameters. Based on O-Voxel, we design a Sparse Compression VAE which provides a high spatial compression rate and a compact latent space. We train large-scale flow-matching models comprising 4B parameters for 3D generation using diverse public 3D asset datasets. Despite their scale, inference remains highly efficient. Meanwhile, the geometry and material quality of our generated assets far exceed those of existing models. We believe our approach offers a significant advancement in 3D generative modeling.",
+          "paragraph_html": "Recent advancements in 3D generative modeling have significantly improved the generation realism, yet the field is still hampered by existing representations, which struggle to capture assets with complex topologies and detailed appearance. This paper presents an approach for learning a structured latent representation from native 3D data to address this challenge. At its core is a new sparse voxel structure called O-Voxel, an omni-voxel representation that encodes both geometry and appearance. O-Voxel can robustly model arbitrary topology, including open, non-manifold, and fully-enclosed surfaces, while capturing comprehensive surface attributes beyond texture color, such as physically-based rendering parameters. Based on O-Voxel, we design a Sparse Compression VAE which provides a high spatial compression rate and a compact latent space. We train large-scale flow-matching models comprising 4B parameters for 3D generation using diverse public 3D asset datasets. Despite their scale, inference remains highly efficient. Meanwhile, the geometry and material quality of our generated assets far exceed those of existing models. We believe our approach offers a significant advancement in 3D generative modeling.",
+          "line_start": 82,
+          "line_end": 83,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 1,
+              "rect": [
+                56.5,
+                521.78,
+                555.5,
+                670.82
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C6.4": {
+      "claim_id": "C6.4",
+      "section_id": "6",
+      "section_title": "作者可能的发现路径",
+      "claim_text": "一种合理的作者侧路径是先发现已有范式的隐藏假设，再保留其强项并把失败环节替换为新的中间表示、模块或条件机制。",
+      "claim_text_html": "一种合理的作者侧路径是先发现已有范式的隐藏假设，再保留其强项并把失败环节替换为新的中间表示、模块或条件机制。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C6.4-a",
+          "doc": "trellis_2",
+          "quote": "complex topologies",
+          "quote_html": "complex topologies",
+          "relation": "inference",
+          "paragraph_id": "main.tex::p0014",
+          "tex_file": "main.tex",
+          "section_path": [
+            "Abstract"
+          ],
+          "paragraph_text": "Recent advancements in 3D generative modeling have significantly improved the generation realism, yet the field is still hampered by existing representations, which struggle to capture assets with complex topologies and detailed appearance. This paper presents an approach for learning a structured latent representation from native 3D data to address this challenge. At its core is a new sparse voxel structure called O-Voxel, an omni-voxel representation that encodes both geometry and appearance. O-Voxel can robustly model arbitrary topology, including open, non-manifold, and fully-enclosed surfaces, while capturing comprehensive surface attributes beyond texture color, such as physically-based rendering parameters. Based on O-Voxel, we design a Sparse Compression VAE which provides a high spatial compression rate and a compact latent space. We train large-scale flow-matching models comprising 4B parameters for 3D generation using diverse public 3D asset datasets. Despite their scale, inference remains highly efficient. Meanwhile, the geometry and material quality of our generated assets far exceed those of existing models. We believe our approach offers a significant advancement in 3D generative modeling.",
+          "paragraph_html": "Recent advancements in 3D generative modeling have significantly improved the generation realism, yet the field is still hampered by existing representations, which struggle to capture assets with complex topologies and detailed appearance. This paper presents an approach for learning a structured latent representation from native 3D data to address this challenge. At its core is a new sparse voxel structure called O-Voxel, an omni-voxel representation that encodes both geometry and appearance. O-Voxel can robustly model arbitrary topology, including open, non-manifold, and fully-enclosed surfaces, while capturing comprehensive surface attributes beyond texture color, such as physically-based rendering parameters. Based on O-Voxel, we design a Sparse Compression VAE which provides a high spatial compression rate and a compact latent space. We train large-scale flow-matching models comprising 4B parameters for 3D generation using diverse public 3D asset datasets. Despite their scale, inference remains highly efficient. Meanwhile, the geometry and material quality of our generated assets far exceed those of existing models. We believe our approach offers a significant advancement in 3D generative modeling.",
+          "line_start": 82,
+          "line_end": 83,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 1,
+              "rect": [
+                56.5,
+                521.78,
+                555.5,
+                670.82
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C7.4": {
+      "claim_id": "C7.4",
+      "section_id": "7",
+      "section_title": "论文叙事构造",
+      "claim_text": "论文的叙事闭环是“明确失败模式 → 给出设计原则 → 放入模块 → 用主表、图或消融检验”；这是证据支持的结构性解读。",
+      "claim_text_html": "论文的叙事闭环是“明确失败模式 → 给出设计原则 → 放入模块 → 用主表、图或消融检验”；这是证据支持的结构性解读。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C7.4-a",
+          "doc": "trellis_2",
+          "quote": "collection of feature tuples",
+          "quote_html": "collection of feature tuples",
+          "relation": "inference",
+          "paragraph_id": "main.tex::p0026",
+          "tex_file": "main.tex",
+          "section_path": [
+            "Method",
+            "O-Voxel: A Native 3D Representation"
+          ],
+          "paragraph_text": "Given a 3D asset, O-Voxel represents it as a collection of feature tuples associated with \\emph{sparse} voxels on a regular 3D grid of resolution $N\\times N \\times N$: \\begin{equation} \\boldsymbol{f} = \\{(\\boldsymbol{f}^{\\text{shape}}_i, \\boldsymbol{f}^{\\text{mat}}_i, \\boldsymbol{p}_i)\\}_{i=1}^{L}, \\label{eq:N3xus} \\end{equation} where $\\boldsymbol{f}^{\\text{shape}}_i$ encodes local geometric information, $\\boldsymbol{f}^{\\text{mat}}_i$ encodes material properties, and $\\boldsymbol{p}_i \\in \\{0,1,\\ldots,N-1\\}^3$ denotes the coordinate of the $i$-th active voxel. Empty voxels that do not intersect with the asset are set inactive.",
+          "paragraph_html": "Given a 3D asset, O-Voxel represents it as a collection of feature tuples associated with sparse voxels on a regular 3D grid of resolution <span class=\"math-rendered math-rendered--inline\" data-latex=\"N\\times N \\times N\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mi>N</mi><mo>&#x000D7;</mo><mi>N</mi><mo>&#x000D7;</mo><mi>N</mi></mrow></math></span>: <span class=\"math-rendered math-rendered--block\" data-latex=\"\\boldsymbol{f} = \\{(\\boldsymbol{f}^{\\text{shape}}_i, \\boldsymbol{f}^{\\text{mat}}_i, \\boldsymbol{p}_i)\\}_{i=1}^{L},\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mrow><mi mathvariant=\"bold-italic\">f</mi></mrow><mo>&#x0003D;</mo><mo stretchy=\"false\">&#x0007B;</mo><mo stretchy=\"false\">&#x00028;</mo><msubsup><mrow><mi mathvariant=\"bold-italic\">f</mi></mrow><mi>i</mi><mrow><mtext>shape</mtext></mrow></msubsup><mo>&#x0002C;</mo><msubsup><mrow><mi mathvariant=\"bold-italic\">f</mi></mrow><mi>i</mi><mrow><mtext>mat</mtext></mrow></msubsup><mo>&#x0002C;</mo><msub><mrow><mi mathvariant=\"bold-italic\">p</mi></mrow><mi>i</mi></msub><mo stretchy=\"false\">&#x00029;</mo><msubsup><mo stretchy=\"false\">&#x0007D;</mo><mrow><mi>i</mi><mo>&#x0003D;</mo><mn>1</mn></mrow><mrow><mi>L</mi></mrow></msubsup><mo>&#x0002C;</mo></mrow></math></span> where <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\boldsymbol{f}^{\\text{shape}}_i\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msubsup><mrow><mi mathvariant=\"bold-italic\">f</mi></mrow><mi>i</mi><mrow><mtext>shape</mtext></mrow></msubsup></mrow></math></span> encodes local geometric information, <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\boldsymbol{f}^{\\text{mat}}_i\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msubsup><mrow><mi mathvariant=\"bold-italic\">f</mi></mrow><mi>i</mi><mrow><mtext>mat</mtext></mrow></msubsup></mrow></math></span> encodes material properties, and <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\boldsymbol{p}_i \\in \\{0,1,\\ldots,N-1\\}^3\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msub><mrow><mi mathvariant=\"bold-italic\">p</mi></mrow><mi>i</mi></msub><mo>&#x02208;</mo><mo stretchy=\"false\">&#x0007B;</mo><mn>0</mn><mo>&#x0002C;</mo><mn>1</mn><mo>&#x0002C;</mo><mi>&#x02026;</mi><mo>&#x0002C;</mo><mi>N</mi><mo>&#x02212;</mo><mn>1</mn><msup><mo stretchy=\"false\">&#x0007D;</mo><mn>3</mn></msup></mrow></math></span> denotes the coordinate of the <span class=\"math-rendered math-rendered--inline\" data-latex=\"i\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mi>i</mi></mrow></math></span>-th active voxel. Empty voxels that do not intersect with the asset are set inactive.",
+          "line_start": 157,
+          "line_end": 164,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 3,
+              "rect": [
+                315.25,
+                360.25,
+                555.51,
+                479.3
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C8.4": {
+      "claim_id": "C8.4",
+      "section_id": "8",
+      "section_title": "相关工作与关键引用",
+      "claim_text": "相关工作在本文中承担方法祖先、对照压力或局限性证据的角色，而不是可直接横向排名的列表。",
+      "claim_text_html": "相关工作在本文中承担方法祖先、对照压力或局限性证据的角色，而不是可直接横向排名的列表。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C8.4-a",
+          "doc": "trellis_2",
+          "quote": "complex topologies",
+          "quote_html": "complex topologies",
+          "relation": "inference",
+          "paragraph_id": "main.tex::p0014",
+          "tex_file": "main.tex",
+          "section_path": [
+            "Abstract"
+          ],
+          "paragraph_text": "Recent advancements in 3D generative modeling have significantly improved the generation realism, yet the field is still hampered by existing representations, which struggle to capture assets with complex topologies and detailed appearance. This paper presents an approach for learning a structured latent representation from native 3D data to address this challenge. At its core is a new sparse voxel structure called O-Voxel, an omni-voxel representation that encodes both geometry and appearance. O-Voxel can robustly model arbitrary topology, including open, non-manifold, and fully-enclosed surfaces, while capturing comprehensive surface attributes beyond texture color, such as physically-based rendering parameters. Based on O-Voxel, we design a Sparse Compression VAE which provides a high spatial compression rate and a compact latent space. We train large-scale flow-matching models comprising 4B parameters for 3D generation using diverse public 3D asset datasets. Despite their scale, inference remains highly efficient. Meanwhile, the geometry and material quality of our generated assets far exceed those of existing models. We believe our approach offers a significant advancement in 3D generative modeling.",
+          "paragraph_html": "Recent advancements in 3D generative modeling have significantly improved the generation realism, yet the field is still hampered by existing representations, which struggle to capture assets with complex topologies and detailed appearance. This paper presents an approach for learning a structured latent representation from native 3D data to address this challenge. At its core is a new sparse voxel structure called O-Voxel, an omni-voxel representation that encodes both geometry and appearance. O-Voxel can robustly model arbitrary topology, including open, non-manifold, and fully-enclosed surfaces, while capturing comprehensive surface attributes beyond texture color, such as physically-based rendering parameters. Based on O-Voxel, we design a Sparse Compression VAE which provides a high spatial compression rate and a compact latent space. We train large-scale flow-matching models comprising 4B parameters for 3D generation using diverse public 3D asset datasets. Despite their scale, inference remains highly efficient. Meanwhile, the geometry and material quality of our generated assets far exceed those of existing models. We believe our approach offers a significant advancement in 3D generative modeling.",
+          "line_start": 82,
+          "line_end": 83,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 1,
+              "rect": [
+                56.5,
+                521.78,
+                555.5,
+                670.82
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C10.4": {
+      "claim_id": "C10.4",
+      "section_id": "10",
+      "section_title": "符号、概念与记号",
+      "claim_text": "本报告只将符号解释为算法中实际使用的对象；任何符号都不应被误读为输入图像已提供的医学事实。",
+      "claim_text_html": "本报告只将符号解释为算法中实际使用的对象；任何符号都不应被误读为输入图像已提供的医学事实。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C10.4-a",
+          "doc": "trellis_2",
+          "quote": "quadratic error function",
+          "quote_html": "quadratic error function",
+          "relation": "inference",
+          "paragraph_id": "main.tex::p0029",
+          "tex_file": "main.tex",
+          "section_path": [
+            "Method",
+            "O-Voxel: A Native 3D Representation",
+            "Flexible Dual Grid for Shape"
+          ],
+          "paragraph_text": "This formulation is inspired by Dual Contouring (DC)~\\cite{ju2002dual,chen2022neural}, an algorithm to extract surfaces from a signed grid with edges tagged by Hermite data (\\ie, intersection points and normals). The original DC was designed to process descritized scalar fields such as SDFs. Different from DC, we \\emph{do not utilize any field representation}. Our approach is straightforward: we directly use the asset’s mesh surface to determine edge intersection flags (rather than detecting sign changes as in DC) and to assign Hermite data. Each edge that intersects the mesh activates the corresponding dual face, and the associated Hermite data are then used to adjust the positions of the dual vertices. Given Hermite data $\\{\\boldsymbol{q}_i, \\boldsymbol{n}_i\\}$, we compute the dual vertex $\\boldsymbol{v}$ in closed form using the following quadratic error function (QEF): \\begin{equation}\\label{eq:qef} \\min_{\\boldsymbol{v}\\in\\text{voxel}} e(\\boldsymbol{v}) = \\sum_i d_{\\Pi,i}^2 + \\lambda_{\\text{bound}} \\sum_j d_{L,j}^2 + \\lambda_{\\text{reg}}\\, d_{\\hat{\\boldsymbol{q}}}^2. \\end{equation} The original QEF in DC only contains the first component, which measures the squared distance from $\\boldsymbol{v}$ to the plane determined by $\\{\\boldsymbol{q}_i,\\boldsymbol{n}_i\\}$, $d_{\\Pi,i}^2=(\\boldsymbol{n}_i\\cdot(\\boldsymbol{v}-\\boldsymbol{q}_i))^2$. We introduce an additional error term that penalizes the distance between $\\boldsymbol{v}$ and any boundary edges of the mesh intersecting the primal cell, $d_{L,j}^2 = \\left\\| (\\boldsymbol{v} - \\boldsymbol{o}_j) - ((\\boldsymbol{v} - \\boldsymbol{o}_j) \\cdot \\boldsymbol{d}_j)\\boldsymbol{d}_j \\right\\|^2$, as well as a regularization term that encourages $\\boldsymbol{v}$ to stay close to the average of the intersecting points, $d_{\\hat{\\boldsymbol{q}}}^2 = \\|\\boldsymbol{v} - \\bar{\\boldsymbol{q}}\\|^2$. The former guides the dual vertex to align with boundary edges, improving the representation of open surfaces, while the latter encourages a smoother vertex distribution and stabilizes the QEF optimization against singularities.",
+          "paragraph_html": "This formulation is inspired by Dual Contouring (DC)~ju2002dual,chen2022neural, an algorithm to extract surfaces from a signed grid with edges tagged by Hermite data ( , intersection points and normals). The original DC was designed to process descritized scalar fields such as SDFs. Different from DC, we do not utilize any field representation. Our approach is straightforward: we directly use the asset’s mesh surface to determine edge intersection flags (rather than detecting sign changes as in DC) and to assign Hermite data. Each edge that intersects the mesh activates the corresponding dual face, and the associated Hermite data are then used to adjust the positions of the dual vertices. Given Hermite data <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\{\\boldsymbol{q}_i, \\boldsymbol{n}_i\\}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mo stretchy=\"false\">&#x0007B;</mo><msub><mrow><mi mathvariant=\"bold-italic\">q</mi></mrow><mi>i</mi></msub><mo>&#x0002C;</mo><msub><mrow><mi mathvariant=\"bold-italic\">n</mi></mrow><mi>i</mi></msub><mo stretchy=\"false\">&#x0007D;</mo></mrow></math></span>, we compute the dual vertex <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\boldsymbol{v}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mrow><mi mathvariant=\"bold-italic\">v</mi></mrow></mrow></math></span> in closed form using the following quadratic error function (QEF): <span class=\"math-rendered math-rendered--block\" data-latex=\"\\min_{\\boldsymbol{v}\\in\\text{voxel}} e(\\boldsymbol{v}) = \\sum_i d_{\\Pi,i}^2 + \\lambda_{\\text{bound}} \\sum_j d_{L,j}^2 + \\lambda_{\\text{reg}}\\, d_{\\hat{\\boldsymbol{q}}}^2.\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><msub><mo>min</mo><mrow><mrow><mi mathvariant=\"bold-italic\">v</mi></mrow><mo>&#x02208;</mo><mtext>voxel</mtext></mrow></msub><mi>e</mi><mo stretchy=\"false\">&#x00028;</mo><mrow><mi mathvariant=\"bold-italic\">v</mi></mrow><mo stretchy=\"false\">&#x00029;</mo><mo>&#x0003D;</mo><munder><mo>&#x02211;</mo><mi>i</mi></munder><msubsup><mi>d</mi><mrow><mi>&#x003A0;</mi><mo>&#x0002C;</mo><mi>i</mi></mrow><mn>2</mn></msubsup><mo>&#x0002B;</mo><msub><mi>&#x003BB;</mi><mrow><mtext>bound</mtext></mrow></msub><munder><mo>&#x02211;</mo><mi>j</mi></munder><msubsup><mi>d</mi><mrow><mi>L</mi><mo>&#x0002C;</mo><mi>j</mi></mrow><mn>2</mn></msubsup><mo>&#x0002B;</mo><msub><mi>&#x003BB;</mi><mrow><mtext>reg</mtext></mrow></msub><mspace width=\"0.167em\" /><msubsup><mi>d</mi><mrow><mover accent=\"true\"><mrow><mrow><mi mathvariant=\"bold-italic\">q</mi></mrow></mrow><mo>&#x0005E;</mo></mover></mrow><mn>2</mn></msubsup><mo>&#x0002E;</mo></mrow></math></span> The original QEF in DC only contains the first component, which measures the squared distance from <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\boldsymbol{v}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mrow><mi mathvariant=\"bold-italic\">v</mi></mrow></mrow></math></span> to the plane determined by <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\{\\boldsymbol{q}_i,\\boldsymbol{n}_i\\}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mo stretchy=\"false\">&#x0007B;</mo><msub><mrow><mi mathvariant=\"bold-italic\">q</mi></mrow><mi>i</mi></msub><mo>&#x0002C;</mo><msub><mrow><mi mathvariant=\"bold-italic\">n</mi></mrow><mi>i</mi></msub><mo stretchy=\"false\">&#x0007D;</mo></mrow></math></span>, <span class=\"math-rendered math-rendered--inline\" data-latex=\"d_{\\Pi,i}^2=(\\boldsymbol{n}_i\\cdot(\\boldsymbol{v}-\\boldsymbol{q}_i))^2\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msubsup><mi>d</mi><mrow><mi>&#x003A0;</mi><mo>&#x0002C;</mo><mi>i</mi></mrow><mn>2</mn></msubsup><mo>&#x0003D;</mo><mo stretchy=\"false\">&#x00028;</mo><msub><mrow><mi mathvariant=\"bold-italic\">n</mi></mrow><mi>i</mi></msub><mo>&#x000B7;</mo><mo stretchy=\"false\">&#x00028;</mo><mrow><mi mathvariant=\"bold-italic\">v</mi></mrow><mo>&#x02212;</mo><msub><mrow><mi mathvariant=\"bold-italic\">q</mi></mrow><mi>i</mi></msub><mo stretchy=\"false\">&#x00029;</mo><msup><mo stretchy=\"false\">&#x00029;</mo><mn>2</mn></msup></mrow></math></span>. We introduce an additional error term that penalizes the distance between <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\boldsymbol{v}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mrow><mi mathvariant=\"bold-italic\">v</mi></mrow></mrow></math></span> and any boundary edges of the mesh intersecting the primal cell, <span class=\"math-rendered math-rendered--inline\" data-latex=\"d_{L,j}^2 = \\left\\| (\\boldsymbol{v} - \\boldsymbol{o}_j) - ((\\boldsymbol{v} - \\boldsymbol{o}_j) \\cdot \\boldsymbol{d}_j)\\boldsymbol{d}_j \\right\\|^2\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msubsup><mi>d</mi><mrow><mi>L</mi><mo>&#x0002C;</mo><mi>j</mi></mrow><mn>2</mn></msubsup><mo>&#x0003D;</mo><msup><mrow><mo stretchy=\"true\" fence=\"true\" form=\"prefix\">&#x02016;</mo><mo stretchy=\"false\">&#x00028;</mo><mrow><mi mathvariant=\"bold-italic\">v</mi></mrow><mo>&#x02212;</mo><msub><mrow><mi mathvariant=\"bold-italic\">o</mi></mrow><mi>j</mi></msub><mo stretchy=\"false\">&#x00029;</mo><mo>&#x02212;</mo><mo stretchy=\"false\">&#x00028;</mo><mo stretchy=\"false\">&#x00028;</mo><mrow><mi mathvariant=\"bold-italic\">v</mi></mrow><mo>&#x02212;</mo><msub><mrow><mi mathvariant=\"bold-italic\">o</mi></mrow><mi>j</mi></msub><mo stretchy=\"false\">&#x00029;</mo><mo>&#x000B7;</mo><msub><mrow><mi mathvariant=\"bold-italic\">d</mi></mrow><mi>j</mi></msub><mo stretchy=\"false\">&#x00029;</mo><msub><mrow><mi mathvariant=\"bold-italic\">d</mi></mrow><mi>j</mi></msub><mo stretchy=\"true\" fence=\"true\" form=\"postfix\">&#x02016;</mo></mrow><mn>2</mn></msup></mrow></math></span>, as well as a regularization term that encourages <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\boldsymbol{v}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mrow><mi mathvariant=\"bold-italic\">v</mi></mrow></mrow></math></span> to stay close to the average of the intersecting points, <span class=\"math-rendered math-rendered--inline\" data-latex=\"d_{\\hat{\\boldsymbol{q}}}^2 = \\|\\boldsymbol{v} - \\bar{\\boldsymbol{q}}\\|^2\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msubsup><mi>d</mi><mrow><mover accent=\"true\"><mrow><mrow><mi mathvariant=\"bold-italic\">q</mi></mrow></mrow><mo>&#x0005E;</mo></mover></mrow><mn>2</mn></msubsup><mo>&#x0003D;</mo><mo fence=\"false\" stretchy=\"false\">&#x02016;</mo><mrow><mi mathvariant=\"bold-italic\">v</mi></mrow><mo>&#x02212;</mo><mover><mrow><mrow><mi mathvariant=\"bold-italic\">q</mi></mrow></mrow><mo stretchy=\"true\">&#x000AF;</mo></mover><msup><mo fence=\"false\" stretchy=\"false\">&#x02016;</mo><mn>2</mn></msup></mrow></math></span>. The former guides the dual vertex to align with boundary edges, improving the representation of open surfaces, while the latter encourages a smoother vertex distribution and stabilizes the QEF optimization against singularities.",
+          "line_start": 183,
+          "line_end": 196,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 3,
+              "rect": [
+                315.25,
+                498.21,
+                555.5,
+                715.41
+              ],
+              "granularity": "paragraph-block"
+            },
+            {
+              "page": 4,
+              "rect": [
+                56.5,
+                72.41,
+                296.76,
+                698.82
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C12.4": {
+      "claim_id": "C12.4",
+      "section_id": "12",
+      "section_title": "理论、证明与实践映射",
+      "claim_text": "论文的训练目标或表示公式说明优化对象与实现步骤，但通常不是医学拓扑正确性的证明。",
+      "claim_text_html": "论文的训练目标或表示公式说明优化对象与实现步骤，但通常不是医学拓扑正确性的证明。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C12.4-a",
+          "doc": "trellis_2",
+          "quote": "quadratic error function",
+          "quote_html": "quadratic error function",
+          "relation": "inference",
+          "paragraph_id": "main.tex::p0029",
+          "tex_file": "main.tex",
+          "section_path": [
+            "Method",
+            "O-Voxel: A Native 3D Representation",
+            "Flexible Dual Grid for Shape"
+          ],
+          "paragraph_text": "This formulation is inspired by Dual Contouring (DC)~\\cite{ju2002dual,chen2022neural}, an algorithm to extract surfaces from a signed grid with edges tagged by Hermite data (\\ie, intersection points and normals). The original DC was designed to process descritized scalar fields such as SDFs. Different from DC, we \\emph{do not utilize any field representation}. Our approach is straightforward: we directly use the asset’s mesh surface to determine edge intersection flags (rather than detecting sign changes as in DC) and to assign Hermite data. Each edge that intersects the mesh activates the corresponding dual face, and the associated Hermite data are then used to adjust the positions of the dual vertices. Given Hermite data $\\{\\boldsymbol{q}_i, \\boldsymbol{n}_i\\}$, we compute the dual vertex $\\boldsymbol{v}$ in closed form using the following quadratic error function (QEF): \\begin{equation}\\label{eq:qef} \\min_{\\boldsymbol{v}\\in\\text{voxel}} e(\\boldsymbol{v}) = \\sum_i d_{\\Pi,i}^2 + \\lambda_{\\text{bound}} \\sum_j d_{L,j}^2 + \\lambda_{\\text{reg}}\\, d_{\\hat{\\boldsymbol{q}}}^2. \\end{equation} The original QEF in DC only contains the first component, which measures the squared distance from $\\boldsymbol{v}$ to the plane determined by $\\{\\boldsymbol{q}_i,\\boldsymbol{n}_i\\}$, $d_{\\Pi,i}^2=(\\boldsymbol{n}_i\\cdot(\\boldsymbol{v}-\\boldsymbol{q}_i))^2$. We introduce an additional error term that penalizes the distance between $\\boldsymbol{v}$ and any boundary edges of the mesh intersecting the primal cell, $d_{L,j}^2 = \\left\\| (\\boldsymbol{v} - \\boldsymbol{o}_j) - ((\\boldsymbol{v} - \\boldsymbol{o}_j) \\cdot \\boldsymbol{d}_j)\\boldsymbol{d}_j \\right\\|^2$, as well as a regularization term that encourages $\\boldsymbol{v}$ to stay close to the average of the intersecting points, $d_{\\hat{\\boldsymbol{q}}}^2 = \\|\\boldsymbol{v} - \\bar{\\boldsymbol{q}}\\|^2$. The former guides the dual vertex to align with boundary edges, improving the representation of open surfaces, while the latter encourages a smoother vertex distribution and stabilizes the QEF optimization against singularities.",
+          "paragraph_html": "This formulation is inspired by Dual Contouring (DC)~ju2002dual,chen2022neural, an algorithm to extract surfaces from a signed grid with edges tagged by Hermite data ( , intersection points and normals). The original DC was designed to process descritized scalar fields such as SDFs. Different from DC, we do not utilize any field representation. Our approach is straightforward: we directly use the asset’s mesh surface to determine edge intersection flags (rather than detecting sign changes as in DC) and to assign Hermite data. Each edge that intersects the mesh activates the corresponding dual face, and the associated Hermite data are then used to adjust the positions of the dual vertices. Given Hermite data <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\{\\boldsymbol{q}_i, \\boldsymbol{n}_i\\}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mo stretchy=\"false\">&#x0007B;</mo><msub><mrow><mi mathvariant=\"bold-italic\">q</mi></mrow><mi>i</mi></msub><mo>&#x0002C;</mo><msub><mrow><mi mathvariant=\"bold-italic\">n</mi></mrow><mi>i</mi></msub><mo stretchy=\"false\">&#x0007D;</mo></mrow></math></span>, we compute the dual vertex <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\boldsymbol{v}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mrow><mi mathvariant=\"bold-italic\">v</mi></mrow></mrow></math></span> in closed form using the following quadratic error function (QEF): <span class=\"math-rendered math-rendered--block\" data-latex=\"\\min_{\\boldsymbol{v}\\in\\text{voxel}} e(\\boldsymbol{v}) = \\sum_i d_{\\Pi,i}^2 + \\lambda_{\\text{bound}} \\sum_j d_{L,j}^2 + \\lambda_{\\text{reg}}\\, d_{\\hat{\\boldsymbol{q}}}^2.\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><msub><mo>min</mo><mrow><mrow><mi mathvariant=\"bold-italic\">v</mi></mrow><mo>&#x02208;</mo><mtext>voxel</mtext></mrow></msub><mi>e</mi><mo stretchy=\"false\">&#x00028;</mo><mrow><mi mathvariant=\"bold-italic\">v</mi></mrow><mo stretchy=\"false\">&#x00029;</mo><mo>&#x0003D;</mo><munder><mo>&#x02211;</mo><mi>i</mi></munder><msubsup><mi>d</mi><mrow><mi>&#x003A0;</mi><mo>&#x0002C;</mo><mi>i</mi></mrow><mn>2</mn></msubsup><mo>&#x0002B;</mo><msub><mi>&#x003BB;</mi><mrow><mtext>bound</mtext></mrow></msub><munder><mo>&#x02211;</mo><mi>j</mi></munder><msubsup><mi>d</mi><mrow><mi>L</mi><mo>&#x0002C;</mo><mi>j</mi></mrow><mn>2</mn></msubsup><mo>&#x0002B;</mo><msub><mi>&#x003BB;</mi><mrow><mtext>reg</mtext></mrow></msub><mspace width=\"0.167em\" /><msubsup><mi>d</mi><mrow><mover accent=\"true\"><mrow><mrow><mi mathvariant=\"bold-italic\">q</mi></mrow></mrow><mo>&#x0005E;</mo></mover></mrow><mn>2</mn></msubsup><mo>&#x0002E;</mo></mrow></math></span> The original QEF in DC only contains the first component, which measures the squared distance from <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\boldsymbol{v}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mrow><mi mathvariant=\"bold-italic\">v</mi></mrow></mrow></math></span> to the plane determined by <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\{\\boldsymbol{q}_i,\\boldsymbol{n}_i\\}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mo stretchy=\"false\">&#x0007B;</mo><msub><mrow><mi mathvariant=\"bold-italic\">q</mi></mrow><mi>i</mi></msub><mo>&#x0002C;</mo><msub><mrow><mi mathvariant=\"bold-italic\">n</mi></mrow><mi>i</mi></msub><mo stretchy=\"false\">&#x0007D;</mo></mrow></math></span>, <span class=\"math-rendered math-rendered--inline\" data-latex=\"d_{\\Pi,i}^2=(\\boldsymbol{n}_i\\cdot(\\boldsymbol{v}-\\boldsymbol{q}_i))^2\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msubsup><mi>d</mi><mrow><mi>&#x003A0;</mi><mo>&#x0002C;</mo><mi>i</mi></mrow><mn>2</mn></msubsup><mo>&#x0003D;</mo><mo stretchy=\"false\">&#x00028;</mo><msub><mrow><mi mathvariant=\"bold-italic\">n</mi></mrow><mi>i</mi></msub><mo>&#x000B7;</mo><mo stretchy=\"false\">&#x00028;</mo><mrow><mi mathvariant=\"bold-italic\">v</mi></mrow><mo>&#x02212;</mo><msub><mrow><mi mathvariant=\"bold-italic\">q</mi></mrow><mi>i</mi></msub><mo stretchy=\"false\">&#x00029;</mo><msup><mo stretchy=\"false\">&#x00029;</mo><mn>2</mn></msup></mrow></math></span>. We introduce an additional error term that penalizes the distance between <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\boldsymbol{v}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mrow><mi mathvariant=\"bold-italic\">v</mi></mrow></mrow></math></span> and any boundary edges of the mesh intersecting the primal cell, <span class=\"math-rendered math-rendered--inline\" data-latex=\"d_{L,j}^2 = \\left\\| (\\boldsymbol{v} - \\boldsymbol{o}_j) - ((\\boldsymbol{v} - \\boldsymbol{o}_j) \\cdot \\boldsymbol{d}_j)\\boldsymbol{d}_j \\right\\|^2\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msubsup><mi>d</mi><mrow><mi>L</mi><mo>&#x0002C;</mo><mi>j</mi></mrow><mn>2</mn></msubsup><mo>&#x0003D;</mo><msup><mrow><mo stretchy=\"true\" fence=\"true\" form=\"prefix\">&#x02016;</mo><mo stretchy=\"false\">&#x00028;</mo><mrow><mi mathvariant=\"bold-italic\">v</mi></mrow><mo>&#x02212;</mo><msub><mrow><mi mathvariant=\"bold-italic\">o</mi></mrow><mi>j</mi></msub><mo stretchy=\"false\">&#x00029;</mo><mo>&#x02212;</mo><mo stretchy=\"false\">&#x00028;</mo><mo stretchy=\"false\">&#x00028;</mo><mrow><mi mathvariant=\"bold-italic\">v</mi></mrow><mo>&#x02212;</mo><msub><mrow><mi mathvariant=\"bold-italic\">o</mi></mrow><mi>j</mi></msub><mo stretchy=\"false\">&#x00029;</mo><mo>&#x000B7;</mo><msub><mrow><mi mathvariant=\"bold-italic\">d</mi></mrow><mi>j</mi></msub><mo stretchy=\"false\">&#x00029;</mo><msub><mrow><mi mathvariant=\"bold-italic\">d</mi></mrow><mi>j</mi></msub><mo stretchy=\"true\" fence=\"true\" form=\"postfix\">&#x02016;</mo></mrow><mn>2</mn></msup></mrow></math></span>, as well as a regularization term that encourages <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\boldsymbol{v}\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mrow><mi mathvariant=\"bold-italic\">v</mi></mrow></mrow></math></span> to stay close to the average of the intersecting points, <span class=\"math-rendered math-rendered--inline\" data-latex=\"d_{\\hat{\\boldsymbol{q}}}^2 = \\|\\boldsymbol{v} - \\bar{\\boldsymbol{q}}\\|^2\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msubsup><mi>d</mi><mrow><mover accent=\"true\"><mrow><mrow><mi mathvariant=\"bold-italic\">q</mi></mrow></mrow><mo>&#x0005E;</mo></mover></mrow><mn>2</mn></msubsup><mo>&#x0003D;</mo><mo fence=\"false\" stretchy=\"false\">&#x02016;</mo><mrow><mi mathvariant=\"bold-italic\">v</mi></mrow><mo>&#x02212;</mo><mover><mrow><mrow><mi mathvariant=\"bold-italic\">q</mi></mrow></mrow><mo stretchy=\"true\">&#x000AF;</mo></mover><msup><mo fence=\"false\" stretchy=\"false\">&#x02016;</mo><mn>2</mn></msup></mrow></math></span>. The former guides the dual vertex to align with boundary edges, improving the representation of open surfaces, while the latter encourages a smoother vertex distribution and stabilizes the QEF optimization against singularities.",
+          "line_start": 183,
+          "line_end": 196,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 3,
+              "rect": [
+                315.25,
+                498.21,
+                555.5,
+                715.41
+              ],
+              "granularity": "paragraph-block"
+            },
+            {
+              "page": 4,
+              "rect": [
+                56.5,
+                72.41,
+                296.76,
+                698.82
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C13.4": {
+      "claim_id": "C13.4",
+      "section_id": "13",
+      "section_title": "算法/模块 walkthrough",
+      "claim_text": "把论文实现成可复现实验时，应按输入条件、latent/中间状态、decoder、输出 artifact 与 QC 依次展开，而不能只复刻最终截图。",
+      "claim_text_html": "把论文实现成可复现实验时，应按输入条件、latent/中间状态、decoder、输出 artifact 与 QC 依次展开，而不能只复刻最终截图。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C13.4-a",
+          "doc": "trellis_2",
+          "quote": "collection of feature tuples",
+          "quote_html": "collection of feature tuples",
+          "relation": "inference",
+          "paragraph_id": "main.tex::p0026",
+          "tex_file": "main.tex",
+          "section_path": [
+            "Method",
+            "O-Voxel: A Native 3D Representation"
+          ],
+          "paragraph_text": "Given a 3D asset, O-Voxel represents it as a collection of feature tuples associated with \\emph{sparse} voxels on a regular 3D grid of resolution $N\\times N \\times N$: \\begin{equation} \\boldsymbol{f} = \\{(\\boldsymbol{f}^{\\text{shape}}_i, \\boldsymbol{f}^{\\text{mat}}_i, \\boldsymbol{p}_i)\\}_{i=1}^{L}, \\label{eq:N3xus} \\end{equation} where $\\boldsymbol{f}^{\\text{shape}}_i$ encodes local geometric information, $\\boldsymbol{f}^{\\text{mat}}_i$ encodes material properties, and $\\boldsymbol{p}_i \\in \\{0,1,\\ldots,N-1\\}^3$ denotes the coordinate of the $i$-th active voxel. Empty voxels that do not intersect with the asset are set inactive.",
+          "paragraph_html": "Given a 3D asset, O-Voxel represents it as a collection of feature tuples associated with sparse voxels on a regular 3D grid of resolution <span class=\"math-rendered math-rendered--inline\" data-latex=\"N\\times N \\times N\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mi>N</mi><mo>&#x000D7;</mo><mi>N</mi><mo>&#x000D7;</mo><mi>N</mi></mrow></math></span>: <span class=\"math-rendered math-rendered--block\" data-latex=\"\\boldsymbol{f} = \\{(\\boldsymbol{f}^{\\text{shape}}_i, \\boldsymbol{f}^{\\text{mat}}_i, \\boldsymbol{p}_i)\\}_{i=1}^{L},\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\"><mrow><mrow><mi mathvariant=\"bold-italic\">f</mi></mrow><mo>&#x0003D;</mo><mo stretchy=\"false\">&#x0007B;</mo><mo stretchy=\"false\">&#x00028;</mo><msubsup><mrow><mi mathvariant=\"bold-italic\">f</mi></mrow><mi>i</mi><mrow><mtext>shape</mtext></mrow></msubsup><mo>&#x0002C;</mo><msubsup><mrow><mi mathvariant=\"bold-italic\">f</mi></mrow><mi>i</mi><mrow><mtext>mat</mtext></mrow></msubsup><mo>&#x0002C;</mo><msub><mrow><mi mathvariant=\"bold-italic\">p</mi></mrow><mi>i</mi></msub><mo stretchy=\"false\">&#x00029;</mo><msubsup><mo stretchy=\"false\">&#x0007D;</mo><mrow><mi>i</mi><mo>&#x0003D;</mo><mn>1</mn></mrow><mrow><mi>L</mi></mrow></msubsup><mo>&#x0002C;</mo></mrow></math></span> where <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\boldsymbol{f}^{\\text{shape}}_i\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msubsup><mrow><mi mathvariant=\"bold-italic\">f</mi></mrow><mi>i</mi><mrow><mtext>shape</mtext></mrow></msubsup></mrow></math></span> encodes local geometric information, <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\boldsymbol{f}^{\\text{mat}}_i\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msubsup><mrow><mi mathvariant=\"bold-italic\">f</mi></mrow><mi>i</mi><mrow><mtext>mat</mtext></mrow></msubsup></mrow></math></span> encodes material properties, and <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\boldsymbol{p}_i \\in \\{0,1,\\ldots,N-1\\}^3\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msub><mrow><mi mathvariant=\"bold-italic\">p</mi></mrow><mi>i</mi></msub><mo>&#x02208;</mo><mo stretchy=\"false\">&#x0007B;</mo><mn>0</mn><mo>&#x0002C;</mo><mn>1</mn><mo>&#x0002C;</mo><mi>&#x02026;</mi><mo>&#x0002C;</mo><mi>N</mi><mo>&#x02212;</mo><mn>1</mn><msup><mo stretchy=\"false\">&#x0007D;</mo><mn>3</mn></msup></mrow></math></span> denotes the coordinate of the <span class=\"math-rendered math-rendered--inline\" data-latex=\"i\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mi>i</mi></mrow></math></span>-th active voxel. Empty voxels that do not intersect with the asset are set inactive.",
+          "line_start": 157,
+          "line_end": 164,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 3,
+              "rect": [
+                315.25,
+                360.25,
+                555.51,
+                479.3
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C15.4": {
+      "claim_id": "C15.4",
+      "section_id": "15",
+      "section_title": "图表解读",
+      "claim_text": "论文中的 pipeline、主表与消融图支持其具体通用资产主张；图中可见的质量不自动扩展为看不见的结构真实性。",
+      "claim_text_html": "论文中的 pipeline、主表与消融图支持其具体通用资产主张；图中可见的质量不自动扩展为看不见的结构真实性。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C15.4-a",
+          "doc": "trellis_2",
+          "quote": "3s",
+          "quote_html": "3s",
+          "relation": "inference",
+          "paragraph_id": "main.tex::p0020",
+          "tex_file": "main.tex",
+          "section_path": [
+            "Introduction"
+          ],
+          "paragraph_text": "We train large flow-matching generative models in the learned latent space for image-to-3D generation. The models contain about \\emph{4 billion} parameters in total and are trained on diverse public 3D asset datasets. Despite their scale, \\emph{inference remains highly efficient}: it takes only $\\sim$3s for $512^3$ fully-textured assets generation, $\\sim$17s for the $1024^3$ resolution, and $\\sim$60s for the $1536^3$ resolution on a NVIDIA H100 GPU, which are significantly faster than existing large 3D generation models. Meanwhile, the geometry and material quality of our generated assets far exceed those of existing models, as demonstrated in our experiments. \\textbf{\\emph{All our model, code, and dataset will be publicly released to facilitate reproduction and further research.}}",
+          "paragraph_html": "We train large flow-matching generative models in the learned latent space for image-to-3D generation. The models contain about 4 billion parameters in total and are trained on diverse public 3D asset datasets. Despite their scale, inference remains highly efficient: it takes only <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\sim\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mi>&#x0007E;</mi></mrow></math></span>3s for <span class=\"math-rendered math-rendered--inline\" data-latex=\"512^3\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msup><mn>512</mn><mn>3</mn></msup></mrow></math></span> fully-textured assets generation, <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\sim\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mi>&#x0007E;</mi></mrow></math></span>17s for the <span class=\"math-rendered math-rendered--inline\" data-latex=\"1024^3\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msup><mn>1024</mn><mn>3</mn></msup></mrow></math></span> resolution, and <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\sim\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mi>&#x0007E;</mi></mrow></math></span>60s for the <span class=\"math-rendered math-rendered--inline\" data-latex=\"1536^3\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msup><mn>1536</mn><mn>3</mn></msup></mrow></math></span> resolution on a NVIDIA H100 GPU, which are significantly faster than existing large 3D generation models. Meanwhile, the geometry and material quality of our generated assets far exceed those of existing models, as demonstrated in our experiments. All our model, code, and dataset will be publicly released to facilitate reproduction and further research.",
+          "line_start": 105,
+          "line_end": 107,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 2,
+              "rect": [
+                315.25,
+                72.41,
+                555.5,
+                409.91
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C18.4": {
+      "claim_id": "C18.4",
+      "section_id": "18",
+      "section_title": "Reviewer-lens audit",
+      "claim_text": "从审稿视角，应把作者协议内的优越性、训练/依赖门槛、数据/许可不确定性以及医学迁移缺口分开评价。",
+      "claim_text_html": "从审稿视角，应把作者协议内的优越性、训练/依赖门槛、数据/许可不确定性以及医学迁移缺口分开评价。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C18.4-a",
+          "doc": "trellis_2",
+          "quote": "geometry and material quality",
+          "quote_html": "geometry and material quality",
+          "relation": "inference",
+          "paragraph_id": "main.tex::p0014",
+          "tex_file": "main.tex",
+          "section_path": [
+            "Abstract"
+          ],
+          "paragraph_text": "Recent advancements in 3D generative modeling have significantly improved the generation realism, yet the field is still hampered by existing representations, which struggle to capture assets with complex topologies and detailed appearance. This paper presents an approach for learning a structured latent representation from native 3D data to address this challenge. At its core is a new sparse voxel structure called O-Voxel, an omni-voxel representation that encodes both geometry and appearance. O-Voxel can robustly model arbitrary topology, including open, non-manifold, and fully-enclosed surfaces, while capturing comprehensive surface attributes beyond texture color, such as physically-based rendering parameters. Based on O-Voxel, we design a Sparse Compression VAE which provides a high spatial compression rate and a compact latent space. We train large-scale flow-matching models comprising 4B parameters for 3D generation using diverse public 3D asset datasets. Despite their scale, inference remains highly efficient. Meanwhile, the geometry and material quality of our generated assets far exceed those of existing models. We believe our approach offers a significant advancement in 3D generative modeling.",
+          "paragraph_html": "Recent advancements in 3D generative modeling have significantly improved the generation realism, yet the field is still hampered by existing representations, which struggle to capture assets with complex topologies and detailed appearance. This paper presents an approach for learning a structured latent representation from native 3D data to address this challenge. At its core is a new sparse voxel structure called O-Voxel, an omni-voxel representation that encodes both geometry and appearance. O-Voxel can robustly model arbitrary topology, including open, non-manifold, and fully-enclosed surfaces, while capturing comprehensive surface attributes beyond texture color, such as physically-based rendering parameters. Based on O-Voxel, we design a Sparse Compression VAE which provides a high spatial compression rate and a compact latent space. We train large-scale flow-matching models comprising 4B parameters for 3D generation using diverse public 3D asset datasets. Despite their scale, inference remains highly efficient. Meanwhile, the geometry and material quality of our generated assets far exceed those of existing models. We believe our approach offers a significant advancement in 3D generative modeling.",
+          "line_start": 82,
+          "line_end": 83,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 1,
+              "rect": [
+                56.5,
+                521.78,
+                555.5,
+                670.82
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C19.4": {
+      "claim_id": "C19.4",
+      "section_id": "19",
+      "section_title": "创新点与支持审计",
+      "claim_text": "贡献应逐条绑定其对应的表示、模块、消融或 benchmark，而不能把系统总结果一概归因给单一新意。",
+      "claim_text_html": "贡献应逐条绑定其对应的表示、模块、消融或 benchmark，而不能把系统总结果一概归因给单一新意。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C19.4-a",
+          "doc": "trellis_2",
+          "quote": "3s",
+          "quote_html": "3s",
+          "relation": "inference",
+          "paragraph_id": "main.tex::p0020",
+          "tex_file": "main.tex",
+          "section_path": [
+            "Introduction"
+          ],
+          "paragraph_text": "We train large flow-matching generative models in the learned latent space for image-to-3D generation. The models contain about \\emph{4 billion} parameters in total and are trained on diverse public 3D asset datasets. Despite their scale, \\emph{inference remains highly efficient}: it takes only $\\sim$3s for $512^3$ fully-textured assets generation, $\\sim$17s for the $1024^3$ resolution, and $\\sim$60s for the $1536^3$ resolution on a NVIDIA H100 GPU, which are significantly faster than existing large 3D generation models. Meanwhile, the geometry and material quality of our generated assets far exceed those of existing models, as demonstrated in our experiments. \\textbf{\\emph{All our model, code, and dataset will be publicly released to facilitate reproduction and further research.}}",
+          "paragraph_html": "We train large flow-matching generative models in the learned latent space for image-to-3D generation. The models contain about 4 billion parameters in total and are trained on diverse public 3D asset datasets. Despite their scale, inference remains highly efficient: it takes only <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\sim\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mi>&#x0007E;</mi></mrow></math></span>3s for <span class=\"math-rendered math-rendered--inline\" data-latex=\"512^3\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msup><mn>512</mn><mn>3</mn></msup></mrow></math></span> fully-textured assets generation, <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\sim\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mi>&#x0007E;</mi></mrow></math></span>17s for the <span class=\"math-rendered math-rendered--inline\" data-latex=\"1024^3\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msup><mn>1024</mn><mn>3</mn></msup></mrow></math></span> resolution, and <span class=\"math-rendered math-rendered--inline\" data-latex=\"\\sim\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><mi>&#x0007E;</mi></mrow></math></span>60s for the <span class=\"math-rendered math-rendered--inline\" data-latex=\"1536^3\"><math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"inline\"><mrow><msup><mn>1536</mn><mn>3</mn></msup></mrow></math></span> resolution on a NVIDIA H100 GPU, which are significantly faster than existing large 3D generation models. Meanwhile, the geometry and material quality of our generated assets far exceed those of existing models, as demonstrated in our experiments. All our model, code, and dataset will be publicly released to facilitate reproduction and further research.",
+          "line_start": 105,
+          "line_end": 107,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 2,
+              "rect": [
+                315.25,
+                72.41,
+                555.5,
+                409.91
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C24.4": {
+      "claim_id": "C24.4",
+      "section_id": "24",
+      "section_title": "通俗故事",
+      "claim_text": "把论文记成“用一个被约束的代理机制处理 2D 中缺失的 3D 信息”，比把它记成模型名或单一分数更接近其可复用洞见。",
+      "claim_text_html": "把论文记成“用一个被约束的代理机制处理 2D 中缺失的 3D 信息”，比把它记成模型名或单一分数更接近其可复用洞见。",
+      "interpretation_type": "plausible inference",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C24.4-a",
+          "doc": "trellis_2",
+          "quote": "intrinsic limitations",
+          "quote_html": "intrinsic limitations",
+          "relation": "inference",
+          "paragraph_id": "main.tex::p0016",
+          "tex_file": "main.tex",
+          "section_path": [
+            "Introduction"
+          ],
+          "paragraph_text": "Despite the progress, the field still lacks fundamental representations that can both faithfully capture the \\emph{full-spectrum information} of \\emph{arbitrary} 3D assets and effectively be processed into latents with neural networks. Recent large 3D generation models~\\cite{zhang2024clay,xiang2025structured,chen20243dtopia,chen2025dora,wu2025direct3d,he2025sparseflex,li2025sparc3d} predominantly leverage \\emph{iso-surface fields} (\\eg, signed distance function, Flexicubes~\\cite{shen2023flexicubes}) to represent geometry, which have \\emph{intrinsic limitations in handling open surfaces, non-manifold geometry, and enclosed interior structures}. Moreover, most existing works focus on 3D shape generation while \\emph{neglecting the appearance and material information} inherent in 3D assets that are fundamentally correlated with shape. \\cite{xiang2025structured} introduces a structured 3D latent (SLAT) representation that jointly models geometry and appearance, but its reliance on multiview 2D image feature input and pure rendering-based supervision leads to deficiencies in capturing complex structures and materials.",
+          "paragraph_html": "Despite the progress, the field still lacks fundamental representations that can both faithfully capture the full-spectrum information of arbitrary 3D assets and effectively be processed into latents with neural networks. Recent large 3D generation models~zhang2024clay,xiang2025structured,chen20243dtopia,chen2025dora,wu2025direct3d,he2025sparseflex,li2025sparc3d predominantly leverage iso-surface fields ( , signed distance function, Flexicubes~shen2023flexicubes) to represent geometry, which have intrinsic limitations in handling open surfaces, non-manifold geometry, and enclosed interior structures. Moreover, most existing works focus on 3D shape generation while neglecting the appearance and material information inherent in 3D assets that are fundamentally correlated with shape. xiang2025structured introduces a structured 3D latent (SLAT) representation that jointly models geometry and appearance, but its reliance on multiview 2D image feature input and pure rendering-based supervision leads to deficiencies in capturing complex structures and materials.",
+          "line_start": 92,
+          "line_end": 92,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 2,
+              "rect": [
+                56.5,
+                91.42,
+                296.75,
+                715.41
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    },
+    "C25.4": {
+      "claim_id": "C25.4",
+      "section_id": "25",
+      "section_title": "来源使用说明",
+      "claim_text": "本报告使用与目标版本匹配的官方 LaTeX source 作为结构化证据，并用官方 PDF 检查页码、表格和图形。",
+      "claim_text_html": "本报告使用与目标版本匹配的官方 LaTeX source 作为结构化证据，并用官方 PDF 检查页码、表格和图形。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "paper-grounded analysis",
+      "evidence": [
+        {
+          "evidence_id": "E-C25.4-a",
+          "doc": "trellis_2",
+          "quote": "Native and Compact Structured Latents",
+          "quote_html": "Native and Compact Structured Latents",
+          "relation": "direct",
+          "paragraph_id": "main.tex::p0009",
+          "tex_file": "main.tex",
+          "section_path": [],
+          "paragraph_text": "\\title{\\textcolor{black}{Native and Compact Structured Latents for 3D Generation}\\thanks{Open-source project; see our \\href{https://microsoft.github.io/TRELLIS.2}{project page} for code, model, and data.}}",
+          "paragraph_html": "blackNative and Compact Structured Latents for 3D Generation Open-source project; see our https://microsoft.github.io/TRELLIS.2project page for code, model, and data.",
+          "line_start": 48,
+          "line_end": 48,
+          "match_source": "synctex",
+          "matches": [
+            {
+              "page": 1,
+              "rect": [
+                56.5,
+                101.81,
+                555.5,
+                715.92
+              ],
+              "granularity": "paragraph-block"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

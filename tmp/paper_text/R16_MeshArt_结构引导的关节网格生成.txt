@@ -1,0 +1,657 @@
+                           This CVPR paper is the Open Access version, provided by the Computer Vision Foundation.
+                                        Except for this watermark, it is identical to the accepted version;
+                                  the final published version of the proceedings is available on IEEE Xplore.
+
+
+
+
+ MeshArt: Generating Articulated Meshes with Structure-Guided Transformers
+
+                      Daoyi Gao1             Yawar Siddiqui1,2       Lei Li1        Angela Dai1
+                                      1                                      2
+                                        Technical University of Munich         Meta
+
+
+
+
+Figure 1. MeshArt creates articulated 3D objects hierarchically, part-by-part with transformers by first generating high-level object struc-
+tures endowed with articulations (left) and then predicting triangle mesh faces for each part (right) with structure and local connectivity
+guidance. Our mesh generations have clean and compact triangulations and can be animated at different articulation states.
+
+                                                                         1. Introduction
+                           Abstract                                      Articulated objects are ubiquitous in real-world environ-
+                                                                         ments – for instance, cabinet doors are openable, office
+   Articulated 3D object generation is fundamental for cre-              chairs typically swivel, car wheels and doors rotate and
+ating realistic, functional, and interactable virtual assets             move. These articulations are generally tied to the core
+which are not simply static. We introduce MeshArt, a hi-                 functionality of these objects (e.g., storage for cabinets, ease
+erarchical transformer-based approach to generate artic-                 of movement for chairs, movement of cars), and are thus
+ulated 3D meshes with clean, compact geometry, reminis-                  key to representing realistic, interactable objects. Such ob-
+cent of human-crafted 3D models. We approach articu-                     jects are already widely represented in computer graphics
+lated mesh generation in a part-by-part fashion across two               applications as triangle meshes, carefully crafted by skilled
+stages. First, we generate a high-level articulation-aware               3D artists. This enables high visual quality while maintain-
+object structure; then, based on this structural information,            ing a compact representation that readily supports the artic-
+we synthesize each part’s mesh faces. Key to our approach                ulated motion of various object parts.
+is modeling both articulation structures and part meshes as                  Recent advances in generative modeling for vision and
+sequences of quantized triangle embeddings, leading to a                 graphics have produced remarkable progress in generating
+unified hierarchical framework with transformers for au-                 static 3D objects [4, 6, 30–32, 44] as well as complex static
+toregressive generation. Object part structures are first gen-           3D scenes [22, 29, 41], leveraging various 3D represen-
+erated as their bounding primitives and articulation modes;              tations, from voxels and point clouds to neural fields and
+a second transformer, guided by these articulation struc-                even 3D meshes. However, generating articulated objects
+tures, then generates each part’s mesh triangles. To ensure              with dynamic, functional parts remains an underexplored
+coherency among generated parts, we introduce structure-                 challenge. The primary difficulties lie in not only mod-
+guided conditioning that also incorporates local part mesh               eling possible functional part motions but also generating
+connectivity. MeshArt shows significant improvements over                clean and compact part geometries that respect the articu-
+state of the art, with 57.1% improvement in structure cover-             lation structures. In particular, generating articulated ob-
+age and a 209-point improvement in mesh generation FID.                  jects as triangle meshes enables natural support of chang-
+                                                                         ing topological structure (e.g., open vs. closed doors in a
+
+
+
+                                                                      618
+shelf) while maintaining a compact representation similar              compact triangle meshes. Our approach unifies coarse
+to human-crafted objects. Besides, current 3D datasets with            articulation-aware structure generation with structure-
+object part and articulation joint annotations remain rela-            guided part mesh generation, treating both as triangle se-
+tively limited in quantity for data-driven learning.                   quence prediction tasks.
+    To address these challenges, we introduce MeshArt1 , a           • We introduce a conditioning mechanism that integrates
+hierarchical transformer-based model that generates articu-            structure and local geometry connections to ensure
+lated 3D meshes with sharp details and an efficient triangle           smooth transitions during part-by-part mesh generation.
+mesh representation, resembling the compactness of artist-           • We augment PartNet with joint annotations on 3 major
+created 3D models. Our key insight is to decompose articu-             categories, expanding the articulated object dataset by
+lated meshes into high-level object structures and low-level           over 6 times.
+part geometries: high-level structures are represented by
+part bounding primitives endowed with articulation proper-           2. Related Work
+ties, while part geometries are generated based on both ar-
+ticulation structures and local mesh connectivity. To enable         Mesh Generation. Several methods have been proposed
+effective training of MeshArt, we enhance PartNet [24], the          to directly generate mesh representation, due to their com-
+largest 3D object dataset with part labels, by adding ar-            pact nature more similar to human-created 3D models. Ear-
+ticulation joint annotations to the table, chair, and storage        lier approaches such as Scan2Mesh [5] proposed to gen-
+categories, increasing the number of articulated objects 6×          erate mesh structures as graphs, but were limited to small
+compared to existing articulation datasets [8, 42].                  meshes with few vertices. PolyGen [25] used two au-
+    Our approach leverages a direct sequence generation ap-          toregressive transformers to model vertex and face distri-
+proach with transformers to synthesize articulated objects           butions separately, while Polydiff [1] applied diffusion to
+hierarchically, part by part. We first predict the object struc-     generate triangle soups. MeshGPT [31] tokenized meshes
+ture as a sequence of part bounding boxes, where each box            via a GNN-based encoder and learned mesh token gener-
+encodes part semantics, latent geometric features, and artic-        ation with a GPT-style transformer. PivotMesh [37] im-
+ulation properties. Using the predicted structure, we then           proved generation by guiding it with pivot vertices to de-
+generate the mesh geometry for each part as a sequence of            fine coarse object shapes. More recent approaches, in-
+triangles, conditioned on the structure and local connectiv-         cluding MeshAnythingV2 [3] and EdgeRunner [34], tok-
+ity from previously generated parts. To unify this hierarchi-        enized meshes by forming face sequences from adjacent
+cal generation process, we also parameterize part bounding           vertices. MeshXL [2] introduced spatial coordinate embed-
+boxes as triangle meshes; this unified representation enables        dings, while Meshtron [10] employed an hourglass trans-
+more effective generation of coherent articulated meshes.            former for high-resolution mesh generation.
+    At the object structure level, we learn a vocabulary of              In contrast to these advances in static mesh generation,
+object structures by encoding triangulated part bounding             our work focuses on generating functional articulated ob-
+boxes into quantized triangle embeddings, and then train             jects by disentangling structure from geometry with hierar-
+a decoder-only transformer to autoregressively predict a tri-        chical autoregressive models.
+angle sequence representing the part bounding primitives.            Structured Object Generation. Structure-aware genera-
+At the part geometry level, we learn a separate codebook             tive models for 3D objects have focused on modeling object
+that encodes both part mesh triangles and their likelihood           parts and their relationships [16, 36]. SAGNet [40] learns
+of serving as junctions between parts. We then train an-             part geometry and pairwise relations within a shared latent
+other transformer to generate the triangle sequence for each         space, while StructureNet [23] represents objects as n-ary
+part mesh, conditioned on the object structure embeddings            graphs, using a hierarchical network to encode both aspects.
+and junction faces from neighboring parts, ensuring smooth           SDM-NET [7] models part geometry with deformable mesh
+transitions between parts. Experiments across three cate-            boxes and encodes global structure in a VAE. DSG-Net [43]
+gories of our articulated PartNet dataset demonstrate that           learns separate latent space for geometry and structure,
+our method significantly improves both the diversity of ar-          achieving fine-grained control during generation.
+ticulation structures and the quality of generated 3D meshes            While these methods effectively generate coherent 3D
+compared to state-of-the-art methods, achieving an average           shapes with structural relations, they do not model artic-
+improvement of 57.1% in structure coverage and a 209-                ulation. In contrast, we encode articulation properties at
+point improvement in mesh generation FID scores.                     the object structure level, enabling the creation of compact
+    In summary, our contributions are:                               meshes with functional part motions.
+• We propose MeshArt, a novel hierarchical approach for
+                                                                     Articulated Object Modeling. Recent advances in articu-
+   generating articulated 3D objects, part by part to create
+                                                                     lated 3D object modeling focus on reconstruction or gener-
+  1 Project page: daoyig.github.io/Mesh Art/                         ation with geometric and motion properties. Ditto [13] re-
+
+
+
+                                                                   619
+constructs articulated objects from point clouds as implicit                                        Project and Concat Feature per Triangle
+                                                                         Input
+representations, capturing occupancy, part types, and joint           Structure
+                                                                                                       Graph Convolutional Encoder 𝐸!
+                                                                     Triangles 𝑏,
+parameters. Similarly, [12] and [19] use implicit neural             Semantic 𝑙,                             Vector Quantization
+fields to reconstruct articulation from stereo RGB and point        Geometry 𝑔,
+                                                                    Articulation 𝑎                          Structure Codebook 𝐶!
+cloud videos. PARIS [17] disentangles static and movable               features                                                               Reconstructed
+                                                                                                                                              Structure with
+                                                                                                         Structure ResNet Decoder 𝐷!
+parts from two articulation states, predicting both geome-                                                                                      attributes
+                                                                                                     Input Structure Tokens 𝑇!
+try and motion. Building on this, [38] introduces explicit
+
+
+
+
+                                                                     Target Structure
+point-level correspondence between articulated states, en-
+
+
+
+
+                                                                                        Tokenizer
+                                                                                        Structure
+                                                                                                          Structure Transformer Φ!
+abling more complex object modeling.
+    NAP [15] models 3D objects with an articulation tree,
+decoding final geometry via implicit fields or part retrieval.
+CAGE [18] employs diffusion to generate articulation ab-            Figure 2. We model high-level object structures with articula-
+                                                                    tions using a VQ-VAE for structure encoding (top) and a decoder-
+stractions, relying on part retrieval for final output. How-
+                                                                    only transformer for autoregressive structure sequence generation
+ever, retrieval-based approaches [33, 39, 45] can bring in-         (bottom). The encoder Es first encodes triangulated part bound-
+consistencies in part geometry and overall structure. In con-       ing boxes, along with semantics, coarse geometry, and articulation
+trast, our approach generates structure and geometry cohe-          features, into a structure token sequence Ts over a learned code-
+sively in a unified triangle mesh representation, improving         book Cs . The structure transformer Φs then learns to predict the
+efficiency and robustness in articulated object modeling.           next token in Ts , which is subsequently decoded by the decoder
+                                                                    Ds to generate the object structure.
+3. Method                                                           3.1. Articulation-Aware Structure Generation
+Our goal is to generate articulated 3D objects in a compact         For an articulated object with functional parts {P i }, we
+triangle mesh representation with sharp geometric details.          represent its high-level structure as S = {si }, capturing
+We formulate articulated mesh generation in a hierarchical,         each part’s spatial location, articulation motion, semantic
+part-by-part fashion and propose MeshArt, a transformer-            label, and coarse geometry guidance. Encoding articulation
+based approach that generates both part-level object struc-         at the structure level abstracts away part geometry details,
+tures and part mesh geometry as sequences of triangles.             enabling efficient modeling of shared articulation modes
+    To capture high-level object structures (Sec. 3.1), we de-      across objects. Articulation modeling requires distinguish-
+compose a 3D object into functional parts {P i } and repre-         ing between various articulated and static parts, and defin-
+sent the object structure as S = {si }. Each si encodes the         ing articulation properties, including joint types, locations,
+bounding box, articulation properties, part semantics, and          and orientations, as detailed below.
+latent geometry features of part P i . This part-level abstrac-     Structure Parameterization. For each part P i , we encode
+tion enables efficient joint modeling of parts and articula-        its bounding box bi , articulation properties ai , semantic la-
+tion modes, providing global guidance for articulated mesh          bel li , and latent geometry gi as
+generation. To formulate structure generation as a sequence
+prediction task, we represent each part’s bounding box as a                                         si = (bi , ai , li , gi ).                           (1)
+triangle mesh and learn a structure codebook Cs to encode
+S as a sequence of quantized triangle embeddings. A struc-             The part bounding box bi is represented as an axis-
+ture transformer Φs is trained to predict the next embedding        aligned bounding box (AABB) in the object’s canonical
+index in this sequence. Once trained, Φs can be autoregres-         resting state (e.g., doors and drawers are closed). For effi-
+sively sampled to generate articulated object structures.           cient sequence modeling and generation, as well as effective
+    Next, we generate part geometry for P i as a sequence           conditioning for the mesh surface generation, we represent
+of mesh triangles, guided by the global object structure S          these bounding boxes as triangle meshes.
+(Sec. 3.2). To further capture local geometry and connec-              Articulation properties ai = (ji , f i , oi , pi ) include joint
+tivity between parts, we encode the mesh triangles of P i ,         type ji , existence f i , orientation oi , and location pi . Three
+along with their likelihood of being junction faces connect-        joint types are considered: fixed, revolute, and prismatic.
+ing different parts, as a quantized embedding sequence over         The joint orientation is represented as a 3D unit vector. Pris-
+a separately learned geometry codebook Cg . This junction           matic joint locations are canonicalized to the object’s origin.
+injection ensures smooth transitions between adjacent parts.        The range for revolute joints is set to 90◦ , and the range for
+A geometry transformer Φg then predicts the next triangle           prismatic joints is determined by the object’s base extent.
+face embedding index, conditioned on S and junction em-                The part semantic label li is encoded as a feature vector
+beddings from neighboring parts. Finally, we decode the             using the CLIP text encoder [28].
+generated embeddings into a clean, compact part mesh.               Learning Quantized Structure Embeddings. To facili-
+
+
+
+                                                                  620
+tate autoregressive generation of articulated object struc-                  3.2. Structure-Guided Part Mesh Generation
+tures with transformers, we encode the structure informa-
+                                                                             Next, we generate mesh triangles for each part P i , condi-
+tion S as a sequence of quantized triangle embeddings, as
+                                                                             tioned on the high-level object structure S using a geometry
+shown in Fig. 2-top. We adopt a bottom-up sequence or-
+                                                                             transformer Φg over a separately learned triangle codebook
+dering [25, 31], arranging the N part bounding box meshes
+                                                                             Cg , as illustrated in Fig. 3. Since we generate articulated
+{bi } as a sequence of triangles:
+                                                                             object meshes part by part, we must ensure smooth connec-
+                                 1
+           Ms := (f11 , . . . , f12                          N
+                                    , . . . , fji , . . . , f12 ),   (2)     tions to adjacent part meshes already generated. To address
+                                                                             this, we introduce a junction face mechanism to guide tri-
+where fji denotes the j-th triangle face of the i-th part
+                                                                             angle generation for a coherent 3D object mesh.
+bounding box mesh. Bounding boxes are sorted from bot-
+                                                                                 Junction faces are triangles that
+tom to top based on their lowest face locations. For each
+                                                                             are spatially adjacent to different
+box mesh, vertices are sorted from lowest to highest in z-y-
+                                                                             parts, providing crucial local geome-
+x order (vertical axis z), and the 12 triangle faces are then
+                                                                             try and connectivity cues for generat-
+ordered by their lowest vertex, the next lowest, and so on.
+                                                                             ing mesh triangles of a new part. For               Junction
+   Similar to MeshGPT [31], we then train a Vector
+                                                                             example, in the inset figure, junction                Faces
+Quantized-Variational Autoencoder (VQ-VAE) [35]; in-
+                                                                             faces of the chair wheels strongly in-
+stead of learning a codebook encoding mesh triangles, we
+                                                                             dicate the chair base shape and con-
+learn a structure codebook Cs encoding a triangle-based rep-
+                                                                             nection points. We thus incorpoarate junction face informa-
+resentation of the coarse structure. The structure encoder
+                                                                             tion into the geometry codebook Cg and condition the ge-
+Es employs graph convolutions [9] by treating the triangles
+                                                                             ometry transformer Φg additionally on these junction faces
+in Ms as nodes. Structure features from S are indepen-
+                                                                             to ensure structural continuity, as detailed below.
+dently projected and then concatenated with positionally
+encoded triangle coordinates as input features. The struc-                   Junction-aware Triangle Encoding. We first encode each
+ture encoder Es extracts an articulation-aware feature vec-                  part mesh P i as a sequence of quantized triangle embed-
+tor for each structure triangle as                                           dings using the geometry codebook Cg (Fig. 3-left), similar
+                                                                             to the structure embedding in Sec. 3.1.
+        Zs = (z11 , . . . , zij , . . . , zN
+                                           12 ) = Es (Ms , S),       (3)         Triangles in P i are sorted bottom-up in a sequence
+where zij denotes the feature vector for fji .
+                                                                                                         i
+                                                                             Mig = (f1i , f2i , . . . , fN i
+                                                                                                             ). A graph convolutional [9] geom-
+   At the bottleneck, a residual vector quantization (RQ)                    etry encoder Eg extracts informative geometric features Zgi
+module [21] assigns D codes to each structure triangle fji ,                 for the triangles as: Zgi = Eg (Mig ). An RQ module then
+based on the learned embedding zij and codebook Cs , re-                     quantizes these features, assigning D codes per triangle
+sulting in a structure token sequence Ts as                                  based on the learned codebook Cg as Tgi = RQ(Zgi ; Cg , D).
+                                                                                 We employ a 1D ResNet decoder with two prediction
+       Ts = (t11 , . . . , tij , . . . , tN
+                                          12 ) = RQ(Zs ; Cs , D),    (4)     heads. One head reconstructs the triangle coordinates of
+where tij consists of D embedding indices. A 1D-                             P i from the quantized embeddings, supervised by a cross-
+ResNet [11] decoder Ds then decodes the quantized face                       entropy loss. The other head predicts the probability pik for
+embedding sequence to reconstruct the structure S.                           each face fki ∈ Mig to be a junction face connecting to other
+      During training, to supervise the reconstruction of S, we              parts, thereby injecting junction information into Cg . To su-
+apply a cross-entropy loss to predict the quantized locations                pervise junction predictions, we identify the ground-truth
+of bounding box triangles bi , joint type ji , joint existence               junction faces by calculating the distance between each tri-
+f i , and joint location pi . Predicting locations as discretized            angle in P i and neighboring parts, labeling as junction faces
+coordinates helps stabilize training. We use an ℓ2 loss for                  if their distances fall below a predefined threshold.
+regressing the joint orientation oi , semantic feature li , and              Part Mesh Generation with Transformers. We train the
+geometry feature gi . We refer to the supplemental for more                  geometry transformer Φg to predict the triangle token se-
+training details on the structure VQ-VAE.                                    quence Tgi , guided by the object structure S and junction
+Structure Generation with Transformers. Given the                            face tokens from neighboring parts (Fig. 3-right).
+learned structure codebook Cs , we use a GPT-style decoder-                      The input sequence for Φg is constructed by placing the
+only transformer Φs to predict the structure token sequence                  structure and junction tokens at the beginning, followed by
+Ts , which is then decoded into an object structure S by Ds                  the triangle tokens Tgi . Concretely, for the current part mesh
+(Fig. 2-bottom). The structure transformer Φs is trained                     P i , its corresponding structure tokens (ti1 , . . . , ti12 ) ⊂ Ts
+with a cross-entropy loss for next-token index prediction.                   are extracted and cross-attended to the overall object struc-
+Once trained, we use beam sampling to generate articulated                   ture Ts , before being added to the start of the sequence.
+structures unconditionally from Φs .                                         Next, the junction faces from other parts are appended to
+
+
+
+                                                                           621
+                                                       Current                       Shape                             Target Mesh with
+                               Input Mesh
+                                                         Part                      Structure                           previous Junctions
+                                Triangles
+                                                      Structure                        S
+
+          Graph Convolutional Encoder E!                     Structure Tokenizer                          Geometry Tokenizer
+                                                      Part Structure T!"     Shape Structure T!
+                Vector Quantization                                    Cross-                     Junction Tokens T#   Part Mesh Tokens T$
+                                                                      Attention
+              Geometry Codebook C!
+
+           Geometry ResNet Decoder D!                                                    Geometry Transformer Φ!
+                              Reconstructed
+                              Mesh Triangles,
+                              w/ Per-triangle
+                            Junction Probability
+             Mesh Geometry Encoding                                           Structure-guided Geometry Transformer
+Figure 3. We generate mesh triangles for a 3D object part by part, guided by the high-level object structure S and junction connections
+to previously generated part meshes. Left: The encoder Eg encodes triangles of each part mesh into a sequence of quantized triangle
+embeddings Tg , using a separately learned geometry codebook Cg . The decoder Dg then reconstructs the mesh triangles from Tg and
+predicts a junction probability for each face connecting to other parts. Right: The geometry transformer is conditioned on the current part
+structure, the overall object structure Ts , and junction face tokens to predict the triangle tokens Tg for generating the current part mesh.
+
+the sequence before triangle tokens Tgi , informing smooth                       Categories                       Storage Furniture     Table   Chair
+transitions and connectivity between neighboring parts.
+                                                                                 PartNet-Mobility [42]                         346       101      81
+    The complete sequence is then fed into Φg , which has a                      Ours (Articulated PartNet)                   1786      1454     372
+stack of multi-head self-attention layers, to predict the next
+triangle token in the sequence. We apply a cross-entropy                     Table 1. Our annotated articulated PartNet [24] significantly in-
+loss to the predicted triangle tokens Tgi , while the injected               creases the number of articulated objects.
+structure and junction tokens serve solely as conditioning.
+    Due to the varying length of the condition sequence, de-                 4. Articulated PartNet Dataset Annotations
+pending on the number of junction faces, standard index-
+based positional embeddings would result in inconsistent                     Previous methods for generating articulated objects [15, 18]
+embeddings for the start token of the mesh sequence Tgi .                    primarily relied on the PartNet-Mobility dataset [42], which
+We employ a flexible positional embedding scheme to ad-                      comprises a small number of objects (c.f. Tab. 1) with lim-
+dress this: we fix the positional embeddings starting from                   ited diversity in articulated structures. We thus instead aug-
+Tgi , while applying a constant positional embedding vector                  ment the PartNet dataset [24] across 3 major categories by
+for the preceding condition sequence.                                        annotating articulation information for functional parts such
+                                                                             as cabinet doors, drawers, and wheels. As shown in Tab. 1,
+3.3. Hierarchical Articulated Mesh Sampling                                  our annotations increase the number of articulated parts by
+At inference time, we first sample the structure transformer                 more than 6× compared to PartNet-Mobility.
+Φs unconditionally to generate an object structure sequence                     To ensure accurate annotations of joint locations and ori-
+S, which is then decoded by the structure decoder Ds into                    entations, we 1) manually corrected inconsistencies in mesh
+part bounding boxes with articulation properties.                            orientations and part groupings; 2) automatically annotated
+    Next, for each part P i , we generate its triangle sequence              prismatic joints, aligning all joints to the object space ori-
+  i
+Tg by sampling the geometry transformer Φg , conditioned                     gin; 3) generated hypotheses for revolute joints and manu-
+on object structure S and junction faces from nearby part                    ally selected the most plausible options through an interac-
+meshes. We cache all the triangles predicted as junctions by                 tive interface; and 4) manually verified and adjusted joints
+Dg , then retrieve the junction faces from the cache based on                based on renderings of articulated part motions. Overall,
+their proximity to the current structure bounding box bi .                   we dedicated over 150 hours to constructing this PartNet
+    The predicted triangle tokens Tgi are then decoded into                  extension. We refer to the supplemental for further details.
+mesh triangles by the geometry decoder Dg . Finally, the
+object mesh is obtained by merging close vertices of the                     5. Experiments
+generated triangles. This articulated mesh can be trans-
+formed into different articulation states based on the joint                 We present results using our annotated Articulated PartNet.
+predictions.                                                                 Implementation. To learn the structure and geometry code-
+
+
+
+                                                                           622
+books, our RQ layer has a depth of 2, yielding D = 6 em-                                                         AID
+                                                                               Class        Method
+beddings per face, each with dimension 192. For the tri-                                               COV↑     MMD↓     1-NNA
+angle location prediction, both structure and geometry de-
+                                                                                           NAP [15]     28.3      3.7      89.5
+coders predict face coordinates across 128 classes, result-                    Chair       CAGE [18]    32.9      3.9      92.6
+ing in a discretization of space to 1283 possible values. The
+                                                                                           MeshArt      43.3      3.6      80.2
+structure decoder also regresses the 768-dim part seman-
+                                                                                           NAP [15]     21.1      3.0      92.3
+tic features and 128-dim latent geometry features. For the                     Table       CAGE [18]    25.9      3.9      88.4
+structure transformer Φs , we use a GPT2-small model with
+                                                                                           MeshArt      40.2      2.3      71.8
+a context window of 4608, and for the geometry transformer
+                                                                                           NAP [15]     30.6      2.6      85.9
+Φg , we use a GPT2-medium model of the same window                              Storage
+                                                                                           CAGE [18]    33.4      4.7      80.3
+length. We implemented our approach using PyTorch [26].                        Furniture
+                                                                                           MeshArt      39.1      2.1      77.1
+Training. During training, we employ augmentation
+techniques including random shifts and random scal-                Table 2. Quantitative evaluation on articulated structure genera-
+ing to enhance the training mesh diversity. Similar to             tion. MMD values are multiplied by 103 . We outperform baselines
+                                                                   in all 3 categories in structure generation diversity and realism.
+MeshGPT [31], we apply planar decimation to augment the
+shapes. To ensure that a part mesh fits into the geometry
+transformer’s context window, we select the object parts           from 8 viewpoints in Blender, using a metallic material to
+with < 700 faces (post-decimation) for training.                   highlight geometric details. We then compute FID (Fréchet
+   We begin by training both the VQ-VAEs and transformer           Inception Distance) and KID (Kernel Inception Distance),
+models across all 3 (chairs, tables, storage) categories and       where lower scores indicate better performance.
+then fine-tune the transformers on each category individu-         5.2. Results
+ally. We use a 90/10 training/testing split for each category.
+The structure VQ-VAE is trained on one A6000 GPU for 3             Structure Generation Quality. We evaluate how well our
+days, and the geometry VQ-VAE is trained on one A100 for           structure transformer covers the articulation structure dis-
+2 days until convergence. Pretraining Φs takes 3 days on           tribution by unconditionally sampling our model and gen-
+a single A100 GPU, followed by 1 day for fine-tuning on            erating structures at least the same number as the train
+each category. Pretraining Φg takes ∼ 4 days on four A100          set. Using the generated joint information, we transform
+GPUs, followed by 2 days per category for fine-tuning on           these structures across various articulation states and eval-
+a single A100. We use the ADAM optimizer [14] with a               uate their AID scores, with results reported in Tab. 2. As
+learning rate of 1 × 10−4 and a batch size of 64.                  shown, our method consistently outperforms both baselines
+Baselines. NAP [15] is trained on our data on each category        across all three categories.
+individually. CAGE [18] requires an object part graph as               NAP generates articulation trees where nodes store part
+input, so we extracted the graph conditions from our dataset       geometry information and edges capture relative transfor-
+and retrained CAGE with our data for all comparisons.              mations and joint information using Plücker coordinates. It
+                                                                   needs a post-processing step to extract a valid articulation
+5.1. Evaluation Metrics.                                           tree and suffers from modeling intricate articulations, such
+Shape Quality. Following [15, 18], we use Instantiation            as the joints are incorrectly predicted for the complex office
+Distance (ID) to assess mesh geometry at different articu-         chairs shown in the last 2 rows of Fig.4. CAGE requires a
+lation states and Abstract Instantiation Distance (AID) to         category label and a connectivity graph as conditions to pro-
+evaluate object structure at these states. As in [18], we syn-     duce articulation abstractions. However, CAGE’s generated
+chronize articulation states of both generated and ground-
+truth meshes by sampling 10 evenly spaced articulation                                                           ID
+                                                                       Class       Method
+states between start and end positions. To evaluate ID                                         COV↑    MMD↓     1-NNA    FID↓     KID↓
+and AID, we sample 2,048 surface points from each ob-                             NAP [15]      37.1      5.4     88.9   267.7    0.263
+ject mesh and its structure bounding box, respectively. We             Chair
+                                                                                  MeshArt       44.0      4.2     73.2    40.8    0.008
+then compute Minimum Matching Distance (MMD), Cov-                                NAP [15]      27.9      6.7     89.0   252.6    0.238
+erage (COV), and 1-Nearest-Neighbor Accuracy (1-NNA).                  Table
+                                                                                  MeshArt       36.9      4.6     78.6    14.3    0.002
+Lower MMD indicates better quality, higher COV reflects
+                                                                                  NAP [15]      33.3      4.0     94.1   170.6    0.167
+broader distribution coverage; for 1-NNA, 50% is optimal.               Storage
+Perceptual Quality. While the metrics above assess geo-                Furniture MeshArt        41.2      3.1     83.3     8.1    0.002
+metric quality, they do not capture visual similarity to the       Table 3. Quantitative evaluation on articulated mesh generation.
+real data distribution. To address this, we render gener-          MMD values are multiplied by 103 . Our approach outperforms
+ated and ground-truth meshes at the same articulation state        baselines in both shape and visual quality metrics.
+
+
+
+
+                                                                 623
+                             NAP                                                              Ours
+
+
+
+
+                         Resting State   Articulation State                                Resting State      Articulation State
+          Structure                  Geometry                              Structure                   Geometry
+
+Figure 4. Qualitative comparison across all categories, showing generated structures with joints, mesh geometry in resting and articulated
+states. Our approach generates compact meshes with sharp geometry and precise joints, enabling realistic part movements.
+
+
+structures exhibit repetitive patterns, resulting in lower cov-         Shape Novelty Analysis. We analyze the shape genera-
+erage scores. Our method achieves lower MMD and higher                  tion novelty following [31, 37]. We generate 1,000 shapes
+COV scores, demonstrating its ability to produce more re-               and retrieve their nearest neighbors in the training set using
+alistic and diverse articulation structures.                            Chamfer Distance (CD). As shown in Fig. 5, our method
+Articulated Mesh Generation. A key objective of our                     captures the training distribution well (indicated by low CD)
+work is to generate articulated meshes with clean, sharp ge-            while effectively generating novel shapes (with high CD).
+ometry. As demonstrated in Fig. 4 and Tab. 3, our method
+consistently outperforms NAP [15] in ID score and visual                Conditional Generation. Our approach can support con-
+quality. NAP requires Marching Cubes [20] to decode the                 ditional generation by injecting condition tokens to the
+final geometry from generated shape codes, resulting in                 structure transformer Φs while keeping the geometry trans-
+over-smoothed and over-tessellated meshes. In contrast, our             former Φg fixed. As shown in Fig. 6, our approach gen-
+approach produces sharper and more compact meshes, ef-                  erates articulated meshes from 3D point clouds and sketch
+fectively preserving sharp geometry details.                            images. More results can be found in the supplemental.
+
+
+
+                                                                     624
+                             0
+                                                                                                                                                                               AID
+                                                                                                                                              Method
+                                                                                                                                                                  COV↑       MMD↓       1-NNA
+                             2
+                                                                                                                                              Min/Max Bounds        36.3        4.6         84.0
+                                                                                                                                              Bbox Corners          35.0        4.4         85.7
+   Chamfer Distance (×10!)
+
+
+
+
+                             4                                                                                                                MeshArt               39.1        2.1         77.1
+                                     20th Percentile
+
+
+
+
+                                                                              50th Percentile
+                                                                                                                             Table 4. Ablation study on structure parameterizations (storage
+                                                                                                                             category). Using triangles as parameterization notably improves
+                             6
+                                                                                                                             structure generation quality compared to baselines.
+                                                       Gen Shape   GT Shape                      Gen Shape      GT Shape
+
+
+                                                                              90th Percentile
+                                     80th Percentile
+
+
+
+
+                             8                                                                                                   Method                          COV↑        MMD↓     1-NNA        FID↓    KID↓
+                                                                                                                                 w/o Junction Condition            39.1        2.5       80.0      16.7    0.006
+                                                                                                                                 w/o Shape Structure Guidance      39.7        2.1       79.7       9.6    0.004
+                  10                                                                                                             w/o Flex Positional Embedding     40.2        2.1       79.5       8.8    0.003
+                                                       Gen Shape   GT Shape                      Gen Shape      GT Shape
+                                                                                                                                 MeshArt                           40.9        2.0       78.7       8.6    0.003
+
+Figure 5. Shape novelty analysis on storage category. We generate                                                            Table 5. Ablation study (storage category). Incorporating struc-
+1,000 shapes and plot their distances to the train set. The generated                                                        ture, local vicinity junctions, and a flexible positional embedding
+shape (left) at the 50th percentile already differs from its closest                                                         enables our model to generate more diverse and realistic shapes.
+match (right), showing that our method captures both the shape
+distribution (low CD) while generating novel shapes (high CD).
+
+
+
+
+                                                                                                                                  Structure       w/o            w/o Shape       w/o flex           Ours
+  Point Cloud Condition and Generated Structure                          Sketch Condition and Generated Structure
+                                                                                                                                  Condition       Junction       Structure       Position Embed     (Complete)
+
+
+
+                                                                                                                             Figure 7. Ablation visualization. Omitting junction guidance (w/o
+                                 Generated Geometry                                             Generated Geometry
+                                                                                                                             junction) results in part incoherence, while excluding global struc-
+                                                                                                                             ture awareness (w/o Shape Structure) produces coherent shapes
+Figure 6. Conditional Generation. Articulated structures and ge-                                                             but lacks style consistency across parts. Without the flexible em-
+ometry are generated conditioned on point clouds or sketches.                                                                bedding scheme, the model tends to generate simpler shapes.
+
+
+5.3. Ablations                                                                                                               Limitations. While MeshArt shows strong potential in 3D
+                                                                                                                             articulated mesh generation, some limitations remain. Our
+Are triangles a better representation for object struc-                                                                      transformer-based approach predicts codebook indices for
+tures? We consider using the bounding box vertices or the                                                                    structure and geometry, without full awareness of the de-
+min/max corners as structure parameterizations, encoded                                                                      coded surface or articulation motion, making it challenging
+with PointNet [27]. As shown in Tab. 4, our triangle param-                                                                  to enforce physical plausibility, as the codebook selection
+eterization significantly outperforms the baselines, enabling                                                                is non-differentiable. Additionally, while our Articulated
+more diverse and realistic articulated structure generation.                                                                 PartNet annotations significantly expand training data, its
+Effectiveness of junction face conditioning. Tab. 5 and                                                                      size remains limited for large-scale training. Nevertheless,
+Fig. 7 shows the effect of our junction face conditioning,                                                                   we see this dataset as a valuable step toward enabling com-
+in comparison to conditioning only on shape structure in-                                                                    pact articulated 3D mesh generation.
+formation. This notably improves shape consistency and
+results in more plausible synthesis.                                                                                         6. Conclusion
+Effect of shape structure conditioning. Fig. 7 and Tab. 5                                                                    We introduced MeshArt, a triangle-based hierarchical ap-
+show that full shape structure conditioning enables more co-                                                                 proach for generating articulated 3D meshes. We decom-
+herent shape generation, thus improving performance.                                                                         pose objects into coarse part-based structures and detailed
+Effect of flexible embedding. Without the flexible po-                                                                       part mesh geometries, grounding articulations at the struc-
+sitional embedding, variation in the condition sequence                                                                      ture level. This enables synthesizing clean, coherent artic-
+length leads to inconsistent positional embedding features                                                                   ulated meshes, ensuring both geometric quality and func-
+for the mesh part starting token. This inconsistency hinders                                                                 tional properties. We believe MeshArt will drive progress in
+learning of long-range dependencies, resulting in generat-                                                                   3D vision and embodied AI, opening new possibilities for
+ing simpler shapes, as illustrated in Fig. 7.                                                                                digital agents to learn and interact with the physical world.
+
+
+
+                                                                                                                           625
+Acknowledgements.         This project is funded by the                    ings of the IEEE conference on computer vision and pattern
+Bavarian State Ministry of Science and the Arts and co-                    recognition, pages 770–778, 2016. 4
+ordinated by the Bavarian Research Institute for Digital              [12] Nick Heppert, Muhammad Zubair Irshad, Sergey Zakharov,
+Transformation (bidt), the ERC Starting Grant SpatialSem                   Katherine Liu, Rares Andrei Ambrus, Jeannette Bohg, Ab-
+(101076253), and the German Research Foundation (DFG)                      hinav Valada, and Thomas Kollar. CARTO: Category and
+Grant “Learning How to Interact with Scenes through Part-                  Joint Agnostic Reconstruction of ARTiculated Objects. In
+Based Understanding”. We thank Quan Meng, Yueh-Cheng                       Proc. IEEE Conf. Comput. Vis. Pattern Recog., pages 21201–
+Liu, and Haoxuan Li for the constructive discussions. We                   21210, 2023. 3
+also thank Yueh-Cheng Liu for helping with the supplemen-             [13] Zhenyu Jiang, Cheng-Chun Hsu, and Yuke Zhu. Ditto:
+tal video.                                                                 Building Digital Twins of Articulated Objects from Interac-
+                                                                           tion. In CVPR, pages 5606–5616, 2022. 2
+References                                                            [14] Diederik P Kingma and Jimmy Ba. Adam: A method for
+                                                                           stochastic optimization. arXiv preprint arXiv:1412.6980,
+ [1] Antonio Alliegro, Yawar Siddiqui, Tatiana Tommasi, and
+                                                                           2014. 6
+     Matthias Nießner. Polydiff: Generating 3d polygonal meshes
+     with diffusion models. arXiv preprint arXiv:2312.11417,          [15] Jiahui Lei, Congyue Deng, William B Shen, Leonidas J
+     2023. 2                                                               Guibas, and Kostas Daniilidis. Nap: Neural 3d articulated
+                                                                           object prior. Advances in Neural Information Processing
+ [2] Sijin Chen, Xin Chen, Anqi Pang, Xianfang Zeng, Wei
+                                                                           Systems, 36:31878–31894, 2023. 3, 5, 6, 7
+     Cheng, Yijun Fu, Fukun Yin, Billzb Wang, Jingyi Yu, Gang
+     Yu, et al. Meshxl: Neural coordinate field for generative 3d     [16] Jun Li, Kai Xu, Siddhartha Chaudhuri, Ersin Yumer, Hao
+     foundation models. Advances in Neural Information Pro-                Zhang, and Leonidas Guibas. Grass: Generative recursive
+     cessing Systems, 37:97141–97166, 2024. 2                              autoencoders for shape structures. ACM Transactions on
+ [3] Yiwen Chen, Yikai Wang, Yihao Luo, Zhengyi Wang, Zilong               Graphics (TOG), 36(4):1–14, 2017. 2
+     Chen, Jun Zhu, Chi Zhang, and Guosheng Lin. Meshany-             [17] Jiayi Liu, Ali Mahdavi-Amiri, and Manolis Savva. Paris:
+     thing v2: Artist-created mesh generation with adjacent mesh           Part-level reconstruction and motion analysis for articulated
+     tokenization. arXiv preprint arXiv:2408.02555, 2024. 2                objects. In Proceedings of the IEEE/CVF International Con-
+ [4] Yen-Chi Cheng, Hsin-Ying Lee, Sergey Tulyakov, Alexan-                ference on Computer Vision, pages 352–363, 2023. 3
+     der G Schwing, and Liang-Yan Gui. Sdfusion: Multimodal           [18] Jiayi Liu, Hou In Ivan Tam, Ali Mahdavi-Amiri, and Manolis
+     3d shape completion, reconstruction, and generation. In Pro-          Savva. Cage: Controllable articulation generation. In Pro-
+     ceedings of the IEEE/CVF Conference on Computer Vision                ceedings of the IEEE/CVF Conference on Computer Vision
+     and Pattern Recognition, pages 4456–4465, 2023. 1                     and Pattern Recognition, pages 17880–17889, 2024. 3, 5, 6
+ [5] Angela Dai and Matthias Nießner. Scan2mesh: From un-             [19] Shaowei Liu, Saurabh Gupta, and Shenlong Wang. Build-
+     structured range scans to 3d meshes. In Proceedings of                ing rearticulable models for arbitrary 3d objects from 4d
+     the IEEE/CVF Conference on Computer Vision and Pattern                point clouds. In Proceedings of the IEEE/CVF Conference
+     Recognition, pages 5574–5583, 2019. 2                                 on Computer Vision and Pattern Recognition, pages 21138–
+ [6] Ziya Erkoç, Fangchang Ma, Qi Shan, Matthias Nießner,                 21147, 2023. 3
+     and Angela Dai. Hyperdiffusion: Generating implicit neu-         [20] William E Lorensen and Harvey E Cline. Marching cubes:
+     ral fields with weight-space diffusion. In Proceedings of             A high resolution 3d surface construction algorithm. In Sem-
+     the IEEE/CVF international conference on computer vision,             inal graphics: pioneering efforts that shaped the field, pages
+     pages 14300–14310, 2023. 1                                            347–353. 1998. 7
+ [7] Lin Gao, Jie Yang, Tong Wu, Yu-Jie Yuan, Hongbo Fu, Yu-          [21] Julieta Martinez, Holger H Hoos, and James J Little. Stacked
+     Kun Lai, and Hao Zhang. Sdm-net: Deep generative net-                 quantizers for compositional vector compression. arXiv
+     work for structured deformable mesh. ACM Transactions on              preprint arXiv:1411.2173, 2014. 4
+     Graphics (TOG), 38(6):1–15, 2019. 2                              [22] Quan Meng, Lei Li, Matthias Nießner, and Angela Dai.
+ [8] Haoran Geng, Helin Xu, Chengyang Zhao, Chao Xu, Li Yi,                Lt3sd: Latent trees for 3d scene diffusion. arXiv preprint
+     Siyuan Huang, and He Wang. Gapartnet: Cross-category                  arXiv:2409.08215, 2024. 1
+     domain-generalizable object perception and manipulation          [23] Kaichun Mo, Paul Guerrero, Li Yi, Hao Su, Peter Wonka,
+     via generalizable and actionable parts. In Proceedings of             Niloy Mitra, and Leonidas J Guibas. Structurenet: Hierarchi-
+     the IEEE/CVF Conference on Computer Vision and Pattern                cal graph networks for 3d shape generation. arXiv preprint
+     Recognition, pages 7081–7091, 2023. 2                                 arXiv:1908.00575, 2019. 2
+ [9] Will Hamilton, Zhitao Ying, and Jure Leskovec. Inductive         [24] Kaichun Mo, Shilin Zhu, Angel X Chang, Li Yi, Subarna
+     representation learning on large graphs. Advances in neural           Tripathi, Leonidas J Guibas, and Hao Su. Partnet: A large-
+     information processing systems, 30, 2017. 4                           scale benchmark for fine-grained and hierarchical part-level
+[10] Zekun Hao, David W Romero, Tsung-Yi Lin, and Ming-Yu                  3d object understanding. In Proceedings of the IEEE/CVF
+     Liu. Meshtron: High-fidelity, artist-like 3d mesh generation          conference on computer vision and pattern recognition,
+     at scale. arXiv preprint arXiv:2412.09548, 2024. 2                    pages 909–918, 2019. 2, 5
+[11] Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun.           [25] Charlie Nash, Yaroslav Ganin, SM Ali Eslami, and Peter
+     Deep residual learning for image recognition. In Proceed-             Battaglia. Polygen: An autoregressive generative model of
+
+
+
+
+                                                                    626
+     3d meshes. In International conference on machine learning,      [37] Haohan Weng, Yikai Wang, Tong Zhang, CL Chen, and Jun
+     pages 7220–7229. PMLR, 2020. 2, 4                                     Zhu. Pivotmesh: Generic 3d mesh generation via pivot ver-
+[26] Adam Paszke, Sam Gross, Francisco Massa, Adam Lerer,                  tices guidance. arXiv preprint arXiv:2405.16890, 2024. 2,
+     James Bradbury, Gregory Chanan, Trevor Killeen, Zem-                  7
+     ing Lin, Natalia Gimelshein, Luca Antiga, Alban Desmai-          [38] Yijia Weng, Bowen Wen, Jonathan Tremblay, Valts Blukis,
+     son, Andreas Kopf, Edward Yang, Zachary DeVito, Mar-                  Dieter Fox, Leonidas Guibas, and Stan Birchfield. Neural
+     tin Raison, Alykhan Tejani, Sasank Chilamkurthy, Benoit               implicit representation for building digital twins of unknown
+     Steiner, Lu Fang, Junjie Bai, and Soumith Chintala. Pytorch:          articulated objects. In Proceedings of the IEEE/CVF Con-
+     An imperative style, high-performance deep learning library.          ference on Computer Vision and Pattern Recognition, pages
+     In Advances in Neural Information Processing Systems 32,              3141–3150, 2024. 3
+     pages 8024–8035. Curran Associates, Inc., 2019. 6                [39] Rundi Wu, Yixin Zhuang, Kai Xu, Hao Zhang, and Bao-
+[27] Charles R Qi, Hao Su, Kaichun Mo, and Leonidas J Guibas.              quan Chen. Pq-net: A generative part seq2seq network for
+     Pointnet: Deep learning on point sets for 3d classification           3d shapes. In Proceedings of the IEEE/CVF Conference on
+     and segmentation. In Proceedings of the IEEE conference               Computer Vision and Pattern Recognition, pages 829–838,
+     on computer vision and pattern recognition, pages 652–660,            2020. 3
+     2017. 8                                                          [40] Zhijie Wu, Xiang Wang, Di Lin, Dani Lischinski, Daniel
+[28] Alec Radford, Jong Wook Kim, Chris Hallacy, Aditya                    Cohen-Or, and Hui Huang. Sagnet: Structure-aware gen-
+     Ramesh, Gabriel Goh, Sandhini Agarwal, Girish Sastry,                 erative network for 3d-shape modeling. ACM Transactions
+     Amanda Askell, Pamela Mishkin, Jack Clark, et al. Learning            on Graphics (TOG), 38(4):1–14, 2019. 2
+     transferable visual models from natural language supervi-        [41] Zhennan Wu, Yang Li, Han Yan, Taizhang Shang, Weixuan
+     sion. In International conference on machine learning, pages          Sun, Senbo Wang, Ruikai Cui, Weizhe Liu, Hiroyuki Sato,
+     8748–8763. PMLR, 2021. 3                                              Hongdong Li, et al. Blockfusion: Expandable 3d scene gen-
+[29] Barbara Roessle, Norman Müller, Lorenzo Porzi,                       eration using latent tri-plane extrapolation. ACM Transac-
+     Samuel Rota Bulò, Peter Kontschieder, Angela Dai,                    tions on Graphics (TOG), 43(4):1–17, 2024. 1
+     and Matthias Nießner. L3dg: Latent 3d gaussian diffusion.        [42] Fanbo Xiang, Yuzhe Qin, Kaichun Mo, Yikuan Xia, Hao
+     In SIGGRAPH Asia 2024 Conference Papers, 2024. 1                      Zhu, Fangchen Liu, Minghua Liu, Hanxiao Jiang, Yifu Yuan,
+[30] J Ryan Shue, Eric Ryan Chan, Ryan Po, Zachary Ankner,                 He Wang, et al. Sapien: A simulated part-based interactive
+     Jiajun Wu, and Gordon Wetzstein. 3d neural field generation           environment. In Proceedings of the IEEE/CVF conference
+     using triplane diffusion. In Proceedings of the IEEE/CVF              on computer vision and pattern recognition, pages 11097–
+     Conference on Computer Vision and Pattern Recognition,                11107, 2020. 2, 5
+     pages 20875–20886, 2023. 1                                       [43] Jie Yang, Kaichun Mo, Yu-Kun Lai, Leonidas J Guibas,
+[31] Yawar Siddiqui, Antonio Alliegro, Alexey Artemov, Ta-                 and Lin Gao. Dsm-net: Disentangled structured mesh net
+     tiana Tommasi, Daniele Sirigatti, Vladislav Rosov, Angela             for controllable generation of fine geometry. arXiv preprint
+     Dai, and Matthias Nießner. Meshgpt: Generating triangle               arXiv:2008.05440, 2(3), 2020. 2
+     meshes with decoder-only transformers. In Proceedings of
+                                                                      [44] Linqi Zhou, Yilun Du, and Jiajun Wu. 3d shape generation
+     the IEEE/CVF Conference on Computer Vision and Pattern
+                                                                           and completion through point-voxel diffusion. In Proceed-
+     Recognition, pages 19615–19625, 2024. 2, 4, 6, 7
+                                                                           ings of the IEEE/CVF International Conference on Com-
+[32] Yawar Siddiqui, Tom Monnier, Filippos Kokkinos, Mahen-                puter Vision, pages 5826–5835, 2021. 1
+     dra Kariya, Yanir Kleiman, Emilien Garreau, Oran Gafni,
+                                                                      [45] Chuhang Zou, Ersin Yumer, Jimei Yang, Duygu Ceylan, and
+     Natalia Neverova, Andrea Vedaldi, Roman Shapovalov, and
+                                                                           Derek Hoiem. 3d-prnn: Generating shape primitives with
+     David Novotny. Meta 3d assetgen: Text-to-mesh genera-
+                                                                           recurrent neural networks. In Proceedings of the IEEE In-
+     tion with high-quality geometry, texture, and pbr materials.
+                                                                           ternational Conference on Computer Vision, pages 900–909,
+     arXiv, 2024. 1
+                                                                           2017. 3
+[33] Minhyuk Sung, Hao Su, Vladimir G Kim, Siddhartha
+     Chaudhuri, and Leonidas Guibas. Complementme: Weakly-
+     supervised component suggestions for 3d modeling. ACM
+     Transactions on Graphics (TOG), 36(6):1–12, 2017. 3
+[34] Jiaxiang Tang, Zhaoshuo Li, Zekun Hao, Xian Liu, Gang
+     Zeng, Ming-Yu Liu, and Qinsheng Zhang. Edgerunner:
+     Auto-regressive auto-encoder for artistic mesh generation.
+     arXiv preprint arXiv:2409.18114, 2024. 2
+[35] Aaron Van Den Oord, Oriol Vinyals, et al. Neural discrete
+     representation learning. Advances in neural information pro-
+     cessing systems, 30, 2017. 4
+[36] Yanzhen Wang, Kai Xu, Jun Li, Hao Zhang, Ariel Shamir,
+     Ligang Liu, Zhiquan Cheng, and Yueshan Xiong. Symme-
+     try hierarchy of man-made objects. In Computer graphics
+     forum, pages 287–296. Wiley Online Library, 2011. 2
+
+
+
+
+                                                                    627
+

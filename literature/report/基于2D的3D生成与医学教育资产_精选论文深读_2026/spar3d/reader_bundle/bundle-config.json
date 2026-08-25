@@ -1,0 +1,38 @@
+{
+  "title": "SPAR3D: Stable Point-Aware Reconstruction of 3D Objects from Single Images",
+  "subtitle": "Trace grounded claims, inspect evidence, and mine reusable research patterns.",
+  "default_doc": "spar3d",
+  "documents": {
+    "spar3d": {
+      "label": "Spar3D",
+      "pdf": "./docs/spar3d.pdf"
+    }
+  },
+  "links": [
+    {
+      "label": "Report Markdown",
+      "href": "./report.md"
+    },
+    {
+      "label": "Traceability JSON",
+      "href": "./traceability.json"
+    },
+    {
+      "label": "Paragraph Index",
+      "href": "./latex-paragraphs.json"
+    },
+    {
+      "label": "Research Lens",
+      "href": "./research-lens.json"
+    },
+    {
+      "label": "Reader Artifacts",
+      "href": "./reader-artifacts.json"
+    },
+    {
+      "label": "Spar3D PDF",
+      "href": "./docs/spar3d.pdf"
+    }
+  ],
+  "research_lens": "./research-lens.json"
+}

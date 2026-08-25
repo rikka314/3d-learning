@@ -1,0 +1,4 @@
+interface:
+  display_name: "论文精读与证据审查"
+  short_description: "围绕具体论文，先快读判断，再按作者思路、实验依据和公式机制定向精读"
+  default_prompt: "使用 $paper-reading 解读用户明确提供或指认的具体研究论文。先确认任务模式，读取论文正文并实际查看关键 Figure、Table 和 Equation；默认先建立论文地图并检查 Experiment，再决定是否深入 Introduction、Approach、Related Work、补充材料和官方 repo。所有质量判断必须区分作者声称、论文直接证据、repo 事实、外部背景与解释性推断。不要把本 Skill 用于泛文献检索、批量 URL 核验、全文翻译、一般 GitHub review 或普通 HTML 开发。"

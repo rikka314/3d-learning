@@ -1,0 +1,684 @@
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex)
+ restricted \write18 enabled.
+entering extended mode
+(./main.tex
+LaTeX2e <2024-11-01> patch level 2
+L3 programming layer <2025-01-18>
+(d:/texlive/2025/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2024/06/29 v1.4n Standard LaTeX document class
+(d:/texlive/2025/texmf-dist/tex/latex/base/size10.clo)) (./cvpr.sty
+(d:/texlive/2025/texmf-dist/tex/latex/psnfss/times.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/tools/xspace.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/xcolor/xcolor.sty
+(d:/texlive/2025/texmf-dist/tex/latex/graphics-cfg/color.cfg)
+(d:/texlive/2025/texmf-dist/tex/latex/graphics-def/pdftex.def)
+(d:/texlive/2025/texmf-dist/tex/latex/graphics/mathcolor.ltx))
+(d:/texlive/2025/texmf-dist/tex/latex/graphics/dvipsnam.def)
+(d:/texlive/2025/texmf-dist/tex/latex/graphics/graphicx.sty
+(d:/texlive/2025/texmf-dist/tex/latex/graphics/keyval.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/graphics/graphics.sty
+(d:/texlive/2025/texmf-dist/tex/latex/graphics/trig.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/graphics-cfg/graphics.cfg)))
+(d:/texlive/2025/texmf-dist/tex/latex/amsmath/amsmath.sty
+For additional information on amsmath, use the `?' option.
+(d:/texlive/2025/texmf-dist/tex/latex/amsmath/amstext.sty
+(d:/texlive/2025/texmf-dist/tex/latex/amsmath/amsgen.sty))
+(d:/texlive/2025/texmf-dist/tex/latex/amsmath/amsbsy.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/amsmath/amsopn.sty))
+(d:/texlive/2025/texmf-dist/tex/latex/amsfonts/amssymb.sty
+(d:/texlive/2025/texmf-dist/tex/latex/amsfonts/amsfonts.sty))
+(d:/texlive/2025/texmf-dist/tex/latex/booktabs/booktabs.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/natbib/natbib.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/silence/silence.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/etoolbox/etoolbox.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/caption/caption.sty
+(d:/texlive/2025/texmf-dist/tex/latex/caption/caption3.sty))
+(d:/texlive/2025/texmf-dist/tex/latex/caption/subcaption.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/url/url.sty)
+CVPR 8.5 x 11-Inch Proceedings Style `cvpr.sty'.
+(d:/texlive/2025/texmf-dist/tex/latex/enumitem/enumitem.sty))
+(d:/texlive/2025/texmf-dist/tex/latex/multirow/multirow.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/axessibility/axessibility.sty
+(d:/texlive/2025/texmf-dist/tex/generic/xstring/xstring.sty
+(d:/texlive/2025/texmf-dist/tex/generic/xstring/xstring.tex))
+(d:/texlive/2025/texmf-dist/tex/latex/accsupp/accsupp.sty
+(d:/texlive/2025/texmf-dist/tex/generic/pdfescape/pdfescape.sty
+(d:/texlive/2025/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty)
+(d:/texlive/2025/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+(d:/texlive/2025/texmf-dist/tex/generic/infwarerr/infwarerr.sty)
+(d:/texlive/2025/texmf-dist/tex/generic/iftex/iftex.sty)))
+(d:/texlive/2025/texmf-dist/tex/latex/kvoptions/kvoptions.sty
+(d:/texlive/2025/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty))
+(d:/texlive/2025/texmf-dist/tex/latex/accsupp/accsupp-pdftex.def))
+(d:/texlive/2025/texmf-dist/tex/generic/pdftex/glyphtounicode.tex))
+(d:/texlive/2025/texmf-dist/tex/latex/colortbl/colortbl.sty
+(d:/texlive/2025/texmf-dist/tex/latex/tools/array.sty)) (./preamble.tex)
+(d:/texlive/2025/texmf-dist/tex/latex/hyperref/hyperref.sty
+(d:/texlive/2025/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/hycolor/hycolor.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/hyperref/nameref.sty
+(d:/texlive/2025/texmf-dist/tex/latex/refcount/refcount.sty)
+(d:/texlive/2025/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty))
+(d:/texlive/2025/texmf-dist/tex/generic/stringenc/stringenc.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/hyperref/pd1enc.def)
+(d:/texlive/2025/texmf-dist/tex/generic/intcalc/intcalc.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/hyperref/puenc.def)
+(d:/texlive/2025/texmf-dist/tex/latex/hyperref/backref.sty
+(d:/texlive/2025/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+(d:/texlive/2025/texmf-dist/tex/latex/base/atveryend-ltx.sty)
+(d:/texlive/2025/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
+(d:/texlive/2025/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty))))
+(d:/texlive/2025/texmf-dist/tex/generic/bitset/bitset.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/base/atbegshi-ltx.sty))
+(d:/texlive/2025/texmf-dist/tex/latex/hyperref/hpdftex.def)
+(d:/texlive/2025/texmf-dist/tex/latex/marvosym/marvosym.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/cleveref/cleveref.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/psnfss/ot1ptm.fd)
+(d:/texlive/2025/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def)
+No file main.aux.
+(d:/texlive/2025/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+) (d:/texlive/2025/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+(d:/texlive/2025/texmf-dist/tex/latex/grfext/grfext.sty)
+(d:/texlive/2025/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg))
+ABD: EveryShipout initializing macros
+(d:/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd)
+(d:/texlive/2025/texmf-dist/tex/latex/amsfonts/umsb.fd)
+(d:/texlive/2025/texmf-dist/tex/latex/psnfss/ts1ptm.fd)
+(d:/texlive/2025/texmf-dist/tex/latex/marvosym/umvs.fd)
+(d:/texlive/2025/texmf-dist/tex/latex/psnfss/ot1pcr.fd) (./0_abstract.tex)
+(./1_intro.tex
+
+Package natbib Warning: Citation `trellis' on page 1 undefined on input line 4.
+
+
+
+Package natbib Warning: Citation `hunyuan3d' on page 1 undefined on input line 
+4.
+
+
+Package natbib Warning: Citation `direct3ds2' on page 1 undefined on input line
+ 4.
+
+
+Package natbib Warning: Citation `triposr' on page 1 undefined on input line 4.
+
+
+
+Package natbib Warning: Citation `step1x' on page 1 undefined on input line 4.
+
+
+Package natbib Warning: Citation `clay' on page 1 undefined on input line 4.
+
+
+
+LaTeX Warning: Reference `fig:teaser' on page 1 undefined on input line 15.
+
+
+[1{d:/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{d:/texlive/202
+5/texmf-dist/fonts/enc/dvips/base/8r.enc} <./tigon-teaser.png>])
+(./2_related.tex
+
+Package natbib Warning: Citation `nerf' on page 2 undefined on input line 14.
+
+
+Package natbib Warning: Citation `dreamfusion' on page 2 undefined on input lin
+e 14.
+
+
+Package natbib Warning: Citation `sjc' on page 2 undefined on input line 14.
+
+
+Package natbib Warning: Citation `consistent3d' on page 2 undefined on input li
+ne 14.
+
+
+Package natbib Warning: Citation `magic3d' on page 2 undefined on input line 14
+.
+
+
+Package natbib Warning: Citation `fantasia3d' on page 2 undefined on input line
+ 14.
+
+
+Package natbib Warning: Citation `prolificdreamer' on page 2 undefined on input
+ line 14.
+
+
+Package natbib Warning: Citation `li2024connecting' on page 2 undefined on inpu
+t line 14.
+
+
+Package natbib Warning: Citation `kwak2024geometry' on page 2 undefined on inpu
+t line 14.
+
+
+Package natbib Warning: Citation `dreamcraft3d' on page 2 undefined on input li
+ne 14.
+
+
+Package natbib Warning: Citation `gaussiandreamer' on page 2 undefined on input
+ line 14.
+
+
+Package natbib Warning: Citation `dreamgaussian' on page 2 undefined on input l
+ine 14.
+
+
+Package natbib Warning: Citation `liang2024luciddreamer' on page 2 undefined on
+ input line 14.
+
+
+Package natbib Warning: Citation `li2023instant3d' on page 2 undefined on input
+ line 14.
+
+
+Package natbib Warning: Citation `realfusion' on page 2 undefined on input line
+ 14.
+
+
+Package natbib Warning: Citation `neurallift360' on page 2 undefined on input l
+ine 14.
+
+
+Package natbib Warning: Citation `makeit3d' on page 2 undefined on input line 1
+4.
+
+
+Package natbib Warning: Citation `liu2023zero' on page 2 undefined on input lin
+e 14.
+
+
+Package natbib Warning: Citation `weng2023consistent123' on page 2 undefined on
+ input line 14.
+
+
+Package natbib Warning: Citation `liu2024one' on page 2 undefined on input line
+ 14.
+
+
+Package natbib Warning: Citation `liu2023one' on page 2 undefined on input line
+ 14.
+
+
+Package natbib Warning: Citation `wonder3d' on page 2 undefined on input line 1
+4.
+
+
+Package natbib Warning: Citation `syncdreamer' on page 2 undefined on input lin
+e 14.
+
+
+Package natbib Warning: Citation `xu2024instantmesh' on page 2 undefined on inp
+ut line 14.
+
+
+Package natbib Warning: Citation `li2023instant3d' on page 2 undefined on input
+ line 14.
+
+
+Package natbib Warning: Citation `michelangelo' on page 2 undefined on input li
+ne 14.
+
+
+
+Package natbib Warning: Citation `ticd' on page 2 undefined on input line 16.
+
+
+Package natbib Warning: Citation `flexgen' on page 2 undefined on input line 16
+.
+
+
+Package natbib Warning: Citation `3dgs' on page 2 undefined on input line 19.
+
+
+Package natbib Warning: Citation `tang2024lgm' on page 2 undefined on input lin
+e 19.
+
+
+Package natbib Warning: Citation `rf' on page 2 undefined on input line 19.
+
+
+Package natbib Warning: Citation `nerf' on page 2 undefined on input line 19.
+
+
+Package natbib Warning: Citation `mipnerf' on page 2 undefined on input line 19
+.
+
+
+Package natbib Warning: Citation `lan2024ln3diff' on page 2 undefined on input 
+line 19.
+
+
+Package natbib Warning: Citation `nichol2022point' on page 2 undefined on input
+ line 19.
+
+
+Package natbib Warning: Citation `vahdat2022lion' on page 2 undefined on input 
+line 19.
+
+
+Package natbib Warning: Citation `zhang20233dshape2vecset' on page 2 undefined 
+on input line 19.
+
+
+Package natbib Warning: Citation `ren2024xcube' on page 2 undefined on input li
+ne 19.
+
+
+Package natbib Warning: Citation `xiong2025octfusion' on page 2 undefined on in
+put line 19.
+
+
+Package natbib Warning: Citation `yang2024atlas' on page 2 undefined on input l
+ine 19.
+
+
+Package natbib Warning: Citation `chen2025ultra3d' on page 2 undefined on input
+ line 21.
+
+
+Package natbib Warning: Citation `direct3d' on page 2 undefined on input line 2
+1.
+
+
+Package natbib Warning: Citation `direct3ds2' on page 2 undefined on input line
+ 21.
+
+
+Package natbib Warning: Citation `li2025sparc3d' on page 2 undefined on input l
+ine 21.
+
+
+Package natbib Warning: Citation `ye2025hi3dgen' on page 2 undefined on input l
+ine 21.
+
+
+Package natbib Warning: Citation `clay' on page 2 undefined on input line 21.
+
+
+Package natbib Warning: Citation `3dtopiaxl' on page 2 undefined on input line 
+21.
+
+
+Package natbib Warning: Citation `hunyuan3d2025hunyuan3d2.1' on page 2 undefine
+d on input line 21.
+
+
+Package natbib Warning: Citation `lai2025hunyuan3d2.5' on page 2 undefined on i
+nput line 21.
+
+
+Package natbib Warning: Citation `step1x' on page 2 undefined on input line 21.
+
+
+
+Package natbib Warning: Citation `zhou2025few' on page 2 undefined on input lin
+e 21.
+
+
+Package natbib Warning: Citation `trellis' on page 2 undefined on input line 21
+.
+
+
+Package natbib Warning: Citation `unilat' on page 2 undefined on input line 21.
+
+
+
+Package natbib Warning: Citation `llava' on page 2 undefined on input line 28.
+
+
+Package natbib Warning: Citation `qwenvl' on page 2 undefined on input line 28.
+
+
+
+Package natbib Warning: Citation `instructblip' on page 2 undefined on input li
+ne 28.
+
+
+Package natbib Warning: Citation `internvl' on page 2 undefined on input line 2
+8.
+
+
+Package natbib Warning: Citation `3dllm' on page 2 undefined on input line 28.
+
+
+Package natbib Warning: Citation `pointllm' on page 2 undefined on input line 2
+8.
+
+
+Package natbib Warning: Citation `ll3da' on page 2 undefined on input line 28.
+
+
+Package natbib Warning: Citation `controlnet' on page 2 undefined on input line
+ 28.
+
+
+Package natbib Warning: Citation `t2i' on page 2 undefined on input line 28.
+
+
+Package natbib Warning: Citation `ipadapter' on page 2 undefined on input line 
+28.
+
+
+Package natbib Warning: Citation `qwenimage' on page 2 undefined on input line 
+28.
+
+
+Package natbib Warning: Citation `bagel' on page 2 undefined on input line 28.
+
+
+Package natbib Warning: Citation `instructp2p' on page 2 undefined on input lin
+e 28.
+
+
+Package natbib Warning: Citation `makeitmove' on page 2 undefined on input line
+ 28.
+
+
+Package natbib Warning: Citation `wan' on page 2 undefined on input line 28.
+
+) (./3_method.tex
+
+Package natbib Warning: Citation `trellis' on page 2 undefined on input line 7.
+
+
+
+Package natbib Warning: Citation `lipman2022flow' on page 2 undefined on input 
+line 7.
+
+
+Package natbib Warning: Citation `esser2024scaling' on page 2 undefined on inpu
+t line 7.
+
+
+[2]
+
+Package natbib Warning: Citation `dinov2' on page 3 undefined on input line 24.
+
+
+
+Package natbib Warning: Citation `3dgs' on page 3 undefined on input line 34.
+
+
+Package natbib Warning: Citation `rf' on page 3 undefined on input line 34.
+
+
+Package natbib Warning: Citation `unilat' on page 3 undefined on input line 54.
+
+
+
+LaTeX Warning: Reference `sec:intro' on page 1 undefined on input line 65.
+
+
+
+LaTeX Warning: Reference `tab:view_0_res' on page 1 undefined on input line 75.
+
+
+
+LaTeX Warning: Reference `sec:eval_metric' on page 1 undefined on input line 75
+.
+
+
+LaTeX Warning: Reference `tab:view_0_res' on page 1 undefined on input line 75.
+
+
+
+LaTeX Warning: Reference `fig:viewpoint' on page 3 undefined on input line 75.
+
+
+LaTeX Warning: Reference `tab:view_0_res' on page 1 undefined on input line 117
+.
+
+
+[3 <./tigon-show-view.png>]
+
+LaTeX Warning: Reference `fig:pipe' on page 1 undefined on input line 135.
+
+
+
+Package natbib Warning: Citation `dit' on page 4 undefined on input line 143.
+
+
+LaTeX Warning: Reference `sec:trellis' on page 1 undefined on input line 150.
+
+
+[4 <./tigon-method.pdf>]
+
+Package natbib Warning: Citation `controlnet' on page 5 undefined on input line
+ 165.
+
+
+LaTeX Warning: Reference `sec:ablation' on page 1 undefined on input line 175.
+
+
+Package natbib Warning: Citation `cfg' on page 5 undefined on input line 203.
+
+) (./4_experiments.tex
+
+Package natbib Warning: Citation `pytorch' on page 5 undefined on input line 26
+.
+
+
+Package natbib Warning: Citation `deepspeed' on page 5 undefined on input line 
+29.
+
+
+Package natbib Warning: Citation `flashattention' on page 5 undefined on input 
+line 29.
+
+
+Package natbib Warning: Citation `triposr' on page 5 undefined on input line 50
+.
+
+
+Package natbib Warning: Citation `step1x' on page 5 undefined on input line 53.
+
+
+
+Package natbib Warning: Citation `hunyuan3d2025hunyuan3d2.1' on page 5 undefine
+d on input line 54.
+
+
+Package natbib Warning: Citation `ye2025hi3dgen' on page 5 undefined on input l
+ine 55.
+
+
+Package natbib Warning: Citation `direct3ds2' on page 5 undefined on input line
+ 56.
+
+
+Package natbib Warning: Citation `clip' on page 5 undefined on input line 91.
+
+
+Package natbib Warning: Citation `ulip' on page 5 undefined on input line 91.
+
+
+Package natbib Warning: Citation `uni3d' on page 5 undefined on input line 91.
+
+
+LaTeX Warning: Reference `tab:toys4k' on page 5 undefined on input line 110.
+
+
+LaTeX Warning: Reference `fig:main_comp' on page 1 undefined on input line 122.
+
+
+
+[5]
+
+LaTeX Warning: Reference `fig:main_comp' on page 1 undefined on input line 131.
+
+
+
+LaTeX Warning: Reference `fig:edit' on page 1 undefined on input line 150.
+
+
+LaTeX Warning: Reference `fig:contradict' on page 1 undefined on input line 150
+.
+
+
+
+[6]
+
+LaTeX Warning: Text page 7 contains only floats.
+
+
+
+LaTeX Warning: Text page 7 contains only floats.
+
+
+[7 <./tigon-main.png>]
+
+LaTeX Warning: Reference `tab:ablation' on page 1 undefined on input line 184.
+
+
+LaTeX Warning: Reference `fig:ablation' on page 1 undefined on input line 186.
+
+
+LaTeX Warning: Reference `sec:late_fusion' on page 1 undefined on input line 19
+6.
+
+
+LaTeX Warning: Reference `tab:ablation' on page 8 undefined on input line 196.
+
+
+) (./5_conclusion.tex)
+No file main.bbl.
+(./X_suppl.tex
+[8 <./tigon-edit.png> <./tigon-limitation.png> <./tigon-ablation.png>]
+
+LaTeX Warning: Reference `fig:fusion_module' on page A1 undefined on input line
+ 40.
+
+
+
+Package natbib Warning: Citation `trellis' on page A1 undefined on input line 7
+5.
+
+
+Package natbib Warning: Citation `2024GPT4o' on page A1 undefined on input line
+ 75.
+
+
+Package natbib Warning: Citation `deitke2023objaverse' on page A1 undefined on 
+input line 78.
+
+
+Package natbib Warning: Citation `deitke2024objaverse' on page A1 undefined on 
+input line 78.
+
+
+Package natbib Warning: Citation `collins2022abo' on page A1 undefined on input
+ line 81.
+
+
+Package natbib Warning: Citation `fu20213d' on page A1 undefined on input line 
+84.
+
+
+[1 <./tigon-fusion-module.pdf>]
+
+Package natbib Warning: Citation `khanna2023hssd' on page A2 undefined on input
+ line 87.
+
+
+
+Package natbib Warning: Citation `ulip' on page A2 undefined on input line 116.
+
+
+
+Package natbib Warning: Citation `uni3d' on page A2 undefined on input line 116
+.
+
+
+LaTeX Warning: Reference `tab:trellis_tigon' on page A2 undefined on input line
+ 125.
+
+
+Overfull \hbox (2.94267pt too wide) in paragraph at lines 130--140
+ [][] 
+
+LaTeX Warning: Reference `sec:full_cap' on page A1 undefined on input line 147.
+
+
+
+LaTeX Warning: Reference `sec:full_cap' on page A1 undefined on input line 147.
+
+
+
+Package natbib Warning: Citation `hunyuan3d2025hunyuan3d2.1' on page A2 undefin
+ed on input line 160.
+
+
+Package natbib Warning: Citation `step1x' on page A2 undefined on input line 16
+0.
+
+
+LaTeX Warning: Reference `fig:mesh' on page A1 undefined on input line 162.
+
+
+[2]
+
+LaTeX Warning: Text page A3 contains only floats.
+
+
+
+LaTeX Warning: Text page A3 contains only floats.
+
+
+[3 <./tigon-supp-mesh-comp.png>]
+
+[4 <./tigon-supp-edit.png>]
+
+LaTeX Warning: Reference `fig:supp_edit' on page A1 undefined on input line 167
+.
+
+
+LaTeX Warning: Reference `fig:mesh' on page A1 undefined on input line 187.
+
+
+)
+
+Package natbib Warning: There were undefined citations.
+
+
+[5] (./main.aux)
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+
+Package rerunfilecheck Warning: File `main.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+ )
+(see the transcript file for additional information)<d:/texlive/2025/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmbx10.pfb><d:/texlive/2025/texmf-dist/fonts/ty
+pe1/public/amsfonts/cm/cmbx9.pfb><d:/texlive/2025/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmex10.pfb><d:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmmi10.pfb><d:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5
+.pfb><d:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb><d:/t
+exlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb><d:/texlive/202
+5/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb><d:/texlive/2025/texmf-
+dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><d:/texlive/2025/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmr5.pfb><d:/texlive/2025/texmf-dist/fonts/type1/publ
+ic/amsfonts/cm/cmr7.pfb><d:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmr8.pfb><d:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.
+pfb><d:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb><d:/te
+xlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb><d:/texlive/2025
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb><d:/texlive/2025/texmf-dis
+t/fonts/type1/public/marvosym/marvosym.pfb><d:/texlive/2025/texmf-dist/fonts/ty
+pe1/public/amsfonts/symbols/msam10.pfb><d:/texlive/2025/texmf-dist/fonts/type1/
+public/amsfonts/symbols/msbm10.pfb><d:/texlive/2025/texmf-dist/fonts/type1/urw/
+courier/ucrb8a.pfb><d:/texlive/2025/texmf-dist/fonts/type1/urw/courier/ucrr8a.p
+fb><d:/texlive/2025/texmf-dist/fonts/type1/urw/courier/ucrro8a.pfb><d:/texlive/
+2025/texmf-dist/fonts/type1/urw/times/utmb8a.pfb><d:/texlive/2025/texmf-dist/fo
+nts/type1/urw/times/utmbi8a.pfb><d:/texlive/2025/texmf-dist/fonts/type1/urw/tim
+es/utmr8a.pfb><d:/texlive/2025/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on main.pdf (13 pages, 250040080 bytes).
+SyncTeX written on main.synctex.gz.
+
+Transcript written on main.log.
