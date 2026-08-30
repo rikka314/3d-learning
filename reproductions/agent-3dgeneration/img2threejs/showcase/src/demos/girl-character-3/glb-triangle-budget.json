@@ -1,0 +1,195 @@
+{
+ "total": {
+  "meshes": 31,
+  "triangles": 1599896,
+  "vertices": 1201918
+ },
+ "nodes": [
+  {
+   "node": 0,
+   "part": "skirt",
+   "tris": 208342,
+   "verts": 146740
+  },
+  {
+   "node": 3,
+   "part": "corset",
+   "tris": 169138,
+   "verts": 142672
+  },
+  {
+   "node": 4,
+   "part": "hip-yoke",
+   "tris": 160640,
+   "verts": 93899
+  },
+  {
+   "node": 1,
+   "part": "skin-torso",
+   "tris": 130398,
+   "verts": 100530
+  },
+  {
+   "node": 11,
+   "part": "tights",
+   "tris": 125780,
+   "verts": 89552
+  },
+  {
+   "node": 20,
+   "part": "head",
+   "tris": 75294,
+   "verts": 60661
+  },
+  {
+   "node": 15,
+   "part": "boot-r",
+   "tris": 57500,
+   "verts": 42202
+  },
+  {
+   "node": 13,
+   "part": "boot-l",
+   "tris": 57394,
+   "verts": 42426
+  },
+  {
+   "node": 12,
+   "part": "glove-r",
+   "tris": 54086,
+   "verts": 37085
+  },
+  {
+   "node": 14,
+   "part": "glove-l",
+   "tris": 54076,
+   "verts": 36923
+  },
+  {
+   "node": 6,
+   "part": "thigh-r",
+   "tris": 49164,
+   "verts": 34747
+  },
+  {
+   "node": 5,
+   "part": "thigh-l",
+   "tris": 49112,
+   "verts": 34543
+  },
+  {
+   "node": 25,
+   "part": "sword-l",
+   "tris": 46554,
+   "verts": 41677
+  },
+  {
+   "node": 27,
+   "part": "sword-r",
+   "tris": 41058,
+   "verts": 35152
+  },
+  {
+   "node": 26,
+   "part": "hair",
+   "tris": 40050,
+   "verts": 29716
+  },
+  {
+   "node": 23,
+   "part": "scabbard-a",
+   "tris": 32826,
+   "verts": 26826
+  },
+  {
+   "node": 24,
+   "part": "scabbard-b",
+   "tris": 29960,
+   "verts": 23013
+  },
+  {
+   "node": 17,
+   "part": "pouch-l",
+   "tris": 27738,
+   "verts": 20809
+  },
+  {
+   "node": 16,
+   "part": "pouch-r",
+   "tris": 23730,
+   "verts": 19220
+  },
+  {
+   "node": 10,
+   "part": "hw-lower",
+   "tris": 21606,
+   "verts": 15327
+  },
+  {
+   "node": 7,
+   "part": "belt-tail",
+   "tris": 21052,
+   "verts": 17298
+  },
+  {
+   "node": 28,
+   "part": "flare-l",
+   "tris": 17344,
+   "verts": 15770
+  },
+  {
+   "node": 30,
+   "part": "flare-r",
+   "tris": 17290,
+   "verts": 15632
+  },
+  {
+   "node": 9,
+   "part": "hw-upper",
+   "tris": 16626,
+   "verts": 14275
+  },
+  {
+   "node": 29,
+   "part": "thigh-wrap",
+   "tris": 15726,
+   "verts": 17860
+  },
+  {
+   "node": 19,
+   "part": "skin-shoulder-l",
+   "tris": 12668,
+   "verts": 8269
+  },
+  {
+   "node": 18,
+   "part": "skin-shoulder-r",
+   "tris": 12664,
+   "verts": 8267
+  },
+  {
+   "node": 2,
+   "part": "corset-trim",
+   "tris": 11458,
+   "verts": 10659
+  },
+  {
+   "node": 8,
+   "part": "corset-lacing",
+   "tris": 7780,
+   "verts": 6938
+  },
+  {
+   "node": 21,
+   "part": "strap-tail-r",
+   "tris": 6422,
+   "verts": 6648
+  },
+  {
+   "node": 22,
+   "part": "strap-tail-l",
+   "tris": 6420,
+   "verts": 6582
+  }
+ ]
+}

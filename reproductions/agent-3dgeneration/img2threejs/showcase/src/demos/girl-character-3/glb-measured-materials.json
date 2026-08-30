@@ -1,0 +1,190 @@
+{
+ "source": "base_basic_pbr.glb",
+ "regions": [
+  {
+   "region": "belts",
+   "nodes": [
+    4,
+    7
+   ],
+   "verts": 111197,
+   "albedoSRGB": [
+    20.9,
+    18.8,
+    19.5
+   ],
+   "albedoHex": "#151314",
+   "roughness": 0.99,
+   "metalness": 0.707
+  },
+  {
+   "region": "boots",
+   "nodes": [
+    13,
+    15
+   ],
+   "verts": 84628,
+   "albedoSRGB": [
+    2.0,
+    3.0,
+    3.0
+   ],
+   "albedoHex": "#020303",
+   "roughness": 1.0,
+   "metalness": 0.653
+  },
+  {
+   "region": "corset",
+   "nodes": [
+    2,
+    3,
+    8
+   ],
+   "verts": 160269,
+   "albedoSRGB": [
+    6.8,
+    7.0,
+    7.9
+   ],
+   "albedoHex": "#070708",
+   "roughness": 0.9965,
+   "metalness": 0.6297
+  },
+  {
+   "region": "gloves",
+   "nodes": [
+    12,
+    14,
+    21,
+    22,
+    28,
+    30
+   ],
+   "verts": 118640,
+   "albedoSRGB": [
+    13.1,
+    13.4,
+    13.6
+   ],
+   "albedoHex": "#0D0D0E",
+   "roughness": 0.9895,
+   "metalness": 0.6494
+  },
+  {
+   "region": "hair",
+   "nodes": [
+    26
+   ],
+   "verts": 29716,
+   "albedoSRGB": [
+    6.0,
+    7.0,
+    8.0
+   ],
+   "albedoHex": "#060708",
+   "roughness": 1.0,
+   "metalness": 0.6863
+  },
+  {
+   "region": "hardware",
+   "nodes": [
+    9,
+    10
+   ],
+   "verts": 29602,
+   "albedoSRGB": [
+    14.6,
+    15.6,
+    15.0
+   ],
+   "albedoHex": "#0F100F",
+   "roughness": 0.998,
+   "metalness": 0.7808
+  },
+  {
+   "region": "pouches",
+   "nodes": [
+    16,
+    17
+   ],
+   "verts": 40029,
+   "albedoSRGB": [
+    21.4,
+    9.4,
+    6.5
+   ],
+   "albedoHex": "#150906",
+   "roughness": 1.0,
+   "metalness": 0.0
+  },
+  {
+   "region": "scabbards",
+   "nodes": [
+    23,
+    24
+   ],
+   "verts": 49839,
+   "albedoSRGB": [
+    21.5,
+    23.5,
+    22.0
+   ],
+   "albedoHex": "#161816",
+   "roughness": 0.9626,
+   "metalness": 0.8435
+  },
+  {
+   "region": "skin",
+   "nodes": [
+    1,
+    18,
+    19,
+    20
+   ],
+   "verts": 177727,
+   "albedoSRGB": [
+    92.2,
+    79.0,
+    69.4
+   ],
+   "albedoHex": "#5C4F45",
+   "roughness": 0.974,
+   "metalness": 0.3481
+  },
+  {
+   "region": "skirt",
+   "nodes": [
+    0,
+    5,
+    6,
+    11,
+    29
+   ],
+   "verts": 323442,
+   "albedoSRGB": [
+    9.1,
+    9.7,
+    10.9
+   ],
+   "albedoHex": "#090A0B",
+   "roughness": 0.9904,
+   "metalness": 0.6994
+  },
+  {
+   "region": "weapons",
+   "nodes": [
+    25,
+    27
+   ],
+   "verts": 76829,
+   "albedoSRGB": [
+    24.0,
+    26.5,
+    26.0
+   ],
+   "albedoHex": "#181A1A",
+   "roughness": 0.9529,
+   "metalness": 0.8118
+  }
+ ]
+}

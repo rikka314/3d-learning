@@ -1,0 +1,1 @@
+ERROR (gpu.vulkan): C:\Users\blender\git\blender-v450\blender.git\source\blender\gpu\vulkan\vk_backend.cc:290 is_supported: No Vulkan device found that meets the minimum requirements. Updating GPU driver can improve compatibility.

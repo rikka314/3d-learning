@@ -1,0 +1,8 @@
+.playwright-cli/
+showcase/node_modules/
+showcase/dist/
+upstream/.cache/
+upstream/**/__pycache__/
+workspaces/**/node_modules/
+workspaces/**/dist/
+workspaces/**/.img2threejs/

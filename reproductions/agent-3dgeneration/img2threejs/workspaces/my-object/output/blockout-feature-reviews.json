@@ -1,0 +1,10 @@
+[
+  {
+    "id": "overall-silhouette",
+    "name": "Vertical bean silhouette and asymmetric cutaway aperture",
+    "score": 0.84,
+    "threshold": 0.8,
+    "passed": true,
+    "critique": "The corrected clay and color renders now match the tall bean proportion, rounded lower lobe, right-side depth, and inset cutaway read. The opening is intentionally simplified at blockout and will receive its open left seam and internal folds in structural-pass."
+  }
+]

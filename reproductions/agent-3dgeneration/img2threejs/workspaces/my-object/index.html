@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f4efe7" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cellipse cx='32' cy='32' rx='20' ry='27' fill='%2398583b'/%3E%3Cpath d='M23 17c15 4-9 10 13 15S22 42 39 49' fill='none' stroke='%23f0c45f' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E" />
+    <title>Mitochondrion Cutaway — Procedural Three.js</title>
+  </head>
+  <body>
+    <main id="app">
+      <section class="viewport" aria-label="Three.js 线粒体程序化模型">
+        <canvas id="scene"></canvas>
+        <div class="status" id="status" role="status">加载程序化模型…</div>
+        <div class="part-label" id="part-label" aria-live="polite">单击部件查看名称</div>
+      </section>
+      <aside class="panel" id="panel">
+        <p class="eyebrow">IMG2THREEJS · PROCEDURAL STUDY</p>
+        <h1>线粒体剖视模型</h1>
+        <p class="intro">根据单张 200 × 278 px 教学插图重建。背面与内部深度为程序化推断，适合浏览器教育展示，不代表解剖级精确。</p>
+        <dl>
+          <div><dt>结构</dt><dd>外膜、基质、内膜与嵴褶皱</dd></div>
+          <div><dt>交互</dt><dd>拖拽旋转、滚轮缩放、点击选取</dd></div>
+          <div><dt>输出</dt><dd>纯 TypeScript + Three.js</dd></div>
+        </dl>
+        <div class="controls">
+          <button id="explode" type="button">爆炸视图</button>
+          <button id="reset" type="button">复位视角</button>
+          <button id="turntable" type="button" aria-pressed="false">自动旋转</button>
+        </div>
+        <p class="legend"><span></span>选中部件会以暖黄色描边高亮。</p>
+      </aside>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

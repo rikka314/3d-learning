@@ -1,0 +1,91 @@
+{
+ "canonicalCrop": {
+  "x0": 4,
+  "x1": 1996,
+  "y0": 374,
+  "y1": 718,
+  "width": 1992,
+  "height": 344
+ },
+ "zones": [
+  {
+   "name": "buttPlate",
+   "x0": 4,
+   "x1": 86,
+   "roughness": 0.34,
+   "metalness": 1.0
+  },
+  {
+   "name": "buttLiner",
+   "x0": 86,
+   "x1": 92,
+   "roughness": 0.2,
+   "metalness": 1.0
+  },
+  {
+   "name": "rearBolster",
+   "x0": 92,
+   "x1": 158,
+   "roughness": 0.3,
+   "metalness": 1.0
+  },
+  {
+   "name": "grip",
+   "x0": 158,
+   "x1": 486,
+   "roughness": 0.72,
+   "metalness": 0.05
+  },
+  {
+   "name": "foreBolster",
+   "x0": 486,
+   "x1": 566,
+   "roughness": 0.3,
+   "metalness": 1.0
+  },
+  {
+   "name": "ferrule",
+   "x0": 566,
+   "x1": 643,
+   "roughness": 0.26,
+   "metalness": 1.0
+  },
+  {
+   "name": "guard",
+   "x0": 643,
+   "x1": 790,
+   "roughness": 0.28,
+   "metalness": 1.0
+  },
+  {
+   "name": "ricasso",
+   "x0": 790,
+   "x1": 900,
+   "roughness": 0.22,
+   "metalness": 1.0
+  },
+  {
+   "name": "blade",
+   "x0": 900,
+   "x1": 1996,
+   "roughness": 0.17,
+   "metalness": 1.0
+  }
+ ],
+ "channelProvenance": {
+  "albedo": "de-lit reference crop, one per face; value-only normalisation (strength 0.6, radius 200px) with in-mask mean value restored",
+  "roughness": "authored per material zone + edge/spine polish + seeded grip speckle",
+  "metalness": "authored per material zone (binary metal vs polymer)",
+  "ao": "cavity erosion of the traced alpha mask",
+  "normal": "authored from measured anchors (quilt grid, ferrule beads, 4 screw dimples, lanyard chamfer)"
+ },
+ "colorSpace": {
+  "albedo": "sRGB",
+  "roughness": "linear",
+  "metalness": "linear",
+  "ao": "linear",
+  "normal": "linear"
+ },
+ "uvOrientation": "u = (worldX - xMin)/(xMax - xMin), v = (worldY - yMin)/(yMax - yMin), shared by every part so projected detail registers with geometry",
+ "note": "albedo is never reused as roughness, metalness, normal or AO"
+}

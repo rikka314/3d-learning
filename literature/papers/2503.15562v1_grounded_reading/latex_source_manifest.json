@@ -1,0 +1,21 @@
+{
+  "schema_version": "paper-latex-source-prep/1.0",
+  "source": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\papers\\2503.15562v1_grounded_reading\\2503.15562v1_source.tar.gz",
+  "source_kind": "tar",
+  "source_dir": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\papers\\2503.15562v1_grounded_reading\\source",
+  "tex_files": [
+    "main.tex"
+  ],
+  "compiled": false,
+  "compile_results": [],
+  "latex_paragraphs": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\papers\\2503.15562v1_grounded_reading\\latex_paragraphs.json",
+  "reader_artifacts": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\papers\\2503.15562v1_grounded_reading\\reader_artifacts.json",
+  "documents": [
+    {
+      "doc": "main",
+      "label": "main",
+      "pdf": "source/main.pdf",
+      "synctex": "source/main.synctex.gz"
+    }
+  ]
+}

@@ -1,0 +1,231 @@
+{
+  "schema_version": "paper-research-lens/1.0",
+  "paper": {
+    "title": "Shap-MeD",
+    "source_mode": "latex-primary"
+  },
+  "research_equation": {
+    "one_sentence_thesis": "Generic Shap-E provides a reusable implicit-3D latent prior, generic data underrepresents biomedical shapes, full LGM/LRM-scale retraining is unavailable, so Shap-MeD freezes the transmitter and fine-tunes the conditional latent diffusion on 3,589 MedShapeNet meshes.",
+    "valuable_paradigm": "Open-source generic text-to-3D generation through Shap-E implicit-function latents.",
+    "broken_assumption": "A generic object prior is sufficient for stable and anatomically plausible biomedical object generation.",
+    "hard_setting": "Biomedical domain specialization under limited compute and imperfect, imbalanced medical meshes.",
+    "borrowed_tool": "Domain fine-tuning of a pretrained conditional diffusion model.",
+    "unavailable_mechanism": "Large-scale, clean, medically annotated text-3D pretraining or full adaptation of LGM/LRM-scale models.",
+    "surrogate_mechanism": "Frozen Shap-E transmitter plus low-learning-rate fine-tuning of the generative model on MedShapeNet latents.",
+    "claim_ids": ["C2.1", "C6.1", "C6.2", "C9.1"]
+  },
+  "direction_reconstruction": {
+    "starting_dissatisfaction": "Generic text-to-3D systems can create ordinary objects but do not explicitly target biomedical meshes, while manual medical 3D modeling is costly.",
+    "almost_worked_transfer": "LRM and LGM offer stronger modern 3D generation/reconstruction quality, and Shap-E already exposes a reusable latent diffusion interface.",
+    "blocking_constraint": "The authors treat the original training compute of LRM/LGM as infeasible and have only a modest, noisy biomedical mesh subset.",
+    "replacement_logic": "Choose the lighter Shap-E, freeze its representation encoder, encode medical meshes once, and specialize only the latent generator.",
+    "claim_ids": ["C4.1", "C6.1", "C6.2", "C14.1", "C14.2"]
+  },
+  "challenge_module_map": [
+    {
+      "challenge": "Generic model lacks a biomedical shape prior.",
+      "failure_mode": "Text prompts produce outputs that do not reliably resemble target organs.",
+      "design_principle": "Specialize the existing prior rather than retrain a 3D representation.",
+      "module": "MedShapeNet latent fine-tuning of Shap-E generative model.",
+      "ablation_or_evidence": "Latent MSE decreases from 0.147 to 0.089, but no data-size or cleaned-data ablation is provided.",
+      "claim_ids": ["C7.1", "C9.1", "C17.1", "C19.1"]
+    },
+    {
+      "challenge": "MedShapeNet STL meshes are incompatible with the Shap-E input pipeline.",
+      "failure_mode": "Meshes cannot be encoded into Shap-E latents directly.",
+      "design_principle": "Normalize the file interface before representation reuse.",
+      "module": "Open3D STL-to-OBJ conversion.",
+      "ablation_or_evidence": "Method description only; no geometry-preservation audit after conversion.",
+      "claim_ids": ["C13.1", "C19.1", "C21.4"]
+    },
+    {
+      "challenge": "Full 3D representation training exceeds the intended resource budget.",
+      "failure_mode": "Training scope becomes too large for the available hardware.",
+      "design_principle": "Freeze the high-cost representation bottleneck.",
+      "module": "Frozen Shap-E transmitter.",
+      "ablation_or_evidence": "Single-A40 fine-tuning is feasible, but frozen versus trainable transmitter is not ablated.",
+      "claim_ids": ["C6.2", "C14.1", "C14.2", "C16.1"]
+    },
+    {
+      "challenge": "Domain fine-tuning may erase generic generation knowledge.",
+      "failure_mode": "Catastrophic forgetting of the pretrained diffusion prior.",
+      "design_principle": "Use conservative updates.",
+      "module": "Learning rate 1e-5 for 25 epochs.",
+      "ablation_or_evidence": "Training is stable, but no generic retention test is reported.",
+      "claim_ids": ["C14.3", "C16.1", "C17.3", "C21.4"]
+    },
+    {
+      "challenge": "Generated 3D quality is hard to evaluate.",
+      "failure_mode": "A visually plausible object may still be geometrically or anatomically wrong.",
+      "design_principle": "Combine quantitative and qualitative evidence.",
+      "module": "Latent MSE plus Figure 11-12 visual comparisons.",
+      "ablation_or_evidence": "MSE improvement is clear; anatomical superiority remains weakly supported.",
+      "claim_ids": ["C15.2", "C15.3", "C17.1", "C17.4", "C21.1"]
+    }
+  ],
+  "module_lenses": [
+    {
+      "module": "Shap-E model selection",
+      "failure_fixed": "Larger candidate models are treated as unaffordable to adapt.",
+      "ideal_unavailable_solution": "Adapt the strongest contemporary 3D generator under a fair compute budget.",
+      "available_proxy": "A lighter open-source Shap-E checkpoint with implicit-function latents.",
+      "hidden_assumption": "Shap-E capacity and representation fidelity are sufficient for biomedical anatomy.",
+      "future_direction": "Compare parameter-efficient adaptation of Shap-E and larger models at equal VRAM, wall-clock, and data budgets.",
+      "claim_ids": ["C14.1", "C23.5"]
+    },
+    {
+      "module": "Frozen transmitter",
+      "failure_fixed": "Full encoder and representation retraining is expensive.",
+      "ideal_unavailable_solution": "A biomedical-aware encoder jointly optimized with the generator.",
+      "available_proxy": "Generic Shap-E latent encoding of medical meshes.",
+      "hidden_assumption": "The fixed latent space preserves domain-critical landmarks and topology.",
+      "future_direction": "Measure representation adequacy with reconstruction, landmark, topology, and controlled unfreezing studies.",
+      "claim_ids": ["C14.2", "C21.1", "C23.1"]
+    },
+    {
+      "module": "MedShapeNet subset",
+      "failure_fixed": "No biomedical examples are present in the generic adaptation loop.",
+      "ideal_unavailable_solution": "A large, clean, balanced, expert-verified, patient-linked text-3D corpus.",
+      "available_proxy": "3,589 aorta, liver, kidney, and heart meshes from a multi-source dataset.",
+      "hidden_assumption": "Noisy category labels and damaged meshes still provide a useful biomedical prior.",
+      "future_direction": "Run raw-versus-repaired-versus-expert-curated and source-held-out data studies.",
+      "claim_ids": ["C8.4", "C15.1", "C21.2", "C23.4"]
+    },
+    {
+      "module": "Latent MSE evaluation",
+      "failure_fixed": "Generative quality lacks a simple quantitative score.",
+      "ideal_unavailable_solution": "Direct, validated, task-specific anatomy and geometry evaluation.",
+      "available_proxy": "Diffusion x0 prediction MSE on medical latents.",
+      "hidden_assumption": "Lower latent MSE correlates with better anatomy and usable meshes.",
+      "future_direction": "Calibrate latent loss against surface, topology, landmark, and expert metrics.",
+      "claim_ids": ["C10.2", "C11.2", "C17.1", "C21.1", "C23.1"]
+    },
+    {
+      "module": "Streamlit prompt-to-PLY demo",
+      "failure_fixed": "Research inference is not directly accessible to a user.",
+      "ideal_unavailable_solution": "A validated medical asset workflow with provenance, review gates, uncertainty, and usability evidence.",
+      "available_proxy": "A local monolithic app that selects weights, accepts a prompt, and exports PLY.",
+      "hidden_assumption": "A closed demo loop is a sufficient proxy for workflow utility.",
+      "future_direction": "Measure time saved, failure rate, review burden, and safe rejection in education-focused user studies.",
+      "claim_ids": ["C14.4", "C18.3", "C23.2"]
+    }
+  ],
+  "citation_logic": [
+    {
+      "citation_cluster": "Shap-E",
+      "narrative_function": "Direct method ancestor and implementation machinery.",
+      "assumption_inherited": "Implicit-function latents learned on generic objects can represent medical shapes.",
+      "paper_move": "Freeze the transmitter and specialize only the generative model on biomedical latents.",
+      "claim_ids": ["C8.1", "C9.1"]
+    },
+    {
+      "citation_cluster": "Point-E",
+      "narrative_function": "Historical field anchor and contrast boundary.",
+      "assumption_inherited": "Diffusion and CLIP conditioning can connect text/image semantics to 3D generation.",
+      "paper_move": "Prefer Shap-E's direct implicit-function latent generation over a point-cloud upsampling pipeline.",
+      "claim_ids": ["C8.2"]
+    },
+    {
+      "citation_cluster": "LRM and LGM",
+      "narrative_function": "Stronger-model pressure and resource-constraint justification.",
+      "assumption_inherited": "Larger modern 3D models offer better output fidelity but need more compute.",
+      "paper_move": "Exclude them from adaptation and use LGM only as a small qualitative comparison.",
+      "claim_ids": ["C8.3", "C14.1", "C23.5"]
+    },
+    {
+      "citation_cluster": "MedShapeNet",
+      "narrative_function": "Dataset enabler and limitation evidence.",
+      "assumption_inherited": "Aggregated medical meshes are useful supervision for biomedical 3D learning.",
+      "paper_move": "Select four categories while acknowledging label, hole, and imbalance problems.",
+      "claim_ids": ["C8.4", "C15.1", "C21.2"]
+    },
+    {
+      "citation_cluster": "Open3D",
+      "narrative_function": "Preprocessing machinery.",
+      "assumption_inherited": "Format conversion preserves the relevant geometry.",
+      "paper_move": "Replace a conversion API limited to 50 meshes with an open-source batch conversion path.",
+      "claim_ids": ["C13.1", "C21.4"]
+    }
+  ],
+  "experiment_story_map": [
+    {
+      "experiment": "Table I latent MSE comparison",
+      "claim_supported": "Biomedical fine-tuning improves in-domain latent prediction relative to base Shap-E.",
+      "counterfactual": "The improvement is not merely a visual presentation difference.",
+      "stress_condition": "Evaluation on held-out biomedical latents, though source/patient splitting is unspecified.",
+      "claim_ids": ["C17.1", "C19.1"]
+    },
+    {
+      "experiment": "Figure 10 training and validation loss",
+      "claim_supported": "Optimization is stable and both curves fall toward 0.09.",
+      "counterfactual": "The final score is not produced by an obviously diverging training run.",
+      "stress_condition": "Twenty-five epochs on a single A40, with no multi-seed variance.",
+      "claim_ids": ["C15.2", "C17.3"]
+    },
+    {
+      "experiment": "Figure 11 liver evolution",
+      "claim_supported": "A selected sample appears to become more organ-like over training.",
+      "counterfactual": "Fine-tuning changes visible output rather than only a hidden loss value.",
+      "stress_condition": "Only one liver and three checkpoints; seed and reference are unspecified.",
+      "claim_ids": ["C15.2", "C17.4"]
+    },
+    {
+      "experiment": "Figure 12 model comparison",
+      "claim_supported": "Selected Shap-MeD samples have plausible silhouettes and fewer obvious disconnections than shown alternatives.",
+      "counterfactual": "Base Shap-E or LGM alone may not produce equally clean examples for these prompts.",
+      "stress_condition": "Only three prompts, incomplete baselines, and no standardized renderer or expert rating.",
+      "claim_ids": ["C15.3", "C17.4", "C21.3"]
+    }
+  ],
+  "story_patterns": [
+    {
+      "pattern_name": "Resource-constrained domain specialization",
+      "formula": "generic prior + frozen representation + small domain corpus + conservative update -> domain prototype",
+      "lesson": "When full model retraining is impossible, isolate a reusable latent bottleneck and adapt the smallest component that changes the output distribution.",
+      "claim_ids": ["C20.1", "C14.2"]
+    },
+    {
+      "pattern_name": "Proxy-metric warning",
+      "formula": "easy optimization metric != domain-valid outcome",
+      "lesson": "A strong follow-up paper can be created by measuring where the convenient proxy stops predicting the real domain objective.",
+      "claim_ids": ["C21.1", "C23.1"]
+    }
+  ],
+  "boundary_directions": [
+    {
+      "title": "Anatomy-aware loss and evaluation calibration",
+      "hidden_assumption": "Latent MSE is a reliable proxy for anatomy quality.",
+      "what_breaks": "Low-loss outputs may have wrong topology, branching, landmarks, or surface geometry.",
+      "new_direction": "Jointly measure and optimize surface distance, topology, landmarks, watertightness, and expert ratings; quantify correlation with latent loss.",
+      "claim_ids": ["C21.1", "C23.1"]
+    },
+    {
+      "title": "Verified geometry plus generative presentation",
+      "hidden_assumption": "A free-form generator can safely supply the geometry for medical education or planning.",
+      "what_breaks": "Plausible-looking meshes can contain wrong structures or connections.",
+      "new_direction": "Lock anatomy with a verified atlas, segmentation, or parametric scaffold and restrict generation to completion, texture, style, and presentation.",
+      "claim_ids": ["C18.3", "C23.2"]
+    },
+    {
+      "title": "Patient-specific multimodal generation",
+      "hidden_assumption": "Category prompts such as liver or kidney are sufficient for personalization.",
+      "what_breaks": "The system cannot represent a specific patient's geometry, pathology, or uncertainty.",
+      "new_direction": "Condition on CT/MRI-derived geometry and structured clinical metadata with OOD rejection and provenance.",
+      "claim_ids": ["C4.2", "C23.3"]
+    },
+    {
+      "title": "Medical mesh data quality as a causal variable",
+      "hidden_assumption": "Noisy multi-source meshes remain adequate supervision after coarse category selection.",
+      "what_breaks": "Mislabels, holes, duplicates, and imbalance become learned generative artifacts.",
+      "new_direction": "Compare raw, repaired, expert-curated, balanced, and source-held-out subsets under identical training.",
+      "claim_ids": ["C21.2", "C23.4"]
+    },
+    {
+      "title": "Equal-budget adaptation of newer 3D generators",
+      "hidden_assumption": "Original pretraining cost predicts adaptation feasibility.",
+      "what_breaks": "Parameter-efficient tuning may make larger models practical on the same hardware.",
+      "new_direction": "Benchmark LoRA or adapters across Shap-E, LGM/LRM, and newer generators at fixed VRAM, wall-clock, and data budgets.",
+      "claim_ids": ["C8.3", "C23.5"]
+    }
+  ]
+}

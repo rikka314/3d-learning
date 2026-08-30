@@ -1,0 +1,25 @@
+{
+  "passed": true,
+  "passId": "material-pass",
+  "renderHash": "88ee6a9b01a54c70",
+  "checks": {
+    "silhouetteIoU": 0.8542,
+    "aspectRatioDelta": 0.0286,
+    "scaleDelta": 0.0294,
+    "maxColorDeltaE": 16.48
+  },
+  "materialComparator": {
+    "passed": true,
+    "overall": 0.8561,
+    "mismatches": []
+  },
+  "materialGate": {
+    "passed": true,
+    "failures": []
+  },
+  "independentProceduralMaps": {
+    "resolution": 1024,
+    "channels": ["albedo", "roughness", "bump"]
+  },
+  "failures": []
+}

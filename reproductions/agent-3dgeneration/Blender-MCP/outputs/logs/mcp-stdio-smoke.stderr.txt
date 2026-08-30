@@ -1,0 +1,8 @@
+2026-08-27 13:36:18,329 - BlenderMCPServer - INFO - BlenderMCP server starting up
+2026-08-27 13:36:18,332 - BlenderMCPServer - INFO - Could not find a Blender addons folder. If Blender is installed, set BLENDERMCP_ADDONS_DIR, or install addon.py manually from the repo.
+2026-08-27 13:36:20,379 - BlenderMCPServer - ERROR - Failed to connect to Blender: [WinError 10061] 由于目标计算机积极拒绝，无法连接。
+2026-08-27 13:36:20,382 - BlenderMCPServer - ERROR - Failed to connect to Blender
+2026-08-27 13:36:20,385 - BlenderMCPServer - WARNING - Could not connect to Blender on startup: Could not connect to Blender. Make sure the Blender addon is running.
+2026-08-27 13:36:20,387 - BlenderMCPServer - WARNING - Make sure the Blender addon is running before using Blender resources or tools
+2026-08-27 13:36:20,392 - mcp.server.lowlevel.server - INFO - Processing request of type ListToolsRequest
+2026-08-27 13:36:20,396 - BlenderMCPServer - INFO - BlenderMCP server shut down

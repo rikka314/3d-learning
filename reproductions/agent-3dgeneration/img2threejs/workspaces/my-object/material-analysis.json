@@ -1,0 +1,1335 @@
+{
+  "schemaVersion": 1,
+  "kind": "img2threejs.material-analysis",
+  "referenceId": "mitochondrion-front-three-quarter",
+  "manifest": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-regions.json",
+  "registry": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\upstream\\docs\\materials\\material-reference.json",
+  "targetThreshold": 0.7,
+  "notObservedMaterials": [],
+  "unresolvedNotObservedMaterials": [],
+  "regions": [
+    {
+      "componentId": "root",
+      "regionId": "outer-shell-right-flank",
+      "materialSpecId": "shell-material",
+      "hypothesis": {
+        "componentId": "root",
+        "regionId": "outer-shell-right-flank",
+        "materialId": null,
+        "family": "plastic",
+        "subtype": "generic-polymer",
+        "finish": "matte",
+        "aliases": [],
+        "confidence": 0.845,
+        "source": "vision"
+      },
+      "assignment": {
+        "materialId": "plastic.matte",
+        "status": "proceed",
+        "source": "vision",
+        "confidence": 0.845,
+        "method": "family-subtype-finish",
+        "alternatives": [],
+        "evidence": {
+          "crop": {
+            "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\00-outer-shell-right-flank.png",
+            "bbox": {
+              "x": 124,
+              "y": 44,
+              "width": 50,
+              "height": 188
+            },
+            "sourceWidth": 200,
+            "sourceHeight": 278,
+            "loaderWarnings": [],
+            "coverage": 0.1691
+          },
+          "pbr": {
+            "ok": true,
+            "verdict": "pass",
+            "confidence": 0.845,
+            "estimatedFidelity": 0.845,
+            "targetThreshold": 0.7,
+            "materialId": "shell-material",
+            "sourceImage": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\00-outer-shell-right-flank.png",
+            "outDir": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\pbr-00-outer-shell-right-flank",
+            "palette": [
+              "#85583E",
+              "#98694D",
+              "#734932",
+              "#B17D5F",
+              "#CA987A"
+            ],
+            "maps": {
+              "albedo": {
+                "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\pbr-00-outer-shell-right-flank\\shell-material_albedo.png",
+                "url": "shell-material_albedo.png",
+                "channel": "albedo",
+                "source": "reference-pixel-extraction"
+              },
+              "roughness": {
+                "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\pbr-00-outer-shell-right-flank\\shell-material_roughness.png",
+                "url": "shell-material_roughness.png",
+                "channel": "roughness",
+                "source": "reference-pixel-extraction"
+              },
+              "height": {
+                "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\pbr-00-outer-shell-right-flank\\shell-material_height.png",
+                "url": "shell-material_height.png",
+                "channel": "height",
+                "source": "reference-pixel-extraction"
+              },
+              "normal": {
+                "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\pbr-00-outer-shell-right-flank\\shell-material_normal.png",
+                "url": "shell-material_normal.png",
+                "channel": "normal",
+                "source": "reference-pixel-extraction"
+              },
+              "ao": {
+                "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\pbr-00-outer-shell-right-flank\\shell-material_ao.png",
+                "url": "shell-material_ao.png",
+                "channel": "ao",
+                "source": "reference-pixel-extraction"
+              }
+            },
+            "diagnostics": {
+              "sourceWidth": 50,
+              "sourceHeight": 188,
+              "mapSize": 512,
+              "cropBBoxPixels": {
+                "x": 0,
+                "y": 0,
+                "width": 50,
+                "height": 188
+              },
+              "mask": {
+                "backgroundColor": "#FDFDFD",
+                "backgroundNoise": 183.079,
+                "transparentPixelFraction": 0.0,
+                "foregroundCoverage": 0.8264
+              },
+              "mapStats": {
+                "valueRange": 0.3478,
+                "heightP90Gradient": 0.06056,
+                "roughnessBase": 0.733,
+                "roughnessVariation": 0.124,
+                "normalStrength": 0.227,
+                "blurRadius": 10
+              },
+              "palette": [
+                "#85583E",
+                "#98694D",
+                "#734932",
+                "#B17D5F",
+                "#CA987A"
+              ]
+            },
+            "warnings": [
+              "single-image inverse rendering cannot prove true physical PBR; confidence is capped"
+            ],
+            "limitation": "single-image PBR extraction is an estimate; 70%+ extraction confidence still needs render screenshot review"
+          },
+          "texture": {
+            "finishClass": "painted-metal",
+            "recipe": {
+              "metalness": 0.0,
+              "roughness": 0.5,
+              "clearcoat": 1.0,
+              "clearcoatRoughness": 0.05,
+              "transmission": 0.0,
+              "ior": 1.5,
+              "envMapIntensity": 1.0,
+              "anisotropy": 0.0,
+              "procedural": "flat-clearcoat"
+            },
+            "palette": [
+              "#BB8768",
+              "#A9765A",
+              "#8E5E43",
+              "#987663",
+              "#E8E3E1"
+            ],
+            "paletteHueRisk": [],
+            "gradientAxis": "horizontal",
+            "stats": {
+              "meanLum": 134.2,
+              "meanSaturation": 0.43,
+              "gradientStrength": 0.496,
+              "mottle": 0.023,
+              "streakRatio": 0.68,
+              "hueSpread": 0.0,
+              "specularFraction": 0.122
+            }
+          }
+        },
+        "profileId": "plastic.matte",
+        "family": "plastic",
+        "subtype": "generic-polymer",
+        "finish": "matte",
+        "renderPrior": {
+          "metalness": 0.0,
+          "roughness": 0.68,
+          "ior": 1.5
+        },
+        "requiredMaps": [
+          "map",
+          "roughnessMap"
+        ],
+        "optionalMaps": [
+          "normalMap",
+          "aoMap"
+        ],
+        "validationViews": [
+          "albedo-unlit",
+          "neutral-studio",
+          "grazing"
+        ],
+        "sourceRefs": [
+          "three.mesh-standard",
+          "adobe.pbr-guide-1",
+          "google.filament-pbr",
+          "mit.material-recognition"
+        ],
+        "visualCues": [
+          "coloured diffuse body",
+          "broad neutral highlight",
+          "mold seams or fine stipple"
+        ]
+      },
+      "observations": [
+        "chromatic base-colour response",
+        "strong image-space gradient; verify it is material pattern, not lighting",
+        "single-image PBR inference requires controlled render validation"
+      ],
+      "crop": {
+        "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\00-outer-shell-right-flank.png",
+        "bbox": {
+          "x": 124,
+          "y": 44,
+          "width": 50,
+          "height": 188
+        },
+        "sourceWidth": 200,
+        "sourceHeight": 278,
+        "loaderWarnings": [],
+        "coverage": 0.1691
+      },
+      "textureAnalysis": {
+        "finishClass": "painted-metal",
+        "recipe": {
+          "metalness": 0.0,
+          "roughness": 0.5,
+          "clearcoat": 1.0,
+          "clearcoatRoughness": 0.05,
+          "transmission": 0.0,
+          "ior": 1.5,
+          "envMapIntensity": 1.0,
+          "anisotropy": 0.0,
+          "procedural": "flat-clearcoat"
+        },
+        "palette": [
+          "#BB8768",
+          "#A9765A",
+          "#8E5E43",
+          "#987663",
+          "#E8E3E1"
+        ],
+        "paletteHueRisk": [],
+        "gradientAxis": "horizontal",
+        "stats": {
+          "meanLum": 134.2,
+          "meanSaturation": 0.43,
+          "gradientStrength": 0.496,
+          "mottle": 0.023,
+          "streakRatio": 0.68,
+          "hueSpread": 0.0,
+          "specularFraction": 0.122
+        }
+      },
+      "pbrReport": {
+        "ok": true,
+        "verdict": "pass",
+        "confidence": 0.845,
+        "estimatedFidelity": 0.845,
+        "targetThreshold": 0.7,
+        "materialId": "shell-material",
+        "sourceImage": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\00-outer-shell-right-flank.png",
+        "outDir": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\pbr-00-outer-shell-right-flank",
+        "palette": [
+          "#85583E",
+          "#98694D",
+          "#734932",
+          "#B17D5F",
+          "#CA987A"
+        ],
+        "maps": {
+          "albedo": {
+            "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\pbr-00-outer-shell-right-flank\\shell-material_albedo.png",
+            "url": "shell-material_albedo.png",
+            "channel": "albedo",
+            "source": "reference-pixel-extraction"
+          },
+          "roughness": {
+            "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\pbr-00-outer-shell-right-flank\\shell-material_roughness.png",
+            "url": "shell-material_roughness.png",
+            "channel": "roughness",
+            "source": "reference-pixel-extraction"
+          },
+          "height": {
+            "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\pbr-00-outer-shell-right-flank\\shell-material_height.png",
+            "url": "shell-material_height.png",
+            "channel": "height",
+            "source": "reference-pixel-extraction"
+          },
+          "normal": {
+            "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\pbr-00-outer-shell-right-flank\\shell-material_normal.png",
+            "url": "shell-material_normal.png",
+            "channel": "normal",
+            "source": "reference-pixel-extraction"
+          },
+          "ao": {
+            "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\pbr-00-outer-shell-right-flank\\shell-material_ao.png",
+            "url": "shell-material_ao.png",
+            "channel": "ao",
+            "source": "reference-pixel-extraction"
+          }
+        },
+        "diagnostics": {
+          "sourceWidth": 50,
+          "sourceHeight": 188,
+          "mapSize": 512,
+          "cropBBoxPixels": {
+            "x": 0,
+            "y": 0,
+            "width": 50,
+            "height": 188
+          },
+          "mask": {
+            "backgroundColor": "#FDFDFD",
+            "backgroundNoise": 183.079,
+            "transparentPixelFraction": 0.0,
+            "foregroundCoverage": 0.8264
+          },
+          "mapStats": {
+            "valueRange": 0.3478,
+            "heightP90Gradient": 0.06056,
+            "roughnessBase": 0.733,
+            "roughnessVariation": 0.124,
+            "normalStrength": 0.227,
+            "blurRadius": 10
+          },
+          "palette": [
+            "#85583E",
+            "#98694D",
+            "#734932",
+            "#B17D5F",
+            "#CA987A"
+          ]
+        },
+        "warnings": [
+          "single-image inverse rendering cannot prove true physical PBR; confidence is capped"
+        ],
+        "limitation": "single-image PBR extraction is an estimate; 70%+ extraction confidence still needs render screenshot review"
+      },
+      "referencePbr": {
+        "version": "1.0",
+        "sourceImage": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\00-outer-shell-right-flank.png",
+        "extractor": "stage1_intake/extract_pbr_evidence.py",
+        "method": "single-image pixel evidence with de-lighting estimate; not photogrammetry",
+        "usable": true,
+        "verdict": "pass",
+        "confidence": 0.845,
+        "estimatedFidelity": 0.845,
+        "targetThreshold": 0.7,
+        "hardLimit": "A single image cannot uniquely recover true albedo/roughness/normal/AO; maps are reference-derived estimates.",
+        "maps": {
+          "albedo": {
+            "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\pbr-00-outer-shell-right-flank\\shell-material_albedo.png",
+            "url": "shell-material_albedo.png",
+            "channel": "albedo",
+            "source": "reference-pixel-extraction"
+          },
+          "roughness": {
+            "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\pbr-00-outer-shell-right-flank\\shell-material_roughness.png",
+            "url": "shell-material_roughness.png",
+            "channel": "roughness",
+            "source": "reference-pixel-extraction"
+          },
+          "height": {
+            "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\pbr-00-outer-shell-right-flank\\shell-material_height.png",
+            "url": "shell-material_height.png",
+            "channel": "height",
+            "source": "reference-pixel-extraction"
+          },
+          "normal": {
+            "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\pbr-00-outer-shell-right-flank\\shell-material_normal.png",
+            "url": "shell-material_normal.png",
+            "channel": "normal",
+            "source": "reference-pixel-extraction"
+          },
+          "ao": {
+            "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\pbr-00-outer-shell-right-flank\\shell-material_ao.png",
+            "url": "shell-material_ao.png",
+            "channel": "ao",
+            "source": "reference-pixel-extraction"
+          }
+        },
+        "diagnostics": {
+          "sourceWidth": 50,
+          "sourceHeight": 188,
+          "mapSize": 512,
+          "cropBBoxPixels": {
+            "x": 0,
+            "y": 0,
+            "width": 50,
+            "height": 188
+          },
+          "mask": {
+            "backgroundColor": "#FDFDFD",
+            "backgroundNoise": 183.079,
+            "transparentPixelFraction": 0.0,
+            "foregroundCoverage": 0.8264
+          },
+          "mapStats": {
+            "valueRange": 0.3478,
+            "heightP90Gradient": 0.06056,
+            "roughnessBase": 0.733,
+            "roughnessVariation": 0.124,
+            "normalStrength": 0.227,
+            "blurRadius": 10
+          },
+          "palette": [
+            "#85583E",
+            "#98694D",
+            "#734932",
+            "#B17D5F",
+            "#CA987A"
+          ]
+        },
+        "warnings": [
+          "single-image inverse rendering cannot prove true physical PBR; confidence is capped"
+        ]
+      },
+      "maps": {
+        "albedo": {
+          "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\pbr-00-outer-shell-right-flank\\shell-material_albedo.png",
+          "url": "shell-material_albedo.png",
+          "channel": "albedo",
+          "source": "reference-pixel-extraction"
+        },
+        "roughness": {
+          "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\pbr-00-outer-shell-right-flank\\shell-material_roughness.png",
+          "url": "shell-material_roughness.png",
+          "channel": "roughness",
+          "source": "reference-pixel-extraction"
+        },
+        "height": {
+          "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\pbr-00-outer-shell-right-flank\\shell-material_height.png",
+          "url": "shell-material_height.png",
+          "channel": "height",
+          "source": "reference-pixel-extraction"
+        },
+        "normal": {
+          "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\pbr-00-outer-shell-right-flank\\shell-material_normal.png",
+          "url": "shell-material_normal.png",
+          "channel": "normal",
+          "source": "reference-pixel-extraction"
+        },
+        "ao": {
+          "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\pbr-00-outer-shell-right-flank\\shell-material_ao.png",
+          "url": "shell-material_ao.png",
+          "channel": "ao",
+          "source": "reference-pixel-extraction"
+        }
+      }
+    },
+    {
+      "componentId": "inner-boundary",
+      "regionId": "gold-inner-membrane",
+      "materialSpecId": "membrane-material",
+      "hypothesis": {
+        "componentId": "inner-boundary",
+        "regionId": "gold-inner-membrane",
+        "materialId": null,
+        "family": "plastic",
+        "subtype": "generic-polymer",
+        "finish": "glossy",
+        "aliases": [],
+        "confidence": 0.86,
+        "source": "vision"
+      },
+      "assignment": {
+        "materialId": "plastic.glossy",
+        "status": "proceed",
+        "source": "vision",
+        "confidence": 0.86,
+        "method": "family-subtype-finish",
+        "alternatives": [],
+        "evidence": {
+          "crop": {
+            "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\01-gold-inner-membrane.png",
+            "bbox": {
+              "x": 35,
+              "y": 39,
+              "width": 82,
+              "height": 184
+            },
+            "sourceWidth": 200,
+            "sourceHeight": 278,
+            "loaderWarnings": [],
+            "coverage": 0.2714
+          },
+          "pbr": {
+            "ok": true,
+            "verdict": "pass",
+            "confidence": 0.86,
+            "estimatedFidelity": 0.86,
+            "targetThreshold": 0.7,
+            "materialId": "membrane-material",
+            "sourceImage": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\01-gold-inner-membrane.png",
+            "outDir": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\pbr-01-gold-inner-membrane",
+            "palette": [
+              "#B8875A",
+              "#D9A973",
+              "#9B6C3D",
+              "#EDCE99",
+              "#673F1E"
+            ],
+            "maps": {
+              "albedo": {
+                "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\pbr-01-gold-inner-membrane\\membrane-material_albedo.png",
+                "url": "membrane-material_albedo.png",
+                "channel": "albedo",
+                "source": "reference-pixel-extraction"
+              },
+              "roughness": {
+                "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\pbr-01-gold-inner-membrane\\membrane-material_roughness.png",
+                "url": "membrane-material_roughness.png",
+                "channel": "roughness",
+                "source": "reference-pixel-extraction"
+              },
+              "height": {
+                "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\pbr-01-gold-inner-membrane\\membrane-material_height.png",
+                "url": "membrane-material_height.png",
+                "channel": "height",
+                "source": "reference-pixel-extraction"
+              },
+              "normal": {
+                "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\pbr-01-gold-inner-membrane\\membrane-material_normal.png",
+                "url": "membrane-material_normal.png",
+                "channel": "normal",
+                "source": "reference-pixel-extraction"
+              },
+              "ao": {
+                "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\pbr-01-gold-inner-membrane\\membrane-material_ao.png",
+                "url": "membrane-material_ao.png",
+                "channel": "ao",
+                "source": "reference-pixel-extraction"
+              }
+            },
+            "diagnostics": {
+              "sourceWidth": 82,
+              "sourceHeight": 184,
+              "mapSize": 512,
+              "cropBBoxPixels": {
+                "x": 0,
+                "y": 0,
+                "width": 82,
+                "height": 184
+              },
+              "mask": {
+                "backgroundColor": "#BD6B4B",
+                "backgroundNoise": 198.884,
+                "transparentPixelFraction": 0.0,
+                "foregroundCoverage": 0.8938
+              },
+              "mapStats": {
+                "valueRange": 0.5712,
+                "heightP90Gradient": 0.19508,
+                "roughnessBase": 0.806,
+                "roughnessVariation": 0.205,
+                "normalStrength": 0.385,
+                "blurRadius": 10
+              },
+              "palette": [
+                "#B8875A",
+                "#D9A973",
+                "#9B6C3D",
+                "#EDCE99",
+                "#673F1E"
+              ]
+            },
+            "warnings": [
+              "single-image inverse rendering cannot prove true physical PBR; confidence is capped"
+            ],
+            "limitation": "single-image PBR extraction is an estimate; 70%+ extraction confidence still needs render screenshot review"
+          },
+          "texture": {
+            "finishClass": "gem-metal",
+            "recipe": {
+              "metalness": 0.75,
+              "roughness": 0.14,
+              "clearcoat": 0.6,
+              "clearcoatRoughness": 0.06,
+              "transmission": 0.0,
+              "ior": 1.5,
+              "envMapIntensity": 1.3,
+              "anisotropy": 0.0,
+              "procedural": "gradient-smoke"
+            },
+            "palette": [
+              "#E3D3C7",
+              "#A37447",
+              "#BE9765",
+              "#BE976B",
+              "#BA815C"
+            ],
+            "paletteHueRisk": [],
+            "gradientAxis": "horizontal",
+            "stats": {
+              "meanLum": 160.8,
+              "meanSaturation": 0.456,
+              "gradientStrength": 0.427,
+              "mottle": 0.077,
+              "streakRatio": 0.62,
+              "hueSpread": 0.009,
+              "specularFraction": 0.106
+            }
+          }
+        },
+        "profileId": "plastic.glossy",
+        "family": "plastic",
+        "subtype": "generic-polymer",
+        "finish": "glossy",
+        "renderPrior": {
+          "metalness": 0.0,
+          "roughness": 0.28,
+          "clearcoat": 0.2,
+          "clearcoatRoughness": 0.18,
+          "ior": 1.5
+        },
+        "requiredMaps": [
+          "map",
+          "roughnessMap"
+        ],
+        "optionalMaps": [
+          "normalMap",
+          "clearcoatMap"
+        ],
+        "validationViews": [
+          "neutral-studio",
+          "grazing",
+          "environment-reflection",
+          "reference-beauty"
+        ],
+        "sourceRefs": [
+          "three.mesh-physical",
+          "three.mesh-standard",
+          "adobe.pbr-guide-1",
+          "google.filament-pbr",
+          "mit.material-recognition"
+        ],
+        "visualCues": [
+          "untinted or light-coloured specular over coloured diffuse body",
+          "smooth molded surface"
+        ]
+      },
+      "observations": [
+        "chromatic base-colour response",
+        "visible meso/micro variation",
+        "strong image-space gradient; verify it is material pattern, not lighting",
+        "single-image PBR inference requires controlled render validation"
+      ],
+      "crop": {
+        "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\01-gold-inner-membrane.png",
+        "bbox": {
+          "x": 35,
+          "y": 39,
+          "width": 82,
+          "height": 184
+        },
+        "sourceWidth": 200,
+        "sourceHeight": 278,
+        "loaderWarnings": [],
+        "coverage": 0.2714
+      },
+      "textureAnalysis": {
+        "finishClass": "gem-metal",
+        "recipe": {
+          "metalness": 0.75,
+          "roughness": 0.14,
+          "clearcoat": 0.6,
+          "clearcoatRoughness": 0.06,
+          "transmission": 0.0,
+          "ior": 1.5,
+          "envMapIntensity": 1.3,
+          "anisotropy": 0.0,
+          "procedural": "gradient-smoke"
+        },
+        "palette": [
+          "#E3D3C7",
+          "#A37447",
+          "#BE9765",
+          "#BE976B",
+          "#BA815C"
+        ],
+        "paletteHueRisk": [],
+        "gradientAxis": "horizontal",
+        "stats": {
+          "meanLum": 160.8,
+          "meanSaturation": 0.456,
+          "gradientStrength": 0.427,
+          "mottle": 0.077,
+          "streakRatio": 0.62,
+          "hueSpread": 0.009,
+          "specularFraction": 0.106
+        }
+      },
+      "pbrReport": {
+        "ok": true,
+        "verdict": "pass",
+        "confidence": 0.86,
+        "estimatedFidelity": 0.86,
+        "targetThreshold": 0.7,
+        "materialId": "membrane-material",
+        "sourceImage": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\01-gold-inner-membrane.png",
+        "outDir": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\pbr-01-gold-inner-membrane",
+        "palette": [
+          "#B8875A",
+          "#D9A973",
+          "#9B6C3D",
+          "#EDCE99",
+          "#673F1E"
+        ],
+        "maps": {
+          "albedo": {
+            "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\pbr-01-gold-inner-membrane\\membrane-material_albedo.png",
+            "url": "membrane-material_albedo.png",
+            "channel": "albedo",
+            "source": "reference-pixel-extraction"
+          },
+          "roughness": {
+            "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\pbr-01-gold-inner-membrane\\membrane-material_roughness.png",
+            "url": "membrane-material_roughness.png",
+            "channel": "roughness",
+            "source": "reference-pixel-extraction"
+          },
+          "height": {
+            "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\pbr-01-gold-inner-membrane\\membrane-material_height.png",
+            "url": "membrane-material_height.png",
+            "channel": "height",
+            "source": "reference-pixel-extraction"
+          },
+          "normal": {
+            "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\pbr-01-gold-inner-membrane\\membrane-material_normal.png",
+            "url": "membrane-material_normal.png",
+            "channel": "normal",
+            "source": "reference-pixel-extraction"
+          },
+          "ao": {
+            "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\pbr-01-gold-inner-membrane\\membrane-material_ao.png",
+            "url": "membrane-material_ao.png",
+            "channel": "ao",
+            "source": "reference-pixel-extraction"
+          }
+        },
+        "diagnostics": {
+          "sourceWidth": 82,
+          "sourceHeight": 184,
+          "mapSize": 512,
+          "cropBBoxPixels": {
+            "x": 0,
+            "y": 0,
+            "width": 82,
+            "height": 184
+          },
+          "mask": {
+            "backgroundColor": "#BD6B4B",
+            "backgroundNoise": 198.884,
+            "transparentPixelFraction": 0.0,
+            "foregroundCoverage": 0.8938
+          },
+          "mapStats": {
+            "valueRange": 0.5712,
+            "heightP90Gradient": 0.19508,
+            "roughnessBase": 0.806,
+            "roughnessVariation": 0.205,
+            "normalStrength": 0.385,
+            "blurRadius": 10
+          },
+          "palette": [
+            "#B8875A",
+            "#D9A973",
+            "#9B6C3D",
+            "#EDCE99",
+            "#673F1E"
+          ]
+        },
+        "warnings": [
+          "single-image inverse rendering cannot prove true physical PBR; confidence is capped"
+        ],
+        "limitation": "single-image PBR extraction is an estimate; 70%+ extraction confidence still needs render screenshot review"
+      },
+      "referencePbr": {
+        "version": "1.0",
+        "sourceImage": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\01-gold-inner-membrane.png",
+        "extractor": "stage1_intake/extract_pbr_evidence.py",
+        "method": "single-image pixel evidence with de-lighting estimate; not photogrammetry",
+        "usable": true,
+        "verdict": "pass",
+        "confidence": 0.86,
+        "estimatedFidelity": 0.86,
+        "targetThreshold": 0.7,
+        "hardLimit": "A single image cannot uniquely recover true albedo/roughness/normal/AO; maps are reference-derived estimates.",
+        "maps": {
+          "albedo": {
+            "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\pbr-01-gold-inner-membrane\\membrane-material_albedo.png",
+            "url": "membrane-material_albedo.png",
+            "channel": "albedo",
+            "source": "reference-pixel-extraction"
+          },
+          "roughness": {
+            "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\pbr-01-gold-inner-membrane\\membrane-material_roughness.png",
+            "url": "membrane-material_roughness.png",
+            "channel": "roughness",
+            "source": "reference-pixel-extraction"
+          },
+          "height": {
+            "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\pbr-01-gold-inner-membrane\\membrane-material_height.png",
+            "url": "membrane-material_height.png",
+            "channel": "height",
+            "source": "reference-pixel-extraction"
+          },
+          "normal": {
+            "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\pbr-01-gold-inner-membrane\\membrane-material_normal.png",
+            "url": "membrane-material_normal.png",
+            "channel": "normal",
+            "source": "reference-pixel-extraction"
+          },
+          "ao": {
+            "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\pbr-01-gold-inner-membrane\\membrane-material_ao.png",
+            "url": "membrane-material_ao.png",
+            "channel": "ao",
+            "source": "reference-pixel-extraction"
+          }
+        },
+        "diagnostics": {
+          "sourceWidth": 82,
+          "sourceHeight": 184,
+          "mapSize": 512,
+          "cropBBoxPixels": {
+            "x": 0,
+            "y": 0,
+            "width": 82,
+            "height": 184
+          },
+          "mask": {
+            "backgroundColor": "#BD6B4B",
+            "backgroundNoise": 198.884,
+            "transparentPixelFraction": 0.0,
+            "foregroundCoverage": 0.8938
+          },
+          "mapStats": {
+            "valueRange": 0.5712,
+            "heightP90Gradient": 0.19508,
+            "roughnessBase": 0.806,
+            "roughnessVariation": 0.205,
+            "normalStrength": 0.385,
+            "blurRadius": 10
+          },
+          "palette": [
+            "#B8875A",
+            "#D9A973",
+            "#9B6C3D",
+            "#EDCE99",
+            "#673F1E"
+          ]
+        },
+        "warnings": [
+          "single-image inverse rendering cannot prove true physical PBR; confidence is capped"
+        ]
+      },
+      "maps": {
+        "albedo": {
+          "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\pbr-01-gold-inner-membrane\\membrane-material_albedo.png",
+          "url": "membrane-material_albedo.png",
+          "channel": "albedo",
+          "source": "reference-pixel-extraction"
+        },
+        "roughness": {
+          "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\pbr-01-gold-inner-membrane\\membrane-material_roughness.png",
+          "url": "membrane-material_roughness.png",
+          "channel": "roughness",
+          "source": "reference-pixel-extraction"
+        },
+        "height": {
+          "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\pbr-01-gold-inner-membrane\\membrane-material_height.png",
+          "url": "membrane-material_height.png",
+          "channel": "height",
+          "source": "reference-pixel-extraction"
+        },
+        "normal": {
+          "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\pbr-01-gold-inner-membrane\\membrane-material_normal.png",
+          "url": "membrane-material_normal.png",
+          "channel": "normal",
+          "source": "reference-pixel-extraction"
+        },
+        "ao": {
+          "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\pbr-01-gold-inner-membrane\\membrane-material_ao.png",
+          "url": "membrane-material_ao.png",
+          "channel": "ao",
+          "source": "reference-pixel-extraction"
+        }
+      }
+    },
+    {
+      "componentId": "matrix-volume",
+      "regionId": "pale-matrix",
+      "materialSpecId": "matrix-material",
+      "hypothesis": {
+        "componentId": "matrix-volume",
+        "regionId": "pale-matrix",
+        "materialId": null,
+        "family": "plastic",
+        "subtype": "generic-polymer",
+        "finish": "matte",
+        "aliases": [],
+        "confidence": 0.829,
+        "source": "vision"
+      },
+      "assignment": {
+        "materialId": "plastic.matte",
+        "status": "proceed",
+        "source": "vision",
+        "confidence": 0.829,
+        "method": "family-subtype-finish",
+        "alternatives": [],
+        "evidence": {
+          "crop": {
+            "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\02-pale-matrix.png",
+            "bbox": {
+              "x": 50,
+              "y": 55,
+              "width": 48,
+              "height": 120
+            },
+            "sourceWidth": 200,
+            "sourceHeight": 278,
+            "loaderWarnings": [],
+            "coverage": 0.1036
+          },
+          "pbr": {
+            "ok": true,
+            "verdict": "pass",
+            "confidence": 0.829,
+            "estimatedFidelity": 0.829,
+            "targetThreshold": 0.7,
+            "materialId": "matrix-material",
+            "sourceImage": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\02-pale-matrix.png",
+            "outDir": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\pbr-02-pale-matrix",
+            "palette": [
+              "#DEB77B",
+              "#BD935C",
+              "#996F3D",
+              "#EDD09E",
+              "#623A1C"
+            ],
+            "maps": {
+              "albedo": {
+                "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\pbr-02-pale-matrix\\matrix-material_albedo.png",
+                "url": "matrix-material_albedo.png",
+                "channel": "albedo",
+                "source": "reference-pixel-extraction"
+              },
+              "roughness": {
+                "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\pbr-02-pale-matrix\\matrix-material_roughness.png",
+                "url": "matrix-material_roughness.png",
+                "channel": "roughness",
+                "source": "reference-pixel-extraction"
+              },
+              "height": {
+                "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\pbr-02-pale-matrix\\matrix-material_height.png",
+                "url": "matrix-material_height.png",
+                "channel": "height",
+                "source": "reference-pixel-extraction"
+              },
+              "normal": {
+                "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\pbr-02-pale-matrix\\matrix-material_normal.png",
+                "url": "matrix-material_normal.png",
+                "channel": "normal",
+                "source": "reference-pixel-extraction"
+              },
+              "ao": {
+                "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\pbr-02-pale-matrix\\matrix-material_ao.png",
+                "url": "matrix-material_ao.png",
+                "channel": "ao",
+                "source": "reference-pixel-extraction"
+              }
+            },
+            "diagnostics": {
+              "sourceWidth": 48,
+              "sourceHeight": 120,
+              "mapSize": 512,
+              "cropBBoxPixels": {
+                "x": 0,
+                "y": 0,
+                "width": 48,
+                "height": 120
+              },
+              "mask": {
+                "backgroundColor": "#DBAA7D",
+                "backgroundNoise": 82.03,
+                "transparentPixelFraction": 0.0,
+                "foregroundCoverage": 0.9936
+              },
+              "mapStats": {
+                "valueRange": 0.6194,
+                "heightP90Gradient": 0.15734,
+                "roughnessBase": 0.796,
+                "roughnessVariation": 0.196,
+                "normalStrength": 0.341,
+                "blurRadius": 10
+              },
+              "palette": [
+                "#DEB77B",
+                "#BD935C",
+                "#996F3D",
+                "#EDD09E",
+                "#623A1C"
+              ]
+            },
+            "warnings": [
+              "image is not clearly isolated from background; using most pixels as material evidence",
+              "object/background separation is weak",
+              "single-image inverse rendering cannot prove true physical PBR; confidence is capped"
+            ],
+            "limitation": "single-image PBR extraction is an estimate; 70%+ extraction confidence still needs render screenshot review"
+          },
+          "texture": {
+            "finishClass": "candy-coat",
+            "recipe": {
+              "metalness": 0.35,
+              "roughness": 0.18,
+              "clearcoat": 0.6,
+              "clearcoatRoughness": 0.15,
+              "transmission": 0.0,
+              "ior": 1.5,
+              "envMapIntensity": 0.7,
+              "anisotropy": 0.0,
+              "procedural": "gradient-smoke"
+            },
+            "palette": [
+              "#D0AA7A",
+              "#C2A072",
+              "#B08A60",
+              "#C69F63",
+              "#C19F6E"
+            ],
+            "paletteHueRisk": [],
+            "gradientAxis": "vertical",
+            "stats": {
+              "meanLum": 155.2,
+              "meanSaturation": 0.502,
+              "gradientStrength": 0.317,
+              "mottle": 0.052,
+              "streakRatio": 0.37,
+              "hueSpread": 0.007,
+              "specularFraction": 0.007
+            }
+          }
+        },
+        "profileId": "plastic.matte",
+        "family": "plastic",
+        "subtype": "generic-polymer",
+        "finish": "matte",
+        "renderPrior": {
+          "metalness": 0.0,
+          "roughness": 0.68,
+          "ior": 1.5
+        },
+        "requiredMaps": [
+          "map",
+          "roughnessMap"
+        ],
+        "optionalMaps": [
+          "normalMap",
+          "aoMap"
+        ],
+        "validationViews": [
+          "albedo-unlit",
+          "neutral-studio",
+          "grazing"
+        ],
+        "sourceRefs": [
+          "three.mesh-standard",
+          "adobe.pbr-guide-1",
+          "google.filament-pbr",
+          "mit.material-recognition"
+        ],
+        "visualCues": [
+          "coloured diffuse body",
+          "broad neutral highlight",
+          "mold seams or fine stipple"
+        ]
+      },
+      "observations": [
+        "chromatic base-colour response",
+        "directional surface frequency",
+        "visible meso/micro variation",
+        "strong image-space gradient; verify it is material pattern, not lighting",
+        "single-image PBR inference requires controlled render validation"
+      ],
+      "crop": {
+        "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\02-pale-matrix.png",
+        "bbox": {
+          "x": 50,
+          "y": 55,
+          "width": 48,
+          "height": 120
+        },
+        "sourceWidth": 200,
+        "sourceHeight": 278,
+        "loaderWarnings": [],
+        "coverage": 0.1036
+      },
+      "textureAnalysis": {
+        "finishClass": "candy-coat",
+        "recipe": {
+          "metalness": 0.35,
+          "roughness": 0.18,
+          "clearcoat": 0.6,
+          "clearcoatRoughness": 0.15,
+          "transmission": 0.0,
+          "ior": 1.5,
+          "envMapIntensity": 0.7,
+          "anisotropy": 0.0,
+          "procedural": "gradient-smoke"
+        },
+        "palette": [
+          "#D0AA7A",
+          "#C2A072",
+          "#B08A60",
+          "#C69F63",
+          "#C19F6E"
+        ],
+        "paletteHueRisk": [],
+        "gradientAxis": "vertical",
+        "stats": {
+          "meanLum": 155.2,
+          "meanSaturation": 0.502,
+          "gradientStrength": 0.317,
+          "mottle": 0.052,
+          "streakRatio": 0.37,
+          "hueSpread": 0.007,
+          "specularFraction": 0.007
+        }
+      },
+      "pbrReport": {
+        "ok": true,
+        "verdict": "pass",
+        "confidence": 0.829,
+        "estimatedFidelity": 0.829,
+        "targetThreshold": 0.7,
+        "materialId": "matrix-material",
+        "sourceImage": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\02-pale-matrix.png",
+        "outDir": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\pbr-02-pale-matrix",
+        "palette": [
+          "#DEB77B",
+          "#BD935C",
+          "#996F3D",
+          "#EDD09E",
+          "#623A1C"
+        ],
+        "maps": {
+          "albedo": {
+            "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\pbr-02-pale-matrix\\matrix-material_albedo.png",
+            "url": "matrix-material_albedo.png",
+            "channel": "albedo",
+            "source": "reference-pixel-extraction"
+          },
+          "roughness": {
+            "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\pbr-02-pale-matrix\\matrix-material_roughness.png",
+            "url": "matrix-material_roughness.png",
+            "channel": "roughness",
+            "source": "reference-pixel-extraction"
+          },
+          "height": {
+            "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\pbr-02-pale-matrix\\matrix-material_height.png",
+            "url": "matrix-material_height.png",
+            "channel": "height",
+            "source": "reference-pixel-extraction"
+          },
+          "normal": {
+            "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\pbr-02-pale-matrix\\matrix-material_normal.png",
+            "url": "matrix-material_normal.png",
+            "channel": "normal",
+            "source": "reference-pixel-extraction"
+          },
+          "ao": {
+            "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\pbr-02-pale-matrix\\matrix-material_ao.png",
+            "url": "matrix-material_ao.png",
+            "channel": "ao",
+            "source": "reference-pixel-extraction"
+          }
+        },
+        "diagnostics": {
+          "sourceWidth": 48,
+          "sourceHeight": 120,
+          "mapSize": 512,
+          "cropBBoxPixels": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 120
+          },
+          "mask": {
+            "backgroundColor": "#DBAA7D",
+            "backgroundNoise": 82.03,
+            "transparentPixelFraction": 0.0,
+            "foregroundCoverage": 0.9936
+          },
+          "mapStats": {
+            "valueRange": 0.6194,
+            "heightP90Gradient": 0.15734,
+            "roughnessBase": 0.796,
+            "roughnessVariation": 0.196,
+            "normalStrength": 0.341,
+            "blurRadius": 10
+          },
+          "palette": [
+            "#DEB77B",
+            "#BD935C",
+            "#996F3D",
+            "#EDD09E",
+            "#623A1C"
+          ]
+        },
+        "warnings": [
+          "image is not clearly isolated from background; using most pixels as material evidence",
+          "object/background separation is weak",
+          "single-image inverse rendering cannot prove true physical PBR; confidence is capped"
+        ],
+        "limitation": "single-image PBR extraction is an estimate; 70%+ extraction confidence still needs render screenshot review"
+      },
+      "referencePbr": {
+        "version": "1.0",
+        "sourceImage": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\02-pale-matrix.png",
+        "extractor": "stage1_intake/extract_pbr_evidence.py",
+        "method": "single-image pixel evidence with de-lighting estimate; not photogrammetry",
+        "usable": true,
+        "verdict": "pass",
+        "confidence": 0.829,
+        "estimatedFidelity": 0.829,
+        "targetThreshold": 0.7,
+        "hardLimit": "A single image cannot uniquely recover true albedo/roughness/normal/AO; maps are reference-derived estimates.",
+        "maps": {
+          "albedo": {
+            "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\pbr-02-pale-matrix\\matrix-material_albedo.png",
+            "url": "matrix-material_albedo.png",
+            "channel": "albedo",
+            "source": "reference-pixel-extraction"
+          },
+          "roughness": {
+            "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\pbr-02-pale-matrix\\matrix-material_roughness.png",
+            "url": "matrix-material_roughness.png",
+            "channel": "roughness",
+            "source": "reference-pixel-extraction"
+          },
+          "height": {
+            "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\pbr-02-pale-matrix\\matrix-material_height.png",
+            "url": "matrix-material_height.png",
+            "channel": "height",
+            "source": "reference-pixel-extraction"
+          },
+          "normal": {
+            "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\pbr-02-pale-matrix\\matrix-material_normal.png",
+            "url": "matrix-material_normal.png",
+            "channel": "normal",
+            "source": "reference-pixel-extraction"
+          },
+          "ao": {
+            "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\pbr-02-pale-matrix\\matrix-material_ao.png",
+            "url": "matrix-material_ao.png",
+            "channel": "ao",
+            "source": "reference-pixel-extraction"
+          }
+        },
+        "diagnostics": {
+          "sourceWidth": 48,
+          "sourceHeight": 120,
+          "mapSize": 512,
+          "cropBBoxPixels": {
+            "x": 0,
+            "y": 0,
+            "width": 48,
+            "height": 120
+          },
+          "mask": {
+            "backgroundColor": "#DBAA7D",
+            "backgroundNoise": 82.03,
+            "transparentPixelFraction": 0.0,
+            "foregroundCoverage": 0.9936
+          },
+          "mapStats": {
+            "valueRange": 0.6194,
+            "heightP90Gradient": 0.15734,
+            "roughnessBase": 0.796,
+            "roughnessVariation": 0.196,
+            "normalStrength": 0.341,
+            "blurRadius": 10
+          },
+          "palette": [
+            "#DEB77B",
+            "#BD935C",
+            "#996F3D",
+            "#EDD09E",
+            "#623A1C"
+          ]
+        },
+        "warnings": [
+          "image is not clearly isolated from background; using most pixels as material evidence",
+          "object/background separation is weak",
+          "single-image inverse rendering cannot prove true physical PBR; confidence is capped"
+        ]
+      },
+      "maps": {
+        "albedo": {
+          "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\pbr-02-pale-matrix\\matrix-material_albedo.png",
+          "url": "matrix-material_albedo.png",
+          "channel": "albedo",
+          "source": "reference-pixel-extraction"
+        },
+        "roughness": {
+          "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\pbr-02-pale-matrix\\matrix-material_roughness.png",
+          "url": "matrix-material_roughness.png",
+          "channel": "roughness",
+          "source": "reference-pixel-extraction"
+        },
+        "height": {
+          "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\pbr-02-pale-matrix\\matrix-material_height.png",
+          "url": "matrix-material_height.png",
+          "channel": "height",
+          "source": "reference-pixel-extraction"
+        },
+        "normal": {
+          "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\pbr-02-pale-matrix\\matrix-material_normal.png",
+          "url": "matrix-material_normal.png",
+          "channel": "normal",
+          "source": "reference-pixel-extraction"
+        },
+        "ao": {
+          "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-evidence\\pbr-02-pale-matrix\\matrix-material_ao.png",
+          "url": "matrix-material_ao.png",
+          "channel": "ao",
+          "source": "reference-pixel-extraction"
+        }
+      }
+    }
+  ],
+  "status": "proceed",
+  "limitations": [
+    "PBR extraction is reference-derived inference, not inverse rendering.",
+    "A crop must be checked against the component visible footprint before accepting material scores."
+  ],
+  "artifact": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\material-analysis.json"
+}

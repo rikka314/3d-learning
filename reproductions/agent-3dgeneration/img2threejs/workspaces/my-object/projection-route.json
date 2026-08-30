@@ -1,0 +1,14 @@
+{
+  "projectionApplies": false,
+  "decision": "procedural-surface",
+  "reason": "The requested deliverable is a programmatic educational model, not a maximum-likeness texture reconstruction. The only patterned region is a low-resolution, lit, painterly shell surface with no hidden-side evidence; projecting its pixels would bake front-view illumination and leave the rear undefined. Identity is carried primarily by geometry, cutaway layering, cristae continuity, and material contrast.",
+  "implementation": {
+    "shell": "deterministic multi-frequency procedural surface variation",
+    "matrix": "deterministic fine speckles plus instanced granules",
+    "membrane": "solid gold albedo with independent roughness and geometry highlights"
+  },
+  "limitations": [
+    "The shell mottling is statistically matched, not pixel-matched.",
+    "The hidden rear surface is an inferred continuation."
+  ]
+}

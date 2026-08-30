@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "passed": true,
+  "browserRuntime": {
+    "ready": true,
+    "passId": "interaction-pass",
+    "nodeCount": 13,
+    "socketCount": 2,
+    "colliderCount": 10,
+    "destructionGroups": ["root", "matrix-layer", "inner-membrane", "cutaway-rim", "cristae"]
+  },
+  "interactions": {
+    "clickSelection": "raycast selects a mesh and resolves its owning sculptComponent",
+    "explode": "matrix-volume, inner-boundary, and cutaway-rim use reversible node offsets",
+    "orbit": "OrbitControls with fixed named capture views",
+    "reset": "front view reset is available"
+  },
+  "evidence": [
+    "interaction-pass-front.png",
+    "interaction-pass-exploded.png",
+    "parts.json"
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "referenceId": "mitochondrion-front-three-quarter",
+  "regions": [
+    {
+      "componentId": "root",
+      "regionId": "outer-shell-right-flank",
+      "sourceImage": "../test/屏幕截图 2026-08-26 011321.png",
+      "bbox": {"x": 124, "y": 44, "width": 50, "height": 188},
+      "family": "plastic",
+      "subtype": "generic-polymer",
+      "finish": "matte",
+      "materialSpecId": "shell-material",
+      "notes": "Stylized educational rendering; crop targets the broad brown flank and excludes most internal gold/matrix regions."
+    },
+    {
+      "componentId": "inner-boundary",
+      "regionId": "gold-inner-membrane",
+      "sourceImage": "../test/屏幕截图 2026-08-26 011321.png",
+      "bbox": {"x": 35, "y": 39, "width": 82, "height": 184},
+      "family": "plastic",
+      "subtype": "generic-polymer",
+      "finish": "glossy",
+      "materialSpecId": "membrane-material",
+      "notes": "Mixed visible-footprint crop because the membrane is thin and serpentine; use only for bounded palette/roughness inference."
+    },
+    {
+      "componentId": "matrix-volume",
+      "regionId": "pale-matrix",
+      "sourceImage": "../test/屏幕截图 2026-08-26 011321.png",
+      "bbox": {"x": 50, "y": 55, "width": 48, "height": 120},
+      "family": "plastic",
+      "subtype": "generic-polymer",
+      "finish": "matte",
+      "materialSpecId": "matrix-material",
+      "notes": "Crop centers on the pale interior but includes gold fold boundaries; confidence must remain bounded."
+    }
+  ]
+}

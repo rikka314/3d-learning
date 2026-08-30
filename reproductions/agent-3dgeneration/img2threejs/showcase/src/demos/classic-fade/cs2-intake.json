@@ -1,0 +1,159 @@
+{
+ "schemaVersion": 1,
+ "state": "proceed",
+ "sourceViews": [
+  {
+   "role": "front",
+   "path": "/private/tmp/claude-501/-Users-tamlh-workspaces-self-AI-img2threejs-showcase/7ff00ad0-86ff-482b-8241-4a9cf57db444/scratchpad/classic/back.png",
+   "hash": 14754410570245501503,
+   "width": 2000,
+   "height": 1125,
+   "coverage": 0.1559,
+   "duplicate": false,
+   "admitted": true,
+   "bladeDirection": "right"
+  },
+  {
+   "role": "back",
+   "path": "/private/tmp/claude-501/-Users-tamlh-workspaces-self-AI-img2threejs-showcase/7ff00ad0-86ff-482b-8241-4a9cf57db444/scratchpad/classic/front.png",
+   "hash": 14543871599726438251,
+   "width": 2000,
+   "height": 1125,
+   "coverage": 0.1559,
+   "duplicate": false,
+   "bladeDirection": "left",
+   "admitted": true
+  }
+ ],
+ "admission": {
+  "admitted": true,
+  "reasons": [],
+  "provenance": {
+   "viewpoint": "reference",
+   "sourcePath": "/private/tmp/claude-501/-Users-tamlh-workspaces-self-AI-img2threejs-showcase/7ff00ad0-86ff-482b-8241-4a9cf57db444/scratchpad/classic/front.png",
+   "width": 2000,
+   "height": 1125,
+   "foregroundCoverage": 0.1559,
+   "largestComponentFraction": 1.0,
+   "pHash": 14543871599726438251,
+   "duplicateOfHash": null
+  }
+ },
+ "probe": {
+  "path": "/private/tmp/claude-501/-Users-tamlh-workspaces-self-AI-img2threejs-showcase/7ff00ad0-86ff-482b-8241-4a9cf57db444/scratchpad/classic/front.png",
+  "type": "png",
+  "bytes": 434359,
+  "width": 2000,
+  "height": 1125,
+  "aspectRatio": 1.7777777777777777,
+  "technicalSuitability": "pass",
+  "warnings": [],
+  "note": "This is only technical image probing. Semantic object suitability still requires visual inspection."
+ },
+ "heuristicSignal": {
+  "path": "/private/tmp/claude-501/-Users-tamlh-workspaces-self-AI-img2threejs-showcase/7ff00ad0-86ff-482b-8241-4a9cf57db444/scratchpad/classic/front.png",
+  "is_cs2_candidate": true,
+  "confidence": 0.55,
+  "signals": [
+   "aspect_ratio_matches:knife_folder,pistol_angle",
+   "wide_format_workshop_render",
+   "neutral_background_steam_style",
+   "typical_render_file_size"
+  ],
+  "weapon_categories": [
+   "knife_folder",
+   "pistol_angle"
+  ],
+  "dimensions": {
+   "width": 2000,
+   "height": 1125,
+   "aspectRatio": 1.778
+  },
+  "color_profile": {
+   "dominant_range": "neutral_grey",
+   "energy": 221.16
+  },
+  "note": "This is a heuristic pre-analysis guard using file metadata and basic byte statistics. It does NOT perform visual analysis. The agent's vision layer (Step 1) performs definitive CS2 identification using the M.C.M.T framework in grimoire/intake/cs2_technical_analysis.md"
+ },
+ "exactnessTier": "image-only",
+ "route": "reference-projection",
+ "textureSource": "image-only",
+ "identity": {
+  "provenance": "classification-record",
+  "confidence": 0.93
+ },
+ "finish": {
+  "provenance": "visual-observation",
+  "confidence": 0.86,
+  "pattern": "Fade: violet/blue at tip -> magenta -> amber -> bare steel at ricasso"
+ },
+ "assets": {
+  "source": "image-only",
+  "records": []
+ },
+ "camera": {
+  "status": "orthographic-broadside",
+  "provenance": "observed",
+  "note": "both views are flat broadside product renders, negligible perspective",
+  "heroSide": "+Z"
+ },
+ "provenance": {
+  "reference": "user-supplied",
+  "metadata": "not-supplied"
+ },
+ "assumptions": {
+  "float": "unknown - 'Minimal Wear' is a user-supplied label, not measured",
+  "paintSeed": "unknown - not derivable from pixels",
+  "hiddenRegions": "inferred",
+  "thickness": "inferred - both views are broadside; neither resolves Z depth"
+ },
+ "confidence": {
+  "overall": 0.93,
+  "hiddenRegions": 0.25
+ },
+ "warnings": [
+  "heuristicSignal"
+ ],
+ "extensions": {
+  "compatibilityMode": "manifest-v1",
+  "viewPairing": {
+   "relation": "obverse/reverse of one physical item",
+   "alphaIoU_front_vs_mirroredBack": 0.9908,
+   "meanAbsRGBDelta_on_overlap": 16.05,
+   "verdict": "same silhouette, genuinely different surface pixels -> not a duplicate view",
+   "silhouetteAgreementPx": {
+    "topEdgeMean": 0.7,
+    "bottomEdgeMean": 0.82
+   }
+  },
+  "roleCorrection": {
+   "correctedOn": "2026-07-25",
+   "reason": "the prior manifest labelled the blade-LEFT view as front; the supplied prompt labels the blade-RIGHT view (7.png) as FRONT. Texture-to-face assignment was already correct (+Z carries the blade-right pixels); only the role labels, the albedo filenames and the hero camera were wrong, so the hero view framed the back.",
+   "heroCamera": "+Z"
+  }
+ },
+ "classification": {
+  "itemFamily": "knife",
+  "subtype": "classic",
+  "confidence": 0.93,
+  "provider": "agent-vision",
+  "timedOut": false,
+  "evidenceRefs": [
+   "front.png: hammer-head crossguard with forward-canted upright quillon + rounded lower spur",
+   "front.png+back.png: 5-step staircase butt plate with countersunk lanyard hole",
+   "front.png+back.png: large diamond-quilted grip slab, two countersunk screws per bolster (4 per face)",
+   "front.png: gold beaded/braided ferrule band between fore-bolster and guard",
+   "alpha trace: 6 regular spine scallops, pitch 29px, over x 879-1041",
+   "alpha trace: deep semicircular choil between guard spur and blade heel"
+  ],
+  "rejectedAlternatives": [
+   "bayonet/m9: no fuller, no clipped swedge tip, guard is hammer-head not straight bar",
+   "bowie: no clip point, spine is flat then drop-curved",
+   "navaja/flip/karambit: fixed-blade full-tang with crossguard, not a folder or curved talon"
+  ],
+  "version": "claude-opus-5-1m/2026-07-25"
+ },
+ "itemFamily": "knife",
+ "subtype": "classic",
+ "componentAdapter": "cs2-knife-v1"
+}

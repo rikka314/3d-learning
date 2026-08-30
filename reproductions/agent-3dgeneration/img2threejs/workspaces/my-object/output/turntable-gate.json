@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "covered": true,
+  "requiredAzimuths": [0, 90, 180, 270],
+  "missingAzimuths": [],
+  "degenerate": false,
+  "holed": false,
+  "segmentationReliable": true,
+  "areaRatios": {
+    "front": 1.0,
+    "right": 0.8097,
+    "rear": 0.8308,
+    "left": 0.7925
+  }
+}

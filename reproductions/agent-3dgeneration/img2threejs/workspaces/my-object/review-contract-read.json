@@ -1,0 +1,15 @@
+{
+  "readCompletely": [
+    "upstream/grimoire/review/gates_reference.md",
+    "upstream/grimoire/review/self_correction.md"
+  ],
+  "currentPass": "blockout",
+  "requiredDecision": "continue | refine-spec | refine-code | request-input | stop",
+  "continueThreshold": 0.7,
+  "criticalFeatureThreshold": 0.8,
+  "notes": [
+    "Tier 2 visual review cannot override a hard deterministic failure.",
+    "Non-planar form requires multiple camera angles.",
+    "A 2D gate does not prove 3D realism."
+  ]
+}

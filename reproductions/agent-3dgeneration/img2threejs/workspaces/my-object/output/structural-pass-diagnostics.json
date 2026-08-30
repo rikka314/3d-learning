@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "passId": "structural-pass",
+  "renderHash": "823a740f1b365b58",
+  "checks": {
+    "silhouetteIoU": 0.8542,
+    "aspectRatioDelta": 0.0286,
+    "scaleDelta": 0.0294,
+    "bilateralSymmetryError": 0.1191
+  },
+  "multiAngle": {
+    "degenerate": false,
+    "thicknessAxisRatio": 0.8087,
+    "rearRatio": 0.8311
+  },
+  "mapStrippedRender": "structural-pass-clay.png",
+  "failures": []
+}

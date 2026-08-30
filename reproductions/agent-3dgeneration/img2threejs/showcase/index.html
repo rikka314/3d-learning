@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>img2threejs — Live Demo Gallery</title>
+    <meta
+      name="description"
+      content="Every object and character here was rebuilt in code from a single reference image, then rendered live in your browser — animation-ready Three.js, no imported meshes."
+    />
+    <meta name="theme-color" content="#0b0b0d" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href="https://img2threejs.io/" />
+
+    <!--
+      Absolute URLs are mandatory here: every scraper resolves og:image and og:url against nothing,
+      so a root-relative path silently yields no preview at all. They therefore duplicate SITE_URL
+      from src/site-data.ts, which a static index.html cannot import — change both together.
+
+      The router is hash-based, so a crawler never receives the fragment for /#/demo/<id>. Every
+      exhibit URL is fetched as this same document and shares this one card; per-exhibit previews
+      would need prerendered per-route HTML, which the Actions build does not produce today.
+    -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="img2threejs" />
+    <meta property="og:url" content="https://img2threejs.io/" />
+    <meta property="og:title" content="img2threejs — One photo in, a procedural model out" />
+    <meta
+      property="og:description"
+      content="Every object and character here was rebuilt in code from a single reference image, then rendered live in your browser — animation-ready Three.js, no imported meshes."
+    />
+    <meta property="og:image" content="https://img2threejs.io/og-cover.png" />
+    <meta property="og:image:secure_url" content="https://img2threejs.io/og-cover.png" />
+    <meta property="og:image:type" content="image/png" />
+    <!-- Must match the file's real pixel size, not the nominal 1200x630 it is laid out at. -->
+    <meta property="og:image:width" content="2400" />
+    <meta property="og:image:height" content="1260" />
+    <meta
+      property="og:image:alt"
+      content="A procedurally rebuilt AWP | Medusa sniper rifle — 37k triangles across 150 named parts — under the line: one photo in, a procedural model out."
+    />
+    <meta property="og:locale" content="en_US" />
+
+    <!--
+      Twitter reads og:title / og:description / og:image when the twitter:* equivalents are absent,
+      so only the tags with no Open Graph counterpart are declared. Duplicating the rest would just
+      create a second place for the copy to go stale.
+    -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@NickDevFE" />
+    <meta name="twitter:creator" content="@NickDevFE" />
+
+    <link rel="stylesheet" href="/src/styles.css" />
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

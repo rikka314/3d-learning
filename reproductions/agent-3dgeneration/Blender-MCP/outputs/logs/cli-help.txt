@@ -1,0 +1,12 @@
+usage: blender-mcp [-h] {install-addon,addon-paths} ...
+
+Blender MCP server and addon installer
+
+positional arguments:
+  {install-addon,addon-paths}
+    install-addon       Copy the bundled addon.py into Blender's user addons
+                        folder
+    addon-paths         List discovered Blender user addons directories
+
+options:
+  -h, --help            show this help message and exit

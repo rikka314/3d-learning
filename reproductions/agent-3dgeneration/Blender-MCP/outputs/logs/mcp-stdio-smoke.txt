@@ -1,0 +1,12 @@
+{
+  "server_name": "BlenderMCP",
+  "blender_mcp_version": "1.8.7",
+  "mcp_server_version": "1.29.0",
+  "tool_count": 25,
+  "expected_tools": [
+    "execute_blender_code",
+    "get_addon_status",
+    "get_scene_info"
+  ],
+  "status": "ok"
+}

@@ -1,0 +1,127 @@
+Building source distribution...
+running egg_info
+writing src\blender_mcp.egg-info\PKG-INFO
+writing dependency_links to src\blender_mcp.egg-info\dependency_links.txt
+writing entry points to src\blender_mcp.egg-info\entry_points.txt
+writing requirements to src\blender_mcp.egg-info\requires.txt
+writing top-level names to src\blender_mcp.egg-info\top_level.txt
+reading manifest file 'src\blender_mcp.egg-info\SOURCES.txt'
+adding license file 'LICENSE'
+writing manifest file 'src\blender_mcp.egg-info\SOURCES.txt'
+running sdist
+running egg_info
+writing src\blender_mcp.egg-info\PKG-INFO
+writing dependency_links to src\blender_mcp.egg-info\dependency_links.txt
+writing entry points to src\blender_mcp.egg-info\entry_points.txt
+writing requirements to src\blender_mcp.egg-info\requires.txt
+writing top-level names to src\blender_mcp.egg-info\top_level.txt
+reading manifest file 'src\blender_mcp.egg-info\SOURCES.txt'
+adding license file 'LICENSE'
+writing manifest file 'src\blender_mcp.egg-info\SOURCES.txt'
+running check
+creating blender_mcp-1.8.7
+creating blender_mcp-1.8.7\src\blender_mcp
+creating blender_mcp-1.8.7\src\blender_mcp.egg-info
+creating blender_mcp-1.8.7\src\blender_mcp\bundled
+creating blender_mcp-1.8.7\tests
+copying files to blender_mcp-1.8.7...
+copying LICENSE -> blender_mcp-1.8.7
+copying README.md -> blender_mcp-1.8.7
+copying pyproject.toml -> blender_mcp-1.8.7
+copying src\blender_mcp\__init__.py -> blender_mcp-1.8.7\src\blender_mcp
+copying src\blender_mcp\addon_manager.py -> blender_mcp-1.8.7\src\blender_mcp
+copying src\blender_mcp\consent_prompt.py -> blender_mcp-1.8.7\src\blender_mcp
+copying src\blender_mcp\server.py -> blender_mcp-1.8.7\src\blender_mcp
+copying src\blender_mcp\telemetry.py -> blender_mcp-1.8.7\src\blender_mcp
+copying src\blender_mcp\telemetry_decorator.py -> blender_mcp-1.8.7\src\blender_mcp
+copying src\blender_mcp\trajectory.py -> blender_mcp-1.8.7\src\blender_mcp
+copying src\blender_mcp.egg-info\PKG-INFO -> blender_mcp-1.8.7\src\blender_mcp.egg-info
+copying src\blender_mcp.egg-info\SOURCES.txt -> blender_mcp-1.8.7\src\blender_mcp.egg-info
+copying src\blender_mcp.egg-info\dependency_links.txt -> blender_mcp-1.8.7\src\blender_mcp.egg-info
+copying src\blender_mcp.egg-info\entry_points.txt -> blender_mcp-1.8.7\src\blender_mcp.egg-info
+copying src\blender_mcp.egg-info\requires.txt -> blender_mcp-1.8.7\src\blender_mcp.egg-info
+copying src\blender_mcp.egg-info\top_level.txt -> blender_mcp-1.8.7\src\blender_mcp.egg-info
+copying src\blender_mcp\bundled\__init__.py -> blender_mcp-1.8.7\src\blender_mcp\bundled
+copying src\blender_mcp\bundled\addon.py -> blender_mcp-1.8.7\src\blender_mcp\bundled
+copying tests\test_addon_manager.py -> blender_mcp-1.8.7\tests
+copying tests\test_hunyuan_import_security.py -> blender_mcp-1.8.7\tests
+copying tests\test_server_threading.py -> blender_mcp-1.8.7\tests
+copying tests\test_sketchfab_status.py -> blender_mcp-1.8.7\tests
+copying tests\test_socket_unicode.py -> blender_mcp-1.8.7\tests
+copying tests\test_trajectory_size_guard.py -> blender_mcp-1.8.7\tests
+copying src\blender_mcp.egg-info\SOURCES.txt -> blender_mcp-1.8.7\src\blender_mcp.egg-info
+Writing blender_mcp-1.8.7\setup.cfg
+Creating tar archive
+removing 'blender_mcp-1.8.7' (and everything under it)
+Building wheel from source distribution...
+running egg_info
+writing src\blender_mcp.egg-info\PKG-INFO
+writing dependency_links to src\blender_mcp.egg-info\dependency_links.txt
+writing entry points to src\blender_mcp.egg-info\entry_points.txt
+writing requirements to src\blender_mcp.egg-info\requires.txt
+writing top-level names to src\blender_mcp.egg-info\top_level.txt
+reading manifest file 'src\blender_mcp.egg-info\SOURCES.txt'
+adding license file 'LICENSE'
+writing manifest file 'src\blender_mcp.egg-info\SOURCES.txt'
+running bdist_wheel
+running build
+running build_py
+creating build\lib\blender_mcp
+copying src\blender_mcp\addon_manager.py -> build\lib\blender_mcp
+copying src\blender_mcp\consent_prompt.py -> build\lib\blender_mcp
+copying src\blender_mcp\server.py -> build\lib\blender_mcp
+copying src\blender_mcp\telemetry.py -> build\lib\blender_mcp
+copying src\blender_mcp\telemetry_decorator.py -> build\lib\blender_mcp
+copying src\blender_mcp\trajectory.py -> build\lib\blender_mcp
+copying src\blender_mcp\__init__.py -> build\lib\blender_mcp
+creating build\lib\blender_mcp\bundled
+copying src\blender_mcp\bundled\addon.py -> build\lib\blender_mcp\bundled
+copying src\blender_mcp\bundled\__init__.py -> build\lib\blender_mcp\bundled
+running egg_info
+writing src\blender_mcp.egg-info\PKG-INFO
+writing dependency_links to src\blender_mcp.egg-info\dependency_links.txt
+writing entry points to src\blender_mcp.egg-info\entry_points.txt
+writing requirements to src\blender_mcp.egg-info\requires.txt
+writing top-level names to src\blender_mcp.egg-info\top_level.txt
+reading manifest file 'src\blender_mcp.egg-info\SOURCES.txt'
+adding license file 'LICENSE'
+writing manifest file 'src\blender_mcp.egg-info\SOURCES.txt'
+copying src\blender_mcp\bundled\addon.py -> build\lib\blender_mcp\bundled
+installing to build\bdist.win-amd64\wheel
+running install
+running install_lib
+creating build\bdist.win-amd64\wheel
+creating build\bdist.win-amd64\wheel\blender_mcp
+copying build\lib\blender_mcp\addon_manager.py -> build\bdist.win-amd64\wheel\.\blender_mcp
+creating build\bdist.win-amd64\wheel\blender_mcp\bundled
+copying build\lib\blender_mcp\bundled\addon.py -> build\bdist.win-amd64\wheel\.\blender_mcp\bundled
+copying build\lib\blender_mcp\bundled\__init__.py -> build\bdist.win-amd64\wheel\.\blender_mcp\bundled
+copying build\lib\blender_mcp\consent_prompt.py -> build\bdist.win-amd64\wheel\.\blender_mcp
+copying build\lib\blender_mcp\server.py -> build\bdist.win-amd64\wheel\.\blender_mcp
+copying build\lib\blender_mcp\telemetry.py -> build\bdist.win-amd64\wheel\.\blender_mcp
+copying build\lib\blender_mcp\telemetry_decorator.py -> build\bdist.win-amd64\wheel\.\blender_mcp
+copying build\lib\blender_mcp\trajectory.py -> build\bdist.win-amd64\wheel\.\blender_mcp
+copying build\lib\blender_mcp\__init__.py -> build\bdist.win-amd64\wheel\.\blender_mcp
+running install_egg_info
+Copying src\blender_mcp.egg-info to build\bdist.win-amd64\wheel\.\blender_mcp-1.8.7-py3.11.egg-info
+running install_scripts
+creating build\bdist.win-amd64\wheel\blender_mcp-1.8.7.dist-info\WHEEL
+creating 'D:\Learn\20_Projects\3dresearch\3d-learning\reproductions\agent-3dgeneration\Blender-MCP\upstream\dist\.tmp-lkvwrxv7\blender_mcp-1.8.7-py3-none-any.whl' and adding 'build\bdist.win-amd64\wheel' to it
+adding 'blender_mcp/__init__.py'
+adding 'blender_mcp/addon_manager.py'
+adding 'blender_mcp/consent_prompt.py'
+adding 'blender_mcp/server.py'
+adding 'blender_mcp/telemetry.py'
+adding 'blender_mcp/telemetry_decorator.py'
+adding 'blender_mcp/trajectory.py'
+adding 'blender_mcp/bundled/__init__.py'
+adding 'blender_mcp/bundled/addon.py'
+adding 'blender_mcp-1.8.7.dist-info/licenses/LICENSE'
+adding 'blender_mcp-1.8.7.dist-info/METADATA'
+adding 'blender_mcp-1.8.7.dist-info/WHEEL'
+adding 'blender_mcp-1.8.7.dist-info/entry_points.txt'
+adding 'blender_mcp-1.8.7.dist-info/top_level.txt'
+adding 'blender_mcp-1.8.7.dist-info/RECORD'
+removing build\bdist.win-amd64\wheel
+Successfully built dist\blender_mcp-1.8.7.tar.gz
+Successfully built dist\blender_mcp-1.8.7-py3-none-any.whl

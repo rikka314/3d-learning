@@ -1,0 +1,19 @@
+node_modules
+dist
+.DS_Store
+.omc
+sculpt
+.render-review/
+.img2threejs/
+graphify-out/
+**/graphify-out/
+
+__pycache__/
+
+# The 87 MB reference GLB is symlinked in, never committed. Same for the render
+# archive and the local Python venv the measurement pipeline runs in.
+public/models/*.glb
+public/baseline/
+public/mesh/
+.renders/
+.venv/

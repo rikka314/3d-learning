@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "passed": true,
+  "environment": "Playwright Chromium, 600x834 viewport",
+  "measured": {
+    "fps": 240.02,
+    "drawCalls": 37,
+    "triangles": 93956,
+    "geometries": 31,
+    "textures": 10,
+    "shaderPrograms": 6,
+    "bundleKiB": 543.66,
+    "bundleGzipKiB": 140.82
+  },
+  "budget": {
+    "fpsTarget": 30,
+    "maxDrawCalls": 160,
+    "targetTriangles": 250000,
+    "textureResolution": 1024
+  },
+  "instancing": {
+    "granules": 38,
+    "matrixSpecks": 120,
+    "shellPores": 68
+  },
+  "lodStrategy": [
+    {
+      "tier": "near",
+      "distance": 0,
+      "strategy": "full component hierarchy and material maps"
+    },
+    {
+      "tier": "far",
+      "distance": 30,
+      "strategy": "hide micro instance groups and reduce texture sampling"
+    }
+  ],
+  "notes": [
+    "FPS is a headless-browser sample and is evidence against the 30 FPS floor, not a device guarantee.",
+    "Optimization preserves all named selectable nodes and reference-critical folds."
+  ]
+}

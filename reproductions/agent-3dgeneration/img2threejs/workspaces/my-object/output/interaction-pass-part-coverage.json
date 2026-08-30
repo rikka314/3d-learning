@@ -1,0 +1,94 @@
+{
+  "model": "mitochondrion-cutaway",
+  "specifiedComponents": 12,
+  "builtParts": 12,
+  "errors": 0,
+  "warnings": 14,
+  "result": "pass",
+  "findings": [
+    {
+      "check": "detail-dangling",
+      "severity": "warning",
+      "subject": "aperture-gold-inner-ridge",
+      "detail": "mapsTo 'inner-boundary.localFeatures.boundary-ridge' matches no component, localFeature or localOverride"
+    },
+    {
+      "check": "detail-dangling",
+      "severity": "warning",
+      "subject": "cutaway-copper-rim-bevel",
+      "detail": "mapsTo 'cutaway-rim.localFeatures.rim-bevel' matches no component, localFeature or localOverride"
+    },
+    {
+      "check": "detail-dangling",
+      "severity": "warning",
+      "subject": "cutaway-rim-shadow-seam",
+      "detail": "mapsTo 'shell-material.localOverrides.cutaway-seam-darkening' matches no component, localFeature or localOverride"
+    },
+    {
+      "check": "detail-dangling",
+      "severity": "warning",
+      "subject": "cristae-serpentine-curvature",
+      "detail": "mapsTo 'cristae-network.localFeatures.serpentine-folds' matches no component, localFeature or localOverride"
+    },
+    {
+      "check": "detail-dangling",
+      "severity": "warning",
+      "subject": "cristae-rounded-termini",
+      "detail": "mapsTo 'cristae-network.localFeatures.rounded-termini' matches no component, localFeature or localOverride"
+    },
+    {
+      "check": "detail-dangling",
+      "severity": "warning",
+      "subject": "cristae-width-variation",
+      "detail": "mapsTo 'cristae-network.localFeatures.fold-width-variation' matches no component, localFeature or localOverride"
+    },
+    {
+      "check": "detail-dangling",
+      "severity": "warning",
+      "subject": "lower-spiral-fold",
+      "detail": "mapsTo 'cristae-network.localFeatures.lower-spiral' matches no component, localFeature or localOverride"
+    },
+    {
+      "check": "detail-dangling",
+      "severity": "warning",
+      "subject": "membrane-crest-gloss",
+      "detail": "mapsTo 'membrane-material.localOverrides.crest-gloss' matches no component, localFeature or localOverride"
+    },
+    {
+      "check": "detail-dangling",
+      "severity": "warning",
+      "subject": "matrix-fine-speckles",
+      "detail": "mapsTo 'matrix-material.localOverrides.fine-speckles' matches no component, localFeature or localOverride"
+    },
+    {
+      "check": "detail-dangling",
+      "severity": "warning",
+      "subject": "matrix-granule-field",
+      "detail": "mapsTo 'matrix-volume.localFeatures.granule-field' matches no component, localFeature or localOverride"
+    },
+    {
+      "check": "detail-dangling",
+      "severity": "warning",
+      "subject": "shell-macro-undulation",
+      "detail": "mapsTo 'outer-shell.localFeatures.macro-undulation' matches no component, localFeature or localOverride"
+    },
+    {
+      "check": "detail-dangling",
+      "severity": "warning",
+      "subject": "shell-meso-pitting",
+      "detail": "mapsTo 'shell-material.localOverrides.meso-pitting' matches no component, localFeature or localOverride"
+    },
+    {
+      "check": "detail-dangling",
+      "severity": "warning",
+      "subject": "shell-micro-grain",
+      "detail": "mapsTo 'shell-material.localOverrides.micro-grain' matches no component, localFeature or localOverride"
+    },
+    {
+      "check": "detail-dangling",
+      "severity": "warning",
+      "subject": "shell-crown-highlight-band",
+      "detail": "mapsTo 'shell-material.localOverrides.crown-highlight' matches no component, localFeature or localOverride"
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "reference": "../test/屏幕截图 2026-08-26 011321.png",
+  "verdict": "conditional",
+  "technicalProbe": {
+    "width": 200,
+    "height": 278,
+    "aspectRatio": 0.7194244604316546,
+    "technicalSuitability": "conditional",
+    "warnings": [
+      "low resolution; small geometry and material details may be unreliable"
+    ]
+  },
+  "visualAdmission": {
+    "singleObviousTarget": true,
+    "strongSilhouette": true,
+    "majorMaterialsVisible": true,
+    "proceduralApproximationFeasible": true,
+    "singleViewLimit": true,
+    "hiddenSideReasonablyInferable": true
+  },
+  "acceptedUse": "stylized real-time browser educational prop",
+  "blockedClaims": [
+    "anatomical-grade accuracy",
+    "exact hidden-side reconstruction",
+    "manufacturing-grade dimensions"
+  ],
+  "rationale": "The isolated organelle has a readable silhouette and visible cutaway structure, but the 200 px source and single view make small internal geometry and the rear side inferential."
+}

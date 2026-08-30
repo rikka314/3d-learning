@@ -1,0 +1,33 @@
+{
+  "schema_version": "paper-reader-artifacts/1.0",
+  "paper": {
+    "title": "Shap-MeD",
+    "source_mode": "latex-primary"
+  },
+  "report": {
+    "markdown": "report.md"
+  },
+  "traceability_manifest": "traceability_manifest.json",
+  "latex_paragraphs": "latex_paragraphs.json",
+  "research_lens": "research_lens.json",
+  "documents": [
+    {
+      "doc": "main",
+      "label": "main",
+      "pdf": "source/main.pdf",
+      "synctex": "source/main.synctex.gz"
+    }
+  ],
+  "storyboard": {
+    "manifest": "storyboard_manifest.json",
+    "prompts": "storyboard_prompts.md",
+    "images": [
+      "storyboard/S1-generic-sculptor-meets-anatomy.png",
+      "storyboard/S2-medical-mesh-data-audit.png",
+      "storyboard/S3-frozen-transmitter-finetuned-generator.png",
+      "storyboard/S4-loss-improves-evidence-boundary.png",
+      "storyboard/S5-verified-geometry-generative-presentation.png"
+    ]
+  },
+  "reader_output": "reader_bundle"
+}

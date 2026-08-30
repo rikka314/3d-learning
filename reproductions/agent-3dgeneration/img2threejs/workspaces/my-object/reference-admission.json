@@ -1,0 +1,14 @@
+{
+  "admitted": true,
+  "reasons": [],
+  "provenance": {
+    "viewpoint": "front-three-quarter",
+    "sourcePath": "../test/屏幕截图 2026-08-26 011321.png",
+    "width": 200,
+    "height": 278,
+    "foregroundCoverage": 0.5273,
+    "largestComponentFraction": 1.0,
+    "pHash": 18222932529009173249,
+    "duplicateOfHash": null
+  }
+}

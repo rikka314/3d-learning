@@ -1,0 +1,52 @@
+{
+ "frame": {
+  "width": 1730,
+  "height": 1125,
+  "cropOriginPx": [
+   136,
+   0
+  ]
+ },
+ "channels": {
+  "albedoFront": {
+   "file": "front-albedo.png",
+   "colorSpace": "srgb",
+   "source": "FRONT reference, alpha-aware de-lit (strength 0.55, r=110)"
+  },
+  "albedoBack": {
+   "file": "back-albedo.png",
+   "colorSpace": "srgb",
+   "source": "BACK reference, mirrored into the FRONT UV frame, same de-light"
+  },
+  "roughness": {
+   "file": "roughness.png",
+   "colorSpace": "linear",
+   "source": "silhouette distance field + measured serration/panel bands + seeded noise",
+   "derivedFromAlbedo": false
+  },
+  "metalness": {
+   "file": "metalness.png",
+   "colorSpace": "linear",
+   "source": "worn-magwell-lip band only (Well-Worn polymer worn through)",
+   "derivedFromAlbedo": false
+  },
+  "ao": {
+   "file": "ao.png",
+   "colorSpace": "linear",
+   "source": "slide/frame seam + grip-panel recess + relief bands + silhouette falloff",
+   "derivedFromAlbedo": false
+  },
+  "normal": {
+   "file": "normal.png",
+   "colorSpace": "linear",
+   "encoding": "tangent, +Y up (OpenGL)",
+   "source": "height field from the measured relief bands + grip stria + seeded micro noise",
+   "derivedFromAlbedo": false
+  }
+ },
+ "uvOrientation": "planar XY in model space; u = (x - cropX0)/cropW, v = 1 - y/cropH",
+ "limitations": [
+  "de-lighting is an approximation: the polished magwell specular streak and the slide's top gloss line stay baked into the albedo",
+  "no raw skin texture maps were available, so this is image-only, not exact-texture"
+ ]
+}

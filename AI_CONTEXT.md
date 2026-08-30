@@ -36,7 +36,7 @@
 
 - 文献资料、个人思考、项目复现三类内容分开管理。
 - 文献资料按 `papers/`、`report/`、`courses/`、`tools/` 四类存放。
-- `reproductions/` 只提供容器，不提前创建具体复现项目。
+- `reproductions/` 允许按研究主题分组；当前 `多视图复现/` 下独立维护 Zero123++、Era3D 与 MV-Adapter 三条复现线。
 - 各复现项目应自行维护来源、环境、运行方式和结果说明。
 - 当前没有统一编程语言、包管理器或运行命令。
 - 最新研究进展调研优先从项目级 `research-ops` 进入，按需调用 `exa-search` 或升级到 `deep-research`。

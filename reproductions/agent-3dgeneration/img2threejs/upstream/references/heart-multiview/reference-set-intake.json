@@ -1,0 +1,232 @@
+{
+  "schemaVersion": 1,
+  "kind": "img2threejs.reference-set-intake",
+  "primaryViewId": "anterior",
+  "referenceSet": {
+    "schemaVersion": 1,
+    "kind": "img2threejs.reference-set",
+    "mode": "vision-context",
+    "primaryViewId": "anterior",
+    "views": [
+      {
+        "id": "anterior",
+        "role": "anterior-primary",
+        "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\upstream\\references\\heart-multiview\\01-anterior.png",
+        "sha256": "ee16f7327f90afb5bf13a6077b96ec9b74a21135ad85d55e18e29d717b6adaeb"
+      },
+      {
+        "id": "left-oblique",
+        "role": "left-oblique",
+        "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\upstream\\references\\heart-multiview\\02-left-oblique.png",
+        "sha256": "618243ff0880617ebee0cbdd1fb52ceccf8c9c875264d2d9daa3b32e634e926c"
+      },
+      {
+        "id": "posterior",
+        "role": "posterior",
+        "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\upstream\\references\\heart-multiview\\03-posterior.png",
+        "sha256": "6fbfe340c7199de07baceb717c0a238cbfe115bc055f22bc8939d0ade63d22cf"
+      },
+      {
+        "id": "right-oblique",
+        "role": "right-oblique",
+        "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\upstream\\references\\heart-multiview\\04-right-oblique.png",
+        "sha256": "7525a421b45993e73aea4e5eb0c8c71480d1f150fa7f06f2466089d251bfd4f0"
+      },
+      {
+        "id": "superior",
+        "role": "superior-top",
+        "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\upstream\\references\\heart-multiview\\05-superior.png",
+        "sha256": "c0f3117f79a1b1daaf49e109157f9eb3ff839433bf2f2f6e3057ee11456e9839"
+      }
+    ]
+  },
+  "views": [
+    {
+      "viewId": "anterior",
+      "role": "anterior-primary",
+      "sourceImage": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\upstream\\references\\heart-multiview\\01-anterior.png",
+      "sha256": "ee16f7327f90afb5bf13a6077b96ec9b74a21135ad85d55e18e29d717b6adaeb",
+      "camera": null,
+      "evidence": {},
+      "technicalProbe": {
+        "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\upstream\\references\\heart-multiview\\01-anterior.png",
+        "type": "png",
+        "bytes": 376602,
+        "width": 445,
+        "height": 582,
+        "aspectRatio": 0.7646048109965635,
+        "technicalSuitability": "conditional",
+        "warnings": [
+          "low resolution; small geometry/material details may be unreliable"
+        ],
+        "note": "This is only technical image probing. Semantic object suitability still requires visual inspection."
+      },
+      "admission": {
+        "admitted": true,
+        "reasons": [],
+        "provenance": {
+          "viewpoint": "anterior-primary",
+          "sourcePath": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\upstream\\references\\heart-multiview\\01-anterior.png",
+          "width": 445,
+          "height": 582,
+          "foregroundCoverage": 0.5013,
+          "largestComponentFraction": 0.9961,
+          "pHash": 17208423882014090064,
+          "duplicateOfHash": null
+        }
+      }
+    },
+    {
+      "viewId": "left-oblique",
+      "role": "left-oblique",
+      "sourceImage": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\upstream\\references\\heart-multiview\\02-left-oblique.png",
+      "sha256": "618243ff0880617ebee0cbdd1fb52ceccf8c9c875264d2d9daa3b32e634e926c",
+      "camera": null,
+      "evidence": {},
+      "technicalProbe": {
+        "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\upstream\\references\\heart-multiview\\02-left-oblique.png",
+        "type": "png",
+        "bytes": 271592,
+        "width": 431,
+        "height": 549,
+        "aspectRatio": 0.785063752276867,
+        "technicalSuitability": "conditional",
+        "warnings": [
+          "low resolution; small geometry/material details may be unreliable"
+        ],
+        "note": "This is only technical image probing. Semantic object suitability still requires visual inspection."
+      },
+      "admission": {
+        "admitted": true,
+        "reasons": [],
+        "provenance": {
+          "viewpoint": "left-oblique",
+          "sourcePath": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\upstream\\references\\heart-multiview\\02-left-oblique.png",
+          "width": 431,
+          "height": 549,
+          "foregroundCoverage": 0.4152,
+          "largestComponentFraction": 0.9963,
+          "pHash": 17059348045076277504,
+          "duplicateOfHash": null
+        }
+      }
+    },
+    {
+      "viewId": "posterior",
+      "role": "posterior",
+      "sourceImage": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\upstream\\references\\heart-multiview\\03-posterior.png",
+      "sha256": "6fbfe340c7199de07baceb717c0a238cbfe115bc055f22bc8939d0ade63d22cf",
+      "camera": null,
+      "evidence": {},
+      "technicalProbe": {
+        "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\upstream\\references\\heart-multiview\\03-posterior.png",
+        "type": "png",
+        "bytes": 266079,
+        "width": 425,
+        "height": 573,
+        "aspectRatio": 0.7417102966841187,
+        "technicalSuitability": "conditional",
+        "warnings": [
+          "low resolution; small geometry/material details may be unreliable"
+        ],
+        "note": "This is only technical image probing. Semantic object suitability still requires visual inspection."
+      },
+      "admission": {
+        "admitted": true,
+        "reasons": [],
+        "provenance": {
+          "viewpoint": "posterior",
+          "sourcePath": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\upstream\\references\\heart-multiview\\03-posterior.png",
+          "width": 425,
+          "height": 573,
+          "foregroundCoverage": 0.4951,
+          "largestComponentFraction": 1.0,
+          "pHash": 12542165377406856332,
+          "duplicateOfHash": null
+        }
+      }
+    },
+    {
+      "viewId": "right-oblique",
+      "role": "right-oblique",
+      "sourceImage": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\upstream\\references\\heart-multiview\\04-right-oblique.png",
+      "sha256": "7525a421b45993e73aea4e5eb0c8c71480d1f150fa7f06f2466089d251bfd4f0",
+      "camera": null,
+      "evidence": {},
+      "technicalProbe": {
+        "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\upstream\\references\\heart-multiview\\04-right-oblique.png",
+        "type": "png",
+        "bytes": 287638,
+        "width": 441,
+        "height": 604,
+        "aspectRatio": 0.7301324503311258,
+        "technicalSuitability": "conditional",
+        "warnings": [
+          "low resolution; small geometry/material details may be unreliable"
+        ],
+        "note": "This is only technical image probing. Semantic object suitability still requires visual inspection."
+      },
+      "admission": {
+        "admitted": true,
+        "reasons": [],
+        "provenance": {
+          "viewpoint": "right-oblique",
+          "sourcePath": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\upstream\\references\\heart-multiview\\04-right-oblique.png",
+          "width": 441,
+          "height": 604,
+          "foregroundCoverage": 0.405,
+          "largestComponentFraction": 0.9959,
+          "pHash": 17365572956837775952,
+          "duplicateOfHash": null
+        }
+      }
+    },
+    {
+      "viewId": "superior",
+      "role": "superior-top",
+      "sourceImage": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\upstream\\references\\heart-multiview\\05-superior.png",
+      "sha256": "c0f3117f79a1b1daaf49e109157f9eb3ff839433bf2f2f6e3057ee11456e9839",
+      "camera": null,
+      "evidence": {},
+      "technicalProbe": {
+        "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\upstream\\references\\heart-multiview\\05-superior.png",
+        "type": "png",
+        "bytes": 199543,
+        "width": 450,
+        "height": 408,
+        "aspectRatio": 1.1029411764705883,
+        "technicalSuitability": "conditional",
+        "warnings": [
+          "low resolution; small geometry/material details may be unreliable"
+        ],
+        "note": "This is only technical image probing. Semantic object suitability still requires visual inspection."
+      },
+      "admission": {
+        "admitted": true,
+        "reasons": [],
+        "provenance": {
+          "viewpoint": "superior-top",
+          "sourcePath": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\upstream\\references\\heart-multiview\\05-superior.png",
+          "width": 450,
+          "height": 408,
+          "foregroundCoverage": 0.9522,
+          "largestComponentFraction": 0.9974,
+          "pHash": 18066465786769330180,
+          "duplicateOfHash": null
+        }
+      }
+    }
+  ],
+  "summary": {
+    "viewCount": 5,
+    "admittedViewIds": [
+      "anterior",
+      "left-oblique",
+      "posterior",
+      "right-oblique",
+      "superior"
+    ],
+    "rejectedViewIds": [],
+    "status": "proceed"
+  }
+}

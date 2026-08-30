@@ -1,0 +1,30 @@
+{
+  "passId": "blockout",
+  "tier1": {
+    "passed": false,
+    "silhouetteIoU": 0.5277,
+    "aspectRatioDelta": 0.2,
+    "scaleDelta": 0.4468,
+    "renderHash": "fb39b6b6a8ca0d9e",
+    "failures": [
+      "subject occupies less than 3.5 percent of frame",
+      "silhouette IoU below 0.85",
+      "aspect ratio delta exceeds 0.05",
+      "scale delta exceeds 0.08",
+      "map-stripped blockout evidence missing"
+    ]
+  },
+  "interiorDifference": {
+    "status": "foreground-mask-fell-back-to-whole-frame",
+    "cellsCompared": 25421,
+    "value": null
+  },
+  "multiAngle": {
+    "degenerate": true,
+    "referenceAreaFraction": 0,
+    "rightRatio": 0,
+    "rearRatio": 0
+  },
+  "visualRootCause": "Generated factory failed to realize authored dimensions and curve placement: the shell and matrix render as small spheres and the inner membrane as a floating short tube.",
+  "requiredAction": "refine-code"
+}

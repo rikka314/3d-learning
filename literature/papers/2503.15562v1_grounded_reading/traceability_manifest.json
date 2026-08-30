@@ -1,0 +1,1881 @@
+{
+  "schema_version": "paper-traceability/1.0",
+  "paper": {
+    "title": "Shap-MeD",
+    "source_mode": "latex-primary",
+    "report_path": "report.md"
+  },
+  "claims": [
+    {
+      "claim_id": "C1.1",
+      "section_id": "1",
+      "section_title": "论文身份与本次使用的证据包",
+      "claim_text": "Shap-MeD 是一篇 2025 年 arXiv v1 预印本，作者将其定义为针对 biomedical domain 的 text-to-3D generative model，其实现方式是用 MedShapeNet 子集 fine-tune OpenAI Shap-E。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "source package grounding",
+      "evidence": [
+        {
+          "evidence_id": "E-C1.1-a",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0010",
+          "quote": "Abstract identifies Shap-MeD as a biomedical text-to-3D model built by fine-tuning Shap-E.",
+          "relation": "direct",
+          "page_hint": 1,
+          "locator_snippets": ["We present Shap-MeD, a text-to-3D object generative model specialized in the biomedical domain", "fine-tune it using a dataset of biomedical objects"]
+        }
+      ]
+    },
+    {
+      "claim_id": "C1.2",
+      "section_id": "1",
+      "section_title": "论文身份与本次使用的证据包",
+      "claim_text": "本次阅读使用了与用户 PDF 在标题、作者、摘要和章节结构上匹配的 arXiv v1 LaTeX source，并同时保留原始 PDF、重新编译的 PDF 与 SyncTeX，因此正文结论可以回溯到源码段落和 PDF 页面。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "source package grounding",
+      "evidence": [
+        {
+          "evidence_id": "E-C1.2-a",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0008",
+          "quote": "LaTeX title block contains the same three authors as the supplied PDF.",
+          "relation": "direct",
+          "page_hint": 1,
+          "locator_snippets": ["Nicolas Laverde", "Melissa Robles", "Johan Rodríguez"]
+        },
+        {
+          "evidence_id": "E-C1.2-b",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0010",
+          "quote": "LaTeX abstract matches the supplied PDF abstract and reported MSE values.",
+          "relation": "direct",
+          "page_hint": 1,
+          "locator_snippets": ["Our model achieved a mean squared error (MSE) of 0.089", "compared to Shap-e's MSE of 0.147"]
+        }
+      ]
+    },
+    {
+      "claim_id": "C2.1",
+      "section_id": "2",
+      "section_title": "一句话论点与 research equation",
+      "claim_text": "论文的 research equation 是：generic Shap-E 在通用 3D object distribution 上工作，但 generic prior 不足以稳定生成 biomedical shapes；在无法从头训练 LGM/LRM 或构建大规模 biomedical text-3D model 的算力约束下，作者用 MedShapeNet meshes 经 frozen Shap-E transmitter 编码成 latents，再 fine-tune conditional latent diffusion，作为缺失 biomedical pretraining 的低成本代理。",
+      "interpretation_type": "plausible inference",
+      "research_role": "research equation",
+      "evidence": [
+        {
+          "evidence_id": "E-C2.1-a",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0065",
+          "quote": "LRM and LGM are rejected because their reported original training budgets are very large.",
+          "relation": "inference",
+          "page_hint": 7,
+          "locator_snippets": ["LGM was trained using 32 NVIDIA A100", "LRM was trained using 128 NVIDIA A100"]
+        },
+        {
+          "evidence_id": "E-C2.1-b",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0066",
+          "quote": "Shap-E is selected as the lighter and more recent candidate.",
+          "relation": "direct",
+          "page_hint": 7,
+          "locator_snippets": ["For these reasons, we selected Shap-e as our model for fine-tuning"]
+        },
+        {
+          "evidence_id": "E-C2.1-c",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0068",
+          "quote": "The transmitter is frozen and used only to encode MedShapeNet meshes into latent representations.",
+          "relation": "direct",
+          "page_hint": 7,
+          "locator_snippets": ["We did not fine-tune the transmitter", "With these representations, we performed the fine-tuning of Shap-e's generative model"]
+        }
+      ]
+    },
+    {
+      "claim_id": "C3.1",
+      "section_id": "3",
+      "section_title": "标题逐词解释",
+      "claim_text": "“Shap-MeD” 是 “Shap-E” 与 “Medical/Med” 的组合命名，标题准确表达了论文的技术动作是医学域适配，而不是提出新的 3D representation、diffusion objective 或 anatomy-aware architecture。",
+      "interpretation_type": "plausible inference",
+      "research_role": "title interpretation",
+      "evidence": [
+        {
+          "evidence_id": "E-C3.1-a",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0010",
+          "quote": "The abstract defines the work as biomedical specialization of Shap-E through fine-tuning.",
+          "relation": "inference",
+          "page_hint": 1,
+          "locator_snippets": ["Shap-MeD", "specialized in the biomedical domain", "we leverage Shap-e"]
+        },
+        {
+          "evidence_id": "E-C3.1-b",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0068",
+          "quote": "The inherited transmitter remains frozen, confirming the method is adaptation rather than a new representation.",
+          "relation": "inference",
+          "page_hint": 7,
+          "locator_snippets": ["its weights were frozen", "fine-tuning of Shap-e's generative model"]
+        }
+      ]
+    },
+    {
+      "claim_id": "C4.1",
+      "section_id": "4",
+      "section_title": "论文真正解决的问题",
+      "claim_text": "论文直接解决的问题是：在有限算力下，能否利用开源 generic text-to-3D model 的既有知识，把生成分布推向 biomedical meshes，并部署成可由文本 prompt 驱动的 3D modeling assistant。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "problem definition",
+      "evidence": [
+        {
+          "evidence_id": "E-C4.1-a",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0016",
+          "quote": "The project objective is a text/image-conditioned assistant for anatomical models and organs.",
+          "relation": "direct",
+          "page_hint": 2,
+          "locator_snippets": ["develop an assistant dedicated to the creation of anatomical models and organs, conditioned by text or images"]
+        },
+        {
+          "evidence_id": "E-C4.1-b",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0065",
+          "quote": "Compute limits motivate rejecting larger alternatives.",
+          "relation": "direct",
+          "page_hint": 7,
+          "locator_snippets": ["these models are considerably large", "This immediately disqualifies them as viable options"]
+        },
+        {
+          "evidence_id": "E-C4.1-c",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0073",
+          "quote": "The backend accepts the user prompt and exports a generated PLY object.",
+          "relation": "direct",
+          "page_hint": 8,
+          "locator_snippets": ["the prompt entered by the user for object generation", "converted into an object file with a .ply extension"]
+        }
+      ]
+    },
+    {
+      "claim_id": "C4.2",
+      "section_id": "4",
+      "section_title": "论文真正解决的问题",
+      "claim_text": "论文把应用目标延伸到 medical education、research prototypes、prosthetics 与 personalized treatment，但其实际实验只评估四个粗粒度 anatomy categories 的 latent MSE 和三个 prompt 的视觉样例，因此“工程域适配”与“医学可用性”之间存在明显证据距离。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "claim boundary",
+      "evidence": [
+        {
+          "evidence_id": "E-C4.2-a",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0016",
+          "quote": "The introduction extends the envisioned uses to education, prototypes, transplants, and personalization.",
+          "relation": "direct",
+          "page_hint": 2,
+          "locator_snippets": ["research prototypes for tissue engineering", "educational tool", "patient-specific information"]
+        },
+        {
+          "evidence_id": "E-C4.2-b",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0059",
+          "quote": "The actual fine-tuning subset has four categories and 3,589 meshes.",
+          "relation": "direct",
+          "page_hint": 6,
+          "locator_snippets": ["a total of 3,589 meshes were selected", "aorta, liver, kidney, and heart"]
+        },
+        {
+          "evidence_id": "E-C4.2-c",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0085",
+          "quote": "The final qualitative figure contains only liver, kidney, and aorta rows.",
+          "relation": "direct",
+          "page_hint": 9,
+          "locator_snippets": ["Comparison with Other Text-to-3D Models"]
+        }
+      ]
+    },
+    {
+      "claim_id": "C5.1",
+      "section_id": "5",
+      "section_title": "科学问题阶梯",
+      "claim_text": "论文的问题阶梯从“通用 Shap-E 如何适配 biomedical mesh distribution”，上升到“低成本 domain adaptation 能否替代从头训练医学 3D generator”，再上升到“生成式 3D prior 能否成为医学建模助手”；现有证据主要覆盖第一层。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "problem ladder",
+      "evidence": [
+        {
+          "evidence_id": "E-C5.1-a",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0068",
+          "quote": "The implemented technical step is frozen-transmitter latent extraction followed by generative-model fine-tuning.",
+          "relation": "direct",
+          "page_hint": 7,
+          "locator_snippets": ["used it to convert our dataset into the latent representation", "fine-tuning of Shap-e's generative model"]
+        },
+        {
+          "evidence_id": "E-C5.1-b",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0070",
+          "quote": "The quantitative evaluation is latent-space MSE rather than a clinical or workflow outcome.",
+          "relation": "direct",
+          "page_hint": 8,
+          "locator_snippets": ["Mean Squared Error (MSE) of the diffusion model serves as our evaluation metric", "operates in the latent representation of objects"]
+        },
+        {
+          "evidence_id": "E-C5.1-c",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0086",
+          "quote": "The conclusion restates broad healthcare applications as the intended tool context.",
+          "relation": "inference",
+          "page_hint": 9,
+          "locator_snippets": ["streamline the modeling process", "surgical simulation and planning", "medical education"]
+        }
+      ]
+    },
+    {
+      "claim_id": "C6.1",
+      "section_id": "6",
+      "section_title": "作者可能如何发现这个方向",
+      "claim_text": "一个可信的 author-side discovery path 是：先注意到 3D printing 与 biomedical modeling 的现实需求，再发现更强的 LRM/LGM 训练成本超出资源，最后选择开源、较轻、能直接生成 implicit function parameters 的 Shap-E 作为可 fine-tune 的折中。",
+      "interpretation_type": "plausible inference",
+      "research_role": "direction reconstruction",
+      "evidence": [
+        {
+          "evidence_id": "E-C6.1-a",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0016",
+          "quote": "The introduction motivates an anatomical-model assistant and biomedical specialization.",
+          "relation": "inference",
+          "page_hint": 2,
+          "locator_snippets": ["develop an assistant dedicated to the creation of anatomical models and organs"]
+        },
+        {
+          "evidence_id": "E-C6.1-b",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0065",
+          "quote": "Large-model training budgets are presented as the blocking resource constraint.",
+          "relation": "direct",
+          "page_hint": 7,
+          "locator_snippets": ["LGM was trained using 32 NVIDIA A100", "LRM was trained using 128 NVIDIA A100"]
+        },
+        {
+          "evidence_id": "E-C6.1-c",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0066",
+          "quote": "The authors explicitly choose Shap-E over Point-E for recency, data scale, and lower reported training hardware.",
+          "relation": "direct",
+          "page_hint": 7,
+          "locator_snippets": ["Shap-e is more recent", "For these reasons, we selected Shap-e"]
+        }
+      ]
+    },
+    {
+      "claim_id": "C6.2",
+      "section_id": "6",
+      "section_title": "作者可能如何发现这个方向",
+      "claim_text": "作者的关键替换不是新 architecture，而是用 MedShapeNet mesh latents 代理缺失的大规模 biomedical text-3D corpus，并通过 frozen transmitter 降低训练范围。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "replacement mechanism",
+      "evidence": [
+        {
+          "evidence_id": "E-C6.2-a",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0054",
+          "quote": "MedShapeNet supplies the biomedical mesh source.",
+          "relation": "direct",
+          "page_hint": 6,
+          "locator_snippets": ["MedShapeNet dataset was used as a source of biomedical meshes"]
+        },
+        {
+          "evidence_id": "E-C6.2-b",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0068",
+          "quote": "The fixed transmitter converts meshes to latent representations and only the generative model is fine-tuned.",
+          "relation": "direct",
+          "page_hint": 7,
+          "locator_snippets": ["We did not fine-tune the transmitter", "convert our dataset into the latent representation"]
+        }
+      ]
+    },
+    {
+      "claim_id": "C7.1",
+      "section_id": "7",
+      "section_title": "作者如何搭建论文故事",
+      "claim_text": "论文的主要 story chain 是：医学建模成本高 → generic text-to-3D 缺少 biomedical focus → 大型模型训练成本不可承受 → 选择 Shap-E → MedShapeNet preprocessing 与 latent extraction → low-learning-rate fine-tuning → latent MSE 与视觉样例显示 domain specialization。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "story construction",
+      "evidence": [
+        {
+          "evidence_id": "E-C7.1-a",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0016",
+          "quote": "The introduction identifies the missing biomedical focus and assistant objective.",
+          "relation": "direct",
+          "page_hint": 2,
+          "locator_snippets": ["none of the existing approaches focus specifically on the biomedical domain"]
+        },
+        {
+          "evidence_id": "E-C7.1-b",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0065",
+          "quote": "Compute pressure excludes the larger model candidates.",
+          "relation": "direct",
+          "page_hint": 7,
+          "locator_snippets": ["This immediately disqualifies them as viable options"]
+        },
+        {
+          "evidence_id": "E-C7.1-c",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0067",
+          "quote": "The pipeline begins with STL-to-OBJ conversion.",
+          "relation": "direct",
+          "page_hint": 7,
+          "locator_snippets": ["Conversion from STL to OBJ", "we opted to use the open-source library Open3D"]
+        },
+        {
+          "evidence_id": "E-C7.1-d",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0068",
+          "quote": "Frozen-transmitter latent extraction precedes generative-model fine-tuning.",
+          "relation": "direct",
+          "page_hint": 7,
+          "locator_snippets": ["Latent extraction", "fine-tuning of Shap-e's generative model"]
+        },
+        {
+          "evidence_id": "E-C7.1-e",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0069",
+          "quote": "The fine-tuning uses a low learning rate, batch size 8, and 25 epochs.",
+          "relation": "direct",
+          "page_hint": 7,
+          "locator_snippets": ["low learning rate of", "batch size of 8", "25 epochs"]
+        },
+        {
+          "evidence_id": "E-C7.1-f",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0079",
+          "quote": "The story closes with lower latent MSE and a claim of specialization.",
+          "relation": "direct",
+          "page_hint": 8,
+          "locator_snippets": ["used the Mean Squared Error (MSE) metric", "specialization in a specific task"]
+        }
+      ]
+    },
+    {
+      "claim_id": "C7.2",
+      "section_id": "7",
+      "section_title": "作者如何搭建论文故事",
+      "claim_text": "这个故事是单向 domain adaptation pipeline，而不是由多个相互强化模块组成的 closed loop；论证最薄弱的桥是从 latent MSE/少量 render 跳到 “higher structural accuracy”。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "story audit",
+      "evidence": [
+        {
+          "evidence_id": "E-C7.2-a",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0063",
+          "quote": "The methodology is a linear five-step process rather than an interacting module loop.",
+          "relation": "inference",
+          "page_hint": 7,
+          "locator_snippets": ["Selection of the model for fine-tuning", "Data preprocessing", "Model deployment"]
+        },
+        {
+          "evidence_id": "E-C7.2-b",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0081",
+          "quote": "The only quantitative comparison is latent MSE.",
+          "relation": "direct",
+          "page_hint": 9,
+          "locator_snippets": ["Shap-MeD & 0.089", "Shap-e & 0.147"]
+        },
+        {
+          "evidence_id": "E-C7.2-c",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0083",
+          "quote": "Structural accuracy is asserted through visual inspection of a small comparison figure.",
+          "relation": "inference",
+          "page_hint": 9,
+          "locator_snippets": ["greater accuracy in the structure of the organs"]
+        }
+      ]
+    },
+    {
+      "claim_id": "C8.1",
+      "section_id": "8",
+      "section_title": "Related Work、关键引用及其叙事角色",
+      "claim_text": "Shap-E 是 Shap-MeD 的直接 method ancestor：论文继承其 transmitter、implicit NeRF/STF representation、CLIP-conditioned latent diffusion 与 $x_0$ prediction objective，只改变 domain data 上的 generative model weights。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "citation logic",
+      "evidence": [
+        {
+          "evidence_id": "E-C8.1-a",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0037",
+          "quote": "Shap-E is described as encoder plus conditional diffusion over implicit-function parameters.",
+          "relation": "direct",
+          "page_hint": 4,
+          "locator_snippets": ["generates the parameters of an implicit function", "two main components"]
+        },
+        {
+          "evidence_id": "E-C8.1-b",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0042",
+          "quote": "The diffusion uses latent implicit-function weights, CLIP conditioning, and x0 prediction.",
+          "relation": "direct",
+          "page_hint": 5,
+          "locator_snippets": ["sequence of latent vectors representing the weights of an implicit function", "utilizing CLIP embeddings", "minimize the error between"]
+        },
+        {
+          "evidence_id": "E-C8.1-c",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0068",
+          "quote": "Shap-MeD freezes the transmitter and fine-tunes the inherited generative model.",
+          "relation": "direct",
+          "page_hint": 7,
+          "locator_snippets": ["its weights were frozen", "fine-tuning of Shap-e's generative model"]
+        }
+      ]
+    },
+    {
+      "claim_id": "C8.2",
+      "section_id": "8",
+      "section_title": "Related Work、关键引用及其叙事角色",
+      "claim_text": "Point-E 在论文中承担 contrast boundary：它展示 point-cloud diffusion 与 text-to-image-to-point-cloud pipeline，同时衬托 Shap-E 直接生成 implicit function parameters、无需额外 upsampling diffusion 的优势。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "citation logic",
+      "evidence": [
+        {
+          "evidence_id": "E-C8.2-a",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0035",
+          "quote": "Point-E is summarized as text-to-image, low-resolution point cloud, then high-resolution point cloud.",
+          "relation": "direct",
+          "page_hint": 4,
+          "locator_snippets": ["Text-to-Image Generator", "Low-Resolution Point Cloud Generator", "High-Resolution Point Cloud Generator"]
+        },
+        {
+          "evidence_id": "E-C8.2-b",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0037",
+          "quote": "Shap-E is contrasted as directly generating implicit-function parameters.",
+          "relation": "direct",
+          "page_hint": 4,
+          "locator_snippets": ["distinguishes itself from Point-e by directly generating the parameters of an implicit function"]
+        },
+        {
+          "evidence_id": "E-C8.2-c",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0042",
+          "quote": "The paper notes Shap-E avoids the additional upsampling diffusion model used by Point-E.",
+          "relation": "direct",
+          "page_hint": 5,
+          "locator_snippets": ["does not require an additional diffusion model for upsampling"]
+        }
+      ]
+    },
+    {
+      "claim_id": "C8.3",
+      "section_id": "8",
+      "section_title": "Related Work、关键引用及其叙事角色",
+      "claim_text": "LRM 与 LGM 承担 baseline pressure 和 resource-constraint evidence：它们代表更现代、更高质量的 3D reconstruction/generation 路线，但作者用原始训练成本将其排除在 fine-tuning 候选之外，并只在少量定性结果中比较 LGM。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "citation logic",
+      "evidence": [
+        {
+          "evidence_id": "E-C8.3-a",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0044",
+          "quote": "LRM is presented as a large transformer-based single-image reconstruction model.",
+          "relation": "direct",
+          "page_hint": 5,
+          "locator_snippets": ["Large Reconstruction Model", "large-scale transformer-based encoder-decoder architecture"]
+        },
+        {
+          "evidence_id": "E-C8.3-b",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0052",
+          "quote": "LGM is described as surpassing Shap-E and Point-E in performance.",
+          "relation": "direct",
+          "page_hint": 6,
+          "locator_snippets": ["this model surpasses Shap-E and Point-E"]
+        },
+        {
+          "evidence_id": "E-C8.3-c",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0065",
+          "quote": "The methodology excludes LRM/LGM using their original training hardware costs.",
+          "relation": "direct",
+          "page_hint": 7,
+          "locator_snippets": ["these models are considerably large", "This immediately disqualifies them"]
+        },
+        {
+          "evidence_id": "E-C8.3-d",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0085",
+          "quote": "The final comparison figure contains LGM but not LRM.",
+          "relation": "direct",
+          "page_hint": 9,
+          "locator_snippets": ["Comparison with Other Text-to-3D Models"]
+        }
+      ]
+    },
+    {
+      "claim_id": "C8.4",
+      "section_id": "8",
+      "section_title": "Related Work、关键引用及其叙事角色",
+      "claim_text": "MedShapeNet 是 data enabler 也是风险来源：它提供超过 100,000 个医学 meshes，但论文自己发现 misclassification、holes 与类别不平衡，说明 domain data 并不自动等于可靠 medical supervision。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "citation logic",
+      "evidence": [
+        {
+          "evidence_id": "E-C8.4-a",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0054",
+          "quote": "MedShapeNet aggregates more than 100,000 medical meshes from 23 sources.",
+          "relation": "direct",
+          "page_hint": 6,
+          "locator_snippets": ["consolidates 23 different sources, comprising over 100,000 meshes"]
+        },
+        {
+          "evidence_id": "E-C8.4-b",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0058",
+          "quote": "The authors observe mislabeled brain meshes and holes in heart meshes.",
+          "relation": "direct",
+          "page_hint": 6,
+          "locator_snippets": ["did not correspond to the assigned category", "heart", "displayed holes"]
+        },
+        {
+          "evidence_id": "E-C8.4-c",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0059",
+          "quote": "The selected four-category subset is imbalanced, with heart having only 277 samples.",
+          "relation": "direct",
+          "page_hint": 7,
+          "locator_snippets": ["least represented category", "Heart", "277 samples"]
+        }
+      ]
+    },
+    {
+      "claim_id": "C9.1",
+      "section_id": "9",
+      "section_title": "Main idea",
+      "claim_text": "Shap-MeD 的核心 idea 是“representation reuse + generative prior specialization”：保留 Shap-E transmitter 对 mesh 的固定 latent encoding，只更新 text/image-conditioned diffusion，使其在 biomedical latent manifold 上预测更准确。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "main idea",
+      "evidence": [
+        {
+          "evidence_id": "E-C9.1-a",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0042",
+          "quote": "Shap-E generates latent implicit-function weights with CLIP-conditioned diffusion.",
+          "relation": "direct",
+          "page_hint": 5,
+          "locator_snippets": ["conditional diffusion model", "sequence of latent vectors representing the weights of an implicit function"]
+        },
+        {
+          "evidence_id": "E-C9.1-b",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0068",
+          "quote": "Shap-MeD freezes the encoder and fine-tunes the generative model on encoded medical meshes.",
+          "relation": "direct",
+          "page_hint": 7,
+          "locator_snippets": ["We did not fine-tune the transmitter", "With these representations, we performed the fine-tuning"]
+        }
+      ]
+    },
+    {
+      "claim_id": "C10.1",
+      "section_id": "10",
+      "section_title": "符号、概念与 notation",
+      "claim_text": "论文依赖三类 3D representation：显式 mesh/point cloud，以及由 NeRF 或 STF/SDF 表达的 implicit function；Shap-E transmitter 把多视图与 point cloud 编码成一个可被视为 MLP weights 的 latent sequence。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "notation grounding",
+      "evidence": [
+        {
+          "evidence_id": "E-C10.1-a",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0017",
+          "quote": "The background introduces polygon meshes, point clouds, and implicit-function representations.",
+          "relation": "direct",
+          "page_hint": 2,
+          "locator_snippets": ["polygonal meshes, point clouds, and implicit function-based approaches"]
+        },
+        {
+          "evidence_id": "E-C10.1-b",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0038",
+          "quote": "The Shap-E encoder consumes 16,000 points and RGBA views and outputs MLP parameters.",
+          "relation": "direct",
+          "page_hint": 4,
+          "locator_snippets": ["point cloud representation consisting of 16,000 points", "interpreted as the weights of an MLP neural network"]
+        }
+      ]
+    },
+    {
+      "claim_id": "C10.2",
+      "section_id": "10",
+      "section_title": "符号、概念与 notation",
+      "claim_text": "Shap-MeD 的训练目标发生在 latent space：模型比较预测 latent 与 target latent 的 MSE，因此该数值衡量 diffusion prediction error，而不是直接衡量 mesh surface 或 anatomy landmarks。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "metric interpretation",
+      "evidence": [
+        {
+          "evidence_id": "E-C10.2-a",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0042",
+          "quote": "The inherited objective predicts clean x0 latent from noisy xt.",
+          "relation": "direct",
+          "page_hint": 5,
+          "locator_snippets": ["objective is to minimize the error between", "rather than the noise error"]
+        },
+        {
+          "evidence_id": "E-C10.2-b",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0070",
+          "quote": "The paper explicitly states the quantitative metric is MSE of a diffusion model operating on object latents.",
+          "relation": "direct",
+          "page_hint": 8,
+          "locator_snippets": ["MSE of the diffusion model", "operates in the latent representation of objects rather than on the objects themselves"]
+        }
+      ]
+    },
+    {
+      "claim_id": "C11.1",
+      "section_id": "11",
+      "section_title": "关键公式与逐式解释",
+      "claim_text": "论文保留的 NeRF、STF 与 diffusion 公式均来自 Shap-E/Point-E 背景；Shap-MeD 没有提出新的 objective，而是在 biomedical latents 上继续优化 Shap-E 的 $x_0$ prediction loss。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "formula audit",
+      "evidence": [
+        {
+          "evidence_id": "E-C11.1-a",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0030",
+          "quote": "The Gaussian diffusion equation is introduced inside the Point-E related-work section.",
+          "relation": "direct",
+          "page_hint": 3,
+          "locator_snippets": ["architecture is based on transformers", "Gaussian diffusion models"]
+        },
+        {
+          "evidence_id": "E-C11.1-b",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0040",
+          "quote": "NeRF color/transmittance losses are presented as Shap-E encoder training background.",
+          "relation": "direct",
+          "page_hint": 4,
+          "locator_snippets": ["Initially, the encoder is trained exclusively to obtain NeRF representations", "loss function"]
+        },
+        {
+          "evidence_id": "E-C11.1-c",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0042",
+          "quote": "The x0 prediction objective is explicitly attributed to the inherited Shap-E diffusion model.",
+          "relation": "direct",
+          "page_hint": 5,
+          "locator_snippets": ["The second component of the model is a conditional diffusion model", "objective is to minimize the error"]
+        },
+        {
+          "evidence_id": "E-C11.1-d",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0068",
+          "quote": "Shap-MeD applies fine-tuning to the existing generative model rather than defining a new loss.",
+          "relation": "inference",
+          "page_hint": 7,
+          "locator_snippets": ["fine-tuning of Shap-e's generative model"]
+        }
+      ]
+    },
+    {
+      "claim_id": "C11.2",
+      "section_id": "11",
+      "section_title": "关键公式与逐式解释",
+      "claim_text": "论文的 quantitative result 应理解为对 $L_{x_0}$ 型 latent prediction objective 的 domain evaluation，而不能直接改写为 anatomy error。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "formula-to-metric mapping",
+      "evidence": [
+        {
+          "evidence_id": "E-C11.2-a",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0042",
+          "quote": "The trained diffusion objective is squared error between predicted and clean latent x0.",
+          "relation": "direct",
+          "page_hint": 5,
+          "locator_snippets": ["x_theta(x_t, t)", "x_0"]
+        },
+        {
+          "evidence_id": "E-C11.2-b",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0070",
+          "quote": "The authors explicitly distinguish latent representation evaluation from evaluation on objects themselves.",
+          "relation": "direct",
+          "page_hint": 8,
+          "locator_snippets": ["operates in the latent representation of objects rather than on the objects themselves"]
+        }
+      ]
+    },
+    {
+      "claim_id": "C12.1",
+      "section_id": "12",
+      "section_title": "Theory、proof 与 practice 的对应关系",
+      "claim_text": "论文没有 theorem、proof、generalization bound 或 anatomy constraint；其理论内容是对既有 3D representation 与 diffusion objective 的说明，因此 theory-practice alignment 只能评为“实现沿用既有理论，但本文 claims 主要依赖 empirical evidence”。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "theory-practice audit",
+      "evidence": [
+        {
+          "evidence_id": "E-C12.1-a",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0062",
+          "quote": "The methodology is framed as an experimental process, not a theoretical development.",
+          "relation": "inference",
+          "page_hint": 7,
+          "locator_snippets": ["we followed the following experimental process"]
+        },
+        {
+          "evidence_id": "E-C12.1-b",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0070",
+          "quote": "Evaluation is empirical latent MSE.",
+          "relation": "direct",
+          "page_hint": 8,
+          "locator_snippets": ["we employ a quantitative evaluation", "Mean Squared Error"]
+        },
+        {
+          "evidence_id": "E-C12.1-c",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0071",
+          "quote": "The second evaluation is explicitly qualitative visual comparison.",
+          "relation": "direct",
+          "page_hint": 8,
+          "locator_snippets": ["our second evaluation method is qualitative", "A visual comparison is then performed"]
+        }
+      ]
+    },
+    {
+      "claim_id": "C13.1",
+      "section_id": "13",
+      "section_title": "Algorithm / module walkthrough 与具体例子",
+      "claim_text": "Shap-MeD pipeline 依次执行 category selection、STL-to-OBJ conversion、frozen transmitter latent extraction、conditional diffusion fine-tuning、text prompt generation 与 PLY export；唯一被更新的核心模型部件是 Shap-E generative model。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "algorithm walkthrough",
+      "evidence": [
+        {
+          "evidence_id": "E-C13.1-a",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0059",
+          "quote": "The selected data comprises four categories and 3,589 meshes.",
+          "relation": "direct",
+          "page_hint": 7,
+          "locator_snippets": ["3,589 meshes", "aorta, liver, kidney, and heart"]
+        },
+        {
+          "evidence_id": "E-C13.1-b",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0067",
+          "quote": "STL meshes are converted to OBJ using Open3D.",
+          "relation": "direct",
+          "page_hint": 7,
+          "locator_snippets": ["Conversion from STL to OBJ", "Open3D"]
+        },
+        {
+          "evidence_id": "E-C13.1-c",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0068",
+          "quote": "The transmitter remains frozen while the generative model is fine-tuned on extracted latents.",
+          "relation": "direct",
+          "page_hint": 7,
+          "locator_snippets": ["its weights were frozen", "fine-tuning of Shap-e's generative model"]
+        },
+        {
+          "evidence_id": "E-C13.1-d",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0073",
+          "quote": "Deployment takes a user prompt, generates a prediction, and converts it to PLY.",
+          "relation": "direct",
+          "page_hint": 8,
+          "locator_snippets": ["passes the prompt to the pretrained model", ".ply extension"]
+        }
+      ]
+    },
+    {
+      "claim_id": "C14.1",
+      "section_id": "14",
+      "section_title": "逐模块深读：每个设计背后的 author-thinking",
+      "claim_text": "选择 Shap-E 的 hidden bet 是：较轻的 implicit-function generator 虽不如 LGM/LRM 视觉精细，但其 fixed latent representation 足以承载 biomedical shape variation，并能在单张 A40 上被有效适配。",
+      "interpretation_type": "plausible inference",
+      "research_role": "module rationale",
+      "evidence": [
+        {
+          "evidence_id": "E-C14.1-a",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0065",
+          "quote": "LGM/LRM are considered stronger but too large for the available route.",
+          "relation": "inference",
+          "page_hint": 7,
+          "locator_snippets": ["they have demonstrated superior performance", "these models are considerably large"]
+        },
+        {
+          "evidence_id": "E-C14.1-b",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0066",
+          "quote": "Shap-E is selected as the feasible model candidate.",
+          "relation": "direct",
+          "page_hint": 7,
+          "locator_snippets": ["we selected Shap-e as our model for fine-tuning"]
+        },
+        {
+          "evidence_id": "E-C14.1-c",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0069",
+          "quote": "The actual fine-tuning runs on one NVIDIA A40 24G.",
+          "relation": "direct",
+          "page_hint": 8,
+          "locator_snippets": ["NVIDIA A40-24C (24G) GPU"]
+        }
+      ]
+    },
+    {
+      "claim_id": "C14.2",
+      "section_id": "14",
+      "section_title": "逐模块深读：每个设计背后的 author-thinking",
+      "claim_text": "frozen transmitter 是对“无法重新训练完整 3D representation”的代理解法；它降低成本，但把 encoder-domain mismatch 变成不可修复上限。",
+      "interpretation_type": "plausible inference",
+      "research_role": "module rationale",
+      "evidence": [
+        {
+          "evidence_id": "E-C14.2-a",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0068",
+          "quote": "The transmitter is explicitly frozen and used as a fixed latent encoder.",
+          "relation": "inference",
+          "page_hint": 7,
+          "locator_snippets": ["We did not fine-tune the transmitter", "its weights were frozen"]
+        }
+      ]
+    },
+    {
+      "claim_id": "C14.3",
+      "section_id": "14",
+      "section_title": "逐模块深读：每个设计背后的 author-thinking",
+      "claim_text": "low learning rate 的目的在于保留 pretrained knowledge，但论文没有 generic-category retention test，因此“避免遗忘”只是设计意图而非已验证结果。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "module rationale",
+      "evidence": [
+        {
+          "evidence_id": "E-C14.3-a",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0069",
+          "quote": "The authors choose a low learning rate specifically to avoid degrading existing diffusion knowledge.",
+          "relation": "direct",
+          "page_hint": 8,
+          "locator_snippets": ["ensure that we do not degrade the model's existing knowledge", "use a low learning rate"]
+        },
+        {
+          "evidence_id": "E-C14.3-b",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0070",
+          "quote": "The stated quantitative evaluation compares only biomedical latent MSE, not retained generic performance.",
+          "relation": "inference",
+          "page_hint": 8,
+          "locator_snippets": ["compare this metric with the MSE of Shap-e without fine-tuning"]
+        }
+      ]
+    },
+    {
+      "claim_id": "C14.4",
+      "section_id": "14",
+      "section_title": "逐模块深读：每个设计背后的 author-thinking",
+      "claim_text": "Streamlit deployment 证明了 prompt-to-PLY demo 可以闭环运行，但没有延迟、显存、failure handling 或用户研究数据，不能证明实际 workflow acceleration。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "module rationale",
+      "evidence": [
+        {
+          "evidence_id": "E-C14.4-a",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0072",
+          "quote": "The deployment is described as a monolithic Streamlit application.",
+          "relation": "direct",
+          "page_hint": 8,
+          "locator_snippets": ["deployment was carried out using Streamlit", "function as a monolith"]
+        },
+        {
+          "evidence_id": "E-C14.4-b",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0073",
+          "quote": "The backend closes the prompt-to-PLY path.",
+          "relation": "direct",
+          "page_hint": 8,
+          "locator_snippets": ["passes the prompt", "converted into an object file with a .ply extension"]
+        },
+        {
+          "evidence_id": "E-C14.4-c",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0074",
+          "quote": "The frontend interaction is described, but no measured usability or performance outcomes are reported.",
+          "relation": "inference",
+          "page_hint": 8,
+          "locator_snippets": ["frontend", "graphical interface in a web browser"]
+        }
+      ]
+    },
+    {
+      "claim_id": "C15.1",
+      "section_id": "15",
+      "section_title": "Figures 的逐图解释",
+      "claim_text": "Figure 7–9 直接暴露了 dataset quality 与 imbalance：brain 有 misclassified meshes，heart examples 存在大孔洞，四类训练数据中 heart 明显最少，因此数据选择本身会限制可学到的 anatomy prior。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "figure audit",
+      "evidence": [
+        {
+          "evidence_id": "E-C15.1-a",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0058",
+          "quote": "The text and Figure 7 identify mislabeled brain examples and heart meshes with holes.",
+          "relation": "direct",
+          "page_hint": 6,
+          "locator_snippets": ["misclassified objects", "heart", "displayed holes"]
+        },
+        {
+          "evidence_id": "E-C15.1-b",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0059",
+          "quote": "The selected data is imbalanced and heart has only 277 samples.",
+          "relation": "direct",
+          "page_hint": 7,
+          "locator_snippets": ["most represented category is Aorta", "least represented category", "277 samples"]
+        },
+        {
+          "evidence_id": "E-C15.1-c",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0061",
+          "quote": "Figure 9 visually shows large holes and artifacts in selected heart meshes.",
+          "relation": "direct",
+          "page_hint": 7,
+          "locator_snippets": ["Examples of selected categories"]
+        }
+      ]
+    },
+    {
+      "claim_id": "C15.2",
+      "section_id": "15",
+      "section_title": "Figures 的逐图解释",
+      "claim_text": "Figure 10 支持 optimization loss 快速下降并在约 0.09 附近收敛，Figure 11 只提供单个 liver 的三时刻视觉样例，无法独立证明 anatomy improvement。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "figure audit",
+      "evidence": [
+        {
+          "evidence_id": "E-C15.2-a",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0075",
+          "quote": "The results text reports losses falling from above 0.14 to around 0.09.",
+          "relation": "direct",
+          "page_hint": 8,
+          "locator_snippets": ["values above 0.14", "final loss values approaching 0.09"]
+        },
+        {
+          "evidence_id": "E-C15.2-b",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0078",
+          "quote": "Figure 11 is a single liver shown at epochs 0, 12, and 24.",
+          "relation": "direct",
+          "page_hint": 8,
+          "locator_snippets": ["Evolution of the object (liver) throughout the training epochs"]
+        }
+      ]
+    },
+    {
+      "claim_id": "C15.3",
+      "section_id": "15",
+      "section_title": "Figures 的逐图解释",
+      "claim_text": "Figure 12 只展示 liver、kidney、aorta 三个 prompt，以及 Shap-E、LGM、Shap-MeD 三列；它没有展示论文 evaluation plan 所称的 Point-E 与 LRM，也没有多 seed、统一视角、expert rating 或 reference geometry，因此只能作为定性示意。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "figure audit",
+      "evidence": [
+        {
+          "evidence_id": "E-C15.3-a",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0071",
+          "quote": "The evaluation plan says Shap-E, Point-E, LGM, and LRM will be compared with the same prompt.",
+          "relation": "direct",
+          "page_hint": 8,
+          "locator_snippets": ["compare our fine-tuned model against Shap-e, Point-e, LGM, and LRM", "same prompt"]
+        },
+        {
+          "evidence_id": "E-C15.3-b",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0085",
+          "quote": "Figure 12 is the final visual comparison; visual inspection shows only three methods and three prompts.",
+          "relation": "direct",
+          "page_hint": 9,
+          "locator_snippets": ["Comparison with Other Text-to-3D Models"]
+        }
+      ]
+    },
+    {
+      "claim_id": "C16.1",
+      "section_id": "16",
+      "section_title": "Experimental design",
+      "claim_text": "训练使用 MedShapeNet 中 3,589 个 meshes，覆盖 aorta、liver、kidney、heart；数据按 80%/10%/10% 划为 train/evaluation/validation，训练 25 epochs、batch size 8、learning rate $10^{-5}$，硬件为单张 NVIDIA A40 24G。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "experimental setup",
+      "evidence": [
+        {
+          "evidence_id": "E-C16.1-a",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0059",
+          "quote": "The selected data has 3,589 meshes from four named categories.",
+          "relation": "direct",
+          "page_hint": 7,
+          "locator_snippets": ["3,589 meshes", "aorta, liver, kidney, and heart"]
+        },
+        {
+          "evidence_id": "E-C16.1-b",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0069",
+          "quote": "Learning rate, batch size, epochs, and A40 hardware are reported.",
+          "relation": "direct",
+          "page_hint": 8,
+          "locator_snippets": ["batch size of 8", "25 epochs", "NVIDIA A40-24C (24G) GPU"]
+        },
+        {
+          "evidence_id": "E-C16.1-c",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0070",
+          "quote": "The dataset split is 80 percent train, 10 percent evaluation, and 10 percent validation.",
+          "relation": "direct",
+          "page_hint": 8,
+          "locator_snippets": ["80% for training, 10% for evaluation", "remaining 10% for validation"]
+        }
+      ]
+    },
+    {
+      "claim_id": "C16.2",
+      "section_id": "16",
+      "section_title": "Experimental design",
+      "claim_text": "quantitative baseline 只有未经 fine-tune 的 Shap-E latent MSE；qualitative section 声称比较 Shap-E、Point-E、LGM、LRM，但最终 Figure 12 实际只显示 Shap-E、LGM、Shap-MeD。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "baseline audit",
+      "evidence": [
+        {
+          "evidence_id": "E-C16.2-a",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0070",
+          "quote": "The quantitative baseline is Shap-E without fine-tuning.",
+          "relation": "direct",
+          "page_hint": 8,
+          "locator_snippets": ["compare this metric with the MSE of Shap-e without fine-tuning"]
+        },
+        {
+          "evidence_id": "E-C16.2-b",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0071",
+          "quote": "The stated qualitative plan lists four external baselines.",
+          "relation": "direct",
+          "page_hint": 8,
+          "locator_snippets": ["Shap-e, Point-e, LGM, and LRM"]
+        },
+        {
+          "evidence_id": "E-C16.2-c",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0081",
+          "quote": "Table I contains only Shap-MeD and Shap-E.",
+          "relation": "direct",
+          "page_hint": 9,
+          "locator_snippets": ["Shap-MeD & 0.089", "Shap-e & 0.147"]
+        },
+        {
+          "evidence_id": "E-C16.2-d",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0085",
+          "quote": "Figure 12 visually contains Shap-E, LGM, and Shap-MeD only.",
+          "relation": "direct",
+          "page_hint": 9,
+          "locator_snippets": ["Comparison with Other Text-to-3D Models"]
+        }
+      ]
+    },
+    {
+      "claim_id": "C16.3",
+      "section_id": "16",
+      "section_title": "Experimental design",
+      "claim_text": "论文没有报告 optimizer、scheduler、seed、checkpoint、prompt construction、per-category metrics、split-by-source/patient、multiple-sample protocol、geometry metrics 或 blinded human evaluation，这些缺口显著限制 reproducibility 与 claim strength。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "experimental gap",
+      "evidence": [
+        {
+          "evidence_id": "E-C16.3-a",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0069",
+          "quote": "The complete fine-tuning paragraph reports only learning rate, batch size, epochs, and GPU.",
+          "relation": "inference",
+          "page_hint": 8,
+          "locator_snippets": ["Fine-tuning parameters", "batch size of 8", "25 epochs"]
+        },
+        {
+          "evidence_id": "E-C16.3-b",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0070",
+          "quote": "The quantitative protocol states only random percentages and latent MSE, without source/patient splitting or geometry metrics.",
+          "relation": "inference",
+          "page_hint": 8,
+          "locator_snippets": ["split the dataset into three subsets", "MSE of the diffusion model"]
+        },
+        {
+          "evidence_id": "E-C16.3-c",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0071",
+          "quote": "The qualitative protocol is described only as visual comparison, with no rater design.",
+          "relation": "inference",
+          "page_hint": 8,
+          "locator_snippets": ["A visual comparison is then performed to determine which model yields the best results"]
+        }
+      ]
+    },
+    {
+      "claim_id": "C17.1",
+      "section_id": "17",
+      "section_title": "Experiments 作为故事证据与 claim-alignment audit",
+      "claim_text": "Table I 的 `0.089` 对 `0.147` 表明 Shap-MeD 在同域 evaluation latents 上的 MSE 约下降 39.5%，支持“domain fine-tuning 改善 latent prediction”，但不直接支持 anatomical correctness。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "results audit",
+      "evidence": [
+        {
+          "evidence_id": "E-C17.1-a",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0081",
+          "quote": "Table I reports latent MSE values of 0.089 and 0.147.",
+          "relation": "direct",
+          "page_hint": 9,
+          "locator_snippets": ["MSE in latents", "Shap-MeD & 0.089", "Shap-e & 0.147"]
+        },
+        {
+          "evidence_id": "E-C17.1-b",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0070",
+          "quote": "The paper explicitly states that the diffusion model operates on latent representations rather than objects.",
+          "relation": "direct",
+          "page_hint": 8,
+          "locator_snippets": ["latent representation of objects rather than on the objects themselves"]
+        }
+      ]
+    },
+    {
+      "claim_id": "C17.2",
+      "section_id": "17",
+      "section_title": "Experiments 作为故事证据与 claim-alignment audit",
+      "claim_text": "正文将 `0.089` 相对 `0.147` 描述为“lower by two orders of magnitude”是数学错误：两者只相差约 1.65 倍，而非 100 倍。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "numerical audit",
+      "evidence": [
+        {
+          "evidence_id": "E-C17.2-a",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0079",
+          "quote": "The prose claims the MSE is lower by two orders of magnitude.",
+          "relation": "direct",
+          "page_hint": 8,
+          "locator_snippets": ["achieving an MSE lower by two orders of magnitude"]
+        },
+        {
+          "evidence_id": "E-C17.2-b",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0081",
+          "quote": "The actual values are 0.089 and 0.147, whose ratio is about 1.65.",
+          "relation": "direct",
+          "page_hint": 9,
+          "locator_snippets": ["Shap-MeD & 0.089", "Shap-e & 0.147"]
+        }
+      ]
+    },
+    {
+      "claim_id": "C17.3",
+      "section_id": "17",
+      "section_title": "Experiments 作为故事证据与 claim-alignment audit",
+      "claim_text": "Figure 10 的 train/validation curves 没有明显发散，支持 optimization stability；但 validation 波动、无 error bars、无多 seed，且文中在 test/evaluation/validation 术语上不一致。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "results audit",
+      "evidence": [
+        {
+          "evidence_id": "E-C17.3-a",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0075",
+          "quote": "The text says training and test losses both fall toward 0.09.",
+          "relation": "direct",
+          "page_hint": 8,
+          "locator_snippets": ["training and test datasets", "final loss values approaching 0.09"]
+        },
+        {
+          "evidence_id": "E-C17.3-b",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0076",
+          "quote": "Figure 10 caption calls the same curves training and validation data.",
+          "relation": "direct",
+          "page_hint": 8,
+          "locator_snippets": ["training and validation data during fine-tuning"]
+        },
+        {
+          "evidence_id": "E-C17.3-c",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0070",
+          "quote": "The methodology separately names evaluation and validation splits.",
+          "relation": "direct",
+          "page_hint": 8,
+          "locator_snippets": ["10% for evaluation", "10% for validation"]
+        }
+      ]
+    },
+    {
+      "claim_id": "C17.4",
+      "section_id": "17",
+      "section_title": "Experiments 作为故事证据与 claim-alignment audit",
+      "claim_text": "Figure 11–12 对“shape plausibility 有改善”提供弱到中等的 qualitative evidence，但对“structural accuracy 更高”只提供部分支持，因为缺少 ground truth、anatomy landmarks、统一 rendering 和 expert assessment。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "results audit",
+      "evidence": [
+        {
+          "evidence_id": "E-C17.4-a",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0078",
+          "quote": "Figure 11 shows only a liver across three training epochs.",
+          "relation": "direct",
+          "page_hint": 8,
+          "locator_snippets": ["Evolution of the object (liver) throughout the training epochs"]
+        },
+        {
+          "evidence_id": "E-C17.4-b",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0083",
+          "quote": "The structural-accuracy claim is based on closer visual analysis of the comparison figure.",
+          "relation": "inference",
+          "page_hint": 9,
+          "locator_snippets": ["greater accuracy in the structure of the organs", "a closer analysis reveals"]
+        },
+        {
+          "evidence_id": "E-C17.4-c",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0085",
+          "quote": "Figure 12 is a small visual comparison without a reference-geometry panel.",
+          "relation": "inference",
+          "page_hint": 9,
+          "locator_snippets": ["Comparison with Other Text-to-3D Models"]
+        }
+      ]
+    },
+    {
+      "claim_id": "C18.1",
+      "section_id": "18",
+      "section_title": "Reviewer-lens audit",
+      "claim_text": "从 reviewer 视角看，论文的强项是明确的低资源工程问题、可理解的 pipeline、公开 backbone 与真实 medical mesh dataset；主要弱项是 novelty 较低、evaluation protocol 不足、claim overreach 与复现细节缺失。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "reviewer audit",
+      "evidence": [
+        {
+          "evidence_id": "E-C18.1-a",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0054",
+          "quote": "The data comes from a real multi-source medical mesh dataset.",
+          "relation": "direct",
+          "page_hint": 6,
+          "locator_snippets": ["MedShapeNet", "over 100,000 meshes"]
+        },
+        {
+          "evidence_id": "E-C18.1-b",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0063",
+          "quote": "The methodology is a clear five-step engineering pipeline.",
+          "relation": "direct",
+          "page_hint": 7,
+          "locator_snippets": ["Selection of the model for fine-tuning", "Model evaluation", "Model deployment"]
+        },
+        {
+          "evidence_id": "E-C18.1-c",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0071",
+          "quote": "The qualitative protocol is only an unstructured visual comparison.",
+          "relation": "inference",
+          "page_hint": 8,
+          "locator_snippets": ["A visual comparison is then performed"]
+        },
+        {
+          "evidence_id": "E-C18.1-d",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0087",
+          "quote": "The conclusion claims broader model superiority from limited evidence.",
+          "relation": "inference",
+          "page_hint": 9,
+          "locator_snippets": ["outperformed larger state-of-the-art models"]
+        }
+      ]
+    },
+    {
+      "claim_id": "C18.2",
+      "section_id": "18",
+      "section_title": "Reviewer-lens audit",
+      "claim_text": "论文没有提供 code/checkpoint/split manifest，也没有足够训练与 sampling details，因此只能复现总体思路，难以精确复现 `0.089` 或 Figure 12。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "reproducibility audit",
+      "evidence": [
+        {
+          "evidence_id": "E-C18.2-a",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0067",
+          "quote": "Preprocessing reports conversion tools but not normalization, repair, or data manifests.",
+          "relation": "inference",
+          "page_hint": 7,
+          "locator_snippets": ["preprocessing pipeline is relatively simple", "Open3D"]
+        },
+        {
+          "evidence_id": "E-C18.2-b",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0069",
+          "quote": "Training details are limited to learning rate, batch size, epochs, and GPU.",
+          "relation": "inference",
+          "page_hint": 8,
+          "locator_snippets": ["learning rate", "batch size", "25 epochs"]
+        },
+        {
+          "evidence_id": "E-C18.2-c",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0071",
+          "quote": "Sampling and rater details are absent from the qualitative evaluation description.",
+          "relation": "inference",
+          "page_hint": 8,
+          "locator_snippets": ["providing them with the same prompt", "A visual comparison"]
+        }
+      ]
+    },
+    {
+      "claim_id": "C18.3",
+      "section_id": "18",
+      "section_title": "Reviewer-lens audit",
+      "claim_text": "论文把 surgical planning、prosthetics、personalization 等高风险场景作为动机，却没有 medical expert validation、patient data、landmark/topology constraints 或 uncertainty handling，因此结果不应被解释为临床可用。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "medical boundary audit",
+      "evidence": [
+        {
+          "evidence_id": "E-C18.3-a",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0016",
+          "quote": "The introduction invokes tissue engineering, transplants, education, and patient-specific information.",
+          "relation": "direct",
+          "page_hint": 2,
+          "locator_snippets": ["prosthetic transplants", "patient-specific information"]
+        },
+        {
+          "evidence_id": "E-C18.3-b",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0070",
+          "quote": "Actual quantitative validation is only diffusion latent MSE.",
+          "relation": "inference",
+          "page_hint": 8,
+          "locator_snippets": ["MSE of the diffusion model serves as our evaluation metric"]
+        },
+        {
+          "evidence_id": "E-C18.3-c",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0086",
+          "quote": "The conclusion again lists surgical planning and prosthetic design as application context.",
+          "relation": "direct",
+          "page_hint": 9,
+          "locator_snippets": ["surgical simulation and planning", "personalized prosthetic implant design"]
+        }
+      ]
+    },
+    {
+      "claim_id": "C19.1",
+      "section_id": "19",
+      "section_title": "Innovation points 与逐项 support audit",
+      "claim_text": "论文的三项实质贡献可归纳为 biomedical Shap-E adaptation、MedShapeNet-to-Shap-E preprocessing/fine-tuning pipeline、以及 prompt-to-PLY demo；其中第一项由 latent MSE 支持较强，第二项由方法描述支持，第三项只由系统说明支持，anatomical superiority 没有同等强度证据。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "contribution audit",
+      "evidence": [
+        {
+          "evidence_id": "E-C19.1-a",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0067",
+          "quote": "The preprocessing contribution converts MedShapeNet meshes for Shap-E.",
+          "relation": "direct",
+          "page_hint": 7,
+          "locator_snippets": ["Conversion from STL to OBJ"]
+        },
+        {
+          "evidence_id": "E-C19.1-b",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0068",
+          "quote": "The adaptation contribution extracts latents and fine-tunes the generative model.",
+          "relation": "direct",
+          "page_hint": 7,
+          "locator_snippets": ["Latent extraction", "fine-tuning of Shap-e's generative model"]
+        },
+        {
+          "evidence_id": "E-C19.1-c",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0073",
+          "quote": "The deployment contribution implements prompt-to-PLY generation.",
+          "relation": "direct",
+          "page_hint": 8,
+          "locator_snippets": ["prompt entered by the user", ".ply extension"]
+        },
+        {
+          "evidence_id": "E-C19.1-d",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0081",
+          "quote": "Latent MSE is the strongest quantitative support.",
+          "relation": "direct",
+          "page_hint": 9,
+          "locator_snippets": ["MSE in latents", "0.089", "0.147"]
+        },
+        {
+          "evidence_id": "E-C19.1-e",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0083",
+          "quote": "Anatomical superiority is asserted from visual inspection rather than direct measurement.",
+          "relation": "inference",
+          "page_hint": 9,
+          "locator_snippets": ["greater accuracy in the structure of the organs"]
+        }
+      ]
+    },
+    {
+      "claim_id": "C20.1",
+      "section_id": "20",
+      "section_title": "值得学习的 story-making pattern",
+      "claim_text": "Shap-MeD 最可复用的论文构造模式是“resource-constrained domain specialization”：先用强 generic model 提供 representation 与 generation prior，再以 frozen bottleneck 和小型 domain dataset 完成低成本迁移，最后用同域 objective 与 task-specific samples证明 feasibility。",
+      "interpretation_type": "plausible inference",
+      "research_role": "story pattern",
+      "evidence": [
+        {
+          "evidence_id": "E-C20.1-a",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0065",
+          "quote": "Resource limits shape the model choice.",
+          "relation": "inference",
+          "page_hint": 7,
+          "locator_snippets": ["these models are considerably large", "disqualifies them as viable options"]
+        },
+        {
+          "evidence_id": "E-C20.1-b",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0068",
+          "quote": "A frozen latent bottleneck and small domain corpus perform the adaptation.",
+          "relation": "direct",
+          "page_hint": 7,
+          "locator_snippets": ["weights were frozen", "fine-tuning of Shap-e's generative model"]
+        },
+        {
+          "evidence_id": "E-C20.1-c",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0081",
+          "quote": "The feasibility result is expressed as improved in-domain latent MSE.",
+          "relation": "direct",
+          "page_hint": 9,
+          "locator_snippets": ["Shap-MeD & 0.089", "Shap-e & 0.147"]
+        }
+      ]
+    },
+    {
+      "claim_id": "C21.1",
+      "section_id": "21",
+      "section_title": "Weaknesses、limitations 与改进空间",
+      "claim_text": "最大 limitation 是 objective-validity gap：latent MSE 被用来支撑 anatomy/structure claim，但论文没有证明两者相关，也没有直接 geometry 或 landmark metric。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "limitation",
+      "evidence": [
+        {
+          "evidence_id": "E-C21.1-a",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0070",
+          "quote": "The quantitative metric is latent-space diffusion MSE.",
+          "relation": "direct",
+          "page_hint": 8,
+          "locator_snippets": ["MSE of the diffusion model", "latent representation of objects"]
+        },
+        {
+          "evidence_id": "E-C21.1-b",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0083",
+          "quote": "Structural accuracy is judged by visual comparison.",
+          "relation": "inference",
+          "page_hint": 9,
+          "locator_snippets": ["greater accuracy in the structure of the organs"]
+        }
+      ]
+    },
+    {
+      "claim_id": "C21.2",
+      "section_id": "21",
+      "section_title": "Weaknesses、limitations 与改进空间",
+      "claim_text": "Dataset 存在已知 misclassification、holes 与类别不平衡，而论文没有系统 cleaning、repair、quality score 或 source-aware split，这会把数据缺陷直接写入生成 prior。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "limitation",
+      "evidence": [
+        {
+          "evidence_id": "E-C21.2-a",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0058",
+          "quote": "The paper identifies misclassified brain meshes and heart meshes with holes.",
+          "relation": "direct",
+          "page_hint": 6,
+          "locator_snippets": ["did not correspond to the assigned category", "displayed holes"]
+        },
+        {
+          "evidence_id": "E-C21.2-b",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0059",
+          "quote": "The selected subset is imbalanced and intentionally retains problematic heart data.",
+          "relation": "direct",
+          "page_hint": 7,
+          "locator_snippets": ["least represented category", "contains instances with holes", "By including it"]
+        },
+        {
+          "evidence_id": "E-C21.2-c",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0088",
+          "quote": "The authors acknowledge data quality and rendering defects harmed fine-tuning.",
+          "relation": "direct",
+          "page_hint": 9,
+          "locator_snippets": ["quality and quantity of the dataset", "objects were not rendered correctly"]
+        }
+      ]
+    },
+    {
+      "claim_id": "C21.3",
+      "section_id": "21",
+      "section_title": "Weaknesses、limitations 与改进空间",
+      "claim_text": "Qualitative evaluation 只有三个 prompts 的单图比较，缺 baseline 完整性、multiple seeds、blind expert rating、reference mesh 与统一 renderer，容易受 cherry-picking 和 presentation bias 影响。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "limitation",
+      "evidence": [
+        {
+          "evidence_id": "E-C21.3-a",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0071",
+          "quote": "The qualitative method is defined only as a visual comparison under the same prompt.",
+          "relation": "inference",
+          "page_hint": 8,
+          "locator_snippets": ["our second evaluation method is qualitative", "A visual comparison is then performed"]
+        },
+        {
+          "evidence_id": "E-C21.3-b",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0085",
+          "quote": "Figure 12 is a single compact comparison image with three prompt rows and three method columns.",
+          "relation": "inference",
+          "page_hint": 9,
+          "locator_snippets": ["Comparison with Other Text-to-3D Models"]
+        }
+      ]
+    },
+    {
+      "claim_id": "C21.4",
+      "section_id": "21",
+      "section_title": "Weaknesses、limitations 与改进空间",
+      "claim_text": "Reproducibility 缺口包括 code/weights、prompt-label construction、optimizer/scheduler、seed、mesh normalization、split indices、inference settings 与 runtime；此外没有测试 fine-tuning 后的 generic capability retention。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "limitation",
+      "evidence": [
+        {
+          "evidence_id": "E-C21.4-a",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0067",
+          "quote": "The preprocessing section gives format conversion only, leaving normalization and mesh-repair details unspecified.",
+          "relation": "inference",
+          "page_hint": 7,
+          "locator_snippets": ["preprocessing pipeline is relatively simple", "format conversion was necessary"]
+        },
+        {
+          "evidence_id": "E-C21.4-b",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0069",
+          "quote": "The fine-tuning section does not extend beyond four headline parameters.",
+          "relation": "inference",
+          "page_hint": 8,
+          "locator_snippets": ["low learning rate", "batch size of 8", "25 epochs"]
+        },
+        {
+          "evidence_id": "E-C21.4-c",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0070",
+          "quote": "The split and baseline protocol lacks indices and retention evaluation.",
+          "relation": "inference",
+          "page_hint": 8,
+          "locator_snippets": ["split the dataset into three subsets", "compare this metric with the MSE of Shap-e"]
+        }
+      ]
+    },
+    {
+      "claim_id": "C22.1",
+      "section_id": "22",
+      "section_title": "Innovation type 与 boundary judgment",
+      "claim_text": "Shap-MeD 主要是 incremental、application-driven cross-pollination：它把成熟的 domain fine-tuning 模式带入 biomedical text-to-3D，但没有在 3D generation 或 medical modeling 任一侧提出新的核心机制，因此尚不属于 conceptually reframing 或 boundary-pushing work。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "innovation classification",
+      "evidence": [
+        {
+          "evidence_id": "E-C22.1-a",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0010",
+          "quote": "The abstract describes the contribution as leveraging and fine-tuning Shap-E on biomedical objects.",
+          "relation": "inference",
+          "page_hint": 1,
+          "locator_snippets": ["we leverage Shap-e", "fine-tune it using a dataset of biomedical objects"]
+        },
+        {
+          "evidence_id": "E-C22.1-b",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0068",
+          "quote": "The existing transmitter is reused unchanged and the existing generative model is adapted.",
+          "relation": "inference",
+          "page_hint": 7,
+          "locator_snippets": ["weights were frozen", "fine-tuning of Shap-e's generative model"]
+        }
+      ]
+    },
+    {
+      "claim_id": "C23.1",
+      "section_id": "23",
+      "section_title": "Future directions 与 boundary-pushing ideas",
+      "claim_text": "最直接的下一步是把“latent MSE 代理 anatomy quality”的隐含假设显式打破：引入 surface distance、Chamfer/Hausdorff、normal consistency、watertightness、connected components、anatomical landmarks 与 blinded expert ratings，并研究这些指标与 latent loss 的相关性。",
+      "interpretation_type": "speculation",
+      "research_role": "future idea",
+      "evidence": [
+        {
+          "evidence_id": "E-C23.1-a",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0070",
+          "quote": "The current quantitative metric is only latent diffusion MSE.",
+          "relation": "inference",
+          "page_hint": 8,
+          "locator_snippets": ["MSE of the diffusion model serves as our evaluation metric"]
+        },
+        {
+          "evidence_id": "E-C23.1-b",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0083",
+          "quote": "The current structural-accuracy judgment relies on visual inspection.",
+          "relation": "inference",
+          "page_hint": 9,
+          "locator_snippets": ["greater accuracy in the structure of the organs"]
+        }
+      ]
+    },
+    {
+      "claim_id": "C23.2",
+      "section_id": "23",
+      "section_title": "Future directions 与 boundary-pushing ideas",
+      "claim_text": "更强的边界方向是 `verified geometry + generative presentation`：用经过验证的 segmentation/atlas/parametric scaffold 锁定结构数目、左右关系、连接与 landmarks，再让 generative model 负责 surface completion、texture、style 与教育展示。",
+      "interpretation_type": "speculation",
+      "research_role": "boundary direction",
+      "evidence": [
+        {
+          "evidence_id": "E-C23.2-a",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0016",
+          "quote": "The paper explicitly targets educational and anatomical-model use.",
+          "relation": "inference",
+          "page_hint": 2,
+          "locator_snippets": ["educational tool", "understanding of anatomy and medicine"]
+        },
+        {
+          "evidence_id": "E-C23.2-b",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0058",
+          "quote": "Raw dataset topology and labels are unreliable, motivating verified geometry constraints.",
+          "relation": "inference",
+          "page_hint": 6,
+          "locator_snippets": ["did not correspond to the assigned category", "displayed holes"]
+        },
+        {
+          "evidence_id": "E-C23.2-c",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0083",
+          "quote": "The paper itself highlights disconnected aorta parts as a structural failure.",
+          "relation": "inference",
+          "page_hint": 9,
+          "locator_snippets": ["aorta generated by LGM lacks structural coherence", "disconnected parts"]
+        }
+      ]
+    },
+    {
+      "claim_id": "C23.3",
+      "section_id": "23",
+      "section_title": "Future directions 与 boundary-pushing ideas",
+      "claim_text": "从 category-level text-to-3D 走向 patient-specific image+text-to-3D，需要把 CT/MRI-derived geometry、clinical metadata 与 uncertainty conditioning 纳入模型，并设置 out-of-distribution rejection；否则 “personalized” 只是叙事而非能力。",
+      "interpretation_type": "speculation",
+      "research_role": "boundary direction",
+      "evidence": [
+        {
+          "evidence_id": "E-C23.3-a",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0015",
+          "quote": "The introduction recognizes MRI/tomography as sources of personalized 3D geometry.",
+          "relation": "inference",
+          "page_hint": 2,
+          "locator_snippets": ["magnetic resonance imaging (MRI) or 3D tomography"]
+        },
+        {
+          "evidence_id": "E-C23.3-b",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0016",
+          "quote": "The paper states an ambition to incorporate patient-specific information but does not implement it.",
+          "relation": "inference",
+          "page_hint": 2,
+          "locator_snippets": ["we aim to incorporate patient-specific information"]
+        },
+        {
+          "evidence_id": "E-C23.3-c",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0059",
+          "quote": "The actual data is category-level aorta, liver, kidney, and heart meshes.",
+          "relation": "inference",
+          "page_hint": 7,
+          "locator_snippets": ["aorta, liver, kidney, and heart"]
+        }
+      ]
+    },
+    {
+      "claim_id": "C23.4",
+      "section_id": "23",
+      "section_title": "Future directions 与 boundary-pushing ideas",
+      "claim_text": "Data-centric 研究应比较 raw、repaired、expert-curated、balanced 与 source-held-out MedShapeNet subsets，量化 mesh quality 对生成 topology 和 category generalization 的影响。",
+      "interpretation_type": "speculation",
+      "research_role": "future idea",
+      "evidence": [
+        {
+          "evidence_id": "E-C23.4-a",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0054",
+          "quote": "MedShapeNet combines 23 different sources, motivating source-held-out evaluation.",
+          "relation": "inference",
+          "page_hint": 6,
+          "locator_snippets": ["consolidates 23 different sources"]
+        },
+        {
+          "evidence_id": "E-C23.4-b",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0058",
+          "quote": "Observed misclassification and holes motivate cleaning and repair comparisons.",
+          "relation": "inference",
+          "page_hint": 6,
+          "locator_snippets": ["did not correspond to the assigned category", "displayed holes"]
+        },
+        {
+          "evidence_id": "E-C23.4-c",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0088",
+          "quote": "The authors themselves identify data quality and quantity as the first improvement area.",
+          "relation": "inference",
+          "page_hint": 9,
+          "locator_snippets": ["consider both the quality and quantity of the dataset"]
+        }
+      ]
+    },
+    {
+      "claim_id": "C23.5",
+      "section_id": "23",
+      "section_title": "Future directions 与 boundary-pushing ideas",
+      "claim_text": "在同等单卡预算下比较 LoRA/adapter fine-tuning 的 Shap-E、LGM/LRM 或更新的 3D generators，可以检验论文“轻模型更可行”的资源假设，而不是用原始 pretraining cost 代替 adaptation cost。",
+      "interpretation_type": "speculation",
+      "research_role": "future idea",
+      "evidence": [
+        {
+          "evidence_id": "E-C23.5-a",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0065",
+          "quote": "The current model-selection argument uses original LGM/LRM pretraining budgets.",
+          "relation": "inference",
+          "page_hint": 7,
+          "locator_snippets": ["LGM was trained using 32 NVIDIA A100", "LRM was trained using 128 NVIDIA A100"]
+        },
+        {
+          "evidence_id": "E-C23.5-b",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0069",
+          "quote": "Shap-MeD demonstrates a one-A40 adaptation budget suitable for controlled comparison.",
+          "relation": "inference",
+          "page_hint": 8,
+          "locator_snippets": ["NVIDIA A40-24C (24G) GPU"]
+        },
+        {
+          "evidence_id": "E-C23.5-c",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0088",
+          "quote": "The authors explicitly propose fine-tuning larger models as future improvement.",
+          "relation": "inference",
+          "page_hint": 9,
+          "locator_snippets": ["fine-tuning one of these larger models, such as LGM or LRM"]
+        }
+      ]
+    },
+    {
+      "claim_id": "C24.1",
+      "section_id": "24",
+      "section_title": "简单而生动的故事总结",
+      "claim_text": "Shap-MeD 像是给一个见过百万件日常物体、却没系统学过 anatomy 的 3D 雕塑师安排了短期医学训练：3,589 个器官 mesh 让它更会雕 liver、kidney 和 aorta，但论文只检查了它的“作业分数”和几张作品照，还没有让解剖专家拿尺子、landmark 与 topology checklist 验收。",
+      "interpretation_type": "plausible inference",
+      "research_role": "vivid summary",
+      "evidence": [
+        {
+          "evidence_id": "E-C24.1-a",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0066",
+          "quote": "Shap-E is described as trained on roughly a million more objects than Point-E.",
+          "relation": "inference",
+          "page_hint": 7,
+          "locator_snippets": ["trained on approximately one million more objects than Point-e"]
+        },
+        {
+          "evidence_id": "E-C24.1-b",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0059",
+          "quote": "The short medical training uses 3,589 meshes from four categories.",
+          "relation": "inference",
+          "page_hint": 7,
+          "locator_snippets": ["3,589 meshes", "aorta, liver, kidney, and heart"]
+        },
+        {
+          "evidence_id": "E-C24.1-c",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0081",
+          "quote": "The paper's main score is latent MSE.",
+          "relation": "inference",
+          "page_hint": 9,
+          "locator_snippets": ["MSE in latents"]
+        },
+        {
+          "evidence_id": "E-C24.1-d",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0085",
+          "quote": "The remaining evidence is a small visual comparison figure.",
+          "relation": "inference",
+          "page_hint": 9,
+          "locator_snippets": ["Comparison with Other Text-to-3D Models"]
+        }
+      ]
+    },
+    {
+      "claim_id": "C25.1",
+      "section_id": "25",
+      "section_title": "本次使用的来源",
+      "claim_text": "本报告的事实与审稿判断基于用户提供的 arXiv v1 PDF、同版本 arXiv LaTeX source、其中的 figures/tables/bibliography、重新编译的 PDF/SyncTeX，以及 arXiv metadata page；没有使用未公开作者意图、第三方复现结果或 OpenReview 评审。",
+      "interpretation_type": "evidence-backed interpretation",
+      "research_role": "source disclosure",
+      "evidence": [
+        {
+          "evidence_id": "E-C25.1-a",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0008",
+          "quote": "The LaTeX author block identifies the source package authors.",
+          "relation": "direct",
+          "page_hint": 1,
+          "locator_snippets": ["Nicolas Laverde", "Melissa Robles", "Johan Rodríguez"]
+        },
+        {
+          "evidence_id": "E-C25.1-b",
+          "doc": "main",
+          "paragraph_id": "main.tex::p0010",
+          "quote": "The LaTeX abstract provides the paper identity and headline results used for version matching.",
+          "relation": "direct",
+          "page_hint": 1,
+          "locator_snippets": ["We present Shap-MeD", "MSE of 0.089", "MSE of 0.147"]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+[
+  {
+    "id": "organelle-material-contrast",
+    "name": "Rough brown shell, satin gold membrane, matte pale matrix, and brown granules",
+    "score": 0.81,
+    "threshold": 0.75,
+    "passed": true,
+    "critique": "The full comparison pair now separates a rough warm-brown shell, brighter satin-gold folds, a lighter matte matrix, and subordinate brown/gray granules. Independent 1024px albedo, roughness, and bump channels break flat shading without visible hard tiling; controlled neutral and grazing captures preserve the hierarchy."
+  }
+]

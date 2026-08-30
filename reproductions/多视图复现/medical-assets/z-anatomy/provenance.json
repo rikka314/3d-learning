@@ -1,0 +1,14 @@
+{
+  "asset_id": "z-anatomy-template",
+  "source_repository": "https://github.com/Z-Anatomy/Models-of-human-anatomy",
+  "source_ref": "refs/heads/master",
+  "source_commit_at_download": "36d96eb5fb1305ff2957a1c5db3bf4b3cea74197",
+  "download_url": "https://raw.githubusercontent.com/Z-Anatomy/Models-of-human-anatomy/master/Z-Anatomy.zip",
+  "downloaded_at": "2026-08-25T23:22:00+08:00",
+  "local_file": "Z-Anatomy.zip",
+  "bytes": 86734957,
+  "sha256": "e029688545627bd0214b269e1063143abb580aad72b2c2445d6d8a9a0d9da736",
+  "archive_entry_used_later": "Z-Anatomy/Startup.blend",
+  "license": "CC BY-SA 4.0; retain package-level component attributions",
+  "intended_case": "organ-heart-001"
+}

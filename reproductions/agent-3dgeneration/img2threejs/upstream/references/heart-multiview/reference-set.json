@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "kind": "img2threejs.reference-set",
+  "mode": "vision-context",
+  "primaryViewId": "anterior",
+  "notes": "Uncalibrated workflow labels. Ignore colored hotspot rings, the neutral background/base, cropped corner UI, and any overlaid annotations; they are not anatomy.",
+  "views": [
+    {
+      "id": "anterior",
+      "role": "anterior-primary",
+      "path": "01-anterior.png",
+      "sha256": "ee16f7327f90afb5bf13a6077b96ec9b74a21135ad85d55e18e29d717b6adaeb"
+    },
+    {
+      "id": "left-oblique",
+      "role": "left-oblique",
+      "path": "02-left-oblique.png",
+      "sha256": "618243ff0880617ebee0cbdd1fb52ceccf8c9c875264d2d9daa3b32e634e926c"
+    },
+    {
+      "id": "posterior",
+      "role": "posterior",
+      "path": "03-posterior.png",
+      "sha256": "6fbfe340c7199de07baceb717c0a238cbfe115bc055f22bc8939d0ade63d22cf"
+    },
+    {
+      "id": "right-oblique",
+      "role": "right-oblique",
+      "path": "04-right-oblique.png",
+      "sha256": "7525a421b45993e73aea4e5eb0c8c71480d1f150fa7f06f2466089d251bfd4f0"
+    },
+    {
+      "id": "superior",
+      "role": "superior-top",
+      "path": "05-superior.png",
+      "sha256": "c0f3117f79a1b1daaf49e109157f9eb3ff839433bf2f2f6e3057ee11456e9839"
+    }
+  ]
+}

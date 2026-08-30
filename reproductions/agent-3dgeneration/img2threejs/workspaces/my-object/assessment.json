@@ -1,0 +1,320 @@
+{
+  "targetName": "Mitochondrion Cutaway",
+  "sourceImage": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\test\\屏幕截图 2026-08-26 011321.png",
+  "preSpecAssessment": {
+    "objectClass": {
+      "primaryType": "organelle cutaway educational model",
+      "primaryDomain": "object",
+      "formLanguage": [
+        "organic",
+        "sculptural"
+      ],
+      "structureKind": [
+        "layered shell",
+        "compound object",
+        "repeated modules"
+      ],
+      "motionPotential": [
+        "whole-object transform",
+        "detachable cutaway layers"
+      ],
+      "materialFamilies": [
+        "mixed",
+        "skin-like",
+        "wax-like"
+      ],
+      "notes": "Observed as a stylized mitochondrion cutaway: a continuous brown bean-shaped shell surrounds a recessed matrix and connected gold inner-membrane/cristae system."
+    },
+    "complexity": {
+      "tier": "complex",
+      "scores": {
+        "silhouetteComplexity": 2,
+        "componentCount": 2,
+        "hierarchyDepth": 2,
+        "repetitionDensity": 2,
+        "materialLayerCount": 2,
+        "localDetailDensity": 2,
+        "occlusionRisk": 2,
+        "actionReadinessNeed": 2
+      },
+      "estimatedCounts": {
+        "macroComponents": 3,
+        "mesoComponents": 7,
+        "microFeatureGroups": 12,
+        "materialLayers": 4,
+        "repetitionSystems": 3
+      },
+      "reasoning": [
+        "The bean-shaped organic silhouette is simple at a distance but the cutaway creates an interrupted border and depth layering.",
+        "Identity depends on a connected serpentine cristae network, lower spiral fold, repeated matrix granules, and shell micro-relief.",
+        "The hidden rear shell and internal depth are inferred from one low-resolution three-quarter view, raising occlusion risk.",
+        "Clickable and explodable delivery requires semantic separation without allowing internal structures to float."
+      ]
+    },
+    "specDepthDecision": {
+      "requiredDepth": "complex",
+      "minimumComponentLevels": [
+        "macro",
+        "meso",
+        "micro"
+      ],
+      "needsRepetitionSystems": true,
+      "needsMaterialLocalOverrides": true,
+      "needsMultipleReviewViews": true,
+      "needsActionReadyHierarchy": true,
+      "rationale": "Choose simple/moderate/complex/ultra-complex from observed structure, not from a hardcoded domain."
+    },
+    "unknownsToResolveBeforeImplementation": [
+      "Rear shell curvature is hidden; use a closed rounded bean approximation and label it inferred.",
+      "Cristae depth and rear-side continuity are not visible; implement a shallow connected relief system on the exposed matrix.",
+      "The source is 200 px wide; sub-pixel specks are represented statistically rather than copied one-for-one."
+    ],
+    "detailInventory": {
+      "scanMethod": "component-zones",
+      "targetMinDetails": 10,
+      "note": "Enumerate every identity-defining small detail before authoring the spec. Each detail must map to a component.localFeatures entry or material.localOverrides entry, never prose only. Use forge/stage1_intake/build_detail_inventory.py to scan zones.",
+      "details": []
+    },
+    "anatomy": {
+      "applies": false,
+      "styleHeads": 0.0,
+      "proportions": {
+        "headUnit": 0.0,
+        "torso": 0.0,
+        "legs": 0.0,
+        "shoulderWidth": 0.0,
+        "hipWidth": 0.0
+      },
+      "pose": {
+        "type": "unassessed",
+        "jointAngles": {}
+      },
+      "faceLandmarks": {
+        "eyeLine": 0.0,
+        "eyeSpacing": 0.0,
+        "noseBase": 0.0,
+        "mouthLine": 0.0,
+        "hairline": 0.0
+      },
+      "features": [],
+      "confidence": 0.0,
+      "note": "Only meaningful when objectClass.primaryDomain is character or hybrid. Set applies=true and fill from forge/stage1_intake/extract_landmarks.py. See grimoire/character/reconstruction.md and grimoire/character/likeness_maximization.md."
+    },
+    "sourceImage": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\test\\屏幕截图 2026-08-26 011321.png"
+  },
+  "qualityContract": {
+    "qualityBar": "complex",
+    "definitionOfDone": [
+      "The primary view reads immediately as the supplied mitochondrion cutaway through its vertical bean silhouette, right-side convex arc, and recessed front aperture.",
+      "A thick warm-brown cutaway rim encloses a pale matrix and a continuous gold inner-membrane boundary with five alternating serpentine cristae folds plus a lower spiral fold.",
+      "Shell, membrane, matrix, and granules remain materially distinct under neutral and grazing light; surface relief is not baked only into albedo.",
+      "Front, oblique side, and rear captures show a closed shell, attached internal structures, no exterior protrusions, and no floating semantic parts.",
+      "The model is clickable and explodable while preserving default assembled contact and overlap."
+    ],
+    "minimumSpecDepth": {
+      "macroComponents": 3,
+      "mesoComponents": 7,
+      "microFeatureGroups": 10,
+      "materialLayers": 4,
+      "repetitionSystems": 3,
+      "reviewViewpoints": 4
+    },
+    "featureGroups": [
+      {
+        "id": "overall-silhouette",
+        "name": "Bean silhouette and cutaway proportion",
+        "required": true,
+        "qualityCriteria": [
+          "The model height is 1.6-1.8 times its width, with a rounded crown, fuller lower body, continuous convex right arc, and asymmetric cutaway interruption on the front-left side.",
+          "The aperture occupies most of the visible front face but leaves a substantial brown shell rim and a closed rear volume."
+        ],
+        "evidenceRefs": [
+          "full-object"
+        ],
+        "failureModes": [
+          "model reads as an egg or capsule rather than a bent bean-shaped organelle",
+          "cutaway aperture is too small, too centered, or removes the closed rear shell"
+        ]
+      },
+      {
+        "id": "cutaway-rim-and-depth",
+        "name": "Cutaway rim thickness and recessed matrix",
+        "required": true,
+        "qualityCriteria": [
+          "The cutaway rim is a continuous thick loop embedded into the front shell, with the pale matrix recessed behind it.",
+          "Rim, matrix, and inner membrane overlap enough to avoid visible gaps while remaining independently selectable."
+        ],
+        "evidenceRefs": [
+          "full-object"
+        ],
+        "failureModes": [
+          "internal layers appear pasted onto an uncut shell",
+          "matrix or rim floats in front of the shell",
+          "aperture depth is unreadable under grazing light"
+        ]
+      },
+      {
+        "id": "continuous-cristae-network",
+        "name": "Connected inner membrane and serpentine cristae",
+        "required": true,
+        "qualityCriteria": [
+          "A gold membrane follows the inner aperture boundary and anchors five alternating rounded serpentine folds plus one lower spiral fold.",
+          "Every fold has rounded termini, visible thickness, local width variation, and contact or overlap with the boundary membrane."
+        ],
+        "evidenceRefs": [
+          "full-object"
+        ],
+        "failureModes": [
+          "cristae look like disconnected decorative noodles",
+          "folds are parallel straight shelves instead of alternating serpentine turns",
+          "folds penetrate the cutaway rim or exterior shell"
+        ]
+      },
+      {
+        "id": "surface-material-contrast",
+        "name": "Shell, membrane, matrix, and granule material contrast",
+        "required": true,
+        "qualityCriteria": [
+          "The shell uses warm-brown nonmetal albedo, medium-high roughness, low-amplitude macro undulation, meso dimples, and micro grain.",
+          "The gold membrane is smoother and more saturated than the shell; the pale matrix is matte and finely speckled; granules use two brown value bands.",
+          "No albedo texture is reused as roughness, height, normal, or AO."
+        ],
+        "evidenceRefs": [
+          "full-object"
+        ],
+        "failureModes": [
+          "shell reads as smooth plastic",
+          "membrane and matrix merge into one yellow material",
+          "micro texture destroys the clean silhouette"
+        ]
+      },
+      {
+        "id": "matrix-microstructure",
+        "name": "Matrix granules, speckles, and local density",
+        "required": true,
+        "qualityCriteria": [
+          "At least 24 deterministic matrix granules are distributed only inside the exposed matrix and avoid overlapping the gold folds.",
+          "A separate fine-speck repetition system varies scale, value, and depth without forming a uniform grid.",
+          "Neutral key/fill/rim lighting keeps the low-contrast beige matrix readable behind the brighter gold membrane."
+        ],
+        "evidenceRefs": [
+          "full-object"
+        ],
+        "failureModes": [
+          "granules appear outside the aperture or through the shell",
+          "particles form a uniform grid or obscure the cristae",
+          "matrix loses depth because lighting is evenly ambient"
+        ]
+      }
+    ],
+    "visualDeltaChecks": [
+      "silhouette and negative-space delta",
+      "cutaway rim width and matrix recess delta",
+      "inner-boundary continuity and cristae curvature delta",
+      "cristae count, alternating placement, and lower spiral delta",
+      "shell/membrane/matrix albedo and roughness separation delta",
+      "granule visible-footprint density and exclusion-zone delta"
+    ],
+    "antiShallowSpecRules": [
+      "Do not proceed to code if qualityContract.qualityBar is unassessed.",
+      "Do not proceed to code if the spec only contains a root component for a moderate or complex object.",
+      "Do not proceed to code if required featureGroups are not represented by componentTree, materials, or repetitionSystems.",
+      "Do not proceed to code if visible local features are described only in prose and not attached to components/materials/evidenceRefs.",
+      "Do not proceed past structural-pass if attached child parts lack attachment.parentSocket, localStart, localEnd, embedDepth/overlap, and gapTolerance.",
+      "Do not pass material look-dev when albedo is reused as roughness, height, normal, or AO.",
+      "Do not pass material look-dev without macro, meso, and micro surface frequency bands for close-up materials.",
+      "Do not pass reference-fidelity material look-dev from a source image without usable referencePbr maps or an explicit documented limitation.",
+      "Do not patch a spec with extracted PBR maps when extraction confidence is below the target threshold unless the user explicitly accepts lower fidelity.",
+      "Do not place adjacent separate-geometry parts below 0.02 world-unit seam overlap (source: grimoire/build/geometry_patterns.md).",
+      "Do not satisfy raised or recessed relief, fasteners, or grip structure with a map alone when the feature affects form; use geometry or displacement (source: grimoire/build/geometry_patterns.md)."
+    ]
+  },
+  "authoringInstruction": "Fill observed object class, complexity reasoning, featureGroups, visualDeltaChecks, and unknowns before generating or implementing ObjectSculptSpec.",
+  "localSpecSearch": {
+    "collection": "core_3d",
+    "query": "Mitochondrion Cutaway mitochondrion cristae inner membrane cutaway organelle continuous organic membrane folds tube geometry rough organic shell PBR",
+    "index": {
+      "status": "hit",
+      "reason": "current",
+      "fingerprint": "ac4f0bc9028e34083dbb5d5531ae3df7699c8e7641d5f8e6d42e7492ea1be1d0"
+    },
+    "matches": [
+      {
+        "record_id": "core.topology-intent",
+        "file_path": "grimoire/glossary/3d_vocabulary.md",
+        "heading": "Geometry And Topology",
+        "key_path": null,
+        "score": 5.143858634031,
+        "snippets": [
+          "Topology intent classifies a surface as hard-surface blockout, subdivision-ready, low-poly prop, organic deformed mesh, or alpha-card cluster."
+        ],
+        "source_refs": [
+          {
+            "path": "grimoire/glossary/3d_vocabulary.md",
+            "heading": "Geometry And Topology",
+            "key_path": null
+          }
+        ],
+        "evidence_refs": [
+          {
+            "kind": "source",
+            "ref": "grimoire/glossary/3d_vocabulary.md"
+          },
+          {
+            "kind": "notebooklm-research",
+            "ref": "notebooklm:4b03c2f9-8393-411f-b5b4-039ab9532843",
+            "note": "Validated generic schema vocabulary; numeric claims remain backed by local source_refs."
+          }
+        ]
+      },
+      {
+        "record_id": "core.pbr-hand-painted-vs-pbr-texture",
+        "file_path": "docs/raw/img2threejs-skill-dataset.json",
+        "heading": null,
+        "key_path": "categories.material_pbr[12]",
+        "score": 4.661903223664,
+        "snippets": [
+          "... baked directly into color (static, stylized) from textures that respond dynamically to scene lighting via separate PBR channels. Phân biệt kết cấu có ánh sáng được nướng trực tiếp vào màu (tĩnh, cách điệu) với kết cấu phản hồi động ..."
+        ],
+        "source_refs": [
+          {
+            "path": "docs/raw/img2threejs-skill-dataset.json",
+            "heading": null,
+            "key_path": "categories.material_pbr[12]"
+          }
+        ],
+        "evidence_refs": [
+          {
+            "kind": "source",
+            "ref": "docs/raw/img2threejs-skill-dataset.json",
+            "note": "img2threejs NotebookLM research distillation"
+          }
+        ]
+      },
+      {
+        "record_id": "core.shader-mapping-meshphysicalmaterial-core-pbr-fields",
+        "file_path": "docs/raw/img2threejs-skill-dataset.json",
+        "heading": null,
+        "key_path": "categories.rendering_shader_mapping[0]",
+        "score": 4.632717063119,
+        "snippets": [
+          "The baseline Three.js material exposing direct scalar/map fields for the standard PBR channel set. Vật liệu Three.js cơ bản cung cấp trực tiếp các trường vô hướng/bản đồ cho bộ kênh PBR tiêu chuẩn. Recognition cues: Use whenever a static ..."
+        ],
+        "source_refs": [
+          {
+            "path": "docs/raw/img2threejs-skill-dataset.json",
+            "heading": null,
+            "key_path": "categories.rendering_shader_mapping[0]"
+          }
+        ],
+        "evidence_refs": [
+          {
+            "kind": "source",
+            "ref": "docs/raw/img2threejs-skill-dataset.json",
+            "note": "img2threejs NotebookLM research distillation"
+          }
+        ]
+      }
+    ]
+  }
+}

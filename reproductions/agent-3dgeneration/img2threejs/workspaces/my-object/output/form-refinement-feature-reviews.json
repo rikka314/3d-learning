@@ -1,0 +1,10 @@
+[
+  {
+    "id": "cristae-network",
+    "name": "Continuous gold inner boundary with alternating serpentine cristae",
+    "score": 0.84,
+    "threshold": 0.8,
+    "passed": true,
+    "critique": "The full comparison pair retains the connected alternating fold network and now adds non-grid matrix granules and fine specks without obscuring the folds. Rounded endpoints, varying radii, the distinct lower loop, and irregular particle distribution improve the form-detail read."
+  }
+]

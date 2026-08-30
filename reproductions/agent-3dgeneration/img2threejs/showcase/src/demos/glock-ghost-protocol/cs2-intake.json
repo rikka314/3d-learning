@@ -1,0 +1,129 @@
+{
+ "schemaVersion": 1,
+ "state": "proceed",
+ "sourceViews": [
+  {
+   "role": "front",
+   "path": ".render-review/gp/ref_front.png",
+   "sha256": "8370d10c0c4a1f6f",
+   "width": 2000,
+   "height": 1125,
+   "coverage": 0.4178,
+   "duplicate": false,
+   "admitted": true,
+   "muzzleDirection": "right"
+  },
+  {
+   "role": "back",
+   "path": ".render-review/gp/ref_back.png",
+   "sha256": "a6ce93cd7dfc65ec",
+   "width": 2000,
+   "height": 1125,
+   "coverage": 0.4187,
+   "duplicate": false,
+   "admitted": true,
+   "muzzleDirection": "left"
+  }
+ ],
+ "admission": {
+  "admitted": true,
+  "reasons": [],
+  "provenance": {
+   "viewpoint": "reference",
+   "foregroundCoverage": 0.4178,
+   "largestComponentFraction": 1.0,
+   "enclosedHoles": 1,
+   "enclosedHoleBboxPx": { "x": [839, 1182], "y": [383, 584] },
+   "duplicateOfHash": null
+  }
+ },
+ "probe": {
+  "type": "png",
+  "colorMode": "RGBA",
+  "alphaIsBinary": true,
+  "aspectRatio": 1.7777777777777777,
+  "technicalSuitability": "pass",
+  "warnings": [],
+  "note": "Technical probing only. Semantic identification is the vision layer's job."
+ },
+ "heuristicSignal": {
+  "authoritative": false,
+  "note": "detect_cs2 heuristics were treated as a routing hint only; identity comes from the classification record below."
+ },
+ "classification": {
+  "itemFamily": "pistol",
+  "subtype": "glock-18",
+  "confidence": 0.94,
+  "provider": "agent-vision",
+  "timedOut": false,
+  "evidenceRefs": [
+   "both views: Browning-derived polymer-framed striker pistol — squared slide, no exposed hammer, no external thumb safety",
+   "front.png: 'GLOCK(18)' slide roll-mark at x 1330..1500 and 'G18' engraved on the breech face at x 925..1045",
+   "both views: hinged trigger-safety blade splitting the trigger shoe face",
+   "front.png: single right-side ejection port, x 880..1145, with the steel breech visible through it",
+   "alpha trace: Glock frame signature — 22.4 deg grip rake, squared trigger-guard loop, beavertail tang overhanging the backstrap",
+   "alpha trace: four accessory-rail slots on the dust-cover underside, x 1552..1800",
+   "both views: magazine extension protruding below the magwell mouth with 6 front serrations — the +2 baseplate CS2 models the 18 with"
+  ],
+  "rejectedAlternatives": [
+   "knife (any subtype): the silhouette carries a slide, a trigger-guard loop and a magazine well; no blade, no crossguard",
+   "usp-s / p2000: those have an external hammer and a rounded trigger guard; this has neither",
+   "five-seven / tec-9: frame length and grip rake do not match; no Glock roll-mark",
+   "glock-17/19: the roll-mark reads GLOCK(18) explicitly"
+  ],
+  "version": "claude-opus-5-1m/2026-07-25"
+ },
+ "itemFamily": "pistol",
+ "subtype": "glock-18",
+ "componentAdapter": "cs2-pistol-glock18-v1",
+ "adapterProvenance": {
+  "status": "authored-for-this-build",
+  "reason": "the img2threejs CS2 adapter table shipped knife-only, so a Glock-18 would otherwise return unsupported-family. A knife component tree was NOT substituted; a pistol/glock-18 adapter was added (forge/stage2_spec/cs2_adapters.py) with its own component tree, painted regions, feature targets and review viewpoints.",
+  "componentTree": ["slide", "frame", "magazine", "gripPanel", "trigger", "triggerSafety", "sights", "breech", "barrel", "controls", "internals"]
+ },
+ "exactnessTier": "image-only",
+ "route": "reference-projection",
+ "textureSource": "image-only",
+ "identity": {
+  "provenance": "classification-record",
+  "confidence": 0.94,
+  "skinName": "Ghost Protocol",
+  "wearLabel": "Well-Worn",
+  "wearLabelProvenance": "user-supplied, not measured from pixels"
+ },
+ "finish": {
+  "provenance": "visual-observation",
+  "confidence": 0.88,
+  "pattern": "translucent crimson polymer over visible internals, with cybernetic circuit linework: magenta trace bundle on the rear slide, orange ribbon bundle across the mid slide, bar-graph glyphs at both slide ends, and the GHOST (*) / PROTOCOL / >_ decal set",
+  "wear": "Well-Worn reads as polymer worn through to bright metal along the magwell mouth (x 178..640, y 858..940) plus scuffing along the silhouette edge"
+ },
+ "assets": { "source": "image-only", "records": [] },
+ "camera": {
+  "status": "orthographic-broadside",
+  "provenance": "observed",
+  "note": "both views are flat broadside product renders with negligible perspective; reproduced by an orthographic camera at halfHeight 1.125 on +Z / -Z",
+  "heroSide": "+Z"
+ },
+ "provenance": { "reference": "user-supplied", "metadata": "not-supplied" },
+ "assumptions": {
+  "float": "unknown — 'Well-Worn' is a user-supplied label, not measured",
+  "paintSeed": "unknown — not derivable from pixels",
+  "hiddenRegions": "inferred — no view shows the top strap, the underside, the muzzle face or inside the shell",
+  "thickness": "inferred — both views are broadside; Z comes from published Glock-18 cross-sections scaled by the traced height",
+  "internals": "the barrel, recoil rod, breech body and magazine body are placed from what the translucent shell reveals plus mechanism knowledge; their Z depth is not observable"
+ },
+ "confidence": { "overall": 0.9, "hiddenRegions": 0.3, "thickness": 0.45, "internals": 0.42 },
+ "warnings": [
+  "family was outside the shipped adapter table; an adapter was authored rather than substituting the knife tree"
+ ],
+ "extensions": {
+  "compatibilityMode": "manifest-v1",
+  "viewPairing": {
+   "relation": "obverse/reverse of one physical item",
+   "alphaIoU_front_vs_mirroredBack": 0.9928,
+   "meanAbsRGBDelta_on_overlap": 20.65,
+   "verdict": "same silhouette, genuinely different surface pixels -> not a duplicate view",
+   "silhouetteAgreementPx": { "topEdgeMean": 1.6, "bottomEdgeMean": 1.6 }
+  }
+ }
+}

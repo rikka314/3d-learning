@@ -1,0 +1,29 @@
+Era3D dataloader worker compatibility fix - 2026-08-26
+
+Observed failure:
+  logs/20260825T162059Z-standard-seed600.log
+  OSError: AF_UNIX path too long
+  Source: multiprocessing/resource_sharer with dataloader_num_workers=1.
+
+Fix:
+  run.ps1 defaults DataloaderWorkers to 0.
+  run_wsl.sh always passes dataloader_num_workers=<value> to OmegaConf.
+
+Regression command (does not load the model or use the GPU):
+  .\scripts\run.ps1 -DryRun
+
+Verified output contains:
+  dataloader_num_workers=0
+
+Verified side effects:
+  no new output directory
+  no active Era3D inference process
+
+Preserved diagnostic artifact:
+  logs/20260825T162358Z-standard-seed600.log
+  outputs/20260825T162358Z-standard-seed600/
+  This was an interrupted, pre-generation model-load attempt caused by the first
+  dry-run check relying on a Windows environment variable that WSL did not inherit.
+  The process was stopped with SIGINT; the empty directory and KeyboardInterrupt
+  log are intentionally retained.
+

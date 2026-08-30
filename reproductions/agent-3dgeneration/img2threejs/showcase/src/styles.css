@@ -1,0 +1,2518 @@
+/**
+ * Landing v2 — design tokens.
+ *
+ * Deliberately re-keyed away from v1: v1 was a blue→teal gradient over an aurora blur, with a
+ * monospace face carrying every word. This is near-black, ONE warm accent, no gradient anywhere,
+ * hairlines instead of glow, and a grotesk/mono pairing where grotesk speaks and mono reports
+ * numbers. Nothing here fades or blooms — separation is a 1px line and empty space.
+ */
+
+:root {
+  color-scheme: dark;
+
+  /* Ground: three steps of near-black, cool rather than blue. The canvas sits on --ink. */
+  --ink: #0b0b0d;
+  --ink-1: #101013;
+  --ink-2: #16161a;
+  --ink-3: #1d1d22;
+
+  /* One accent. Warm amber against the cool ground: it never competes with a rendered model,
+     and it is the only saturated colour on the page. */
+  --amber: #e8a33d;
+  --amber-dim: #a9762a;
+
+  --paper: #edecea;
+  --paper-dim: #9a9a9f;
+  --paper-faint: #6a6a70;
+
+  --rule: #24242a;
+  --rule-strong: #33333b;
+
+  /* Grotesk from the system — no webfont, because the site ships zero network requests. SF Pro,
+     Segoe UI and Roboto are all grotesks, so the pairing holds on every platform. */
+  --sans: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --mono: ui-monospace, 'JetBrains Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
+
+  /* One motion curve and two durations, used everywhere. */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --fast: 160ms;
+  --slow: 380ms;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/**
+ * `[hidden]` is only a UA rule of `display: none`, so ANY explicit `display` in author CSS beats
+ * it — which silently left the command palette and the build-status overlay on screen at load,
+ * because both are flex containers. Every panel in the workbench toggles via this attribute, so
+ * the attribute has to win.
+ */
+[hidden] {
+  display: none !important;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  overflow: hidden;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* The workbench owns the viewport; only its own drawers scroll. */
+#app {
+  height: 100vh;
+  height: 100dvh;
+  width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.mono {
+  font-family: var(--mono);
+}
+
+/**
+ * `brand()` in site-data.ts and the demo page both emit `<span class="grad">`, so the hook has to
+ * survive — but v2 has no gradients. It is now the accent weight treatment: same job (make the
+ * product name read as the product name), no animation, no background-clip.
+ */
+.grad {
+  color: var(--amber);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+/* Focus is visible and consistent: the accent, never a browser default halo. */
+:focus-visible {
+  outline: 1px solid var(--amber);
+  outline-offset: 2px;
+}
+
+/* Utility: a mono label in caps, the voice used for every measured value on the page. */
+.label {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--paper-faint);
+}
+
+/* ---------- One-time brand intro ----------
+   Re-keyed for v2: no gradient fill, no glow. The mark's own three source-pixel swatches settle
+   into the isometric cube, in amber-on-near-black, and the wordmark arrives last. */
+
+body.intro-active { overflow: hidden; }
+
+#app { transition: opacity 200ms var(--ease); }
+/* Leave-only. There is no matching enter class: parking #app at opacity 0 after the mount made
+   visibility depend on a frame callback, which starved under load and hid the build loader. */
+#app.route-leaving { opacity: 0; }
+
+.intro-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--ink);
+  opacity: 1;
+  transition: opacity 420ms var(--ease);
+}
+
+.intro-overlay.intro-fade { opacity: 0; pointer-events: none; }
+
+.intro-stage { display: flex; flex-direction: column; align-items: center; gap: 1rem; }
+.intro-mark { overflow: visible; }
+
+.intro-pixels rect { opacity: 0; transform-origin: center; transform: scale(0.4); }
+.intro-run .intro-pixels rect {
+  animation: intro-pixel-in 380ms var(--ease) forwards;
+  animation-delay: calc(var(--d) * 80ms);
+}
+@keyframes intro-pixel-in { to { opacity: 0.9; transform: scale(1); } }
+
+.intro-run .intro-pixels { animation: intro-pixels-out 300ms ease forwards; animation-delay: 560ms; }
+@keyframes intro-pixels-out { to { opacity: 0; } }
+
+.intro-cube .intro-face { opacity: 0; transform-origin: 32px 33px; transform: scale(0.6) translateY(6px); }
+.intro-run .intro-cube .intro-face {
+  animation: intro-face-in 460ms var(--ease) forwards;
+  animation-delay: calc(300ms + var(--d) * 95ms);
+}
+@keyframes intro-face-in { to { opacity: 1; transform: none; } }
+
+.intro-glint { opacity: 0; transform-origin: 32px 20px; transform: scale(0.4); }
+.intro-run .intro-glint { animation: intro-glint-in 500ms ease forwards; animation-delay: 620ms; }
+@keyframes intro-glint-in {
+  0% { opacity: 0; transform: scale(0.4); }
+  55% { opacity: 1; transform: scale(1.2); }
+  100% { opacity: 0.85; transform: scale(1); }
+}
+
+.intro-word {
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--paper);
+  opacity: 0;
+  transform: translateY(8px);
+}
+.intro-word .grad { color: var(--amber); }
+.intro-run .intro-word { animation: intro-word-in 430ms var(--ease) forwards; animation-delay: 720ms; }
+@keyframes intro-word-in { to { opacity: 1; transform: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  #app { transition: none !important; opacity: 1 !important; }
+  .intro-overlay,
+  .intro-run .intro-pixels,
+  .intro-run .intro-pixels rect,
+  .intro-run .intro-cube .intro-face,
+  .intro-run .intro-glint,
+  .intro-run .intro-word { animation: none !important; }
+}
+
+/**
+ * Workbench layout.
+ *
+ * The canvas is the page. Everything else is a panel floating over it, so the model is never
+ * boxed into a column — which is the whole structural break from v1's hero → grid → sections
+ * scroll. Panels are hairline-bordered, translucent over the render, and none of them glow.
+ */
+
+.wb {
+  position: relative;
+  height: 100vh;
+  height: 100dvh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  /* `minmax(0, 1fr)`, not `1fr`: a grid column's default floor is min-content, and a <canvas>
+     carries an intrinsic width. Once the canvas sits in flow (it does on mobile, where it is
+     sticky rather than absolute) that intrinsic width inflates the column — measured 901px inside
+     a 390px viewport — and the Viewer then measures the inflated mount and draws even wider. A 0
+     floor breaks that loop. */
+  grid-template-columns: minmax(0, 1fr);
+  overflow: hidden;
+  background: var(--ink);
+}
+
+/* ------------------------------------------------------------------ top bar */
+
+.wb-top {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 0.85rem 1.1rem;
+  /* Notch / status bar. env() resolves to 0 on hardware without an inset, so this is free. */
+  padding-top: max(0.85rem, env(safe-area-inset-top));
+  padding-left: max(1.1rem, env(safe-area-inset-left));
+  padding-right: max(1.1rem, env(safe-area-inset-right));
+  border-bottom: 1px solid var(--rule);
+  background: var(--ink);
+}
+
+.wb-brand {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  font-size: 1rem;
+}
+
+.wb-brand img {
+  align-self: center;
+}
+
+.wb-brand-2 {
+  color: var(--amber);
+}
+
+.wb-ver {
+  font-size: 0.62rem;
+  color: var(--paper-faint);
+  letter-spacing: 0.08em;
+}
+
+.wb-nav {
+  display: flex;
+  align-items: center;
+  gap: 1.15rem;
+  margin-left: 0.75rem;
+}
+
+.wb-navlink {
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  font-size: 0.85rem;
+  color: var(--paper-dim);
+  cursor: pointer;
+  transition: color var(--fast) var(--ease);
+}
+
+.wb-navlink:hover {
+  color: var(--paper);
+}
+
+.wb-top-right {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.wb-search {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font: inherit;
+  font-size: 0.8rem;
+  color: var(--paper-dim);
+  background: var(--ink-2);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 0.34rem 0.5rem 0.34rem 0.7rem;
+  cursor: pointer;
+  transition: border-color var(--fast) var(--ease), color var(--fast) var(--ease);
+}
+
+.wb-search:hover {
+  color: var(--paper);
+  border-color: var(--rule-strong);
+}
+
+.wb-search kbd {
+  font-size: 0.66rem;
+  color: var(--paper-faint);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 0.05rem 0.3rem;
+}
+
+.wb-star,
+.wb-sponsor {
+  font: inherit;
+  font-size: 0.8rem;
+  border-radius: 4px;
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+  transition: border-color var(--fast) var(--ease), background var(--fast) var(--ease);
+}
+
+.wb-star {
+  color: var(--paper-dim);
+  border: 1px solid var(--rule);
+  background: transparent;
+}
+
+.wb-star:hover {
+  color: var(--paper);
+  border-color: var(--rule-strong);
+}
+
+/* The one filled control on the page — the accent is spent here and on active state only. */
+.wb-sponsor {
+  color: var(--ink);
+  background: var(--amber);
+  border: 1px solid var(--amber);
+  font-weight: 600;
+}
+
+.wb-sponsor:hover {
+  background: #f2b053;
+}
+
+/* -------------------------------------------------------------------- stage */
+
+.wb-stage {
+  position: relative;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.wb-canvas {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  touch-action: none;
+}
+
+/**
+ * Legibility veil. Each demo paints its own backdrop — the AWP's is a busy blue Medusa swirl, the
+ * Pikachu's is hot pink — and the caption sits directly on it, so contrast is whatever that demo
+ * happened to choose. Two soft ramps (up from the bottom, in from the left) sink the ground under
+ * the text without boxing it in or dimming the subject, which stays in the clear centre-right.
+ * Sits above the canvas and below the HUD; never takes a pointer event, so orbit still works.
+ */
+.wb-stage::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(to top, color-mix(in srgb, var(--ink) 92%, transparent), transparent 38%),
+    linear-gradient(to right, color-mix(in srgb, var(--ink) 70%, transparent), transparent 34%);
+}
+
+.wb-canvas canvas {
+  display: block;
+}
+
+/**
+ * Branded build loader (src/loader.ts). Shared by the workbench and the detail route.
+ *
+ * Every stage is written so a FROZEN frame still reads as the logo: a synchronous `build()` blocks
+ * the main thread for seconds on the heavy exhibits and CSS cannot advance while it does, so no
+ * stage passes through a near-invisible or half-collapsed state. Motion is a slow breath plus a
+ * sweeping hairline — indeterminate on purpose, because nothing in the pipeline reports progress.
+ */
+.ldr {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: color-mix(in srgb, var(--ink) 86%, transparent);
+  opacity: 1;
+  transition: opacity 260ms var(--ease);
+}
+
+.ldr.is-done {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.ldr-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.ldr-mark {
+  overflow: visible;
+  animation: ldr-breathe 2.4s var(--ease) infinite;
+}
+
+@keyframes ldr-breathe {
+  50% { transform: translateY(-3px); }
+}
+
+/* The three source pixels hand off to the cube in sequence: the image becoming the volume, which
+   is the whole product in one loop. Opacity floors at 0.25 so a frozen frame never looks empty. */
+.ldr-pixels rect {
+  fill: var(--amber);
+  animation: ldr-pixel 1.8s var(--ease) infinite;
+  animation-delay: calc(var(--d) * 200ms);
+}
+
+@keyframes ldr-pixel {
+  0%, 100% { opacity: 0.25; }
+  35% { opacity: 1; }
+}
+
+.ldr-top { fill: #2f3038; }
+.ldr-left { fill: #22232a; }
+.ldr-right { fill: #1a1b21; }
+
+.ldr-cube polygon {
+  animation: ldr-face 1.8s var(--ease) infinite;
+}
+
+.ldr-top { animation-delay: 200ms; }
+.ldr-left { animation-delay: 400ms; }
+.ldr-right { animation-delay: 600ms; }
+
+/* Faces lift toward the accent rather than fading, so the cube is always fully drawn. */
+@keyframes ldr-face {
+  0%, 100% { fill: #22232a; }
+  40% { fill: var(--amber-dim); }
+}
+
+.ldr-phase {
+  font-size: 0.74rem;
+  color: var(--paper-dim);
+  letter-spacing: 0.04em;
+}
+
+.ldr-bar {
+  width: 132px;
+  height: 1px;
+  background: var(--rule-strong);
+  overflow: hidden;
+}
+
+.ldr-bar span {
+  display: block;
+  width: 38%;
+  height: 100%;
+  background: var(--amber);
+  animation: ldr-sweep 1.5s var(--ease) infinite;
+}
+
+@keyframes ldr-sweep {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(264%); }
+}
+
+/* Reduced motion: hold the mark still and let the phase line carry the state. */
+@media (prefers-reduced-motion: reduce) {
+  .ldr-mark,
+  .ldr-pixels rect,
+  .ldr-cube polygon,
+  .ldr-bar span {
+    animation: none !important;
+  }
+  .ldr-pixels rect { opacity: 1; }
+  .ldr-bar span { width: 100%; }
+}
+
+/* ---- HUD: reference plate, top-left ---- */
+
+.wb-ref {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 2;
+  width: 118px;
+  margin: 0;
+  border: 1px solid var(--rule);
+  background: var(--ink-1);
+  overflow: hidden;
+}
+
+.wb-ref img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  opacity: 0.9;
+}
+
+.wb-ref img.missing {
+  visibility: hidden;
+}
+
+.wb-ref figcaption {
+  padding: 0.3rem 0.45rem;
+  border-top: 1px solid var(--rule);
+  background: var(--ink);
+}
+
+/* ---- HUD: caption, bottom-left ---- */
+
+.wb-caption {
+  position: absolute;
+  left: 1rem;
+  bottom: 1rem;
+  z-index: 2;
+  width: min(460px, calc(100% - 2rem));
+}
+
+.wb-pitch {
+  margin: 0 0 0.9rem;
+  font-size: clamp(1.6rem, 3vw, 2.5rem);
+  line-height: 1.06;
+  letter-spacing: -0.035em;
+  font-weight: 600;
+  text-wrap: balance;
+}
+
+.wb-pitch em {
+  font-style: normal;
+  color: var(--amber);
+}
+
+.wb-title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+.wb-blurb {
+  margin: 0.4rem 0 0;
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: var(--paper-dim);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.wb-caption-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.9rem;
+}
+
+/* ---- HUD: right side stack ---- */
+
+.wb-side {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 2;
+  width: 264px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+}
+
+.wb-panel {
+  flex: 0 0 auto;
+  border: 1px solid var(--rule);
+  background: color-mix(in srgb, var(--ink-1) 86%, transparent);
+  backdrop-filter: blur(10px);
+  padding: 0.7rem 0.8rem 0.8rem;
+}
+
+.wb-panel > h2 {
+  margin: 0 0 0.55rem;
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  font-size: 0.62rem;
+}
+
+.wb-parts-count {
+  color: var(--amber);
+  font-size: 0.66rem;
+}
+
+/* readout: label / value pairs, values in mono because they are measurements */
+.wb-readout dl {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.wb-readout dl > div {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+}
+
+.wb-readout dt {
+  flex: 0 0 6.6rem;
+}
+
+.wb-readout dd {
+  margin: 0;
+  font-size: 0.74rem;
+  color: var(--paper);
+  overflow-wrap: anywhere;
+}
+
+/* controls */
+.wb-slider-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 0.74rem;
+  color: var(--paper-dim);
+  margin-bottom: 0.35rem;
+}
+
+.wb-slider-label output {
+  color: var(--amber);
+  font-size: 0.7rem;
+}
+
+.wb-explode input[type='range'] {
+  width: 100%;
+  height: 2px;
+  appearance: none;
+  background: var(--rule-strong);
+  outline: none;
+}
+
+.wb-explode input[type='range']::-webkit-slider-thumb {
+  appearance: none;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--amber);
+  cursor: pointer;
+}
+
+.wb-explode input[type='range']::-moz-range-thumb {
+  width: 11px;
+  height: 11px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--amber);
+  cursor: pointer;
+}
+
+.wb-explode input[type='range']:disabled {
+  opacity: 0.35;
+}
+
+.wb-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.7rem;
+}
+
+/* parts list */
+.wb-part-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 34vh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+}
+
+.wb-part {
+  width: 100%;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+  background: none;
+  border: 0;
+  border-radius: 3px;
+  padding: 0.22rem 0.3rem;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--paper-dim);
+  cursor: pointer;
+  text-align: left;
+}
+
+.wb-part:hover {
+  background: var(--ink-3);
+  color: var(--paper);
+}
+
+.wb-part.is-active {
+  color: var(--amber);
+  background: color-mix(in srgb, var(--amber) 12%, transparent);
+  box-shadow: inset 2px 0 0 var(--amber);
+}
+
+.wb-part-name {
+  overflow-wrap: anywhere;
+}
+
+.wb-part-tri {
+  flex: none;
+  color: var(--paper-faint);
+  font-size: 0.66rem;
+}
+
+.wb-part-selected {
+  border: 1px solid var(--rule-strong);
+  padding: 0.5rem 0.55rem;
+  margin-bottom: 0.5rem;
+}
+
+.wb-sel-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.4rem;
+}
+
+.wb-sel-name {
+  font-size: 0.74rem;
+  color: var(--amber);
+  overflow-wrap: anywhere;
+}
+
+.wb-sel-facts {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.22rem;
+}
+
+.wb-sel-facts > div {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.wb-sel-facts dt {
+  flex: 0 0 5.2rem;
+}
+
+.wb-sel-facts dd {
+  margin: 0;
+  font-size: 0.7rem;
+  overflow-wrap: anywhere;
+}
+
+/* -------------------------------------------------------------------- buttons */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font: inherit;
+  font-size: 0.8rem;
+  color: var(--paper);
+  background: var(--ink-2);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 0.5rem 0.85rem;
+  cursor: pointer;
+  transition: border-color var(--fast) var(--ease), background var(--fast) var(--ease);
+}
+
+.btn:hover {
+  border-color: var(--rule-strong);
+  background: var(--ink-3);
+}
+
+.btn-accent {
+  color: var(--ink);
+  background: var(--amber);
+  border-color: var(--amber);
+  font-weight: 600;
+}
+
+.btn-accent:hover {
+  background: #f2b053;
+  border-color: #f2b053;
+}
+
+.btn-sm {
+  font-size: 0.72rem;
+  padding: 0.34rem 0.55rem;
+}
+
+.btn-sm.is-active {
+  color: var(--amber);
+  border-color: var(--amber);
+  background: color-mix(in srgb, var(--amber) 12%, transparent);
+}
+
+/* ---------------------------------------------------------------------- rail */
+
+.wb-rail {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  /* Home indicator: without this the last row of thumbnails is under the gesture bar. */
+  padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+  padding-left: max(0.75rem, env(safe-area-inset-left));
+  padding-right: max(0.75rem, env(safe-area-inset-right));
+  border-top: 1px solid var(--rule);
+  background: var(--ink);
+}
+
+.rail-arrow {
+  flex: none;
+  width: 26px;
+  height: 42px;
+  font-size: 1rem;
+  color: var(--paper-dim);
+  background: transparent;
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  cursor: pointer;
+  transition: color var(--fast) var(--ease), border-color var(--fast) var(--ease);
+}
+
+.rail-arrow:hover {
+  color: var(--paper);
+  border-color: var(--rule-strong);
+}
+
+.rail-track {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  gap: 0.4rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+}
+
+.rail-track::-webkit-scrollbar {
+  display: none;
+}
+
+.rail-item {
+  position: relative;
+  flex: none;
+  width: 58px;
+  height: 42px;
+  padding: 0;
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  background: var(--ink-2);
+  overflow: hidden;
+  cursor: pointer;
+  opacity: 0.55;
+  transition: opacity var(--fast) var(--ease), border-color var(--fast) var(--ease);
+}
+
+.rail-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.rail-item img.missing {
+  visibility: hidden;
+}
+
+.rail-num {
+  position: absolute;
+  left: 2px;
+  bottom: 1px;
+  font-size: 0.56rem;
+  color: var(--paper);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
+}
+
+.rail-item:hover {
+  opacity: 0.85;
+}
+
+.rail-item.is-active {
+  opacity: 1;
+  border-color: var(--amber);
+}
+
+.rail-count {
+  flex: none;
+  font-size: 0.66rem;
+  color: var(--paper-faint);
+  padding-left: 0.3rem;
+}
+
+/* ------------------------------------------------------------------ overlays */
+
+.wb-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 8;
+  background: color-mix(in srgb, #000 62%, transparent);
+}
+
+.wb-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9;
+  width: min(560px, 100vw);
+  background: var(--ink-1);
+  border-left: 1px solid var(--rule);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 1.6rem 1.7rem 3rem;
+  padding-top: max(1.6rem, env(safe-area-inset-top));
+  padding-bottom: max(3rem, calc(2rem + env(safe-area-inset-bottom)));
+  animation: dr-in var(--slow) var(--ease);
+}
+
+@keyframes dr-in {
+  from { transform: translateX(14px); opacity: 0; }
+}
+
+.wb-drawer-close {
+  position: sticky;
+  top: 0;
+  float: right;
+  width: 30px;
+  height: 30px;
+  font-size: 1.1rem;
+  line-height: 1;
+  color: var(--paper-dim);
+  background: var(--ink-1);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.wb-drawer-close:hover {
+  color: var(--paper);
+  border-color: var(--rule-strong);
+}
+
+.wb-drawer h2 {
+  margin: 0 0 0.7rem;
+  font-size: 1.45rem;
+  letter-spacing: -0.025em;
+  font-weight: 600;
+}
+
+.dr-h3 {
+  margin: 1.8rem 0 0.6rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--rule);
+}
+
+.dr-lede,
+.dr-copy {
+  margin: 0 0 1.1rem;
+  font-size: 0.88rem;
+  line-height: 1.7;
+  color: var(--paper-dim);
+  max-width: 62ch;
+}
+
+.dr-note {
+  margin: 1.6rem 0 0;
+  padding-top: 1rem;
+  border-top: 1px solid var(--rule);
+  font-size: 0.76rem;
+  line-height: 1.7;
+  color: var(--paper-faint);
+}
+
+.dr-note a,
+.dr-lede a,
+.dr-copy a,
+.dr-defs a {
+  color: var(--amber);
+}
+
+/**
+ * A drawer-to-drawer link inside a sentence. It has to be a <button>, not an <a>: the drawers are
+ * one overlay that swaps its own content, and an anchor would put a second history entry between
+ * the sponsor page and the privacy page it points at. Styled to read as the inline links beside it
+ * so the sentence does not visibly change register mid-clause.
+ */
+.dr-inline-link {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: var(--amber);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+  cursor: pointer;
+}
+
+.dr-inline-link:hover {
+  text-decoration-thickness: 2px;
+}
+
+.dr-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.2rem;
+}
+
+.dr-defs {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.dr-defs > div {
+  display: flex;
+  gap: 0.8rem;
+  align-items: baseline;
+  flex-wrap: wrap;
+}
+
+.dr-defs dt {
+  flex: 0 0 7.5rem;
+}
+
+.dr-defs dd {
+  margin: 0;
+  font-size: 0.82rem;
+  font-family: var(--mono);
+  overflow-wrap: anywhere;
+}
+
+/* roadmap inside the drawer: a table-like ledger, not a decorated timeline */
+.rd-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.rd-row {
+  display: grid;
+  grid-template-columns: 7.5rem 1fr auto;
+  gap: 0.5rem 1rem;
+  padding: 1rem 0;
+  border-top: 1px solid var(--rule);
+}
+
+.rd-key {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.rd-v {
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.rd-body h3 {
+  margin: 0 0 0.4rem;
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+.rd-body ul {
+  margin: 0;
+  padding-left: 1.05rem;
+  font-size: 0.8rem;
+  line-height: 1.65;
+  color: var(--paper-dim);
+}
+
+.rd-not {
+  margin: 0.55rem 0 0;
+  font-size: 0.74rem;
+  color: var(--amber-dim);
+}
+
+.rd-link {
+  display: inline-block;
+  margin-top: 0.5rem;
+  font-size: 0.74rem;
+  color: var(--amber);
+}
+
+.rd-date {
+  font-size: 0.68rem;
+  color: var(--paper-faint);
+  white-space: nowrap;
+}
+
+.rd-latest {
+  background: color-mix(in srgb, var(--amber) 6%, transparent);
+}
+
+.rd-latest .rd-status,
+.rd-in-progress .rd-status {
+  color: var(--amber);
+}
+
+.rd-planned {
+  opacity: 0.62;
+}
+
+/* how-it-works: the eight build passes as a numbered ledger */
+.hw-passes {
+  list-style: none;
+  margin: 0 0 0.4rem;
+  padding: 0;
+}
+
+.hw-pass {
+  display: flex;
+  gap: 0.9rem;
+  padding: 0.75rem 0;
+  border-top: 1px solid var(--rule);
+}
+
+.hw-n {
+  flex: none;
+  width: 1.6rem;
+  font-size: 0.72rem;
+  color: var(--amber);
+  padding-top: 0.15rem;
+}
+
+.hw-pass h4 {
+  margin: 0 0 0.2rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--paper);
+  letter-spacing: 0.02em;
+}
+
+.hw-pass p {
+  margin: 0;
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: var(--paper-dim);
+}
+
+/* The verbatim prompt an exhibit was built from — long, so it scrolls rather than pushing the
+   page. Pre-wrap because the recorded prompts carry their own paragraph breaks. */
+.hw-prompt {
+  margin: 0;
+  padding: 0.85rem 0.95rem;
+  border-left: 2px solid var(--amber);
+  background: var(--ink-2);
+  font-size: 0.74rem;
+  line-height: 1.7;
+  color: var(--paper-dim);
+  white-space: pre-wrap;
+  max-height: 16rem;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+/* FAQ: native <details>, so it works with find-in-page and without JS */
+.faq {
+  display: flex;
+  flex-direction: column;
+}
+
+.faq-item {
+  border-top: 1px solid var(--rule);
+}
+
+.faq-item summary {
+  padding: 0.85rem 1.6rem 0.85rem 0;
+  font-size: 0.86rem;
+  font-weight: 600;
+  line-height: 1.5;
+  cursor: pointer;
+  position: relative;
+  list-style: none;
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item summary::after {
+  content: '+';
+  position: absolute;
+  right: 0.2rem;
+  top: 0.8rem;
+  font-family: var(--mono);
+  color: var(--amber);
+}
+
+.faq-item[open] summary::after {
+  content: '\2212';
+}
+
+.faq-item summary:hover {
+  color: var(--amber);
+}
+
+.faq-a {
+  padding: 0 0 1rem;
+  font-size: 0.82rem;
+  line-height: 1.75;
+  color: var(--paper-dim);
+  max-width: 64ch;
+}
+
+/* sponsors inside the drawer */
+.sp-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+/* The mark stays pinned to the first row rather than spanning the card: once each sponsor carries
+   a blurb, a pairing line and its own CTA, a centred 54px logo drifts to the middle of a tall
+   column and stops reading as that card's header. */
+.sp-logo {
+  display: grid;
+  grid-template-columns: 54px 1fr;
+  gap: 0.45rem 0.9rem;
+  padding: 0.9rem;
+  border: 1px solid var(--rule);
+  transition: border-color var(--fast) var(--ease);
+}
+
+.sp-logo:hover {
+  border-color: var(--rule-strong);
+}
+
+.sp-logo img {
+  grid-column: 1;
+  width: 54px;
+  height: auto;
+  align-self: start;
+}
+
+.sp-logo > :not(img) {
+  grid-column: 2;
+  margin: 0;
+}
+
+.sp-name {
+  font-weight: 600;
+  font-size: 0.9rem;
+  align-self: center;
+}
+
+.sp-blurb {
+  font-size: 0.78rem;
+  line-height: 1.6;
+  color: var(--paper-dim);
+}
+
+/* Our claim about the pairing, not the sponsor's about themselves — the rule marks the handover. */
+.sp-pair {
+  font-size: 0.78rem;
+  line-height: 1.6;
+  color: var(--paper-dim);
+  border-left: 1px solid var(--rule-strong);
+  padding-left: 0.7rem;
+}
+
+.sp-cta {
+  justify-self: start;
+  margin-top: 0.2rem;
+}
+
+/* Under ~560px the 54px logo column squeezes the prose into a ribbon; drop to one column and let
+   the mark sit above its own name. */
+@media (max-width: 560px) {
+  .sp-logo {
+    grid-template-columns: 1fr;
+  }
+
+  .sp-logo img,
+  .sp-logo > :not(img) {
+    grid-column: 1;
+  }
+}
+
+/* ----------------------------------------------------------- command palette */
+
+.wb-palette {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 12vh 1rem 1rem;
+  pointer-events: none;
+}
+
+.pal-box {
+  pointer-events: auto;
+  width: min(560px, 100%);
+  background: var(--ink-1);
+  border: 1px solid var(--rule-strong);
+  animation: pal-in var(--fast) var(--ease);
+}
+
+@keyframes pal-in {
+  from { transform: translateY(-6px); opacity: 0; }
+}
+
+.pal-input {
+  width: 100%;
+  font: inherit;
+  font-size: 0.95rem;
+  color: var(--paper);
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--rule);
+  padding: 0.9rem 1rem;
+  outline: none;
+}
+
+.pal-input::placeholder {
+  color: var(--paper-faint);
+}
+
+.pal-list {
+  list-style: none;
+  margin: 0;
+  padding: 0.3rem;
+  max-height: 46vh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.pal-item {
+  width: 100%;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  background: none;
+  border: 0;
+  border-radius: 3px;
+  padding: 0.5rem 0.7rem;
+  font: inherit;
+  font-size: 0.85rem;
+  color: var(--paper-dim);
+  cursor: pointer;
+  text-align: left;
+}
+
+.pal-item:hover,
+.pal-item.is-active {
+  background: var(--ink-3);
+  color: var(--paper);
+}
+
+.pal-item.is-active {
+  box-shadow: inset 2px 0 0 var(--amber);
+}
+
+.pal-meta {
+  flex: none;
+  font-size: 0.66rem;
+  color: var(--paper-faint);
+}
+
+.pal-empty {
+  padding: 0.9rem 1rem;
+  font-size: 0.82rem;
+  color: var(--paper-faint);
+}
+
+/* --------------------------------------------------------------- responsive */
+
+/* Tablet: the side stack is the first thing to go — the model needs the width more than the
+   readout does, and the same numbers are one tap away in the full viewer. */
+@media (max-width: 1080px) {
+  .wb-side {
+    width: 228px;
+  }
+  .wb-caption {
+    width: min(50%, 400px);
+  }
+}
+
+@media (max-width: 860px) {
+  .wb-nav {
+    display: none;
+  }
+  .wb-search span {
+    display: none;
+  }
+  .wb-side {
+    position: static;
+    width: auto;
+    max-height: none;
+    overflow: visible;
+  }
+
+  /* Below this width the overlay layout stops working: the model gets the top of the screen and
+     the panels become a normal scrolling column under it. */
+  .wb {
+    grid-template-rows: auto 1fr auto;
+  }
+  .wb-stage {
+    display: grid;
+    grid-template-rows: 56dvh auto;
+    grid-template-columns: minmax(0, 1fr);
+    min-width: 0;
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+  }
+  .wb-canvas {
+    position: sticky;
+    top: 0;
+    height: 56dvh;
+    inset: auto;
+  }
+  .wb-ref {
+    top: 0.6rem;
+    left: 0.6rem;
+    width: 74px;
+  }
+  .wb-caption {
+    position: static;
+    width: auto;
+    padding: 1rem 0.9rem 0;
+  }
+  .wb-blurb {
+    -webkit-line-clamp: 6;
+  }
+  .wb-side {
+    padding: 1rem 0.9rem 1.5rem;
+    gap: 0.6rem;
+  }
+  .wb-part-list {
+    max-height: none;
+  }
+  .wb-drawer {
+    width: 100vw;
+    padding: 1.2rem 1rem 3rem;
+  }
+  .rd-row {
+    grid-template-columns: 1fr;
+  }
+  .rd-date {
+    grid-row: 1;
+    justify-self: end;
+  }
+}
+
+@media (max-width: 520px) {
+  .wb-top {
+    padding: 0.7rem 0.8rem;
+    gap: 0.6rem;
+  }
+  .wb-star {
+    display: none;
+  }
+  .wb-pitch {
+    font-size: 1.45rem;
+  }
+  .rail-item {
+    width: 48px;
+    height: 36px;
+  }
+  .rail-arrow {
+    height: 36px;
+  }
+  .rail-count {
+    display: none;
+  }
+}
+
+
+
+/* ---- mobile menu ---- */
+
+.wb-menu {
+  display: none;
+  width: 44px;
+  /* Explicit height: the button's only content is a 1.5px bar plus two pseudo-elements, so with
+     height left to the content it collapsed to a 40x6px strip — measured, and unhittable. */
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  background: var(--ink-2);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Three rules drawn with one element: the bar itself plus its two pseudo-elements. */
+.wb-menu span,
+.wb-menu span::before,
+.wb-menu span::after {
+  content: '';
+  display: block;
+  width: 16px;
+  height: 1.5px;
+  background: var(--paper);
+}
+
+.wb-menu span {
+  position: relative;
+}
+
+.wb-menu span::before { position: absolute; top: -5px; }
+.wb-menu span::after { position: absolute; top: 5px; }
+
+.mn-list {
+  display: flex;
+  flex-direction: column;
+  margin: 0 0 0.4rem;
+}
+
+.mn-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: 0;
+  border-top: 1px solid var(--rule);
+  padding: 0.85rem 0;
+  cursor: pointer;
+  font: inherit;
+}
+
+.mn-title {
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: var(--paper);
+}
+
+.mn-blurb {
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--paper-dim);
+}
+
+.mn-item:hover .mn-title {
+  color: var(--amber);
+}
+
+@media (max-width: 860px) {
+  .wb-menu {
+    display: inline-flex;
+  }
+  /* "Reference" at 0.7rem plus the label's 0.14em tracking overflowed the 74px plate and rendered
+     as "REFERENC". The plate is as wide as it should be, so the tracking gives way. */
+  .wb-ref figcaption {
+    letter-spacing: 0.04em;
+    font-size: 0.62rem;
+    text-align: center;
+  }
+}
+
+/* ---------------------------------------------- touch targets & legibility */
+
+/**
+ * Measured on a 390x844 phone before this block: 31 interactive elements were under 44px tall
+ * (the buttons sat at 33px, rail thumbnails at 36px) and the smallest rendered text was 9px.
+ * Pointer-precision is the right axis to key this on rather than width — a small laptop with a
+ * mouse does not need thumb-sized controls, and a large tablet with no mouse does.
+ */
+@media (hover: none) {
+  .btn,
+  .wb-sponsor,
+  .wb-star,
+  .wb-search,
+  .rail-arrow,
+  .wb-navlink,
+  .wb-brand,
+  .wb-drawer-close,
+  .wb-menu {
+    min-height: 44px;
+  }
+
+  /* The one control a reader needs on a full-screen content page, so it gets a full square. */
+  .wb-drawer-close {
+    min-width: 44px;
+  }
+
+  .wb-brand {
+    align-items: center;
+  }
+
+  .btn,
+  .wb-sponsor,
+  .wb-star,
+  .wb-search {
+    padding-top: 0.6rem;
+    padding-bottom: 0.6rem;
+  }
+
+  /* Dense data rows: 40px rather than 44px. These are list items inside their own scroller, not
+     primary actions, and 44px each would push a 150-part manifest to six screens of scrolling. */
+  .wb-part,
+  .pal-item {
+    min-height: 40px;
+  }
+
+  .faq-item summary {
+    min-height: 48px;
+    padding-right: 2.2rem;
+  }
+
+  /* The slider thumb is the hardest control to hit on a touch screen. */
+  .wb-explode input[type='range'] {
+    /* 44px of grabbable strip with a 2px visible track drawn inside it — the element box IS the
+       target area, and at 24px the thumb was the only part you could actually hit. */
+    height: 44px;
+    background: transparent;
+  }
+  .wb-explode input[type='range']::-webkit-slider-runnable-track {
+    height: 2px;
+    background: var(--rule-strong);
+  }
+  .wb-explode input[type='range']::-webkit-slider-thumb {
+    width: 22px;
+    height: 22px;
+    margin-top: -10px;
+  }
+  .wb-explode input[type='range']::-moz-range-track {
+    height: 2px;
+    background: var(--rule-strong);
+  }
+  .wb-explode input[type='range']::-moz-range-thumb {
+    width: 22px;
+    height: 22px;
+  }
+
+  /* Thumbnails have to be thumb-sized, and the number on them was the 9px text. */
+  .rail-item {
+    width: 62px;
+    height: 46px;
+  }
+  .rail-num {
+    font-size: 0.65rem;
+  }
+}
+
+/* Nothing on a phone should render below 11px. The 0.62rem labels and the 0.56rem rail number
+   were both under it. */
+@media (max-width: 860px) {
+  .label,
+  .wb-ver,
+  .wb-search kbd,
+  .rail-count,
+  .rail-num,
+  .pal-meta,
+  .wb-part-tri,
+  .wb-parts-count,
+  .rd-date,
+  .rd-status {
+    font-size: 0.7rem;
+  }
+  /* `.wb-panel > h2` carries the panel headings and is a class-plus-type selector, so it outranks
+     the `.label` class those headings also carry — bumping `.label` alone left them at 9.9px. */
+  .wb-panel > h2 {
+    font-size: 0.7rem;
+  }
+  .wb-part,
+  .card-pipeline {
+    font-size: 0.74rem;
+  }
+}
+
+/**
+ * Landscape phone. A 390px-tall viewport was giving 117px to chrome and 218px to the model, so the
+ * bars shrink and the rail loses its arrows — a horizontal swipe already scrolls it, and on a
+ * touch device that is the natural gesture anyway.
+ */
+@media (max-height: 460px) and (orientation: landscape) {
+  .wb-top {
+    padding-top: max(0.45rem, env(safe-area-inset-top));
+    padding-bottom: 0.45rem;
+  }
+  .wb-rail {
+    padding-top: 0.3rem;
+    padding-bottom: max(0.3rem, env(safe-area-inset-bottom));
+  }
+  .wb-stage {
+    grid-template-rows: 72dvh auto;
+  }
+  .wb-canvas {
+    height: 72dvh;
+  }
+  .rail-arrow {
+    display: none;
+  }
+  /* Narrower to fit the shorter viewport, but never below the 40px touch floor the block above
+     establishes — this rule runs later and would otherwise silently undo it. */
+  .rail-item {
+    width: 52px;
+    height: 40px;
+  }
+  .wb-pitch {
+    font-size: 1.3rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wb-drawer,
+  .pal-box {
+    animation: none !important;
+  }
+  .rail-track {
+    scroll-behavior: auto;
+  }
+}
+
+/* ---------- Demo page ---------- */
+
+.demo-page {
+  position: relative;
+  height: 100vh;
+  /* dvh tracks the collapsing mobile browser chrome; vh above is the fallback. */
+  height: 100dvh;
+  width: 100%;
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+.demo-canvas-mount {
+  position: absolute;
+  inset: 0;
+  /* the canvas owns all gestures — no page pan/zoom fighting the orbit controls */
+  touch-action: none;
+}
+
+/* --- info panel: a collapsible card on desktop, a bottom sheet on a phone --- */
+
+.demo-panel {
+  position: absolute;
+  top: max(1rem, env(safe-area-inset-top));
+  left: max(1rem, env(safe-area-inset-left));
+  z-index: 4;
+  width: min(320px, calc(100vw - 2rem));
+  display: flex;
+  flex-direction: column;
+  background: rgba(16, 17, 22, 0.88);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+  overflow: hidden;
+}
+
+.demo-panel-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.7rem 0.85rem;
+  flex: 0 0 auto;
+}
+
+.demo-panel[data-expanded='true'] .demo-panel-bar {
+  border-bottom: 1px solid var(--border);
+}
+
+.demo-panel .back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  color: var(--text-dim);
+  transition: color 0.18s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.demo-panel .back-link:hover {
+  color: var(--text);
+}
+
+.back-arrow {
+  font-size: 0.95rem;
+  line-height: 1;
+}
+
+/* The bar only needs to name the demo while the body is folded away. */
+.demo-bar-title {
+  display: none;
+  min-width: 0;
+  flex: 1 1 auto;
+  font-size: 0.9rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.panel-toggle {
+  margin-left: auto;
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.34rem 0.62rem;
+  cursor: pointer;
+  transition: color 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.panel-toggle:hover,
+.panel-toggle:focus-visible {
+  color: var(--text);
+  border-color: var(--accent);
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.panel-toggle-chevron {
+  width: 0.42rem;
+  height: 0.42rem;
+  border-right: 1.6px solid currentColor;
+  border-bottom: 1.6px solid currentColor;
+  /* points up while open, flips down when folded */
+  transform: translateY(1px) rotate(-135deg);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.demo-panel[data-expanded='false'] .panel-toggle-chevron {
+  transform: translateY(-1px) rotate(45deg);
+}
+
+.demo-panel-body {
+  /* viewport minus the panel's own top/bottom inset and its header bar */
+  max-height: calc(100dvh - 6rem);
+  overflow: hidden;
+  transition: max-height 0.34s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.22s ease;
+}
+
+.demo-panel[data-expanded='true'] .demo-panel-body {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.demo-panel[data-expanded='false'] .demo-panel-body {
+  max-height: 0;
+  opacity: 0;
+}
+
+.demo-panel-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  padding: 0.9rem 0.85rem 1rem;
+}
+
+.demo-panel-head {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.demo-kicker {
+  font-family: var(--mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.demo-panel h2 {
+  margin: 0.15rem 0 0;
+  font-size: 1.15rem;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+
+.demo-author {
+  margin: 0.2rem 0 0;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--text-dim);
+}
+
+.demo-author a {
+  color: var(--text-dim);
+  text-decoration: underline;
+}
+
+.demo-ref {
+  margin: 0;
+}
+
+.demo-ref-thumb {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  display: block;
+}
+
+.demo-ref figcaption {
+  margin-top: 0.4rem;
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  text-align: center;
+}
+
+/* ---- badges -----------------------------------------------------------------------------------
+   ONE COLOUR PER CATEGORY, ALL DESATURATED, and the second half of that is not a compromise -- it is
+   this theme's own rule, written into `:root`: amber "is the only saturated colour on the page", chosen
+   so nothing competes with a rendered model. Six vivid badges would break exactly what that rule
+   protects, and on a page whose subject is a 1.6 M-triangle figure the badges are labels, not features.
+   So each category gets a hue of its own, held at roughly a third of full saturation: distinguishable
+   side by side, quiet next to the render, and none of them reaching for the accent.
+
+   The hues are also placed far apart rather than as neighbours, so they separate for a viewer who cannot
+   tell two adjacent tints from one another -- and where a category has two states that matter, the shape
+   carries it too: the provenance badge is a FILLED diamond for a measured model and a HOLLOW one for an
+   inferred image.
+
+   The base `.badge` rules live here because the redesign dropped them while `demo.ts` still emits
+   `class="badge"`, so every badge in the gallery was rendering as bare inline text. */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.03em;
+  line-height: 1.45;
+  padding: 0.18rem 0.55rem;
+  border-radius: 999px;
+  border: 1px solid var(--rule);
+  background: var(--ink-2);
+  /* The generator string is a sentence, not a word, and the panel is narrow. */
+  overflow-wrap: anywhere;
+  color: var(--paper-dim);
+}
+
+/* Provenance. Violet, because nothing else on the page uses it, so "where did this come from" never
+   reads as a status or a subject. */
+.badge-ref {
+  color: #b3a3c7;
+  border-color: #3b3348;
+  background: rgba(179, 163, 199, 0.06);
+}
+
+.badge-ref::before {
+  content: '\25C6';
+  margin-right: 0.34rem;
+  font-size: 0.68em;
+  vertical-align: 0.06em;
+}
+
+/* Inferred rather than measured: the same family, hollow, and stepped back. */
+.badge-ref-image {
+  color: #8b929d;
+  border-color: var(--rule);
+  background: var(--ink-2);
+}
+
+.badge-ref-image::before {
+  content: '\25C7';
+}
+
+/* Subject class. Sage for a thing you could hold, periwinkle for someone. */
+.badge-object {
+  color: #8fae94;
+  border-color: #2e3f31;
+  background: rgba(143, 174, 148, 0.06);
+}
+
+.badge-character {
+  color: #9aa6d4;
+  border-color: #333a52;
+  background: rgba(154, 166, 212, 0.06);
+}
+
+/* Status. Teal reads as settled; clay reads as unfinished without shouting "error", which a
+   placeholder is not. */
+.badge-status.status-final {
+  color: #84b3ab;
+  border-color: #2b423e;
+  background: rgba(132, 179, 171, 0.06);
+}
+
+.badge-status.status-placeholder {
+  color: #c0938e;
+  border-color: #46332f;
+  background: rgba(192, 147, 142, 0.06);
+}
+
+/* Version. The one badge that names the TOOL rather than the subject, so it takes the tool's own colour
+   family -- amber, but dimmed well below the accent, which stays reserved for things you can click. */
+.badge-version {
+  color: #b99a63;
+  border-color: #40361f;
+  background: rgba(185, 154, 99, 0.06);
+}
+
+/* The link to the reference itself, beside the link to the generated source: one is what was measured,
+   the other is what was written from it. */
+.btn-ref-link .ref-glyph {
+  color: #b3a3c7;
+}
+
+/* Turntable toggle. Its glyph turns while the orbit runs, so the button reports the state of the CAMERA
+   rather than only its own -- and it stops when the orbit does. */
+.btn-spin.is-active {
+  border-color: var(--accent, var(--amber));
+  background: color-mix(in srgb, var(--accent, var(--amber)) 18%, transparent);
+}
+
+.btn-spin.is-active .explode-glyph {
+  display: inline-block;
+  animation: spin-glyph 2.6s linear infinite;
+}
+
+@keyframes spin-glyph {
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* The glyph is decoration; the orbit it reports is the content. Only the decoration stops. */
+  .btn-spin.is-active .explode-glyph { animation: none; }
+}
+
+.demo-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  font-size: 0.84rem;
+  line-height: 1.55;
+  color: var(--text-dim);
+}
+
+.demo-meta p {
+  margin: 0;
+}
+
+.demo-animations {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  padding: 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 0.55rem;
+  background: rgba(0, 0, 0, 0.12);
+}
+
+.demo-animations-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.demo-animation-status {
+  color: var(--accent-strong);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.demo-animation-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.45rem;
+}
+
+.demo-animation-btn {
+  justify-content: center;
+  min-width: 0;
+  padding: 0.58rem 0.45rem;
+  font-size: 0.78rem;
+}
+
+.demo-animation-btn.is-active {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 18%, transparent);
+  color: var(--text);
+}
+
+.demo-animation-stop {
+  grid-column: 1 / -1;
+}
+
+.demo-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.1rem;
+}
+
+.demo-links .btn {
+  justify-content: center;
+  font-size: 0.82rem;
+  padding: 0.65rem 0.9rem;
+}
+
+/* Explode toggle: a <button> in a list of <a class="btn">, so it needs the resets an
+   anchor does not (buttons do not inherit font/colour, and default to auto width). */
+.btn-explode {
+  width: 100%;
+  justify-content: flex-start;
+  text-align: left;
+  font: inherit;
+  font-family: var(--mono);
+  font-size: 0.9rem;
+  color: var(--text);
+}
+
+.btn-explode .explode-glyph {
+  color: var(--accent-strong);
+  transition: transform 0.35s ease;
+  display: inline-block;
+}
+
+.btn-explode.is-active {
+  border-color: var(--accent);
+  background: var(--bg-glass);
+}
+
+.btn-explode.is-active .explode-glyph {
+  transform: rotate(45deg) scale(1.15);
+}
+
+/* Action buttons (Fire / Deploy bipod): same resets as .btn-explode, with the
+   glyph as the only accent so the pair reads as one row of model controls. */
+.btn-action {
+  width: 100%;
+  justify-content: flex-start;
+  text-align: left;
+  font: inherit;
+  font-family: var(--mono);
+  font-size: 0.9rem;
+  color: var(--text);
+}
+
+.btn-action .action-glyph {
+  color: var(--accent-strong);
+  display: inline-block;
+  transition: transform 0.35s ease;
+}
+
+.btn-action.is-active {
+  border-color: var(--accent);
+  background: var(--bg-glass);
+}
+
+.btn-bipod.is-active .action-glyph {
+  transform: rotate(180deg);
+}
+
+/* ---- part inspector ---- */
+
+.demo-parts {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-top: 1px solid var(--border);
+  padding-top: 0.7rem;
+}
+
+.parts-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--text-dim);
+}
+
+.parts-title {
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.parts-count {
+  color: var(--accent-strong);
+}
+
+.parts-scroll {
+  max-height: 12rem;
+  overflow-y: auto;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.parts-list {
+  list-style: none;
+  margin: 0;
+  padding: 0.25rem;
+}
+
+.parts-group {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  padding: 0.45rem 0.4rem 0.2rem;
+}
+
+.part-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  background: none;
+  border: 0;
+  border-radius: 6px;
+  padding: 0.28rem 0.4rem;
+  font: inherit;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--text);
+  cursor: pointer;
+  text-align: left;
+}
+
+.part-item:hover {
+  background: var(--bg-glass);
+}
+
+.part-item.is-active {
+  background: var(--bg-glass);
+  box-shadow: inset 2px 0 0 var(--accent-strong);
+  color: var(--accent-strong);
+}
+
+.part-tri {
+  color: var(--text-dim);
+  font-size: 0.72rem;
+  flex: none;
+}
+
+.part-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  padding: 0.6rem;
+  background: var(--bg-glass);
+}
+
+.part-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  font-family: var(--mono);
+  font-size: 0.86rem;
+}
+
+.part-kind {
+  font-size: 0.65rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.1rem 0.45rem;
+  color: var(--text-dim);
+}
+
+.part-kind-part {
+  border-color: var(--accent);
+  color: var(--accent-strong);
+}
+
+.part-facts {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+}
+
+.part-facts > div {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.part-facts dt {
+  flex: none;
+  width: 4.6rem;
+  color: var(--text-dim);
+}
+
+.part-facts dd {
+  margin: 0;
+  color: var(--text);
+  overflow-wrap: anywhere;
+}
+
+.part-actions {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.part-btn {
+  flex: 1;
+  justify-content: center;
+  font: inherit;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  padding: 0.3rem 0.5rem;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.part-btn[aria-pressed='true'] {
+  border-color: var(--accent);
+  color: var(--accent-strong);
+}
+
+.parts-prov {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  color: var(--text-dim);
+  overflow-wrap: anywhere;
+}
+
+.hint {
+  position: absolute;
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  right: 1rem;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  white-space: nowrap;
+  color: var(--text-dim);
+  background: rgba(16, 17, 22, 0.7);
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  backdrop-filter: blur(6px);
+  transition: opacity 0.5s ease;
+}
+
+.hint.is-gone {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.hint-touch {
+  display: none;
+}
+
+/* Touch devices get the gesture wording that actually applies. */
+@media (hover: none) {
+  .hint-pointer {
+    display: none;
+  }
+  .hint-touch {
+    display: inline;
+  }
+}
+
+/* --- compact viewports: fold the description away so it can't cover the model --- */
+
+@media (max-width: 860px), (max-height: 520px) {
+  .back-text {
+    display: none;
+  }
+  /* The bar carries the title in both states, so the body header doesn't repeat it. */
+  .demo-bar-title {
+    display: block;
+    font-size: 0.95rem;
+  }
+  .demo-panel h2 {
+    display: none;
+  }
+  .demo-panel-head {
+    gap: 0.25rem;
+  }
+  .panel-toggle-label {
+    display: none;
+  }
+  .panel-toggle {
+    padding: 0.45rem 0.6rem;
+  }
+  /* the hint is a single-line pill here — this clause alone is wider than the screen */
+  .hint-extra {
+    display: none;
+  }
+  /* Let the sheet do the scrolling: a nested scroller inside it steals the pan gesture. */
+  .parts-scroll {
+    max-height: none;
+    overflow: visible;
+  }
+}
+
+/* Phone portrait / small tablet: bottom sheet, thumb-reachable, model gets the full screen. */
+@media (max-width: 860px) and (min-height: 521px) {
+  .demo-panel {
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    border-radius: 18px 18px 0 0;
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 0;
+    padding-bottom: env(safe-area-inset-bottom);
+    box-shadow: 0 -18px 50px rgba(0, 0, 0, 0.55);
+  }
+
+  /* grab-handle affordance */
+  .demo-panel::before {
+    content: '';
+    flex: 0 0 auto;
+    width: 38px;
+    height: 4px;
+    margin: 0.5rem auto 0;
+    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  .demo-panel-bar {
+    padding: 0.6rem 0.9rem 0.7rem;
+    cursor: pointer;
+  }
+
+  .demo-panel-body {
+    max-height: 52dvh;
+  }
+
+  .demo-panel-inner {
+    padding: 0.9rem 0.95rem 1.4rem;
+  }
+
+  .demo-ref-thumb {
+    max-height: 22dvh;
+    object-fit: cover;
+  }
+
+  /* fade the cut-off edge so it reads as "scroll for more", not "clipped" */
+  .demo-panel[data-expanded='true']::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1.8rem;
+    background: linear-gradient(to top, rgba(16, 17, 22, 0.96), transparent);
+    pointer-events: none;
+  }
+
+  /* clear of the collapsed sheet */
+  .hint {
+    right: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: calc(4.6rem + env(safe-area-inset-bottom));
+    font-size: 0.7rem;
+  }
+}
+
+/* Phone landscape / short window: stay a side column, there is no vertical room for a sheet. */
+@media (max-height: 520px) {
+  .demo-panel {
+    width: min(300px, 54vw);
+  }
+  .demo-panel-body {
+    max-height: calc(100dvh - 5.5rem);
+  }
+  .demo-ref {
+    display: none;
+  }
+}

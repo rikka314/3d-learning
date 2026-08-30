@@ -1,0 +1,746 @@
+<h1>深度阅读报告：Shap-MeD</h1>
+<blockquote>
+<p>论文：Nicolas Laverde, Melissa Robles, Johan Rodríguez，arXiv:2503.15562v1，2025。<br>
+任务：面向 biomedical domain 的 text-to-3D object generation。<br>
+阅读模式：<code>LaTeX-primary + PDF-visual</code>。以同版本 arXiv LaTeX source 作为结构化证据，以用户提供的原始 PDF 和重新编译的 PDF 作为页码、公式、图表与视觉证据。<br>
+总体判断：这是一项<strong>有明确工程动机的 domain fine-tuning pilot</strong>；它较可信地证明了 Shap-E 的 latent diffusion 能在 3,589 个 biomedical meshes 上被适配，但论文现有实验不足以证明“更高的 anatomical accuracy”，更不足以支持临床、patient-specific 或 implant-design 使用。</p>
+</blockquote>
+<h2>1. 论文身份与本次使用的证据包</h2>
+<h3>Anchored Points</h3>
+<ul>
+<li>[C1.1] Shap-MeD 是一篇 2025 年 arXiv v1 预印本，作者将其定义为针对 biomedical domain 的 text-to-3D generative model，其实现方式是用 MedShapeNet 子集 fine-tune OpenAI Shap-E。</li>
+<li>[C1.2] 本次阅读使用了与用户 PDF 在标题、作者、摘要和章节结构上匹配的 arXiv v1 LaTeX source，并同时保留原始 PDF、重新编译的 PDF 与 SyncTeX，因此正文结论可以回溯到源码段落和 PDF 页面。</li>
+</ul>
+<p>论文全名只有一个方法名：<strong>Shap-MeD</strong>。作者来自 Universidad de los Andes。arXiv 页面记录 v1 提交于 2025-03-19；论文没有给出会议或期刊接收信息，因此应把它视为 technical preprint，而不是经过公开 peer review 的正式会议论文。本次也没有使用 OpenReview review 或 rebuttal：论文不是已标明的 ICLR submission，arXiv 页面未提供相应评审入口。</p>
+<p>证据包包括：用户 PDF、arXiv source archive、<code>main.tex</code>、<code>main.bib</code>、原始图像文件、重新编译的 <code>source/main.pdf</code>、<code>source/main.synctex.gz</code>、<code>latex_paragraphs.json</code>、<code>pdf_pages.json</code>、PDF text 与页面预览。原始 PDF 共 10 页。重新编译时，TeX 本身成功产生 PDF 与 SyncTeX；准备脚本读取 Windows TeX 日志时发生编码异常，因此 <code>latex_source_manifest.json</code> 将编译动作记为外部已完成而不是脚本内成功，但不影响段落索引和 PDF 定位。</p>
+<h2>2. 一句话论点与 research equation</h2>
+<h3>Anchored Points</h3>
+<ul>
+<li>[C2.1] 论文的 research equation 是：generic Shap-E 在通用 3D object distribution 上工作，但 generic prior 不足以稳定生成 biomedical shapes；在无法从头训练 LGM/LRM 或构建大规模 biomedical text-3D model 的算力约束下，作者用 MedShapeNet meshes 经 frozen Shap-E transmitter 编码成 latents，再 fine-tune conditional latent diffusion，作为缺失 biomedical pretraining 的低成本代理。</li>
+</ul>
+<p>一句话理解：<strong>作者没有重新发明 text-to-3D，而是把 Shap-E 这个通用“3D 语言模型”继续喂给它 3,589 个 aorta、liver、kidney、heart mesh，让 diffusion prior 更偏向医学形状。</strong></p>
+<p>把它写成更紧凑的替换式故事：</p>
+<p><code>generic text-to-3D prior + biomedical distribution gap + limited compute + domain fine-tuning + frozen latent encoder -&gt; Shap-MeD</code></p>
+<p>旧成功是 Shap-E 已能用 text/image 生成 implicit 3D functions；破裂的隐含假设是“百万级通用物体预训练足以覆盖器官形态”；hard setting 是 biomedical specialization 同时受数据质量与算力限制；不可用机制 <span class="math-rendered math-rendered--inline" data-latex="Y"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>Y</mi></mrow></math></span> 是大规模、干净、带医学语义的 text-3D pretraining，或对 LGM/LRM 级模型进行完整训练；代理机制 <span class="math-rendered math-rendered--inline" data-latex="Z"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>Z</mi></mrow></math></span> 是冻结 transmitter，只在 MedShapeNet latents 上更新 Shap-E generative model。</p>
+<h2>3. 标题逐词解释</h2>
+<h3>Anchored Points</h3>
+<ul>
+<li>[C3.1] “Shap-MeD” 是 “Shap-E” 与 “Medical/Med” 的组合命名，标题准确表达了论文的技术动作是医学域适配，而不是提出新的 3D representation、diffusion objective 或 anatomy-aware architecture。</li>
+</ul>
+<p><code>Shap</code> 保留了 Shap-E 的身份，说明方法的 backbone、implicit representation 和 latent diffusion 都来自已有模型；<code>MeD</code> 把 biomedical specialization 放进名称，同时用大写 <span class="math-rendered math-rendered--inline" data-latex="D"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>D</mi></mrow></math></span> 呼应 “3D” 与 medical domain。这个命名的优点是直接，缺点是容易让读者误以为存在新的 method family。实际上，论文的新增部分主要是数据筛选、STL-to-OBJ preprocessing、latent extraction、fine-tuning 配置和 Streamlit deployment。</p>
+<p>因此标题与论文实际贡献基本一致，但标题没有提醒读者：它是一个<strong>四类器官上的小规模 domain adaptation experiment</strong>，不是完整的医学 3D foundation model，也不是 patient-specific reconstruction system。</p>
+<h2>4. 论文真正解决的问题</h2>
+<h3>Anchored Points</h3>
+<ul>
+<li>[C4.1] 论文直接解决的问题是：在有限算力下，能否利用开源 generic text-to-3D model 的既有知识，把生成分布推向 biomedical meshes，并部署成可由文本 prompt 驱动的 3D modeling assistant。</li>
+<li>[C4.2] 论文把应用目标延伸到 medical education、research prototypes、prosthetics 与 personalized treatment，但其实际实验只评估四个粗粒度 anatomy categories 的 latent MSE 和三个 prompt 的视觉样例，因此“工程域适配”与“医学可用性”之间存在明显证据距离。</li>
+</ul>
+<p>直接的 paper-level problem 不是“如何从 CT/MRI 为某位患者重建器官”，而是“如何让通用 text-to-3D generator 更常生成看起来像器官的对象”。这一区分很重要：前者要求 patient-specific measurements、topology、landmarks、pathology 与误差边界；后者只需要生成类别层面的 plausible shape。</p>
+<p>实际痛点是传统 CAD / mesh modeling 成本高，而通用 text-to-3D model 对 biomedical object 的先验不足。作者选择一个现实工程问题：不追求 full retraining，而是 reuse Shap-E。科学问题则更窄：<strong>generic 3D generative prior 是否能通过少量 domain meshes 快速迁移到一个语义和几何都更受约束的领域？</strong></p>
+<p>论文对“可以迁移”给出了初步肯定答案；但对“迁移后是否 anatomy-correct”“是否能降低真实开发时间”“是否支持 patient-specific customization”没有直接实验。</p>
+<h2>5. 科学问题阶梯</h2>
+<h3>Anchored Points</h3>
+<ul>
+<li>[C5.1] 论文的问题阶梯从“通用 Shap-E 如何适配 biomedical mesh distribution”，上升到“低成本 domain adaptation 能否替代从头训练医学 3D generator”，再上升到“生成式 3D prior 能否成为医学建模助手”；现有证据主要覆盖第一层。</li>
+</ul>
+<p>可以把问题分成五层：</p>
+<ol>
+<li><strong>数据层</strong>：MedShapeNet 的 meshes 能否被转换并稳定编码进 Shap-E latent space？</li>
+<li><strong>优化层</strong>：在 3,589 个样本、25 epochs 下，Shap-E latent diffusion 的 biomedical evaluation loss 是否下降？</li>
+<li><strong>生成层</strong>：下降的 latent loss 是否转化为更好的 prompt adherence、geometry 与 surface quality？</li>
+<li><strong>医学层</strong>：生成物是否保留 anatomy landmarks、左右关系、连接关系、branching topology 与可接受误差？</li>
+<li><strong>产品层</strong>：模型是否真正缩短教育、prototype、planning 或 implant workflow 的制作时间，并能安全拒绝不可靠输出？</li>
+</ol>
+<p>论文对第 1、2 层提供了过程和数值；对第 3 层只提供少量图片；第 4、5 层基本没有验证。论文叙事把五层连在一起，但严谨阅读必须把它们拆开。</p>
+<h2>6. 作者可能如何发现这个方向</h2>
+<h3>Anchored Points</h3>
+<ul>
+<li>[C6.1] 一个可信的 author-side discovery path 是：先注意到 3D printing 与 biomedical modeling 的现实需求，再发现更强的 LRM/LGM 训练成本超出资源，最后选择开源、较轻、能直接生成 implicit function parameters 的 Shap-E 作为可 fine-tune 的折中。</li>
+<li>[C6.2] 作者的关键替换不是新 architecture，而是用 MedShapeNet mesh latents 代理缺失的大规模 biomedical text-3D corpus，并通过 frozen transmitter 降低训练范围。</li>
+</ul>
+<p>论文自己给出的选择路径非常工程化。LRM 与 LGM 的 output quality 更强，但其原始训练使用大量 A100；Point-E 较早且生成 point cloud；Shap-E 更近期、训练数据更多、只需 8 张 V100 完成原始训练，并且输出 implicit function latent。于是 Shap-E 成为算力、开放性与输出形式之间的折中。</p>
+<p>这可以理解为一个“<strong>大模型不可重训时，先找一个可控 latent bottleneck</strong>”的思路。理想状态是拥有干净、丰富、patient-aware 的 biomedical 3D corpus，并对强模型做 anatomy-aware training；现实可用的 proxy 是 MedShapeNet meshes 与 Shap-E transmitter。作者冻结 transmitter，使问题从“同时学习 3D representation 与 biomedical generation”缩成“在固定 representation 中调整 biomedical latent distribution”。</p>
+<p>这种方向发现方式值得学习：先把资源约束当成设计条件，再寻找最小可训练部件。但它也把 encoder 对 biomedical shape 的适配能力设为未经验证的隐含假设。</p>
+<h2>7. 作者如何搭建论文故事</h2>
+<h3>Anchored Points</h3>
+<ul>
+<li>[C7.1] 论文的主要 story chain 是：医学建模成本高 → generic text-to-3D 缺少 biomedical focus → 大型模型训练成本不可承受 → 选择 Shap-E → MedShapeNet preprocessing 与 latent extraction → low-learning-rate fine-tuning → latent MSE 与视觉样例显示 domain specialization。</li>
+<li>[C7.2] 这个故事是单向 domain adaptation pipeline，而不是由多个相互强化模块组成的 closed loop；论证最薄弱的桥是从 latent MSE/少量 render 跳到 “higher structural accuracy”。</li>
+</ul>
+<p>用 <code>challenge -&gt; failure mode -&gt; design principle -&gt; module -&gt; evidence</code> 展开：</p>
+<table>
+<thead>
+<tr>
+<th>Challenge</th>
+<th>Failure mode</th>
+<th>Design principle</th>
+<th>实际模块</th>
+<th>论文证据</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>generic model 不熟悉 biomedical shapes</td>
+<td>prompt 输出不像目标器官</td>
+<td>domain specialization</td>
+<td>MedShapeNet subset</td>
+<td>数据集说明与 Figure 7–9</td>
+</tr>
+<tr>
+<td>原始 mesh format 不兼容</td>
+<td>STL 无法直接进入 Shap-E pipeline</td>
+<td>统一 input format</td>
+<td>Open3D STL-to-OBJ</td>
+<td>preprocessing 段落</td>
+</tr>
+<tr>
+<td>从头学习 representation 成本高</td>
+<td>训练范围过大</td>
+<td>reuse fixed representation</td>
+<td>frozen Shap-E transmitter</td>
+<td>latent extraction 段落</td>
+</tr>
+<tr>
+<td>fine-tuning 可能破坏 pretrained knowledge</td>
+<td>catastrophic forgetting 风险</td>
+<td>conservative update</td>
+<td>learning rate <span class="math-rendered math-rendered--inline" data-latex="10^{-5}"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msup><mn>10</mn><mrow><mo>&#x02212;</mo><mn>5</mn></mrow></msup></mrow></math></span>，25 epochs</td>
+<td>hyperparameter 段落，但无 retention test</td>
+</tr>
+<tr>
+<td>生成质量难评</td>
+<td>单一 metric 不够</td>
+<td>quantitative + qualitative</td>
+<td>latent MSE + visual comparison</td>
+<td>Table I、Figure 10–12</td>
+</tr>
+</tbody>
+</table>
+<p>前四步逻辑连贯；最后一步没有形成强闭环。论文没有 anatomy-aware metric，也没有把 Figure 12 的视觉判断转成盲评、expert score 或 surface/topology measurement。因此故事“能训练”是闭合的，“医学结构更准确”没有闭合。</p>
+<h2>8. Related Work、关键引用及其叙事角色</h2>
+<h3>Anchored Points</h3>
+<ul>
+<li>[C8.1] Shap-E 是 Shap-MeD 的直接 method ancestor：论文继承其 transmitter、implicit NeRF/STF representation、CLIP-conditioned latent diffusion 与 <span class="math-rendered math-rendered--inline" data-latex="x_0"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>x</mi><mn>0</mn></msub></mrow></math></span> prediction objective，只改变 domain data 上的 generative model weights。</li>
+<li>[C8.2] Point-E 在论文中承担 contrast boundary：它展示 point-cloud diffusion 与 text-to-image-to-point-cloud pipeline，同时衬托 Shap-E 直接生成 implicit function parameters、无需额外 upsampling diffusion 的优势。</li>
+<li>[C8.3] LRM 与 LGM 承担 baseline pressure 和 resource-constraint evidence：它们代表更现代、更高质量的 3D reconstruction/generation 路线，但作者用原始训练成本将其排除在 fine-tuning 候选之外，并只在少量定性结果中比较 LGM。</li>
+<li>[C8.4] MedShapeNet 是 data enabler 也是风险来源：它提供超过 100,000 个医学 meshes，但论文自己发现 misclassification、holes 与类别不平衡，说明 domain data 并不自动等于可靠 medical supervision。</li>
+</ul>
+<p>关键引用不只是背景列表：</p>
+<table>
+<thead>
+<tr>
+<th>Citation cluster</th>
+<th>论文继承什么</th>
+<th>仍缺什么</th>
+<th>在本文叙事中的功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Shap-E</td>
+<td>implicit function transmitter、latent diffusion、text/image conditioning</td>
+<td>biomedical specialization</td>
+<td>method ancestor / implementation machinery</td>
+</tr>
+<tr>
+<td>Point-E</td>
+<td>diffusion-based 3D generation 与 CLIP conditioning</td>
+<td>直接 implicit representation、效率</td>
+<td>contrast boundary / historical anchor</td>
+</tr>
+<tr>
+<td>LRM</td>
+<td>ViT + triplane 的 single-image-to-3D reconstruction</td>
+<td>text-first biomedical adaptation、低成本训练</td>
+<td>stronger-model pressure</td>
+</tr>
+<tr>
+<td>LGM</td>
+<td>multiview diffusion + 3D Gaussians</td>
+<td>可负担的 domain fine-tuning</td>
+<td>qualitative baseline pressure</td>
+</tr>
+<tr>
+<td>MedShapeNet</td>
+<td>large-scale medical shapes 与类别 annotations</td>
+<td>干净拓扑、统一质量、patient-aware labels</td>
+<td>dataset permission + limitation evidence</td>
+</tr>
+<tr>
+<td>Objaverse</td>
+<td>generic 3D pretraining scale</td>
+<td>medical specificity</td>
+<td>generic-prior field anchor</td>
+</tr>
+<tr>
+<td>Open3D</td>
+<td>mesh format conversion</td>
+<td>semantic/geometry quality assurance</td>
+<td>preprocessing machinery</td>
+</tr>
+</tbody>
+</table>
+<p>这里存在一个论证问题：作者用 LRM/LGM 的<strong>原始 pretraining compute</strong>推断它们不适合 fine-tuning，但没有测量 parameter-efficient fine-tuning 的实际成本。这一排除在当时工程条件下可能合理，却不是严格的 candidate comparison。</p>
+<h2>9. Main idea</h2>
+<h3>Anchored Points</h3>
+<ul>
+<li>[C9.1] Shap-MeD 的核心 idea 是“representation reuse + generative prior specialization”：保留 Shap-E transmitter 对 mesh 的固定 latent encoding，只更新 text/image-conditioned diffusion，使其在 biomedical latent manifold 上预测更准确。</li>
+</ul>
+<p>核心不是 STL-to-OBJ，也不是 Streamlit，而是把复杂的 mesh generation 转化为一个固定 latent space 内的 domain distribution adaptation。这样做的好处有三个：</p>
+<ol>
+<li>不必重新训练 NeRF/STF implicit representation；</li>
+<li>每个 mesh 可以先离线编码成 latent，降低训练时 3D rendering 负担；</li>
+<li>直接继承 Shap-E 从 text embedding 到 latent 的生成接口。</li>
+</ol>
+<p>但代价同样明确：如果 frozen transmitter 对 biomedical topology 表达不好，diffusion 再准确也只能生成“在这个 representation 中可表达”的对象；如果 text annotation 过于粗糙，模型学到的可能只是四个 category prototype，而不是丰富 anatomy semantics。</p>
+<h2>10. 符号、概念与 notation</h2>
+<h3>Anchored Points</h3>
+<ul>
+<li>[C10.1] 论文依赖三类 3D representation：显式 mesh/point cloud，以及由 NeRF 或 STF/SDF 表达的 implicit function；Shap-E transmitter 把多视图与 point cloud 编码成一个可被视为 MLP weights 的 latent sequence。</li>
+<li>[C10.2] Shap-MeD 的训练目标发生在 latent space：模型比较预测 latent 与 target latent 的 MSE，因此该数值衡量 diffusion prediction error，而不是直接衡量 mesh surface 或 anatomy landmarks。</li>
+</ul>
+<p>主要概念如下：</p>
+<ul>
+<li><strong>STL / OBJ</strong>：都是 surface mesh 文件。STL 主要保存三角面与法向；OBJ 还可保存更丰富的 vertex、face、texture 信息。论文把 MedShapeNet STL 转成 Shap-E pipeline 接受的 OBJ。</li>
+<li><strong>NeRF</strong>：用隐式函数 <span class="math-rendered math-rendered--inline" data-latex="F_\Theta(\mathbf{x},\mathbf{d})=(\mathbf{c},\sigma)"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>F</mi><mi>&#x00398;</mi></msub><mo stretchy="false">&#x00028;</mo><mi>&#x1D431;</mi><mo>&#x0002C;</mo><mi>&#x1D41D;</mi><mo stretchy="false">&#x00029;</mo><mo>&#x0003D;</mo><mo stretchy="false">&#x00028;</mo><mi>&#x1D41C;</mi><mo>&#x0002C;</mo><mi>&#x003C3;</mi><mo stretchy="false">&#x00029;</mo></mrow></math></span> 表示从空间位置和观察方向到颜色、密度的映射。</li>
+<li><strong>SDF / STF</strong>：SDF 用 <span class="math-rendered math-rendered--inline" data-latex="G_\Theta(x,y,z)=d"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>G</mi><mi>&#x00398;</mi></msub><mo stretchy="false">&#x00028;</mo><mi>x</mi><mo>&#x0002C;</mo><mi>y</mi><mo>&#x0002C;</mo><mi>z</mi><mo stretchy="false">&#x00029;</mo><mo>&#x0003D;</mo><mi>d</mi></mrow></math></span> 表示点到 surface 的 signed distance；STF 再结合 texture/color information。</li>
+<li><strong>transmitter</strong>：Shap-E 的 encoder。它接收约 16,000 points 与多视角 RGBA images，输出 implicit function parameters。</li>
+<li><strong>latent sequence</strong>：论文将 transmitter output 描述为 <span class="math-rendered math-rendered--inline" data-latex="1024\times1024"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mn>1024</mn><mo>&#x000D7;</mo><mn>1024</mn></mrow></math></span>，可看成 1,024 个 token，每个 token 1,024 维；它们参数化 object-specific implicit function。</li>
+<li><strong>conditional diffusion</strong>：从 noisy latent 与 text/image CLIP embedding 预测 clean object latent。</li>
+<li><strong>latent MSE</strong>：在指定 noise/time sampling 下，预测 latent 与 clean target latent 的 squared error。它与 shape quality 可能相关，但不是等价指标。</li>
+</ul>
+<h2>11. 关键公式与逐式解释</h2>
+<h3>Anchored Points</h3>
+<ul>
+<li>[C11.1] 论文保留的 NeRF、STF 与 diffusion 公式均来自 Shap-E/Point-E 背景；Shap-MeD 没有提出新的 objective，而是在 biomedical latents 上继续优化 Shap-E 的 <span class="math-rendered math-rendered--inline" data-latex="x_0"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>x</mi><mn>0</mn></msub></mrow></math></span> prediction loss。</li>
+<li>[C11.2] 论文的 quantitative result 应理解为对 <span class="math-rendered math-rendered--inline" data-latex="L_{x_0}"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>L</mi><mrow><msub><mi>x</mi><mn>0</mn></msub></mrow></msub></mrow></math></span> 型 latent prediction objective 的 domain evaluation，而不能直接改写为 anatomy error。</li>
+</ul>
+<h3>11.1 Point-E 的 forward diffusion</h3>
+<p>论文写作：</p>
+<p><span class="math-rendered math-rendered--block" data-latex="q(x_t\mid x_{t-1})=\mathcal{N}\left(x_t;\sqrt{1-\beta_t}x_{t-1},\beta_t\mathbf{I}\right)."><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>q</mi><mo stretchy="false">&#x00028;</mo><msub><mi>x</mi><mi>t</mi></msub><mo>&#x02223;</mo><msub><mi>x</mi><mrow><mi>t</mi><mo>&#x02212;</mo><mn>1</mn></mrow></msub><mo stretchy="false">&#x00029;</mo><mo>&#x0003D;</mo><mi>&#x1D4A9;</mi><mrow><mo stretchy="true" fence="true" form="prefix">&#x00028;</mo><msub><mi>x</mi><mi>t</mi></msub><mi>;</mi><msqrt><mrow><mn>1</mn><mo>&#x02212;</mo><msub><mi>&#x003B2;</mi><mi>t</mi></msub></mrow></msqrt><msub><mi>x</mi><mrow><mi>t</mi><mo>&#x02212;</mo><mn>1</mn></mrow></msub><mo>&#x0002C;</mo><msub><mi>&#x003B2;</mi><mi>t</mi></msub><mi>&#x1D408;</mi><mo stretchy="true" fence="true" form="postfix">&#x00029;</mo></mrow><mo>&#x0002E;</mo></mrow></math></span></p>
+<p><span class="math-rendered math-rendered--block" data-latex="x_{t-1}"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>x</mi><mrow><mi>t</mi><mo>&#x02212;</mo><mn>1</mn></mrow></msub></mrow></math></span> 是上一时刻的 3D representation，<span class="math-rendered math-rendered--inline" data-latex="x_t"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>x</mi><mi>t</mi></msub></mrow></math></span> 是加噪后状态，<span class="math-rendered math-rendered--inline" data-latex="\beta_t"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>&#x003B2;</mi><mi>t</mi></msub></mrow></math></span> 控制每一步加入多少 Gaussian noise。这个公式用于解释 diffusion family，而不是 Shap-MeD 新增机制。反向模型学习从 <span class="math-rendered math-rendered--inline" data-latex="x_t"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>x</mi><mi>t</mi></msub></mrow></math></span> 还原更干净状态。</p>
+<h3>11.2 Shap-E transmitter 的 NeRF loss</h3>
+<p><span class="math-rendered math-rendered--block" data-latex="\mathcal{L}_{NeRF}=\mathcal{L}_{RGB}+\mathcal{L}_T."><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>&#x02112;</mi><mrow><mi>N</mi><mi>e</mi><mi>R</mi><mi>F</mi></mrow></msub><mo>&#x0003D;</mo><msub><mi>&#x02112;</mi><mrow><mi>R</mi><mi>G</mi><mi>B</mi></mrow></msub><mo>&#x0002B;</mo><msub><mi>&#x02112;</mi><mi>T</mi></msub><mo>&#x0002E;</mo></mrow></math></span></p>
+<p>其中 color loss 为：</p>
+<p><span class="math-rendered math-rendered--block" data-latex="\mathcal{L}_{RGB}=\mathbb{E}_{r\in R}\left[
+\|\hat C_c(\mathbf r)-C(\mathbf r)\|_1+
+\|\hat C_f(\mathbf r)-C(\mathbf r)\|_1
+\right]."><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>&#x02112;</mi><mrow><mi>R</mi><mi>G</mi><mi>B</mi></mrow></msub><mo>&#x0003D;</mo><msub><mi>&#x1D53C;</mi><mrow><mi>r</mi><mo>&#x02208;</mo><mi>R</mi></mrow></msub><mrow><mo stretchy="true" fence="true" form="prefix">[</mo><mo fence="false" stretchy="false">&#x02016;</mo><msub><mover accent="true"><mi>C</mi><mo>&#x0005E;</mo></mover><mi>c</mi></msub><mo stretchy="false">&#x00028;</mo><mi mathvariant="bold">r</mi><mo stretchy="false">&#x00029;</mo><mo>&#x02212;</mo><mi>C</mi><mo stretchy="false">&#x00028;</mo><mi mathvariant="bold">r</mi><mo stretchy="false">&#x00029;</mo><msub><mo fence="false" stretchy="false">&#x02016;</mo><mn>1</mn></msub><mo>&#x0002B;</mo><mo fence="false" stretchy="false">&#x02016;</mo><msub><mover accent="true"><mi>C</mi><mo>&#x0005E;</mo></mover><mi>f</mi></msub><mo stretchy="false">&#x00028;</mo><mi mathvariant="bold">r</mi><mo stretchy="false">&#x00029;</mo><mo>&#x02212;</mo><mi>C</mi><mo stretchy="false">&#x00028;</mo><mi mathvariant="bold">r</mi><mo stretchy="false">&#x00029;</mo><msub><mo fence="false" stretchy="false">&#x02016;</mo><mn>1</mn></msub><mo stretchy="true" fence="true" form="postfix">]</mo></mrow><mo>&#x0002E;</mo></mrow></math></span></p>
+<p><span class="math-rendered math-rendered--block" data-latex="R"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>R</mi></mrow></math></span> 是 4,096 条 sampled rays；<span class="math-rendered math-rendered--inline" data-latex="c"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>c</mi></mrow></math></span>/<span class="math-rendered math-rendered--inline" data-latex="f"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>f</mi></mrow></math></span> 是 coarse/fine rendering；<span class="math-rendered math-rendered--inline" data-latex="C"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>C</mi></mrow></math></span> 是 target color。transmittance loss 同理：</p>
+<p><span class="math-rendered math-rendered--block" data-latex="\mathcal{L}_{T}=\mathbb{E}_{r\in R}\left[
+\|\hat T_c(\mathbf r)-T(\mathbf r)\|_1+
+\|\hat T_f(\mathbf r)-T(\mathbf r)\|_1
+\right]."><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>&#x02112;</mi><mrow><mi>T</mi></mrow></msub><mo>&#x0003D;</mo><msub><mi>&#x1D53C;</mi><mrow><mi>r</mi><mo>&#x02208;</mo><mi>R</mi></mrow></msub><mrow><mo stretchy="true" fence="true" form="prefix">[</mo><mo fence="false" stretchy="false">&#x02016;</mo><msub><mover accent="true"><mi>T</mi><mo>&#x0005E;</mo></mover><mi>c</mi></msub><mo stretchy="false">&#x00028;</mo><mi mathvariant="bold">r</mi><mo stretchy="false">&#x00029;</mo><mo>&#x02212;</mo><mi>T</mi><mo stretchy="false">&#x00028;</mo><mi mathvariant="bold">r</mi><mo stretchy="false">&#x00029;</mo><msub><mo fence="false" stretchy="false">&#x02016;</mo><mn>1</mn></msub><mo>&#x0002B;</mo><mo fence="false" stretchy="false">&#x02016;</mo><msub><mover accent="true"><mi>T</mi><mo>&#x0005E;</mo></mover><mi>f</mi></msub><mo stretchy="false">&#x00028;</mo><mi mathvariant="bold">r</mi><mo stretchy="false">&#x00029;</mo><mo>&#x02212;</mo><mi>T</mi><mo stretchy="false">&#x00028;</mo><mi mathvariant="bold">r</mi><mo stretchy="false">&#x00029;</mo><msub><mo fence="false" stretchy="false">&#x02016;</mo><mn>1</mn></msub><mo stretchy="true" fence="true" form="postfix">]</mo></mrow><mo>&#x0002E;</mo></mrow></math></span></p>
+<p>这两项让 transmitter latent 能重建 view-dependent color 和 volumetric visibility。Shap-MeD 冻结 transmitter，所以并没有在 biomedical meshes 上重新优化这些 loss；这意味着 encoder 的 representation bias 被完整继承。</p>
+<h3>11.3 STF mesh loss</h3>
+<p>Shap-E 进一步使用：</p>
+<p><span class="math-rendered math-rendered--block" data-latex="\mathcal{L}_{FT}=\mathcal{L}_{NeRF}+\mathcal{L}_{STF},"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>&#x02112;</mi><mrow><mi>F</mi><mi>T</mi></mrow></msub><mo>&#x0003D;</mo><msub><mi>&#x02112;</mi><mrow><mi>N</mi><mi>e</mi><mi>R</mi><mi>F</mi></mrow></msub><mo>&#x0002B;</mo><msub><mi>&#x02112;</mi><mrow><mi>S</mi><mi>T</mi><mi>F</mi></mrow></msub><mo>&#x0002C;</mo></mrow></math></span></p>
+<p>以及：</p>
+<p><span class="math-rendered math-rendered--block" data-latex="\mathcal{L}_{STF}=\frac{1}{Ns^2}\sum_{i=1}^{N}
+\|\operatorname{Render}(Mesh_i)-Image_i\|_2^2."><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>&#x02112;</mi><mrow><mi>S</mi><mi>T</mi><mi>F</mi></mrow></msub><mo>&#x0003D;</mo><mfrac><mrow><mn>1</mn></mrow><mrow><mi>N</mi><msup><mi>s</mi><mn>2</mn></msup></mrow></mfrac><munderover><mo>&#x02211;</mo><mrow><mi>i</mi><mo>&#x0003D;</mo><mn>1</mn></mrow><mrow><mi>N</mi></mrow></munderover><mo fence="false" stretchy="false">&#x02016;</mo><mo>Render</mo><mo stretchy="false">&#x00028;</mo><mi>M</mi><mi>e</mi><mi>s</mi><msub><mi>h</mi><mi>i</mi></msub><mo stretchy="false">&#x00029;</mo><mo>&#x02212;</mo><mi>I</mi><mi>m</mi><mi>a</mi><mi>g</mi><msub><mi>e</mi><mi>i</mi></msub><msubsup><mo fence="false" stretchy="false">&#x02016;</mo><mn>2</mn><mn>2</mn></msubsup><mo>&#x0002E;</mo></mrow></math></span></p>
+<p><span class="math-rendered math-rendered--block" data-latex="N"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mi>N</mi></mrow></math></span> 是 rendered views 数，<span class="math-rendered math-rendered--inline" data-latex="s"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>s</mi></mrow></math></span> 是 image resolution。它通过 render-space comparison 帮助 implicit field 形成可导出的 mesh。再次强调：这是 Shap-E transmitter 的原始训练逻辑，不是 Shap-MeD 在 MedShapeNet 上报告的新 loss。</p>
+<h3>11.4 Shap-E / Shap-MeD 的 latent diffusion objective</h3>
+<p><span class="math-rendered math-rendered--block" data-latex="L_{x_0}=\mathbb{E}_{x_0,\epsilon,t}
+\left\|x_\theta(x_t,t)-x_0\right\|_2^2."><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>L</mi><mrow><msub><mi>x</mi><mn>0</mn></msub></mrow></msub><mo>&#x0003D;</mo><msub><mi>&#x1D53C;</mi><mrow><msub><mi>x</mi><mn>0</mn></msub><mo>&#x0002C;</mo><mi>&#x003F5;</mi><mo>&#x0002C;</mo><mi>t</mi></mrow></msub><msubsup><mrow><mo stretchy="true" fence="true" form="prefix">&#x02016;</mo><msub><mi>x</mi><mi>&#x003B8;</mi></msub><mo stretchy="false">&#x00028;</mo><msub><mi>x</mi><mi>t</mi></msub><mo>&#x0002C;</mo><mi>t</mi><mo stretchy="false">&#x00029;</mo><mo>&#x02212;</mo><msub><mi>x</mi><mn>0</mn></msub><mo stretchy="true" fence="true" form="postfix">&#x02016;</mo></mrow><mn>2</mn><mn>2</mn></msubsup><mo>&#x0002E;</mo></mrow></math></span></p>
+<p><span class="math-rendered math-rendered--block" data-latex="x_0"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mi>x</mi><mn>0</mn></msub></mrow></math></span> 是 transmitter 产生的 clean object latent，<span class="math-rendered math-rendered--inline" data-latex="x_t"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>x</mi><mi>t</mi></msub></mrow></math></span> 是在 timestep <span class="math-rendered math-rendered--inline" data-latex="t"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>t</mi></mrow></math></span> 的 noisy latent，<span class="math-rendered math-rendered--inline" data-latex="x_\theta"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>x</mi><mi>&#x003B8;</mi></msub></mrow></math></span> 是 conditional diffusion prediction。Shap-MeD 的 Table I 正是在这种 latent prediction 意义上报告 MSE。它回答“模型能否更好预测 biomedical target latent”，不直接回答“surface 距离是多少”“aorta branching 是否正确”或“器官 landmarks 是否符合 anatomy”。</p>
+<h2>12. Theory、proof 与 practice 的对应关系</h2>
+<h3>Anchored Points</h3>
+<ul>
+<li>[C12.1] 论文没有 theorem、proof、generalization bound 或 anatomy constraint；其理论内容是对既有 3D representation 与 diffusion objective 的说明，因此 theory-practice alignment 只能评为“实现沿用既有理论，但本文 claims 主要依赖 empirical evidence”。</li>
+</ul>
+<p>没有需要验证的 formal theorem。公式解释 Shap-E 为什么能把 object 编成 latent 并用 diffusion 生成，但论文没有证明：</p>
+<ul>
+<li>latent MSE 与 mesh geometry error 单调相关；</li>
+<li>fine-tuning 不会损害 generic generation；</li>
+<li>frozen transmitter 对 medical shapes 足够 expressive；</li>
+<li>四个 anatomy categories 的结果能推广到其他器官或 pathology；</li>
+<li>generated object 满足任何 clinical/anatomical tolerance。</li>
+</ul>
+<p>因此“理论对象 -&gt; 实现对象”在 backbone 层面近似对齐：公式描述的 transmitter 与 diffusion 就是实现使用的系统；但“loss 下降 -&gt; anatomical accuracy”只有经验性推断，且现有实验不足以校准这条推断。</p>
+<h2>13. Algorithm / module walkthrough 与具体例子</h2>
+<h3>Anchored Points</h3>
+<ul>
+<li>[C13.1] Shap-MeD pipeline 依次执行 category selection、STL-to-OBJ conversion、frozen transmitter latent extraction、conditional diffusion fine-tuning、text prompt generation 与 PLY export；唯一被更新的核心模型部件是 Shap-E generative model。</li>
+</ul>
+<p>以一个 liver mesh 为例：</p>
+<ol>
+<li><strong>取样</strong>：从 MedShapeNet 选择一个被标为 liver 的 <code>.stl</code> mesh。</li>
+<li><strong>格式转换</strong>：Open3D 将 STL triangle surface 写为 <code>.obj</code>。论文没有说明 normalization、orientation、scale、watertight repair 等处理。</li>
+<li><strong>latent extraction</strong>：Shap-E transmitter 根据 mesh 的 point/view representation 生成 object latent <span class="math-rendered math-rendered--inline" data-latex="x_0"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>x</mi><mn>0</mn></msub></mrow></math></span>；transmitter weights 保持 frozen。</li>
+<li><strong>加噪与条件</strong>：训练时采样 timestep <span class="math-rendered math-rendered--inline" data-latex="t"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>t</mi></mrow></math></span> 与 noise <span class="math-rendered math-rendered--inline" data-latex="\epsilon"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>&#x003F5;</mi></mrow></math></span>，得到 <span class="math-rendered math-rendered--inline" data-latex="x_t"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>x</mi><mi>t</mi></msub></mrow></math></span>；text condition 很可能来自 category annotation，但论文没有明确 prompt construction。</li>
+<li><strong>预测</strong>：conditional diffusion 从 <span class="math-rendered math-rendered--inline" data-latex="x_t"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>x</mi><mi>t</mi></msub></mrow></math></span>、<span class="math-rendered math-rendered--inline" data-latex="t"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><mi>t</mi></mrow></math></span> 和 CLIP condition 预测 clean latent。</li>
+<li><strong>优化</strong>：用 prediction 与 target <span class="math-rendered math-rendered--inline" data-latex="x_0"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msub><mi>x</mi><mn>0</mn></msub></mrow></math></span> 的 MSE 更新 diffusion weights；learning rate <span class="math-rendered math-rendered--inline" data-latex="10^{-5}"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msup><mn>10</mn><mrow><mo>&#x02212;</mo><mn>5</mn></mrow></msup></mrow></math></span>、batch size 8、25 epochs。</li>
+<li><strong>推理</strong>：用户在 Streamlit 输入例如 <code>liver</code>；backend 加载 base 或 fine-tuned weights，生成 latent，再用 Shap-E utilities 解码并导出 <code>.ply</code>。</li>
+</ol>
+<p>这个 pipeline 足以复现“方向”，但不足以精确复现论文数值，因为 optimizer、scheduler、checkpoint、noise sampling、prompt template、random seeds、mesh normalization 与 split manifest 均未给出。</p>
+<h2>14. 逐模块深读：每个设计背后的 author-thinking</h2>
+<h3>Anchored Points</h3>
+<ul>
+<li>[C14.1] 选择 Shap-E 的 hidden bet 是：较轻的 implicit-function generator 虽不如 LGM/LRM 视觉精细，但其 fixed latent representation 足以承载 biomedical shape variation，并能在单张 A40 上被有效适配。</li>
+<li>[C14.2] frozen transmitter 是对“无法重新训练完整 3D representation”的代理解法；它降低成本，但把 encoder-domain mismatch 变成不可修复上限。</li>
+<li>[C14.3] low learning rate 的目的在于保留 pretrained knowledge，但论文没有 generic-category retention test，因此“避免遗忘”只是设计意图而非已验证结果。</li>
+<li>[C14.4] Streamlit deployment 证明了 prompt-to-PLY demo 可以闭环运行，但没有延迟、显存、failure handling 或用户研究数据，不能证明实际 workflow acceleration。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Module</th>
+<th>修复的 failure</th>
+<th>理想但不可用方案</th>
+<th>论文使用的 proxy</th>
+<th>Hidden assumption</th>
+<th>风险与下一问题</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Shap-E selection</td>
+<td>强模型训练成本过高</td>
+<td>fine-tune/retrain LGM/LRM</td>
+<td>选择较轻且开源的 Shap-E</td>
+<td>Shap-E capacity 足够</td>
+<td>output fidelity 上限、模型已过时</td>
+</tr>
+<tr>
+<td>STL-to-OBJ</td>
+<td>data format 不兼容</td>
+<td>原生多格式 encoder</td>
+<td>Open3D conversion</td>
+<td>conversion 不损伤 geometry</td>
+<td>scale/orientation/topology 可能变化</td>
+</tr>
+<tr>
+<td>Frozen transmitter</td>
+<td>representation training 太贵</td>
+<td>biomedical-aware encoder</td>
+<td>reuse generic latent</td>
+<td>generic encoder 能表达 anatomy</td>
+<td>domain-specific details 被压缩</td>
+</tr>
+<tr>
+<td>Diffusion fine-tuning</td>
+<td>generic prior 不贴合器官</td>
+<td>大规模 biomedical pretraining</td>
+<td>3,589 meshes 上 full/partial update</td>
+<td>category annotations 足够 condition</td>
+<td>prototype memorization、overfit</td>
+</tr>
+<tr>
+<td>Low LR</td>
+<td>catastrophic forgetting</td>
+<td>adapter/regularized multi-domain tuning</td>
+<td><span class="math-rendered math-rendered--inline" data-latex="10^{-5}"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msup><mn>10</mn><mrow><mo>&#x02212;</mo><mn>5</mn></mrow></msup></mrow></math></span> conservative update</td>
+<td>小步更新会保留 generic ability</td>
+<td>未验证 retention，仍可能遗忘</td>
+</tr>
+<tr>
+<td>Streamlit demo</td>
+<td>research code 难使用</td>
+<td>完整安全产品 pipeline</td>
+<td>monolithic local app</td>
+<td>demo usability≈product utility</td>
+<td>无 validation gate、provenance、uncertainty</td>
+</tr>
+</tbody>
+</table>
+<p>论文的 module logic 清楚，但几乎每个模块都依赖未被专门 ablate 的假设。真正有研究价值的后续工作，正是逐一打破这些假设。</p>
+<h2>15. Figures 的逐图解释</h2>
+<h3>Anchored Points</h3>
+<ul>
+<li>[C15.1] Figure 7–9 直接暴露了 dataset quality 与 imbalance：brain 有 misclassified meshes，heart examples 存在大孔洞，四类训练数据中 heart 明显最少，因此数据选择本身会限制可学到的 anatomy prior。</li>
+<li>[C15.2] Figure 10 支持 optimization loss 快速下降并在约 0.09 附近收敛，Figure 11 只提供单个 liver 的三时刻视觉样例，无法独立证明 anatomy improvement。</li>
+<li>[C15.3] Figure 12 只展示 liver、kidney、aorta 三个 prompt，以及 Shap-E、LGM、Shap-MeD 三列；它没有展示论文 evaluation plan 所称的 Point-E 与 LRM，也没有多 seed、统一视角、expert rating 或 reference geometry，因此只能作为定性示意。</li>
+</ul>
+<p>逐图审读：</p>
+<table>
+<thead>
+<tr>
+<th>Figure</th>
+<th>内容</th>
+<th>能支持什么</th>
+<th>不能支持什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Figure 1</td>
+<td>3D printing 在医疗中的应用分类，来自外部来源</td>
+<td>说明动机广泛</td>
+<td>不证明 Shap-MeD 对任何应用有效</td>
+</tr>
+<tr>
+<td>Figure 2</td>
+<td>Point-E transformer diffusion 架构，来自 Point-E</td>
+<td>解释历史 baseline</td>
+<td>不是本文实验</td>
+</tr>
+<tr>
+<td>Figure 3</td>
+<td>Shap-E encoder 图，来自 Shap-E</td>
+<td>解释 frozen transmitter</td>
+<td>不显示 biomedical adaptation</td>
+</tr>
+<tr>
+<td>Figure 4</td>
+<td>Shap-E vs Point-E 样例，来自 Shap-E</td>
+<td>解释为何选 Shap-E</td>
+<td>与 Shap-MeD 无直接比较</td>
+</tr>
+<tr>
+<td>Figure 5</td>
+<td>LGM vs Shap-E 样例</td>
+<td>表明现代模型质量压力</td>
+<td>渲染条件和来源不够明确</td>
+</tr>
+<tr>
+<td>Figure 6</td>
+<td>MedShapeNet mesh examples</td>
+<td>展示数据覆盖</td>
+<td>不代表选中 subset 的质量</td>
+</tr>
+<tr>
+<td>Figure 7</td>
+<td>brain category 错标/异常</td>
+<td>有力说明 raw data 需要 audit</td>
+<td>论文没有给出系统清洗率</td>
+</tr>
+<tr>
+<td>Figure 8</td>
+<td>category distribution</td>
+<td>显示明显 imbalance；heart 仅 277</td>
+<td>无 train/eval per-class distribution</td>
+</tr>
+<tr>
+<td>Figure 9</td>
+<td>四类 selected meshes</td>
+<td>直观看到 heart holes 与 shape variation</td>
+<td>无 normalization/repair 说明</td>
+</tr>
+<tr>
+<td>Figure 10</td>
+<td>train/validation loss</td>
+<td>证明 objective 被优化</td>
+<td>不证明 geometry 或 anatomy</td>
+</tr>
+<tr>
+<td>Figure 11</td>
+<td>epoch 0/12/24 liver</td>
+<td>可能显示形状逐渐更像 liver</td>
+<td>无固定 seed/pose/reference，差异难量化</td>
+</tr>
+<tr>
+<td>Figure 12</td>
+<td>三类 prompt 的三模型输出</td>
+<td>Shap-MeD 样例在 silhouette 上较稳定</td>
+<td>样本太少、render style 不一致、baseline 不完整</td>
+</tr>
+</tbody>
+</table>
+<p>特别是 Figure 12：Shap-MeD 的 liver、kidney silhouette 看起来更接近常见器官轮廓，aorta 比 LGM 的断裂输出更连贯；但图中没有 ground-truth mesh，也没有统一 color、scale、camera、surface material。视觉上“更干净”不等于 anatomy 上“更准确”。</p>
+<h2>16. Experimental design</h2>
+<h3>Anchored Points</h3>
+<ul>
+<li>[C16.1] 训练使用 MedShapeNet 中 3,589 个 meshes，覆盖 aorta、liver、kidney、heart；数据按 80%/10%/10% 划为 train/evaluation/validation，训练 25 epochs、batch size 8、learning rate <span class="math-rendered math-rendered--inline" data-latex="10^{-5}"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msup><mn>10</mn><mrow><mo>&#x02212;</mo><mn>5</mn></mrow></msup></mrow></math></span>，硬件为单张 NVIDIA A40 24G。</li>
+<li>[C16.2] quantitative baseline 只有未经 fine-tune 的 Shap-E latent MSE；qualitative section 声称比较 Shap-E、Point-E、LGM、LRM，但最终 Figure 12 实际只显示 Shap-E、LGM、Shap-MeD。</li>
+<li>[C16.3] 论文没有报告 optimizer、scheduler、seed、checkpoint、prompt construction、per-category metrics、split-by-source/patient、multiple-sample protocol、geometry metrics 或 blinded human evaluation，这些缺口显著限制 reproducibility 与 claim strength。</li>
+</ul>
+<p>实验设计清单：</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>论文设置</th>
+<th>审读判断</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Dataset</td>
+<td>MedShapeNet subset，3,589 meshes</td>
+<td>合理起点，但质量与 imbalance 明显</td>
+</tr>
+<tr>
+<td>Categories</td>
+<td>aorta, liver, kidney, heart</td>
+<td>只有四类，且 heart 最少、质量最差</td>
+</tr>
+<tr>
+<td>Split</td>
+<td>80/10/10 train/eval/validation</td>
+<td>未说明按 patient/source/category stratify</td>
+</tr>
+<tr>
+<td>Preprocessing</td>
+<td>STL -&gt; OBJ via Open3D；transmitter latent extraction</td>
+<td>关键细节不完整，尤其 scale/orientation/repair</td>
+</tr>
+<tr>
+<td>Train</td>
+<td>LR <span class="math-rendered math-rendered--inline" data-latex="10^{-5}"><math xmlns="http://www.w3.org/1998/Math/MathML" display="inline"><mrow><msup><mn>10</mn><mrow><mo>&#x02212;</mo><mn>5</mn></mrow></msup></mrow></math></span>，batch 8，25 epochs</td>
+<td>可复现程度有限，缺 optimizer/scheduler/seed</td>
+</tr>
+<tr>
+<td>Hardware</td>
+<td>NVIDIA A40 24G</td>
+<td>说明单卡可行，但缺 wall-clock time</td>
+</tr>
+<tr>
+<td>Quant metric</td>
+<td>latent MSE</td>
+<td>与训练 objective 对齐，但与 anatomy gap 大</td>
+</tr>
+<tr>
+<td>Qual metric</td>
+<td>visual comparison</td>
+<td>无 protocol、rater、reference、统计</td>
+</tr>
+<tr>
+<td>Baselines</td>
+<td>Shap-E 数值；Shap-E/LGM 图像</td>
+<td>baseline scope 太窄且展示不一致</td>
+</tr>
+<tr>
+<td>Deployment</td>
+<td>Streamlit, prompt-to-PLY</td>
+<td>demo pipeline 可用性，非医学 validation</td>
+</tr>
+</tbody>
+</table>
+<p>没有 ablation：例如不比较 frozen vs unfrozen transmitter、不同数据量、category-balanced sampling、cleaned vs raw meshes、generic-data replay、different LR、adapter vs full fine-tuning。因此论文不能解释提升主要来自何处，也不能估计各设计的必要性。</p>
+<h2>17. Experiments 作为故事证据与 claim-alignment audit</h2>
+<h3>Anchored Points</h3>
+<ul>
+<li>[C17.1] Table I 的 <code>0.089</code> 对 <code>0.147</code> 表明 Shap-MeD 在同域 evaluation latents 上的 MSE 约下降 39.5%，支持“domain fine-tuning 改善 latent prediction”，但不直接支持 anatomical correctness。</li>
+<li>[C17.2] 正文将 <code>0.089</code> 相对 <code>0.147</code> 描述为“lower by two orders of magnitude”是数学错误：两者只相差约 1.65 倍，而非 100 倍。</li>
+<li>[C17.3] Figure 10 的 train/validation curves 没有明显发散，支持 optimization stability；但 validation 波动、无 error bars、无多 seed，且文中在 test/evaluation/validation 术语上不一致。</li>
+<li>[C17.4] Figure 11–12 对“shape plausibility 有改善”提供弱到中等的 qualitative evidence，但对“structural accuracy 更高”只提供部分支持，因为缺少 ground truth、anatomy landmarks、统一 rendering 和 expert assessment。</li>
+</ul>
+<p>数值上：</p>
+<p><span class="math-rendered math-rendered--block" data-latex="\frac{0.147-0.089}{0.147}\approx 39.5\%."><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><mfrac><mrow><mn>0.147</mn><mo>&#x02212;</mo><mn>0.089</mn></mrow><mrow><mn>0.147</mn></mrow></mfrac><mo>&#x02248;</mo><mn>39.5</mn><mi>&#x00025;</mi><mo>&#x0002E;</mo></mrow></math></span></p>
+<p>这是一个明显但不是数量级级别的 improvement。更重要的是，它是 model objective 本身的 evaluation loss，最容易因为 domain fine-tuning 而下降。反事实解释仍然很多：模型可能更好预测四个类别的平均 latent；可能记住 category prototypes；可能受 train/eval 同 source distribution 帮助；也可能真的学到更好的 biomedical geometry。论文没有实验区分这些解释。</p>
+<p>Claim alignment 总结：</p>
+<table>
+<thead>
+<tr>
+<th>论文 claim</th>
+<th>证据</th>
+<th>支持程度</th>
+<th>主要缺口</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>fine-tuning improves latent generation</td>
+<td>Table I + Figure 10</td>
+<td>强</td>
+<td>无多 seed / statistical variance</td>
+</tr>
+<tr>
+<td>generated organs look more plausible than base Shap-E</td>
+<td>Figure 12</td>
+<td>中等</td>
+<td>仅 3 prompts / 1 sample style</td>
+</tr>
+<tr>
+<td>outperform LGM/LRM/Point-E</td>
+<td>Figure 12 only includes LGM and Shap-E</td>
+<td>弱</td>
+<td>baseline 缺失、无 quantitative parity</td>
+</tr>
+<tr>
+<td>higher structural accuracy</td>
+<td>visual judgment</td>
+<td>弱</td>
+<td>无 geometry/anatomy metric</td>
+</tr>
+<tr>
+<td>useful medical modeling assistant</td>
+<td>Streamlit description</td>
+<td>弱</td>
+<td>无 user study、time saving、safety validation</td>
+</tr>
+<tr>
+<td>patient-specific / prosthetic potential</td>
+<td>motivation only</td>
+<td>极弱</td>
+<td>无 patient conditioning 或 clinical task</td>
+</tr>
+</tbody>
+</table>
+<h2>18. Reviewer-lens audit</h2>
+<h3>Anchored Points</h3>
+<ul>
+<li>[C18.1] 从 reviewer 视角看，论文的强项是明确的低资源工程问题、可理解的 pipeline、公开 backbone 与真实 medical mesh dataset；主要弱项是 novelty 较低、evaluation protocol 不足、claim overreach 与复现细节缺失。</li>
+<li>[C18.2] 论文没有提供 code/checkpoint/split manifest，也没有足够训练与 sampling details，因此只能复现总体思路，难以精确复现 <code>0.089</code> 或 Figure 12。</li>
+<li>[C18.3] 论文把 surgical planning、prosthetics、personalization 等高风险场景作为动机，却没有 medical expert validation、patient data、landmark/topology constraints 或 uncertainty handling，因此结果不应被解释为临床可用。</li>
+</ul>
+<h3>Novelty</h3>
+<p>算法 novelty 较低。没有新 architecture、loss、representation 或 theory；贡献是将 Shap-E fine-tune 到 MedShapeNet subset，并建立 demo。作为 application paper/pilot 有价值，但需要更强 evaluation 才能形成完整 research contribution。</p>
+<h3>Significance</h3>
+<p>问题本身重要：医学 3D modeling 成本高，domain adaptation 的低成本路径值得研究。论文展示单张 24G GPU 环境下的可行性，具有实践启发。但四类别、少样例和弱 metric 使 significance 目前停留在 feasibility。</p>
+<h3>Technical soundness</h3>
+<p>pipeline 技术上合理：format conversion、frozen encoder、latent diffusion fine-tuning 都符合 Shap-E 机制。主要 soundness 风险不是“方法错”，而是证据被过度解释：latent MSE 不是 anatomy metric；“two orders”表述错误；baseline figure 与方法段落不一致。</p>
+<h3>Methodology rigor</h3>
+<p>不足。缺 per-category analysis、data leakage control、multi-seed、hyperparameter ablation、prompt protocol、sampling settings、geometry metrics、expert rating 与 statistical testing。</p>
+<h3>Reproducibility</h3>
+<p>中低。基础依赖开源，数据集可得，LR/batch/epochs/GPU 有报告；但 code、weights、data indices、preprocessing normalization、optimizer、scheduler、prompt pairing、seed 与 inference configuration 缺失。</p>
+<h3>Clarity</h3>
+<p>整体结构清楚，背景较长但可读。两个 subsection 都叫 “Qualitative Comparison”，其中第一个实际是 quantitative；train/test/evaluation/validation 术语混用；Figure reference 有一处把 selected categories 指向 brain figure；“two orders of magnitude”是明显错误。这些编辑问题降低可信度。</p>
+<h3>Results-claims alignment</h3>
+<p>“latent adaptation 有效”对齐良好；“structural accuracy 更高”对齐不足；“outperform larger SOTA models”证据很弱；“medical assistant”只证明 demo path，不证明医学工作流效果。</p>
+<h3>总体 reviewer 判断</h3>
+<p>如果按 research paper 标准，最需要 major revision 的不是再增加背景，而是重做 evaluation：统一 baseline protocol、加入 geometry/anatomy metrics、盲评、更多 prompts/seeds、clean data audit 和复现 release。若按 student/engineering project 看，它是一项完成度不错的 proof of concept。</p>
+<h2>19. Innovation points 与逐项 support audit</h2>
+<h3>Anchored Points</h3>
+<ul>
+<li>[C19.1] 论文的三项实质贡献可归纳为 biomedical Shap-E adaptation、MedShapeNet-to-Shap-E preprocessing/fine-tuning pipeline、以及 prompt-to-PLY demo；其中第一项由 latent MSE 支持较强，第二项由方法描述支持，第三项只由系统说明支持，anatomical superiority 没有同等强度证据。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Claimed / implied contribution</th>
+<th>Innovation type</th>
+<th>Evidence</th>
+<th>支持判断</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Shap-E biomedical specialization</td>
+<td>domain adaptation</td>
+<td>MSE 0.089 vs 0.147</td>
+<td>中强：objective 改善明确</td>
+</tr>
+<tr>
+<td>3,589 MedShapeNet meshes pipeline</td>
+<td>engineering integration</td>
+<td>data/preprocessing/method section</td>
+<td>中：流程清楚，细节不全</td>
+</tr>
+<tr>
+<td>Better biomedical visual outputs</td>
+<td>empirical application</td>
+<td>Figure 11–12</td>
+<td>中弱：样本少、无 protocol</td>
+</tr>
+<tr>
+<td>Better structural accuracy</td>
+<td>medical/geometry claim</td>
+<td>visual inspection only</td>
+<td>弱</td>
+</tr>
+<tr>
+<td>Outperform larger models</td>
+<td>comparative claim</td>
+<td>one LGM column, no LRM/Point-E</td>
+<td>弱</td>
+</tr>
+<tr>
+<td>Usable medical modeling assistant</td>
+<td>system claim</td>
+<td>Streamlit description</td>
+<td>弱到中：能 demo，不等于有效工作流</td>
+</tr>
+<tr>
+<td>Personalized/implant applicability</td>
+<td>future application</td>
+<td>motivation/conclusion</td>
+<td>很弱：未实验</td>
+</tr>
+</tbody>
+</table>
+<p>论文真正站得住的贡献是：<strong>generic text-to-3D latent diffusion 可以被一个小型 medical mesh subset 推向 biomedical domain，而且单卡资源足以完成这项适配。</strong> 把结论限定在这里，论文会更可信。</p>
+<h2>20. 值得学习的 story-making pattern</h2>
+<h3>Anchored Points</h3>
+<ul>
+<li>[C20.1] Shap-MeD 最可复用的论文构造模式是“resource-constrained domain specialization”：先用强 generic model 提供 representation 与 generation prior，再以 frozen bottleneck 和小型 domain dataset 完成低成本迁移，最后用同域 objective 与 task-specific samples证明 feasibility。</li>
+</ul>
+<p>可复用公式：</p>
+<p><code>large generic prior + fixed representation + small domain corpus + constrained update -&gt; domain-specific prototype</code></p>
+<p>这个模式适合很多领域：medical 3D、industrial parts、cultural heritage、molecular shapes。写成好论文时，需要补齐三条证据链：</p>
+<ol>
+<li><strong>Representation adequacy</strong>：frozen latent 是否保留 domain-critical details？</li>
+<li><strong>Adaptation causality</strong>：提升来自哪些 data/module，而非 split leakage 或 memorization？</li>
+<li><strong>Task validity</strong>：training objective 与真实 domain outcome 是否一致？</li>
+</ol>
+<p>Shap-MeD 完成了模式的前半段，却没有完全完成第三条。它因此更像一个“研究方向入口”，而不是终点。</p>
+<h2>21. Weaknesses、limitations 与改进空间</h2>
+<h3>Anchored Points</h3>
+<ul>
+<li>[C21.1] 最大 limitation 是 objective-validity gap：latent MSE 被用来支撑 anatomy/structure claim，但论文没有证明两者相关，也没有直接 geometry 或 landmark metric。</li>
+<li>[C21.2] Dataset 存在已知 misclassification、holes 与类别不平衡，而论文没有系统 cleaning、repair、quality score 或 source-aware split，这会把数据缺陷直接写入生成 prior。</li>
+<li>[C21.3] Qualitative evaluation 只有三个 prompts 的单图比较，缺 baseline 完整性、multiple seeds、blind expert rating、reference mesh 与统一 renderer，容易受 cherry-picking 和 presentation bias 影响。</li>
+<li>[C21.4] Reproducibility 缺口包括 code/weights、prompt-label construction、optimizer/scheduler、seed、mesh normalization、split indices、inference settings 与 runtime；此外没有测试 fine-tuning 后的 generic capability retention。</li>
+</ul>
+<p>其他重要限制：</p>
+<ul>
+<li><strong>Category granularity</strong>：<code>liver</code>、<code>kidney</code> 这类 single-word prompts 无法覆盖 laterality、substructure、pathology、age、sex、patient-specific variation。</li>
+<li><strong>Topology</strong>：aorta 的 branching connectivity、heart chamber/vessel openings、kidney hilum 等关键结构没有专门约束。</li>
+<li><strong>Surface quality</strong>：hole、non-manifold、self-intersection、watertightness 没有测量。</li>
+<li><strong>Generalization</strong>：没有 unseen organ、unseen source、pathological case 或 cross-dataset test。</li>
+<li><strong>Baseline fairness</strong>：不同模型的 renderer、sample count、guidance、prompt template 可能不同；论文未说明。</li>
+<li><strong>Compute comparison</strong>：用 full pretraining cost 排除 LGM/LRM，不能回答 parameter-efficient adaptation 是否可行。</li>
+<li><strong>Medical boundary</strong>：论文应用动机跨到 clinical planning，但实验处于 generic category generation；这需要更明确的 limitation statement。</li>
+<li><strong>Statistical rigor</strong>：没有 confidence intervals、多次运行或 significance test。</li>
+</ul>
+<h2>22. Innovation type 与 boundary judgment</h2>
+<h3>Anchored Points</h3>
+<ul>
+<li>[C22.1] Shap-MeD 主要是 incremental、application-driven cross-pollination：它把成熟的 domain fine-tuning 模式带入 biomedical text-to-3D，但没有在 3D generation 或 medical modeling 任一侧提出新的核心机制，因此尚不属于 conceptually reframing 或 boundary-pushing work。</li>
+</ul>
+<p>它确实跨越了 computer graphics / generative 3D 与 biomedical shapes，但跨界深度有限。医学域只通过 dataset category 进入模型，没有 anatomy ontology、physiology、landmark、clinical tolerance 或 expert feedback 进入 objective。因此这是<strong>数据域跨界</strong>，不是<strong>方法论跨界</strong>。</p>
+<p>若未来把 validated anatomy constraints、patient imaging、uncertainty 与 generative prior 结合起来，才可能形成真正 boundary-pushing 的 medical 3D generation。当前论文最适合定位为 baseline 和 feasibility study。</p>
+<h2>23. Future directions 与 boundary-pushing ideas</h2>
+<h3>Anchored Points</h3>
+<ul>
+<li>[C23.1] 最直接的下一步是把“latent MSE 代理 anatomy quality”的隐含假设显式打破：引入 surface distance、Chamfer/Hausdorff、normal consistency、watertightness、connected components、anatomical landmarks 与 blinded expert ratings，并研究这些指标与 latent loss 的相关性。</li>
+<li>[C23.2] 更强的边界方向是 <code>verified geometry + generative presentation</code>：用经过验证的 segmentation/atlas/parametric scaffold 锁定结构数目、左右关系、连接与 landmarks，再让 generative model 负责 surface completion、texture、style 与教育展示。</li>
+<li>[C23.3] 从 category-level text-to-3D 走向 patient-specific image+text-to-3D，需要把 CT/MRI-derived geometry、clinical metadata 与 uncertainty conditioning 纳入模型，并设置 out-of-distribution rejection；否则 “personalized” 只是叙事而非能力。</li>
+<li>[C23.4] Data-centric 研究应比较 raw、repaired、expert-curated、balanced 与 source-held-out MedShapeNet subsets，量化 mesh quality 对生成 topology 和 category generalization 的影响。</li>
+<li>[C23.5] 在同等单卡预算下比较 LoRA/adapter fine-tuning 的 Shap-E、LGM/LRM 或更新的 3D generators，可以检验论文“轻模型更可行”的资源假设，而不是用原始 pretraining cost 代替 adaptation cost。</li>
+</ul>
+<h3>方向 A：Anatomy-aware objective</h3>
+<p>Hidden assumption：generic latent space 的 Euclidean MSE 会自然对应 anatomy quality。若该假设失败，模型可以取得低 loss 却生成错误 branching 或缺失 structure。新机制可以是 landmark-conditioned loss、topology loss、multi-view segmentation consistency，以及 anatomy graph constraints。</p>
+<h3>方向 B：Verified-generative hybrid</h3>
+<p>Hidden assumption：自由生成的 mesh 可以直接作为医学教育或 planning 资产。更安全的替代是两阶段系统：</p>
+<ol>
+<li>由 validated segmentation、atlas 或人工审核模型给出可信 geometry scaffold；</li>
+<li>generative model 只在不改变关键结构的范围内改善表面、纹理、LOD 与视觉叙事。</li>
+</ol>
+<p>这条路线特别适合 medical education：可以接受视觉简化，但不能接受器官数目、左右侧、连接关系和关键 landmarks 错误。</p>
+<h3>方向 C：Patient-aware multimodal generation</h3>
+<p>把 prompt 从 <code>liver</code> 扩展为 image + structured text：例如 CT segmentation、age/sex、laterality、pathology、target procedure。模型应输出 geometry 加 provenance，并给出不确定区域。评测必须针对 held-out patients，而不是随机 mesh split。</p>
+<h3>方向 D：Data quality as the main scientific variable</h3>
+<p>论文已经观察到 bad brain labels 和 heart holes，却没有把它们变成实验变量。一个强后续论文可以构造 <code>raw vs cleaned vs repaired vs expert-curated</code> 四档数据，测量 latent loss、surface metrics、topology、expert score 与 cross-source generalization。这样能回答“医学 3D generation 更缺 model，还是更缺可验证 data”。</p>
+<h3>方向 E：Decisive evaluation suite</h3>
+<p>建立同 prompt、同 renderer、同 view、同 mesh scale、每模型多 seeds 的 benchmark；加入 base Shap-E、Point-E、LGM/LRM、最近 open 3D generator；对 seen categories、unseen categories、pathology、OOD prompt 分层。输出同时评估 text alignment、geometry、topology、expert preference、latency、VRAM 与 failure rate。</p>
+<h3>对当前 3D 医学教育路线的实际含义</h3>
+<p>Shap-MeD 可以作为“domain fine-tuning 是否值得做”的 baseline，但不应作为 verified anatomy generator。最合理的复现目标不是重复 Figure 12，而是重建一个更可信的 benchmark：先验证 data 与 geometry，再决定 generative layer 能负责到什么边界。</p>
+<h2>24. 简单而生动的故事总结</h2>
+<h3>Anchored Points</h3>
+<ul>
+<li>[C24.1] Shap-MeD 像是给一个见过百万件日常物体、却没系统学过 anatomy 的 3D 雕塑师安排了短期医学训练：3,589 个器官 mesh 让它更会雕 liver、kidney 和 aorta，但论文只检查了它的“作业分数”和几张作品照，还没有让解剖专家拿尺子、landmark 与 topology checklist 验收。</li>
+</ul>
+<p>记住这篇论文可以只记三件事：</p>
+<ol>
+<li><strong>聪明之处</strong>：不从头训练，冻结 Shap-E encoder，只调 latent diffusion。</li>
+<li><strong>有效之处</strong>：biomedical evaluation latent MSE 从 0.147 降到 0.089。</li>
+<li><strong>没证明之处</strong>：低 latent MSE 与好看的 silhouette，不等于 anatomical accuracy，更不等于 clinical readiness。</li>
+</ol>
+<p>它是一座值得走上去的桥头堡，但桥还没有修到临床或 verified medical education 的彼岸。</p>
+<h2>25. 本次使用的来源</h2>
+<h3>Anchored Points</h3>
+<ul>
+<li>[C25.1] 本报告的事实与审稿判断基于用户提供的 arXiv v1 PDF、同版本 arXiv LaTeX source、其中的 figures/tables/bibliography、重新编译的 PDF/SyncTeX，以及 arXiv metadata page；没有使用未公开作者意图、第三方复现结果或 OpenReview 评审。</li>
+</ul>
+<p>实际使用：</p>
+<ul>
+<li>用户 PDF：<code>2503.15562v1.pdf</code>，10 页。</li>
+<li>arXiv source archive：<code>2503.15562v1_source.tar.gz</code>。</li>
+<li>LaTeX 主文件：<code>source/main.tex</code> 与 <code>source/main.bib</code>。</li>
+<li>原图：<code>loss.png</code>、<code>Evolution.png</code>、<code>Comparison.png</code>、dataset figures 与 background figures。</li>
+<li>重新编译证据：<code>source/main.pdf</code>、<code>source/main.synctex.gz</code>。</li>
+<li>结构化索引：<code>latex_paragraphs.json</code>、<code>pdf_pages.json</code>。</li>
+<li>arXiv metadata：标题、作者、提交时间、v1 状态与 source availability。</li>
+</ul>
+<p>没有使用：supplementary material（未发现独立补充材料）、OpenReview thread/rebuttal（不适用）、公开 code/checkpoint（论文未给出可用链接）。</p>

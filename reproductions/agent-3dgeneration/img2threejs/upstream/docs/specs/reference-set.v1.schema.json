@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://img2threejs.local/schemas/reference-set.v1.schema.json",
+  "title": "img2threejs ReferenceSet v1",
+  "description": "Named source views used as shared AI-workflow evidence. Runtime validation additionally enforces unique ids, canonical paths, and content hashes.",
+  "type": "object",
+  "required": ["schemaVersion", "views"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "kind": { "const": "img2threejs.reference-set" },
+    "mode": {
+      "type": "string",
+      "enum": ["vision-context", "camera-aware"],
+      "default": "vision-context"
+    },
+    "primaryViewId": { "type": "string", "minLength": 1 },
+    "views": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/view" }
+    }
+  },
+  "additionalProperties": true,
+  "allOf": [
+    {
+      "if": {
+        "properties": { "mode": { "const": "camera-aware" } },
+        "required": ["mode"]
+      },
+      "then": {
+        "properties": {
+          "views": {
+            "items": {
+              "allOf": [
+                { "$ref": "#/$defs/view" },
+                { "required": ["camera"] }
+              ]
+            }
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "view": {
+      "type": "object",
+      "required": ["id", "path"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+        },
+        "role": { "type": "string", "minLength": 1 },
+        "path": { "type": "string", "minLength": 1 },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[A-Fa-f0-9]{64}$"
+        },
+        "camera": { "$ref": "#/$defs/camera" },
+        "evidence": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": true
+    },
+    "camera": {
+      "type": "object",
+      "required": ["solved", "fovDegrees", "aspect", "orientation", "positionHint"],
+      "properties": {
+        "solved": { "const": true },
+        "fovDegrees": { "type": "number", "exclusiveMinimum": 0, "exclusiveMaximum": 180 },
+        "aspect": { "type": "number", "exclusiveMinimum": 0 },
+        "orientation": {
+          "type": "object",
+          "required": ["yaw", "pitch", "roll"],
+          "properties": {
+            "yaw": { "type": "number" },
+            "pitch": { "type": "number" },
+            "roll": { "type": "number" }
+          },
+          "additionalProperties": true
+        },
+        "positionHint": {
+          "type": "array",
+          "prefixItems": [
+            { "type": "number" },
+            { "type": "number" },
+            { "type": "number" }
+          ],
+          "minItems": 3,
+          "maxItems": 3
+        }
+      },
+      "additionalProperties": true
+    }
+  }
+}

@@ -1,0 +1,666 @@
+{
+  "schemaVersion": 1,
+  "kind": "img2threejs.material-view-plan",
+  "componentId": "root",
+  "regionId": "full-visible-material-system",
+  "environment": {
+    "required": true,
+    "prefilter": "PMREMGenerator",
+    "workingColorSpace": "LinearSRGBColorSpace",
+    "displayColorSpace": "SRGBColorSpace",
+    "toneMapping": "ACESFilmicToneMapping",
+    "exposure": 1.0,
+    "stableHash": "img2threejs-material-neutral-studio-v1"
+  },
+  "views": [
+    {
+      "id": "full-visible-material-system-albedo-unlit-000",
+      "componentId": "root",
+      "regionId": "full-visible-material-system",
+      "view": "albedo-unlit",
+      "camera": {
+        "azimuthDegrees": 0.0,
+        "elevationDegrees": 8.0,
+        "rollDegrees": 0.0,
+        "target": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "zoom": 2.5
+      },
+      "cropPolicy": {
+        "mode": "visible-footprint",
+        "paddingFraction": 0.12,
+        "minCoverage": 0.03,
+        "maxCoverage": 0.92,
+        "microscope": false
+      }
+    },
+    {
+      "id": "full-visible-material-system-albedo-unlit-045",
+      "componentId": "root",
+      "regionId": "full-visible-material-system",
+      "view": "albedo-unlit",
+      "camera": {
+        "azimuthDegrees": 45.0,
+        "elevationDegrees": 8.0,
+        "rollDegrees": 0.0,
+        "target": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "zoom": 2.5
+      },
+      "cropPolicy": {
+        "mode": "visible-footprint",
+        "paddingFraction": 0.12,
+        "minCoverage": 0.03,
+        "maxCoverage": 0.92,
+        "microscope": false
+      }
+    },
+    {
+      "id": "full-visible-material-system-albedo-unlit-090",
+      "componentId": "root",
+      "regionId": "full-visible-material-system",
+      "view": "albedo-unlit",
+      "camera": {
+        "azimuthDegrees": 90.0,
+        "elevationDegrees": 8.0,
+        "rollDegrees": 0.0,
+        "target": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "zoom": 2.5
+      },
+      "cropPolicy": {
+        "mode": "visible-footprint",
+        "paddingFraction": 0.12,
+        "minCoverage": 0.03,
+        "maxCoverage": 0.92,
+        "microscope": false
+      }
+    },
+    {
+      "id": "full-visible-material-system-albedo-unlit-135",
+      "componentId": "root",
+      "regionId": "full-visible-material-system",
+      "view": "albedo-unlit",
+      "camera": {
+        "azimuthDegrees": 135.0,
+        "elevationDegrees": 8.0,
+        "rollDegrees": 0.0,
+        "target": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "zoom": 2.5
+      },
+      "cropPolicy": {
+        "mode": "visible-footprint",
+        "paddingFraction": 0.12,
+        "minCoverage": 0.03,
+        "maxCoverage": 0.92,
+        "microscope": false
+      }
+    },
+    {
+      "id": "full-visible-material-system-albedo-unlit-180",
+      "componentId": "root",
+      "regionId": "full-visible-material-system",
+      "view": "albedo-unlit",
+      "camera": {
+        "azimuthDegrees": 180.0,
+        "elevationDegrees": 8.0,
+        "rollDegrees": 0.0,
+        "target": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "zoom": 2.5
+      },
+      "cropPolicy": {
+        "mode": "visible-footprint",
+        "paddingFraction": 0.12,
+        "minCoverage": 0.03,
+        "maxCoverage": 0.92,
+        "microscope": false
+      }
+    },
+    {
+      "id": "full-visible-material-system-albedo-unlit-225",
+      "componentId": "root",
+      "regionId": "full-visible-material-system",
+      "view": "albedo-unlit",
+      "camera": {
+        "azimuthDegrees": 225.0,
+        "elevationDegrees": 8.0,
+        "rollDegrees": 0.0,
+        "target": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "zoom": 2.5
+      },
+      "cropPolicy": {
+        "mode": "visible-footprint",
+        "paddingFraction": 0.12,
+        "minCoverage": 0.03,
+        "maxCoverage": 0.92,
+        "microscope": false
+      }
+    },
+    {
+      "id": "full-visible-material-system-albedo-unlit-270",
+      "componentId": "root",
+      "regionId": "full-visible-material-system",
+      "view": "albedo-unlit",
+      "camera": {
+        "azimuthDegrees": 270.0,
+        "elevationDegrees": 8.0,
+        "rollDegrees": 0.0,
+        "target": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "zoom": 2.5
+      },
+      "cropPolicy": {
+        "mode": "visible-footprint",
+        "paddingFraction": 0.12,
+        "minCoverage": 0.03,
+        "maxCoverage": 0.92,
+        "microscope": false
+      }
+    },
+    {
+      "id": "full-visible-material-system-albedo-unlit-315",
+      "componentId": "root",
+      "regionId": "full-visible-material-system",
+      "view": "albedo-unlit",
+      "camera": {
+        "azimuthDegrees": 315.0,
+        "elevationDegrees": 8.0,
+        "rollDegrees": 0.0,
+        "target": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "zoom": 2.5
+      },
+      "cropPolicy": {
+        "mode": "visible-footprint",
+        "paddingFraction": 0.12,
+        "minCoverage": 0.03,
+        "maxCoverage": 0.92,
+        "microscope": false
+      }
+    },
+    {
+      "id": "full-visible-material-system-neutral-studio-000",
+      "componentId": "root",
+      "regionId": "full-visible-material-system",
+      "view": "neutral-studio",
+      "camera": {
+        "azimuthDegrees": 0.0,
+        "elevationDegrees": 8.0,
+        "rollDegrees": 0.0,
+        "target": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "zoom": 2.5
+      },
+      "cropPolicy": {
+        "mode": "visible-footprint",
+        "paddingFraction": 0.12,
+        "minCoverage": 0.03,
+        "maxCoverage": 0.92,
+        "microscope": false
+      }
+    },
+    {
+      "id": "full-visible-material-system-neutral-studio-045",
+      "componentId": "root",
+      "regionId": "full-visible-material-system",
+      "view": "neutral-studio",
+      "camera": {
+        "azimuthDegrees": 45.0,
+        "elevationDegrees": 8.0,
+        "rollDegrees": 0.0,
+        "target": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "zoom": 2.5
+      },
+      "cropPolicy": {
+        "mode": "visible-footprint",
+        "paddingFraction": 0.12,
+        "minCoverage": 0.03,
+        "maxCoverage": 0.92,
+        "microscope": false
+      }
+    },
+    {
+      "id": "full-visible-material-system-neutral-studio-090",
+      "componentId": "root",
+      "regionId": "full-visible-material-system",
+      "view": "neutral-studio",
+      "camera": {
+        "azimuthDegrees": 90.0,
+        "elevationDegrees": 8.0,
+        "rollDegrees": 0.0,
+        "target": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "zoom": 2.5
+      },
+      "cropPolicy": {
+        "mode": "visible-footprint",
+        "paddingFraction": 0.12,
+        "minCoverage": 0.03,
+        "maxCoverage": 0.92,
+        "microscope": false
+      }
+    },
+    {
+      "id": "full-visible-material-system-neutral-studio-135",
+      "componentId": "root",
+      "regionId": "full-visible-material-system",
+      "view": "neutral-studio",
+      "camera": {
+        "azimuthDegrees": 135.0,
+        "elevationDegrees": 8.0,
+        "rollDegrees": 0.0,
+        "target": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "zoom": 2.5
+      },
+      "cropPolicy": {
+        "mode": "visible-footprint",
+        "paddingFraction": 0.12,
+        "minCoverage": 0.03,
+        "maxCoverage": 0.92,
+        "microscope": false
+      }
+    },
+    {
+      "id": "full-visible-material-system-neutral-studio-180",
+      "componentId": "root",
+      "regionId": "full-visible-material-system",
+      "view": "neutral-studio",
+      "camera": {
+        "azimuthDegrees": 180.0,
+        "elevationDegrees": 8.0,
+        "rollDegrees": 0.0,
+        "target": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "zoom": 2.5
+      },
+      "cropPolicy": {
+        "mode": "visible-footprint",
+        "paddingFraction": 0.12,
+        "minCoverage": 0.03,
+        "maxCoverage": 0.92,
+        "microscope": false
+      }
+    },
+    {
+      "id": "full-visible-material-system-neutral-studio-225",
+      "componentId": "root",
+      "regionId": "full-visible-material-system",
+      "view": "neutral-studio",
+      "camera": {
+        "azimuthDegrees": 225.0,
+        "elevationDegrees": 8.0,
+        "rollDegrees": 0.0,
+        "target": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "zoom": 2.5
+      },
+      "cropPolicy": {
+        "mode": "visible-footprint",
+        "paddingFraction": 0.12,
+        "minCoverage": 0.03,
+        "maxCoverage": 0.92,
+        "microscope": false
+      }
+    },
+    {
+      "id": "full-visible-material-system-neutral-studio-270",
+      "componentId": "root",
+      "regionId": "full-visible-material-system",
+      "view": "neutral-studio",
+      "camera": {
+        "azimuthDegrees": 270.0,
+        "elevationDegrees": 8.0,
+        "rollDegrees": 0.0,
+        "target": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "zoom": 2.5
+      },
+      "cropPolicy": {
+        "mode": "visible-footprint",
+        "paddingFraction": 0.12,
+        "minCoverage": 0.03,
+        "maxCoverage": 0.92,
+        "microscope": false
+      }
+    },
+    {
+      "id": "full-visible-material-system-neutral-studio-315",
+      "componentId": "root",
+      "regionId": "full-visible-material-system",
+      "view": "neutral-studio",
+      "camera": {
+        "azimuthDegrees": 315.0,
+        "elevationDegrees": 8.0,
+        "rollDegrees": 0.0,
+        "target": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "zoom": 2.5
+      },
+      "cropPolicy": {
+        "mode": "visible-footprint",
+        "paddingFraction": 0.12,
+        "minCoverage": 0.03,
+        "maxCoverage": 0.92,
+        "microscope": false
+      }
+    },
+    {
+      "id": "full-visible-material-system-grazing-000",
+      "componentId": "root",
+      "regionId": "full-visible-material-system",
+      "view": "grazing",
+      "camera": {
+        "azimuthDegrees": 0.0,
+        "elevationDegrees": 8.0,
+        "rollDegrees": 0.0,
+        "target": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "zoom": 2.5
+      },
+      "cropPolicy": {
+        "mode": "visible-footprint",
+        "paddingFraction": 0.12,
+        "minCoverage": 0.03,
+        "maxCoverage": 0.92,
+        "microscope": true
+      }
+    },
+    {
+      "id": "full-visible-material-system-grazing-045",
+      "componentId": "root",
+      "regionId": "full-visible-material-system",
+      "view": "grazing",
+      "camera": {
+        "azimuthDegrees": 45.0,
+        "elevationDegrees": 8.0,
+        "rollDegrees": 0.0,
+        "target": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "zoom": 2.5
+      },
+      "cropPolicy": {
+        "mode": "visible-footprint",
+        "paddingFraction": 0.12,
+        "minCoverage": 0.03,
+        "maxCoverage": 0.92,
+        "microscope": true
+      }
+    },
+    {
+      "id": "full-visible-material-system-grazing-090",
+      "componentId": "root",
+      "regionId": "full-visible-material-system",
+      "view": "grazing",
+      "camera": {
+        "azimuthDegrees": 90.0,
+        "elevationDegrees": 8.0,
+        "rollDegrees": 0.0,
+        "target": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "zoom": 2.5
+      },
+      "cropPolicy": {
+        "mode": "visible-footprint",
+        "paddingFraction": 0.12,
+        "minCoverage": 0.03,
+        "maxCoverage": 0.92,
+        "microscope": true
+      }
+    },
+    {
+      "id": "full-visible-material-system-grazing-135",
+      "componentId": "root",
+      "regionId": "full-visible-material-system",
+      "view": "grazing",
+      "camera": {
+        "azimuthDegrees": 135.0,
+        "elevationDegrees": 8.0,
+        "rollDegrees": 0.0,
+        "target": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "zoom": 2.5
+      },
+      "cropPolicy": {
+        "mode": "visible-footprint",
+        "paddingFraction": 0.12,
+        "minCoverage": 0.03,
+        "maxCoverage": 0.92,
+        "microscope": true
+      }
+    },
+    {
+      "id": "full-visible-material-system-grazing-180",
+      "componentId": "root",
+      "regionId": "full-visible-material-system",
+      "view": "grazing",
+      "camera": {
+        "azimuthDegrees": 180.0,
+        "elevationDegrees": 8.0,
+        "rollDegrees": 0.0,
+        "target": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "zoom": 2.5
+      },
+      "cropPolicy": {
+        "mode": "visible-footprint",
+        "paddingFraction": 0.12,
+        "minCoverage": 0.03,
+        "maxCoverage": 0.92,
+        "microscope": true
+      }
+    },
+    {
+      "id": "full-visible-material-system-grazing-225",
+      "componentId": "root",
+      "regionId": "full-visible-material-system",
+      "view": "grazing",
+      "camera": {
+        "azimuthDegrees": 225.0,
+        "elevationDegrees": 8.0,
+        "rollDegrees": 0.0,
+        "target": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "zoom": 2.5
+      },
+      "cropPolicy": {
+        "mode": "visible-footprint",
+        "paddingFraction": 0.12,
+        "minCoverage": 0.03,
+        "maxCoverage": 0.92,
+        "microscope": true
+      }
+    },
+    {
+      "id": "full-visible-material-system-grazing-270",
+      "componentId": "root",
+      "regionId": "full-visible-material-system",
+      "view": "grazing",
+      "camera": {
+        "azimuthDegrees": 270.0,
+        "elevationDegrees": 8.0,
+        "rollDegrees": 0.0,
+        "target": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "zoom": 2.5
+      },
+      "cropPolicy": {
+        "mode": "visible-footprint",
+        "paddingFraction": 0.12,
+        "minCoverage": 0.03,
+        "maxCoverage": 0.92,
+        "microscope": true
+      }
+    },
+    {
+      "id": "full-visible-material-system-grazing-315",
+      "componentId": "root",
+      "regionId": "full-visible-material-system",
+      "view": "grazing",
+      "camera": {
+        "azimuthDegrees": 315.0,
+        "elevationDegrees": 8.0,
+        "rollDegrees": 0.0,
+        "target": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "zoom": 2.5
+      },
+      "cropPolicy": {
+        "mode": "visible-footprint",
+        "paddingFraction": 0.12,
+        "minCoverage": 0.03,
+        "maxCoverage": 0.92,
+        "microscope": true
+      }
+    }
+  ],
+  "captureRequirements": [
+    "save PNG/JPEG to workspace",
+    "read the saved image back before scoring",
+    "record renderer version, environment hash and camera transform",
+    "compare the full visible component footprint, not an isolated hidden surface"
+  ],
+  "captureValidation": [
+    {
+      "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\output\\material-pass-front.png",
+      "readable": true,
+      "width": 600,
+      "height": 834,
+      "foregroundCoverage": 0.5645,
+      "diagnostics": {
+        "backgroundColor": "#FFFFFF",
+        "backgroundNoise": 0.0,
+        "transparentPixelFraction": 0.0,
+        "foregroundCoverage": 0.5645
+      },
+      "warnings": [],
+      "passed": true,
+      "failures": []
+    },
+    {
+      "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\output\\material-pass-neutral.png",
+      "readable": true,
+      "width": 600,
+      "height": 834,
+      "foregroundCoverage": 0.5645,
+      "diagnostics": {
+        "backgroundColor": "#FFFFFF",
+        "backgroundNoise": 0.0,
+        "transparentPixelFraction": 0.0,
+        "foregroundCoverage": 0.5645
+      },
+      "warnings": [],
+      "passed": true,
+      "failures": []
+    },
+    {
+      "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\output\\material-pass-grazing.png",
+      "readable": true,
+      "width": 600,
+      "height": 834,
+      "foregroundCoverage": 0.5645,
+      "diagnostics": {
+        "backgroundColor": "#FFFFFF",
+        "backgroundNoise": 0.0,
+        "transparentPixelFraction": 0.0,
+        "foregroundCoverage": 0.5645
+      },
+      "warnings": [],
+      "passed": true,
+      "failures": []
+    },
+    {
+      "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\output\\material-pass-rear.png",
+      "readable": true,
+      "width": 600,
+      "height": 834,
+      "foregroundCoverage": 0.4691,
+      "diagnostics": {
+        "backgroundColor": "#FFFFFF",
+        "backgroundNoise": 0.0,
+        "transparentPixelFraction": 0.0,
+        "foregroundCoverage": 0.4691
+      },
+      "warnings": [],
+      "passed": true,
+      "failures": []
+    }
+  ],
+  "capturePassed": true
+}

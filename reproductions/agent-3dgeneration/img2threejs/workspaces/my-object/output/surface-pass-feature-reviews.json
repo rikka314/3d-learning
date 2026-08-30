@@ -1,0 +1,10 @@
+[
+  {
+    "id": "organelle-material-contrast",
+    "name": "Rough brown shell, satin gold membrane, matte pale matrix, and brown granules",
+    "score": 0.82,
+    "threshold": 0.75,
+    "passed": true,
+    "critique": "The full comparison maintains the accepted material hierarchy while the dedicated close-grazing capture proves non-flat highlight breakup on shell, membrane, and matrix. Subtle right-flank pore relief is visible locally without changing the silhouette, and the map-stripped view confirms it is supported by geometry as well as maps."
+  }
+]

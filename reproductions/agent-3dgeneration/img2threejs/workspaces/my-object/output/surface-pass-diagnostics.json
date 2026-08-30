@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "passId": "surface-pass",
+  "renderHash": "a5439dc47e75ab68",
+  "checks": {
+    "silhouetteIoU": 0.8542,
+    "aspectRatioDelta": 0.0286,
+    "scaleDelta": 0.0294,
+    "maxColorDeltaE": 18.16
+  },
+  "multiAngle": {
+    "degenerate": false,
+    "thicknessAxisRatio": 0.8097,
+    "rearRatio": 0.8308
+  },
+  "grazingEvidence": "surface-pass-close-grazing.png",
+  "mapStrippedRender": "surface-pass-clay.png",
+  "failures": []
+}

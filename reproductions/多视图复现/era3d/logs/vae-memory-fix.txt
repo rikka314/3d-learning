@@ -1,0 +1,25 @@
+Era3D VAE decode memory fix
+
+Observed failure:
+- The fused-SDPA run completed all 40 UNet denoising steps.
+- Final pipeline VAE decode OOMed with approximately 22 MiB GPU memory free.
+
+Local wrapper fix:
+- Enable pipeline VAE slicing after from_pretrained construction.
+- Enable VAE tiling as a guard for latent sizes above the configured tile threshold.
+- Do not modify upstream tracked source, weights, 512 resolution, cameras, or 40-step schedule.
+
+Model-load verification:
+- Era3D VAE memory optimization enabled: slicing=True, tiling=True
+- pipeline_load=PASS
+- vae_use_slicing=True
+- vae_use_tiling=True
+- Existing fused attention processor counts remained 16 joint, 16 multiview, and 16 AttnProcessor2_0.
+
+Full inference verification:
+- standard weights, seed=600, crop_size=420, steps=40
+- output=6 RGB + 6 normal PNG files, each 512x512
+- elapsed=41.54 s
+- CUDA peak allocated=5459 MiB, reserved=5814 MiB
+- log=logs/20260825T164609Z-standard-seed600.log
+- repeatability=all 12 output SHA-256 values match the preceding successful run

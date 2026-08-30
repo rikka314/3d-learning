@@ -1,0 +1,47 @@
+{
+  "schema_version": "paper-storyboard/1.0",
+  "source_report": "report.md",
+  "style": "connected scientific-educational cartoon storyboard",
+  "panels": [
+    {
+      "panel_id": "S1",
+      "title": "通用雕塑家遇到医学几何",
+      "report_claim_ids": ["C2.1", "C4.1"],
+      "visual_metaphor": "A generic 3D sculptor confronting the domain gap of anatomical geometry",
+      "prompt": "Recurring blue research robot moves from generic text-to-3D sculptures toward four red anatomical blueprints that require medical-domain adaptation.",
+      "image_path": "storyboard/S1-generic-sculptor-meets-anatomy.png"
+    },
+    {
+      "panel_id": "S2",
+      "title": "医学网格先过数据审计",
+      "report_claim_ids": ["C8.4", "C15.1", "C21.2"],
+      "visual_metaphor": "A mesh quality-control bench exposing label errors, holes, and imbalance",
+      "prompt": "Same robot audits four unequal collections of anatomical meshes, removing a misclassified brain and flagging a heart mesh with holes.",
+      "image_path": "storyboard/S2-medical-mesh-data-audit.png"
+    },
+    {
+      "panel_id": "S3",
+      "title": "冻结编码端，只微调生成端",
+      "report_claim_ids": ["C9.1", "C14.2"],
+      "visual_metaphor": "A frozen transmitter feeding latent crystals into a trainable diffusion generator",
+      "prompt": "Same robot operates a pipeline whose transmitter is frozen in ice while only the connected diffusion generator is adjusted for medical shapes.",
+      "image_path": "storyboard/S3-frozen-transmitter-finetuned-generator.png"
+    },
+    {
+      "panel_id": "S4",
+      "title": "损失下降，但证据边界仍在",
+      "report_claim_ids": ["C17.1", "C17.2", "C21.1"],
+      "visual_metaphor": "A lower latent-error gauge separated from unresolved anatomy validation",
+      "prompt": "Same robot observes a real latent-loss improvement while a transparent barrier reveals missing geometry, topology, landmark, and clinician checks.",
+      "image_path": "storyboard/S4-loss-improves-evidence-boundary.png"
+    },
+    {
+      "panel_id": "S5",
+      "title": "锁定可信几何，再生成表达层",
+      "report_claim_ids": ["C23.2", "C23.1"],
+      "visual_metaphor": "A flexible generative presentation shell built around locked verified geometry",
+      "prompt": "Same robot adds controllable appearance and explanatory presentation around an immutable golden verified liver scaffold.",
+      "image_path": "storyboard/S5-verified-geometry-generative-presentation.png"
+    }
+  ]
+}

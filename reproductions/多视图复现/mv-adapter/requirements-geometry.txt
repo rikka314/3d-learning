@@ -1,0 +1,4 @@
+# Optional geometry-conditioned path. Building nvdiffrast requires a matching
+# CUDA toolkit (nvcc) in WSL; the Windows driver alone is not sufficient.
+git+https://github.com/NVlabs/nvdiffrast.git@253ac4fcea7de5f396371124af597e6cc957bfae
+

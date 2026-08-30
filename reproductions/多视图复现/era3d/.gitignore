@@ -1,0 +1,18 @@
+.venv/
+cache/
+checkpoints/
+inputs/*
+!inputs/.gitkeep
+outputs/*
+!outputs/.gitkeep
+logs/*
+!logs/.gitkeep
+!logs/dataloader-workers-fix.txt
+!logs/fused-attention-test.txt
+!logs/vae-memory-fix.txt
+tools/
+__pycache__/
+*.pyc
+
+# The official repository is retained locally with its own Git metadata.
+upstream/

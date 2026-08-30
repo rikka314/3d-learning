@@ -1,0 +1,24 @@
+--extra-index-url https://download.pytorch.org/whl/cu128
+
+# PyTorch 2.7/cu128 is the first stable PyTorch line with Blackwell support.
+torch==2.7.0+cu128
+torchvision==0.22.0+cu128
+
+# Era3D's modified pipeline targets these 2024-era Diffusers interfaces.
+diffusers==0.26.0
+transformers==4.37.2
+accelerate==0.21.0
+huggingface-hub==0.25.2
+omegaconf==2.2.3
+
+# Minimal dependencies imported by test_mvdiffusion_unclip.py and its dataset.
+einops==0.8.1
+ftfy==6.3.1
+icecream==2.1.5
+numpy==1.26.4
+opencv-python-headless==4.11.0.86
+Pillow==11.3.0
+rembg[cpu]==2.0.67
+safetensors==0.6.2
+scipy==1.16.1
+tqdm==4.67.1

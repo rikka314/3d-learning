@@ -1,0 +1,38 @@
+
+> img2threejs-showcase@1.0.0 build
+> tsc --noEmit && vite build
+
+vite v5.4.21 building for production...
+transforming...
+✓ 106 modules transformed.
+rendering chunks...
+[plugin:vite:reporter] [plugin vite:reporter] 
+(!) D:/Learn/20_Projects/3dresearch/3d-learning/reproductions/agent-3dgeneration/img2threejs/showcase/node_modules/meshoptimizer/meshopt_simplifier.module.js is dynamically imported by D:/Learn/20_Projects/3dresearch/3d-learning/reproductions/agent-3dgeneration/img2threejs/showcase/src/demos/girl-character-3/createGirlCharacter3Model.ts but also statically imported by D:/Learn/20_Projects/3dresearch/3d-learning/reproductions/agent-3dgeneration/img2threejs/showcase/node_modules/meshoptimizer/index.module.js, dynamic import will not move module into another chunk.
+
+computing gzip size...
+dist/index.html                                 3.11 kB │ gzip:      1.29 kB
+dist/assets/metalness-CrE-9zt5.png              6.18 kB
+dist/assets/ao-BiQwEgsG.png                    16.23 kB
+dist/assets/ao-Co0MVQf-.png                    46.93 kB
+dist/assets/normal-BGg4Z60c.png                52.19 kB
+dist/assets/roughness-BspKMzWb.png             81.98 kB
+dist/assets/roughness-vGtkyb-S.png            199.35 kB
+dist/assets/front-albedo-CHvponci.png         346.66 kB
+dist/assets/back-albedo-DdA0nKHH.png          355.29 kB
+dist/assets/normal-DfpTJyqA.png               649.49 kB
+dist/assets/back-albedo-CDr-oOvT.png        1,236.20 kB
+dist/assets/front-albedo-D-33trA4.png       1,276.53 kB
+dist/assets/index-C0eFteQy.css                 32.77 kB │ gzip:      7.25 kB
+dist/assets/surfaceDataLow-BPJxpq83.js      2,465.03 kB │ gzip:    955.08 kB
+dist/assets/textureData-D8w4PkFb.js         4,320.72 kB │ gzip:  3,207.90 kB
+dist/assets/surfaceDataMedium-Bwww8d5h.js   5,926.59 kB │ gzip:  2,239.75 kB
+dist/assets/index-BejjPdVk.js               7,556.35 kB │ gzip:  3,161.12 kB
+dist/assets/surfaceData-F8DOjq1w.js        25,525.36 kB │ gzip:  8,768.74 kB
+dist/assets/meshData-Bi9l4fXC.js           25,685.25 kB │ gzip: 13,895.64 kB
+dist/assets/surfaceData-B-N0aaY3.js        51,787.69 kB │ gzip: 19,570.27 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 11.98s

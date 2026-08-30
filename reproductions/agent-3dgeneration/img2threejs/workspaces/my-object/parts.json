@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "model": "mitochondrion-cutaway",
+  "source": "window.__PART_MANIFEST__ browser runtime dump",
+  "parts": [
+    { "name": "matrix-volume", "kind": "part", "module": "matrix-volume" },
+    { "name": "inner-boundary", "kind": "part", "module": "inner-boundary" },
+    { "name": "cutaway-rim", "kind": "part", "module": "cutaway-rim" },
+    { "name": "crista-01", "kind": "part", "module": "crista-01" },
+    { "name": "crista-02", "kind": "part", "module": "crista-02" },
+    { "name": "crista-03", "kind": "part", "module": "crista-03" },
+    { "name": "crista-04", "kind": "part", "module": "crista-04" },
+    { "name": "crista-05", "kind": "part", "module": "crista-05" },
+    { "name": "lower-spiral", "kind": "part", "module": "lower-spiral" },
+    { "name": "granule-anchor", "kind": "detail-group", "module": "matrix-volume" },
+    { "name": "shell-pore-anchor", "kind": "detail-group", "module": "root" },
+    { "name": "matrix-speck-anchor", "kind": "detail-group", "module": "matrix-volume" }
+  ],
+  "unnamedMeshes": 0,
+  "integralMeshes": 37
+}

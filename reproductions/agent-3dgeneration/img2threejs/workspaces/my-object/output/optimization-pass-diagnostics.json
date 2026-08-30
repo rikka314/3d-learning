@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "passId": "optimization-pass",
+  "renderHash": "a5439dc47e75ab68",
+  "visualChecks": {
+    "silhouetteIoU": 0.8542,
+    "aspectRatioDelta": 0.0286,
+    "scaleDelta": 0.0294,
+    "maxColorDeltaE": 18.16,
+    "multiAngleDegenerate": false
+  },
+  "performance": {
+    "drawCalls": 37,
+    "triangles": 93956,
+    "fps": 240.02,
+    "withinBudget": true
+  },
+  "failures": []
+}

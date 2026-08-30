@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "kind": "img2threejs.material-comparison",
+  "materialId": "material-system",
+  "reference": {
+    "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\test\\屏幕截图 2026-08-26 011321.png",
+    "meanRgb": [
+      170,
+      125,
+      88
+    ],
+    "features": {
+      "meanLuma": 0.5156375697961304,
+      "lumaVariance": 0.028175514273801605,
+      "horizontalGradient": 0.07208351967737398,
+      "verticalGradient": 0.07484539702405746,
+      "anisotropyProxy": 1.038314962408119
+    },
+    "width": 200,
+    "height": 278,
+    "foregroundCoverage": 0.5243,
+    "warnings": [],
+    "readback": true,
+    "diagnostics": {
+      "backgroundColor": "#FEFEFE",
+      "backgroundNoise": 1.732,
+      "transparentPixelFraction": 0.0036,
+      "foregroundCoverage": 0.5273
+    }
+  },
+  "render": {
+    "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\my-object\\output\\material-pass-front.png",
+    "meanRgb": [
+      159,
+      100,
+      47
+    ],
+    "features": {
+      "meanLuma": 0.4272208701169219,
+      "lumaVariance": 0.040211749393842935,
+      "horizontalGradient": 0.08086935822555977,
+      "verticalGradient": 0.0874930253094146,
+      "anisotropyProxy": 1.0819057703584116
+    },
+    "width": 600,
+    "height": 834,
+    "foregroundCoverage": 0.5634,
+    "warnings": [],
+    "readback": true,
+    "diagnostics": {
+      "backgroundColor": "#FFFFFF",
+      "backgroundNoise": 0.0,
+      "transparentPixelFraction": 0.0,
+      "foregroundCoverage": 0.5645
+    }
+  },
+  "metrics": {
+    "deltaE00": 9.535,
+    "scores": {
+      "baseColor": 0.8092992296512249,
+      "meanLuma": 0.8035184451573144,
+      "microstructure": 0.8996980406663222,
+      "directionalResponse": 0.9782045960248537,
+      "overall": 0.8561
+    }
+  },
+  "mismatches": [],
+  "passed": true,
+  "nextAction": "continue",
+  "limitation": "Deterministic crop metrics are evidence; material identity still requires vision review for ambiguous cases."
+}

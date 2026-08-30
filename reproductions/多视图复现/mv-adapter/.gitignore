@@ -1,0 +1,13 @@
+.venv/
+.tools/
+cache/
+checkpoints/
+logs/*
+!logs/.gitkeep
+outputs/*
+!outputs/.gitkeep
+inputs/*
+!inputs/.gitkeep
+upstream/
+*.pyc
+__pycache__/

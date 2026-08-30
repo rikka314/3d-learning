@@ -1,0 +1,15 @@
+{
+  "python": "3.13.7",
+  "commands": [
+    "forge/stage2_spec/validate_sculpt_spec.py object-sculpt-spec.json",
+    "forge/stage2_spec/validate_sculpt_spec.py object-sculpt-spec.json --strict-quality"
+  ],
+  "normalValidation": "PASS",
+  "strictQualityValidation": "PASS",
+  "materialRegions": 3,
+  "materialEvidenceStatus": "proceed",
+  "notes": [
+    "Shell, membrane, and matrix use reference-derived PBR evidence above 0.7 confidence.",
+    "Granules are qualityTier utility because the 200 px reference cannot provide a reliable isolated crop for individual particles."
+  ]
+}

@@ -1,0 +1,1680 @@
+{
+  "schema_version": "paper-pdf-source/1.0",
+  "doc": "paper",
+  "source_pdf": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\papers\\2503.15562v1.pdf",
+  "page_count": 10,
+  "extracted_pages": 10,
+  "text_output": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\literature\\papers\\2503.15562v1_grounded_reading\\2503.15562v1_pdf_text.txt",
+  "pages": [
+    {
+      "doc": "paper",
+      "page": 1,
+      "width": 612.0,
+      "height": 792.0,
+      "text": "Shap-MeD\n1\nShap-MeD\nNicolas Laverde ∗, Melissa Robles †, Johan Rodr´ıguez ‡\nUniversidad de los Andes. Bogot´a, Colombia\nE-mail: ∗n.laverdem@uniandes.edu.co, †mv.robles@uniandes.edu.co y ‡jd.rodriguezp1234@uniandes.edu.co\nAbstract—We present Shap-MeD, a text-to-3D object gener-\native model specialized in the biomedical domain. The objective\nof this study is to develop an assistant that facilitates the\n3D modeling of medical objects, thereby reducing develop-\nment time. 3D modeling in medicine has various applications,\nincluding surgical procedure simulation and planning, the\ndesign of personalized prosthetic implants, medical education,\nthe creation of anatomical models, and the development of\nresearch prototypes. To achieve this, we leverage Shap-e, an\nopen-source text-to-3D generative model developed by OpenAI,\nand fine-tune it using a dataset of biomedical objects. Our\nmodel achieved a mean squared error (MSE) of 0.089 in\nlatent generation on the evaluation set, compared to Shap-\ne’s MSE of 0.147. Additionally, we conducted a qualitative\nevaluation, comparing our model with others in the generation\nof biomedical objects. Our results indicate that Shap-MeD\ndemonstrates higher structural accuracy in biomedical object\ngeneration.\nI. INTRODUCTION\nThe new trend in healthcare is personalized treatments,\nmoving away from universal approaches and one-size-fits-\nall treatments. According to the National Health Service\n(NHS) of England, universal treatments exhibit a 70%\ninefficiency rate among patients, highlighting the need\nfor personalized treatments [1]. However, implementing\na\npersonalized\ntreatment\napproach\nis\nunfeasible\nwith\ntraditional manufacturing processes, as it involves time- and\nlabor-intensive tasks. In contrast, 3D-printed products have\nbeen well received by patients [2]. This trend underscores\nthe necessity for the industry to transition toward new\ntechnologies that enable personalization.\n3D printing was introduced more than three decades\nago. Since then, this technology has radically transformed\nthe manufacturing industry. The original purpose of this\ntechnology was the creation of engineering prototypes,\nincluding automotive parts, fashion accessories, and even\narchitectural models, which were produced using this\nmethod. In fact, it is still used for these purposes today [3,\n4, 5]. However, its applications extend far beyond these\ninitial uses. 3D printing has undoubtedly revolutionized\nthe healthcare system, as it enables the production of\ncustomized objects, making it particularly suitable for\nthe personalization of prosthetics, implants, drug delivery\nsystems, tissues, and medical devices [6]. Figure 1 illustrates\nthe five major categories in which 3D printing is employed.\nOne of the most pressing issues in healthcare that 3D\nprinting addresses is the shortage of organs for transplanta-\ntion. According to organ donation statistics, approximately\n20 patients die each day while waiting for a transplant [7]. In\naddition to the limited availability of organ donors, another\nsignificant challenge is ensuring the biocompatibility of the\ndonated organ [8]. 3D printing has the potential to generate\ntissues with patient-specific dimensions and materials, which\ncould significantly contribute to organ transplantation efforts\n[9].\nFigure 1: Current applications of 3D printing in medicine\nand healthcare. [10]\nSignificant advancements have been made in 3D printing\nfor personalized treatments. Structures can be generated\nfrom\na\ndigital\n3D\nfile\nusing\ncomputer-aided\ndesign\n(CAD) software and computer vision techniques, including\nmagnetic resonance imaging (MRI) or 3D tomography [11].\nAlthough the results are highly promising, it is important\nto note that the level of personalization achievable with\ncomputer vision techniques is limited by the quality of the\nacquired images.\nThe objective of this project is to develop an assistant\ndedicated to the creation of anatomical models and organs,\nconditioned by text or images. This aims to facilitate the de-\nvelopment of research prototypes for tissue engineering and\nexplore their potential applicability in prosthetic transplants.\nAdditionally, the system is envisioned as an educational\ntool, benefiting students by enhancing their learning and\narXiv:2503.15562v1  [cs.GR]  19 Mar 2025\n",
+      "blocks": [
+        {
+          "bbox": [
+            56.69,
+            30.14,
+            555.31,
+            37.12
+          ],
+          "type": 0,
+          "text": "Shap-MeD\n1"
+        },
+        {
+          "bbox": [
+            253.54,
+            62.84,
+            358.46,
+            86.75
+          ],
+          "type": 0,
+          "text": "Shap-MeD"
+        },
+        {
+          "bbox": [
+            178.91,
+            93.99,
+            432.59,
+            106.93
+          ],
+          "type": 0,
+          "text": "Nicolas Laverde ∗, Melissa Robles †, Johan Rodr´ıguez ‡"
+        },
+        {
+          "bbox": [
+            62.14,
+            109.27,
+            546.02,
+            133.63
+          ],
+          "type": 0,
+          "text": "Universidad de los Andes. Bogot´a, Colombia\nE-mail: ∗n.laverdem@uniandes.edu.co, †mv.robles@uniandes.edu.co y ‡jd.rodriguezp1234@uniandes.edu.co"
+        },
+        {
+          "bbox": [
+            56.69,
+            169.36,
+            300.02,
+            347.69
+          ],
+          "type": 0,
+          "text": "Abstract—We present Shap-MeD, a text-to-3D object gener-\native model specialized in the biomedical domain. The objective\nof this study is to develop an assistant that facilitates the\n3D modeling of medical objects, thereby reducing develop-\nment time. 3D modeling in medicine has various applications,\nincluding surgical procedure simulation and planning, the\ndesign of personalized prosthetic implants, medical education,\nthe creation of anatomical models, and the development of\nresearch prototypes. To achieve this, we leverage Shap-e, an\nopen-source text-to-3D generative model developed by OpenAI,\nand fine-tune it using a dataset of biomedical objects. Our\nmodel achieved a mean squared error (MSE) of 0.089 in\nlatent generation on the evaluation set, compared to Shap-\ne’s MSE of 0.147. Additionally, we conducted a qualitative\nevaluation, comparing our model with others in the generation\nof biomedical objects. Our results indicate that Shap-MeD\ndemonstrates higher structural accuracy in biomedical object\ngeneration."
+        },
+        {
+          "bbox": [
+            56.69,
+            366.44,
+            300.02,
+            522.84
+          ],
+          "type": 0,
+          "text": "I. INTRODUCTION\nThe new trend in healthcare is personalized treatments,\nmoving away from universal approaches and one-size-fits-\nall treatments. According to the National Health Service\n(NHS) of England, universal treatments exhibit a 70%\ninefficiency rate among patients, highlighting the need\nfor personalized treatments [1]. However, implementing\na\npersonalized\ntreatment\napproach\nis\nunfeasible\nwith\ntraditional manufacturing processes, as it involves time- and\nlabor-intensive tasks. In contrast, 3D-printed products have\nbeen well received by patients [2]. This trend underscores\nthe necessity for the industry to transition toward new\ntechnologies that enable personalization."
+        },
+        {
+          "bbox": [
+            56.69,
+            536.63,
+            300.02,
+            702.01
+          ],
+          "type": 0,
+          "text": "3D printing was introduced more than three decades\nago. Since then, this technology has radically transformed\nthe manufacturing industry. The original purpose of this\ntechnology was the creation of engineering prototypes,\nincluding automotive parts, fashion accessories, and even\narchitectural models, which were produced using this\nmethod. In fact, it is still used for these purposes today [3,\n4, 5]. However, its applications extend far beyond these\ninitial uses. 3D printing has undoubtedly revolutionized\nthe healthcare system, as it enables the production of\ncustomized objects, making it particularly suitable for\nthe personalization of prosthetics, implants, drug delivery\nsystems, tissues, and medical devices [6]. Figure 1 illustrates\nthe five major categories in which 3D printing is employed."
+        },
+        {
+          "bbox": [
+            56.69,
+            715.8,
+            300.02,
+            737.71
+          ],
+          "type": 0,
+          "text": "One of the most pressing issues in healthcare that 3D\nprinting addresses is the shortage of organs for transplanta-"
+        },
+        {
+          "bbox": [
+            311.98,
+            168.69,
+            555.3,
+            262.34
+          ],
+          "type": 0,
+          "text": "tion. According to organ donation statistics, approximately\n20 patients die each day while waiting for a transplant [7]. In\naddition to the limited availability of organ donors, another\nsignificant challenge is ensuring the biocompatibility of the\ndonated organ [8]. 3D printing has the potential to generate\ntissues with patient-specific dimensions and materials, which\ncould significantly contribute to organ transplantation efforts\n[9]."
+        },
+        {
+          "bbox": [
+            311.98,
+            500.22,
+            555.3,
+            522.14
+          ],
+          "type": 0,
+          "text": "Figure 1: Current applications of 3D printing in medicine\nand healthcare. [10]"
+        },
+        {
+          "bbox": [
+            311.98,
+            536.66,
+            555.31,
+            642.27
+          ],
+          "type": 0,
+          "text": "Significant advancements have been made in 3D printing\nfor personalized treatments. Structures can be generated\nfrom\na\ndigital\n3D\nfile\nusing\ncomputer-aided\ndesign\n(CAD) software and computer vision techniques, including\nmagnetic resonance imaging (MRI) or 3D tomography [11].\nAlthough the results are highly promising, it is important\nto note that the level of personalization achievable with\ncomputer vision techniques is limited by the quality of the\nacquired images."
+        },
+        {
+          "bbox": [
+            311.98,
+            656.02,
+            555.3,
+            737.71
+          ],
+          "type": 0,
+          "text": "The objective of this project is to develop an assistant\ndedicated to the creation of anatomical models and organs,\nconditioned by text or images. This aims to facilitate the de-\nvelopment of research prototypes for tissue engineering and\nexplore their potential applicability in prosthetic transplants.\nAdditionally, the system is envisioned as an educational\ntool, benefiting students by enhancing their learning and"
+        },
+        {
+          "bbox": [
+            10.94,
+            207.82,
+            37.62,
+            560.0
+          ],
+          "type": 0,
+          "text": "arXiv:2503.15562v1  [cs.GR]  19 Mar 2025"
+        }
+      ],
+      "preview": "page_previews/paper/paper/page-001.png"
+    },
+    {
+      "doc": "paper",
+      "page": 2,
+      "width": 612.0,
+      "height": 792.0,
+      "text": "Shap-MeD\n2\nunderstanding of anatomy and medicine. In line with the\nconcept of treatment personalization, we aim to incorporate\npatient-specific information into the design of these 3D\nrepresentations. This will be achieved through fine-tuning\ngenerative models based on diffusion models using biomed-\nical objects. While strategies for generating conditioned 3D\nmeshes will be presented later, it is important to emphasize\nthat none of the existing approaches focus specifically on\nthe biomedical domain.\nII. BACKGROUND\nDetermining the methodology for representing three-\ndimensional objects presents a challenge due to the inherent\ncomplexity of shapes, variations in lighting, and spatial\ndimensions. Various strategies are employed to address\ndifferent aspects of 3D representation, including the use of\npolygonal meshes, point clouds, and implicit function-based\napproaches. Examples of these techniques include the STL,\nXYZ, and NeRF formats, which correspond to each of the\naforementioned methods, respectively. This section describes\nthe different representations necessary to understand the\nmodels used throughout the project.\nA. STL\nThe three-dimensional representation of an object using an\nSTL file involves a geometric description through polygonal\nmeshes. This file format encodes the object’s surface as\na network of triangles, where each vertex defines a point\nin three-dimensional space. An STL representation is thus\na matrix of dimensions (T, 3, 3), where T represents the\nnumber of triangles in the model, and each triangle is\nrepresented by a 3 × 3 matrix of the form\n\n\nx1\ny1\nz1\nx2\ny2\nz2\nx3\ny3\nz3\n\n.\nAdditionally, the components of the unit normal vector to\neach triangle are included, ensuring that it points outward\naccording to the model’s orientation. This representation en-\nables the transfer of 3D models between different programs\nand systems, facilitating their use in applications such as\ndesign, engineering, and manufacturing.\nB. OBJ\nThe OBJ format, also known as the Wavefront OBJ\nfile, is a simple representation for 3D objects, originally\ndeveloped for the visualizer The Advanced Visualizer by\nWavefront Technologies [12]. This format consists of a\nplain text file that summarizes the object’s information,\nincluding texture and color details. Due to these features,\nthe OBJ format has gained greater popularity in 3D printing\ncompared to the STL format.\nThis format allows for the representation of more complex\nsurfaces beyond a simple arrangement of triangles. A set\nV of vertices v1, v2, . . . , vn ∈R3 is defined, and subsets\nof these vertices are specified to form the corresponding\nsurfaces or hyperplanes. Additionally, the text file includes\ninformation related to the textures and colors of the defined\nsurfaces.\nUnlike the STL format, this file type not only significantly\nenhances 3D representation by offering greater flexibility\nin defining hyperplanes but also enables the inclusion of\nFreeform curves and surfaces. These curves are constructed\nusing polynomial interpolation between a finite set of ver-\ntices, resulting in the approximation of smooth and continu-\nous 3D surfaces that conform to the selected vertices, thereby\ngenerating a more seamless structure.\nC. NeRF\nThe NeRF 3D representation was proposed in 2022 [13]\nas an alternative to the classical representations used until\nthen. It is based on the construction of an implicit function\nthat maps tuples (x, d) of coordinates and directions to\ntuples (c, σ) of colors and densities. The input coordi-\nnates, denoted as x = (x, y, z) ∈R3, are represented as\npoints, while the directions are expressed using two angles,\n(θ, ϕ) ∈R2, which define the viewpoint from which the\nobject is observed. On the other hand, colors follow the RGB\nrepresentation (cR, cG, cB), and densities are real numbers\nthat symbolize opacity or the amount of matter at a given\nlocation within the three-dimensional volume of the scene.\nIn summary, the function can be characterized as\nFΘ : R5 →R4\n(x, d) 7→(c, σ).\nThe function is parameterized using a Multi-Layer Per-\nceptron (MLP) with weights Θ, which gives FΘ the name\nof an implicit function. Given this function, an image can\nbe generated for a specific viewpoint by assigning to each\npixel the color obtained from the neural network.\nD. STF\nSTF representation (Signed Distance Functions and Tex-\nture Fields) refers to the formulation of an implicit function\nas a method for three-dimensional representation, character-\nized by generating signed distances or textured colors as out-\nputs. The SDF representations (Signed Distance Functions)\nare defined through a function\nGΘ : R3 →R\n(x, y, z) 7→d.\nwhere |d| represents the distance from the point (x, y, z) to\nthe closest point on the object’s surface, and the sign sign(d)\nis negative if the point is inside the object and positive if\nit is outside. This function is considered implicit since the\nobject’s surface is defined as the set of coordinates (x, y, z)\n",
+      "blocks": [
+        {
+          "bbox": [
+            56.69,
+            30.14,
+            555.31,
+            37.12
+          ],
+          "type": 0,
+          "text": "Shap-MeD\n2"
+        },
+        {
+          "bbox": [
+            56.69,
+            61.09,
+            300.02,
+            166.7
+          ],
+          "type": 0,
+          "text": "understanding of anatomy and medicine. In line with the\nconcept of treatment personalization, we aim to incorporate\npatient-specific information into the design of these 3D\nrepresentations. This will be achieved through fine-tuning\ngenerative models based on diffusion models using biomed-\nical objects. While strategies for generating conditioned 3D\nmeshes will be presented later, it is important to emphasize\nthat none of the existing approaches focus specifically on\nthe biomedical domain."
+        },
+        {
+          "bbox": [
+            140.04,
+            180.69,
+            216.69,
+            190.66
+          ],
+          "type": 0,
+          "text": "II. BACKGROUND"
+        },
+        {
+          "bbox": [
+            56.69,
+            195.7,
+            300.02,
+            325.21
+          ],
+          "type": 0,
+          "text": "Determining the methodology for representing three-\ndimensional objects presents a challenge due to the inherent\ncomplexity of shapes, variations in lighting, and spatial\ndimensions. Various strategies are employed to address\ndifferent aspects of 3D representation, including the use of\npolygonal meshes, point clouds, and implicit function-based\napproaches. Examples of these techniques include the STL,\nXYZ, and NeRF formats, which correspond to each of the\naforementioned methods, respectively. This section describes\nthe different representations necessary to understand the\nmodels used throughout the project."
+        },
+        {
+          "bbox": [
+            56.69,
+            341.27,
+            86.31,
+            351.24
+          ],
+          "type": 0,
+          "text": "A. STL"
+        },
+        {
+          "bbox": [
+            56.69,
+            356.45,
+            300.02,
+            450.1
+          ],
+          "type": 0,
+          "text": "The three-dimensional representation of an object using an\nSTL file involves a geometric description through polygonal\nmeshes. This file format encodes the object’s surface as\na network of triangles, where each vertex defines a point\nin three-dimensional space. An STL representation is thus\na matrix of dimensions (T, 3, 3), where T represents the\nnumber of triangles in the model, and each triangle is\nrepresented by a 3 × 3 matrix of the form"
+        },
+        {
+          "bbox": [
+            145.23,
+            465.66,
+            151.88,
+            475.62
+          ],
+          "type": 0,
+          "text": ""
+        },
+        {
+          "bbox": [
+            145.23,
+            466.46,
+            199.92,
+            501.18
+          ],
+          "type": 0,
+          "text": "\nx1\ny1\nz1\nx2\ny2\nz2\nx3\ny3\nz3"
+        },
+        {
+          "bbox": [
+            200.42,
+            465.66,
+            207.06,
+            475.62
+          ],
+          "type": 0,
+          "text": ""
+        },
+        {
+          "bbox": [
+            200.42,
+            478.52,
+            211.49,
+            493.55
+          ],
+          "type": 0,
+          "text": "."
+        },
+        {
+          "bbox": [
+            56.69,
+            507.31,
+            300.02,
+            577.05
+          ],
+          "type": 0,
+          "text": "Additionally, the components of the unit normal vector to\neach triangle are included, ensuring that it points outward\naccording to the model’s orientation. This representation en-\nables the transfer of 3D models between different programs\nand systems, facilitating their use in applications such as\ndesign, engineering, and manufacturing."
+        },
+        {
+          "bbox": [
+            56.69,
+            593.11,
+            87.96,
+            603.07
+          ],
+          "type": 0,
+          "text": "B. OBJ"
+        },
+        {
+          "bbox": [
+            56.69,
+            608.29,
+            300.02,
+            701.94
+          ],
+          "type": 0,
+          "text": "The OBJ format, also known as the Wavefront OBJ\nfile, is a simple representation for 3D objects, originally\ndeveloped for the visualizer The Advanced Visualizer by\nWavefront Technologies [12]. This format consists of a\nplain text file that summarizes the object’s information,\nincluding texture and color details. Due to these features,\nthe OBJ format has gained greater popularity in 3D printing\ncompared to the STL format."
+        },
+        {
+          "bbox": [
+            56.69,
+            715.8,
+            300.02,
+            737.71
+          ],
+          "type": 0,
+          "text": "This format allows for the representation of more complex\nsurfaces beyond a simple arrangement of triangles. A set"
+        },
+        {
+          "bbox": [
+            311.98,
+            57.48,
+            555.31,
+            118.88
+          ],
+          "type": 0,
+          "text": "V of vertices v1, v2, . . . , vn ∈R3 is defined, and subsets\nof these vertices are specified to form the corresponding\nsurfaces or hyperplanes. Additionally, the text file includes\ninformation related to the textures and colors of the defined\nsurfaces."
+        },
+        {
+          "bbox": [
+            311.98,
+            132.8,
+            555.31,
+            226.44
+          ],
+          "type": 0,
+          "text": "Unlike the STL format, this file type not only significantly\nenhances 3D representation by offering greater flexibility\nin defining hyperplanes but also enables the inclusion of\nFreeform curves and surfaces. These curves are constructed\nusing polynomial interpolation between a finite set of ver-\ntices, resulting in the approximation of smooth and continu-\nous 3D surfaces that conform to the selected vertices, thereby\ngenerating a more seamless structure."
+        },
+        {
+          "bbox": [
+            311.98,
+            243.49,
+            349.34,
+            253.45
+          ],
+          "type": 0,
+          "text": "C. NeRF"
+        },
+        {
+          "bbox": [
+            311.98,
+            258.73,
+            555.31,
+            412.16
+          ],
+          "type": 0,
+          "text": "The NeRF 3D representation was proposed in 2022 [13]\nas an alternative to the classical representations used until\nthen. It is based on the construction of an implicit function\nthat maps tuples (x, d) of coordinates and directions to\ntuples (c, σ) of colors and densities. The input coordi-\nnates, denoted as x = (x, y, z) ∈R3, are represented as\npoints, while the directions are expressed using two angles,\n(θ, ϕ) ∈R2, which define the viewpoint from which the\nobject is observed. On the other hand, colors follow the RGB\nrepresentation (cR, cG, cB), and densities are real numbers\nthat symbolize opacity or the amount of matter at a given\nlocation within the three-dimensional volume of the scene.\nIn summary, the function can be characterized as"
+        },
+        {
+          "bbox": [
+            396.69,
+            428.2,
+            456.35,
+            443.9
+          ],
+          "type": 0,
+          "text": "FΘ : R5 →R4"
+        },
+        {
+          "bbox": [
+            406.98,
+            447.26,
+            470.6,
+            457.49
+          ],
+          "type": 0,
+          "text": "(x, d) 7→(c, σ)."
+        },
+        {
+          "bbox": [
+            311.98,
+            466.14,
+            555.3,
+            523.92
+          ],
+          "type": 0,
+          "text": "The function is parameterized using a Multi-Layer Per-\nceptron (MLP) with weights Θ, which gives FΘ the name\nof an implicit function. Given this function, an image can\nbe generated for a specific viewpoint by assigning to each\npixel the color obtained from the neural network."
+        },
+        {
+          "bbox": [
+            311.98,
+            540.97,
+            343.25,
+            550.93
+          ],
+          "type": 0,
+          "text": "D. STF"
+        },
+        {
+          "bbox": [
+            311.98,
+            556.21,
+            555.3,
+            625.95
+          ],
+          "type": 0,
+          "text": "STF representation (Signed Distance Functions and Tex-\nture Fields) refers to the formulation of an implicit function\nas a method for three-dimensional representation, character-\nized by generating signed distances or textured colors as out-\nputs. The SDF representations (Signed Distance Functions)\nare defined through a function"
+        },
+        {
+          "bbox": [
+            404.71,
+            641.99,
+            461.82,
+            657.69
+          ],
+          "type": 0,
+          "text": "GΘ : R3 →R"
+        },
+        {
+          "bbox": [
+            406.51,
+            661.05,
+            462.58,
+            671.14
+          ],
+          "type": 0,
+          "text": "(x, y, z) 7→d."
+        },
+        {
+          "bbox": [
+            311.98,
+            679.57,
+            555.31,
+            737.72
+          ],
+          "type": 0,
+          "text": "where |d| represents the distance from the point (x, y, z) to\nthe closest point on the object’s surface, and the sign sign(d)\nis negative if the point is inside the object and positive if\nit is outside. This function is considered implicit since the\nobject’s surface is defined as the set of coordinates (x, y, z)"
+        }
+      ],
+      "preview": "page_previews/paper/paper/page-002.png"
+    },
+    {
+      "doc": "paper",
+      "page": 3,
+      "width": 612.0,
+      "height": 792.0,
+      "text": "Shap-MeD\n3\nthat satisfy GΘ(x, y, z)\n=\n0. This SDF representation\nhas been employed in generative models such as DMTet\n[14]. Other approaches extend this concept by incorporating\nadditional information beyond signed distance, integrating\ntexture information (Texture Fields) and RGB color data.\nIII. RELATED WORK\nA. Point-E\nAt the time of publishing Point-E [15] in 2022, all\nstate-of-the-art models required extensive inference time on\nmultiple GPUs to generate just a single example, making it\nimpractical to democratize 3D content generation from text\nfor the general public. Therefore, this work proposes an\nalternative approach that generates a 3D point cloud from\ntext. A point cloud is defined as an array of tuples, where\neach tuple represents a point containing three entries for the\nthree-dimensional coordinates and three additional entries\nfor the RGB color channels.\nTo generate point clouds like the one previously described,\nthe architecture is based on transformers [16] and Gaussian\ndiffusion models [17]. These models rely on a stepwise noise\naddition process, defined as\nq(xt|xt−1) : N(xt;\np\n1 −βxt−1, βtI)\nWhere xt−1 and xt represent two consecutive steps in\nthe noise addition process applied to an example x—in this\ncase, a point cloud—the generative process is modeled as a\nnormal distribution conditioned on the noisy example from\nthe previous step, xt−1. Additionally, a noise scheduling\nvariable, β, gradually adjusts the noise level at each\nstep, ensuring controlled variance to prevent excessive\nfluctuations between iterations. This noise addition process\nis approximated using a transformer architecture [16], which\nmodels the inverse conditional probability pθ(xt−1 | xt) by\npredicting the noise component ϵ.\nWhile this approach is effective for generating meaningful\npoint clouds from randomly initialized, normally distributed\nnoise, modifications are necessary to enable generation\nbased on a given textual description. Typically, a condi-\ntioning process is employed, where the noisy point cloud\nis concatenated with a textual representation as input to the\ntransformer architecture, allowing for text-driven inference\n[18]. However, empirical findings during the development\nof Point-E [15] revealed that conditioning on images rather\nthan text yielded superior results. Consequently, the final\narchitecture utilizes a diffusion model based on transformers,\nconditioned on an image representation obtained from a ViT-\nL/14 CLIP model [19] and a noisy point cloud. This setup\nenables the prediction of a semantically meaningful point\ncloud that accurately represents the content of the given\nimage, as illustrated in Figure 2.\nFigure 2: Transformer-Based Diffusion Architecture for\nGenerating a Semantically Coherent Point Cloud from an\nImage and a Normally Distributed Noisy Point Cloud [15]\nAs\nobserved,\nthis\narchitecture\nsolely\nenables\nthe\ngeneration of point clouds from images, necessitating\nthe introduction of a component that generates images\nfrom text. This component is a GLIDE model [20], a\ntext-conditioned diffusion model that, unlike CLIP [19],\ndoes not require labeled classification text to generate\nimages. To optimize the use of GLIDE, fine-tuning was\nperformed using a proprietary dataset comprising millions\nof images, each created from 3D renders using Blender\n[21]. Specifically, 20 images per model were generated,\neach corresponding to a randomly chosen camera angle.\nThis architecture consists of three sequential generative\ncomponents:\n1) Text-to-Image Generator: A GLIDE architecture is\nemployed to convert textual descriptions into images.\n2) Low-Resolution\nPoint\nCloud\nGenerator:\nA\ntransformer-based architecture, as shown in Figure\n2, is used to generate a low-resolution point cloud\nconsisting of 1,000 points from the image produced in\nthe previous step.\n3) High-Resolution Point Cloud Generator: Similar\nto the previous step, a transformer-based architecture\n(also illustrated in Figure 2) is employed. However, in\nthis case, the architecture is conditioned not only on\nthe image from step 1 but also on the low-resolution\npoint cloud generated in step 2. Specifically, a portion\nof the input point cloud is replaced with the generated\nlow-resolution point cloud to produce a high-resolution\npoint cloud containing 4,000 points.\nIn the architecture described above, the training of the\nfirst step relies on text-image tuples, where synthetic views\nare created using a dataset of 3D objects. To complete\nthe training process for the entire pipeline, high-resolution\npoint clouds are generated from the 20 available views per\nobject. A sampling process is then applied to obtain point\nclouds containing 4,000 and 1,000 points, respectively.\nThe 4,000-point clouds are used to train the component in\nstep 3, while the 1,000-point clouds are used to train the\n",
+      "blocks": [
+        {
+          "bbox": [
+            56.69,
+            30.14,
+            555.31,
+            37.12
+          ],
+          "type": 0,
+          "text": "Shap-MeD\n3"
+        },
+        {
+          "bbox": [
+            56.69,
+            60.86,
+            300.02,
+            118.88
+          ],
+          "type": 0,
+          "text": "that satisfy GΘ(x, y, z)\n=\n0. This SDF representation\nhas been employed in generative models such as DMTet\n[14]. Other approaches extend this concept by incorporating\nadditional information beyond signed distance, integrating\ntexture information (Texture Fields) and RGB color data."
+        },
+        {
+          "bbox": [
+            133.5,
+            144.48,
+            223.22,
+            154.44
+          ],
+          "type": 0,
+          "text": "III. RELATED WORK"
+        },
+        {
+          "bbox": [
+            56.69,
+            166.57,
+            100.45,
+            176.53
+          ],
+          "type": 0,
+          "text": "A. Point-E"
+        },
+        {
+          "bbox": [
+            56.69,
+            186.02,
+            300.02,
+            303.58
+          ],
+          "type": 0,
+          "text": "At the time of publishing Point-E [15] in 2022, all\nstate-of-the-art models required extensive inference time on\nmultiple GPUs to generate just a single example, making it\nimpractical to democratize 3D content generation from text\nfor the general public. Therefore, this work proposes an\nalternative approach that generates a 3D point cloud from\ntext. A point cloud is defined as an array of tuples, where\neach tuple represents a point containing three entries for the\nthree-dimensional coordinates and three additional entries\nfor the RGB color channels."
+        },
+        {
+          "bbox": [
+            56.69,
+            318.72,
+            300.02,
+            364.55
+          ],
+          "type": 0,
+          "text": "To generate point clouds like the one previously described,\nthe architecture is based on transformers [16] and Gaussian\ndiffusion models [17]. These models rely on a stepwise noise\naddition process, defined as"
+        },
+        {
+          "bbox": [
+            101.67,
+            376.51,
+            191.0,
+            389.15
+          ],
+          "type": 0,
+          "text": "q(xt|xt−1) : N(xt;\np"
+        },
+        {
+          "bbox": [
+            191.01,
+            378.22,
+            255.04,
+            389.15
+          ],
+          "type": 0,
+          "text": "1 −βxt−1, βtI)"
+        },
+        {
+          "bbox": [
+            56.69,
+            403.54,
+            300.02,
+            533.28
+          ],
+          "type": 0,
+          "text": "Where xt−1 and xt represent two consecutive steps in\nthe noise addition process applied to an example x—in this\ncase, a point cloud—the generative process is modeled as a\nnormal distribution conditioned on the noisy example from\nthe previous step, xt−1. Additionally, a noise scheduling\nvariable, β, gradually adjusts the noise level at each\nstep, ensuring controlled variance to prevent excessive\nfluctuations between iterations. This noise addition process\nis approximated using a transformer architecture [16], which\nmodels the inverse conditional probability pθ(xt−1 | xt) by\npredicting the noise component ϵ."
+        },
+        {
+          "bbox": [
+            56.69,
+            548.42,
+            300.02,
+            737.71
+          ],
+          "type": 0,
+          "text": "While this approach is effective for generating meaningful\npoint clouds from randomly initialized, normally distributed\nnoise, modifications are necessary to enable generation\nbased on a given textual description. Typically, a condi-\ntioning process is employed, where the noisy point cloud\nis concatenated with a textual representation as input to the\ntransformer architecture, allowing for text-driven inference\n[18]. However, empirical findings during the development\nof Point-E [15] revealed that conditioning on images rather\nthan text yielded superior results. Consequently, the final\narchitecture utilizes a diffusion model based on transformers,\nconditioned on an image representation obtained from a ViT-\nL/14 CLIP model [19] and a noisy point cloud. This setup\nenables the prediction of a semantically meaningful point\ncloud that accurately represents the content of the given\nimage, as illustrated in Figure 2."
+        },
+        {
+          "bbox": [
+            311.98,
+            208.53,
+            555.3,
+            242.4
+          ],
+          "type": 0,
+          "text": "Figure 2: Transformer-Based Diffusion Architecture for\nGenerating a Semantically Coherent Point Cloud from an\nImage and a Normally Distributed Noisy Point Cloud [15]"
+        },
+        {
+          "bbox": [
+            311.98,
+            257.85,
+            555.3,
+            387.37
+          ],
+          "type": 0,
+          "text": "As\nobserved,\nthis\narchitecture\nsolely\nenables\nthe\ngeneration of point clouds from images, necessitating\nthe introduction of a component that generates images\nfrom text. This component is a GLIDE model [20], a\ntext-conditioned diffusion model that, unlike CLIP [19],\ndoes not require labeled classification text to generate\nimages. To optimize the use of GLIDE, fine-tuning was\nperformed using a proprietary dataset comprising millions\nof images, each created from 3D renders using Blender\n[21]. Specifically, 20 images per model were generated,\neach corresponding to a randomly chosen camera angle."
+        },
+        {
+          "bbox": [
+            311.98,
+            401.27,
+            555.3,
+            423.19
+          ],
+          "type": 0,
+          "text": "This architecture consists of three sequential generative\ncomponents:"
+        },
+        {
+          "bbox": [
+            318.62,
+            426.94,
+            555.31,
+            616.32
+          ],
+          "type": 0,
+          "text": "1) Text-to-Image Generator: A GLIDE architecture is\nemployed to convert textual descriptions into images.\n2) Low-Resolution\nPoint\nCloud\nGenerator:\nA\ntransformer-based architecture, as shown in Figure\n2, is used to generate a low-resolution point cloud\nconsisting of 1,000 points from the image produced in\nthe previous step.\n3) High-Resolution Point Cloud Generator: Similar\nto the previous step, a transformer-based architecture\n(also illustrated in Figure 2) is employed. However, in\nthis case, the architecture is conditioned not only on\nthe image from step 1 but also on the low-resolution\npoint cloud generated in step 2. Specifically, a portion\nof the input point cloud is replaced with the generated\nlow-resolution point cloud to produce a high-resolution\npoint cloud containing 4,000 points."
+        },
+        {
+          "bbox": [
+            311.98,
+            632.11,
+            555.3,
+            737.71
+          ],
+          "type": 0,
+          "text": "In the architecture described above, the training of the\nfirst step relies on text-image tuples, where synthetic views\nare created using a dataset of 3D objects. To complete\nthe training process for the entire pipeline, high-resolution\npoint clouds are generated from the 20 available views per\nobject. A sampling process is then applied to obtain point\nclouds containing 4,000 and 1,000 points, respectively.\nThe 4,000-point clouds are used to train the component in\nstep 3, while the 1,000-point clouds are used to train the"
+        }
+      ],
+      "preview": "page_previews/paper/paper/page-003.png"
+    },
+    {
+      "doc": "paper",
+      "page": 4,
+      "width": 612.0,
+      "height": 792.0,
+      "text": "Shap-MeD\n4\ncomponent in step 2, following the noise addition process\ndescribed in [17].\nB. Shap-e\nShap-e [22] is configured as a conditional generative\nmodel that, based on text or images, generates a three-\ndimensional representation. This development, conceived\nby OpenAI, distinguishes itself from Point-e by directly\ngenerating the parameters of an implicit function, which\ncan be employed as a representation of a three-dimensional\nobject,\nas\nrequired\nin\nNeRF\n(II-C)\nand\nSTF\n(II-D)\nrepresentations. The model structure consists of two main\ncomponents: an encoder that produces the parameters\nof an implicit function from a representation of a three-\ndimensional object and a conditional diffusion model based\non either images or text descriptions.\nThe encoder architecture is illustrated in Figure 3. This\ncomponent of the model takes as input two distinct rep-\nresentations of a three-dimensional object: a point cloud\nrepresentation consisting of 16,000 points and a series of\nRGBA views of the object captured from various angles.\nThese inputs undergo cross-attention layers, followed by\na transformer-based architecture that generates a sequence\nof representations of the inputs. These representations are\nsubsequently used as parameters in implicit functions that\nultimately define the three-dimensional object. Specifically,\nthe encoder output can be interpreted as the weights of\nan MLP neural network, similar to that used in NeRF,\nwhere, given an input (x, y, z), three outputs are generated,\ncorresponding to implicit function representations:\n• σ: Represents the density in the NeRF representation.\n• RGB: Represents the color.\n• SDF: Represents the signed distance, characteristic of\nthe STF representation.\nInitially, the encoder is trained exclusively to obtain NeRF\nrepresentations. To achieve this, a combination of two loss\nfunctions is employed, using a joint function:\nLNeRF = LRGB + LT .\nThe loss function LRGB compares the colors of real 3D\nobjects with those obtained from the implicit function gen-\nerated by the encoder. More formally, a set R of 4,096 rays\n(directions) is randomly sampled from the 3D object, and\nthe estimated colors for each ray are compared with the\nimplicit function and the actual color using the L1 norm of\nthe difference. The implicit function is evaluated through two\nrendering processes: a coarse rendering (c), which provides\nan initial less detailed approximation of the scene, and a fine\nrendering (f), which refines this initial estimation, producing\na more detailed and precise representation of the scene.\nUsing these renderings, the loss function is computed as\nfollows:\nLRGB = Er∈R\nh\n|| ˆCc(r) −C(r)||1 + || ˆCf(r) −C(r)||1\ni\n,\nFigure 3: Encoder representation of Shap-e. Obtained from\n[22].\nwhere C(r) represents the actual color, and\nˆCc(r) and\nˆCf(r) correspond to the predicted colors from the coarse\nand fine renderings, respectively.\nOn the other hand, the loss function LT compares the\ntransmittance\n1 obtained from the real object with that\ngenerated by the implicit function. Similar to LRGB, the\ncomparison is based on the L1 norm of the difference\nbetween the real and estimated values for the same set of\nrays in both renderings:\nLT = Er∈R\nh\n|| ˆTc(r) −T(r)||1 + || ˆTf(r) −T(r)||1\ni\n.\nSubsequently, the pretrained network is fine-tuned to incor-\nporate the STF representation. For this purpose, a joint loss\nfunction is defined as:\nLF T = LNeRF + LST F ,\nwhere LST F compares the actual mesh with the recon-\nstructed one. To construct the mesh from the encoder out-\nputs, a grid of dimensions 128 × 128 × 128 is defined,\nand function values are computed over this grid. Using\nthis information, N images are generated via the rendering\nprocess, which are then compared with the real images\nusing the L2 norm to compute the final loss function LST F ,\nfollowing the formula:\nLST F =\n1\nN · s2\nN\nX\ni=1\n||Render(Meshi) −Imagei||2\n2,\nwhere s is the resolution of the generated images, Meshi\nrepresents the reconstructed mesh for sample i, and Imagei\n1Transmittance: a property that describes how light travels through a\nmedium or object. It represents the fraction of light that passes through a\npoint along a ray without being absorbed or scattered. It is computed based\non the densities σ.\n",
+      "blocks": [
+        {
+          "bbox": [
+            56.69,
+            30.14,
+            555.31,
+            37.12
+          ],
+          "type": 0,
+          "text": "Shap-MeD\n4"
+        },
+        {
+          "bbox": [
+            56.69,
+            61.09,
+            300.02,
+            83.01
+          ],
+          "type": 0,
+          "text": "component in step 2, following the noise addition process\ndescribed in [17]."
+        },
+        {
+          "bbox": [
+            56.69,
+            112.89,
+            97.92,
+            122.85
+          ],
+          "type": 0,
+          "text": "B. Shap-e"
+        },
+        {
+          "bbox": [
+            56.69,
+            128.33,
+            300.02,
+            269.8
+          ],
+          "type": 0,
+          "text": "Shap-e [22] is configured as a conditional generative\nmodel that, based on text or images, generates a three-\ndimensional representation. This development, conceived\nby OpenAI, distinguishes itself from Point-e by directly\ngenerating the parameters of an implicit function, which\ncan be employed as a representation of a three-dimensional\nobject,\nas\nrequired\nin\nNeRF\n(II-C)\nand\nSTF\n(II-D)\nrepresentations. The model structure consists of two main\ncomponents: an encoder that produces the parameters\nof an implicit function from a representation of a three-\ndimensional object and a conditional diffusion model based\non either images or text descriptions."
+        },
+        {
+          "bbox": [
+            56.69,
+            283.8,
+            300.02,
+            449.18
+          ],
+          "type": 0,
+          "text": "The encoder architecture is illustrated in Figure 3. This\ncomponent of the model takes as input two distinct rep-\nresentations of a three-dimensional object: a point cloud\nrepresentation consisting of 16,000 points and a series of\nRGBA views of the object captured from various angles.\nThese inputs undergo cross-attention layers, followed by\na transformer-based architecture that generates a sequence\nof representations of the inputs. These representations are\nsubsequently used as parameters in implicit functions that\nultimately define the three-dimensional object. Specifically,\nthe encoder output can be interpreted as the weights of\nan MLP neural network, similar to that used in NeRF,\nwhere, given an input (x, y, z), three outputs are generated,\ncorresponding to implicit function representations:"
+        },
+        {
+          "bbox": [
+            66.66,
+            453.04,
+            297.27,
+            463.23
+          ],
+          "type": 0,
+          "text": "• σ: Represents the density in the NeRF representation."
+        },
+        {
+          "bbox": [
+            66.66,
+            464.99,
+            191.78,
+            475.19
+          ],
+          "type": 0,
+          "text": "• RGB: Represents the color."
+        },
+        {
+          "bbox": [
+            56.69,
+            476.95,
+            300.02,
+            537.06
+          ],
+          "type": 0,
+          "text": "• SDF: Represents the signed distance, characteristic of\nthe STF representation.\nInitially, the encoder is trained exclusively to obtain NeRF\nrepresentations. To achieve this, a combination of two loss\nfunctions is employed, using a joint function:"
+        },
+        {
+          "bbox": [
+            129.5,
+            545.63,
+            227.22,
+            557.22
+          ],
+          "type": 0,
+          "text": "LNeRF = LRGB + LT ."
+        },
+        {
+          "bbox": [
+            56.69,
+            564.53,
+            300.03,
+            718.32
+          ],
+          "type": 0,
+          "text": "The loss function LRGB compares the colors of real 3D\nobjects with those obtained from the implicit function gen-\nerated by the encoder. More formally, a set R of 4,096 rays\n(directions) is randomly sampled from the 3D object, and\nthe estimated colors for each ray are compared with the\nimplicit function and the actual color using the L1 norm of\nthe difference. The implicit function is evaluated through two\nrendering processes: a coarse rendering (c), which provides\nan initial less detailed approximation of the scene, and a fine\nrendering (f), which refines this initial estimation, producing\na more detailed and precise representation of the scene.\nUsing these renderings, the loss function is computed as\nfollows:"
+        },
+        {
+          "bbox": [
+            62.04,
+            723.13,
+            294.68,
+            738.48
+          ],
+          "type": 0,
+          "text": "LRGB = Er∈R\nh\n|| ˆCc(r) −C(r)||1 + || ˆCf(r) −C(r)||1\ni\n,"
+        },
+        {
+          "bbox": [
+            311.98,
+            271.6,
+            555.3,
+            293.52
+          ],
+          "type": 0,
+          "text": "Figure 3: Encoder representation of Shap-e. Obtained from\n[22]."
+        },
+        {
+          "bbox": [
+            311.98,
+            315.2,
+            555.31,
+            351.82
+          ],
+          "type": 0,
+          "text": "where C(r) represents the actual color, and\nˆCc(r) and\nˆCf(r) correspond to the predicted colors from the coarse\nand fine renderings, respectively."
+        },
+        {
+          "bbox": [
+            311.98,
+            365.53,
+            555.31,
+            435.63
+          ],
+          "type": 0,
+          "text": "On the other hand, the loss function LT compares the\ntransmittance\n1 obtained from the real object with that\ngenerated by the implicit function. Similar to LRGB, the\ncomparison is based on the L1 norm of the difference\nbetween the real and estimated values for the same set of\nrays in both renderings:"
+        },
+        {
+          "bbox": [
+            325.66,
+            442.41,
+            541.63,
+            457.77
+          ],
+          "type": 0,
+          "text": "LT = Er∈R\nh\n|| ˆTc(r) −T(r)||1 + || ˆTf(r) −T(r)||1\ni\n."
+        },
+        {
+          "bbox": [
+            311.98,
+            467.07,
+            555.3,
+            500.94
+          ],
+          "type": 0,
+          "text": "Subsequently, the pretrained network is fine-tuned to incor-\nporate the STF representation. For this purpose, a joint loss\nfunction is defined as:"
+        },
+        {
+          "bbox": [
+            382.43,
+            509.84,
+            484.85,
+            521.43
+          ],
+          "type": 0,
+          "text": "LF T = LNeRF + LST F ,"
+        },
+        {
+          "bbox": [
+            311.98,
+            529.06,
+            555.31,
+            623.06
+          ],
+          "type": 0,
+          "text": "where LST F compares the actual mesh with the recon-\nstructed one. To construct the mesh from the encoder out-\nputs, a grid of dimensions 128 × 128 × 128 is defined,\nand function values are computed over this grid. Using\nthis information, N images are generated via the rendering\nprocess, which are then compared with the real images\nusing the L2 norm to compute the final loss function LST F ,\nfollowing the formula:"
+        },
+        {
+          "bbox": [
+            329.8,
+            633.76,
+            393.75,
+            657.3
+          ],
+          "type": 0,
+          "text": "LST F =\n1\nN · s2"
+        },
+        {
+          "bbox": [
+            397.1,
+            630.39,
+            411.5,
+            648.17
+          ],
+          "type": 0,
+          "text": "N\nX"
+        },
+        {
+          "bbox": [
+            397.85,
+            638.73,
+            537.49,
+            661.57
+          ],
+          "type": 0,
+          "text": "i=1\n||Render(Meshi) −Imagei||2\n2,"
+        },
+        {
+          "bbox": [
+            311.98,
+            667.43,
+            554.81,
+            691.35
+          ],
+          "type": 0,
+          "text": "where s is the resolution of the generated images, Meshi\nrepresents the reconstructed mesh for sample i, and Imagei"
+        },
+        {
+          "bbox": [
+            311.98,
+            701.06,
+            555.31,
+            737.23
+          ],
+          "type": 0,
+          "text": "1Transmittance: a property that describes how light travels through a\nmedium or object. It represents the fraction of light that passes through a\npoint along a ray without being absorbed or scattered. It is computed based\non the densities σ."
+        }
+      ],
+      "preview": "page_previews/paper/paper/page-004.png"
+    },
+    {
+      "doc": "paper",
+      "page": 5,
+      "width": 612.0,
+      "height": 792.0,
+      "text": "Shap-MeD\n5\nis an RGBA target rendering for image i.\nThe second component of the model is a conditional\ndiffusion model based on transformers, similar to Point-e\n(III-A). However, unlike Point-e, the input is not a point\ncloud but rather a sequence of latent vectors representing\nthe weights of an implicit function. This sequence has\ndimensions 1024 × 1024, integrating it into the architecture\nas a sequence of 1024 tokens. For the conditional component\nof the diffusion model, the same approach as in Point-e\n(III-A) is adopted, utilizing CLIP embeddings for both text\nand images. Finally, unlike the original diffusion model, the\nobjective is to minimize the error between x0 and xt rather\nthan the noise error, as shown below:\nLx0 = Ex0∼q(x0),ϵ∼N(0,I),t∼U[1,T ]∥xθ(xt, t) −x0∥2\nThe results presented in the study include metrics evaluating\nthe efficiency of the encoder, such as the PSNR metric\nand CLIP R-Precision, along with a qualitative analysis of\nthe generated samples. The model demonstrates significant\nimprovements over Point-e in the text-conditioned task,\nwhile in the image-conditioned task, it achieves comparable\nresults. This is evident in the examples provided in the study,\nwhere the outputs of both models are compared (Figure 4).\nLastly, Shap-e exhibits faster inference than Point-e, as it\ndoes not require an additional diffusion model for upsam-\npling, providing a notable advantage over the previously\nanalyzed model.\nFigure 4: Comparison of Shap-e vs. Point-e results. Image\nobtained from [22].\nC. Alternative models\n1) Large Reconstruction Model: The Large Reconstruc-\ntion Model (LRM) [23] introduces a data-driven approach\nfor 3D reconstruction from a single image, utilizing a large-\nscale transformer-based encoder-decoder architecture [16].\nThis model consists of three main components:\n• Image Encoder: LRM initially employs a Vision\nTransformer (ViT) [24], specifically DINO [25], to\nencode the image into patch-wise feature tokens. DINO\nis chosen for its ability to self-supervise learning about\nthe structure and texture of relevant image content,\nwhich is crucial for LRM to reconstruct both geometry\nand color in 3D space.\n• Image-to-Triplane Decoder: A decoder is imple-\nmented to project image and camera features into learn-\nable spatial-positional embeddings, translating them\ninto triplane representations. This decoder acts as a\nprior network that provides essential geometric and\nappearance information, addressing the inherent ambi-\nguities in single-image reconstruction.\n• 3D Representation: The triplane representation is\nadopted as a compact and expressive feature format.\nEach plane, (64 × 64) × dT , is used to project any\n3D point within the NeRF object’s bounding box and\nretrieve point features via bilinear interpolation, which\nare subsequently decoded into color and density using\nan MLP.\nFinally, to address the Text-to-3D problem, a preliminary\nmodel would be required to generate the input image before\napplying LRM, such as Stable Diffusion [26].\n2) Large\nMultiview\nGaussian\nModel:\nThe\nLarge\nMultiview Gaussian Model (LGM) is a framework designed\nto generate high-resolution 3D objects from a prompt or an\nimage [27]. From this work, two main ideas were identified:\n• 3D Object Representation: The model leverages mul-\ntiview Gaussian features as a mesh representation. This\nrepresentation is subsequently fused for differentiable\nrendering.\n• 3D Structure: An asymmetric U-Net serves as the\nprimary architecture for mesh generation. It operates on\nmultiview images, which can be produced either from\ntext or a single image using multiview diffusion models.\nMultiview Gaussian models utilize a collection of 3D\nGaussians to represent an object. Each Gaussian is defined\nby a center x ∈R3, a scaling factor s ∈R3, and a\nrotation quaternion q ∈R4. Additionally, an opacity value\nα ∈R and a color value c ∈RC are included. These\nparameters define the Gaussian, which is rendered using\nalpha composition for each pixel.\nIn the asymmetric U-Net, each pixel extracted from the\nfeature map is treated as a 3D Gaussian. The asymmetric\nU-Net allows the model to process higher-resolution images\nwhile controlling the number of Gaussians. In terms of\nperformance, this model surpasses Shap-E and Point-E (see\nFigure 5).\n",
+      "blocks": [
+        {
+          "bbox": [
+            56.69,
+            30.14,
+            555.31,
+            37.12
+          ],
+          "type": 0,
+          "text": "Shap-MeD\n5"
+        },
+        {
+          "bbox": [
+            56.69,
+            60.86,
+            227.05,
+            71.06
+          ],
+          "type": 0,
+          "text": "is an RGBA target rendering for image i."
+        },
+        {
+          "bbox": [
+            56.69,
+            85.48,
+            300.02,
+            226.95
+          ],
+          "type": 0,
+          "text": "The second component of the model is a conditional\ndiffusion model based on transformers, similar to Point-e\n(III-A). However, unlike Point-e, the input is not a point\ncloud but rather a sequence of latent vectors representing\nthe weights of an implicit function. This sequence has\ndimensions 1024 × 1024, integrating it into the architecture\nas a sequence of 1024 tokens. For the conditional component\nof the diffusion model, the same approach as in Point-e\n(III-A) is adopted, utilizing CLIP embeddings for both text\nand images. Finally, unlike the original diffusion model, the\nobjective is to minimize the error between x0 and xt rather\nthan the noise error, as shown below:"
+        },
+        {
+          "bbox": [
+            72.48,
+            235.36,
+            283.74,
+            249.99
+          ],
+          "type": 0,
+          "text": "Lx0 = Ex0∼q(x0),ϵ∼N(0,I),t∼U[1,T ]∥xθ(xt, t) −x0∥2"
+        },
+        {
+          "bbox": [
+            56.69,
+            258.56,
+            300.02,
+            400.03
+          ],
+          "type": 0,
+          "text": "The results presented in the study include metrics evaluating\nthe efficiency of the encoder, such as the PSNR metric\nand CLIP R-Precision, along with a qualitative analysis of\nthe generated samples. The model demonstrates significant\nimprovements over Point-e in the text-conditioned task,\nwhile in the image-conditioned task, it achieves comparable\nresults. This is evident in the examples provided in the study,\nwhere the outputs of both models are compared (Figure 4).\nLastly, Shap-e exhibits faster inference than Point-e, as it\ndoes not require an additional diffusion model for upsam-\npling, providing a notable advantage over the previously\nanalyzed model."
+        },
+        {
+          "bbox": [
+            56.69,
+            529.28,
+            300.02,
+            551.2
+          ],
+          "type": 0,
+          "text": "Figure 4: Comparison of Shap-e vs. Point-e results. Image\nobtained from [22]."
+        },
+        {
+          "bbox": [
+            56.69,
+            576.32,
+            146.79,
+            586.29
+          ],
+          "type": 0,
+          "text": "C. Alternative models"
+        },
+        {
+          "bbox": [
+            56.69,
+            593.08,
+            300.02,
+            651.04
+          ],
+          "type": 0,
+          "text": "1) Large Reconstruction Model: The Large Reconstruc-\ntion Model (LRM) [23] introduces a data-driven approach\nfor 3D reconstruction from a single image, utilizing a large-\nscale transformer-based encoder-decoder architecture [16].\nThis model consists of three main components:"
+        },
+        {
+          "bbox": [
+            66.66,
+            655.93,
+            300.03,
+            737.71
+          ],
+          "type": 0,
+          "text": "• Image Encoder: LRM initially employs a Vision\nTransformer (ViT) [24], specifically DINO [25], to\nencode the image into patch-wise feature tokens. DINO\nis chosen for its ability to self-supervise learning about\nthe structure and texture of relevant image content,\nwhich is crucial for LRM to reconstruct both geometry\nand color in 3D space."
+        },
+        {
+          "bbox": [
+            321.94,
+            61.0,
+            555.31,
+            142.79
+          ],
+          "type": 0,
+          "text": "• Image-to-Triplane Decoder: A decoder is imple-\nmented to project image and camera features into learn-\nable spatial-positional embeddings, translating them\ninto triplane representations. This decoder acts as a\nprior network that provides essential geometric and\nappearance information, addressing the inherent ambi-\nguities in single-image reconstruction."
+        },
+        {
+          "bbox": [
+            321.94,
+            144.69,
+            555.31,
+            226.47
+          ],
+          "type": 0,
+          "text": "• 3D Representation: The triplane representation is\nadopted as a compact and expressive feature format.\nEach plane, (64 × 64) × dT , is used to project any\n3D point within the NeRF object’s bounding box and\nretrieve point features via bilinear interpolation, which\nare subsequently decoded into color and density using\nan MLP."
+        },
+        {
+          "bbox": [
+            311.98,
+            268.88,
+            555.3,
+            302.75
+          ],
+          "type": 0,
+          "text": "Finally, to address the Text-to-3D problem, a preliminary\nmodel would be required to generate the input image before\napplying LRM, such as Stable Diffusion [26]."
+        },
+        {
+          "bbox": [
+            311.98,
+            335.33,
+            555.31,
+            381.33
+          ],
+          "type": 0,
+          "text": "2) Large\nMultiview\nGaussian\nModel:\nThe\nLarge\nMultiview Gaussian Model (LGM) is a framework designed\nto generate high-resolution 3D objects from a prompt or an\nimage [27]. From this work, two main ideas were identified:"
+        },
+        {
+          "bbox": [
+            321.94,
+            423.65,
+            555.31,
+            469.57
+          ],
+          "type": 0,
+          "text": "• 3D Object Representation: The model leverages mul-\ntiview Gaussian features as a mesh representation. This\nrepresentation is subsequently fused for differentiable\nrendering."
+        },
+        {
+          "bbox": [
+            321.94,
+            471.47,
+            555.31,
+            517.39
+          ],
+          "type": 0,
+          "text": "• 3D Structure: An asymmetric U-Net serves as the\nprimary architecture for mesh generation. It operates on\nmultiview images, which can be produced either from\ntext or a single image using multiview diffusion models."
+        },
+        {
+          "bbox": [
+            311.98,
+            559.8,
+            555.31,
+            641.49
+          ],
+          "type": 0,
+          "text": "Multiview Gaussian models utilize a collection of 3D\nGaussians to represent an object. Each Gaussian is defined\nby a center x ∈R3, a scaling factor s ∈R3, and a\nrotation quaternion q ∈R4. Additionally, an opacity value\nα ∈R and a color value c ∈RC are included. These\nparameters define the Gaussian, which is rendered using\nalpha composition for each pixel."
+        },
+        {
+          "bbox": [
+            311.98,
+            667.98,
+            555.3,
+            737.71
+          ],
+          "type": 0,
+          "text": "In the asymmetric U-Net, each pixel extracted from the\nfeature map is treated as a 3D Gaussian. The asymmetric\nU-Net allows the model to process higher-resolution images\nwhile controlling the number of Gaussians. In terms of\nperformance, this model surpasses Shap-E and Point-E (see\nFigure 5)."
+        }
+      ],
+      "preview": "page_previews/paper/paper/page-005.png"
+    },
+    {
+      "doc": "paper",
+      "page": 6,
+      "width": 612.0,
+      "height": 792.0,
+      "text": "Shap-MeD\n6\nFigure 5: Comparison of results: LGM vs. Shap-e\nIV. DATASET\nTo perform the fine-tuning phase of the model, the\nMedShapeNet dataset was used as a source of biomedical\nmeshes [28]. This dataset consolidates 23 different sources,\ncomprising over 100,000 meshes with their respective an-\nnotations (see Figure 6). Unlike existing datasets such as\nShapeNet, which consist of computer-aided design (CAD)\n3D models of real-world objects (such as airplanes, cars,\nchairs, and desks), MedShapeNet provides three-dimensional\nshapes extracted from patient imaging data, encompassing\nboth healthy and pathological subjects.\nThe authors of MedShapeNet developed two interaction\nmodes for utilizing this dataset: an internet-based interface\nthat provides access to the original high-resolution shape\ndata and an API that allows users to interact with mesh\ndata through Python.\nThe 3D figures are stored in standard formats for\ngeometric data structures, namely NIfTI (.nii) for voxel\ngrids, stereolithography (.stl) for meshes, and polygon\nfile format (.ply) for point clouds, facilitating quick shape\npreviews through existing software.\nThe dataset contains information on 50 different cat-\negories, of which 30% correspond to organs, while the\nremaining 70% comprise bones, muscles, arteries, veins,\nand various surgical instruments. Some categories of organs\nwere found to exhibit issues with the provided meshes. In\nparticular, such issues were observed in the brain category,\nas illustrated in Figure 7, where several samples contained\nmeshes that, at first glance, did not correspond to the\nassigned category. Another problematic category was heart,\nwhere, although the general shape of a heart was evident,\nmost samples displayed holes, possibly corresponding to\nadjacent arteries or veins.\nDue to the issues detected in certain categories and\nthe limitation of computational resources, a total of 3,589\nFigure 6: Example meshes in MedShapeNet, including\nvarious bones (skulls, ribs, and vertebrae), organs (brain,\nlung, heart, liver), vessels (aortic vessel tree and pulmonary\nartery), and muscles [28].\nFigure 7: Examples of meshes from the brain category. On\nthe left and center, two examples of misclassified objects.\nOn the right, a correctly classified brain example.\nmeshes were selected for fine-tuning. The selected meshes\nrepresent 10% of the total organ data in MedShapeNet and\nbelong to the categories of aorta, liver, kidney, and heart\n(Figure 7). Among these, the most represented category is\nAorta, the largest artery in the human body. Conversely, the\nleast represented category in the selected training data is\nHeart, with a total of 277 samples. As previously mentioned,\nthis category contains instances with holes. By including it in\nthe fine-tuning dataset, the importance of data quality and the\n",
+      "blocks": [
+        {
+          "bbox": [
+            56.69,
+            30.14,
+            555.31,
+            37.12
+          ],
+          "type": 0,
+          "text": "Shap-MeD\n6"
+        },
+        {
+          "bbox": [
+            75.8,
+            254.94,
+            280.91,
+            264.91
+          ],
+          "type": 0,
+          "text": "Figure 5: Comparison of results: LGM vs. Shap-e"
+        },
+        {
+          "bbox": [
+            149.91,
+            282.67,
+            206.81,
+            292.63
+          ],
+          "type": 0,
+          "text": "IV. DATASET"
+        },
+        {
+          "bbox": [
+            56.69,
+            297.68,
+            300.03,
+            474.94
+          ],
+          "type": 0,
+          "text": "To perform the fine-tuning phase of the model, the\nMedShapeNet dataset was used as a source of biomedical\nmeshes [28]. This dataset consolidates 23 different sources,\ncomprising over 100,000 meshes with their respective an-\nnotations (see Figure 6). Unlike existing datasets such as\nShapeNet, which consist of computer-aided design (CAD)\n3D models of real-world objects (such as airplanes, cars,\nchairs, and desks), MedShapeNet provides three-dimensional\nshapes extracted from patient imaging data, encompassing\nboth healthy and pathological subjects.\nThe authors of MedShapeNet developed two interaction\nmodes for utilizing this dataset: an internet-based interface\nthat provides access to the original high-resolution shape\ndata and an API that allows users to interact with mesh\ndata through Python."
+        },
+        {
+          "bbox": [
+            56.69,
+            488.81,
+            300.02,
+            546.59
+          ],
+          "type": 0,
+          "text": "The 3D figures are stored in standard formats for\ngeometric data structures, namely NIfTI (.nii) for voxel\ngrids, stereolithography (.stl) for meshes, and polygon\nfile format (.ply) for point clouds, facilitating quick shape\npreviews through existing software."
+        },
+        {
+          "bbox": [
+            56.69,
+            560.46,
+            300.02,
+            701.93
+          ],
+          "type": 0,
+          "text": "The dataset contains information on 50 different cat-\negories, of which 30% correspond to organs, while the\nremaining 70% comprise bones, muscles, arteries, veins,\nand various surgical instruments. Some categories of organs\nwere found to exhibit issues with the provided meshes. In\nparticular, such issues were observed in the brain category,\nas illustrated in Figure 7, where several samples contained\nmeshes that, at first glance, did not correspond to the\nassigned category. Another problematic category was heart,\nwhere, although the general shape of a heart was evident,\nmost samples displayed holes, possibly corresponding to\nadjacent arteries or veins."
+        },
+        {
+          "bbox": [
+            56.69,
+            715.8,
+            300.02,
+            737.71
+          ],
+          "type": 0,
+          "text": "Due to the issues detected in certain categories and\nthe limitation of computational resources, a total of 3,589"
+        },
+        {
+          "bbox": [
+            311.98,
+            410.85,
+            555.3,
+            456.68
+          ],
+          "type": 0,
+          "text": "Figure 6: Example meshes in MedShapeNet, including\nvarious bones (skulls, ribs, and vertebrae), organs (brain,\nlung, heart, liver), vessels (aortic vessel tree and pulmonary\nartery), and muscles [28]."
+        },
+        {
+          "bbox": [
+            311.98,
+            570.28,
+            555.3,
+            604.16
+          ],
+          "type": 0,
+          "text": "Figure 7: Examples of meshes from the brain category. On\nthe left and center, two examples of misclassified objects.\nOn the right, a correctly classified brain example."
+        },
+        {
+          "bbox": [
+            311.98,
+            632.11,
+            555.3,
+            737.71
+          ],
+          "type": 0,
+          "text": "meshes were selected for fine-tuning. The selected meshes\nrepresent 10% of the total organ data in MedShapeNet and\nbelong to the categories of aorta, liver, kidney, and heart\n(Figure 7). Among these, the most represented category is\nAorta, the largest artery in the human body. Conversely, the\nleast represented category in the selected training data is\nHeart, with a total of 277 samples. As previously mentioned,\nthis category contains instances with holes. By including it in\nthe fine-tuning dataset, the importance of data quality and the"
+        }
+      ],
+      "preview": "page_previews/paper/paper/page-006.png"
+    },
+    {
+      "doc": "paper",
+      "page": 7,
+      "width": 612.0,
+      "height": 792.0,
+      "text": "Shap-MeD\n7\ncomplexity of the selected meshes in the model are assessed.\nSeveral examples from the selected categories are shown in\nFigure 9.\nFigure 8: Category distribution\nFigure 9: Examples of selected categories\nV. METHODOLOGY\nIn Section III, four candidate architectures were identified\nfor use in the present biomedical problem. These four\narchitectures are based on text/image encoding into a 3D\nrepresentation and have open-source repositories, allowing\nfor a detailed exploration of their functionality. Considering\nthis, we followed the following experimental process:\n1) Selection of the model for fine-tuning\n2) Data preprocessing\n3) Fine-tuning parameters\n4) Model evaluation\n5) Model deployment\nA. Selection of the model for fine-tuning\nWe recognize that fine-tuning models trained on large\ngeneric datasets is always an ideal approach, whether in the\ncontext of text or image models. In this particular case, we\naim to apply this technique to the domain of 3D objects,\nspecifically biomedical objects. This allows us to leverage\nthe prior knowledge of the pre-trained model, which has\nbeen trained on a vast array of objects. As previously\nmentioned, we conducted a study on existing models that\nconvert text into 3D objects. However, we encountered\nissues with some of these models, which led us to select\nonly one of them.\nLet us first examine LRM and LGM. These two models\nare the most recent within our group of text-to-3D object\nmodels. Both were trained on Objaverse [29], a dataset\ncontaining more than 800,000 generic 3D objects along\nwith their corresponding annotations (prompts). This makes\nthem excellent candidates for leveraging their knowledge,\nnot only due to the large amount of training data but also\nbecause they have demonstrated superior performance (see\nFigure 5). However, these models are considerably large.\nLGM was trained using 32 NVIDIA A100 (80G) GPUs\nover four days, while LRM was trained using 128 NVIDIA\nA100 (40G) GPUs over three days. This immediately\ndisqualifies them as viable options.\nThe remaining options are Point-e and Shap-e. Both\nmodels were developed by OpenAI, but Shap-e is more\nrecent. Additionally, Shap-e was trained on approximately\none million more objects than Point-e. Furthermore, these\nmodels were trained using only 8 NVIDIA V100 GPUs,\nsignificantly fewer than LRM and LGM. For these reasons,\nwe selected Shap-e as our model for fine-tuning. In the\nfollowing sections, we will analyze the implications of\nselecting Shap-e as the model for our dataset.\nB. Data preprocessing\nThe preprocessing pipeline is relatively simple and can be\ndivided into two main steps:\n1) Conversion from STL to OBJ: Since the Med-\nShapeNet data was provided in the .stl format and the\nShap-e model requires input in the .obj format, a format\nconversion was necessary before obtaining the latent\nrepresentations of the meshes. Initially, the Aspose\n3D API [30] was used; however, due to a restriction\nlimiting the conversion to a maximum of 50 meshes,\nwe opted to use the open-source library Open3D [31].\n2) Latent extraction: After obtaining the .obj files, we\nused Shap-e’s transmitter (or encoder) to represent\nthem in the latent space. This latent space corresponds\nto the weights of the MLP, which encode the object\nusing NeRF, as discussed in Section III-B. We did\nnot fine-tune the transmitter; that is, its weights were\nfrozen, but we used it to convert our dataset into the\nlatent representation. With these representations, we\nperformed the fine-tuning of Shap-e’s generative model.\nC. Fine-tuning parameters\nFine-tuning, in general, follows certain best practices.\nThrough fine-tuning, we aim to leverage a pre-trained\nmodel’s knowledge to adapt it to our specific task, which, in\nthis case, is mesh generation in the biomedical domain. To\nachieve this, we update the weights of the pre-trained model\nusing our dataset. However, it is crucial to ensure that we do\nnot degrade the model’s existing knowledge, particularly in\nthis case, the diffusion model. For this reason, we use a low\nlearning rate of 1 × 10−5. Additionally, we employ a batch\n",
+      "blocks": [
+        {
+          "bbox": [
+            56.69,
+            30.14,
+            555.31,
+            37.12
+          ],
+          "type": 0,
+          "text": "Shap-MeD\n7"
+        },
+        {
+          "bbox": [
+            56.69,
+            61.09,
+            300.02,
+            94.97
+          ],
+          "type": 0,
+          "text": "complexity of the selected meshes in the model are assessed.\nSeveral examples from the selected categories are shown in\nFigure 9."
+        },
+        {
+          "bbox": [
+            115.18,
+            211.58,
+            241.53,
+            221.54
+          ],
+          "type": 0,
+          "text": "Figure 8: Category distribution"
+        },
+        {
+          "bbox": [
+            92.8,
+            384.63,
+            263.92,
+            394.6
+          ],
+          "type": 0,
+          "text": "Figure 9: Examples of selected categories"
+        },
+        {
+          "bbox": [
+            136.84,
+            419.3,
+            219.88,
+            429.26
+          ],
+          "type": 0,
+          "text": "V. METHODOLOGY"
+        },
+        {
+          "bbox": [
+            56.69,
+            434.28,
+            300.02,
+            504.02
+          ],
+          "type": 0,
+          "text": "In Section III, four candidate architectures were identified\nfor use in the present biomedical problem. These four\narchitectures are based on text/image encoding into a 3D\nrepresentation and have open-source repositories, allowing\nfor a detailed exploration of their functionality. Considering\nthis, we followed the following experimental process:"
+        },
+        {
+          "bbox": [
+            63.34,
+            507.63,
+            231.86,
+            565.42
+          ],
+          "type": 0,
+          "text": "1) Selection of the model for fine-tuning\n2) Data preprocessing\n3) Fine-tuning parameters\n4) Model evaluation\n5) Model deployment"
+        },
+        {
+          "bbox": [
+            56.69,
+            581.09,
+            223.28,
+            591.05
+          ],
+          "type": 0,
+          "text": "A. Selection of the model for fine-tuning"
+        },
+        {
+          "bbox": [
+            56.69,
+            596.24,
+            300.02,
+            725.76
+          ],
+          "type": 0,
+          "text": "We recognize that fine-tuning models trained on large\ngeneric datasets is always an ideal approach, whether in the\ncontext of text or image models. In this particular case, we\naim to apply this technique to the domain of 3D objects,\nspecifically biomedical objects. This allows us to leverage\nthe prior knowledge of the pre-trained model, which has\nbeen trained on a vast array of objects. As previously\nmentioned, we conducted a study on existing models that\nconvert text into 3D objects. However, we encountered\nissues with some of these models, which led us to select\nonly one of them."
+        },
+        {
+          "bbox": [
+            311.98,
+            61.09,
+            555.3,
+            214.52
+          ],
+          "type": 0,
+          "text": "Let us first examine LRM and LGM. These two models\nare the most recent within our group of text-to-3D object\nmodels. Both were trained on Objaverse [29], a dataset\ncontaining more than 800,000 generic 3D objects along\nwith their corresponding annotations (prompts). This makes\nthem excellent candidates for leveraging their knowledge,\nnot only due to the large amount of training data but also\nbecause they have demonstrated superior performance (see\nFigure 5). However, these models are considerably large.\nLGM was trained using 32 NVIDIA A100 (80G) GPUs\nover four days, while LRM was trained using 128 NVIDIA\nA100 (40G) GPUs over three days. This immediately\ndisqualifies them as viable options."
+        },
+        {
+          "bbox": [
+            311.98,
+            228.66,
+            555.3,
+            334.27
+          ],
+          "type": 0,
+          "text": "The remaining options are Point-e and Shap-e. Both\nmodels were developed by OpenAI, but Shap-e is more\nrecent. Additionally, Shap-e was trained on approximately\none million more objects than Point-e. Furthermore, these\nmodels were trained using only 8 NVIDIA V100 GPUs,\nsignificantly fewer than LRM and LGM. For these reasons,\nwe selected Shap-e as our model for fine-tuning. In the\nfollowing sections, we will analyze the implications of\nselecting Shap-e as the model for our dataset."
+        },
+        {
+          "bbox": [
+            311.98,
+            353.45,
+            404.58,
+            363.41
+          ],
+          "type": 0,
+          "text": "B. Data preprocessing"
+        },
+        {
+          "bbox": [
+            311.98,
+            369.41,
+            555.3,
+            391.32
+          ],
+          "type": 0,
+          "text": "The preprocessing pipeline is relatively simple and can be\ndivided into two main steps:"
+        },
+        {
+          "bbox": [
+            318.62,
+            395.63,
+            555.31,
+            596.97
+          ],
+          "type": 0,
+          "text": "1) Conversion from STL to OBJ: Since the Med-\nShapeNet data was provided in the .stl format and the\nShap-e model requires input in the .obj format, a format\nconversion was necessary before obtaining the latent\nrepresentations of the meshes. Initially, the Aspose\n3D API [30] was used; however, due to a restriction\nlimiting the conversion to a maximum of 50 meshes,\nwe opted to use the open-source library Open3D [31].\n2) Latent extraction: After obtaining the .obj files, we\nused Shap-e’s transmitter (or encoder) to represent\nthem in the latent space. This latent space corresponds\nto the weights of the MLP, which encode the object\nusing NeRF, as discussed in Section III-B. We did\nnot fine-tune the transmitter; that is, its weights were\nfrozen, but we used it to convert our dataset into the\nlatent representation. With these representations, we\nperformed the fine-tuning of Shap-e’s generative model."
+        },
+        {
+          "bbox": [
+            311.98,
+            616.15,
+            421.31,
+            626.11
+          ],
+          "type": 0,
+          "text": "C. Fine-tuning parameters"
+        },
+        {
+          "bbox": [
+            311.98,
+            632.11,
+            555.31,
+            737.71
+          ],
+          "type": 0,
+          "text": "Fine-tuning, in general, follows certain best practices.\nThrough fine-tuning, we aim to leverage a pre-trained\nmodel’s knowledge to adapt it to our specific task, which, in\nthis case, is mesh generation in the biomedical domain. To\nachieve this, we update the weights of the pre-trained model\nusing our dataset. However, it is crucial to ensure that we do\nnot degrade the model’s existing knowledge, particularly in\nthis case, the diffusion model. For this reason, we use a low\nlearning rate of 1 × 10−5. Additionally, we employ a batch"
+        }
+      ],
+      "preview": "page_previews/paper/paper/page-007.png"
+    },
+    {
+      "doc": "paper",
+      "page": 8,
+      "width": 612.0,
+      "height": 792.0,
+      "text": "Shap-MeD\n8\nsize of 8 and train for 25 epochs. The fine-tuning process is\nconducted on an NVIDIA A40-24C (24G) GPU.\nD. Model evaluation\nThe\nfine-tuned\nmodel\nwas\nevaluated\nusing\ntwo\napproaches. In the first approach, we employ a quantitative\nevaluation, where the Mean Squared Error (MSE) of the\ndiffusion model serves as our evaluation metric. We compare\nthis metric with the MSE of Shap-e without fine-tuning. To\nachieve this, we split the dataset into three subsets: 80%\nfor training, 10% for evaluation, and the remaining 10%\nfor validation. It is important to highlight that this diffusion\nmodel operates in the latent representation of objects rather\nthan on the objects themselves. This constitutes a major\ndifference between Shap-e and Point-e.\nEvaluating generative models poses a challenge due to\ntheir nature of generating novel content. This issue is also\npresent in text and image generation models. For this reason,\nmany evaluations rely on human assessors to determine the\nquality of the generated content. Consequently, our second\nevaluation method is qualitative. We compare our fine-tuned\nmodel against Shap-e, Point-e, LGM, and LRM by providing\nthem with the same prompt within the biomedical domain.\nA visual comparison is then performed to determine which\nmodel yields the best results.\nE. Model deployment\nThe deployment was carried out using Streamlit, a\nPython framework for deploying data science and machine\nlearning applications. This framework operates as a state\nmachine, where a series of stored elements are accessed\nfrom a front-end interface that can be viewed in a web\nbrowser. All components deployed using this framework\nfunction as a monolith, meaning that both the backend\nand frontend are hosted on the same machine, eliminating\nthe need for additional components such as Docker or Triton.\nTo achieve this, an internal architecture was implemented\nwith two subdivisions. The first subdivision corresponds\nto the backend, which is managed directly by the state\nmachine. Here, the fine-tuned Shap-e model and its weights\nare stored, along with the prompt entered by the user for\nobject generation. This state machine passes the prompt to\nthe pretrained model to generate a prediction, which is then\nlocally converted into an object file with a .ply extension\nusing auxiliary functions from Shap-e.\nThe second subdivision is the frontend, which is responsi-\nble for updating the state machine with user input, including\nthe generation prompt and the selected model version. Once\nthe user enters this information via the graphical interface in\na web browser, the state machine updates with the specified\nmodel version and prompt. This update triggers the backend\nto load the corresponding model weights and use them to\ngenerate the .ply object associated with the user’s prompt.\nVI. RESULTS AND ANALYSIS\nA. Learning during fine-tuning\nDuring the 25 epochs of fine-tuning, a significant\ndecrease in the Mean Squared Error (MSE) loss function\nwas observed for both the training and test datasets (see\nFigure 10). Initially, the loss function recorded values above\n0.14 for both datasets, indicating a notable discrepancy\nbetween the model’s predictions and the ground truth\nvalues. However, as the training process progressed, a\nsteady improvement was evident, with final loss values\napproaching 0.09. This decrease in the loss function reflects\nan enhanced accuracy and predictive capability of the model\nafter fine-tuning on the pretrained data.\nFigure 10: Mean Squared Error (MSE) loss function on\ntraining and validation data during fine-tuning.\nAnother way to visualize the model’s learning process is\nby observing its improvement as the training epochs progress\n(see Figure 11). Notably, it can be seen that the generated\nobject (in this case, a liver) gradually improves its anatomical\nstructure as the number of training epochs increases.\nFigure 11: Evolution of the object (liver) throughout the\ntraining epochs.\nB. Qualitative Comparison\nFor the quantitative evaluation, we used the Mean\nSquared Error (MSE) metric on the evaluation dataset for\nour model and compared it with the MSE of Shap-e without\nfine-tuning. Table I shows the difference between the two\nmodels. It is evident that our model outperforms Shap-e,\nachieving an MSE lower by two orders of magnitude.\nThis behavior is similar to what occurs in other generative\nmodels. Generally, well-established generative models are\ntrained on generic datasets, such as language models and\n",
+      "blocks": [
+        {
+          "bbox": [
+            56.69,
+            30.14,
+            555.31,
+            37.12
+          ],
+          "type": 0,
+          "text": "Shap-MeD\n8"
+        },
+        {
+          "bbox": [
+            56.69,
+            61.09,
+            300.02,
+            83.01
+          ],
+          "type": 0,
+          "text": "size of 8 and train for 25 epochs. The fine-tuning process is\nconducted on an NVIDIA A40-24C (24G) GPU."
+        },
+        {
+          "bbox": [
+            56.69,
+            98.52,
+            142.21,
+            108.48
+          ],
+          "type": 0,
+          "text": "D. Model evaluation"
+        },
+        {
+          "bbox": [
+            56.69,
+            113.66,
+            300.02,
+            243.18
+          ],
+          "type": 0,
+          "text": "The\nfine-tuned\nmodel\nwas\nevaluated\nusing\ntwo\napproaches. In the first approach, we employ a quantitative\nevaluation, where the Mean Squared Error (MSE) of the\ndiffusion model serves as our evaluation metric. We compare\nthis metric with the MSE of Shap-e without fine-tuning. To\nachieve this, we split the dataset into three subsets: 80%\nfor training, 10% for evaluation, and the remaining 10%\nfor validation. It is important to highlight that this diffusion\nmodel operates in the latent representation of objects rather\nthan on the objects themselves. This constitutes a major\ndifference between Shap-e and Point-e."
+        },
+        {
+          "bbox": [
+            56.69,
+            257.0,
+            300.02,
+            374.56
+          ],
+          "type": 0,
+          "text": "Evaluating generative models poses a challenge due to\ntheir nature of generating novel content. This issue is also\npresent in text and image generation models. For this reason,\nmany evaluations rely on human assessors to determine the\nquality of the generated content. Consequently, our second\nevaluation method is qualitative. We compare our fine-tuned\nmodel against Shap-e, Point-e, LGM, and LRM by providing\nthem with the same prompt within the biomedical domain.\nA visual comparison is then performed to determine which\nmodel yields the best results."
+        },
+        {
+          "bbox": [
+            56.69,
+            390.07,
+            145.12,
+            400.03
+          ],
+          "type": 0,
+          "text": "E. Model deployment"
+        },
+        {
+          "bbox": [
+            56.69,
+            405.21,
+            300.02,
+            510.82
+          ],
+          "type": 0,
+          "text": "The deployment was carried out using Streamlit, a\nPython framework for deploying data science and machine\nlearning applications. This framework operates as a state\nmachine, where a series of stored elements are accessed\nfrom a front-end interface that can be viewed in a web\nbrowser. All components deployed using this framework\nfunction as a monolith, meaning that both the backend\nand frontend are hosted on the same machine, eliminating\nthe need for additional components such as Docker or Triton."
+        },
+        {
+          "bbox": [
+            56.69,
+            524.64,
+            300.02,
+            630.24
+          ],
+          "type": 0,
+          "text": "To achieve this, an internal architecture was implemented\nwith two subdivisions. The first subdivision corresponds\nto the backend, which is managed directly by the state\nmachine. Here, the fine-tuned Shap-e model and its weights\nare stored, along with the prompt entered by the user for\nobject generation. This state machine passes the prompt to\nthe pretrained model to generate a prediction, which is then\nlocally converted into an object file with a .ply extension\nusing auxiliary functions from Shap-e."
+        },
+        {
+          "bbox": [
+            56.69,
+            644.07,
+            300.02,
+            737.71
+          ],
+          "type": 0,
+          "text": "The second subdivision is the frontend, which is responsi-\nble for updating the state machine with user input, including\nthe generation prompt and the selected model version. Once\nthe user enters this information via the graphical interface in\na web browser, the state machine updates with the specified\nmodel version and prompt. This update triggers the backend\nto load the corresponding model weights and use them to\ngenerate the .ply object associated with the user’s prompt."
+        },
+        {
+          "bbox": [
+            371.87,
+            61.09,
+            495.42,
+            71.06
+          ],
+          "type": 0,
+          "text": "VI. RESULTS AND ANALYSIS"
+        },
+        {
+          "bbox": [
+            311.98,
+            76.87,
+            438.78,
+            86.83
+          ],
+          "type": 0,
+          "text": "A. Learning during fine-tuning"
+        },
+        {
+          "bbox": [
+            311.98,
+            92.64,
+            555.3,
+            222.16
+          ],
+          "type": 0,
+          "text": "During the 25 epochs of fine-tuning, a significant\ndecrease in the Mean Squared Error (MSE) loss function\nwas observed for both the training and test datasets (see\nFigure 10). Initially, the loss function recorded values above\n0.14 for both datasets, indicating a notable discrepancy\nbetween the model’s predictions and the ground truth\nvalues. However, as the training process progressed, a\nsteady improvement was evident, with final loss values\napproaching 0.09. This decrease in the loss function reflects\nan enhanced accuracy and predictive capability of the model\nafter fine-tuning on the pretrained data."
+        },
+        {
+          "bbox": [
+            311.98,
+            385.92,
+            555.3,
+            407.84
+          ],
+          "type": 0,
+          "text": "Figure 10: Mean Squared Error (MSE) loss function on\ntraining and validation data during fine-tuning."
+        },
+        {
+          "bbox": [
+            311.98,
+            424.1,
+            555.3,
+            481.89
+          ],
+          "type": 0,
+          "text": "Another way to visualize the model’s learning process is\nby observing its improvement as the training epochs progress\n(see Figure 11). Notably, it can be seen that the generated\nobject (in this case, a liver) gradually improves its anatomical\nstructure as the number of training epochs increases."
+        },
+        {
+          "bbox": [
+            311.98,
+            572.11,
+            555.3,
+            594.03
+          ],
+          "type": 0,
+          "text": "Figure 11: Evolution of the object (liver) throughout the\ntraining epochs."
+        },
+        {
+          "bbox": [
+            311.98,
+            616.34,
+            423.12,
+            626.3
+          ],
+          "type": 0,
+          "text": "B. Qualitative Comparison"
+        },
+        {
+          "bbox": [
+            311.98,
+            632.11,
+            555.3,
+            737.71
+          ],
+          "type": 0,
+          "text": "For the quantitative evaluation, we used the Mean\nSquared Error (MSE) metric on the evaluation dataset for\nour model and compared it with the MSE of Shap-e without\nfine-tuning. Table I shows the difference between the two\nmodels. It is evident that our model outperforms Shap-e,\nachieving an MSE lower by two orders of magnitude.\nThis behavior is similar to what occurs in other generative\nmodels. Generally, well-established generative models are\ntrained on generic datasets, such as language models and"
+        }
+      ],
+      "preview": "page_previews/paper/paper/page-008.png"
+    },
+    {
+      "doc": "paper",
+      "page": 9,
+      "width": 612.0,
+      "height": 792.0,
+      "text": "Shap-MeD\n9\nimage models, making them effective for general tasks.\nHowever, when specialization in a specific task is required\n(e.g., generating texts of a particular literary genre for\nlanguage models or realistic images of people for vision\nmodels), the best approach is to leverage the knowledge of\nthe pre-trained model and fine-tune it with domain-specific\ndata.\nWe observe that this principle also applies to our case of\nbiomedical object generation. However, a visual validation is\nstill necessary. In Section VI-C, we will determine whether\nthis finding holds true through qualitative evaluation.\nModel\nMSE in latents\nShap-MeD\n0.089\nShap-e\n0.147\nTabla I: Comparative table between our model and Shap-e,\nusing the MSE of the latents in the evaluation dataset as the\nevaluation metric.\nC. Qualitative Comparison\nWe compared our model with other text-to-3D models. In\nFigure 12, it can be observed that our model exhibits greater\naccuracy in the structure of the organs. Although LGM also\nproduces good results, a closer analysis reveals that the\nliver lacks well-defined edges, reducing the precision of its\nstructure. Additionally, the aorta generated by LGM lacks\nstructural coherence, as it contains disconnected parts.\nMoreover, even more significant advantages can be seen\nwhen comparing our model with Shap-e. For instance, in\nShap-e, the aorta is incorrectly represented as a heart with\nadditional components, and the other organs lack the nec-\nessary precision to faithfully represent their real anatomical\nstructure.\nFigure 12: Comparison with Other Text-to-3D Models\nVII. CONCLUSION AND FUTURE WORK\nThe objective of this project was to develop a tool capable\nof transforming text into 3D objects specifically tailored\nfor the biomedical field, aiming to streamline the modeling\nprocess. 3D modeling plays a crucial role in healthcare,\nas it is utilized in various applications, including surgical\nsimulation and planning, personalized prosthetic implant\ndesign, dental implant development, medical education, and\nanatomical model creation.\nTo achieve this, we employed OpenAI’s Shap-e, a\ngenerative text-to-3D model trained on over a million\ngeneric objects. We then fine-tuned it using biomedical-\nspecific objects such as livers, aortas, kidneys, and hearts.\nOn the evaluation set, our model achieved an MSE of 0.089,\nwhereas Shap-e recorded an MSE of 0.147. Additionally,\nwe conducted a qualitative evaluation, where our model\noutperformed larger state-of-the-art models.\nDespite these promising results, this project still holds\nsignificant potential for improvement. First, it is crucial to\nconsider both the quality and quantity of the dataset used.\nWe observed that some objects were not rendered correctly,\nwhich negatively impacted the model’s fine-tuning perfor-\nmance. Moreover, while our model surpasses larger models\ndue to its specialization in our specific task, we believe that\neven better results could be achieved by fine-tuning one of\nthese larger models, such as LGM or LRM. These models,\nin addition to being more complex, incorporate additional\nmechanisms that could enhance performance compared to\nShap-e.\nREFERENCES\n[1]\nNHS. “IMPROVING OUTCOMES THROUGH PER-\nSONALISED MEDICINE”. In: (Aug. 2016), pp. 1–\n18. URL: https://www.england.nhs.uk/wp-content/\nuploads/2016/09/improving-outcomes-personalised-\nmedicine.pdf.\n[2]\nAlvaro Goyanes et al. “Patient acceptability of 3D\nprinted medicines”. In: International Journal of Phar-\nmaceutics 530.1 (2017), pp. 71–78. ISSN: 0378-5173.\nDOI: https://doi.org/10.1016/j.ijpharm.2017.07.064.\nURL: https://www.sciencedirect.com/science/article/\npii/S0378517317306725.\n[3]\nC.\nBarnatt.\n3D\nPrinting:\nThe\nNext\nIndustrial\nRevolution. ExplainingTheFuture.com, 2013.\nISBN:\n9781484181768. URL: https://books.google.com.co/\nbooks?id=Tvb6nAEACAAJ.\n[4]\nA. Chowdhry. What can 3D printing do? Here are 6\ncreative examples. Accessed: 2024-03-08. 2013. URL:\nhttps://www.forbes.com/sites/amitchowdhry/2013/10/\n08/what- can- 3d- printing- do- here- are- 6- creative-\nexamples/?sh=6901d5e15491.\n[5]\nC. Lee Ventola. “Medical Applications for 3D Print-\ning: Current and Projected Uses”. In: P & T : a peer-\nreviewed journal for formulary management 39.10\n(Oct. 2014), pp. 704–11. ISSN: 1052-1372. DOI: 10.\n4069/pj.2014.4910704. URL: https://www.ncbi.nlm.\nnih.gov/pmc/articles/PMC4189697/.\n",
+      "blocks": [
+        {
+          "bbox": [
+            56.69,
+            30.14,
+            555.31,
+            37.12
+          ],
+          "type": 0,
+          "text": "Shap-MeD\n9"
+        },
+        {
+          "bbox": [
+            56.69,
+            61.09,
+            300.02,
+            142.79
+          ],
+          "type": 0,
+          "text": "image models, making them effective for general tasks.\nHowever, when specialization in a specific task is required\n(e.g., generating texts of a particular literary genre for\nlanguage models or realistic images of people for vision\nmodels), the best approach is to leverage the knowledge of\nthe pre-trained model and fine-tune it with domain-specific\ndata."
+        },
+        {
+          "bbox": [
+            56.69,
+            156.87,
+            300.02,
+            202.69
+          ],
+          "type": 0,
+          "text": "We observe that this principle also applies to our case of\nbiomedical object generation. However, a visual validation is\nstill necessary. In Section VI-C, we will determine whether\nthis finding holds true through qualitative evaluation."
+        },
+        {
+          "bbox": [
+            114.71,
+            219.96,
+            242.01,
+            227.93
+          ],
+          "type": 0,
+          "text": "Model\nMSE in latents"
+        },
+        {
+          "bbox": [
+            114.71,
+            238.69,
+            207.46,
+            246.66
+          ],
+          "type": 0,
+          "text": "Shap-MeD\n0.089"
+        },
+        {
+          "bbox": [
+            114.71,
+            252.14,
+            207.47,
+            260.11
+          ],
+          "type": 0,
+          "text": "Shap-e\n0.147"
+        },
+        {
+          "bbox": [
+            56.69,
+            271.6,
+            300.02,
+            305.47
+          ],
+          "type": 0,
+          "text": "Tabla I: Comparative table between our model and Shap-e,\nusing the MSE of the latents in the evaluation dataset as the\nevaluation metric."
+        },
+        {
+          "bbox": [
+            56.69,
+            335.9,
+            168.39,
+            345.87
+          ],
+          "type": 0,
+          "text": "C. Qualitative Comparison"
+        },
+        {
+          "bbox": [
+            56.69,
+            351.63,
+            300.02,
+            433.33
+          ],
+          "type": 0,
+          "text": "We compared our model with other text-to-3D models. In\nFigure 12, it can be observed that our model exhibits greater\naccuracy in the structure of the organs. Although LGM also\nproduces good results, a closer analysis reveals that the\nliver lacks well-defined edges, reducing the precision of its\nstructure. Additionally, the aorta generated by LGM lacks\nstructural coherence, as it contains disconnected parts."
+        },
+        {
+          "bbox": [
+            56.69,
+            447.41,
+            300.02,
+            517.14
+          ],
+          "type": 0,
+          "text": "Moreover, even more significant advantages can be seen\nwhen comparing our model with Shap-e. For instance, in\nShap-e, the aorta is incorrectly represented as a heart with\nadditional components, and the other organs lack the nec-\nessary precision to faithfully represent their real anatomical\nstructure."
+        },
+        {
+          "bbox": [
+            67.04,
+            669.81,
+            289.68,
+            679.77
+          ],
+          "type": 0,
+          "text": "Figure 12: Comparison with Other Text-to-3D Models"
+        },
+        {
+          "bbox": [
+            93.46,
+            699.92,
+            263.26,
+            709.88
+          ],
+          "type": 0,
+          "text": "VII. CONCLUSION AND FUTURE WORK"
+        },
+        {
+          "bbox": [
+            56.69,
+            715.8,
+            300.02,
+            737.71
+          ],
+          "type": 0,
+          "text": "The objective of this project was to develop a tool capable\nof transforming text into 3D objects specifically tailored"
+        },
+        {
+          "bbox": [
+            311.98,
+            61.09,
+            555.3,
+            226.47
+          ],
+          "type": 0,
+          "text": "for the biomedical field, aiming to streamline the modeling\nprocess. 3D modeling plays a crucial role in healthcare,\nas it is utilized in various applications, including surgical\nsimulation and planning, personalized prosthetic implant\ndesign, dental implant development, medical education, and\nanatomical model creation.\nTo achieve this, we employed OpenAI’s Shap-e, a\ngenerative text-to-3D model trained on over a million\ngeneric objects. We then fine-tuned it using biomedical-\nspecific objects such as livers, aortas, kidneys, and hearts.\nOn the evaluation set, our model achieved an MSE of 0.089,\nwhereas Shap-e recorded an MSE of 0.147. Additionally,\nwe conducted a qualitative evaluation, where our model\noutperformed larger state-of-the-art models."
+        },
+        {
+          "bbox": [
+            311.98,
+            240.42,
+            555.3,
+            381.89
+          ],
+          "type": 0,
+          "text": "Despite these promising results, this project still holds\nsignificant potential for improvement. First, it is crucial to\nconsider both the quality and quantity of the dataset used.\nWe observed that some objects were not rendered correctly,\nwhich negatively impacted the model’s fine-tuning perfor-\nmance. Moreover, while our model surpasses larger models\ndue to its specialization in our specific task, we believe that\neven better results could be achieved by fine-tuning one of\nthese larger models, such as LGM or LRM. These models,\nin addition to being more complex, incorporate additional\nmechanisms that could enhance performance compared to\nShap-e."
+        },
+        {
+          "bbox": [
+            405.75,
+            397.33,
+            461.55,
+            407.29
+          ],
+          "type": 0,
+          "text": "REFERENCES"
+        },
+        {
+          "bbox": [
+            316.96,
+            412.43,
+            555.31,
+            721.27
+          ],
+          "type": 0,
+          "text": "[1]\nNHS. “IMPROVING OUTCOMES THROUGH PER-\nSONALISED MEDICINE”. In: (Aug. 2016), pp. 1–\n18. URL: https://www.england.nhs.uk/wp-content/\nuploads/2016/09/improving-outcomes-personalised-\nmedicine.pdf.\n[2]\nAlvaro Goyanes et al. “Patient acceptability of 3D\nprinted medicines”. In: International Journal of Phar-\nmaceutics 530.1 (2017), pp. 71–78. ISSN: 0378-5173.\nDOI: https://doi.org/10.1016/j.ijpharm.2017.07.064.\nURL: https://www.sciencedirect.com/science/article/\npii/S0378517317306725.\n[3]\nC.\nBarnatt.\n3D\nPrinting:\nThe\nNext\nIndustrial\nRevolution. ExplainingTheFuture.com, 2013.\nISBN:\n9781484181768. URL: https://books.google.com.co/\nbooks?id=Tvb6nAEACAAJ.\n[4]\nA. Chowdhry. What can 3D printing do? Here are 6\ncreative examples. Accessed: 2024-03-08. 2013. URL:\nhttps://www.forbes.com/sites/amitchowdhry/2013/10/\n08/what- can- 3d- printing- do- here- are- 6- creative-\nexamples/?sh=6901d5e15491.\n[5]\nC. Lee Ventola. “Medical Applications for 3D Print-\ning: Current and Projected Uses”. In: P & T : a peer-\nreviewed journal for formulary management 39.10\n(Oct. 2014), pp. 704–11. ISSN: 1052-1372. DOI: 10.\n4069/pj.2014.4910704. URL: https://www.ncbi.nlm.\nnih.gov/pmc/articles/PMC4189697/."
+        }
+      ],
+      "preview": "page_previews/paper/paper/page-009.png"
+    },
+    {
+      "doc": "paper",
+      "page": 10,
+      "width": 612.0,
+      "height": 792.0,
+      "text": "Shap-MeD\n10\n[6]\nCecilia Sahlgren et al. “Tailored Approaches in Drug\nDevelopment and Diagnostics: From Molecular De-\nsign to Biological Model Systems”. In: Adv Healthc\nMater 6.21 (Nov. 2017), 10.1002/adhm.201700258.\nISSN: 2192-2659 (Electronic), 2192-2640 (Linking).\nDOI: 10 . 1002 / adhm . 201700258. URL: https : / /\nonlinelibrary. wiley. com / doi / full / 10 . 1002 / adhm .\n201700258.\n[7]\nS. V. Shinde et al., eds. Disruptive Developments in\nBiomedical Applications. 1st. CRC Press, 2022. DOI:\n10.1201/9781003272694. URL: https://doi.org/10.\n1201/9781003272694.\n[8]\nKarla Jim´enez Oliver. “Overview of Organ Donation”.\nIn: Mexican Journal of Medical Research ICSA 11.21\n(Jan. 2023), pp. 55–63. DOI: 10.29057/mjmr.v11i21.\n10007. URL: https://repository.uaeh.edu.mx/revistas/\nindex.php/MJMR/article/view/10007.\n[9]\nXuanQi Zheng et al. “3D Bioprinting in Orthopedics\nTranslational Research”. In: Journal of Biomateri-\nals Science, Polymer Edition 30.13 (2019). PMID:\n31124402, pp. 1172–1187. DOI: 10.1080/09205063.\n2019 . 1623989. eprint: https : / / doi . org / 10 . 1080 /\n09205063.2019.1623989. URL: https://doi.org/10.\n1080/09205063.2019.1623989.\n[10]\nSarah J Trenfield et al. “Shaping the future: recent\nadvances of 3D printing in drug delivery and health-\ncare”. In: Expert Opinion on Drug Delivery 16.10\n(2019). PMID: 31478752, pp. 1081–1094. DOI: 10.\n1080/17425247.2019.1660318. eprint: https://doi.\norg/10.1080/17425247.2019.1660318. URL: https:\n//doi.org/10.1080/17425247.2019.1660318.\n[11]\nSarah J Trenfield et al. “3D Printing Pharmaceuticals:\nDrug Development to Frontline Care”. In: Trends in\nPharmacological Sciences 39.5 (May 2018), pp. 440–\n451. ISSN: 1873-3735 (Electronic), 0165-6147 (Link-\ning). DOI: 10 . 1016 / j . tips . 2018 . 02 . 006. URL:\nhttps://www.sciencedirect.com/science/article/pii/\nS0165614718300440.\n[12]\nWavefront Technologies. “Wavefront Advanced Visu-\nalizer”. In: (1980).\n[13]\nBen Mildenhall et al. “NeRF”. In: Communications\nof the ACM 65 (1 Jan. 2022), pp. 99–106. ISSN:\n15577317. DOI: 10.1145/3503250.\n[14]\nTianchang Shen et al. Deep Marching Tetrahedra: a\nHybrid Representation for High-Resolution 3D Shape\nSynthesis. URL: https://nv-tlabs.github.io/DMTet/..\n[15]\nAlex Nichol et al. “Point-E: A System for Generating\n3D Point Clouds from Complex Prompts”. In: (Dec.\n2022). URL: http://arxiv.org/abs/2212.08751.\n[16]\nAshish Vaswani et al. Attention Is All You Need.\narXiv:1706.03762 [cs]. Aug. 2023. DOI: 10.48550/\narXiv.1706.03762. URL: http://arxiv.org/abs/1706.\n03762 (visited on 03/09/2024).\n[17]\nJonathan Ho, Ajay Jain, and Pieter Abbeel. Denoising\nDiffusion Probabilistic Models. 2020. arXiv: 2006 .\n11239 [cs.LG].\n[18]\nAaron van den Oord, Oriol Vinyals, and Koray\nKavukcuoglu. Neural Discrete Representation Learn-\ning. 2018. arXiv: 1711.00937 [cs.LG].\n[19]\nAlec Radford et al. Learning Transferable Visual\nModels From Natural Language Supervision. 2021.\narXiv: 2103.00020 [cs.CV].\n[20]\nAlex Nichol et al. GLIDE: Towards Photorealistic\nImage Generation and Editing with Text-Guided Dif-\nfusion Models. 2022. arXiv: 2112.10741 [cs.CV].\n[21]\nBlender Online Community. Blender - a 3D modelling\nand rendering package. Blender Foundation. Stichting\nBlender Foundation, Amsterdam, 2018. URL: http://\nwww.blender.org.\n[22]\nHeewoo Jun and Alex Nichol. “Shap-E: Generating\nConditional 3D Implicit Functions”. In: (May 2023).\nURL: http://arxiv.org/abs/2305.02463.\n[23]\nYicong Hong et al. LRM: Large Reconstruction Model\nfor Single Image to 3D. arXiv:2311.04400 [cs]. Nov.\n2023. DOI: 10.48550/arXiv.2311.04400. URL: http:\n//arxiv.org/abs/2311.04400 (visited on 03/08/2024).\n[24]\nAlexey Dosovitskiy et al. An Image is Worth 16x16\nWords: Transformers for Image Recognition at Scale.\narXiv:2010.11929 [cs] version: 2. June 2021. DOI: 10.\n48550/arXiv.2010.11929. URL: http://arxiv.org/abs/\n2010.11929 (visited on 03/09/2024).\n[25]\nMathilde Caron et al. Emerging Properties in Self-\nSupervised Vision Transformers. arXiv:2104.14294\n[cs]. May 2021. DOI: 10.48550/arXiv.2104.14294.\nURL: http://arxiv.org/abs/2104.14294 (visited on\n03/10/2024).\n[26]\nRobin Rombach et al. High-Resolution Image Synthe-\nsis with Latent Diffusion Models. arXiv:2112.10752\n[cs]. Apr. 2022. DOI: 10.48550/arXiv.2112.10752.\nURL: http://arxiv.org/abs/2112.10752 (visited on\n03/10/2024).\n[27]\nJiaxiang Tang et al. “LGM: Large Multi-View Gaus-\nsian Model for High-Resolution 3D Content Cre-\nation”. In: arXiv preprint arXiv:2402.05054 (2024).\n[28]\nJianning Li et al. MedShapeNet – A Large-Scale\nDataset of 3D Medical Shapes for Computer Vision.\n2023. arXiv: 2308.16139 [cs.CV].\n[29]\nMatt\nDeitke\net\nal.\n“Objaverse:\nA\nUniverse\nof\nAnnotated\n3D\nObjects”.\nIn:\narXiv\npreprint\narXiv:2212.08051 (2022).\n[30]\nApose. “Aspose.3D for Python via .NET”. In: (2002).\nURL: https://reference.aspose.com/3d/python-net/.\n[31]\nQian-Yi Zhou, Jaesik Park, and Vladlen Koltun.\n“Open3D: A Modern Library for 3D Data Process-\ning”. In: arXiv:1801.09847 (2018).\n",
+      "blocks": [
+        {
+          "bbox": [
+            56.69,
+            30.14,
+            555.31,
+            37.12
+          ],
+          "type": 0,
+          "text": "Shap-MeD\n10"
+        },
+        {
+          "bbox": [
+            56.69,
+            61.09,
+            300.03,
+            728.59
+          ],
+          "type": 0,
+          "text": "[6]\nCecilia Sahlgren et al. “Tailored Approaches in Drug\nDevelopment and Diagnostics: From Molecular De-\nsign to Biological Model Systems”. In: Adv Healthc\nMater 6.21 (Nov. 2017), 10.1002/adhm.201700258.\nISSN: 2192-2659 (Electronic), 2192-2640 (Linking).\nDOI: 10 . 1002 / adhm . 201700258. URL: https : / /\nonlinelibrary. wiley. com / doi / full / 10 . 1002 / adhm .\n201700258.\n[7]\nS. V. Shinde et al., eds. Disruptive Developments in\nBiomedical Applications. 1st. CRC Press, 2022. DOI:\n10.1201/9781003272694. URL: https://doi.org/10.\n1201/9781003272694.\n[8]\nKarla Jim´enez Oliver. “Overview of Organ Donation”.\nIn: Mexican Journal of Medical Research ICSA 11.21\n(Jan. 2023), pp. 55–63. DOI: 10.29057/mjmr.v11i21.\n10007. URL: https://repository.uaeh.edu.mx/revistas/\nindex.php/MJMR/article/view/10007.\n[9]\nXuanQi Zheng et al. “3D Bioprinting in Orthopedics\nTranslational Research”. In: Journal of Biomateri-\nals Science, Polymer Edition 30.13 (2019). PMID:\n31124402, pp. 1172–1187. DOI: 10.1080/09205063.\n2019 . 1623989. eprint: https : / / doi . org / 10 . 1080 /\n09205063.2019.1623989. URL: https://doi.org/10.\n1080/09205063.2019.1623989.\n[10]\nSarah J Trenfield et al. “Shaping the future: recent\nadvances of 3D printing in drug delivery and health-\ncare”. In: Expert Opinion on Drug Delivery 16.10\n(2019). PMID: 31478752, pp. 1081–1094. DOI: 10.\n1080/17425247.2019.1660318. eprint: https://doi.\norg/10.1080/17425247.2019.1660318. URL: https:\n//doi.org/10.1080/17425247.2019.1660318.\n[11]\nSarah J Trenfield et al. “3D Printing Pharmaceuticals:\nDrug Development to Frontline Care”. In: Trends in\nPharmacological Sciences 39.5 (May 2018), pp. 440–\n451. ISSN: 1873-3735 (Electronic), 0165-6147 (Link-\ning). DOI: 10 . 1016 / j . tips . 2018 . 02 . 006. URL:\nhttps://www.sciencedirect.com/science/article/pii/\nS0165614718300440.\n[12]\nWavefront Technologies. “Wavefront Advanced Visu-\nalizer”. In: (1980).\n[13]\nBen Mildenhall et al. “NeRF”. In: Communications\nof the ACM 65 (1 Jan. 2022), pp. 99–106. ISSN:\n15577317. DOI: 10.1145/3503250.\n[14]\nTianchang Shen et al. Deep Marching Tetrahedra: a\nHybrid Representation for High-Resolution 3D Shape\nSynthesis. URL: https://nv-tlabs.github.io/DMTet/..\n[15]\nAlex Nichol et al. “Point-E: A System for Generating\n3D Point Clouds from Complex Prompts”. In: (Dec.\n2022). URL: http://arxiv.org/abs/2212.08751.\n[16]\nAshish Vaswani et al. Attention Is All You Need.\narXiv:1706.03762 [cs]. Aug. 2023. DOI: 10.48550/\narXiv.1706.03762. URL: http://arxiv.org/abs/1706.\n03762 (visited on 03/09/2024).\n[17]\nJonathan Ho, Ajay Jain, and Pieter Abbeel. Denoising\nDiffusion Probabilistic Models. 2020. arXiv: 2006 .\n11239 [cs.LG]."
+        },
+        {
+          "bbox": [
+            311.98,
+            61.09,
+            555.31,
+            644.9
+          ],
+          "type": 0,
+          "text": "[18]\nAaron van den Oord, Oriol Vinyals, and Koray\nKavukcuoglu. Neural Discrete Representation Learn-\ning. 2018. arXiv: 1711.00937 [cs.LG].\n[19]\nAlec Radford et al. Learning Transferable Visual\nModels From Natural Language Supervision. 2021.\narXiv: 2103.00020 [cs.CV].\n[20]\nAlex Nichol et al. GLIDE: Towards Photorealistic\nImage Generation and Editing with Text-Guided Dif-\nfusion Models. 2022. arXiv: 2112.10741 [cs.CV].\n[21]\nBlender Online Community. Blender - a 3D modelling\nand rendering package. Blender Foundation. Stichting\nBlender Foundation, Amsterdam, 2018. URL: http://\nwww.blender.org.\n[22]\nHeewoo Jun and Alex Nichol. “Shap-E: Generating\nConditional 3D Implicit Functions”. In: (May 2023).\nURL: http://arxiv.org/abs/2305.02463.\n[23]\nYicong Hong et al. LRM: Large Reconstruction Model\nfor Single Image to 3D. arXiv:2311.04400 [cs]. Nov.\n2023. DOI: 10.48550/arXiv.2311.04400. URL: http:\n//arxiv.org/abs/2311.04400 (visited on 03/08/2024).\n[24]\nAlexey Dosovitskiy et al. An Image is Worth 16x16\nWords: Transformers for Image Recognition at Scale.\narXiv:2010.11929 [cs] version: 2. June 2021. DOI: 10.\n48550/arXiv.2010.11929. URL: http://arxiv.org/abs/\n2010.11929 (visited on 03/09/2024).\n[25]\nMathilde Caron et al. Emerging Properties in Self-\nSupervised Vision Transformers. arXiv:2104.14294\n[cs]. May 2021. DOI: 10.48550/arXiv.2104.14294.\nURL: http://arxiv.org/abs/2104.14294 (visited on\n03/10/2024).\n[26]\nRobin Rombach et al. High-Resolution Image Synthe-\nsis with Latent Diffusion Models. arXiv:2112.10752\n[cs]. Apr. 2022. DOI: 10.48550/arXiv.2112.10752.\nURL: http://arxiv.org/abs/2112.10752 (visited on\n03/10/2024).\n[27]\nJiaxiang Tang et al. “LGM: Large Multi-View Gaus-\nsian Model for High-Resolution 3D Content Cre-\nation”. In: arXiv preprint arXiv:2402.05054 (2024).\n[28]\nJianning Li et al. MedShapeNet – A Large-Scale\nDataset of 3D Medical Shapes for Computer Vision.\n2023. arXiv: 2308.16139 [cs.CV].\n[29]\nMatt\nDeitke\net\nal.\n“Objaverse:\nA\nUniverse\nof\nAnnotated\n3D\nObjects”.\nIn:\narXiv\npreprint\narXiv:2212.08051 (2022).\n[30]\nApose. “Aspose.3D for Python via .NET”. In: (2002).\nURL: https://reference.aspose.com/3d/python-net/.\n[31]\nQian-Yi Zhou, Jaesik Park, and Vladlen Koltun.\n“Open3D: A Modern Library for 3D Data Process-\ning”. In: arXiv:1801.09847 (2018)."
+        }
+      ],
+      "preview": "page_previews/paper/paper/page-010.png"
+    }
+  ]
+}

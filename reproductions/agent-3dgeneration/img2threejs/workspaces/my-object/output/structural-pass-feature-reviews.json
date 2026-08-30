@@ -1,0 +1,10 @@
+[
+  {
+    "id": "cristae-network",
+    "name": "Continuous gold inner boundary with alternating serpentine cristae",
+    "score": 0.82,
+    "threshold": 0.8,
+    "passed": true,
+    "critique": "The full comparison pair shows five alternating S-shaped folds plus the lower loop, with rounded ends and explicit contacts to the open cutaway boundary. Exact fold spacing and the lower shell mass remain candidates for form-refinement, but the identity-defining topology is present and readable."
+  }
+]

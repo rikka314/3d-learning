@@ -1,0 +1,23 @@
+{
+  "passed": true,
+  "passId": "interaction-pass",
+  "renderHash": "a5439dc47e75ab68",
+  "visualChecks": {
+    "silhouetteIoU": 0.8542,
+    "aspectRatioDelta": 0.0286,
+    "scaleDelta": 0.0294,
+    "maxColorDeltaE": 18.16,
+    "multiAngleDegenerate": false
+  },
+  "runtimeChecks": {
+    "ready": true,
+    "passId": "interaction-pass",
+    "namedNodes": 13,
+    "sockets": 2,
+    "colliders": 10,
+    "partCoverageErrors": 0,
+    "clickSelectionResult": "Inset matrix surface",
+    "explodedViewCaptured": true
+  },
+  "failures": []
+}
