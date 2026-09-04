@@ -17,6 +17,7 @@
 
 | 标题 | 类型 | 主题 | 状态 | 链接或本地路径 | 阅读笔记 |
 |---|---|---|---|---|---|
+| [Coding Agent 生成 3D 的两条路径：Diffusion 控制器与“总监—总管—模块员工”](report/Coding_Agent生成3D的两条路径_深度研究_2026.md) | 研究报告 | coding agent、3D diffusion、分层多智能体、部件生成、critic loop | 已完成 | `report/Coding_Agent生成3D的两条路径_深度研究_2026.md` | 区分调用/推理调参/后训练；梳理 OpenTopos、LL3M、SAGE、PartCrafter 等成果；提出 Agentic 3D Compiler 与可验证 MVP |
 | [基于 2D 的 3D 生成与医学教育资产：论文精选与复现路线](report/基于2D的3D生成与医学教育资产_论文精选与复现路线_2026.md) | 研究与执行路线 | image-to-3D、image+text-to-3D、医学教育资产、Three.js | 已完成 | `report/基于2D的3D生成与医学教育资产_论文精选与复现路线_2026.md` | 四期阅读、3+1 复现队列、统一 benchmark、教育级准确性边界 |
 | [2026 年医学 3D 模型与 AI 生成最新进展深度报告](report/2026年医学3D模型与AI生成最新进展深度报告.md) | 研究报告 | 医学 3D、生成式 AI、解剖 shape、重建、数字孪生 | 已完成 | `report/2026年医学3D模型与AI生成最新进展深度报告.md` | 含证据分级、临床边界、复现优先级与研究机会 |
 | [医学切片到 AI 三维模型：可行性、技术路线与研究建议](report/医学切片到AI三维模型_可行性深度研究_2026.md) | 研究报告 | 3D 组织学、数字病理、切片配准、AI 插值 | 已完成 | `report/` | 含可行性分档、风险矩阵与六个月 MVP |
