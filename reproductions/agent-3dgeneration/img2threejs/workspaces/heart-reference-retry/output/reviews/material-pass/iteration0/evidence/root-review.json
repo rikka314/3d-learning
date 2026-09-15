@@ -1,0 +1,23 @@
+{
+  "authoredBy": "root",
+  "action": "refine-code",
+  "estimatedFidelity": 0.73,
+  "aiVisionScore": 0.73,
+  "summary": "Material failure: original reference patches retain low-frequency baked lighting and hard tiling seams.",
+  "notes": "Region hues are present, but visible aortic and caval stripes, myocardium box seams, baked lighting, and excessive normal contrast dominate. Geometry remains fixed. Normalize low-frequency runtime color while retaining high-frequency detail, use mirrored wrapping, lower normal amplitude, and recalibrate the base palette.",
+  "layerScores": {
+    "silhouetteProportion": 0.89,
+    "componentStructure": 0.85,
+    "formDetail": 0.82,
+    "materialSurface": 0.58,
+    "lightingCamera": 0.78
+  },
+  "featureReviews": [
+    {
+      "id": "tissue-palette",
+      "score": 0.73,
+      "critical": true,
+      "notes": "Region hues are present but stripes and painted lighting dominate."
+    }
+  ]
+}

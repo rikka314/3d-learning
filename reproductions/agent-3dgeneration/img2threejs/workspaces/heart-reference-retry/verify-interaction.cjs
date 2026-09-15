@@ -1,0 +1,260 @@
+async (page) => {
+  const folder = 'workspaces/heart-reference-retry/output/playwright/final-ui';
+  const currentUrl = page.url();
+  const target = /^https?:/.test(currentUrl) ? currentUrl.split(/[?#]/)[0] : 'http://127.0.0.1:4174/';
+
+  const pageErrors = [];
+  page.on('pageerror', (error) => pageErrors.push(error.message));
+  await page.setViewportSize({ width: 1400, height: 1000 });
+  await page.goto(target, { waitUntil: 'domcontentloaded' });
+  await page.waitForFunction(() => window.__MODEL_READY__ === true, null, { timeout: 30_000 });
+
+  const settle = async (frames = 3) => {
+    await page.evaluate((count) => new Promise((resolve) => {
+      const next = () => count-- > 0 ? requestAnimationFrame(next) : resolve();
+      requestAnimationFrame(next);
+    }), frames);
+    await page.waitForFunction(() => document.getAnimations().every(animation => animation.playState !== 'running'));
+  };
+  await settle(5);
+
+  const checks = {};
+  const failures = [];
+  const check = (name, condition, detail) => {
+    checks[name] = { pass: Boolean(condition), detail };
+    if (!condition) failures.push(`${name}: ${detail}`);
+  };
+
+  const initial = await page.evaluate(() => {
+    const root = window.__MODEL_ROOT__;
+    const runtime = root.userData.sculptRuntime;
+    root.updateMatrixWorld(true);
+    const topLevelPositions = Object.fromEntries(Object.entries(runtime.nodes)
+      .filter(([, node]) => node.parent === root)
+      .map(([id, node]) => [id, node.position.toArray()]));
+    const materials = {};
+    let visibleMeshes = 0;
+    let missingMaterials = 0;
+    root.traverse((object) => {
+      if (!object.isMesh) return;
+      visibleMeshes += object.visible ? 1 : 0;
+      const list = Array.isArray(object.material) ? object.material : [object.material];
+      if (!list.length || list.some((material) => !material || !material.uuid)) missingMaterials++;
+      materials[object.uuid] = list.map((material) => material.uuid);
+    });
+    return {
+      rootTransform: {
+        position: root.position.toArray(),
+        quaternion: root.quaternion.toArray(),
+        scale: root.scale.toArray(),
+      },
+      topLevelPositions,
+      materials,
+      visibleMeshes,
+      missingMaterials,
+      manifest: window.__PART_MANIFEST__(),
+      render: window.__RENDER_INFO__(),
+    };
+  });
+  check('model-renders', initial.visibleMeshes > 0 && initial.render.triangles > 0,
+    `${initial.visibleMeshes} visible meshes, ${initial.render.triangles} triangles`);
+  check('materials-mapped', initial.missingMaterials === 0,
+    `${initial.missingMaterials} meshes have missing/unmapped material`);
+  check('semantic-part-count', initial.manifest.parts.length >= 31,
+    `${initial.manifest.parts.length} manifest parts`);
+
+  const defaultLabel = await page.locator('#part-label').textContent();
+  const canvas = page.locator('#scene');
+  const canvasBox = await canvas.boundingBox();
+  if (!canvasBox) throw new Error('Scene canvas has no layout box');
+  const initialFrontFrame = await canvas.screenshot({ path: `${folder}/initial-front.png`, scale: 'css' });
+  await page.mouse.move(canvasBox.x + canvasBox.width * 0.50, canvasBox.y + canvasBox.height * 0.52);
+  await page.mouse.down();
+  await page.mouse.move(canvasBox.x + canvasBox.width * 0.66, canvasBox.y + canvasBox.height * 0.61, { steps: 8 });
+  await page.mouse.up();
+  await settle();
+  const labelAfterDrag = await page.locator('#part-label').textContent();
+  check('drag-does-not-pick', labelAfterDrag === defaultLabel,
+    `label before=${JSON.stringify(defaultLabel)}, after=${JSON.stringify(labelAfterDrag)}`);
+  await page.locator('#reset').click();
+  await settle(5);
+
+  const vesselCandidates = [
+    [0.43, 0.14], [0.50, 0.16], [0.57, 0.18], [0.38, 0.22],
+    [0.48, 0.24], [0.60, 0.25], [0.43, 0.31], [0.55, 0.33], [0.64, 0.34],
+  ];
+  let clickedVesselLabel = '';
+  for (const [x, y] of vesselCandidates) {
+    await page.mouse.click(canvasBox.x + canvasBox.width * x, canvasBox.y + canvasBox.height * y);
+    await settle(2);
+    const label = (await page.locator('#part-label').textContent()) || '';
+    if (/动脉|静脉|血管/.test(label)) {
+      clickedVesselLabel = label;
+      break;
+    }
+  }
+  check('visible-vessel-click', /动脉|静脉|血管/.test(clickedVesselLabel),
+    clickedVesselLabel || 'candidate clicks did not identify a visible vessel');
+
+  const selectedParts = await page.evaluate(() => {
+    const parts = window.__PART_MANIFEST__().parts.filter((part) => part.id !== 'root' && part.meshNames.length);
+    const preferred = parts.filter((part) => /aorta|vena|pulmonary|coronary|fat|ventric|atri/i.test(`${part.id} ${part.name}`));
+    const selected = [];
+    for (const part of [...preferred, ...parts]) {
+      if (selected.some((entry) => entry.id === part.id) || selected.length >= 7) continue;
+      const accepted = window.__SELECT_PART__(part.id);
+      selected.push({ id: part.id, name: part.name, accepted,
+        label: document.querySelector('#part-label')?.textContent || '' });
+    }
+    return selected;
+  });
+  check('semantic-select-several-parts', selectedParts.length >= 6 && selectedParts.every((part) => part.accepted),
+    JSON.stringify(selectedParts));
+  check('semantic-select-chinese-labels', selectedParts.every((part) => /[\u3400-\u9fff]/.test(part.label)),
+    selectedParts.map((part) => part.label).join(' | '));
+
+  await page.mouse.click(canvasBox.x + 8, canvasBox.y + 8);
+  await settle();
+  const materialRestore = await page.evaluate((baseline) => {
+    const current = {};
+    window.__MODEL_ROOT__.traverse((object) => {
+      if (!object.isMesh) return;
+      const list = Array.isArray(object.material) ? object.material : [object.material];
+      current[object.uuid] = list.map((material) => material.uuid);
+    });
+    const changed = Object.keys(baseline).filter((uuid) => JSON.stringify(baseline[uuid]) !== JSON.stringify(current[uuid]));
+    return { changed, meshCount: Object.keys(current).length };
+  }, initial.materials);
+  check('selection-materials-restored', materialRestore.changed.length === 0,
+    `${materialRestore.changed.length} mesh material bindings differ after clearing selection`);
+
+  const beforeAuto = await canvas.screenshot({ scale: 'css' });
+  await page.locator('#turntable').click();
+  const autoPressed = await page.locator('#turntable').getAttribute('aria-pressed');
+  await page.waitForTimeout(500);
+  const afterAuto = await canvas.screenshot({ scale: 'css' });
+
+  await page.locator('#reset').click();
+  await settle(5);
+  const resetPressed = await page.locator('#turntable').getAttribute('aria-pressed');
+  const resetFrameA = await canvas.screenshot({ path: `${folder}/reset-front.png`, scale: 'css' });
+  await page.waitForTimeout(350);
+  const resetFrameB = await canvas.screenshot({ scale: 'css' });
+  const compareFrames = (left, right) => page.evaluate(async ({ initial, reset }) => {
+    const decode = async (data) => {
+      const image = new Image();
+      image.src = `data:image/png;base64,${data}`;
+      await image.decode();
+      const canvas = document.createElement('canvas');
+      canvas.width = image.width;
+      canvas.height = image.height;
+      const context = canvas.getContext('2d');
+      context.drawImage(image, 0, 0);
+      return context.getImageData(0, 0, canvas.width, canvas.height);
+    };
+    const [a, b] = await Promise.all([decode(initial), decode(reset)]);
+    if (a.width !== b.width || a.height !== b.height) throw new Error('Reset changed canvas dimensions');
+    let maximumChannelDelta = 0, changedPixels = 0;
+    for (let i = 0; i < a.data.length; i += 4) {
+      const delta = Math.max(...[0, 1, 2].map(c => Math.abs(a.data[i + c] - b.data[i + c])));
+      maximumChannelDelta = Math.max(maximumChannelDelta, delta);
+      if (delta) changedPixels++;
+    }
+    return { maximumChannelDelta, changedPixels, totalPixels: a.width * a.height };
+  }, { initial: left.toString('base64'), reset: right.toString('base64') });
+  const autoDrift = await compareFrames(beforeAuto, afterAuto);
+  check('autorotate-button-starts-motion', autoPressed === 'true'
+    && autoDrift.maximumChannelDelta > 10 && autoDrift.changedPixels > 1000, JSON.stringify(autoDrift));
+  const stabilityDrift = await compareFrames(resetFrameA, resetFrameB);
+  const resetDrift = await compareFrames(initialFrontFrame, resetFrameA);
+  const withinRenderingPrecision = (drift) => drift.maximumChannelDelta <= 1
+    && drift.changedPixels / drift.totalPixels < 0.0001;
+  check('reset-stops-autorotate-stably', resetPressed === 'false'
+    && withinRenderingPrecision(stabilityDrift), JSON.stringify(stabilityDrift));
+  // WebGL rounding changed three isolated channels by one level after reset; visible drift still fails.
+  check('reset-restores-front-view', withinRenderingPrecision(resetDrift), JSON.stringify(resetDrift));
+
+  const beforeExplode = await page.evaluate(() => Object.fromEntries(Object.entries(window.__MODEL_ROOT__.userData.sculptRuntime.nodes)
+    .filter(([, node]) => node.parent === window.__MODEL_ROOT__)
+    .map(([id, node]) => [id, node.position.toArray()])));
+  await page.screenshot({ path: `${folder}/normal-ui.png`, scale: 'css' });
+  await page.locator('#explode').click();
+  await settle(4);
+  const explodedState = await page.evaluate((before) => {
+    const root = window.__MODEL_ROOT__;
+    const nodes = root.userData.sculptRuntime.nodes;
+    const moved = Object.entries(before).filter(([id, position]) => nodes[id] &&
+      nodes[id].position.toArray().some((value, index) => Math.abs(value - position[index]) > 1e-6)).map(([id]) => id);
+    return { moved, pressed: document.querySelector('#explode')?.getAttribute('aria-pressed') };
+  }, beforeExplode);
+  check('explode-button-moves-runtime-parts', explodedState.pressed === 'true' && explodedState.moved.length > 0,
+    `aria-pressed=${explodedState.pressed}, moved=${explodedState.moved.join(',')}`);
+  await page.screenshot({ path: `${folder}/exploded-ui.png`, scale: 'css' });
+
+  await page.locator('#explode').click();
+  await settle(4);
+  const restored = await page.evaluate(({ positions, rootTransform }) => {
+    const root = window.__MODEL_ROOT__;
+    const nodes = root.userData.sculptRuntime.nodes;
+    const drifted = Object.entries(positions).filter(([id, position]) => !nodes[id] ||
+      nodes[id].position.toArray().some((value, index) => Math.abs(value - position[index]) > 1e-7)).map(([id]) => id);
+    const transform = {
+      position: root.position.toArray(), quaternion: root.quaternion.toArray(), scale: root.scale.toArray(),
+    };
+    return { drifted, transform, pressed: document.querySelector('#explode')?.getAttribute('aria-pressed'),
+      rootExact: JSON.stringify(transform) === JSON.stringify(rootTransform) };
+  }, { positions: beforeExplode, rootTransform: initial.rootTransform });
+  check('explode-restore-exact', restored.pressed === 'false' && restored.drifted.length === 0 && restored.rootExact,
+    `aria-pressed=${restored.pressed}, drifted=${restored.drifted.join(',')}, rootExact=${restored.rootExact}`);
+
+  await page.setViewportSize({ width: 390, height: 844 });
+  await settle(5);
+  const mobile = await page.evaluate(() => {
+    const canvasRect = document.querySelector('#scene').getBoundingClientRect();
+    const viewportRect = document.querySelector('.viewport').getBoundingClientRect();
+    return {
+      innerWidth: window.innerWidth,
+      scrollWidth: document.documentElement.scrollWidth,
+      canvas: { left: canvasRect.left, top: canvasRect.top, right: canvasRect.right, bottom: canvasRect.bottom,
+        width: canvasRect.width, height: canvasRect.height },
+      viewport: { left: viewportRect.left, top: viewportRect.top, right: viewportRect.right, bottom: viewportRect.bottom },
+      render: window.__RENDER_INFO__(),
+    };
+  });
+  const canvasInside = mobile.canvas.left >= -0.5 && mobile.canvas.top >= -0.5 &&
+    mobile.canvas.right <= mobile.innerWidth + 0.5 && mobile.canvas.bottom <= 844.5 &&
+    mobile.canvas.width > 0 && mobile.canvas.height > 0;
+  check('mobile-canvas-visible', canvasInside && mobile.render.triangles > 0,
+    JSON.stringify(mobile));
+  check('mobile-no-horizontal-overflow', mobile.scrollWidth <= mobile.innerWidth,
+    `scrollWidth=${mobile.scrollWidth}, innerWidth=${mobile.innerWidth}`);
+  await page.screenshot({ path: `${folder}/mobile-ui.png`, scale: 'css' });
+
+  check('fresh-navigation-page-errors', pageErrors.length === 0, JSON.stringify(pageErrors));
+  const report = {
+    url: target,
+    viewportDesktop: { width: 1400, height: 1000 },
+    viewportMobile: { width: 390, height: 844 },
+    checks,
+    pageErrors,
+    selectedParts,
+    explodedParts: explodedState.moved,
+    render: await page.evaluate(() => window.__RENDER_INFO__()),
+    screenshots: ['normal-ui.png', 'exploded-ui.png', 'mobile-ui.png'],
+  };
+  const downloadPending = page.waitForEvent('download');
+  await page.evaluate((data) => {
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' }));
+    link.href = url;
+    link.download = 'interaction-report.json';
+    link.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }, report);
+  const download = await downloadPending;
+  await download.saveAs(`${folder}/interaction-report.json`);
+
+  console.log(JSON.stringify({ folder, checks: Object.keys(checks).length, failures, pageErrors,
+    selectedParts: selectedParts.map((part) => part.id), screenshots: report.screenshots }));
+  if (failures.length) throw new Error(`Interaction verification failed:\n${failures.join('\n')}`);
+}

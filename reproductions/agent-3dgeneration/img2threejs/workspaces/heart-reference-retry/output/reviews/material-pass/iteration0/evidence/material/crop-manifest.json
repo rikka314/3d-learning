@@ -1,0 +1,97 @@
+{
+  "sourceSize": [
+    1122,
+    1402
+  ],
+  "renderSize": [
+    900,
+    1125
+  ],
+  "scale": [
+    0.8021390374331551,
+    0.8024251069900142
+  ],
+  "crops": {
+    "myocardium": {
+      "referenceBox": [
+        460,
+        800,
+        510,
+        850
+      ],
+      "renderBox": [
+        369,
+        642,
+        409,
+        682
+      ],
+      "reference": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\output\\reviews\\material-pass\\iteration0\\evidence\\material\\myocardium-reference.png",
+      "render": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\output\\reviews\\material-pass\\iteration0\\evidence\\material\\myocardium-render.png"
+    },
+    "arterial": {
+      "referenceBox": [
+        391,
+        280,
+        476,
+        382
+      ],
+      "renderBox": [
+        314,
+        225,
+        382,
+        307
+      ],
+      "reference": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\output\\reviews\\material-pass\\iteration0\\evidence\\material\\arterial-reference.png",
+      "render": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\output\\reviews\\material-pass\\iteration0\\evidence\\material\\arterial-render.png"
+    },
+    "venous": {
+      "referenceBox": [
+        590,
+        270,
+        724,
+        320
+      ],
+      "renderBox": [
+        473,
+        217,
+        581,
+        257
+      ],
+      "reference": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\output\\reviews\\material-pass\\iteration0\\evidence\\material\\venous-reference.png",
+      "render": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\output\\reviews\\material-pass\\iteration0\\evidence\\material\\venous-render.png"
+    },
+    "fat": {
+      "referenceBox": [
+        644,
+        713,
+        668,
+        809
+      ],
+      "renderBox": [
+        517,
+        572,
+        536,
+        649
+      ],
+      "reference": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\output\\reviews\\material-pass\\iteration0\\evidence\\material\\fat-reference.png",
+      "render": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\output\\reviews\\material-pass\\iteration0\\evidence\\material\\fat-render.png"
+    },
+    "atrial": {
+      "referenceBox": [
+        685,
+        424,
+        786,
+        503
+      ],
+      "renderBox": [
+        549,
+        340,
+        630,
+        404
+      ],
+      "reference": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\output\\reviews\\material-pass\\iteration0\\evidence\\material\\atrial-reference.png",
+      "render": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\output\\reviews\\material-pass\\iteration0\\evidence\\material\\atrial-render.png"
+    }
+  },
+  "limitation": "Front-frame coordinate transfer measures the visible matched footprint approximately; it is not UV correspondence."
+}

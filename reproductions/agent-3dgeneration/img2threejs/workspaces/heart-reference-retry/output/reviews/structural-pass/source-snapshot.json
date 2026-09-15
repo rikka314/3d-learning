@@ -1,0 +1,16 @@
+{
+  "passId": "structural-pass",
+  "files": [
+    {
+      "source": "src/createHeartModel.ts",
+      "snapshot": "output/reviews/structural-pass/createHeartModel.ts",
+      "sha256": "7ff8251003dbed393d267b5656dd02fca01013afd37d41dc12960e476d6c71cb"
+    },
+    {
+      "source": "anatomy-layout.json",
+      "snapshot": "output/reviews/structural-pass/anatomy-layout.json",
+      "sha256": "41cc33c54c96a709f9145e063a2c7d3b85a8eec1f419c20f88253ab5b8db0f60"
+    }
+  ],
+  "limitation": "No separately preserved blockout source snapshot exists; pass source snapshots begin with structural-pass."
+}

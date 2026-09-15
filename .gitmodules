@@ -1,0 +1,3 @@
+[submodule "reproductions/human-atlas"]
+	path = reproductions/human-atlas
+	url = https://github.com/ashemag/human-atlas.git

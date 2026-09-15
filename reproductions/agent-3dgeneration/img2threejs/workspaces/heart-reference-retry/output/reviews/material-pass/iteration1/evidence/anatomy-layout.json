@@ -1,0 +1,39 @@
+{
+  "source": "reference.png",
+  "coordinateMapping": "x=(px-560)/280, y=(700-py)/280, z is inferred; +Z anterior",
+  "bodyStations": [
+    [-2.06, 0.94, 0.001, 0.001, -0.03],
+    [-2.00, 0.88, 0.26, 0.14, -0.01],
+    [-1.85, 0.72, 0.55, 0.34, 0.00],
+    [-1.55, 0.50, 0.88, 0.54, 0.00],
+    [-1.15, 0.32, 1.15, 0.71, 0.00],
+    [-0.65, 0.20, 1.28, 0.84, 0.00],
+    [-0.12, 0.10, 1.28, 0.89, 0.00],
+    [0.32, 0.02, 1.04, 0.77, 0.00],
+    [0.62, -0.12, 0.67, 0.53, 0.00],
+    [0.84, -0.12, 0.34, 0.30, -0.05],
+    [0.97, -0.10, 0.001, 0.001, -0.10]
+  ],
+  "bodyStationFields": ["y", "centerX", "radiusX", "radiusZ", "centerZ"],
+  "greatVessels": [
+    {"id":"aortic-arch","parent":"aortic-system","label":"主动脉弓与升主动脉","color":"arterial","points":[[440,470,0.05],[422,375,0.08],[449,265,0.00],[519,195,-0.08],[587,208,-0.17],[627,303,-0.40],[625,452,-0.50]],"radii":[0.20,0.24,0.25,0.255,0.235,0.20,0.18],"open":false},
+    {"id":"brachiocephalic-branch","parent":"aortic-system","label":"头臂干","color":"arterial","points":[[485,192,-0.08],[454,132,-0.01],[426,55,0.16]],"radii":[0.125,0.12,0.111],"open":true},
+    {"id":"left-carotid-branch","parent":"aortic-system","label":"左颈总动脉","color":"arterial","points":[[540,179,-0.12],[543,105,-0.02],[546,34,0.18]],"radii":[0.115,0.104,0.102],"open":true},
+    {"id":"left-subclavian-branch","parent":"aortic-system","label":"左锁骨下动脉","color":"arterial","points":[[582,181,-0.20],[598,119,-0.10],[617,62,0.06]],"radii":[0.098,0.085,0.081],"open":true},
+    {"id":"pulmonary-trunk","parent":"pulmonary-arterial-system","label":"肺动脉干与左肺动脉","color":"venous","points":[[516,532,0.62],[536,430,0.66],[582,332,0.68],[676,289,0.68],[798,286,0.83]],"radii":[0.23,0.233,0.23,0.188,0.161],"open":true},
+    {"id":"right-pulmonary-branch","parent":"pulmonary-arterial-system","label":"右肺动脉（遮挡部分推断）","color":"venous","points":[[585,335,0.22],[519,287,-0.45],[415,282,-0.62],[370,300,-0.61]],"radii":[0.15,0.15,0.14,0.13],"open":true},
+    {"id":"superior-vena-cava","parent":"vena-cava-system","label":"上腔静脉","color":"venous","points":[[277,475,-0.26],[298,348,-0.25],[288,237,-0.20],[286,167,0.02]],"radii":[0.22,0.22,0.218,0.216],"open":true},
+    {"id":"inferior-vena-cava","parent":"vena-cava-system","label":"下腔静脉","color":"venous","points":[[281,615,-0.34],[307,885,-0.40],[330,1067,-0.36],[348,1161,-0.30]],"radii":[0.20,0.21,0.21,0.21],"open":true},
+    {"id":"right-superior-pulmonary-vein","parent":"pulmonary-return-system","label":"右上肺静脉","color":"arterial","points":[[443,464,-0.55],[261,460,-0.30],[186,440,-0.02]],"radii":[0.10,0.10,0.097],"open":true},
+    {"id":"right-inferior-pulmonary-vein","parent":"pulmonary-return-system","label":"右下肺静脉","color":"arterial","points":[[444,547,-0.58],[246,525,-0.34],[177,520,-0.02]],"radii":[0.096,0.094,0.092],"open":true},
+    {"id":"left-superior-pulmonary-vein","parent":"pulmonary-return-system","label":"左上肺静脉","color":"arterial","points":[[637,443,-0.51],[736,425,-0.37],[814,384,-0.04]],"radii":[0.096,0.095,0.092],"open":true},
+    {"id":"left-inferior-pulmonary-vein","parent":"pulmonary-return-system","label":"左下肺静脉","color":"arterial","points":[[640,503,-0.55],[760,483,-0.37],[851,451,-0.03]],"radii":[0.093,0.092,0.09],"open":true}
+  ],
+  "coronaryPathsPixels": {
+    "anterior": [[640,518],[680,592],[697,690],[687,801],[685,898],[667,1002],[695,1110],[760,1230]],
+    "right": [[455,521],[400,605],[354,706],[324,810],[298,910],[343,1021],[453,1094],[579,1150],[752,1230]],
+    "circumflex": [[676,590],[760,622],[848,667],[910,770],[938,854]],
+    "posterior": [[552,522],[580,650],[574,810],[648,970],[730,1120],[808,1238]]
+  },
+  "note": "X/Y centers and body silhouette interpreted from supplied image. Depth and hidden return paths are inferred, not measured. Coronary branches and microrelief will be approximate."
+}

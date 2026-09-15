@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "decision": "not-required",
+  "reason": "The target uses region-based solid tissue colors and procedural relief. Projecting the lit source would bake studio highlights and front-only shading into an organic volume whose rear is unseen.",
+  "surfaceRoute": "procedural-region-materials",
+  "cameraRoute": "approximate single matched front-three-quarter view",
+  "constraints": [
+    "Do not project source pixels or use billboards.",
+    "Do not bake the white background or studio highlights into albedo.",
+    "Use separate PBR tissue regions with bounded procedural relief.",
+    "Disclose rear and depth geometry as inference."
+  ]
+}

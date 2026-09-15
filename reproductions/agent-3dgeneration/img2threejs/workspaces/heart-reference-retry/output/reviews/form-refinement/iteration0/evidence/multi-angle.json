@@ -1,0 +1,32 @@
+{
+  "referenceAreaFraction": 0.45355654320987654,
+  "angles": [
+    {
+      "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\output\\playwright\\form-refinement\\right.png",
+      "areaFraction": 0.2950162962962963,
+      "ratio": 0.6504509762077931,
+      "degenerate": false
+    },
+    {
+      "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\output\\playwright\\form-refinement\\rear.png",
+      "areaFraction": 0.453437037037037,
+      "ratio": 0.9997365131765188,
+      "degenerate": false
+    },
+    {
+      "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\output\\playwright\\form-refinement\\left.png",
+      "areaFraction": 0.2952069135802469,
+      "ratio": 0.650871248579131,
+      "degenerate": false
+    },
+    {
+      "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\output\\playwright\\form-refinement\\threeQuarter.png",
+      "areaFraction": 0.3822814814814815,
+      "ratio": 0.8428529743524975,
+      "degenerate": false
+    }
+  ],
+  "degenerate": false,
+  "collapseRatio": 0.15,
+  "note": "deterministic; zero token; a flat-plane-faking-a-volume collapses in silhouette area when orbited"
+}

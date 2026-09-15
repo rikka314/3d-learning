@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "subject": "Heart Reference Retry",
+  "overallVerdict": "conditional-pass",
+  "sameTargetConfidence": 1.0,
+  "proceduralReconstructionFeasibility": 0.92,
+  "limitations": [
+    "Only one uncalibrated anterior three-quarter view is available.",
+    "Rear topology, true depth, hidden right pulmonary branching, and posterior coronary routing are inferred.",
+    "The result is a stylized external teaching model, not diagnostic anatomy."
+  ],
+  "exclusions": ["white background"],
+  "views": [
+    {
+      "viewId": "reference",
+      "verdict": "conditional-pass",
+      "critical": true,
+      "strengths": [
+        "clear asymmetric silhouette and apex",
+        "exact visible aortic branch-mouth count",
+        "clear pulmonary-trunk/aorta depth ordering",
+        "clear SVC/IVC, atrial, fat, and coronary color separation"
+      ],
+      "limits": [
+        "rear surface is unseen",
+        "hidden pulmonary branch is not directly observed",
+        "perspective and depth are not calibrated"
+      ]
+    }
+  ],
+  "decisionRationale": "The isolated high-resolution subject supports strict front-matched macro, meso, and material authoring. Hidden regions remain explicitly inferred and require turntable review before later passes."
+}

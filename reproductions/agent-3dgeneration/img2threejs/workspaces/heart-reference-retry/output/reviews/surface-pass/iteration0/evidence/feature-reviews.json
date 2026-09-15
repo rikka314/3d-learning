@@ -1,0 +1,14 @@
+[
+  {
+    "id": "atria-fat-coronaries",
+    "score": 0.82,
+    "critical": true,
+    "notes": "Fat lobules and tapered coronary branches remain readable after the surface adjustment."
+  },
+  {
+    "id": "tissue-palette",
+    "score": 0.83,
+    "critical": true,
+    "notes": "Nonuniform UV flow removes the rectangular grid while retaining controlled grazing detail."
+  }
+]

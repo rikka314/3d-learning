@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "status": "complete",
+  "subject": "heart-reference-retry",
+  "fidelity": {
+    "finalEstimatedFidelity": 0.82,
+    "finalAiVisionScore": 0.82,
+    "classification": "stylized procedural reconstruction",
+    "notClaimed": "near-reference or clinical fidelity"
+  },
+  "reference": {
+    "path": "reference.png",
+    "sourceCount": 1,
+    "dimensions": [
+      1122,
+      1402
+    ],
+    "visibilityLimit": "Rear, depth, hidden right pulmonary branch, and posterior coronary anatomy are inferred from one front-biased photograph."
+  },
+  "implementationSources": [
+    "src/createHeartModel.ts",
+    "src/heartMaterials.ts",
+    "src/main.ts",
+    "anatomy-layout.json"
+  ],
+  "interactiveEvidence": {
+    "url": "http://127.0.0.1:4174/",
+    "report": "output/reviews/optimization-pass/iteration0/evidence/final-ui/interaction-report.json",
+    "screenshots": [
+      "output/reviews/optimization-pass/iteration0/evidence/final-ui/normal-ui.png",
+      "output/reviews/optimization-pass/iteration0/evidence/final-ui/exploded-ui.png",
+      "output/reviews/optimization-pass/iteration0/evidence/final-ui/mobile-ui.png"
+    ],
+    "checksPassed": "16/16"
+  },
+  "performance": {
+    "triangles": 179560,
+    "triangleTarget": 180000,
+    "triangleReductionFrom426634": "57.9%",
+    "drawCalls": 73,
+    "drawCallTarget": 120,
+    "fpsLatestFullUi": 117.20301946762017,
+    "textures": 20
+  },
+  "coverage": {
+    "specifiedComponents": 30,
+    "builtManifestParts": 104,
+    "errors": 0,
+    "warnings": 0,
+    "report": "output/reviews/optimization-pass/iteration0/evidence/part-coverage.json"
+  },
+  "geometryChecks": {
+    "scope": "ventricular-body-surface only",
+    "shellVertices": 8247,
+    "sampledVertices": 917,
+    "insideVertices": 0,
+    "undecidedVertices": 4,
+    "selfIntersecting": false,
+    "wholeModelClaim": false,
+    "report": "output/reviews/optimization-pass/iteration0/captures/self-intersection.json"
+  },
+  "review": {
+    "finalComparison": "output/reviews/optimization-pass/iteration0/evidence/comparison.png",
+    "completedPasses": [
+      "blockout",
+      "structural-pass",
+      "form-refinement",
+      "material-pass",
+      "surface-pass",
+      "lighting-pass",
+      "interaction-pass",
+      "optimization-pass"
+    ],
+    "correctionIterations": 2
+  },
+  "limits": [
+    "Atria and auricles are simplified procedural approximations.",
+    "Fine coronary branches remain sparser and more regularly spaced than the photograph.",
+    "Epicardial fat distribution is narrower and its lobules are procedural.",
+    "Reference-derived material crops are small, de-lit approximately, and tiled; resampling adds no source information.",
+    "Collider and destruction entries are metadata intent; no physics or fracture simulation was executed.",
+    "No heartbeat animation is claimed."
+  ]
+}

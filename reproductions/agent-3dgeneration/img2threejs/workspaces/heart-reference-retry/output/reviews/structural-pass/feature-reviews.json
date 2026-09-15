@@ -1,0 +1,14 @@
+[
+  {
+    "id": "great-vessel-topology",
+    "score": 0.87,
+    "visible": true,
+    "notes": "Large connected assemblies and recessed bore depth read correctly from front and off-axis views."
+  },
+  {
+    "id": "atria-fat-coronaries",
+    "score": 0.82,
+    "visible": true,
+    "notes": "Structural layout only: main coronary trunks and fat corridors are present and surface-following."
+  }
+]

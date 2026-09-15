@@ -1,0 +1,23 @@
+node:internal/fs/watchers:321
+    const error = new UVException({
+                  ^
+
+Error: EBUSY: resource busy or locked, watch 'D:\Learn\20_Projects\3dresearch\3d-learning\reproductions\agent-3dgeneration\img2threejs\workspaces\heart-reference-retry\output\playwright\structural-pass\runtime-report.json'
+    at FSWatcher.<computed> (node:internal/fs/watchers:321:19)
+    at Object.watch (node:fs:2548:36)
+    at createFsWatchInstance (file:///D:/Learn/20_Projects/3dresearch/3d-learning/reproductions/agent-3dgeneration/img2threejs/workspaces/my-object/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:42780:17)
+    at setFsWatchListener (file:///D:/Learn/20_Projects/3dresearch/3d-learning/reproductions/agent-3dgeneration/img2threejs/workspaces/my-object/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:42827:15)
+    at NodeFsHandler._watchWithNodeFs (file:///D:/Learn/20_Projects/3dresearch/3d-learning/reproductions/agent-3dgeneration/img2threejs/workspaces/my-object/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:42982:14)
+    at NodeFsHandler._handleFile (file:///D:/Learn/20_Projects/3dresearch/3d-learning/reproductions/agent-3dgeneration/img2threejs/workspaces/my-object/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:43046:23)
+    at NodeFsHandler._addToNodeFs (file:///D:/Learn/20_Projects/3dresearch/3d-learning/reproductions/agent-3dgeneration/img2threejs/workspaces/my-object/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:43288:21)
+Emitted 'error' event on FSWatcher instance at:
+    at FSWatcher._handleError (file:///D:/Learn/20_Projects/3dresearch/3d-learning/reproductions/agent-3dgeneration/img2threejs/workspaces/my-object/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:44481:10)
+    at NodeFsHandler._addToNodeFs (file:///D:/Learn/20_Projects/3dresearch/3d-learning/reproductions/agent-3dgeneration/img2threejs/workspaces/my-object/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:43296:18) {
+  errno: -4082,
+  syscall: 'watch',
+  code: 'EBUSY',
+  path: 'D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\output\\playwright\\structural-pass\\runtime-report.json',
+  filename: 'D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\output\\playwright\\structural-pass\\runtime-report.json'
+}
+
+Node.js v24.18.0

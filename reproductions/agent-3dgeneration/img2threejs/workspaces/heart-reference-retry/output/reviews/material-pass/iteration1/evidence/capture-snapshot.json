@@ -1,0 +1,45 @@
+{
+  "passId": "material-pass",
+  "files": [
+    {
+      "name": "front.png",
+      "sha256": "1bd3d0eb56d12bd3e5a75938e4fccf7d9aa66eabf963d1f6abf2ed88d80c59f4"
+    },
+    {
+      "name": "right.png",
+      "sha256": "d3c7e4aec68cf94f2ce4fb54ffaa2b27c2a9f4421b4e412d87430a22895522b3"
+    },
+    {
+      "name": "rear.png",
+      "sha256": "619cde3e010fc0f298e7745175c5ae73d7bbc0377c28f54f8d1a5d5cb3362728"
+    },
+    {
+      "name": "left.png",
+      "sha256": "baab90560260c0f593ada0eb2eca2fee2cc1e6c528e988c493292b144d585899"
+    },
+    {
+      "name": "threeQuarter.png",
+      "sha256": "b337eeb6d03775df2541a6329455ea2af42f6b58dc8721c4424e9798402fdf13"
+    },
+    {
+      "name": "neutral.png",
+      "sha256": "6b22bfa9ca161c921c3c7b25ec62b21c50b3f83d6ae5cfa3933a466b71e9786d"
+    },
+    {
+      "name": "grazing.png",
+      "sha256": "c787ea85c8f7fc0e6b3118bf995e1bf8ca876952f5201b90c886a220792f2f5b"
+    },
+    {
+      "name": "runtime-report.json",
+      "sha256": "4e42d90ea15ec738bd6b8037d8f7d40a88b65d084bfb70bd66590778e4e55785"
+    },
+    {
+      "name": "self-intersection.json",
+      "sha256": "a66dd872478c11525da08a47ae745c306cbb8598e1d40a88e4c0a17ee29d4489"
+    },
+    {
+      "name": "self-intersection-provenance.json",
+      "sha256": "660713aa60a8dde85318973211a767c83ee757ff370f6856fc5ef0823e78488d"
+    }
+  ]
+}

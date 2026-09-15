@@ -24,3 +24,7 @@ reproductions/
 当前已启动的主题：
 
 - [`多视图复现/`](./多视图复现/) — Zero123++、Era3D、MV-Adapter 的统一最小复现与医学方向对比
+
+本地医学 3D 参考软件：
+
+- [`3D Organon Anatomy`](./3d-organon-anatomy/README.md) — 医学解剖模型软件，程序与配套数据存放于 `3d-organon-anatomy/software/`。

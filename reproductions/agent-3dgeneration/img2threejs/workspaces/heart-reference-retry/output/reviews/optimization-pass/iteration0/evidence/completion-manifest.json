@@ -1,0 +1,99 @@
+{
+  "passId": "optimization-pass",
+  "iterationId": "evidence",
+  "captureRoot": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\output\\reviews\\optimization-pass\\iteration0\\captures",
+  "reference": {
+    "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\reference.png",
+    "sha256": "6560b7e8c94bd8a46da7b1a5c3a2bc998fbd502d4f39c6816443b2595eb0f672"
+  },
+  "spec": {
+    "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\object-sculpt-spec.json",
+    "sha256": "b147a9b70fbaf7c928f9d5ec578e056493e4d35bfe915238b2dc688365035063"
+  },
+  "artifacts": [
+    {
+      "path": "action-ready.json",
+      "sha256": "a9e05ef056afc16b71651b4844d557db561230682603bce22e8a9c163ebff7f5"
+    },
+    {
+      "path": "anatomy-layout.json",
+      "sha256": "41cc33c54c96a709f9145e063a2c7d3b85a8eec1f419c20f88253ab5b8db0f60"
+    },
+    {
+      "path": "attachment-scope.json",
+      "sha256": "2a07ab033e5628d9944dfc0cd3d91e951c0207eee33ad114aa8daa01e23c5efa"
+    },
+    {
+      "path": "comparison.json",
+      "sha256": "6de5047a344f353c2a7806bb40c8b211e6be06754b75657a855437702c88fbd2"
+    },
+    {
+      "path": "comparison.png",
+      "sha256": "1b156b423ab24550bc871443726d7e634f112c1a28ae6db1900f36228315a721"
+    },
+    {
+      "path": "createHeartModel.ts",
+      "sha256": "9fc6bc78393de3add907e40d7a5369b1c3d649b6bfbe92ec2b1a6e3233156beb"
+    },
+    {
+      "path": "final-ui\\exploded-ui.png",
+      "sha256": "5fe0ebbd5eecf183f6cbc30b038afc389b90bd22288a5756026300c313eeb420"
+    },
+    {
+      "path": "final-ui\\initial-front.png",
+      "sha256": "078a98d107a9b8ca7a3ce076c8f168873e97e8e644b704a65efb0ad64d408543"
+    },
+    {
+      "path": "final-ui\\interaction-report.json",
+      "sha256": "9e06b1966e3cfb1658920322fa2d4710cb510a1afa72660a39cc927a8e599af6"
+    },
+    {
+      "path": "final-ui\\mobile-ui.png",
+      "sha256": "e8a0f884074fa38d1dcd1776ea60130f92aa9d8905659b9f3ba467fcdeba86c8"
+    },
+    {
+      "path": "final-ui\\normal-ui.png",
+      "sha256": "bda7ab769dfbe747091ba0bcf27490987d8e8d79bb84b120e8816816cad16551"
+    },
+    {
+      "path": "final-ui\\reset-front.png",
+      "sha256": "4f4c95e9fca284342bada635c7a4e894d65df401c04296269fe2b932286276c2"
+    },
+    {
+      "path": "heartMaterials.ts",
+      "sha256": "f7b42ed4c94f9cbab0b189200270d768d32a63a0e41ee0404ece92bc508be63c"
+    },
+    {
+      "path": "interior-difference.json",
+      "sha256": "57e016d532dfef33c396eecc05be61d00c48a98730041c63f42ec8b58fabf26b"
+    },
+    {
+      "path": "main.ts",
+      "sha256": "2ac7a6dbfc92477ed3b92b6cad59dcfb6b6d23a0c7880f333fe02a06e32c4576"
+    },
+    {
+      "path": "multi-angle.json",
+      "sha256": "6281acb6741c0e80631a8078110494b43c4d7bb550aad73f3de96f30c18b6996"
+    },
+    {
+      "path": "part-coverage.json",
+      "sha256": "e298a4bbd36d034fe4f9fcdd442e6376db4c91cb48c982082d2b945084dcef07"
+    },
+    {
+      "path": "part-manifest.json",
+      "sha256": "2f7167dbcc69446652c0bfa17eb2468f75d8f61628af5eaa6434ed39c74c7e98"
+    },
+    {
+      "path": "performance-report.json",
+      "sha256": "d3daca43d2fcf1db34d99fda5874b0dd947dc719b48020ae8d91e941b88a3055"
+    },
+    {
+      "path": "tier1.json",
+      "sha256": "f62130607d0f6a4f4810a430aba3132c27b4db1727759f523fda43ffa6836dc4"
+    },
+    {
+      "path": "turntable.json",
+      "sha256": "24f98adc3f32a565ec62cde6d3da83167940676cb12923e19fc0b5dc0bb3ff2c"
+    }
+  ]
+}

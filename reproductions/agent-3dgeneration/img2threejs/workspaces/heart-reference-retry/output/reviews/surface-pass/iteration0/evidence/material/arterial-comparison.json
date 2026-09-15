@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "kind": "img2threejs.material-comparison",
+  "materialId": "arterial",
+  "reference": {
+    "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\output\\reviews\\surface-pass\\iteration0\\evidence\\material\\arterial-reference.png",
+    "meanRgb": [
+      214,
+      85,
+      71
+    ],
+    "features": {
+      "meanLuma": 0.435499014501634,
+      "lumaVariance": 0.027290680166877693,
+      "horizontalGradient": 0.0288178838130998,
+      "verticalGradient": 0.033910833333333425,
+      "anisotropyProxy": 1.176728782490216
+    },
+    "width": 85,
+    "height": 102,
+    "foregroundCoverage": 1.0,
+    "warnings": [
+      "image is not clearly isolated from background; using most pixels as material evidence"
+    ],
+    "readback": true,
+    "diagnostics": {
+      "backgroundColor": "#D8493A",
+      "backgroundNoise": 75.756,
+      "transparentPixelFraction": 0.0,
+      "foregroundCoverage": 1.0
+    }
+  },
+  "render": {
+    "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\output\\reviews\\surface-pass\\iteration0\\evidence\\material\\arterial-render.png",
+    "meanRgb": [
+      222,
+      97,
+      83
+    ],
+    "features": {
+      "meanLuma": 0.4808772504765795,
+      "lumaVariance": 0.007579958774871823,
+      "horizontalGradient": 0.014208674036990778,
+      "verticalGradient": 0.008817615422055435,
+      "anisotropyProxy": 1.6113964328100234
+    },
+    "width": 68,
+    "height": 82,
+    "foregroundCoverage": 1.0,
+    "warnings": [
+      "image is not clearly isolated from background; using most pixels as material evidence"
+    ],
+    "readback": true,
+    "diagnostics": {
+      "backgroundColor": "#D74A36",
+      "backgroundNoise": 42.024,
+      "transparentPixelFraction": 0.0,
+      "foregroundCoverage": 1.0
+    }
+  },
+  "metrics": {
+    "deltaE00": 3.485,
+    "scores": {
+      "baseColor": 0.9302936003314225,
+      "meanLuma": 0.8991594756112322,
+      "microstructure": 0.8357439883999511,
+      "directionalResponse": 0.7826661748400963,
+      "overall": 0.8783
+    }
+  },
+  "mismatches": [],
+  "passed": true,
+  "nextAction": "continue",
+  "limitation": "Deterministic crop metrics are evidence; material identity still requires vision review for ambiguous cases."
+}

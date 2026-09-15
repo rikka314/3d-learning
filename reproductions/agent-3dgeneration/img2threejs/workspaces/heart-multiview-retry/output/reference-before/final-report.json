@@ -1,0 +1,123 @@
+{
+  "anatomyRevisionCompleted": true,
+  "revision": "surface-refinement",
+  "externalAnatomyCheckAccepted": true,
+  "internalAnatomyValidated": false,
+  "knowledgeReview": "knowledge-review.md",
+  "viewer": "http://127.0.0.1:4175/",
+  "finalEvidence": "output/material-final",
+  "resultImage": "output/material-final/threeQuarter.png",
+  "verification": {
+    "build": {
+      "command": "npm run build",
+      "passed": true,
+      "checks": [
+        "tsc --noEmit",
+        "vite build"
+      ],
+      "warning": "Existing bundle >500 kB; ESLint is not configured"
+    },
+    "structure": {
+      "passed": true,
+      "checks": 36,
+      "report": "output/material-final/anatomy-check.json",
+      "sha256": "996d6fc1ae004aed18834e592412f41d7eb3d2671604313156417ff914a90096"
+    },
+    "separation": {
+      "passed": true,
+      "groups": [
+        {
+          "id": "great-vessels",
+          "testedPairs": 72,
+          "passed": true,
+          "failedPairs": 0,
+          "minimumGap": 0.07918337906347339
+        },
+        {
+          "id": "coronary-artery-vs-vein",
+          "testedPairs": 36,
+          "passed": true,
+          "failedPairs": 0,
+          "minimumGap": 0.019378565920500124
+        }
+      ],
+      "report": "output/material-final/vessel-clearance.json",
+      "sha256": "1698bbb4346998e168ec0d2d7676c67fedbfa15793f280d75ececf7a4c899885",
+      "pairs": 108
+    },
+    "ui": {
+      "passed": true,
+      "checks": 12,
+      "report": "output/material-final-ui/report.json"
+    },
+    "independentKnowledgeReview": {
+      "verdict": "limited-scope-pass",
+      "report": "output/anatomy-06/independent-review.json",
+      "note": "Review applies to anatomy-06. This surface revision preserves defining anatomy and passed new geometry regression; it is not a new independent medical certification."
+    },
+    "codeReview": {
+      "general": "APPROVE final surface revision",
+      "typescript": "APPROVE including final tessellation, UV cleanup and capture metadata",
+      "coronarySourceSha256": "57964d8a706b0a60b9eca30df683127c7f2598dc9882875e0333ac2bb4d34f82"
+    },
+    "surface": {
+      "passed": true,
+      "checks": 10,
+      "report": "output/material-final/surface-check.json",
+      "sha256": "bbf38a6c34d6d5e53811e6a0adb5cea40f455fedc0935fc25749db4229564807"
+    },
+    "visualReview": {
+      "independentStage": "output/material-02",
+      "verdict": "Clear material improvement across five matching views; no material blockers",
+      "finalStage": "output/material-final",
+      "finalCheck": "Primary agent checked final images after atrial tessellation; original block intersections remain a documented shape simplification"
+    }
+  },
+  "captureReportSha256": "59c3540c4c2238aaa24d635dbcbc471abb969b44d6a1787db2a5055dbf5abb5b",
+  "performance": {
+    "fps": null,
+    "drawCalls": 76,
+    "triangles": 222472,
+    "lines": 0,
+    "points": 0,
+    "geometries": 76,
+    "textures": 2,
+    "programs": 3,
+    "fpsStatus": "Capture completed before the one-second FPS window; no frame-rate claim",
+    "scope": "Renderer counters for this capture, not a device benchmark"
+  },
+  "legacyImageWorkflow": {
+    "accepted": false,
+    "stage": "blockout",
+    "status": "unaccepted image-fidelity candidate retained",
+    "previousReport": "output/anatomy-before/final-report.json",
+    "note": "Old silhouette metrics are historical and do not evaluate this anatomy revision."
+  },
+  "limitations": [
+    "true four cavities",
+    "internal outflow continuity",
+    "valves",
+    "septa",
+    "aortic sinus ostia",
+    "patent lumens",
+    "hemodynamics",
+    "patient scale"
+  ],
+  "samplingLimitations": [
+    "Sampled broad-phase separation, not exact triangle-intersection proof",
+    "Legitimate branch pairs excluded from separation testing; their junction quality is tested separately",
+    "Coronary same-kind pairs and coronary-to-great-vessel pairs are outside this separation scan",
+    "No claims about vessel lumens, chamber continuity, blood flow, or patient-specific dimensions"
+  ],
+  "surfaceRevisionCompleted": true,
+  "surfaceReview": "surface-review.md",
+  "comparison": "output/material-comparison.html",
+  "comparisonImage": "output/material-final/comparison.png",
+  "previousAnatomyEvidence": "output/anatomy-06",
+  "surfaceLimitations": [
+    "Schematic atrial bodies and hard atrioventricular transitions",
+    "Straight teaching cutaways at vessel ends",
+    "Simplified fat bands",
+    "Appearance parameters are not measured tissue optics; no subsurface-scattering claim"
+  ]
+}

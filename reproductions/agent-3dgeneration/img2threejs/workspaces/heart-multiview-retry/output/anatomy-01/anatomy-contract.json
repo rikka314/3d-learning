@@ -1,0 +1,28 @@
+{
+  "scope": "normal adult external anatomy, right-dominant coronary example",
+  "sources": {
+    "OpenStax": "https://openstax.org/books/anatomy-and-physiology/pages/19-1-heart-anatomy",
+    "greatVessels": "https://www.ncbi.nlm.nih.gov/books/NBK547680/",
+    "cardiacVeins": "https://www.ncbi.nlm.nih.gov/books/NBK549786/"
+  },
+  "required": [
+    "four named external chamber regions",
+    "LV apex and RV majority anterior surface",
+    "pulmonary trunk with two connected branches",
+    "three distinct aortic arch superior branches",
+    "SVC and IVC rooted in RA exterior",
+    "four pulmonary veins rooted in posterior LA exterior",
+    "auricles attached to corresponding atria",
+    "RCA and LCx travel in AV groove",
+    "LAD and PDA travel in IV grooves",
+    "coronary sinus in posterior AV groove drains to RA",
+    "coronary arteries arise at proximal aorta"
+  ],
+  "mustNotClaim": [
+    "functional or open internal lumen",
+    "valves or septa checked",
+    "exact patient anatomy",
+    "reference silhouette pass proves biological correctness"
+  ],
+  "priorVisualAcceptance": "not passed; preserve legacy review history"
+}

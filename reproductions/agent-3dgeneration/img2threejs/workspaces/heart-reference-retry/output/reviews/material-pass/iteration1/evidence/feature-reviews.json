@@ -1,0 +1,8 @@
+[
+  {
+    "id": "tissue-palette",
+    "score": 0.83,
+    "critical": true,
+    "notes": "Five visible tissue footprints pass deterministic comparison and remain distinct under neutral and grazing views."
+  }
+]

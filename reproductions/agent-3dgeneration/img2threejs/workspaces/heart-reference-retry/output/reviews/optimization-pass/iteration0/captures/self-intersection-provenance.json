@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "mode": "fresh-shell-check",
+  "sourceEvidence": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\output\\reviews\\optimization-pass\\iteration0\\captures\\self-intersection.json",
+  "selfIntersectionSha256": "1c3ede42a27703b7c806593cabfb15f4d12d58bfdfec2097eb9b9fb32530f1f3",
+  "sourceShellGeometrySha256": "bc6387513ce93e80e6b5b17baa500631f4147872c89a0c0eb2ee4222ecd1120f",
+  "currentShellGeometrySha256": "bc6387513ce93e80e6b5b17baa500631f4147872c89a0c0eb2ee4222ecd1120f",
+  "scope": "optimized ventricular-body-surface positions, normals, and indices",
+  "measurement": {
+    "sampledVertexCount": 917,
+    "insideVertexCount": 0,
+    "undecidedVertexCount": 4
+  },
+  "limitation": "Vessel and instanced attachments remain visual/runtime checks."
+}

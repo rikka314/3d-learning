@@ -1,0 +1,145 @@
+{
+  "passed": true,
+  "checks": {
+    "silhouetteIoU": 0.9398,
+    "aspectRatioDelta": 0.0204,
+    "scaleDelta": 0.0208,
+    "bilateralSymmetryError": 0.1619,
+    "colorDelta": {
+      "checked": 31,
+      "maxDeltaE": 28.87,
+      "perComponent": [
+        {
+          "componentId": null,
+          "deltaE": 17.45
+        },
+        {
+          "componentId": null,
+          "deltaE": 17.18
+        },
+        {
+          "componentId": null,
+          "deltaE": 15.74
+        },
+        {
+          "componentId": null,
+          "deltaE": 28.87
+        },
+        {
+          "componentId": null,
+          "deltaE": 28.87
+        },
+        {
+          "componentId": null,
+          "deltaE": 15.74
+        },
+        {
+          "componentId": null,
+          "deltaE": 12.91
+        },
+        {
+          "componentId": null,
+          "deltaE": 20.14
+        },
+        {
+          "componentId": null,
+          "deltaE": 17.18
+        },
+        {
+          "componentId": null,
+          "deltaE": 17.18
+        },
+        {
+          "componentId": null,
+          "deltaE": 17.18
+        },
+        {
+          "componentId": null,
+          "deltaE": 17.18
+        },
+        {
+          "componentId": null,
+          "deltaE": 15.74
+        },
+        {
+          "componentId": null,
+          "deltaE": 15.74
+        },
+        {
+          "componentId": null,
+          "deltaE": 15.74
+        },
+        {
+          "componentId": null,
+          "deltaE": 15.74
+        },
+        {
+          "componentId": null,
+          "deltaE": 28.87
+        },
+        {
+          "componentId": null,
+          "deltaE": 28.87
+        },
+        {
+          "componentId": null,
+          "deltaE": 28.87
+        },
+        {
+          "componentId": null,
+          "deltaE": 28.87
+        },
+        {
+          "componentId": null,
+          "deltaE": 15.74
+        },
+        {
+          "componentId": null,
+          "deltaE": 15.74
+        },
+        {
+          "componentId": null,
+          "deltaE": 15.74
+        },
+        {
+          "componentId": null,
+          "deltaE": 15.74
+        },
+        {
+          "componentId": null,
+          "deltaE": 12.91
+        },
+        {
+          "componentId": null,
+          "deltaE": 11.25
+        },
+        {
+          "componentId": null,
+          "deltaE": 11.25
+        },
+        {
+          "componentId": null,
+          "deltaE": 12.91
+        },
+        {
+          "componentId": null,
+          "deltaE": 20.14
+        },
+        {
+          "componentId": null,
+          "deltaE": 20.14
+        },
+        {
+          "componentId": null,
+          "deltaE": 20.14
+        }
+      ],
+      "gated": false
+    }
+  },
+  "failures": [],
+  "maskWarnings": [],
+  "renderHash": "0856fc0ce1ff4312",
+  "passId": "blockout",
+  "mapStrippedRender": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\output\\final-candidate\\map-stripped.png"
+}

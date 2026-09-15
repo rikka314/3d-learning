@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "mode": "reused-identical-shell",
+  "sourceEvidence": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\output\\playwright\\form-refinement\\self-intersection.json",
+  "selfIntersectionSha256": "a66dd872478c11525da08a47ae745c306cbb8598e1d40a88e4c0a17ee29d4489",
+  "sourceShellGeometrySha256": "1c1687e9277938488c8e035bf40bf620052a51e697aa57672d2589af9df4d813",
+  "currentShellGeometrySha256": "1c1687e9277938488c8e035bf40bf620052a51e697aa57672d2589af9df4d813",
+  "scope": "ventricular-body-surface positions, normals, and indices",
+  "limitation": "Only the continuous ventricular shell is covered; vessel and instanced attachments remain visual/runtime checks."
+}

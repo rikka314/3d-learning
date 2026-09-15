@@ -1,0 +1,386 @@
+{
+  "detailInventory": {
+    "scanMethod": "grid-3x3",
+    "targetMinDetails": 16,
+    "details": [
+      {
+        "id": "right-biased-apex",
+        "kind": "contour",
+        "description": "Continuous body tapers to apex near x=0.88, y=-2.0.",
+        "region": {
+          "x": 0.48,
+          "y": 0.72,
+          "width": 0.42,
+          "height": 0.25,
+          "units": "normalized"
+        },
+        "scale": "macro",
+        "affects": "silhouette",
+        "mapsTo": {
+          "type": "component.localFeatures",
+          "ref": "closed-loft-stations"
+        },
+        "evidenceRef": "reference",
+        "confidence": 0.98,
+        "realization": "specified"
+      },
+      {
+        "id": "body-shoulder-asymmetry",
+        "kind": "contour",
+        "description": "Broad shoulder shifts from image-left atrial overlap into image-right dominant ventricle.",
+        "region": {
+          "x": 0.2,
+          "y": 0.34,
+          "width": 0.65,
+          "height": 0.38,
+          "units": "normalized"
+        },
+        "scale": "macro",
+        "affects": "volume",
+        "mapsTo": {
+          "type": "component.localFeatures",
+          "ref": "closed-loft-stations"
+        },
+        "evidenceRef": "reference",
+        "confidence": 0.96,
+        "realization": "specified"
+      },
+      {
+        "id": "aorta-continuous-sweep",
+        "kind": "contour",
+        "description": "Root, ascending segment and arch are one red connected tube.",
+        "region": {
+          "x": 0.35,
+          "y": 0.02,
+          "width": 0.34,
+          "height": 0.38,
+          "units": "normalized"
+        },
+        "scale": "macro",
+        "affects": "topology",
+        "mapsTo": {
+          "type": "component.localFeatures",
+          "ref": "continuous-root-ascending-arch"
+        },
+        "evidenceRef": "reference",
+        "confidence": 0.98,
+        "realization": "specified"
+      },
+      {
+        "id": "aortic-mouth-count",
+        "kind": "hole",
+        "description": "Exactly three superior hollow red outlets.",
+        "region": {
+          "x": 0.35,
+          "y": 0.0,
+          "width": 0.28,
+          "height": 0.16,
+          "units": "normalized"
+        },
+        "scale": "meso",
+        "affects": "opening count",
+        "mapsTo": {
+          "type": "component.localFeatures",
+          "ref": "three-hollow-branch-mouths"
+        },
+        "evidenceRef": "reference",
+        "confidence": 0.99,
+        "realization": "specified"
+      },
+      {
+        "id": "pulmonary-anterior-crossing",
+        "kind": "contour",
+        "description": "Blue trunk crosses in front of ascending aorta and turns image right.",
+        "region": {
+          "x": 0.42,
+          "y": 0.17,
+          "width": 0.34,
+          "height": 0.28,
+          "units": "normalized"
+        },
+        "scale": "macro",
+        "affects": "depth order",
+        "mapsTo": {
+          "type": "component.localFeatures",
+          "ref": "anterior-aorta-crossing"
+        },
+        "evidenceRef": "reference",
+        "confidence": 0.98,
+        "realization": "specified"
+      },
+      {
+        "id": "pulmonary-open-mouth",
+        "kind": "hole",
+        "description": "Large blue image-right pulmonary mouth has visible wall and lumen.",
+        "region": {
+          "x": 0.69,
+          "y": 0.17,
+          "width": 0.12,
+          "height": 0.12,
+          "units": "normalized"
+        },
+        "scale": "meso",
+        "affects": "opening",
+        "mapsTo": {
+          "type": "component.localFeatures",
+          "ref": "left-mouth"
+        },
+        "evidenceRef": "reference",
+        "confidence": 0.99,
+        "realization": "specified"
+      },
+      {
+        "id": "svc-mouth",
+        "kind": "hole",
+        "description": "Large blue SVC mouth at image-left top.",
+        "region": {
+          "x": 0.18,
+          "y": 0.09,
+          "width": 0.17,
+          "height": 0.15,
+          "units": "normalized"
+        },
+        "scale": "meso",
+        "affects": "opening",
+        "mapsTo": {
+          "type": "component.localFeatures",
+          "ref": "open-mouth"
+        },
+        "evidenceRef": "reference",
+        "confidence": 0.98,
+        "realization": "specified"
+      },
+      {
+        "id": "ivc-continuation",
+        "kind": "contour",
+        "description": "Blue IVC extends below image-left lower heart.",
+        "region": {
+          "x": 0.22,
+          "y": 0.68,
+          "width": 0.15,
+          "height": 0.2,
+          "units": "normalized"
+        },
+        "scale": "meso",
+        "affects": "silhouette",
+        "mapsTo": {
+          "type": "component.localFeatures",
+          "ref": "superior-inferior-continuity"
+        },
+        "evidenceRef": "reference",
+        "confidence": 0.94,
+        "realization": "specified"
+      },
+      {
+        "id": "four-pulmonary-veins",
+        "kind": "hole",
+        "description": "Four short red lateral return stubs, two per side.",
+        "region": {
+          "x": 0.11,
+          "y": 0.27,
+          "width": 0.68,
+          "height": 0.18,
+          "units": "normalized"
+        },
+        "scale": "meso",
+        "affects": "count and topology",
+        "mapsTo": {
+          "type": "component.localFeatures",
+          "ref": "four-return-mouths"
+        },
+        "evidenceRef": "reference",
+        "confidence": 0.9,
+        "realization": "specified"
+      },
+      {
+        "id": "right-atrium-folds",
+        "kind": "ridge",
+        "description": "Broad deep salmon image-left atrial folds.",
+        "region": {
+          "x": 0.16,
+          "y": 0.32,
+          "width": 0.28,
+          "height": 0.3,
+          "units": "normalized"
+        },
+        "scale": "meso",
+        "affects": "surface relief",
+        "mapsTo": {
+          "type": "component.localFeatures",
+          "ref": "lobulated-folds"
+        },
+        "evidenceRef": "reference",
+        "confidence": 0.95,
+        "realization": "specified"
+      },
+      {
+        "id": "left-auricle-lobules",
+        "kind": "ridge",
+        "description": "Image-right auricle has rounded deep salmon lobules.",
+        "region": {
+          "x": 0.57,
+          "y": 0.3,
+          "width": 0.22,
+          "height": 0.17,
+          "units": "normalized"
+        },
+        "scale": "meso",
+        "affects": "surface relief",
+        "mapsTo": {
+          "type": "component.localFeatures",
+          "ref": "lobulated-folds"
+        },
+        "evidenceRef": "reference",
+        "confidence": 0.96,
+        "realization": "specified"
+      },
+      {
+        "id": "av-fat-band",
+        "kind": "ridge",
+        "description": "Gold fat spans the superior AV groove beneath atria.",
+        "region": {
+          "x": 0.31,
+          "y": 0.4,
+          "width": 0.48,
+          "height": 0.15,
+          "units": "normalized"
+        },
+        "scale": "meso",
+        "affects": "attached relief",
+        "mapsTo": {
+          "type": "component.localFeatures",
+          "ref": "groove-following-lobules"
+        },
+        "evidenceRef": "reference",
+        "confidence": 0.96,
+        "realization": "specified"
+      },
+      {
+        "id": "interventricular-fat",
+        "kind": "ridge",
+        "description": "Gold fat descends alongside the main anterior coronary pair.",
+        "region": {
+          "x": 0.48,
+          "y": 0.48,
+          "width": 0.22,
+          "height": 0.43,
+          "units": "normalized"
+        },
+        "scale": "meso",
+        "affects": "attached relief",
+        "mapsTo": {
+          "type": "component.localFeatures",
+          "ref": "groove-following-lobules"
+        },
+        "evidenceRef": "reference",
+        "confidence": 0.98,
+        "realization": "specified"
+      },
+      {
+        "id": "right-coronary-fat",
+        "kind": "ridge",
+        "description": "Gold fat wraps down the image-left coronary groove.",
+        "region": {
+          "x": 0.25,
+          "y": 0.49,
+          "width": 0.22,
+          "height": 0.37,
+          "units": "normalized"
+        },
+        "scale": "meso",
+        "affects": "attached relief",
+        "mapsTo": {
+          "type": "component.localFeatures",
+          "ref": "groove-following-lobules"
+        },
+        "evidenceRef": "reference",
+        "confidence": 0.96,
+        "realization": "specified"
+      },
+      {
+        "id": "red-coronary-branching",
+        "kind": "ridge",
+        "description": "Red arterial hierarchy branches and tapers across both ventricles.",
+        "region": {
+          "x": 0.25,
+          "y": 0.43,
+          "width": 0.62,
+          "height": 0.46,
+          "units": "normalized"
+        },
+        "scale": "micro",
+        "affects": "surface tubes",
+        "mapsTo": {
+          "type": "component.localFeatures",
+          "ref": "tapered-terminations"
+        },
+        "evidenceRef": "reference",
+        "confidence": 0.95,
+        "realization": "specified"
+      },
+      {
+        "id": "blue-coronary-branching",
+        "kind": "ridge",
+        "description": "Blue venous hierarchy runs in grooves and tapers without hard cutoffs.",
+        "region": {
+          "x": 0.25,
+          "y": 0.43,
+          "width": 0.62,
+          "height": 0.46,
+          "units": "normalized"
+        },
+        "scale": "micro",
+        "affects": "surface tubes",
+        "mapsTo": {
+          "type": "component.localFeatures",
+          "ref": "surface-attachment"
+        },
+        "evidenceRef": "reference",
+        "confidence": 0.95,
+        "realization": "specified"
+      },
+      {
+        "id": "myocardial-fiber-relief",
+        "kind": "ridge",
+        "description": "Restrained diagonal fiber relief breaks ventricular highlights.",
+        "region": {
+          "x": 0.31,
+          "y": 0.48,
+          "width": 0.54,
+          "height": 0.42,
+          "units": "normalized"
+        },
+        "scale": "micro",
+        "affects": "normal response",
+        "mapsTo": {
+          "type": "material.localOverrides",
+          "ref": "fiber-relief"
+        },
+        "evidenceRef": "reference",
+        "confidence": 0.9,
+        "realization": "specified"
+      },
+      {
+        "id": "regional-gloss",
+        "kind": "gloss",
+        "description": "Great vessels are smoother than myocardium; gold fat and auricles carry broad soft highlights.",
+        "region": {
+          "x": 0.12,
+          "y": 0.02,
+          "width": 0.75,
+          "height": 0.9,
+          "units": "normalized"
+        },
+        "scale": "micro",
+        "affects": "roughness separation",
+        "mapsTo": {
+          "type": "material.localOverrides",
+          "ref": "arterial-highlight"
+        },
+        "evidenceRef": "reference",
+        "confidence": 0.9,
+        "realization": "specified"
+      }
+    ]
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "passed": false,
+  "status": "failed",
+  "failure": "Error: Stale capture: src/coronaryAnatomy.ts"
+}

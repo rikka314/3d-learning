@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "checks": {
+    "silhouetteIoU": 0.8598,
+    "aspectRatioDelta": 0.0397,
+    "scaleDelta": 0.0197,
+    "bilateralSymmetryError": 0.1572
+  },
+  "failures": [],
+  "maskWarnings": [],
+  "renderHash": "85cf1da62055754e",
+  "passId": null
+}

@@ -1,0 +1,64 @@
+async (page) => {
+  await page.waitForFunction(() => window.__MODEL_READY__ === true);
+  await page.setViewportSize({ width: 900, height: 1125 });
+  const stage = await page.evaluate(() => window.__MODEL_ROOT__.userData.buildPass || 'blockout');
+  const folder = `workspaces/heart-reference-retry/output/playwright/${stage}`;
+  const settle = async () => page.evaluate(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))));
+  for (const view of ['front', 'right', 'rear', 'left', 'threeQuarter']) {
+    await page.evaluate((name) => window.__CAPTURE_VIEW__(name), view);
+    await settle();
+    await page.screenshot({ path: `${folder}/${view}.png`, scale: 'css' });
+  }
+  await page.evaluate(() => window.__CAPTURE_VIEW__('front'));
+  await settle();
+  const report = await page.evaluate(() => {
+    const root = window.__MODEL_ROOT__;
+    const meshes = [];
+    let unnamedMeshes = 0;
+    let invalidVertices = 0;
+    const geometry = [];
+    root.updateMatrixWorld(true);
+    root.traverse((object) => {
+      if (!object.isMesh) return;
+      if (!object.name) unnamedMeshes++;
+      const pos = object.geometry.attributes.position;
+      const distinctZ = new Set();
+      for (let i = 0; i < pos.count; i++) {
+        if (![pos.getX(i), pos.getY(i), pos.getZ(i)].every(Number.isFinite)) invalidVertices++;
+        distinctZ.add(Math.round(pos.getZ(i) * 1000));
+      }
+      meshes.push({ id: object.name, vertices: pos.count, distinctZ: distinctZ.size, instances: object.isInstancedMesh ? object.count : 1 });
+      // The continuous ventricular shell is the surface at risk of folding through itself.
+      // Open vessel-wall surfaces and repeated ellipsoids are covered visually, not claimed here.
+      if (object.name === 'ventricular-body-surface') {
+        const vertices = [];
+        const normals = [];
+        const normal = object.geometry.attributes.normal;
+        for (let i = 0; i < pos.count; i++) vertices.push([pos.getX(i), pos.getY(i), pos.getZ(i)]);
+        for (let i = 0; i < normal.count; i++) normals.push([normal.getX(i), normal.getY(i), normal.getZ(i)]);
+        const indices = object.geometry.index;
+        const faces = [];
+        for (let i = 0; i < indices.count; i += 3) faces.push([indices.getX(i), indices.getX(i + 1), indices.getX(i + 2)]);
+        geometry.push({ id: object.name, vertices, normals, indices: faces });
+      }
+    });
+    return { stage: root.userData.buildPass, meshes, geometry, unnamedMeshes, invalidVertices,
+      performance: window.__RENDER_INFO__(), parts: window.__PART_MANIFEST__(),
+      source: root.userData.source, geometryCheckScope: 'continuous ventricular shell only; vessel and instancing checks are visual' };
+  });
+  if (report.invalidVertices || report.unnamedMeshes) throw new Error('Invalid or unnamed model geometry');
+  const downloadPending = page.waitForEvent('download');
+  await page.evaluate((data) => {
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' }));
+    link.href = url;
+    link.download = 'runtime-report.json';
+    link.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }, report);
+  const download = await downloadPending;
+  await download.saveAs(`${folder}/runtime-report.json`);
+  console.log(JSON.stringify({ stage, screenshots: 5, meshes: report.meshes.length,
+    invalidVertices: report.invalidVertices, unnamedMeshes: report.unnamedMeshes,
+    performance: report.performance, folder }));
+}

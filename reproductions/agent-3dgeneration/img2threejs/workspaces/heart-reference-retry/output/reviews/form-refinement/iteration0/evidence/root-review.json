@@ -1,0 +1,20 @@
+{
+  "authoredBy": "root",
+  "action": "refine-code",
+  "estimatedFidelity": 0.77,
+  "aiVisionScore": 0.77,
+  "summary": "Form refinement improves the connected organic body and dense surface systems, but the atria/fat/coronary feature group remains below its pass threshold and requires a bounded code correction.",
+  "layerScores": {
+    "silhouetteProportion": 0.89,
+    "componentStructure": 0.86,
+    "formDetail": 0.76,
+    "materialSurface": 0.65,
+    "lightingCamera": 0.80
+  },
+  "featureReviews": [
+    {"id": "heart-silhouette", "score": 0.89, "visible": true, "notes": "Closed C1 loft and right-biased apex retain the reference silhouette."},
+    {"id": "great-vessel-topology", "score": 0.87, "visible": true, "notes": "Connected aortic and pulmonary systems retain the intended macro topology."},
+    {"id": "atria-fat-coronaries", "score": 0.75, "visible": true, "notes": "Fails form threshold: fat bed buries central lobules, major trunks sit too proud, and auricular ripples are harsh and regular."}
+  ],
+  "notes": "Refine code with these bounded changes: flatten fat-bed normal depth to 0.45 of current while retaining width; lower main red coronary center 0.093 to 0.060 and blue 0.087 to 0.058; reduce auricle ripple 0.072 to 0.045; move buried pulmonary start y 590 to 564; add a superior fat collar path matching the upper groove. The blue pulmonary root currently extends too far inferior. This is not a continue decision and does not claim final or clinical fidelity."
+}

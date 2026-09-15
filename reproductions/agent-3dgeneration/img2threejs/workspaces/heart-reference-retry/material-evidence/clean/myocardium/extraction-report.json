@@ -1,0 +1,87 @@
+{
+  "ok": true,
+  "verdict": "pass",
+  "confidence": 0.79,
+  "estimatedFidelity": 0.79,
+  "targetThreshold": 0.7,
+  "materialId": "myocardium",
+  "sourceImage": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\material-evidence\\clean-crops\\myocardium.png",
+  "outDir": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\material-evidence\\clean\\myocardium",
+  "palette": [
+    "#E27163",
+    "#D85C4F",
+    "#EB8A7D",
+    "#CC493C",
+    "#F6BAB1"
+  ],
+  "maps": {
+    "albedo": {
+      "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\material-evidence\\clean\\myocardium\\myocardium_albedo.png",
+      "url": "myocardium_albedo.png",
+      "channel": "albedo",
+      "source": "reference-pixel-extraction"
+    },
+    "roughness": {
+      "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\material-evidence\\clean\\myocardium\\myocardium_roughness.png",
+      "url": "myocardium_roughness.png",
+      "channel": "roughness",
+      "source": "reference-pixel-extraction"
+    },
+    "height": {
+      "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\material-evidence\\clean\\myocardium\\myocardium_height.png",
+      "url": "myocardium_height.png",
+      "channel": "height",
+      "source": "reference-pixel-extraction"
+    },
+    "normal": {
+      "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\material-evidence\\clean\\myocardium\\myocardium_normal.png",
+      "url": "myocardium_normal.png",
+      "channel": "normal",
+      "source": "reference-pixel-extraction"
+    },
+    "ao": {
+      "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\material-evidence\\clean\\myocardium\\myocardium_ao.png",
+      "url": "myocardium_ao.png",
+      "channel": "ao",
+      "source": "reference-pixel-extraction"
+    }
+  },
+  "diagnostics": {
+    "sourceWidth": 50,
+    "sourceHeight": 50,
+    "mapSize": 1024,
+    "cropBBoxPixels": {
+      "x": 0,
+      "y": 0,
+      "width": 50,
+      "height": 50
+    },
+    "mask": {
+      "backgroundColor": "#E27160",
+      "backgroundNoise": 45.727,
+      "transparentPixelFraction": 0.0,
+      "foregroundCoverage": 1.0
+    },
+    "mapStats": {
+      "valueRange": 0.3245,
+      "heightP90Gradient": 0.04879,
+      "roughnessBase": 0.722,
+      "roughnessVariation": 0.089,
+      "normalStrength": 0.213,
+      "blurRadius": 21
+    },
+    "palette": [
+      "#E27163",
+      "#D85C4F",
+      "#EB8A7D",
+      "#CC493C",
+      "#F6BAB1"
+    ]
+  },
+  "warnings": [
+    "image is not clearly isolated from background; using most pixels as material evidence",
+    "object/background separation is weak",
+    "single-image inverse rendering cannot prove true physical PBR; confidence is capped"
+  ],
+  "limitation": "single-image PBR extraction is an estimate; 70%+ extraction confidence still needs render screenshot review"
+}

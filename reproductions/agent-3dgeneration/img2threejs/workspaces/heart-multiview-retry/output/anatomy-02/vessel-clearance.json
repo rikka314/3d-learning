@@ -1,0 +1,2502 @@
+{
+  "passed": true,
+  "status": "complete",
+  "stage": "anatomy-02",
+  "errors": [],
+  "captureReportSha256": "6746e758738c7c6df86c03ade74b3863f67610a176e7f4ef24a5bb46093c680d",
+  "sourceHashes": [
+    {
+      "file": "src/createHeartModel.ts",
+      "sha256": "5a8c5ad6231a6232f75d7ccc85f2463e0577755104b7ced140311d699700fec6"
+    },
+    {
+      "file": "src/coronaryAnatomy.ts",
+      "sha256": "2dd0898330224f9b51adcbcfcab3b8374eb53505dfe552d28518639a59ad1ff3"
+    },
+    {
+      "file": "src/heartMaterials.ts",
+      "sha256": "7675e1645d6856de1543e4451686e4f40c394f6ab8e14020c60a4b8b1076878c"
+    },
+    {
+      "file": "src/main.ts",
+      "sha256": "dc00f2b0f922eabea839ee340313a3b68dcd43a0b49172a5947f87bc03b3404b"
+    },
+    {
+      "file": "src/style.css",
+      "sha256": "469181405f49ac3d9d858d469f2d0255698f93857aad4b51462c8e8c4553cd90"
+    },
+    {
+      "file": "anatomy-layout.json",
+      "sha256": "004ba9b6864c28e409c6e5872ca759411fd9a8f704591600ce3f7d8171c0cc71"
+    }
+  ],
+  "verifierSha256": "caf01b65799cb9361b433819541fb9a96fa5c2ce5be9b9ef7527a2a3d80f5a7f",
+  "model": "heart-multiview-retry",
+  "buildPass": "anatomy-correction",
+  "source": "Live TubeGeometry.parameters.path and measured rendered vertex-ring radii",
+  "coordinates": "Model-root local units; common root depth scale is removed from both centerlines and tube vertices",
+  "method": "501 evenly spaced arc samples per centerline; max ring radius; interpolated actual ring radii; extra sampling allowance",
+  "limitations": [
+    "Sampled broad-phase separation, not exact triangle-intersection proof",
+    "Legitimate branch pairs excluded from separation testing; their junction quality is tested separately",
+    "No claims about vessel lumens, chamber continuity, blood flow, or patient-specific dimensions"
+  ],
+  "intervals": 500,
+  "minClearance": 0.01,
+  "vessels": [
+    {
+      "id": "aortic-arch",
+      "radiusRange": [
+        0.20000001024481426,
+        0.2550000388697993
+      ],
+      "sampleMargin": 0.0074948643100287956
+    },
+    {
+      "id": "brachiocephalic-branch",
+      "radiusRange": [
+        0.10000001608981206,
+        0.11500000330936572
+      ],
+      "sampleMargin": 0.0011452327931135526
+    },
+    {
+      "id": "left-carotid-branch",
+      "radiusRange": [
+        0.1000000041530868,
+        0.10500000354015779
+      ],
+      "sampleMargin": 0.0009799681120997226
+    },
+    {
+      "id": "left-subclavian-branch",
+      "radiusRange": [
+        0.08900000784961765,
+        0.10000000299730451
+      ],
+      "sampleMargin": 0.0009897055002618766
+    },
+    {
+      "id": "pulmonary-trunk",
+      "radiusRange": [
+        0.2000000222704901,
+        0.24000003072196904
+      ],
+      "sampleMargin": 0.0029444940875303235
+    },
+    {
+      "id": "right-pulmonary-branch",
+      "radiusRange": [
+        0.14000002478002974,
+        0.18000000715394407
+      ],
+      "sampleMargin": 0.0037853113687369884
+    },
+    {
+      "id": "left-pulmonary-branch",
+      "radiusRange": [
+        0.15000001212344033,
+        0.1800000048194529
+      ],
+      "sampleMargin": 0.002588073291213834
+    },
+    {
+      "id": "superior-vena-cava",
+      "radiusRange": [
+        0.2050000102099947,
+        0.2200000179222822
+      ],
+      "sampleMargin": 0.0022562678178589474
+    },
+    {
+      "id": "inferior-vena-cava",
+      "radiusRange": [
+        0.2150000132528976,
+        0.23000000759634337
+      ],
+      "sampleMargin": 0.0018376125198782212
+    },
+    {
+      "id": "right-superior-pulmonary-vein",
+      "radiusRange": [
+        0.1000000079676284,
+        0.1100000044764521
+      ],
+      "sampleMargin": 0.00163534412872431
+    },
+    {
+      "id": "right-inferior-pulmonary-vein",
+      "radiusRange": [
+        0.10000000312666575,
+        0.11000000383120817
+      ],
+      "sampleMargin": 0.0015445469180978976
+    },
+    {
+      "id": "left-superior-pulmonary-vein",
+      "radiusRange": [
+        0.10000000646380267,
+        0.11000000404119441
+      ],
+      "sampleMargin": 0.0013955394987883608
+    },
+    {
+      "id": "left-inferior-pulmonary-vein",
+      "radiusRange": [
+        0.10000000529811082,
+        0.11000000333943313
+      ],
+      "sampleMargin": 0.0013340999025331713
+    }
+  ],
+  "exclusions": [
+    {
+      "vessels": [
+        "aortic-arch",
+        "brachiocephalic-branch"
+      ],
+      "reason": "aortic daughter branch"
+    },
+    {
+      "vessels": [
+        "aortic-arch",
+        "left-carotid-branch"
+      ],
+      "reason": "aortic daughter branch"
+    },
+    {
+      "vessels": [
+        "aortic-arch",
+        "left-subclavian-branch"
+      ],
+      "reason": "aortic daughter branch"
+    },
+    {
+      "vessels": [
+        "pulmonary-trunk",
+        "right-pulmonary-branch"
+      ],
+      "reason": "pulmonary daughter branch"
+    },
+    {
+      "vessels": [
+        "pulmonary-trunk",
+        "left-pulmonary-branch"
+      ],
+      "reason": "pulmonary daughter branch"
+    },
+    {
+      "vessels": [
+        "right-pulmonary-branch",
+        "left-pulmonary-branch"
+      ],
+      "reason": "shared pulmonary bifurcation"
+    }
+  ],
+  "pairs": [
+    {
+      "vessels": [
+        "aortic-arch",
+        "right-pulmonary-branch"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.011280175678765783,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 0.07918336725984526,
+        "centerDistance": 0.5019034436514874,
+        "radiusSum": 0.42272007639164216,
+        "a": {
+          "t": 0.608,
+          "point": [
+            0.031862295597577334,
+            1.7294628796989402,
+            -0.29710260106846487
+          ],
+          "radius": 0.2517600605278363
+        },
+        "b": {
+          "t": 0.226,
+          "point": [
+            -0.012192510516514932,
+            1.2308582210066628,
+            -0.2602293704284849
+          ],
+          "radius": 0.17096001586380588
+        }
+      }
+    },
+    {
+      "vessels": [
+        "brachiocephalic-branch",
+        "left-carotid-branch"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.0021252009052132753,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 0.08822069329892532,
+        "centerDistance": 0.3082207001484488,
+        "radiusSum": 0.2200000068495235,
+        "a": {
+          "t": 0,
+          "point": [
+            -0.25,
+            1.63,
+            -0.11000000000000001
+          ],
+          "radius": 0.11500000330936572
+        },
+        "b": {
+          "t": 0,
+          "point": [
+            0,
+            1.69,
+            -0.28
+          ],
+          "radius": 0.10500000354015779
+        }
+      }
+    },
+    {
+      "vessels": [
+        "right-pulmonary-branch",
+        "superior-vena-cava"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.006041579186595936,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 0.09374684957045706,
+        "centerDistance": 0.4553668854615491,
+        "radiusSum": 0.36162003589109204,
+        "a": {
+          "t": 0.812,
+          "point": [
+            -0.9777356046193374,
+            1.1761316245100537,
+            -0.6643310274293168
+          ],
+          "radius": 0.14752002445304385
+        },
+        "b": {
+          "t": 0.53,
+          "point": [
+            -1.0466167210745763,
+            1.1475476665658078,
+            -0.2151124286168089
+          ],
+          "radius": 0.21410001143804816
+        }
+      }
+    },
+    {
+      "vessels": [
+        "aortic-arch",
+        "pulmonary-trunk"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.010439358397559119,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 0.09769794956739061,
+        "centerDistance": 0.5602979746182518,
+        "radiusSum": 0.46260002505086123,
+        "a": {
+          "t": 0.144,
+          "point": [
+            -0.32795949475908015,
+            0.5569036816568993,
+            0.00674824796393542
+          ],
+          "radius": 0.23888001336767298
+        },
+        "b": {
+          "t": 0.062,
+          "point": [
+            -0.3245286412097272,
+            0.3774616141546603,
+            0.537523712747077
+          ],
+          "radius": 0.22372001168318825
+        }
+      }
+    },
+    {
+      "vessels": [
+        "aortic-arch",
+        "superior-vena-cava"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.009751132127887743,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 0.13688779562474043,
+        "centerDistance": 0.6045678277556048,
+        "radiusSum": 0.46768003213086434,
+        "a": {
+          "t": 0.256,
+          "point": [
+            -0.48996294137237206,
+            0.8928808413630739,
+            0.036631532314583465
+          ],
+          "radius": 0.24768002099256667
+        },
+        "b": {
+          "t": 0.254,
+          "point": [
+            -1.035682311221754,
+            0.8462361544712582,
+            -0.2193311620631103
+          ],
+          "radius": 0.22000001113829767
+        }
+      }
+    },
+    {
+      "vessels": [
+        "left-carotid-branch",
+        "right-pulmonary-branch"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.0047652794808367115,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 0.18376893152638168,
+        "centerDistance": 0.4597289509303454,
+        "radiusSum": 0.27596001940396364,
+        "a": {
+          "t": 0,
+          "point": [
+            0,
+            1.69,
+            -0.28
+          ],
+          "radius": 0.10500000354015779
+        },
+        "b": {
+          "t": 0.226,
+          "point": [
+            -0.012192510516514932,
+            1.2308582210066628,
+            -0.2602293704284849
+          ],
+          "radius": 0.17096001586380588
+        }
+      }
+    },
+    {
+      "vessels": [
+        "aortic-arch",
+        "left-pulmonary-branch"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.010082937601242629,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 0.1986027569168081,
+        "centerDistance": 0.6310827981923441,
+        "radiusSum": 0.4324800412755361,
+        "a": {
+          "t": 0.416,
+          "point": [
+            -0.42305502737510536,
+            1.4330436385634777,
+            -0.010711950738247954
+          ],
+          "radius": 0.25248003645608313
+        },
+        "b": {
+          "t": 0,
+          "point": [
+            0.15999999999999984,
+            1.23,
+            0.12
+          ],
+          "radius": 0.1800000048194529
+        }
+      }
+    },
+    {
+      "vessels": [
+        "left-carotid-branch",
+        "left-subclavian-branch"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.0019696736123615993,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 0.1992276520906925,
+        "centerDistance": 0.40422765862815474,
+        "radiusSum": 0.2050000065374623,
+        "a": {
+          "t": 0,
+          "point": [
+            0,
+            1.69,
+            -0.28
+          ],
+          "radius": 0.10500000354015779
+        },
+        "b": {
+          "t": 0,
+          "point": [
+            0.2799999999999999,
+            1.5799999999999998,
+            -0.55
+          ],
+          "radius": 0.10000000299730451
+        }
+      }
+    },
+    {
+      "vessels": [
+        "brachiocephalic-branch",
+        "right-pulmonary-branch"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.004930544161850541,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 0.2012150968723989,
+        "centerDistance": 0.4879751104975974,
+        "radiusSum": 0.2867600136251985,
+        "a": {
+          "t": 0,
+          "point": [
+            -0.25,
+            1.63,
+            -0.11000000000000001
+          ],
+          "radius": 0.11500000330936572
+        },
+        "b": {
+          "t": 0.206,
+          "point": [
+            0.0049348936477072725,
+            1.23084495225189,
+            -0.22748683468022585
+          ],
+          "radius": 0.17176001031583277
+        }
+      }
+    },
+    {
+      "vessels": [
+        "aortic-arch",
+        "left-superior-pulmonary-vein"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.008890403808817157,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 0.2055411570140805,
+        "centerDistance": 0.5277012039298692,
+        "radiusSum": 0.3221600469157887,
+        "a": {
+          "t": 0.982,
+          "point": [
+            0.481604307282011,
+            1.0855647375422868,
+            -1.228824229060961
+          ],
+          "radius": 0.21216004287459428
+        },
+        "b": {
+          "t": 0,
+          "point": [
+            0.6099999999999999,
+            0.65,
+            -0.96
+          ],
+          "radius": 0.11000000404119441
+        }
+      }
+    },
+    {
+      "vessels": [
+        "left-superior-pulmonary-vein",
+        "left-inferior-pulmonary-vein"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.0027296394013215323,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 0.2127726087396296,
+        "centerDistance": 0.42267262031889075,
+        "radiusSum": 0.20990001157926108,
+        "a": {
+          "t": 0.504,
+          "point": [
+            0.9533495606632528,
+            0.6772970727834751,
+            -0.9972469996083199
+          ],
+          "radius": 0.10496000584024298
+        },
+        "b": {
+          "t": 0.506,
+          "point": [
+            0.9888347816486953,
+            0.2686271604780486,
+            -1.099138342886964
+          ],
+          "radius": 0.10494000573901811
+        }
+      }
+    },
+    {
+      "vessels": [
+        "right-superior-pulmonary-vein",
+        "right-inferior-pulmonary-vein"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.0031798910468222074,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 0.2624358246974441,
+        "centerDistance": 0.48189583446371287,
+        "radiusSum": 0.21946000976626878,
+        "a": {
+          "t": 0.054,
+          "point": [
+            -0.5333508608468257,
+            0.632011255887517,
+            -0.9643350860846825
+          ],
+          "radius": 0.10946000593506061
+        },
+        "b": {
+          "t": 0,
+          "point": [
+            -0.55,
+            0.15999999999999984,
+            -1.06
+          ],
+          "radius": 0.11000000383120817
+        }
+      }
+    },
+    {
+      "vessels": [
+        "left-subclavian-branch",
+        "right-pulmonary-branch"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.004775016868998865,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 0.2624726658801073,
+        "centerDistance": 0.5320726838646017,
+        "radiusSum": 0.2696000179844944,
+        "a": {
+          "t": 0,
+          "point": [
+            0.2799999999999999,
+            1.5799999999999998,
+            -0.55
+          ],
+          "radius": 0.10000000299730451
+        },
+        "b": {
+          "t": 0.26,
+          "point": [
+            -0.04469794001416291,
+            1.2307642275606407,
+            -0.313976772511425
+          ],
+          "radius": 0.16960001498718988
+        }
+      }
+    },
+    {
+      "vessels": [
+        "brachiocephalic-branch",
+        "pulmonary-trunk"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.004089726880643876,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 0.3022519489005824,
+        "centerDistance": 0.6172519744804382,
+        "radiusSum": 0.31500002557985585,
+        "a": {
+          "t": 0,
+          "point": [
+            -0.25,
+            1.63,
+            -0.11000000000000001
+          ],
+          "radius": 0.11500000330936572
+        },
+        "b": {
+          "t": 1,
+          "point": [
+            0.15999999999999975,
+            1.2300000000000002,
+            0.12000000000000006
+          ],
+          "radius": 0.2000000222704901
+        }
+      }
+    },
+    {
+      "vessels": [
+        "right-pulmonary-branch",
+        "right-superior-pulmonary-vein"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.005420655497461299,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 0.3139855266309234,
+        "centerDistance": 0.5539855593785815,
+        "radiusSum": 0.24000003274765813,
+        "a": {
+          "t": 1,
+          "point": [
+            -1.3199999999999996,
+            1.12,
+            -0.6800000000000004
+          ],
+          "radius": 0.14000002478002974
+        },
+        "b": {
+          "t": 1,
+          "point": [
+            -1.2900000000000003,
+            0.7,
+            -1.04
+          ],
+          "radius": 0.1000000079676284
+        }
+      }
+    },
+    {
+      "vessels": [
+        "brachiocephalic-branch",
+        "left-pulmonary-branch"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.0037333060843273867,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 0.3222519663516198,
+        "centerDistance": 0.6172519744804383,
+        "radiusSum": 0.29500000812881866,
+        "a": {
+          "t": 0,
+          "point": [
+            -0.25,
+            1.63,
+            -0.11000000000000001
+          ],
+          "radius": 0.11500000330936572
+        },
+        "b": {
+          "t": 0,
+          "point": [
+            0.15999999999999984,
+            1.23,
+            0.12
+          ],
+          "radius": 0.1800000048194529
+        }
+      }
+    },
+    {
+      "vessels": [
+        "left-carotid-branch",
+        "pulmonary-trunk"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.003924462199630046,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 0.3252380244529012,
+        "centerDistance": 0.6302380502635491,
+        "radiusSum": 0.3050000258106479,
+        "a": {
+          "t": 0,
+          "point": [
+            0,
+            1.69,
+            -0.28
+          ],
+          "radius": 0.10500000354015779
+        },
+        "b": {
+          "t": 1,
+          "point": [
+            0.15999999999999975,
+            1.2300000000000002,
+            0.12000000000000006
+          ],
+          "radius": 0.2000000222704901
+        }
+      }
+    },
+    {
+      "vessels": [
+        "left-carotid-branch",
+        "left-pulmonary-branch"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.0035680414033135567,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 0.3434861055449302,
+        "centerDistance": 0.6272261184125534,
+        "radiusSum": 0.2837400128676232,
+        "a": {
+          "t": 0,
+          "point": [
+            0,
+            1.69,
+            -0.28
+          ],
+          "radius": 0.10500000354015779
+        },
+        "b": {
+          "t": 0.042,
+          "point": [
+            0.20430353761830514,
+            1.232053152441168,
+            0.09677228261438255
+          ],
+          "radius": 0.1787400093274654
+        }
+      }
+    },
+    {
+      "vessels": [
+        "left-subclavian-branch",
+        "left-pulmonary-branch"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.0035777787914757107,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 0.36105471445017545,
+        "centerDistance": 0.6312147289382236,
+        "radiusSum": 0.27016001448804816,
+        "a": {
+          "t": 0,
+          "point": [
+            0.2799999999999999,
+            1.5799999999999998,
+            -0.55
+          ],
+          "radius": 0.10000000299730451
+        },
+        "b": {
+          "t": 0.328,
+          "point": [
+            0.5046465961262919,
+            1.2459301123066635,
+            -0.0638279615054077
+          ],
+          "radius": 0.17016001149074367
+        }
+      }
+    },
+    {
+      "vessels": [
+        "superior-vena-cava",
+        "inferior-vena-cava"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.004093880337737168,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 0.36749616355375675,
+        "centerDistance": 0.8174961773610935,
+        "radiusSum": 0.4500000138073368,
+        "a": {
+          "t": 0,
+          "point": [
+            -1.01,
+            0.5700000000000001,
+            -0.21
+          ],
+          "radius": 0.22000000621099342
+        },
+        "b": {
+          "t": 0,
+          "point": [
+            -1.02,
+            -0.24000000000000016,
+            -0.32
+          ],
+          "radius": 0.23000000759634337
+        }
+      }
+    },
+    {
+      "vessels": [
+        "brachiocephalic-branch",
+        "superior-vena-cava"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.0034015006109725,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 0.4313083478102646,
+        "centerDistance": 0.742772364801331,
+        "radiusSum": 0.31146401699106646,
+        "a": {
+          "t": 0.596,
+          "point": [
+            -0.38834163410300454,
+            1.9281846225483792,
+            -0.06699729131525994
+          ],
+          "radius": 0.10646400678107175
+        },
+        "b": {
+          "t": 1,
+          "point": [
+            -1.07,
+            1.6600000000000004,
+            -0.19
+          ],
+          "radius": 0.2050000102099947
+        }
+      }
+    },
+    {
+      "vessels": [
+        "left-subclavian-branch",
+        "pulmonary-trunk"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.0039341995877922,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 0.4653756994583036,
+        "centerDistance": 0.7653757247260982,
+        "radiusSum": 0.3000000252677946,
+        "a": {
+          "t": 0,
+          "point": [
+            0.2799999999999999,
+            1.5799999999999998,
+            -0.55
+          ],
+          "radius": 0.10000000299730451
+        },
+        "b": {
+          "t": 1,
+          "point": [
+            0.15999999999999975,
+            1.2300000000000002,
+            0.12000000000000006
+          ],
+          "radius": 0.2000000222704901
+        }
+      }
+    },
+    {
+      "vessels": [
+        "superior-vena-cava",
+        "right-superior-pulmonary-vein"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.0038916119465832576,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 0.47112423298638884,
+        "centerDistance": 0.7956042507848233,
+        "radiusSum": 0.32448001779843444,
+        "a": {
+          "t": 0.098,
+          "point": [
+            -1.0201256332724722,
+            0.6765543944184224,
+            -0.2138013296710627
+          ],
+          "radius": 0.2200000126829888
+        },
+        "b": {
+          "t": 0.552,
+          "point": [
+            -0.9328919569308796,
+            0.654074553432447,
+            -1.0042891956930882
+          ],
+          "radius": 0.10448000511544565
+        }
+      }
+    },
+    {
+      "vessels": [
+        "brachiocephalic-branch",
+        "left-subclavian-branch"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.0021349382933754293,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 0.47565185968661017,
+        "centerDistance": 0.6906518659932803,
+        "radiusSum": 0.2150000063066702,
+        "a": {
+          "t": 0,
+          "point": [
+            -0.25,
+            1.63,
+            -0.11000000000000001
+          ],
+          "radius": 0.11500000330936572
+        },
+        "b": {
+          "t": 0,
+          "point": [
+            0.2799999999999999,
+            1.5799999999999998,
+            -0.55
+          ],
+          "radius": 0.10000000299730451
+        }
+      }
+    },
+    {
+      "vessels": [
+        "inferior-vena-cava",
+        "right-inferior-pulmonary-vein"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.003382159437976119,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 0.5397166468904457,
+        "centerDistance": 0.8744966595681629,
+        "radiusSum": 0.33478001267771723,
+        "a": {
+          "t": 0,
+          "point": [
+            -1.02,
+            -0.24000000000000016,
+            -0.32
+          ],
+          "radius": 0.23000000759634337
+        },
+        "b": {
+          "t": 0.522,
+          "point": [
+            -0.946544883157815,
+            0.1696456407639053,
+            -1.0891158575979991
+          ],
+          "radius": 0.10478000508137385
+        }
+      }
+    },
+    {
+      "vessels": [
+        "aortic-arch",
+        "left-inferior-pulmonary-vein"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.008828964212561966,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 0.5453900446495055,
+        "centerDistance": 0.8653900854527973,
+        "radiusSum": 0.3200000408032918,
+        "a": {
+          "t": 1,
+          "point": [
+            0.48,
+            1.0499999999999998,
+            -1.28
+          ],
+          "radius": 0.21000003746385867
+        },
+        "b": {
+          "t": 0,
+          "point": [
+            0.6599999999999998,
+            0.22999999999999993,
+            -1.07
+          ],
+          "radius": 0.11000000333943313
+        }
+      }
+    },
+    {
+      "vessels": [
+        "pulmonary-trunk",
+        "superior-vena-cava"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.00520076190538927,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 0.5799019462968771,
+        "centerDistance": 1.019901956072249,
+        "radiusSum": 0.4400000097753721,
+        "a": {
+          "t": 0,
+          "point": [
+            -0.33999999999999997,
+            0.3,
+            0.51
+          ],
+          "radius": 0.22000000356437868
+        },
+        "b": {
+          "t": 0,
+          "point": [
+            -1.01,
+            0.5700000000000001,
+            -0.21
+          ],
+          "radius": 0.22000000621099342
+        }
+      }
+    },
+    {
+      "vessels": [
+        "aortic-arch",
+        "right-superior-pulmonary-vein"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.009130208438753106,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 0.6260293244570533,
+        "centerDistance": 0.9810693462429121,
+        "radiusSum": 0.3550400217858588,
+        "a": {
+          "t": 0.168,
+          "point": [
+            -0.3902501810889122,
+            0.610930041934207,
+            0.015798838113711328
+          ],
+          "radius": 0.2450400173094067
+        },
+        "b": {
+          "t": 0,
+          "point": [
+            -0.48999999999999994,
+            0.6299999999999999,
+            -0.96
+          ],
+          "radius": 0.1100000044764521
+        }
+      }
+    },
+    {
+      "vessels": [
+        "aortic-arch",
+        "inferior-vena-cava"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.009332476829907017,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 0.6327311047797795,
+        "centerDistance": 1.1053911253563813,
+        "radiusSum": 0.47266002057660195,
+        "a": {
+          "t": 0.158,
+          "point": [
+            -0.36576263227248895,
+            0.5867169489063881,
+            0.012268104211849502
+          ],
+          "radius": 0.24266001298025858
+        },
+        "b": {
+          "t": 0,
+          "point": [
+            -1.02,
+            -0.24000000000000016,
+            -0.32
+          ],
+          "radius": 0.23000000759634337
+        }
+      }
+    },
+    {
+      "vessels": [
+        "superior-vena-cava",
+        "right-inferior-pulmonary-vein"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.003800814735956845,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 0.6432827097401779,
+        "centerDistance": 0.9680227211188103,
+        "radiusSum": 0.3247400113786325,
+        "a": {
+          "t": 0,
+          "point": [
+            -1.01,
+            0.5700000000000001,
+            -0.21
+          ],
+          "radius": 0.22000000621099342
+        },
+        "b": {
+          "t": 0.526,
+          "point": [
+            -0.9495849158493124,
+            0.1697253680843731,
+            -1.089316908318122
+          ],
+          "radius": 0.1047400051676391
+        }
+      }
+    },
+    {
+      "vessels": [
+        "left-pulmonary-branch",
+        "left-superior-pulmonary-vein"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.003983612790002195,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 0.7158153025962417,
+        "centerDistance": 0.9661553214936159,
+        "radiusSum": 0.25034001889737423,
+        "a": {
+          "t": 1,
+          "point": [
+            1.2800000000000002,
+            1.29,
+            -0.24999999999999992
+          ],
+          "radius": 0.15000001212344033
+        },
+        "b": {
+          "t": 0.966,
+          "point": [
+            1.266930662217299,
+            0.716983174625208,
+            -1.0277769702798798
+          ],
+          "radius": 0.1003400067739339
+        }
+      }
+    },
+    {
+      "vessels": [
+        "pulmonary-trunk",
+        "inferior-vena-cava"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.004782106607408545,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 0.7512077144221598,
+        "centerDistance": 1.201207725582882,
+        "radiusSum": 0.4500000111607221,
+        "a": {
+          "t": 0,
+          "point": [
+            -0.33999999999999997,
+            0.3,
+            0.51
+          ],
+          "radius": 0.22000000356437868
+        },
+        "b": {
+          "t": 0,
+          "point": [
+            -1.02,
+            -0.24000000000000016,
+            -0.32
+          ],
+          "radius": 0.23000000759634337
+        }
+      }
+    },
+    {
+      "vessels": [
+        "left-carotid-branch",
+        "superior-vena-cava"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.00323623592995867,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 0.7631549461760211,
+        "centerDistance": 1.0738149619046642,
+        "radiusSum": 0.31066001572864305,
+        "a": {
+          "t": 0,
+          "point": [
+            0,
+            1.69,
+            -0.28
+          ],
+          "radius": 0.10500000354015779
+        },
+        "b": {
+          "t": 0.956,
+          "point": [
+            -1.0674092244962123,
+            1.6120529195948885,
+            -0.1925907755037877
+          ],
+          "radius": 0.20566001218848526
+        }
+      }
+    },
+    {
+      "vessels": [
+        "inferior-vena-cava",
+        "right-superior-pulmonary-vein"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.003472956648602531,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 0.7922532248616532,
+        "centerDistance": 1.1275532367456405,
+        "radiusSum": 0.33530001188398734,
+        "a": {
+          "t": 0,
+          "point": [
+            -1.02,
+            -0.24000000000000016,
+            -0.32
+          ],
+          "radius": 0.23000000759634337
+        },
+        "b": {
+          "t": 0.47,
+          "point": [
+            -0.8672621373503995,
+            0.6481073281001393,
+            -0.99772621373504
+          ],
+          "radius": 0.10530000428764398
+        }
+      }
+    },
+    {
+      "vessels": [
+        "right-pulmonary-branch",
+        "right-inferior-pulmonary-vein"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.0053298582868348855,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 0.7937303152783663,
+        "centerDistance": 1.0337503436655762,
+        "radiusSum": 0.24002002838720982,
+        "a": {
+          "t": 1,
+          "point": [
+            -1.3199999999999996,
+            1.12,
+            -0.6800000000000004
+          ],
+          "radius": 0.14000002478002974
+        },
+        "b": {
+          "t": 0.998,
+          "point": [
+            -1.308478891818809,
+            0.17995652546710847,
+            -1.1099131343458852
+          ],
+          "radius": 0.10002000360718007
+        }
+      }
+    },
+    {
+      "vessels": [
+        "right-pulmonary-branch",
+        "left-superior-pulmonary-vein"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.005180850867525349,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 0.8044588449148499,
+        "centerDistance": 1.0829388636229846,
+        "radiusSum": 0.2784800187081348,
+        "a": {
+          "t": 0.288,
+          "point": [
+            -0.07568208374393473,
+            1.2305349537813597,
+            -0.3553713289830758
+          ],
+          "radius": 0.16848001466694043
+        },
+        "b": {
+          "t": 0,
+          "point": [
+            0.6099999999999999,
+            0.65,
+            -0.96
+          ],
+          "radius": 0.11000000404119441
+        }
+      }
+    },
+    {
+      "vessels": [
+        "aortic-arch",
+        "right-inferior-pulmonary-vein"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.009039411228126694,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 0.8089780827489113,
+        "centerDistance": 1.1540781055005445,
+        "radiusSum": 0.3451000227516333,
+        "a": {
+          "t": 0.13,
+          "point": [
+            -0.28735030222746494,
+            0.5310733434315945,
+            0.0007619825626386837
+          ],
+          "radius": 0.23510001892042515
+        },
+        "b": {
+          "t": 0,
+          "point": [
+            -0.55,
+            0.15999999999999984,
+            -1.06
+          ],
+          "radius": 0.11000000383120817
+        }
+      }
+    },
+    {
+      "vessels": [
+        "left-subclavian-branch",
+        "left-superior-pulmonary-vein"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.0023852449990502374,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 0.8585972042623728,
+        "centerDistance": 1.0685972113008717,
+        "radiusSum": 0.21000000703849891,
+        "a": {
+          "t": 0,
+          "point": [
+            0.2799999999999999,
+            1.5799999999999998,
+            -0.55
+          ],
+          "radius": 0.10000000299730451
+        },
+        "b": {
+          "t": 0,
+          "point": [
+            0.6099999999999999,
+            0.65,
+            -0.96
+          ],
+          "radius": 0.11000000404119441
+        }
+      }
+    },
+    {
+      "vessels": [
+        "left-pulmonary-branch",
+        "superior-vena-cava"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.0048443411090727815,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 0.8603088331289755,
+        "centerDistance": 1.2533888505235689,
+        "radiusSum": 0.3930800173945932,
+        "a": {
+          "t": 0,
+          "point": [
+            0.15999999999999984,
+            1.23,
+            0.12
+          ],
+          "radius": 0.1800000048194529
+        },
+        "b": {
+          "t": 0.564,
+          "point": [
+            -1.0472871620604787,
+            1.1846747121059593,
+            -0.21374681604184848
+          ],
+          "radius": 0.21308001257514028
+        }
+      }
+    },
+    {
+      "vessels": [
+        "right-superior-pulmonary-vein",
+        "left-superior-pulmonary-vein"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.003030883627512671,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 0.8801817946403588,
+        "centerDistance": 1.1001818031580053,
+        "radiusSum": 0.2200000085176465,
+        "a": {
+          "t": 0,
+          "point": [
+            -0.48999999999999994,
+            0.6299999999999999,
+            -0.96
+          ],
+          "radius": 0.1100000044764521
+        },
+        "b": {
+          "t": 0,
+          "point": [
+            0.6099999999999999,
+            0.65,
+            -0.96
+          ],
+          "radius": 0.11000000404119441
+        }
+      }
+    },
+    {
+      "vessels": [
+        "right-inferior-pulmonary-vein",
+        "left-inferior-pulmonary-vein"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.0028786468206310686,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 0.9920643475564498,
+        "centerDistance": 1.212064354727091,
+        "radiusSum": 0.2200000071706413,
+        "a": {
+          "t": 0,
+          "point": [
+            -0.55,
+            0.15999999999999984,
+            -1.06
+          ],
+          "radius": 0.11000000383120817
+        },
+        "b": {
+          "t": 0,
+          "point": [
+            0.6599999999999998,
+            0.22999999999999993,
+            -1.07
+          ],
+          "radius": 0.11000000333943313
+        }
+      }
+    },
+    {
+      "vessels": [
+        "pulmonary-trunk",
+        "left-superior-pulmonary-vein"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.004340033586318685,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 0.9958713302927862,
+        "centerDistance": 1.3058713566044706,
+        "radiusSum": 0.3100000263116845,
+        "a": {
+          "t": 1,
+          "point": [
+            0.15999999999999975,
+            1.2300000000000002,
+            0.12000000000000006
+          ],
+          "radius": 0.2000000222704901
+        },
+        "b": {
+          "t": 0,
+          "point": [
+            0.6099999999999999,
+            0.65,
+            -0.96
+          ],
+          "radius": 0.11000000404119441
+        }
+      }
+    },
+    {
+      "vessels": [
+        "right-superior-pulmonary-vein",
+        "left-inferior-pulmonary-vein"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.0029694440312574813,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 1.002538335141095,
+        "centerDistance": 1.2225383429569803,
+        "radiusSum": 0.22000000781588525,
+        "a": {
+          "t": 0,
+          "point": [
+            -0.48999999999999994,
+            0.6299999999999999,
+            -0.96
+          ],
+          "radius": 0.1100000044764521
+        },
+        "b": {
+          "t": 0,
+          "point": [
+            0.6599999999999998,
+            0.22999999999999993,
+            -1.07
+          ],
+          "radius": 0.11000000333943313
+        }
+      }
+    },
+    {
+      "vessels": [
+        "right-inferior-pulmonary-vein",
+        "left-superior-pulmonary-vein"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.0029400864168862583,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 1.0432101884132354,
+        "centerDistance": 1.263210196285638,
+        "radiusSum": 0.2200000078724026,
+        "a": {
+          "t": 0,
+          "point": [
+            -0.55,
+            0.15999999999999984,
+            -1.06
+          ],
+          "radius": 0.11000000383120817
+        },
+        "b": {
+          "t": 0,
+          "point": [
+            0.6099999999999999,
+            0.65,
+            -0.96
+          ],
+          "radius": 0.11000000404119441
+        }
+      }
+    },
+    {
+      "vessels": [
+        "left-pulmonary-branch",
+        "left-inferior-pulmonary-vein"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.003922173193747006,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 1.0608012642378775,
+        "centerDistance": 1.3108012816594288,
+        "radiusSum": 0.25000001742155115,
+        "a": {
+          "t": 1,
+          "point": [
+            1.2800000000000002,
+            1.29,
+            -0.24999999999999992
+          ],
+          "radius": 0.15000001212344033
+        },
+        "b": {
+          "t": 1,
+          "point": [
+            1.31,
+            0.30999999999999983,
+            -1.12
+          ],
+          "radius": 0.10000000529811082
+        }
+      }
+    },
+    {
+      "vessels": [
+        "right-pulmonary-branch",
+        "inferior-vena-cava"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.005622923888615209,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 1.0640459303580638,
+        "centerDistance": 1.436285960048166,
+        "radiusSum": 0.37224002969010245,
+        "a": {
+          "t": 0.944,
+          "point": [
+            -1.2179956869637016,
+            1.1370767335913734,
+            -0.6768959747273251
+          ],
+          "radius": 0.14224002209375908
+        },
+        "b": {
+          "t": 0,
+          "point": [
+            -1.02,
+            -0.24000000000000016,
+            -0.32
+          ],
+          "radius": 0.23000000759634337
+        }
+      }
+    },
+    {
+      "vessels": [
+        "left-subclavian-branch",
+        "right-superior-pulmonary-vein"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.002625049628986187,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 1.0797674134204136,
+        "centerDistance": 1.2897674208941703,
+        "radiusSum": 0.2100000074737566,
+        "a": {
+          "t": 0,
+          "point": [
+            0.2799999999999999,
+            1.5799999999999998,
+            -0.55
+          ],
+          "radius": 0.10000000299730451
+        },
+        "b": {
+          "t": 0,
+          "point": [
+            -0.48999999999999994,
+            0.6299999999999999,
+            -0.96
+          ],
+          "radius": 0.1100000044764521
+        }
+      }
+    },
+    {
+      "vessels": [
+        "left-subclavian-branch",
+        "superior-vena-cava"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.003245973318120824,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 1.080962102610746,
+        "centerDistance": 1.3886321170160136,
+        "radiusSum": 0.3076700144052676,
+        "a": {
+          "t": 0,
+          "point": [
+            0.2799999999999999,
+            1.5799999999999998,
+            -0.55
+          ],
+          "radius": 0.10000000299730451
+        },
+        "b": {
+          "t": 0.822,
+          "point": [
+            -1.0591768246767284,
+            1.4660696099988753,
+            -0.20082317532327165
+          ],
+          "radius": 0.20767001140796307
+        }
+      }
+    },
+    {
+      "vessels": [
+        "pulmonary-trunk",
+        "right-superior-pulmonary-vein"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.004579838216254633,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 1.0860300588887506,
+        "centerDistance": 1.3960300856356929,
+        "radiusSum": 0.3100000267469422,
+        "a": {
+          "t": 1,
+          "point": [
+            0.15999999999999975,
+            1.2300000000000002,
+            0.12000000000000006
+          ],
+          "radius": 0.2000000222704901
+        },
+        "b": {
+          "t": 0,
+          "point": [
+            -0.48999999999999994,
+            0.6299999999999999,
+            -0.96
+          ],
+          "radius": 0.1100000044764521
+        }
+      }
+    },
+    {
+      "vessels": [
+        "left-pulmonary-branch",
+        "right-superior-pulmonary-vein"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.004223417419938144,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 1.1060300763397877,
+        "centerDistance": 1.3960300856356929,
+        "radiusSum": 0.290000009295905,
+        "a": {
+          "t": 0,
+          "point": [
+            0.15999999999999984,
+            1.23,
+            0.12
+          ],
+          "radius": 0.1800000048194529
+        },
+        "b": {
+          "t": 0,
+          "point": [
+            -0.48999999999999994,
+            0.6299999999999999,
+            -0.96
+          ],
+          "radius": 0.1100000044764521
+        }
+      }
+    },
+    {
+      "vessels": [
+        "brachiocephalic-branch",
+        "right-superior-pulmonary-vein"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.002780576921837863,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 1.1092038746849235,
+        "centerDistance": 1.3342038824707414,
+        "radiusSum": 0.2250000077858178,
+        "a": {
+          "t": 0,
+          "point": [
+            -0.25,
+            1.63,
+            -0.11000000000000001
+          ],
+          "radius": 0.11500000330936572
+        },
+        "b": {
+          "t": 0,
+          "point": [
+            -0.48999999999999994,
+            0.6299999999999999,
+            -0.96
+          ],
+          "radius": 0.1100000044764521
+        }
+      }
+    },
+    {
+      "vessels": [
+        "left-carotid-branch",
+        "right-superior-pulmonary-vein"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.0026153122408240324,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 1.1363326675300152,
+        "centerDistance": 1.351332675546625,
+        "radiusSum": 0.2150000080166099,
+        "a": {
+          "t": 0,
+          "point": [
+            0,
+            1.69,
+            -0.28
+          ],
+          "radius": 0.10500000354015779
+        },
+        "b": {
+          "t": 0,
+          "point": [
+            -0.48999999999999994,
+            0.6299999999999999,
+            -0.96
+          ],
+          "radius": 0.1100000044764521
+        }
+      }
+    },
+    {
+      "vessels": [
+        "right-pulmonary-branch",
+        "left-inferior-pulmonary-vein"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.00511941127127016,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 1.1540966639353152,
+        "centerDistance": 1.4322566836880228,
+        "radiusSum": 0.27816001975270765,
+        "a": {
+          "t": 0.296,
+          "point": [
+            -0.08539202549686911,
+            1.2304372987033827,
+            -0.3665263703181426
+          ],
+          "radius": 0.16816001641327452
+        },
+        "b": {
+          "t": 0,
+          "point": [
+            0.6599999999999998,
+            0.22999999999999993,
+            -1.07
+          ],
+          "radius": 0.11000000333943313
+        }
+      }
+    },
+    {
+      "vessels": [
+        "left-carotid-branch",
+        "left-superior-pulmonary-vein"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.0023755076108880834,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 1.1692326318257673,
+        "centerDistance": 1.3842326394071194,
+        "radiusSum": 0.21500000758135218,
+        "a": {
+          "t": 0,
+          "point": [
+            0,
+            1.69,
+            -0.28
+          ],
+          "radius": 0.10500000354015779
+        },
+        "b": {
+          "t": 0,
+          "point": [
+            0.6099999999999999,
+            0.65,
+            -0.96
+          ],
+          "radius": 0.11000000404119441
+        }
+      }
+    },
+    {
+      "vessels": [
+        "pulmonary-trunk",
+        "right-inferior-pulmonary-vein"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.004489041005628221,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 1.2601572175353317,
+        "centerDistance": 1.5901572249309186,
+        "radiusSum": 0.3300000073955869,
+        "a": {
+          "t": 0,
+          "point": [
+            -0.33999999999999997,
+            0.3,
+            0.51
+          ],
+          "radius": 0.22000000356437868
+        },
+        "b": {
+          "t": 0,
+          "point": [
+            -0.55,
+            0.15999999999999984,
+            -1.06
+          ],
+          "radius": 0.11000000383120817
+        }
+      }
+    },
+    {
+      "vessels": [
+        "left-subclavian-branch",
+        "left-inferior-pulmonary-vein"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.002323805402795048,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 1.2857606697073947,
+        "centerDistance": 1.4957606760441322,
+        "radiusSum": 0.21000000633673765,
+        "a": {
+          "t": 0,
+          "point": [
+            0.2799999999999999,
+            1.5799999999999998,
+            -0.55
+          ],
+          "radius": 0.10000000299730451
+        },
+        "b": {
+          "t": 0,
+          "point": [
+            0.6599999999999998,
+            0.22999999999999993,
+            -1.07
+          ],
+          "radius": 0.11000000333943313
+        }
+      }
+    },
+    {
+      "vessels": [
+        "pulmonary-trunk",
+        "left-inferior-pulmonary-vein"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.0042785939900634945,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 1.3228196215036216,
+        "centerDistance": 1.6328196471135448,
+        "radiusSum": 0.31000002560992324,
+        "a": {
+          "t": 1,
+          "point": [
+            0.15999999999999975,
+            1.2300000000000002,
+            0.12000000000000006
+          ],
+          "radius": 0.2000000222704901
+        },
+        "b": {
+          "t": 0,
+          "point": [
+            0.6599999999999998,
+            0.22999999999999993,
+            -1.07
+          ],
+          "radius": 0.11000000333943313
+        }
+      }
+    },
+    {
+      "vessels": [
+        "brachiocephalic-branch",
+        "left-superior-pulmonary-vein"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.0025407722919019134,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 1.3314382342767779,
+        "centerDistance": 1.556438241627338,
+        "radiusSum": 0.22500000735056014,
+        "a": {
+          "t": 0,
+          "point": [
+            -0.25,
+            1.63,
+            -0.11000000000000001
+          ],
+          "radius": 0.11500000330936572
+        },
+        "b": {
+          "t": 0,
+          "point": [
+            0.6099999999999999,
+            0.65,
+            -0.96
+          ],
+          "radius": 0.11000000404119441
+        }
+      }
+    },
+    {
+      "vessels": [
+        "left-pulmonary-branch",
+        "right-inferior-pulmonary-vein"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.004132620209311731,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 1.4539610000877798,
+        "centerDistance": 1.743961008738441,
+        "radiusSum": 0.2900000086506611,
+        "a": {
+          "t": 0,
+          "point": [
+            0.15999999999999984,
+            1.23,
+            0.12
+          ],
+          "radius": 0.1800000048194529
+        },
+        "b": {
+          "t": 0,
+          "point": [
+            -0.55,
+            0.15999999999999984,
+            -1.06
+          ],
+          "radius": 0.11000000383120817
+        }
+      }
+    },
+    {
+      "vessels": [
+        "superior-vena-cava",
+        "left-superior-pulmonary-vein"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.003651807316647308,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 1.4569806835439147,
+        "centerDistance": 1.7869806937961026,
+        "radiusSum": 0.33000001025218784,
+        "a": {
+          "t": 0,
+          "point": [
+            -1.01,
+            0.5700000000000001,
+            -0.21
+          ],
+          "radius": 0.22000000621099342
+        },
+        "b": {
+          "t": 0,
+          "point": [
+            0.6099999999999999,
+            0.65,
+            -0.96
+          ],
+          "radius": 0.11000000404119441
+        }
+      }
+    },
+    {
+      "vessels": [
+        "left-subclavian-branch",
+        "right-inferior-pulmonary-vein"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.002534252418359774,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 1.5120336746074807,
+        "centerDistance": 1.7220336814359933,
+        "radiusSum": 0.21000000682851266,
+        "a": {
+          "t": 0,
+          "point": [
+            0.2799999999999999,
+            1.5799999999999998,
+            -0.55
+          ],
+          "radius": 0.10000000299730451
+        },
+        "b": {
+          "t": 0,
+          "point": [
+            -0.55,
+            0.15999999999999984,
+            -1.06
+          ],
+          "radius": 0.11000000383120817
+        }
+      }
+    },
+    {
+      "vessels": [
+        "left-pulmonary-branch",
+        "inferior-vena-cava"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.004425685811092055,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 1.5256910786418654,
+        "centerDistance": 1.9356910910576617,
+        "radiusSum": 0.4100000124157963,
+        "a": {
+          "t": 0,
+          "point": [
+            0.15999999999999984,
+            1.23,
+            0.12
+          ],
+          "radius": 0.1800000048194529
+        },
+        "b": {
+          "t": 0,
+          "point": [
+            -1.02,
+            -0.24000000000000016,
+            -0.32
+          ],
+          "radius": 0.23000000759634337
+        }
+      }
+    },
+    {
+      "vessels": [
+        "brachiocephalic-branch",
+        "right-inferior-pulmonary-vein"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.00268977971121145,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 1.5507815109522347,
+        "centerDistance": 1.7757815180928085,
+        "radiusSum": 0.2250000071405739,
+        "a": {
+          "t": 0,
+          "point": [
+            -0.25,
+            1.63,
+            -0.11000000000000001
+          ],
+          "radius": 0.11500000330936572
+        },
+        "b": {
+          "t": 0,
+          "point": [
+            -0.55,
+            0.15999999999999984,
+            -1.06
+          ],
+          "radius": 0.11000000383120817
+        }
+      }
+    },
+    {
+      "vessels": [
+        "inferior-vena-cava",
+        "left-inferior-pulmonary-vein"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.0031717124224113925,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 1.558894404243751,
+        "centerDistance": 1.8988944151795273,
+        "radiusSum": 0.3400000109357765,
+        "a": {
+          "t": 0,
+          "point": [
+            -1.02,
+            -0.24000000000000016,
+            -0.32
+          ],
+          "radius": 0.23000000759634337
+        },
+        "b": {
+          "t": 0,
+          "point": [
+            0.6599999999999998,
+            0.22999999999999993,
+            -1.07
+          ],
+          "radius": 0.11000000333943313
+        }
+      }
+    },
+    {
+      "vessels": [
+        "left-carotid-branch",
+        "left-inferior-pulmonary-vein"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.0023140680146328937,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 1.5714209961317376,
+        "centerDistance": 1.7864210030113283,
+        "radiusSum": 0.21500000687959092,
+        "a": {
+          "t": 0,
+          "point": [
+            0,
+            1.69,
+            -0.28
+          ],
+          "radius": 0.10500000354015779
+        },
+        "b": {
+          "t": 0,
+          "point": [
+            0.6599999999999998,
+            0.22999999999999993,
+            -1.07
+          ],
+          "radius": 0.11000000333943313
+        }
+      }
+    },
+    {
+      "vessels": [
+        "superior-vena-cava",
+        "left-inferior-pulmonary-vein"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.003590367720392119,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 1.5789525828415376,
+        "centerDistance": 1.9089525923919641,
+        "radiusSum": 0.3300000095504265,
+        "a": {
+          "t": 0,
+          "point": [
+            -1.01,
+            0.5700000000000001,
+            -0.21
+          ],
+          "radius": 0.22000000621099342
+        },
+        "b": {
+          "t": 0,
+          "point": [
+            0.6599999999999998,
+            0.22999999999999993,
+            -1.07
+          ],
+          "radius": 0.11000000333943313
+        }
+      }
+    },
+    {
+      "vessels": [
+        "left-carotid-branch",
+        "right-inferior-pulmonary-vein"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.00252451503019762,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 1.5882747914321889,
+        "centerDistance": 1.8032747988035547,
+        "radiusSum": 0.21500000737136596,
+        "a": {
+          "t": 0,
+          "point": [
+            0,
+            1.69,
+            -0.28
+          ],
+          "radius": 0.10500000354015779
+        },
+        "b": {
+          "t": 0,
+          "point": [
+            -0.55,
+            0.15999999999999984,
+            -1.06
+          ],
+          "radius": 0.11000000383120817
+        }
+      }
+    },
+    {
+      "vessels": [
+        "inferior-vena-cava",
+        "left-superior-pulmonary-vein"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.0032331520186665817,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 1.6243319358703165,
+        "centerDistance": 1.9643319475078542,
+        "radiusSum": 0.3400000116375378,
+        "a": {
+          "t": 0,
+          "point": [
+            -1.02,
+            -0.24000000000000016,
+            -0.32
+          ],
+          "radius": 0.23000000759634337
+        },
+        "b": {
+          "t": 0,
+          "point": [
+            0.6099999999999999,
+            0.65,
+            -0.96
+          ],
+          "radius": 0.11000000404119441
+        }
+      }
+    },
+    {
+      "vessels": [
+        "brachiocephalic-branch",
+        "inferior-vena-cava"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.0029828453129917736,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 1.688199438238423,
+        "centerDistance": 2.033199449144132,
+        "radiusSum": 0.3450000109057091,
+        "a": {
+          "t": 0,
+          "point": [
+            -0.25,
+            1.63,
+            -0.11000000000000001
+          ],
+          "radius": 0.11500000330936572
+        },
+        "b": {
+          "t": 0,
+          "point": [
+            -1.02,
+            -0.24000000000000016,
+            -0.32
+          ],
+          "radius": 0.23000000759634337
+        }
+      }
+    },
+    {
+      "vessels": [
+        "brachiocephalic-branch",
+        "left-inferior-pulmonary-vein"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.002479332695646724,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 1.701058144082897,
+        "centerDistance": 1.9260581507316956,
+        "radiusSum": 0.22500000664879885,
+        "a": {
+          "t": 0,
+          "point": [
+            -0.25,
+            1.63,
+            -0.11000000000000001
+          ],
+          "radius": 0.11500000330936572
+        },
+        "b": {
+          "t": 0,
+          "point": [
+            0.6599999999999998,
+            0.22999999999999993,
+            -1.07
+          ],
+          "radius": 0.11000000333943313
+        }
+      }
+    },
+    {
+      "vessels": [
+        "left-carotid-branch",
+        "inferior-vena-cava"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.002817580631977944,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 1.84832314405606,
+        "centerDistance": 2.183323155192561,
+        "radiusSum": 0.33500001113650113,
+        "a": {
+          "t": 0,
+          "point": [
+            0,
+            1.69,
+            -0.28
+          ],
+          "radius": 0.10500000354015779
+        },
+        "b": {
+          "t": 0,
+          "point": [
+            -1.02,
+            -0.24000000000000016,
+            -0.32
+          ],
+          "radius": 0.23000000759634337
+        }
+      }
+    },
+    {
+      "vessels": [
+        "left-subclavian-branch",
+        "inferior-vena-cava"
+      ],
+      "passed": true,
+      "samplingAllowance": 0.0028273180201400976,
+      "status": "separated-at-sampled-resolution",
+      "nearest": {
+        "gap": 1.91839942011256,
+        "centerDistance": 2.248399430706208,
+        "radiusSum": 0.33000001059364786,
+        "a": {
+          "t": 0,
+          "point": [
+            0.2799999999999999,
+            1.5799999999999998,
+            -0.55
+          ],
+          "radius": 0.10000000299730451
+        },
+        "b": {
+          "t": 0,
+          "point": [
+            -1.02,
+            -0.24000000000000016,
+            -0.32
+          ],
+          "radius": 0.23000000759634337
+        }
+      }
+    }
+  ]
+}

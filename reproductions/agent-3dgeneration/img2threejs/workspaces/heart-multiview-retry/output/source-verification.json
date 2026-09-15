@@ -1,0 +1,32 @@
+[
+  {
+    "view": "front",
+    "samePng": true,
+    "diagnosedSha256": "0856fc0ce1ff4312beb16cc97abf89e1d4aa1bfde2ff0d64316b9d469c671cfe",
+    "sourceVerifiedSha256": "0856fc0ce1ff4312beb16cc97abf89e1d4aa1bfde2ff0d64316b9d469c671cfe"
+  },
+  {
+    "view": "left",
+    "samePng": true,
+    "diagnosedSha256": "d3f97f8f7363916e89e47bf90773357f0715e56882f095d6dd048ff439ee7e96",
+    "sourceVerifiedSha256": "d3f97f8f7363916e89e47bf90773357f0715e56882f095d6dd048ff439ee7e96"
+  },
+  {
+    "view": "rear",
+    "samePng": true,
+    "diagnosedSha256": "9ba48dd29142594bbbf902747ba138424f7784b7f5084753edfe07c4e022ed9e",
+    "sourceVerifiedSha256": "9ba48dd29142594bbbf902747ba138424f7784b7f5084753edfe07c4e022ed9e"
+  },
+  {
+    "view": "right",
+    "samePng": true,
+    "diagnosedSha256": "9d7895630fddf659018df167a2a85ca01fdaf735134b65a4e9e610c488a19c74",
+    "sourceVerifiedSha256": "9d7895630fddf659018df167a2a85ca01fdaf735134b65a4e9e610c488a19c74"
+  },
+  {
+    "view": "threeQuarter",
+    "samePng": true,
+    "diagnosedSha256": "8d82b498abae8459b925287eb155b4129cbb8e355481dcd9bf502275c5d82183",
+    "sourceVerifiedSha256": "8d82b498abae8459b925287eb155b4129cbb8e355481dcd9bf502275c5d82183"
+  }
+]

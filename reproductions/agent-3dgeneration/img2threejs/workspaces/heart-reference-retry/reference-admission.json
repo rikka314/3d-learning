@@ -1,0 +1,14 @@
+{
+  "admitted": true,
+  "reasons": [],
+  "provenance": {
+    "viewpoint": "reference",
+    "sourcePath": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\reference.png",
+    "width": 1122,
+    "height": 1402,
+    "foregroundCoverage": 0.4548,
+    "largestComponentFraction": 1.0,
+    "pHash": 12428994717022265424,
+    "duplicateOfHash": null
+  }
+}

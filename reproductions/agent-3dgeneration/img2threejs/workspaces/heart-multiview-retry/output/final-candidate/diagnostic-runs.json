@@ -1,0 +1,224 @@
+[
+  {
+    "command": [
+      "D:\\Learn\\20_Projects\\3dresearch\\.venv-mvadapter\\Scripts\\python.exe",
+      "-X",
+      "utf8",
+      "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\upstream\\forge\\stage4_review\\diagnose_render.py",
+      "--reference",
+      "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\references\\front.png",
+      "--render",
+      "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\output\\final-candidate\\front.png",
+      "--json",
+      "--spec",
+      "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\object-sculpt-spec.json",
+      "--pass-id",
+      "blockout",
+      "--in-place",
+      "--map-stripped-render",
+      "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\output\\final-candidate\\map-stripped.png"
+    ],
+    "exitCode": 0,
+    "output": "tier1-front.json",
+    "stderr": "STATUS pass=blockout completed=0 blocked=none next=diagnose_render.py\n"
+  },
+  {
+    "command": [
+      "D:\\Learn\\20_Projects\\3dresearch\\.venv-mvadapter\\Scripts\\python.exe",
+      "-X",
+      "utf8",
+      "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\upstream\\forge\\stage4_review\\interior_difference.py",
+      "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\references\\front.png",
+      "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\output\\final-candidate\\front.png",
+      "--json"
+    ],
+    "exitCode": 0,
+    "output": "interior-front.json",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "D:\\Learn\\20_Projects\\3dresearch\\.venv-mvadapter\\Scripts\\python.exe",
+      "-X",
+      "utf8",
+      "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\upstream\\forge\\stage4_review\\diagnose_render.py",
+      "--reference",
+      "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\references\\left.png",
+      "--render",
+      "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\output\\final-candidate\\left.png",
+      "--json"
+    ],
+    "exitCode": 1,
+    "output": "tier1-left.json",
+    "stderr": "STATUS pass=unknown completed=0 blocked=spec not loaded next=diagnose_render.py\n"
+  },
+  {
+    "command": [
+      "D:\\Learn\\20_Projects\\3dresearch\\.venv-mvadapter\\Scripts\\python.exe",
+      "-X",
+      "utf8",
+      "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\upstream\\forge\\stage4_review\\interior_difference.py",
+      "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\references\\left.png",
+      "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\output\\final-candidate\\left.png",
+      "--json"
+    ],
+    "exitCode": 0,
+    "output": "interior-left.json",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "D:\\Learn\\20_Projects\\3dresearch\\.venv-mvadapter\\Scripts\\python.exe",
+      "-X",
+      "utf8",
+      "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\upstream\\forge\\stage4_review\\diagnose_render.py",
+      "--reference",
+      "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\references\\rear.png",
+      "--render",
+      "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\output\\final-candidate\\rear.png",
+      "--json"
+    ],
+    "exitCode": 1,
+    "output": "tier1-rear.json",
+    "stderr": "STATUS pass=unknown completed=0 blocked=spec not loaded next=diagnose_render.py\n"
+  },
+  {
+    "command": [
+      "D:\\Learn\\20_Projects\\3dresearch\\.venv-mvadapter\\Scripts\\python.exe",
+      "-X",
+      "utf8",
+      "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\upstream\\forge\\stage4_review\\interior_difference.py",
+      "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\references\\rear.png",
+      "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\output\\final-candidate\\rear.png",
+      "--json"
+    ],
+    "exitCode": 0,
+    "output": "interior-rear.json",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "D:\\Learn\\20_Projects\\3dresearch\\.venv-mvadapter\\Scripts\\python.exe",
+      "-X",
+      "utf8",
+      "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\upstream\\forge\\stage4_review\\diagnose_render.py",
+      "--reference",
+      "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\references\\right.png",
+      "--render",
+      "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\output\\final-candidate\\right.png",
+      "--json"
+    ],
+    "exitCode": 1,
+    "output": "tier1-right.json",
+    "stderr": "STATUS pass=unknown completed=0 blocked=spec not loaded next=diagnose_render.py\n"
+  },
+  {
+    "command": [
+      "D:\\Learn\\20_Projects\\3dresearch\\.venv-mvadapter\\Scripts\\python.exe",
+      "-X",
+      "utf8",
+      "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\upstream\\forge\\stage4_review\\interior_difference.py",
+      "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\references\\right.png",
+      "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\output\\final-candidate\\right.png",
+      "--json"
+    ],
+    "exitCode": 0,
+    "output": "interior-right.json",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "D:\\Learn\\20_Projects\\3dresearch\\.venv-mvadapter\\Scripts\\python.exe",
+      "-X",
+      "utf8",
+      "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\upstream\\forge\\stage4_review\\diagnose_render_multi_angle.py",
+      "--reference",
+      "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\output\\final-candidate\\front.png",
+      "--orbit",
+      "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\output\\final-candidate\\left.png",
+      "--orbit",
+      "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\output\\final-candidate\\rear.png",
+      "--orbit",
+      "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\output\\final-candidate\\right.png",
+      "--json"
+    ],
+    "exitCode": 0,
+    "output": "multi-angle.json",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "D:\\Learn\\20_Projects\\3dresearch\\.venv-mvadapter\\Scripts\\python.exe",
+      "-X",
+      "utf8",
+      "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\upstream\\forge\\stage4_review\\turntable_gate.py",
+      "--capture",
+      "0=D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\output\\final-candidate\\front.png",
+      "--capture",
+      "90=D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\output\\final-candidate\\left.png",
+      "--capture",
+      "180=D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\output\\final-candidate\\rear.png",
+      "--capture",
+      "270=D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\output\\final-candidate\\right.png",
+      "--allow-holes",
+      "--json"
+    ],
+    "exitCode": 0,
+    "output": "turntable.json",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "D:\\Learn\\20_Projects\\3dresearch\\.venv-mvadapter\\Scripts\\python.exe",
+      "-X",
+      "utf8",
+      "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\upstream\\forge\\stage4_review\\self_intersection.py",
+      "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\output\\final-candidate\\geometry.json",
+      "--json"
+    ],
+    "exitCode": 0,
+    "output": "shell-intersection.json",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "D:\\Learn\\20_Projects\\3dresearch\\.venv-mvadapter\\Scripts\\python.exe",
+      "-X",
+      "utf8",
+      "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\upstream\\forge\\stage3_build\\orchestrate_passes.py",
+      "check",
+      "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\object-sculpt-spec.json",
+      "--pass-id",
+      "blockout",
+      "--json"
+    ],
+    "exitCode": 0,
+    "output": "pass-gate.json",
+    "stderr": "STATUS pass=blockout completed=0 blocked=none next=forge/stage3_build/orchestrate_passes.py check D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\object-sculpt-spec.json\n"
+  },
+  {
+    "command": [
+      "D:\\Learn\\20_Projects\\3dresearch\\.venv-mvadapter\\Scripts\\python.exe",
+      "-X",
+      "utf8",
+      "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\upstream\\forge\\stage4_review\\make_multiview_comparison.py",
+      "--reference",
+      "front=D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\references\\front.png",
+      "left=D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\references\\left.png",
+      "rear=D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\references\\rear.png",
+      "right=D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\references\\right.png",
+      "--render",
+      "front=D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\output\\final-candidate\\front.png",
+      "left=D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\output\\final-candidate\\left.png",
+      "rear=D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\output\\final-candidate\\rear.png",
+      "right=D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\output\\final-candidate\\right.png",
+      "--out-dir",
+      "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\output\\final-candidate\\comparisons",
+      "--out",
+      "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\output\\final-candidate\\matched-review.json"
+    ],
+    "exitCode": 0,
+    "output": "comparison-command.txt",
+    "stderr": ""
+  }
+]

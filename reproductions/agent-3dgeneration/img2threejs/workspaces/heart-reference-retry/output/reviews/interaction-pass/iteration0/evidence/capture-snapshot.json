@@ -1,0 +1,37 @@
+{
+  "passId": "interaction-pass",
+  "files": [
+    {
+      "name": "front.png",
+      "sha256": "d505c90c94a66f5a3ead2d6f0ae1e38ead5d9db8816c0611a82befbe44b8a6f1"
+    },
+    {
+      "name": "right.png",
+      "sha256": "78210e6f1431e10e665e124cfa4d72c94409ef23fcc5b4e17d9630b41c396da7"
+    },
+    {
+      "name": "rear.png",
+      "sha256": "ae2ca35929e4fcd977f041048e5c34bedd12dc6b7b2a75ed55ef2b9abd09fcd1"
+    },
+    {
+      "name": "left.png",
+      "sha256": "4b7b09a3b19400230a1c4b0e9c5fadbddc904ccc31951a6adc7d4f8ead66dfec"
+    },
+    {
+      "name": "threeQuarter.png",
+      "sha256": "af26daab238defef6d65d1e9855019926b465e5cb0a1669b1c7995be783abef4"
+    },
+    {
+      "name": "runtime-report.json",
+      "sha256": "cb59b68c6f6a87f8de8b9756f178177ff0faaaadefc41d35faa8cda9d22e222f"
+    },
+    {
+      "name": "self-intersection.json",
+      "sha256": "a66dd872478c11525da08a47ae745c306cbb8598e1d40a88e4c0a17ee29d4489"
+    },
+    {
+      "name": "self-intersection-provenance.json",
+      "sha256": "8c092fccb2cbd74ee6352ac645684d84575139e035ee6ef13fa390e66797408b"
+    }
+  ]
+}

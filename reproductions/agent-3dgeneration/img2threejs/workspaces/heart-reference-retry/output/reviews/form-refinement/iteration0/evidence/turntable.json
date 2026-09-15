@@ -1,0 +1,98 @@
+{
+  "angles": [
+    {
+      "azimuth": 0.0,
+      "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\output\\playwright\\form-refinement\\front.png",
+      "isReference": true,
+      "segmented": true,
+      "holed": false,
+      "interiorHolePixelCount": 320,
+      "interiorHoleFraction": 0.0006968246571404929,
+      "largestHolePixelCount": 225,
+      "largestHoleBBox": {
+        "x": 281,
+        "y": 310,
+        "width": 14,
+        "height": 37
+      },
+      "areaFraction": 0.45355654320987654,
+      "ratio": 1.0,
+      "degenerate": false
+    },
+    {
+      "azimuth": 90.0,
+      "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\output\\playwright\\form-refinement\\right.png",
+      "isReference": false,
+      "segmented": true,
+      "holed": false,
+      "interiorHolePixelCount": 12,
+      "interiorHoleFraction": 4.017354973485457e-05,
+      "largestHolePixelCount": 2,
+      "largestHoleBBox": {
+        "x": 292,
+        "y": 867,
+        "width": 1,
+        "height": 2
+      },
+      "areaFraction": 0.2950162962962963,
+      "ratio": 0.6504509762077931,
+      "degenerate": false
+    },
+    {
+      "azimuth": 180.0,
+      "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\output\\playwright\\form-refinement\\rear.png",
+      "isReference": false,
+      "segmented": true,
+      "holed": false,
+      "interiorHolePixelCount": 415,
+      "interiorHoleFraction": 0.0009039326515720804,
+      "largestHolePixelCount": 223,
+      "largestHoleBBox": {
+        "x": 605,
+        "y": 311,
+        "width": 14,
+        "height": 36
+      },
+      "areaFraction": 0.453437037037037,
+      "ratio": 0.9997365131765188,
+      "degenerate": false
+    },
+    {
+      "azimuth": 270.0,
+      "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\output\\playwright\\form-refinement\\left.png",
+      "isReference": false,
+      "segmented": true,
+      "holed": false,
+      "interiorHolePixelCount": 9,
+      "interiorHoleFraction": 3.0110707032857474e-05,
+      "largestHolePixelCount": 2,
+      "largestHoleBBox": {
+        "x": 598,
+        "y": 887,
+        "width": 1,
+        "height": 2
+      },
+      "areaFraction": 0.2952069135802469,
+      "ratio": 0.650871248579131,
+      "degenerate": false
+    }
+  ],
+  "referenceAzimuth": 0.0,
+  "requiredAzimuths": [
+    0.0,
+    90.0,
+    180.0,
+    270.0
+  ],
+  "azimuthTolerance": 5.0,
+  "missingAzimuths": [],
+  "covered": true,
+  "collapseRatio": 0.15,
+  "degenerate": false,
+  "allowHoles": false,
+  "holed": false,
+  "unsegmentedAzimuths": [],
+  "segmentationReliable": true,
+  "passed": true,
+  "note": "deterministic; zero token; mandatory azimuth coverage catches off-axis-only defects, interior-hole flood fill catches silhouette-enclosed background that an area-only check misses"
+}

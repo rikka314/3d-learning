@@ -1,0 +1,87 @@
+{
+  "ok": true,
+  "verdict": "pass",
+  "confidence": 0.802,
+  "estimatedFidelity": 0.802,
+  "targetThreshold": 0.7,
+  "materialId": "epicardial-fat",
+  "sourceImage": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\material-evidence\\clean-crops\\epicardial-fat.png",
+  "outDir": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\material-evidence\\clean\\epicardial-fat",
+  "palette": [
+    "#F6A96C",
+    "#F9C18C",
+    "#FCDCB4",
+    "#D7804E",
+    "#867D97"
+  ],
+  "maps": {
+    "albedo": {
+      "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\material-evidence\\clean\\epicardial-fat\\epicardial-fat_albedo.png",
+      "url": "epicardial-fat_albedo.png",
+      "channel": "albedo",
+      "source": "reference-pixel-extraction"
+    },
+    "roughness": {
+      "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\material-evidence\\clean\\epicardial-fat\\epicardial-fat_roughness.png",
+      "url": "epicardial-fat_roughness.png",
+      "channel": "roughness",
+      "source": "reference-pixel-extraction"
+    },
+    "height": {
+      "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\material-evidence\\clean\\epicardial-fat\\epicardial-fat_height.png",
+      "url": "epicardial-fat_height.png",
+      "channel": "height",
+      "source": "reference-pixel-extraction"
+    },
+    "normal": {
+      "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\material-evidence\\clean\\epicardial-fat\\epicardial-fat_normal.png",
+      "url": "epicardial-fat_normal.png",
+      "channel": "normal",
+      "source": "reference-pixel-extraction"
+    },
+    "ao": {
+      "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\material-evidence\\clean\\epicardial-fat\\epicardial-fat_ao.png",
+      "url": "epicardial-fat_ao.png",
+      "channel": "ao",
+      "source": "reference-pixel-extraction"
+    }
+  },
+  "diagnostics": {
+    "sourceWidth": 24,
+    "sourceHeight": 96,
+    "mapSize": 2048,
+    "cropBBoxPixels": {
+      "x": 0,
+      "y": 0,
+      "width": 24,
+      "height": 96
+    },
+    "mask": {
+      "backgroundColor": "#FBBA81",
+      "backgroundNoise": 62.498,
+      "transparentPixelFraction": 0.0,
+      "foregroundCoverage": 0.951
+    },
+    "mapStats": {
+      "valueRange": 0.3728,
+      "heightP90Gradient": 0.02376,
+      "roughnessBase": 0.694,
+      "roughnessVariation": 0.05,
+      "normalStrength": 0.184,
+      "blurRadius": 28
+    },
+    "palette": [
+      "#F6A96C",
+      "#F9C18C",
+      "#FCDCB4",
+      "#D7804E",
+      "#867D97"
+    ]
+  },
+  "warnings": [
+    "image is not clearly isolated from background; using most pixels as material evidence",
+    "object/background separation is weak",
+    "single-image inverse rendering cannot prove true physical PBR; confidence is capped"
+  ],
+  "limitation": "single-image PBR extraction is an estimate; 70%+ extraction confidence still needs render screenshot review"
+}

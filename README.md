@@ -19,3 +19,5 @@
 4. 需要检索最新进展时，优先使用 `.codex/skills/` 中的 `research-ops`、`exa-search` 和 `deep-research`。
 
 当前不预设具体技术栈；每个复现项目可以独立选择环境和依赖。
+
+本地医学 3D 参考软件：[3D Organon Anatomy](./reproductions/3d-organon-anatomy/README.md)。

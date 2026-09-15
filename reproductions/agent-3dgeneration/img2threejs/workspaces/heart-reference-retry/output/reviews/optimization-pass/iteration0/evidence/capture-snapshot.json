@@ -1,0 +1,37 @@
+{
+  "passId": "optimization-pass",
+  "files": [
+    {
+      "name": "front.png",
+      "sha256": "621455cdd8b39ccb92e1b343693f8068c19fc8b9ca48565e8beea76fde512588"
+    },
+    {
+      "name": "right.png",
+      "sha256": "998ac1c6983b3521f5177d0dda1c7790214d6ad84fa759b3a0da15d1fad7429a"
+    },
+    {
+      "name": "rear.png",
+      "sha256": "c7fcc56416524350963e31d5d1a2f92ae8c0bc0809681dea9ce66588d897fcca"
+    },
+    {
+      "name": "left.png",
+      "sha256": "a781da97942c81a866c912099fc81694b951d6f9f2398edd80601e35244572f8"
+    },
+    {
+      "name": "threeQuarter.png",
+      "sha256": "2ae04f8c93f4384259b9ea418850b975b55db1099f1334c179e09b769fa40043"
+    },
+    {
+      "name": "runtime-report.json",
+      "sha256": "e8beaf3fd0e7c175cb9ca4f08ddfdb34178403605510a6bf13648d1cf352897a"
+    },
+    {
+      "name": "self-intersection.json",
+      "sha256": "1c3ede42a27703b7c806593cabfb15f4d12d58bfdfec2097eb9b9fb32530f1f3"
+    },
+    {
+      "name": "self-intersection-provenance.json",
+      "sha256": "21fae4a3b7597ce5322d0b432e8c4558890454987607ec1f51d157c199febf83"
+    }
+  ]
+}

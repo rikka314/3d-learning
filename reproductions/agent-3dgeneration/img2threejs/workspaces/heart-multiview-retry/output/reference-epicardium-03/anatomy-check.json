@@ -1,0 +1,890 @@
+{
+  "passed": true,
+  "stage": "reference-epicardium-03",
+  "errors": [],
+  "captureReportSha256": "39503d2e0b756bb7c439f884e959a3225bc5e8f94f806d31b9b748d32c65e3bd",
+  "verifierSha256": "8a3ded18c7f73302f93a2631e9211b58b723df6c646f0e00f29c285f8444bf70",
+  "sourceHashes": [
+    {
+      "file": "src/createHeartModel.ts",
+      "sha256": "be6ebca8b39801fd5e2bd33fbea8a3a19ab8b8f6a71643d63d77461f75b8e62b"
+    },
+    {
+      "file": "src/coronaryAnatomy.ts",
+      "sha256": "1053adf204602b03ebfbdee51281bd760cab19e73765b51280f430c9561c1704"
+    },
+    {
+      "file": "src/heartMaterials.ts",
+      "sha256": "1fe7ea2629a0e64d423a291c3c211395fed11d782de285179be5ee584eaced9c"
+    },
+    {
+      "file": "src/main.ts",
+      "sha256": "f6e1039b54822835135c13a65c4fa67a1e236054527846c0838857e0caedb34d"
+    },
+    {
+      "file": "src/style.css",
+      "sha256": "469181405f49ac3d9d858d469f2d0255698f93857aad4b51462c8e8c4553cd90"
+    },
+    {
+      "file": "anatomy-layout.json",
+      "sha256": "ab356e37655bfbd7dd154e1bd10d3bdd916d5823146a35d3ce9311ddd6658474"
+    }
+  ],
+  "model": "heart-multiview-retry",
+  "buildPass": "reference-refinement",
+  "checks": [
+    {
+      "id": "four-external-chamber-regions",
+      "passed": true,
+      "evidence": "Four selectable exterior regions; no internal cavities inferred."
+    },
+    {
+      "id": "left-auricle-attachment",
+      "passed": true,
+      "evidence": {
+        "parent": "left-atrium",
+        "embeddedFraction": 0.12369337979094076,
+        "samples": 574,
+        "method": "Sampled appendage surface penetrates its atrial base and also extends outside it."
+      }
+    },
+    {
+      "id": "right-auricle-attachment",
+      "passed": true,
+      "evidence": {
+        "parent": "right-atrium",
+        "embeddedFraction": 0.2874564459930314,
+        "samples": 574,
+        "method": "Sampled appendage surface penetrates its atrial base and also extends outside it."
+      }
+    },
+    {
+      "id": "superior-vena-cava-right-atrium",
+      "passed": true,
+      "evidence": {
+        "root": [
+          -1.01,
+          0.5700000000000001,
+          -0.21
+        ]
+      }
+    },
+    {
+      "id": "inferior-vena-cava-right-atrium",
+      "passed": true,
+      "evidence": {
+        "root": [
+          -1.02,
+          -0.24000000000000016,
+          -0.32
+        ]
+      }
+    },
+    {
+      "id": "four-pulmonary-veins",
+      "passed": true,
+      "evidence": [
+        "right-superior-pulmonary-vein",
+        "right-inferior-pulmonary-vein",
+        "left-superior-pulmonary-vein",
+        "left-inferior-pulmonary-vein"
+      ]
+    },
+    {
+      "id": "left-pulmonary-branch-bifurcation",
+      "passed": true,
+      "evidence": {
+        "centerlineGap": 2.5133742693021536e-16,
+        "distal": [
+          1.0784000000000002,
+          1.29,
+          -0.24999999999999994
+        ]
+      }
+    },
+    {
+      "id": "right-pulmonary-branch-bifurcation",
+      "passed": true,
+      "evidence": {
+        "centerlineGap": 2.5133742693021536e-16,
+        "distal": [
+          -1.1599999999999997,
+          1.12,
+          -0.6800000000000004
+        ]
+      }
+    },
+    {
+      "id": "three-aortic-arch-branches",
+      "passed": true,
+      "evidence": [
+        {
+          "id": "brachiocephalic-branch",
+          "root": [
+            -0.25,
+            1.63,
+            -0.11
+          ],
+          "parentAxisDistance": 0.04008732667167728
+        },
+        {
+          "id": "left-carotid-branch",
+          "root": [
+            0,
+            1.69,
+            -0.28
+          ],
+          "parentAxisDistance": 0.043210286168714036
+        },
+        {
+          "id": "left-subclavian-branch",
+          "root": [
+            0.2799999999999999,
+            1.5799999999999998,
+            -0.5500000000000002
+          ],
+          "parentAxisDistance": 0.03582652805282596
+        }
+      ]
+    },
+    {
+      "id": "aortic-branch-order",
+      "passed": true,
+      "evidence": "Brachiocephalic, left common carotid, left subclavian in arch progression."
+    },
+    {
+      "id": "outflow-root-embedding",
+      "passed": true,
+      "evidence": "Both proximal roots embedded in ventricular envelope; pulmonary root anterior. Chamber-specific internal continuity is unmodeled."
+    },
+    {
+      "id": "rv-anterior-lv-apex",
+      "passed": true,
+      "evidence": {
+        "anteriorProjectedAreas": {
+          "left-ventricle": 2.203242075225683,
+          "right-ventricle": 3.7998391524129165
+        },
+        "minimumY": {
+          "left-ventricle": -2.180000066757202,
+          "right-ventricle": -2.032381057739258
+        }
+      }
+    },
+    {
+      "id": "lv-posterior-majority",
+      "passed": true,
+      "evidence": {
+        "left-ventricle": 4.743257423209863,
+        "right-ventricle": 1.259823804428745
+      }
+    },
+    {
+      "id": "left-main-coronary-artery-aortic-origin",
+      "passed": true,
+      "evidence": {
+        "root": [
+          -0.2,
+          0.58,
+          0.060000000000000005
+        ],
+        "axisDistance": 0.10707876962137523
+      }
+    },
+    {
+      "id": "right-coronary-artery-aortic-origin",
+      "passed": true,
+      "evidence": {
+        "root": [
+          -0.45,
+          0.6,
+          0.060000000000000005
+        ],
+        "axisDistance": 0.06751912717881951
+      }
+    },
+    {
+      "id": "left-anterior-descending-artery-connection",
+      "passed": true,
+      "evidence": {
+        "expectedParent": "left-main-coronary-artery",
+        "declaredParent": "left-main-coronary-artery",
+        "centerlineGap": 0
+      }
+    },
+    {
+      "id": "left-circumflex-artery-connection",
+      "passed": true,
+      "evidence": {
+        "expectedParent": "left-main-coronary-artery",
+        "declaredParent": "left-main-coronary-artery",
+        "centerlineGap": 0
+      }
+    },
+    {
+      "id": "first-diagonal-branch-connection",
+      "passed": true,
+      "evidence": {
+        "expectedParent": "left-anterior-descending-artery",
+        "declaredParent": "left-anterior-descending-artery",
+        "centerlineGap": 0.0019376548041448133
+      }
+    },
+    {
+      "id": "second-diagonal-branch-connection",
+      "passed": true,
+      "evidence": {
+        "expectedParent": "left-anterior-descending-artery",
+        "declaredParent": "left-anterior-descending-artery",
+        "centerlineGap": 0.0026879957001894232
+      }
+    },
+    {
+      "id": "obtuse-marginal-branch-connection",
+      "passed": true,
+      "evidence": {
+        "expectedParent": "left-circumflex-artery",
+        "declaredParent": "left-circumflex-artery",
+        "centerlineGap": 0.001526740768446187
+      }
+    },
+    {
+      "id": "right-marginal-branch-connection",
+      "passed": true,
+      "evidence": {
+        "expectedParent": "right-coronary-artery",
+        "declaredParent": "right-coronary-artery",
+        "centerlineGap": 0.0019728810730162286
+      }
+    },
+    {
+      "id": "posterior-descending-artery-connection",
+      "passed": true,
+      "evidence": {
+        "expectedParent": "right-coronary-artery",
+        "declaredParent": "right-coronary-artery",
+        "centerlineGap": 2.7194799110210365e-16
+      }
+    },
+    {
+      "id": "great-cardiac-vein-connection",
+      "passed": true,
+      "evidence": {
+        "expectedParent": "coronary-sinus",
+        "declaredParent": "coronary-sinus",
+        "centerlineGap": 2.2887833992611187e-16
+      }
+    },
+    {
+      "id": "middle-cardiac-vein-connection",
+      "passed": true,
+      "evidence": {
+        "expectedParent": "coronary-sinus",
+        "declaredParent": "coronary-sinus",
+        "centerlineGap": 0.0016640907122327136
+      }
+    },
+    {
+      "id": "small-cardiac-vein-connection",
+      "passed": true,
+      "evidence": {
+        "expectedParent": "coronary-sinus",
+        "declaredParent": "coronary-sinus",
+        "centerlineGap": 0.0013021933192633867
+      }
+    },
+    {
+      "id": "rca-pda-caliber-transition",
+      "passed": true,
+      "evidence": {
+        "rcaCruxRadius": 0.024999989451389835,
+        "pdaOriginRadius": 0.02399998053933284,
+        "scope": "Avoid an abruptly enlarged PDA sprouting from a pinched RCA in this normal teaching example; not a patient-specific caliber rule."
+      }
+    },
+    {
+      "id": "coronary-sinus-to-ra",
+      "passed": true,
+      "evidence": {
+        "outlet": [
+          -0.9099999999999998,
+          -0.25,
+          -0.47000000000000003
+        ]
+      }
+    },
+    {
+      "id": "right-coronary-artery-basal-course",
+      "passed": true,
+      "evidence": {
+        "minimumY": -0.3465575763278583
+      }
+    },
+    {
+      "id": "left-circumflex-artery-basal-course",
+      "passed": true,
+      "evidence": {
+        "minimumY": -0.41011407818376033
+      }
+    },
+    {
+      "id": "coronary-sinus-basal-course",
+      "passed": true,
+      "evidence": {
+        "minimumY": -0.2799768392328089
+      }
+    },
+    {
+      "id": "left-anterior-descending-artery-iv-course",
+      "passed": true,
+      "evidence": {
+        "terminal": [
+          0.9173010939207576,
+          -2.0300000000000002,
+          0.6948864054377026
+        ],
+        "sampledPoints": 183
+      }
+    },
+    {
+      "id": "posterior-descending-artery-iv-course",
+      "passed": true,
+      "evidence": {
+        "terminal": [
+          0.29240435515329877,
+          -1.8700000000000006,
+          0.02301528262087804
+        ],
+        "sampledPoints": 261
+      }
+    },
+    {
+      "id": "great-cardiac-vein-reaches-basal-av-groove",
+      "passed": true,
+      "evidence": {
+        "maximumY": 0.31826640521908367,
+        "reference": "Model anterior AV groove near y=+0.23; the vein must ascend there before turning left."
+      }
+    },
+    {
+      "id": "left-circumflex-artery-surface-continuity",
+      "passed": true,
+      "evidence": {
+        "buriedCenterlineSamples": 0,
+        "buriedPoints": [],
+        "samples": 33,
+        "method": "Three-direction ray parity against the actual closed ventricular envelope. Proximal/distal endpoints omitted."
+      }
+    },
+    {
+      "id": "left-anterior-descending-artery-surface-continuity",
+      "passed": true,
+      "evidence": {
+        "buriedCenterlineSamples": 0,
+        "buriedPoints": [],
+        "samples": 33,
+        "method": "Three-direction ray parity against the actual closed ventricular envelope. Proximal/distal endpoints omitted."
+      }
+    },
+    {
+      "id": "great-cardiac-vein-surface-continuity",
+      "passed": true,
+      "evidence": {
+        "buriedCenterlineSamples": 0,
+        "buriedPoints": [],
+        "samples": 33,
+        "method": "Three-direction ray parity against the actual closed ventricular envelope. Proximal/distal endpoints omitted."
+      }
+    },
+    {
+      "id": "lad-surface-branch-1-connection",
+      "passed": true,
+      "evidence": {
+        "expectedParent": "left-anterior-descending-artery",
+        "declaredParent": "left-anterior-descending-artery",
+        "centerlineGap": 0.002987732450962537,
+        "illustrative": true
+      }
+    },
+    {
+      "id": "lad-surface-branch-1-surface-course",
+      "passed": true,
+      "evidence": {
+        "buriedCenterlineSamples": 0,
+        "samples": 33,
+        "distal": [
+          1.1506932801487868,
+          -0.62,
+          0.596547706842573
+        ],
+        "junction": [
+          0.45521507129501576,
+          -0.3202723427818388,
+          0.9610473061051764
+        ],
+        "scope": "Exterior schematic course only; no patient-specific territory or branch-count claim"
+      }
+    },
+    {
+      "id": "lad-surface-branch-1-distal-taper",
+      "passed": true,
+      "evidence": {
+        "proximalRadius": 0.008000023941102653,
+        "distalRadius": 0.0007999888053840209
+      }
+    },
+    {
+      "id": "lad-surface-branch-2-connection",
+      "passed": true,
+      "evidence": {
+        "expectedParent": "left-anterior-descending-artery",
+        "declaredParent": "left-anterior-descending-artery",
+        "centerlineGap": 0,
+        "illustrative": true
+      }
+    },
+    {
+      "id": "lad-surface-branch-2-surface-course",
+      "passed": true,
+      "evidence": {
+        "buriedCenterlineSamples": 0,
+        "samples": 33,
+        "distal": [
+          1.0700577089351204,
+          -1.08,
+          0.6523395577760138
+        ],
+        "junction": [
+          0.5303113636270087,
+          -0.7798265626760555,
+          0.9087659187158287
+        ],
+        "scope": "Exterior schematic course only; no patient-specific territory or branch-count claim"
+      }
+    },
+    {
+      "id": "lad-surface-branch-2-distal-taper",
+      "passed": true,
+      "evidence": {
+        "proximalRadius": 0.007999978979422853,
+        "distalRadius": 0.0007999891187177886
+      }
+    },
+    {
+      "id": "lad-surface-branch-3-connection",
+      "passed": true,
+      "evidence": {
+        "expectedParent": "left-anterior-descending-artery",
+        "declaredParent": "left-anterior-descending-artery",
+        "centerlineGap": 0.0029883071301421977,
+        "illustrative": true
+      }
+    },
+    {
+      "id": "lad-surface-branch-3-surface-course",
+      "passed": true,
+      "evidence": {
+        "buriedCenterlineSamples": 0,
+        "samples": 33,
+        "distal": [
+          1.1679329683066042,
+          -1.7200000000000004,
+          0.615838845902646
+        ],
+        "junction": [
+          0.6649942853867881,
+          -1.4203230961800246,
+          0.794689856524772
+        ],
+        "scope": "Exterior schematic course only; no patient-specific territory or branch-count claim"
+      }
+    },
+    {
+      "id": "lad-surface-branch-3-distal-taper",
+      "passed": true,
+      "evidence": {
+        "proximalRadius": 0.007999997416520034,
+        "distalRadius": 0.0008000173167272895
+      }
+    },
+    {
+      "id": "right-marginal-surface-branch-1-connection",
+      "passed": true,
+      "evidence": {
+        "expectedParent": "right-marginal-branch",
+        "declaredParent": "right-marginal-branch",
+        "centerlineGap": 0,
+        "illustrative": true
+      }
+    },
+    {
+      "id": "right-marginal-surface-branch-1-surface-course",
+      "passed": true,
+      "evidence": {
+        "buriedCenterlineSamples": 0,
+        "samples": 33,
+        "distal": [
+          -1.0666475963808568,
+          -0.8,
+          -0.08203539885637949
+        ],
+        "junction": [
+          -1.1104089923050373,
+          -0.49909514683975903,
+          0.31550572836711743
+        ],
+        "scope": "Exterior schematic course only; no patient-specific territory or branch-count claim"
+      }
+    },
+    {
+      "id": "right-marginal-surface-branch-1-distal-taper",
+      "passed": true,
+      "evidence": {
+        "proximalRadius": 0.008000042303207906,
+        "distalRadius": 0.0007999436360194598
+      }
+    },
+    {
+      "id": "right-marginal-surface-branch-2-connection",
+      "passed": true,
+      "evidence": {
+        "expectedParent": "right-marginal-branch",
+        "declaredParent": "right-marginal-branch",
+        "centerlineGap": 0.0018958155933198298,
+        "illustrative": true
+      }
+    },
+    {
+      "id": "right-marginal-surface-branch-2-surface-course",
+      "passed": true,
+      "evidence": {
+        "buriedCenterlineSamples": 0,
+        "samples": 33,
+        "distal": [
+          -0.8507921338079675,
+          -1.2300000000000002,
+          -0.04143647358765566
+        ],
+        "junction": [
+          -0.976918458557403,
+          -0.9292417058908048,
+          0.3522744601666845
+        ],
+        "scope": "Exterior schematic course only; no patient-specific territory or branch-count claim"
+      }
+    },
+    {
+      "id": "right-marginal-surface-branch-2-distal-taper",
+      "passed": true,
+      "evidence": {
+        "proximalRadius": 0.008000015178608424,
+        "distalRadius": 0.0007999825032874506
+      }
+    },
+    {
+      "id": "pda-surface-branch-1-connection",
+      "passed": true,
+      "evidence": {
+        "expectedParent": "posterior-descending-artery",
+        "declaredParent": "posterior-descending-artery",
+        "centerlineGap": 0.0025777449651332874,
+        "illustrative": true
+      }
+    },
+    {
+      "id": "pda-surface-branch-1-surface-course",
+      "passed": true,
+      "evidence": {
+        "buriedCenterlineSamples": 0,
+        "samples": 33,
+        "distal": [
+          -0.9093774301498203,
+          -1.0399999999999998,
+          -0.22667460740573708
+        ],
+        "junction": [
+          -0.5816878922583983,
+          -0.7394042536701048,
+          -0.7021228865442752
+        ],
+        "scope": "Exterior schematic course only; no patient-specific territory or branch-count claim"
+      }
+    },
+    {
+      "id": "pda-surface-branch-1-distal-taper",
+      "passed": true,
+      "evidence": {
+        "proximalRadius": 0.007999982981918426,
+        "distalRadius": 0.000799987138266747
+      }
+    },
+    {
+      "id": "pda-surface-branch-2-connection",
+      "passed": true,
+      "evidence": {
+        "expectedParent": "posterior-descending-artery",
+        "declaredParent": "posterior-descending-artery",
+        "centerlineGap": 0.002575661170833954,
+        "illustrative": true
+      }
+    },
+    {
+      "id": "pda-surface-branch-2-surface-course",
+      "passed": true,
+      "evidence": {
+        "buriedCenterlineSamples": 0,
+        "samples": 33,
+        "distal": [
+          -0.4535951765426674,
+          -1.5500000000000007,
+          -0.000154202363091438
+        ],
+        "junction": [
+          -0.3819988132807063,
+          -1.2503455158775478,
+          -0.49958779976306533
+        ],
+        "scope": "Exterior schematic course only; no patient-specific territory or branch-count claim"
+      }
+    },
+    {
+      "id": "pda-surface-branch-2-distal-taper",
+      "passed": true,
+      "evidence": {
+        "proximalRadius": 0.008000048497497364,
+        "distalRadius": 0.0008000410128392783
+      }
+    },
+    {
+      "id": "obtuse-marginal-surface-branch-1-connection",
+      "passed": true,
+      "evidence": {
+        "expectedParent": "obtuse-marginal-branch",
+        "declaredParent": "obtuse-marginal-branch",
+        "centerlineGap": 0.0014446194966711535,
+        "illustrative": true
+      }
+    },
+    {
+      "id": "obtuse-marginal-surface-branch-1-surface-course",
+      "passed": true,
+      "evidence": {
+        "buriedCenterlineSamples": 0,
+        "samples": 33,
+        "distal": [
+          1.3836177362178663,
+          -0.9000000000000005,
+          -0.19250085582794987
+        ],
+        "junction": [
+          1.0278105751690556,
+          -0.6502294140486142,
+          -0.6769048890424563
+        ],
+        "scope": "Exterior schematic course only; no patient-specific territory or branch-count claim"
+      }
+    },
+    {
+      "id": "obtuse-marginal-surface-branch-1-distal-taper",
+      "passed": true,
+      "evidence": {
+        "proximalRadius": 0.008000040870593531,
+        "distalRadius": 0.0007999814590238415
+      }
+    },
+    {
+      "id": "obtuse-marginal-surface-branch-2-connection",
+      "passed": true,
+      "evidence": {
+        "expectedParent": "obtuse-marginal-branch",
+        "declaredParent": "obtuse-marginal-branch",
+        "centerlineGap": 0.001443924098733458,
+        "illustrative": true
+      }
+    },
+    {
+      "id": "obtuse-marginal-surface-branch-2-surface-course",
+      "passed": true,
+      "evidence": {
+        "buriedCenterlineSamples": 0,
+        "samples": 33,
+        "distal": [
+          1.3792235647759679,
+          -1.2499999999999998,
+          -0.11147553391345111
+        ],
+        "junction": [
+          1.152673309995584,
+          -0.9996169109135156,
+          -0.4909715766982861
+        ],
+        "scope": "Exterior schematic course only; no patient-specific territory or branch-count claim"
+      }
+    },
+    {
+      "id": "obtuse-marginal-surface-branch-2-distal-taper",
+      "passed": true,
+      "evidence": {
+        "proximalRadius": 0.007999964962677353,
+        "distalRadius": 0.0007999784494091895
+      }
+    },
+    {
+      "id": "great-cardiac-surface-tributary-1-connection",
+      "passed": true,
+      "evidence": {
+        "expectedParent": "great-cardiac-vein",
+        "declaredParent": "great-cardiac-vein",
+        "centerlineGap": 0.005837236892456553,
+        "illustrative": true
+      }
+    },
+    {
+      "id": "great-cardiac-surface-tributary-1-surface-course",
+      "passed": true,
+      "evidence": {
+        "buriedCenterlineSamples": 0,
+        "samples": 33,
+        "distal": [
+          -0.306312990744076,
+          -0.73,
+          0.8874277406740211
+        ],
+        "junction": [
+          0.341574181790476,
+          -0.4778605923438959,
+          1.0139975609447116
+        ],
+        "scope": "Exterior schematic course only; no patient-specific territory or branch-count claim"
+      }
+    },
+    {
+      "id": "great-cardiac-surface-tributary-1-distal-taper",
+      "passed": true,
+      "evidence": {
+        "proximalRadius": 0.007999967640450962,
+        "distalRadius": 0.000799980950196073
+      }
+    },
+    {
+      "id": "great-cardiac-surface-tributary-2-connection",
+      "passed": true,
+      "evidence": {
+        "expectedParent": "great-cardiac-vein",
+        "declaredParent": "great-cardiac-vein",
+        "centerlineGap": 0,
+        "illustrative": true
+      }
+    },
+    {
+      "id": "great-cardiac-surface-tributary-2-surface-course",
+      "passed": true,
+      "evidence": {
+        "buriedCenterlineSamples": 0,
+        "samples": 33,
+        "distal": [
+          -0.1005382797267077,
+          -1.31,
+          0.7864812926078075
+        ],
+        "junction": [
+          0.43978001024612756,
+          -1.0612431827836832,
+          0.9090838090251255
+        ],
+        "scope": "Exterior schematic course only; no patient-specific territory or branch-count claim"
+      }
+    },
+    {
+      "id": "great-cardiac-surface-tributary-2-distal-taper",
+      "passed": true,
+      "evidence": {
+        "proximalRadius": 0.007999977481260051,
+        "distalRadius": 0.0008000060491053036
+      }
+    },
+    {
+      "id": "middle-cardiac-surface-tributary-1-connection",
+      "passed": true,
+      "evidence": {
+        "expectedParent": "middle-cardiac-vein",
+        "declaredParent": "middle-cardiac-vein",
+        "centerlineGap": 2.7194799110210365e-16,
+        "illustrative": true
+      }
+    },
+    {
+      "id": "middle-cardiac-surface-tributary-1-surface-course",
+      "passed": true,
+      "evidence": {
+        "buriedCenterlineSamples": 0,
+        "samples": 33,
+        "distal": [
+          0.3919234837155522,
+          -1.05,
+          -0.7515545163101368
+        ],
+        "junction": [
+          -0.389526361567929,
+          -0.799395343383556,
+          -0.8006306728794462
+        ],
+        "scope": "Exterior schematic course only; no patient-specific territory or branch-count claim"
+      }
+    },
+    {
+      "id": "middle-cardiac-surface-tributary-1-distal-taper",
+      "passed": true,
+      "evidence": {
+        "proximalRadius": 0.008000018827316406,
+        "distalRadius": 0.0007999976190726396
+      }
+    },
+    {
+      "id": "middle-cardiac-surface-tributary-2-connection",
+      "passed": true,
+      "evidence": {
+        "expectedParent": "middle-cardiac-vein",
+        "declaredParent": "middle-cardiac-vein",
+        "centerlineGap": 4.577566798522237e-16,
+        "illustrative": true
+      }
+    },
+    {
+      "id": "middle-cardiac-surface-tributary-2-surface-course",
+      "passed": true,
+      "evidence": {
+        "buriedCenterlineSamples": 0,
+        "samples": 33,
+        "distal": [
+          0.5724673231353592,
+          -1.55,
+          -0.38687301463010115
+        ],
+        "junction": [
+          -0.1947610260170658,
+          -1.2997154136354212,
+          -0.5708676064097497
+        ],
+        "scope": "Exterior schematic course only; no patient-specific territory or branch-count claim"
+      }
+    },
+    {
+      "id": "middle-cardiac-surface-tributary-2-distal-taper",
+      "passed": true,
+      "evidence": {
+        "proximalRadius": 0.00800004997762859,
+        "distalRadius": 0.0007999771529497575
+      }
+    }
+  ],
+  "scope": "Geometry and topology checks of an external teaching model; not a clinical validation.",
+  "unverified": [
+    "internal chamber-specific outflow continuity",
+    "valves",
+    "septa",
+    "patent lumens",
+    "hemodynamics",
+    "patient-specific dimensions"
+  ]
+}

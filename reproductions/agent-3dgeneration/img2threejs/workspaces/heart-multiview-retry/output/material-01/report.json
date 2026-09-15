@@ -1,0 +1,1420 @@
+{
+  "stage": "material-01",
+  "errors": [],
+  "captures": [
+    {
+      "view": "front",
+      "file": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\output\\material-01\\front.png",
+      "sha256": "4a8bee6370468513ca876b2c60e4371377800fafa5eb67ac4ff87a998fd793cd"
+    },
+    {
+      "view": "left",
+      "file": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\output\\material-01\\left.png",
+      "sha256": "61918992052f10ef6018b887e3d04a4cfa931d0030abae00aaa738ea2594bbe3"
+    },
+    {
+      "view": "rear",
+      "file": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\output\\material-01\\rear.png",
+      "sha256": "9e7889ba7ee250889db23738906fd055a2a988858c1a3c39781a8fa7d3c196b2"
+    },
+    {
+      "view": "right",
+      "file": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\output\\material-01\\right.png",
+      "sha256": "4cb5cb954d705cb476dc7d256823c3aa6d9daa7d53683ab89c3621c25fd73f98"
+    },
+    {
+      "view": "threeQuarter",
+      "file": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\output\\material-01\\threeQuarter.png",
+      "sha256": "ca508d31bf06d750c8971d7d3a4ff2bf90f45c3403d94c05e09258b4981da0c3"
+    }
+  ],
+  "snapshot": [
+    {
+      "file": "src/createHeartModel.ts",
+      "sha256": "eb864464ac9c8ec4993f74db77108129a525c8692e7fd14a66a6c407e6cdc2e7"
+    },
+    {
+      "file": "src/coronaryAnatomy.ts",
+      "sha256": "57964d8a706b0a60b9eca30df683127c7f2598dc9882875e0333ac2bb4d34f82"
+    },
+    {
+      "file": "src/heartMaterials.ts",
+      "sha256": "bba40af584c74929be98db5c07abe4aa31775c0b94b490c6a3d4d2032e2edb19"
+    },
+    {
+      "file": "src/main.ts",
+      "sha256": "643a4b43356e5efcb8b010edbb3dd5bb41598d726e395c37266344954f30b494"
+    },
+    {
+      "file": "src/style.css",
+      "sha256": "469181405f49ac3d9d858d469f2d0255698f93857aad4b51462c8e8c4553cd90"
+    },
+    {
+      "file": "index.html",
+      "sha256": "7f009638195f899e5e56f50e88ad2c9a2513bc8ca8d52297e6f193fd0d4516df"
+    },
+    {
+      "file": "anatomy-layout.json",
+      "sha256": "004ba9b6864c28e409c6e5872ca759411fd9a8f704591600ce3f7d8171c0cc71"
+    },
+    {
+      "file": "anatomy-contract.json",
+      "sha256": "af78aafe8e92bf8a3972a07311f19b9bf79e40ca014a431cab43ecfcc41a0dc9"
+    },
+    {
+      "file": "object-sculpt-spec.json",
+      "sha256": "2726a6c281bdb567531a09315a6558d4762a1a1cfcf749a7aafeade8d079e363"
+    },
+    {
+      "file": "references.json",
+      "sha256": "631f5f6f8c2a16ed89c229fa9736fc37cdc543e08b64213442fdeaad9e245e14"
+    }
+  ],
+  "servedSources": [
+    {
+      "file": "src/createHeartModel.ts",
+      "sha256": "eb864464ac9c8ec4993f74db77108129a525c8692e7fd14a66a6c407e6cdc2e7"
+    },
+    {
+      "file": "src/coronaryAnatomy.ts",
+      "sha256": "57964d8a706b0a60b9eca30df683127c7f2598dc9882875e0333ac2bb4d34f82"
+    },
+    {
+      "file": "src/heartMaterials.ts",
+      "sha256": "bba40af584c74929be98db5c07abe4aa31775c0b94b490c6a3d4d2032e2edb19"
+    },
+    {
+      "file": "src/main.ts",
+      "sha256": "643a4b43356e5efcb8b010edbb3dd5bb41598d726e395c37266344954f30b494"
+    },
+    {
+      "file": "src/style.css",
+      "sha256": "469181405f49ac3d9d858d469f2d0255698f93857aad4b51462c8e8c4553cd90"
+    },
+    {
+      "file": "anatomy-layout.json",
+      "sha256": "004ba9b6864c28e409c6e5872ca759411fd9a8f704591600ce3f7d8171c0cc71"
+    }
+  ],
+  "textureHashes": [
+    {
+      "file": "arterial-albedo.png",
+      "sha256": "89ad7751c57f55aa058ebea6bb23f4e77d52922a69d1296cf9311e3cf296b38d"
+    },
+    {
+      "file": "arterial-ao.png",
+      "sha256": "3bb208119551d0ecc6b4db74c77f920feac555a7777f75bf31126c891f72e6dd"
+    },
+    {
+      "file": "arterial-normal.png",
+      "sha256": "19f23e6b26cee065b585856415eaa8713fa442680c41a811eb6f527a5d91d1ff"
+    },
+    {
+      "file": "arterial-roughness.png",
+      "sha256": "0e56e012639b5b03e8cc437e6ebbc602270e20813606a403c7e16d175e1b6011"
+    },
+    {
+      "file": "atrial-albedo.png",
+      "sha256": "aa80bf81929d691222f7507b498bd573d16288ec993dc4d29f8c7b561b00f115"
+    },
+    {
+      "file": "atrial-ao.png",
+      "sha256": "e33d21a510822695a1747f7f91582166d903c1b165ce818b170f60c35ea1836e"
+    },
+    {
+      "file": "atrial-normal.png",
+      "sha256": "be8d979095cd4743b11afd1d50656cc1232ae38b90777b436ac386428ba8fa17"
+    },
+    {
+      "file": "atrial-roughness.png",
+      "sha256": "1f203110d0b015ef1dc15421e950c6169953ae4ce5d59b02429af4bc536f53a1"
+    },
+    {
+      "file": "fat-albedo.png",
+      "sha256": "07cad7e490ae346bc3af15fadd00f2666939738081b635f91e56867643156e3a"
+    },
+    {
+      "file": "fat-ao.png",
+      "sha256": "8f49ac942892d59cdc4ae61254267e12c0bc125a4f85f7851a96c10153d4531a"
+    },
+    {
+      "file": "fat-normal.png",
+      "sha256": "23a27bc258d9c15f5a4bafb69795e24d24aeea943a98c17e1bff46774b2e792c"
+    },
+    {
+      "file": "fat-roughness.png",
+      "sha256": "0de5e039b6cb363e26e5778afa8d407c9052c3c7895f5b95d5420afc371fec64"
+    },
+    {
+      "file": "myocardium-albedo.png",
+      "sha256": "19ea97f7b3a31a35490c34bb74c2cd83a095e0ca261949fc399412e91eed2a51"
+    },
+    {
+      "file": "myocardium-ao.png",
+      "sha256": "1d8c43d3cc492a3eced2c9ecc4d3b3203fa9aa2ae229f9633b4e3736625a5080"
+    },
+    {
+      "file": "myocardium-normal.png",
+      "sha256": "1b1e5205f30bbcb44afaebadc4491adb453731fd2350be09f7aec4b5c16248d1"
+    },
+    {
+      "file": "myocardium-roughness.png",
+      "sha256": "5fe808cfaaf6ecdcf748227eb935670cf4880e4907165b0026b7552ba38107e1"
+    },
+    {
+      "file": "venous-albedo.png",
+      "sha256": "ec0a0bd8b1afbe287b87dede7fd541c9d25d5612791ec3c5cbe91bd44705c909"
+    },
+    {
+      "file": "venous-ao.png",
+      "sha256": "7b75c380118322671f635705ef79021ddd2d5ee05bb3d8dc1d5a674ed722159c"
+    },
+    {
+      "file": "venous-normal.png",
+      "sha256": "409da2ca5e5c44edca9fceb31031d8358817d508d9611039df09c5e822da05ea"
+    },
+    {
+      "file": "venous-roughness.png",
+      "sha256": "7d636017b06bfbb8d3dc8c2daa40c26aec6c9ac8d91db28cbdaef9ac85183205"
+    }
+  ],
+  "invalidVertices": 0,
+  "materials": [
+    {
+      "name": "myocardium",
+      "color": "b74039",
+      "roughness": 0.4,
+      "clearcoat": 0.32,
+      "clearcoatRoughness": 0.25,
+      "bitmapMaps": [],
+      "surfaceProfile": {
+        "colorVariation": 0.21,
+        "relief": 0.00065,
+        "grainScale": 72,
+        "roughnessVariation": 0.09,
+        "fiber": 1
+      }
+    },
+    {
+      "name": "atrial",
+      "color": "bd5c54",
+      "roughness": 0.43,
+      "clearcoat": 0.3,
+      "clearcoatRoughness": 0.27,
+      "bitmapMaps": [],
+      "surfaceProfile": {
+        "colorVariation": 0.18,
+        "relief": 0.0006,
+        "grainScale": 80,
+        "roughnessVariation": 0.09,
+        "fiber": 0.65
+      }
+    },
+    {
+      "name": "arterial",
+      "color": "c53026",
+      "roughness": 0.33,
+      "clearcoat": 0.38,
+      "clearcoatRoughness": 0.22,
+      "bitmapMaps": [],
+      "surfaceProfile": {
+        "colorVariation": 0.11,
+        "relief": 0.0003,
+        "grainScale": 86,
+        "roughnessVariation": 0.05,
+        "fiber": 0.15
+      }
+    },
+    {
+      "name": "arterial-lumen",
+      "color": "551611",
+      "roughness": 0.65,
+      "bitmapMaps": [],
+      "surfaceProfile": null
+    },
+    {
+      "name": "arterial-lumen",
+      "color": "551611",
+      "roughness": 0.65,
+      "bitmapMaps": [],
+      "surfaceProfile": null
+    },
+    {
+      "name": "arterial-lumen",
+      "color": "551611",
+      "roughness": 0.65,
+      "bitmapMaps": [],
+      "surfaceProfile": null
+    },
+    {
+      "name": "arterial-lumen",
+      "color": "551611",
+      "roughness": 0.65,
+      "bitmapMaps": [],
+      "surfaceProfile": null
+    },
+    {
+      "name": "venous",
+      "color": "285b9c",
+      "roughness": 0.35,
+      "clearcoat": 0.33,
+      "clearcoatRoughness": 0.25,
+      "bitmapMaps": [],
+      "surfaceProfile": {
+        "colorVariation": 0.13,
+        "relief": 0.00026,
+        "grainScale": 90,
+        "roughnessVariation": 0.05,
+        "fiber": 0.12
+      }
+    },
+    {
+      "name": "venous-lumen",
+      "color": "102a50",
+      "roughness": 0.65,
+      "bitmapMaps": [],
+      "surfaceProfile": null
+    },
+    {
+      "name": "venous-lumen",
+      "color": "102a50",
+      "roughness": 0.65,
+      "bitmapMaps": [],
+      "surfaceProfile": null
+    },
+    {
+      "name": "venous-lumen",
+      "color": "102a50",
+      "roughness": 0.65,
+      "bitmapMaps": [],
+      "surfaceProfile": null
+    },
+    {
+      "name": "arterial-lumen",
+      "color": "551611",
+      "roughness": 0.65,
+      "bitmapMaps": [],
+      "surfaceProfile": null
+    },
+    {
+      "name": "arterial-lumen",
+      "color": "551611",
+      "roughness": 0.65,
+      "bitmapMaps": [],
+      "surfaceProfile": null
+    },
+    {
+      "name": "arterial-lumen",
+      "color": "551611",
+      "roughness": 0.65,
+      "bitmapMaps": [],
+      "surfaceProfile": null
+    },
+    {
+      "name": "arterial-lumen",
+      "color": "551611",
+      "roughness": 0.65,
+      "bitmapMaps": [],
+      "surfaceProfile": null
+    },
+    {
+      "name": "venous-lumen",
+      "color": "102a50",
+      "roughness": 0.65,
+      "bitmapMaps": [],
+      "surfaceProfile": null
+    },
+    {
+      "name": "coronaryRed",
+      "color": "af211d",
+      "roughness": 0.33,
+      "clearcoat": 0.34,
+      "clearcoatRoughness": 0.24,
+      "bitmapMaps": [],
+      "surfaceProfile": {
+        "colorVariation": 0.09,
+        "relief": 0.00012,
+        "grainScale": 90,
+        "roughnessVariation": 0.04,
+        "fiber": 0
+      }
+    },
+    {
+      "name": "coronaryBlue",
+      "color": "204a80",
+      "roughness": 0.35,
+      "clearcoat": 0.32,
+      "clearcoatRoughness": 0.25,
+      "bitmapMaps": [],
+      "surfaceProfile": {
+        "colorVariation": 0.1,
+        "relief": 0.00012,
+        "grainScale": 90,
+        "roughnessVariation": 0.04,
+        "fiber": 0
+      }
+    },
+    {
+      "name": "fat",
+      "color": "e5b66a",
+      "roughness": 0.48,
+      "clearcoat": 0.21,
+      "clearcoatRoughness": 0.3,
+      "bitmapMaps": [],
+      "surfaceProfile": {
+        "colorVariation": 0.15,
+        "relief": 0.00085,
+        "grainScale": 54,
+        "roughnessVariation": 0.1,
+        "fiber": 0
+      }
+    }
+  ],
+  "performance": {
+    "fps": 93.7001594901899,
+    "drawCalls": 76,
+    "triangles": 185992,
+    "lines": 0,
+    "points": 0,
+    "geometries": 76,
+    "textures": 2,
+    "programs": 3
+  },
+  "parts": {
+    "schemaVersion": 1,
+    "rootId": "heart-multiview-retry",
+    "parts": [
+      {
+        "id": "ventricular-body",
+        "name": "心室肌性主体",
+        "meshNames": [
+          "left-ventricle-surface",
+          "right-ventricle-surface"
+        ]
+      },
+      {
+        "id": "left-ventricle",
+        "name": "左心室（外表面）",
+        "meshNames": [
+          "left-ventricle-surface"
+        ]
+      },
+      {
+        "id": "right-ventricle",
+        "name": "右心室（外表面）",
+        "meshNames": [
+          "right-ventricle-surface"
+        ]
+      },
+      {
+        "id": "atrial-complex",
+        "name": "心房与心耳",
+        "meshNames": [
+          "right-atrium-surface",
+          "right-auricle-surface",
+          "left-atrium-surface",
+          "left-auricle-surface"
+        ]
+      },
+      {
+        "id": "right-atrium",
+        "name": "右心房",
+        "meshNames": [
+          "right-atrium-surface",
+          "right-auricle-surface"
+        ]
+      },
+      {
+        "id": "left-atrium",
+        "name": "左心房",
+        "meshNames": [
+          "left-atrium-surface",
+          "left-auricle-surface"
+        ]
+      },
+      {
+        "id": "right-auricle",
+        "name": "右心耳",
+        "meshNames": [
+          "right-auricle-surface"
+        ]
+      },
+      {
+        "id": "left-auricle",
+        "name": "左心耳",
+        "meshNames": [
+          "left-auricle-surface"
+        ]
+      },
+      {
+        "id": "aortic-system",
+        "name": "主动脉系统",
+        "meshNames": [
+          "aortic-arch-wall",
+          "aortic-arch-rim",
+          "aortic-arch-inner-wall",
+          "aortic-arch-lumen",
+          "brachiocephalic-branch-wall",
+          "brachiocephalic-branch-rim",
+          "brachiocephalic-branch-inner-wall",
+          "brachiocephalic-branch-lumen",
+          "left-carotid-branch-wall",
+          "left-carotid-branch-rim",
+          "left-carotid-branch-inner-wall",
+          "left-carotid-branch-lumen",
+          "left-subclavian-branch-wall",
+          "left-subclavian-branch-rim",
+          "left-subclavian-branch-inner-wall",
+          "left-subclavian-branch-lumen"
+        ]
+      },
+      {
+        "id": "pulmonary-arterial-system",
+        "name": "肺动脉系统",
+        "meshNames": [
+          "pulmonary-trunk-wall",
+          "right-pulmonary-branch-wall",
+          "right-pulmonary-branch-rim",
+          "right-pulmonary-branch-inner-wall",
+          "right-pulmonary-branch-lumen",
+          "left-pulmonary-branch-wall",
+          "left-pulmonary-branch-rim",
+          "left-pulmonary-branch-inner-wall",
+          "left-pulmonary-branch-lumen"
+        ]
+      },
+      {
+        "id": "vena-cava-system",
+        "name": "上下腔静脉",
+        "meshNames": [
+          "superior-vena-cava-wall",
+          "superior-vena-cava-rim",
+          "superior-vena-cava-inner-wall",
+          "superior-vena-cava-lumen",
+          "inferior-vena-cava-wall",
+          "inferior-vena-cava-rim",
+          "inferior-vena-cava-inner-wall",
+          "inferior-vena-cava-lumen"
+        ]
+      },
+      {
+        "id": "pulmonary-return-system",
+        "name": "肺静脉回流",
+        "meshNames": [
+          "right-superior-pulmonary-vein-wall",
+          "right-superior-pulmonary-vein-rim",
+          "right-superior-pulmonary-vein-inner-wall",
+          "right-superior-pulmonary-vein-lumen",
+          "right-inferior-pulmonary-vein-wall",
+          "right-inferior-pulmonary-vein-rim",
+          "right-inferior-pulmonary-vein-inner-wall",
+          "right-inferior-pulmonary-vein-lumen",
+          "left-superior-pulmonary-vein-wall",
+          "left-superior-pulmonary-vein-rim",
+          "left-superior-pulmonary-vein-inner-wall",
+          "left-superior-pulmonary-vein-lumen",
+          "left-inferior-pulmonary-vein-wall",
+          "left-inferior-pulmonary-vein-rim",
+          "left-inferior-pulmonary-vein-inner-wall",
+          "left-inferior-pulmonary-vein-lumen"
+        ]
+      },
+      {
+        "id": "aortic-arch",
+        "name": "主动脉（含截短的降主动脉）",
+        "meshNames": [
+          "aortic-arch-wall",
+          "aortic-arch-rim",
+          "aortic-arch-inner-wall",
+          "aortic-arch-lumen"
+        ]
+      },
+      {
+        "id": "brachiocephalic-branch",
+        "name": "头臂干",
+        "meshNames": [
+          "brachiocephalic-branch-wall",
+          "brachiocephalic-branch-rim",
+          "brachiocephalic-branch-inner-wall",
+          "brachiocephalic-branch-lumen"
+        ]
+      },
+      {
+        "id": "left-carotid-branch",
+        "name": "左颈总动脉",
+        "meshNames": [
+          "left-carotid-branch-wall",
+          "left-carotid-branch-rim",
+          "left-carotid-branch-inner-wall",
+          "left-carotid-branch-lumen"
+        ]
+      },
+      {
+        "id": "left-subclavian-branch",
+        "name": "左锁骨下动脉",
+        "meshNames": [
+          "left-subclavian-branch-wall",
+          "left-subclavian-branch-rim",
+          "left-subclavian-branch-inner-wall",
+          "left-subclavian-branch-lumen"
+        ]
+      },
+      {
+        "id": "pulmonary-trunk",
+        "name": "肺动脉干",
+        "meshNames": [
+          "pulmonary-trunk-wall"
+        ]
+      },
+      {
+        "id": "right-pulmonary-branch",
+        "name": "右肺动脉",
+        "meshNames": [
+          "right-pulmonary-branch-wall",
+          "right-pulmonary-branch-rim",
+          "right-pulmonary-branch-inner-wall",
+          "right-pulmonary-branch-lumen"
+        ]
+      },
+      {
+        "id": "superior-vena-cava",
+        "name": "上腔静脉",
+        "meshNames": [
+          "superior-vena-cava-wall",
+          "superior-vena-cava-rim",
+          "superior-vena-cava-inner-wall",
+          "superior-vena-cava-lumen"
+        ]
+      },
+      {
+        "id": "inferior-vena-cava",
+        "name": "下腔静脉",
+        "meshNames": [
+          "inferior-vena-cava-wall",
+          "inferior-vena-cava-rim",
+          "inferior-vena-cava-inner-wall",
+          "inferior-vena-cava-lumen"
+        ]
+      },
+      {
+        "id": "right-superior-pulmonary-vein",
+        "name": "右上肺静脉",
+        "meshNames": [
+          "right-superior-pulmonary-vein-wall",
+          "right-superior-pulmonary-vein-rim",
+          "right-superior-pulmonary-vein-inner-wall",
+          "right-superior-pulmonary-vein-lumen"
+        ]
+      },
+      {
+        "id": "right-inferior-pulmonary-vein",
+        "name": "右下肺静脉",
+        "meshNames": [
+          "right-inferior-pulmonary-vein-wall",
+          "right-inferior-pulmonary-vein-rim",
+          "right-inferior-pulmonary-vein-inner-wall",
+          "right-inferior-pulmonary-vein-lumen"
+        ]
+      },
+      {
+        "id": "left-superior-pulmonary-vein",
+        "name": "左上肺静脉",
+        "meshNames": [
+          "left-superior-pulmonary-vein-wall",
+          "left-superior-pulmonary-vein-rim",
+          "left-superior-pulmonary-vein-inner-wall",
+          "left-superior-pulmonary-vein-lumen"
+        ]
+      },
+      {
+        "id": "left-inferior-pulmonary-vein",
+        "name": "左下肺静脉",
+        "meshNames": [
+          "left-inferior-pulmonary-vein-wall",
+          "left-inferior-pulmonary-vein-rim",
+          "left-inferior-pulmonary-vein-inner-wall",
+          "left-inferior-pulmonary-vein-lumen"
+        ]
+      },
+      {
+        "id": "left-pulmonary-branch",
+        "name": "左肺动脉",
+        "meshNames": [
+          "left-pulmonary-branch-wall",
+          "left-pulmonary-branch-rim",
+          "left-pulmonary-branch-inner-wall",
+          "left-pulmonary-branch-lumen"
+        ]
+      },
+      {
+        "id": "coronary-network",
+        "name": "冠状动静脉（右冠优势教学示意）",
+        "meshNames": [
+          "left-main-coronary-artery-wall",
+          "left-anterior-descending-artery-wall",
+          "first-diagonal-branch-wall",
+          "second-diagonal-branch-wall",
+          "left-circumflex-artery-wall",
+          "obtuse-marginal-branch-wall",
+          "right-coronary-artery-wall",
+          "right-marginal-branch-wall",
+          "posterior-descending-artery-wall",
+          "coronary-sinus-wall",
+          "great-cardiac-vein-wall",
+          "middle-cardiac-vein-wall",
+          "small-cardiac-vein-wall"
+        ]
+      },
+      {
+        "id": "coronary-arteries",
+        "name": "冠状动脉",
+        "meshNames": [
+          "left-main-coronary-artery-wall",
+          "left-anterior-descending-artery-wall",
+          "first-diagonal-branch-wall",
+          "second-diagonal-branch-wall",
+          "left-circumflex-artery-wall",
+          "obtuse-marginal-branch-wall",
+          "right-coronary-artery-wall",
+          "right-marginal-branch-wall",
+          "posterior-descending-artery-wall"
+        ]
+      },
+      {
+        "id": "left-coronary-system",
+        "name": "左冠状动脉系统",
+        "meshNames": [
+          "left-main-coronary-artery-wall",
+          "left-anterior-descending-artery-wall",
+          "first-diagonal-branch-wall",
+          "second-diagonal-branch-wall",
+          "left-circumflex-artery-wall",
+          "obtuse-marginal-branch-wall"
+        ]
+      },
+      {
+        "id": "right-coronary-system",
+        "name": "右冠状动脉系统（优势型）",
+        "meshNames": [
+          "right-coronary-artery-wall",
+          "right-marginal-branch-wall",
+          "posterior-descending-artery-wall"
+        ]
+      },
+      {
+        "id": "cardiac-veins",
+        "name": "心静脉与冠状窦",
+        "meshNames": [
+          "coronary-sinus-wall",
+          "great-cardiac-vein-wall",
+          "middle-cardiac-vein-wall",
+          "small-cardiac-vein-wall"
+        ]
+      },
+      {
+        "id": "left-main-coronary-artery",
+        "name": "左冠状动脉主干",
+        "meshNames": [
+          "left-main-coronary-artery-wall"
+        ]
+      },
+      {
+        "id": "left-anterior-descending-artery",
+        "name": "前室间支（LAD）",
+        "meshNames": [
+          "left-anterior-descending-artery-wall"
+        ]
+      },
+      {
+        "id": "first-diagonal-branch",
+        "name": "第一对角支",
+        "meshNames": [
+          "first-diagonal-branch-wall"
+        ]
+      },
+      {
+        "id": "second-diagonal-branch",
+        "name": "第二对角支",
+        "meshNames": [
+          "second-diagonal-branch-wall"
+        ]
+      },
+      {
+        "id": "left-circumflex-artery",
+        "name": "左回旋支（LCx）",
+        "meshNames": [
+          "left-circumflex-artery-wall"
+        ]
+      },
+      {
+        "id": "obtuse-marginal-branch",
+        "name": "钝缘支",
+        "meshNames": [
+          "obtuse-marginal-branch-wall"
+        ]
+      },
+      {
+        "id": "right-coronary-artery",
+        "name": "右冠状动脉（RCA）",
+        "meshNames": [
+          "right-coronary-artery-wall"
+        ]
+      },
+      {
+        "id": "right-marginal-branch",
+        "name": "右缘支",
+        "meshNames": [
+          "right-marginal-branch-wall"
+        ]
+      },
+      {
+        "id": "posterior-descending-artery",
+        "name": "后室间支（PDA）",
+        "meshNames": [
+          "posterior-descending-artery-wall"
+        ]
+      },
+      {
+        "id": "coronary-sinus",
+        "name": "冠状窦",
+        "meshNames": [
+          "coronary-sinus-wall"
+        ]
+      },
+      {
+        "id": "great-cardiac-vein",
+        "name": "心大静脉",
+        "meshNames": [
+          "great-cardiac-vein-wall"
+        ]
+      },
+      {
+        "id": "middle-cardiac-vein",
+        "name": "心中静脉（后室间静脉）",
+        "meshNames": [
+          "middle-cardiac-vein-wall"
+        ]
+      },
+      {
+        "id": "small-cardiac-vein",
+        "name": "心小静脉",
+        "meshNames": [
+          "small-cardiac-vein-wall"
+        ]
+      },
+      {
+        "id": "epicardial-fat",
+        "name": "心外膜沟内脂肪",
+        "meshNames": [
+          "atrioventricular-groove-fat-band",
+          "anterior-interventricular-fat-band",
+          "posterior-interventricular-fat-band",
+          "epicardial-fat-lobule-1-surface",
+          "epicardial-fat-lobule-2-surface",
+          "epicardial-fat-lobule-3-surface",
+          "epicardial-fat-lobule-4-surface",
+          "epicardial-fat-lobule-5-surface"
+        ]
+      },
+      {
+        "id": "atrioventricular-groove-fat",
+        "name": "房室沟脂肪细带",
+        "meshNames": [
+          "atrioventricular-groove-fat-band"
+        ]
+      },
+      {
+        "id": "anterior-interventricular-fat",
+        "name": "前室间沟脂肪细带",
+        "meshNames": [
+          "anterior-interventricular-fat-band"
+        ]
+      },
+      {
+        "id": "posterior-interventricular-fat",
+        "name": "后室间沟脂肪细带",
+        "meshNames": [
+          "posterior-interventricular-fat-band"
+        ]
+      },
+      {
+        "id": "epicardial-fat-lobules",
+        "name": "沟内脂肪小叶",
+        "meshNames": [
+          "epicardial-fat-lobule-1-surface",
+          "epicardial-fat-lobule-2-surface",
+          "epicardial-fat-lobule-3-surface",
+          "epicardial-fat-lobule-4-surface",
+          "epicardial-fat-lobule-5-surface"
+        ]
+      },
+      {
+        "id": "epicardial-fat-lobule-1",
+        "name": "心外膜脂肪小叶 1",
+        "meshNames": [
+          "epicardial-fat-lobule-1-surface"
+        ]
+      },
+      {
+        "id": "epicardial-fat-lobule-2",
+        "name": "心外膜脂肪小叶 2",
+        "meshNames": [
+          "epicardial-fat-lobule-2-surface"
+        ]
+      },
+      {
+        "id": "epicardial-fat-lobule-3",
+        "name": "心外膜脂肪小叶 3",
+        "meshNames": [
+          "epicardial-fat-lobule-3-surface"
+        ]
+      },
+      {
+        "id": "epicardial-fat-lobule-4",
+        "name": "心外膜脂肪小叶 4",
+        "meshNames": [
+          "epicardial-fat-lobule-4-surface"
+        ]
+      },
+      {
+        "id": "epicardial-fat-lobule-5",
+        "name": "心外膜脂肪小叶 5",
+        "meshNames": [
+          "epicardial-fat-lobule-5-surface"
+        ]
+      },
+      {
+        "id": "left-ventricle-surface",
+        "name": "左心室",
+        "meshNames": [
+          "left-ventricle-surface"
+        ]
+      },
+      {
+        "id": "right-ventricle-surface",
+        "name": "右心室",
+        "meshNames": [
+          "right-ventricle-surface"
+        ]
+      },
+      {
+        "id": "right-atrium-surface",
+        "name": "右心房与右心耳",
+        "meshNames": [
+          "right-atrium-surface"
+        ]
+      },
+      {
+        "id": "left-atrium-surface",
+        "name": "左心房与左心耳",
+        "meshNames": [
+          "left-atrium-surface"
+        ]
+      },
+      {
+        "id": "right-auricle-surface",
+        "name": "心脏部件 · right-auricle-surface",
+        "meshNames": [
+          "right-auricle-surface"
+        ]
+      },
+      {
+        "id": "left-auricle-surface",
+        "name": "心脏部件 · left-auricle-surface",
+        "meshNames": [
+          "left-auricle-surface"
+        ]
+      },
+      {
+        "id": "aortic-arch-wall",
+        "name": "心脏部件 · aortic-arch-wall",
+        "meshNames": [
+          "aortic-arch-wall"
+        ]
+      },
+      {
+        "id": "aortic-arch-rim",
+        "name": "心脏部件 · aortic-arch-rim",
+        "meshNames": [
+          "aortic-arch-rim"
+        ]
+      },
+      {
+        "id": "aortic-arch-inner-wall",
+        "name": "心脏部件 · aortic-arch-inner-wall",
+        "meshNames": [
+          "aortic-arch-inner-wall"
+        ]
+      },
+      {
+        "id": "aortic-arch-lumen",
+        "name": "心脏部件 · aortic-arch-lumen",
+        "meshNames": [
+          "aortic-arch-lumen"
+        ]
+      },
+      {
+        "id": "brachiocephalic-branch-wall",
+        "name": "心脏部件 · brachiocephalic-branch-wall",
+        "meshNames": [
+          "brachiocephalic-branch-wall"
+        ]
+      },
+      {
+        "id": "brachiocephalic-branch-rim",
+        "name": "心脏部件 · brachiocephalic-branch-rim",
+        "meshNames": [
+          "brachiocephalic-branch-rim"
+        ]
+      },
+      {
+        "id": "brachiocephalic-branch-inner-wall",
+        "name": "心脏部件 · brachiocephalic-branch-inner-wall",
+        "meshNames": [
+          "brachiocephalic-branch-inner-wall"
+        ]
+      },
+      {
+        "id": "brachiocephalic-branch-lumen",
+        "name": "心脏部件 · brachiocephalic-branch-lumen",
+        "meshNames": [
+          "brachiocephalic-branch-lumen"
+        ]
+      },
+      {
+        "id": "left-carotid-branch-wall",
+        "name": "心脏部件 · left-carotid-branch-wall",
+        "meshNames": [
+          "left-carotid-branch-wall"
+        ]
+      },
+      {
+        "id": "left-carotid-branch-rim",
+        "name": "心脏部件 · left-carotid-branch-rim",
+        "meshNames": [
+          "left-carotid-branch-rim"
+        ]
+      },
+      {
+        "id": "left-carotid-branch-inner-wall",
+        "name": "心脏部件 · left-carotid-branch-inner-wall",
+        "meshNames": [
+          "left-carotid-branch-inner-wall"
+        ]
+      },
+      {
+        "id": "left-carotid-branch-lumen",
+        "name": "心脏部件 · left-carotid-branch-lumen",
+        "meshNames": [
+          "left-carotid-branch-lumen"
+        ]
+      },
+      {
+        "id": "left-subclavian-branch-wall",
+        "name": "心脏部件 · left-subclavian-branch-wall",
+        "meshNames": [
+          "left-subclavian-branch-wall"
+        ]
+      },
+      {
+        "id": "left-subclavian-branch-rim",
+        "name": "心脏部件 · left-subclavian-branch-rim",
+        "meshNames": [
+          "left-subclavian-branch-rim"
+        ]
+      },
+      {
+        "id": "left-subclavian-branch-inner-wall",
+        "name": "心脏部件 · left-subclavian-branch-inner-wall",
+        "meshNames": [
+          "left-subclavian-branch-inner-wall"
+        ]
+      },
+      {
+        "id": "left-subclavian-branch-lumen",
+        "name": "心脏部件 · left-subclavian-branch-lumen",
+        "meshNames": [
+          "left-subclavian-branch-lumen"
+        ]
+      },
+      {
+        "id": "pulmonary-trunk-wall",
+        "name": "肺动脉干",
+        "meshNames": [
+          "pulmonary-trunk-wall"
+        ]
+      },
+      {
+        "id": "right-pulmonary-branch-wall",
+        "name": "心脏部件 · right-pulmonary-branch-wall",
+        "meshNames": [
+          "right-pulmonary-branch-wall"
+        ]
+      },
+      {
+        "id": "right-pulmonary-branch-rim",
+        "name": "心脏部件 · right-pulmonary-branch-rim",
+        "meshNames": [
+          "right-pulmonary-branch-rim"
+        ]
+      },
+      {
+        "id": "right-pulmonary-branch-inner-wall",
+        "name": "心脏部件 · right-pulmonary-branch-inner-wall",
+        "meshNames": [
+          "right-pulmonary-branch-inner-wall"
+        ]
+      },
+      {
+        "id": "right-pulmonary-branch-lumen",
+        "name": "心脏部件 · right-pulmonary-branch-lumen",
+        "meshNames": [
+          "right-pulmonary-branch-lumen"
+        ]
+      },
+      {
+        "id": "superior-vena-cava-wall",
+        "name": "上腔静脉",
+        "meshNames": [
+          "superior-vena-cava-wall"
+        ]
+      },
+      {
+        "id": "superior-vena-cava-rim",
+        "name": "上腔静脉",
+        "meshNames": [
+          "superior-vena-cava-rim"
+        ]
+      },
+      {
+        "id": "superior-vena-cava-inner-wall",
+        "name": "上腔静脉",
+        "meshNames": [
+          "superior-vena-cava-inner-wall"
+        ]
+      },
+      {
+        "id": "superior-vena-cava-lumen",
+        "name": "上腔静脉",
+        "meshNames": [
+          "superior-vena-cava-lumen"
+        ]
+      },
+      {
+        "id": "inferior-vena-cava-wall",
+        "name": "下腔静脉",
+        "meshNames": [
+          "inferior-vena-cava-wall"
+        ]
+      },
+      {
+        "id": "inferior-vena-cava-rim",
+        "name": "下腔静脉",
+        "meshNames": [
+          "inferior-vena-cava-rim"
+        ]
+      },
+      {
+        "id": "inferior-vena-cava-inner-wall",
+        "name": "下腔静脉",
+        "meshNames": [
+          "inferior-vena-cava-inner-wall"
+        ]
+      },
+      {
+        "id": "inferior-vena-cava-lumen",
+        "name": "下腔静脉",
+        "meshNames": [
+          "inferior-vena-cava-lumen"
+        ]
+      },
+      {
+        "id": "right-superior-pulmonary-vein-wall",
+        "name": "肺静脉",
+        "meshNames": [
+          "right-superior-pulmonary-vein-wall"
+        ]
+      },
+      {
+        "id": "right-superior-pulmonary-vein-rim",
+        "name": "肺静脉",
+        "meshNames": [
+          "right-superior-pulmonary-vein-rim"
+        ]
+      },
+      {
+        "id": "right-superior-pulmonary-vein-inner-wall",
+        "name": "肺静脉",
+        "meshNames": [
+          "right-superior-pulmonary-vein-inner-wall"
+        ]
+      },
+      {
+        "id": "right-superior-pulmonary-vein-lumen",
+        "name": "肺静脉",
+        "meshNames": [
+          "right-superior-pulmonary-vein-lumen"
+        ]
+      },
+      {
+        "id": "right-inferior-pulmonary-vein-wall",
+        "name": "肺静脉",
+        "meshNames": [
+          "right-inferior-pulmonary-vein-wall"
+        ]
+      },
+      {
+        "id": "right-inferior-pulmonary-vein-rim",
+        "name": "肺静脉",
+        "meshNames": [
+          "right-inferior-pulmonary-vein-rim"
+        ]
+      },
+      {
+        "id": "right-inferior-pulmonary-vein-inner-wall",
+        "name": "肺静脉",
+        "meshNames": [
+          "right-inferior-pulmonary-vein-inner-wall"
+        ]
+      },
+      {
+        "id": "right-inferior-pulmonary-vein-lumen",
+        "name": "肺静脉",
+        "meshNames": [
+          "right-inferior-pulmonary-vein-lumen"
+        ]
+      },
+      {
+        "id": "left-superior-pulmonary-vein-wall",
+        "name": "肺静脉",
+        "meshNames": [
+          "left-superior-pulmonary-vein-wall"
+        ]
+      },
+      {
+        "id": "left-superior-pulmonary-vein-rim",
+        "name": "肺静脉",
+        "meshNames": [
+          "left-superior-pulmonary-vein-rim"
+        ]
+      },
+      {
+        "id": "left-superior-pulmonary-vein-inner-wall",
+        "name": "肺静脉",
+        "meshNames": [
+          "left-superior-pulmonary-vein-inner-wall"
+        ]
+      },
+      {
+        "id": "left-superior-pulmonary-vein-lumen",
+        "name": "肺静脉",
+        "meshNames": [
+          "left-superior-pulmonary-vein-lumen"
+        ]
+      },
+      {
+        "id": "left-inferior-pulmonary-vein-wall",
+        "name": "肺静脉",
+        "meshNames": [
+          "left-inferior-pulmonary-vein-wall"
+        ]
+      },
+      {
+        "id": "left-inferior-pulmonary-vein-rim",
+        "name": "肺静脉",
+        "meshNames": [
+          "left-inferior-pulmonary-vein-rim"
+        ]
+      },
+      {
+        "id": "left-inferior-pulmonary-vein-inner-wall",
+        "name": "肺静脉",
+        "meshNames": [
+          "left-inferior-pulmonary-vein-inner-wall"
+        ]
+      },
+      {
+        "id": "left-inferior-pulmonary-vein-lumen",
+        "name": "肺静脉",
+        "meshNames": [
+          "left-inferior-pulmonary-vein-lumen"
+        ]
+      },
+      {
+        "id": "left-pulmonary-branch-wall",
+        "name": "心脏部件 · left-pulmonary-branch-wall",
+        "meshNames": [
+          "left-pulmonary-branch-wall"
+        ]
+      },
+      {
+        "id": "left-pulmonary-branch-rim",
+        "name": "心脏部件 · left-pulmonary-branch-rim",
+        "meshNames": [
+          "left-pulmonary-branch-rim"
+        ]
+      },
+      {
+        "id": "left-pulmonary-branch-inner-wall",
+        "name": "心脏部件 · left-pulmonary-branch-inner-wall",
+        "meshNames": [
+          "left-pulmonary-branch-inner-wall"
+        ]
+      },
+      {
+        "id": "left-pulmonary-branch-lumen",
+        "name": "心脏部件 · left-pulmonary-branch-lumen",
+        "meshNames": [
+          "left-pulmonary-branch-lumen"
+        ]
+      },
+      {
+        "id": "left-main-coronary-artery-wall",
+        "name": "冠状血管",
+        "meshNames": [
+          "left-main-coronary-artery-wall"
+        ]
+      },
+      {
+        "id": "left-anterior-descending-artery-wall",
+        "name": "心脏部件 · left-anterior-descending-artery-wall",
+        "meshNames": [
+          "left-anterior-descending-artery-wall"
+        ]
+      },
+      {
+        "id": "first-diagonal-branch-wall",
+        "name": "心脏部件 · first-diagonal-branch-wall",
+        "meshNames": [
+          "first-diagonal-branch-wall"
+        ]
+      },
+      {
+        "id": "second-diagonal-branch-wall",
+        "name": "心脏部件 · second-diagonal-branch-wall",
+        "meshNames": [
+          "second-diagonal-branch-wall"
+        ]
+      },
+      {
+        "id": "left-circumflex-artery-wall",
+        "name": "心脏部件 · left-circumflex-artery-wall",
+        "meshNames": [
+          "left-circumflex-artery-wall"
+        ]
+      },
+      {
+        "id": "obtuse-marginal-branch-wall",
+        "name": "心脏部件 · obtuse-marginal-branch-wall",
+        "meshNames": [
+          "obtuse-marginal-branch-wall"
+        ]
+      },
+      {
+        "id": "right-coronary-artery-wall",
+        "name": "冠状血管",
+        "meshNames": [
+          "right-coronary-artery-wall"
+        ]
+      },
+      {
+        "id": "right-marginal-branch-wall",
+        "name": "心脏部件 · right-marginal-branch-wall",
+        "meshNames": [
+          "right-marginal-branch-wall"
+        ]
+      },
+      {
+        "id": "posterior-descending-artery-wall",
+        "name": "心脏部件 · posterior-descending-artery-wall",
+        "meshNames": [
+          "posterior-descending-artery-wall"
+        ]
+      },
+      {
+        "id": "coronary-sinus-wall",
+        "name": "冠状血管",
+        "meshNames": [
+          "coronary-sinus-wall"
+        ]
+      },
+      {
+        "id": "great-cardiac-vein-wall",
+        "name": "心脏部件 · great-cardiac-vein-wall",
+        "meshNames": [
+          "great-cardiac-vein-wall"
+        ]
+      },
+      {
+        "id": "middle-cardiac-vein-wall",
+        "name": "心脏部件 · middle-cardiac-vein-wall",
+        "meshNames": [
+          "middle-cardiac-vein-wall"
+        ]
+      },
+      {
+        "id": "small-cardiac-vein-wall",
+        "name": "心脏部件 · small-cardiac-vein-wall",
+        "meshNames": [
+          "small-cardiac-vein-wall"
+        ]
+      },
+      {
+        "id": "atrioventricular-groove-fat-band",
+        "name": "心外膜脂肪",
+        "meshNames": [
+          "atrioventricular-groove-fat-band"
+        ]
+      },
+      {
+        "id": "anterior-interventricular-fat-band",
+        "name": "心外膜脂肪",
+        "meshNames": [
+          "anterior-interventricular-fat-band"
+        ]
+      },
+      {
+        "id": "posterior-interventricular-fat-band",
+        "name": "心外膜脂肪",
+        "meshNames": [
+          "posterior-interventricular-fat-band"
+        ]
+      },
+      {
+        "id": "epicardial-fat-lobule-1-surface",
+        "name": "心外膜脂肪",
+        "meshNames": [
+          "epicardial-fat-lobule-1-surface"
+        ]
+      },
+      {
+        "id": "epicardial-fat-lobule-2-surface",
+        "name": "心外膜脂肪",
+        "meshNames": [
+          "epicardial-fat-lobule-2-surface"
+        ]
+      },
+      {
+        "id": "epicardial-fat-lobule-3-surface",
+        "name": "心外膜脂肪",
+        "meshNames": [
+          "epicardial-fat-lobule-3-surface"
+        ]
+      },
+      {
+        "id": "epicardial-fat-lobule-4-surface",
+        "name": "心外膜脂肪",
+        "meshNames": [
+          "epicardial-fat-lobule-4-surface"
+        ]
+      },
+      {
+        "id": "epicardial-fat-lobule-5-surface",
+        "name": "心外膜脂肪",
+        "meshNames": [
+          "epicardial-fat-lobule-5-surface"
+        ]
+      }
+    ]
+  }
+}

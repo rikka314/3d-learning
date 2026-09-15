@@ -1,0 +1,773 @@
+{
+  "source": "reference-sheet.png",
+  "coordinateMapping": "+Z anterior; +X anatomical left; virtual pixels x=(px-560)/280, y=(700-py)/280. Source-sheet front: X=(sx-354)/138, Y=(316.5-sy)/138. Depth inferred from side silhouettes.",
+  "bodyStations": [
+    [
+      -2.18,
+      0.9,
+      0.001,
+      0.001,
+      0.58
+    ],
+    [
+      -2.12,
+      0.89,
+      0.24,
+      0.19,
+      0.56
+    ],
+    [
+      -1.96,
+      0.73,
+      0.52,
+      0.41,
+      0.49
+    ],
+    [
+      -1.66,
+      0.51,
+      0.86,
+      0.63,
+      0.35
+    ],
+    [
+      -1.26,
+      0.29,
+      1.13,
+      0.82,
+      0.16
+    ],
+    [
+      -0.78,
+      0.17,
+      1.25,
+      0.95,
+      0.08
+    ],
+    [
+      -0.25,
+      0.08,
+      1.24,
+      1,
+      -0.01
+    ],
+    [
+      0.19,
+      -0.03,
+      1.08,
+      0.89,
+      -0.02
+    ],
+    [
+      0.52,
+      -0.11,
+      0.88,
+      0.76,
+      -0.07
+    ],
+    [
+      0.78,
+      -0.16,
+      0.55,
+      0.5,
+      -0.1
+    ],
+    [
+      0.92,
+      -0.16,
+      0.001,
+      0.001,
+      -0.12
+    ]
+  ],
+  "bodyStationFields": [
+    "y",
+    "centerX",
+    "radiusX",
+    "radiusZ",
+    "centerZ"
+  ],
+  "greatVessels": [
+    {
+      "id": "aortic-arch",
+      "parent": "aortic-system",
+      "label": "主动脉（含截短的降主动脉）",
+      "color": "arterial",
+      "points": [
+        [
+          593.6,
+          602,
+          -0.06
+        ],
+        [
+          442.4,
+          518,
+          0.02
+        ],
+        [
+          431.2,
+          330.4,
+          0.011000000000000001
+        ],
+        [
+          498.4,
+          224,
+          -0.08800000000000001
+        ],
+        [
+          610.4,
+          226.8,
+          -0.22000000000000003
+        ],
+        [
+          694.4,
+          322,
+          -0.6
+        ],
+        [
+          694.4,
+          406,
+          -0.82
+        ]
+      ],
+      "radii": [
+        0.2,
+        0.245,
+        0.25,
+        0.255,
+        0.25,
+        0.23,
+        0.21
+      ],
+      "open": true,
+      "vesselKind": "artery",
+      "origin": "left-ventricle"
+    },
+    {
+      "id": "brachiocephalic-branch",
+      "parent": "aortic-system",
+      "label": "头臂干",
+      "color": "arterial",
+      "points": [
+        [
+          490,
+          243.6,
+          -0.060500000000000005
+        ],
+        [
+          453.6,
+          165.2,
+          -0.038500000000000006
+        ],
+        [
+          425.6,
+          103.6,
+          -0.0165
+        ]
+      ],
+      "radii": [
+        0.115,
+        0.108,
+        0.1
+      ],
+      "open": true,
+      "vesselKind": "artery",
+      "origin": "aortic-arch"
+    },
+    {
+      "id": "left-carotid-branch",
+      "parent": "aortic-system",
+      "label": "左颈总动脉",
+      "color": "arterial",
+      "points": [
+        [
+          560,
+          226.8,
+          -0.15400000000000003
+        ],
+        [
+          560,
+          154,
+          -0.1375
+        ],
+        [
+          560,
+          92.4,
+          -0.12100000000000001
+        ]
+      ],
+      "radii": [
+        0.105,
+        0.102,
+        0.1
+      ],
+      "open": true,
+      "vesselKind": "artery",
+      "origin": "aortic-arch"
+    },
+    {
+      "id": "left-subclavian-branch",
+      "parent": "aortic-system",
+      "label": "左锁骨下动脉",
+      "color": "arterial",
+      "points": [
+        [
+          638.4,
+          257.6,
+          -0.30250000000000005
+        ],
+        [
+          655.2,
+          187.6,
+          -0.3245
+        ],
+        [
+          672,
+          128.8,
+          -0.341
+        ]
+      ],
+      "radii": [
+        0.1,
+        0.093,
+        0.089
+      ],
+      "open": true,
+      "vesselKind": "artery",
+      "origin": "aortic-arch"
+    },
+    {
+      "id": "pulmonary-trunk",
+      "parent": "pulmonary-arterial-system",
+      "label": "肺动脉干",
+      "color": "venous",
+      "points": [
+        [
+          464.8,
+          616,
+          0.51
+        ],
+        [
+          487.2,
+          518,
+          0.62
+        ],
+        [
+          548.8,
+          411.6,
+          0.55
+        ],
+        [
+          604.8,
+          355.6,
+          0.12
+        ]
+      ],
+      "radii": [
+        0.22,
+        0.24,
+        0.24,
+        0.2
+      ],
+      "open": false,
+      "vesselKind": "artery",
+      "origin": "right-ventricle"
+    },
+    {
+      "id": "right-pulmonary-branch",
+      "parent": "pulmonary-arterial-system",
+      "label": "右肺动脉",
+      "color": "venous",
+      "points": [
+        [
+          604.8,
+          355.6,
+          0.12
+        ],
+        [
+          526.4,
+          355.6,
+          -0.4
+        ],
+        [
+          397.6,
+          358.4,
+          -0.55
+        ],
+        [
+          294,
+          369.6,
+          -0.66
+        ],
+        [
+          235.2,
+          386.4,
+          -0.68
+        ]
+      ],
+      "radii": [
+        0.18,
+        0.17,
+        0.16,
+        0.15,
+        0.14
+      ],
+      "open": true,
+      "vesselKind": "artery",
+      "origin": "pulmonary-trunk"
+    },
+    {
+      "id": "superior-vena-cava",
+      "parent": "vena-cava-system",
+      "label": "上腔静脉",
+      "color": "venous",
+      "points": [
+        [
+          277.2,
+          540.4,
+          -0.21
+        ],
+        [
+          268.8,
+          445.2,
+          -0.22
+        ],
+        [
+          266,
+          341.6,
+          -0.21
+        ],
+        [
+          260.4,
+          235.2,
+          -0.19
+        ]
+      ],
+      "radii": [
+        0.22,
+        0.22,
+        0.21,
+        0.205
+      ],
+      "open": true,
+      "vesselKind": "vein",
+      "origin": "right-atrium"
+    },
+    {
+      "id": "inferior-vena-cava",
+      "parent": "vena-cava-system",
+      "label": "下腔静脉",
+      "color": "venous",
+      "points": [
+        [
+          274.4,
+          767.2,
+          -0.32
+        ],
+        [
+          268.8,
+          894,
+          -0.36
+        ],
+        [
+          268.8,
+          1042,
+          -0.4
+        ],
+        [
+          274.4,
+          1190,
+          -0.44
+        ]
+      ],
+      "radii": [
+        0.23,
+        0.22,
+        0.22,
+        0.215
+      ],
+      "open": true,
+      "vesselKind": "vein",
+      "origin": "right-atrium"
+    },
+    {
+      "id": "right-superior-pulmonary-vein",
+      "parent": "pulmonary-return-system",
+      "label": "右上肺静脉",
+      "color": "arterial",
+      "points": [
+        [
+          422.8,
+          523.6,
+          -0.96
+        ],
+        [
+          342.16,
+          519.568,
+          -0.9888
+        ],
+        [
+          261.52,
+          509.488,
+          -1.0176
+        ]
+      ],
+      "radii": [
+        0.11,
+        0.105,
+        0.1
+      ],
+      "open": true,
+      "vesselKind": "vein",
+      "origin": "left-atrium"
+    },
+    {
+      "id": "right-inferior-pulmonary-vein",
+      "parent": "pulmonary-return-system",
+      "label": "右下肺静脉",
+      "color": "arterial",
+      "points": [
+        [
+          406,
+          655.2,
+          -1.06
+        ],
+        [
+          323.344,
+          653.184,
+          -1.0816000000000001
+        ],
+        [
+          252.784,
+          651.168,
+          -1.096
+        ]
+      ],
+      "radii": [
+        0.11,
+        0.105,
+        0.1
+      ],
+      "open": true,
+      "vesselKind": "vein",
+      "origin": "left-atrium"
+    },
+    {
+      "id": "left-superior-pulmonary-vein",
+      "parent": "pulmonary-return-system",
+      "label": "左上肺静脉",
+      "color": "arterial",
+      "points": [
+        [
+          730.8,
+          518,
+          -0.96
+        ],
+        [
+          805.3919999999999,
+          511.952,
+          -0.9888
+        ],
+        [
+          867.888,
+          503.888,
+          -1.0104
+        ]
+      ],
+      "radii": [
+        0.11,
+        0.105,
+        0.1
+      ],
+      "open": true,
+      "vesselKind": "vein",
+      "origin": "left-atrium"
+    },
+    {
+      "id": "left-inferior-pulmonary-vein",
+      "parent": "pulmonary-return-system",
+      "label": "左下肺静脉",
+      "color": "arterial",
+      "points": [
+        [
+          744.8,
+          635.6,
+          -1.07
+        ],
+        [
+          813.3439999999999,
+          627.536,
+          -1.0916000000000001
+        ],
+        [
+          875.8399999999999,
+          619.4720000000001,
+          -1.106
+        ]
+      ],
+      "radii": [
+        0.11,
+        0.105,
+        0.1
+      ],
+      "open": true,
+      "vesselKind": "vein",
+      "origin": "left-atrium"
+    },
+    {
+      "id": "left-pulmonary-branch",
+      "parent": "pulmonary-arterial-system",
+      "label": "左肺动脉",
+      "color": "venous",
+      "points": [
+        [
+          604.8,
+          355.6,
+          0.12
+        ],
+        [
+          703.528,
+          350,
+          -0.1
+        ],
+        [
+          795.368,
+          344.4,
+          -0.2
+        ],
+        [
+          861.952,
+          338.8,
+          -0.25
+        ]
+      ],
+      "radii": [
+        0.18,
+        0.17,
+        0.16,
+        0.15
+      ],
+      "open": true,
+      "vesselKind": "artery",
+      "origin": "pulmonary-trunk"
+    }
+  ],
+  "coronaryPathsPixels": {
+    "anterior": [
+      [
+        639.13,
+        599.565
+      ],
+      [
+        691.884,
+        719.275
+      ],
+      [
+        681.739,
+        847.101
+      ],
+      [
+        667.536,
+        970.87
+      ],
+      [
+        673.623,
+        1086.522
+      ],
+      [
+        740.58,
+        1226.522
+      ]
+    ],
+    "right": [
+      [
+        397.681,
+        575.217
+      ],
+      [
+        344.928,
+        680.725
+      ],
+      [
+        314.493,
+        792.319
+      ],
+      [
+        310.435,
+        912.029
+      ],
+      [
+        387.536,
+        1031.739
+      ],
+      [
+        511.304,
+        1123.043
+      ],
+      [
+        738.551,
+        1248.841
+      ]
+    ],
+    "circumflex": [
+      [
+        681.739,
+        668.551
+      ],
+      [
+        766.957,
+        692.899
+      ],
+      [
+        844.058,
+        759.855
+      ],
+      [
+        896.812,
+        885.652
+      ],
+      [
+        919.13,
+        985.072
+      ]
+    ],
+    "posterior": [
+      [
+        574.203,
+        802.464
+      ],
+      [
+        547.826,
+        910
+      ],
+      [
+        578.261,
+        1011.449
+      ],
+      [
+        661.449,
+        1159.565
+      ],
+      [
+        760.87,
+        1246.812
+      ]
+    ],
+    "posteriorAV": [
+      [
+        235.362,
+        749.71
+      ],
+      [
+        320.58,
+        772.029
+      ],
+      [
+        422.029,
+        792.319
+      ],
+      [
+        537.681,
+        804.493
+      ],
+      [
+        667.536,
+        853.188
+      ],
+      [
+        797.391,
+        930.29
+      ]
+    ]
+  },
+  "note": "Front coordinates traced visually from user sheet. Rear atrial volume, sagittal tilt and vessel depth constrained qualitatively by left/rear/right illustrations. Fine vessels and occluded contacts remain approximate.",
+  "atria": [
+    {
+      "id": "right-atrium",
+      "label": "右心房",
+      "center": [
+        -0.98,
+        0.08,
+        -0.3
+      ],
+      "scale": [
+        0.42,
+        0.83,
+        0.76
+      ],
+      "rotation": -0.1,
+      "appendageOf": null
+    },
+    {
+      "id": "left-atrium",
+      "label": "左心房",
+      "center": [
+        0.08,
+        0.24,
+        -0.8
+      ],
+      "scale": [
+        1,
+        0.7,
+        0.52
+      ],
+      "rotation": 0.05,
+      "appendageOf": null
+    },
+    {
+      "id": "right-auricle",
+      "label": "右心耳",
+      "center": [
+        -0.81,
+        0.33,
+        0.39
+      ],
+      "scale": [
+        0.45,
+        0.53,
+        0.37
+      ],
+      "rotation": -0.35,
+      "appendageOf": "right-atrium"
+    },
+    {
+      "id": "left-auricle",
+      "label": "左心耳",
+      "center": [
+        0.66,
+        0.42,
+        -0.04
+      ],
+      "scale": [
+        0.44,
+        0.34,
+        0.6
+      ],
+      "rotation": 0.4,
+      "appendageOf": "left-atrium"
+    }
+  ],
+  "depthScale": 1.15,
+  "biologyRevision": {
+    "scope": "adult external heart; right-dominant coronary teaching example",
+    "sourcePriority": "anatomical relationships take precedence over uncalibrated illustration similarity",
+    "unmodeled": [
+      "valves",
+      "septa",
+      "patent chamber lumens",
+      "hemodynamics"
+    ],
+    "arterialColorMeaning": "oxygenation teaching convention, not anatomical artery/vein definition"
+  },
+  "referenceRefinement": {
+    "scope": "External illustrated appearance. Heart-facing proximal roots and principal coronary parent relationships retained; aortic-arch branch roots follow the reshaped arch.",
+    "depthScaleBefore": 1.15,
+    "depthScaleAfter": 1.15,
+    "changes": [
+      "Retain global depth; increase lower ventricular anterior fullness and narrow the excessive posterior depth of the displayed aortic arch",
+      "More enveloping atrial and auricular bodies",
+      "Shorter pulmonary display cuts",
+      "Longer inferior vena-cava display cut as in the reference"
+    ]
+  }
+}

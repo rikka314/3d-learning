@@ -1,0 +1,38 @@
+{
+  "verdict": "limited-scope-pass",
+  "independentlyReviewedStage": "output/reference-final-02",
+  "finalStage": "output/reference-final-03",
+  "continuity": [
+    {
+      "file": "createHeartModel.ts",
+      "identical": true
+    },
+    {
+      "file": "coronaryAnatomy.ts",
+      "identical": true
+    },
+    {
+      "file": "heartMaterials.ts",
+      "identical": true
+    },
+    {
+      "file": "main.ts",
+      "identical": true
+    },
+    {
+      "file": "numeric anatomy layout",
+      "identical": true
+    }
+  ],
+  "finalDifference": "Only explanatory scope text clarified; renderer modules and numeric anatomy unchanged. Fresh capture and 88/216/12 checks executed on final stage.",
+  "captureReportSha256": "4633f6ba5885ff53016d842bd4ebbf4dfe2de00d2d79890e02b3541951a2ca6d",
+  "generalCodeReview": "APPROVE; regional metadata finding closed",
+  "typescriptReview": "APPROVE; nested shader derivatives and closed-ribbon seam findings closed",
+  "knowledgeReview": "Finite external teaching scope passed; six chamber-region labels corrected and thirteen actual-ray label checks added",
+  "limitations": [
+    "Not a clinical or medical expert certification",
+    "No physiologic perfusion or drainage territory validation",
+    "No internal chamber, valve, septum, lumen or blood-flow validation",
+    "Uncalibrated illustration proportions and schematic secondary branches"
+  ]
+}

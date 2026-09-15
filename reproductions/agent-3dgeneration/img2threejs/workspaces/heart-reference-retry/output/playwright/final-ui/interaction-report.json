@@ -1,0 +1,146 @@
+{
+  "url": "http://127.0.0.1:4174/",
+  "viewportDesktop": {
+    "width": 1400,
+    "height": 1000
+  },
+  "viewportMobile": {
+    "width": 390,
+    "height": 844
+  },
+  "checks": {
+    "model-renders": {
+      "pass": true,
+      "detail": "73 visible meshes, 179560 triangles"
+    },
+    "materials-mapped": {
+      "pass": true,
+      "detail": "0 meshes have missing/unmapped material"
+    },
+    "semantic-part-count": {
+      "pass": true,
+      "detail": "104 manifest parts"
+    },
+    "drag-does-not-pick": {
+      "pass": true,
+      "detail": "label before=\"单击部件查看名称\", after=\"单击部件查看名称\""
+    },
+    "visible-vessel-click": {
+      "pass": true,
+      "detail": "主动脉弓与升主动脉"
+    },
+    "semantic-select-several-parts": {
+      "pass": true,
+      "detail": "[{\"id\":\"ventricular-body\",\"name\":\"心室肌性主体\",\"accepted\":true,\"label\":\"心室肌性主体\"},{\"id\":\"atrial-complex\",\"name\":\"心房与心耳\",\"accepted\":true,\"label\":\"心房与心耳\"},{\"id\":\"right-atrium\",\"name\":\"右心房\",\"accepted\":true,\"label\":\"右心房\"},{\"id\":\"left-atrium\",\"name\":\"左心房（后方部分推断）\",\"accepted\":true,\"label\":\"左心房（后方部分推断）\"},{\"id\":\"pulmonary-arterial-system\",\"name\":\"肺动脉系统\",\"accepted\":true,\"label\":\"肺动脉系统\"},{\"id\":\"vena-cava-system\",\"name\":\"上下腔静脉\",\"accepted\":true,\"label\":\"上下腔静脉\"},{\"id\":\"pulmonary-return-system\",\"name\":\"肺静脉回流\",\"accepted\":true,\"label\":\"肺静脉回流\"}]"
+    },
+    "semantic-select-chinese-labels": {
+      "pass": true,
+      "detail": "心室肌性主体 | 心房与心耳 | 右心房 | 左心房（后方部分推断） | 肺动脉系统 | 上下腔静脉 | 肺静脉回流"
+    },
+    "selection-materials-restored": {
+      "pass": true,
+      "detail": "0 mesh material bindings differ after clearing selection"
+    },
+    "autorotate-button-starts-motion": {
+      "pass": true,
+      "detail": "{\"maximumChannelDelta\":245,\"changedPixels\":349402,\"totalPixels\":1056000}"
+    },
+    "reset-stops-autorotate-stably": {
+      "pass": true,
+      "detail": "{\"maximumChannelDelta\":1,\"changedPixels\":1,\"totalPixels\":1056000}"
+    },
+    "reset-restores-front-view": {
+      "pass": true,
+      "detail": "{\"maximumChannelDelta\":1,\"changedPixels\":1,\"totalPixels\":1056000}"
+    },
+    "explode-button-moves-runtime-parts": {
+      "pass": true,
+      "detail": "aria-pressed=true, moved=atrial-complex,aortic-system,pulmonary-arterial-system,vena-cava-system,pulmonary-return-system,coronary-network,epicardial-fat"
+    },
+    "explode-restore-exact": {
+      "pass": true,
+      "detail": "aria-pressed=false, drifted=, rootExact=true"
+    },
+    "mobile-canvas-visible": {
+      "pass": true,
+      "detail": "{\"innerWidth\":390,\"scrollWidth\":390,\"canvas\":{\"left\":0,\"top\":0,\"right\":390,\"bottom\":781,\"width\":390,\"height\":781},\"viewport\":{\"left\":0,\"top\":0,\"right\":390,\"bottom\":781},\"render\":{\"fps\":117.20301946762017,\"drawCalls\":73,\"triangles\":179560,\"lines\":0,\"points\":0,\"geometries\":73,\"textures\":20,\"programs\":5}}"
+    },
+    "mobile-no-horizontal-overflow": {
+      "pass": true,
+      "detail": "scrollWidth=390, innerWidth=390"
+    },
+    "fresh-navigation-page-errors": {
+      "pass": true,
+      "detail": "[]"
+    }
+  },
+  "pageErrors": [],
+  "selectedParts": [
+    {
+      "id": "ventricular-body",
+      "name": "心室肌性主体",
+      "accepted": true,
+      "label": "心室肌性主体"
+    },
+    {
+      "id": "atrial-complex",
+      "name": "心房与心耳",
+      "accepted": true,
+      "label": "心房与心耳"
+    },
+    {
+      "id": "right-atrium",
+      "name": "右心房",
+      "accepted": true,
+      "label": "右心房"
+    },
+    {
+      "id": "left-atrium",
+      "name": "左心房（后方部分推断）",
+      "accepted": true,
+      "label": "左心房（后方部分推断）"
+    },
+    {
+      "id": "pulmonary-arterial-system",
+      "name": "肺动脉系统",
+      "accepted": true,
+      "label": "肺动脉系统"
+    },
+    {
+      "id": "vena-cava-system",
+      "name": "上下腔静脉",
+      "accepted": true,
+      "label": "上下腔静脉"
+    },
+    {
+      "id": "pulmonary-return-system",
+      "name": "肺静脉回流",
+      "accepted": true,
+      "label": "肺静脉回流"
+    }
+  ],
+  "explodedParts": [
+    "atrial-complex",
+    "aortic-system",
+    "pulmonary-arterial-system",
+    "vena-cava-system",
+    "pulmonary-return-system",
+    "coronary-network",
+    "epicardial-fat"
+  ],
+  "render": {
+    "fps": 117.20301946762017,
+    "drawCalls": 73,
+    "triangles": 179560,
+    "lines": 0,
+    "points": 0,
+    "geometries": 73,
+    "textures": 20,
+    "programs": 5
+  },
+  "screenshots": [
+    "normal-ui.png",
+    "exploded-ui.png",
+    "mobile-ui.png"
+  ]
+}

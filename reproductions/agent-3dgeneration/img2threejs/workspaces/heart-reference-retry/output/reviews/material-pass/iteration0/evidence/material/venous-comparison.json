@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "kind": "img2threejs.material-comparison",
+  "materialId": "venous",
+  "reference": {
+    "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\output\\reviews\\material-pass\\iteration0\\evidence\\material\\venous-reference.png",
+    "meanRgb": [
+      120,
+      152,
+      212
+    ],
+    "features": {
+      "meanLuma": 0.5858294400646856,
+      "lumaVariance": 0.032259221019616695,
+      "horizontalGradient": 0.034934424280350436,
+      "verticalGradient": 0.02532943436239746,
+      "anisotropyProxy": 1.379202700720864
+    },
+    "width": 134,
+    "height": 50,
+    "foregroundCoverage": 0.9262,
+    "warnings": [
+      "image is not clearly isolated from background; using most pixels as material evidence"
+    ],
+    "readback": true,
+    "diagnostics": {
+      "backgroundColor": "#94B0EB",
+      "backgroundNoise": 195.849,
+      "transparentPixelFraction": 0.0,
+      "foregroundCoverage": 0.9231
+    }
+  },
+  "render": {
+    "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\output\\reviews\\material-pass\\iteration0\\evidence\\material\\venous-render.png",
+    "meanRgb": [
+      115,
+      138,
+      193
+    ],
+    "features": {
+      "meanLuma": 0.5360211526131365,
+      "lumaVariance": 0.013667671361660562,
+      "horizontalGradient": 0.025606118411903765,
+      "verticalGradient": 0.0103731233486302,
+      "anisotropyProxy": 2.4685061144370875
+    },
+    "width": 108,
+    "height": 40,
+    "foregroundCoverage": 0.9132,
+    "warnings": [
+      "image is not clearly isolated from background; using most pixels as material evidence"
+    ],
+    "readback": true,
+    "diagnostics": {
+      "backgroundColor": "#8FA2CF",
+      "backgroundNoise": 75.226,
+      "transparentPixelFraction": 0.0,
+      "foregroundCoverage": 0.9086
+    }
+  },
+  "metrics": {
+    "deltaE00": 4.998,
+    "scores": {
+      "baseColor": 0.9000489024881321,
+      "meanLuma": 0.8893149167743354,
+      "microstructure": 0.8450704195170322,
+      "directionalResponse": 0.4553482931418883,
+      "overall": 0.8175
+    }
+  },
+  "mismatches": [],
+  "passed": true,
+  "nextAction": "continue",
+  "limitation": "Deterministic crop metrics are evidence; material identity still requires vision review for ambiguous cases."
+}

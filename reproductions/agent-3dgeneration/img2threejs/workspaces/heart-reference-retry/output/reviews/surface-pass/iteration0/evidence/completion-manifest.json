@@ -1,0 +1,131 @@
+{
+  "passId": "surface-pass",
+  "iterationId": "evidence",
+  "captureRoot": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\output\\reviews\\surface-pass\\iteration0\\captures",
+  "reference": {
+    "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\reference.png",
+    "sha256": "6560b7e8c94bd8a46da7b1a5c3a2bc998fbd502d4f39c6816443b2595eb0f672"
+  },
+  "spec": {
+    "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\object-sculpt-spec.json",
+    "sha256": "58dd9bf11d6b9cc9253c0be9ab4a8c8b7df8c013700c74a58090c407b7da173d"
+  },
+  "artifacts": [
+    {
+      "path": "anatomy-layout.json",
+      "sha256": "41cc33c54c96a709f9145e063a2c7d3b85a8eec1f419c20f88253ab5b8db0f60"
+    },
+    {
+      "path": "attachment-scope.json",
+      "sha256": "0bdbe995f691e3f34f7d8f68fee506c1dd70f3c30a9b740969c5d34814717485"
+    },
+    {
+      "path": "comparison.json",
+      "sha256": "9824b348a00b844242490d2e9e9194bf0691fd358d07887cd9147df14893e5a6"
+    },
+    {
+      "path": "comparison.png",
+      "sha256": "01b272b430d8805fc34655e28c387c3f63e2233777d71d65e7510aebf5534635"
+    },
+    {
+      "path": "createHeartModel.ts",
+      "sha256": "f42061572f704377c55a3d08b921dc79d8d4aa18c83ca792de7b507218ff1c09"
+    },
+    {
+      "path": "heartMaterials.ts",
+      "sha256": "f7b42ed4c94f9cbab0b189200270d768d32a63a0e41ee0404ece92bc508be63c"
+    },
+    {
+      "path": "interior-difference.json",
+      "sha256": "00dee1679bf51bd97f0b5f5fcab0efbdd21a16b281af35a65e1227c2185bbc5f"
+    },
+    {
+      "path": "main.ts",
+      "sha256": "064149f239acc31056a328257cdff4368233302c0013d2f4b0831ed7ef8e2f97"
+    },
+    {
+      "path": "material\\arterial-comparison.json",
+      "sha256": "b1e3f8aa6905f858e6e7a3e32fef72deb966adfe39788df5b9e1279157ae4053"
+    },
+    {
+      "path": "material\\arterial-reference.png",
+      "sha256": "cb1e0ae9029e56721ae864268838cbf1e528f0c0e4d84439d243ece0d551bd8d"
+    },
+    {
+      "path": "material\\arterial-render.png",
+      "sha256": "1fce1fbf71b285a0b2cd2c4f58acfc3145170a685ce5ad4dbcebfaf1f0a1f76e"
+    },
+    {
+      "path": "material\\atrial-comparison.json",
+      "sha256": "e787e5c7edf431ff48faa78533ba469a248521deedab0baa130ae4fc7468cde1"
+    },
+    {
+      "path": "material\\atrial-reference.png",
+      "sha256": "03733cbee0496cc8197de562c5c0fa4791c020e2b947823bae02ccbc5810322d"
+    },
+    {
+      "path": "material\\atrial-render.png",
+      "sha256": "a5a168f238dc1363f7953c543a70d218db001f0f479dc585fff54000c3f99b47"
+    },
+    {
+      "path": "material\\crop-manifest.json",
+      "sha256": "64a1dc716b50e95344e6909543aefe6dbef80866a0c009e5c80e291431393484"
+    },
+    {
+      "path": "material\\fat-comparison.json",
+      "sha256": "3feae1b1992343aabce6dfc8ab7c305a6d375ce26b5b68c9e2e8f406ab181c46"
+    },
+    {
+      "path": "material\\fat-reference.png",
+      "sha256": "ce83e8738ab183be63c0f08bc45e8b8ca7af6d5e76fccd722e74cdc1d3aa30ac"
+    },
+    {
+      "path": "material\\fat-render.png",
+      "sha256": "6299ec0a1f7043d91a3dddde99e4019fb8d7ede7576df9b97c93f9026a7b7b0c"
+    },
+    {
+      "path": "material\\material-gate.json",
+      "sha256": "ff06e28768648cd7eaaeb44b19d005ac2c16053a62167cfcda3642cbd4033569"
+    },
+    {
+      "path": "material\\myocardium-comparison.json",
+      "sha256": "ff3ddcbcfe163ded81a22ecdde5c20d1619c14d2871b91da8d6f89086ac7eae0"
+    },
+    {
+      "path": "material\\myocardium-reference.png",
+      "sha256": "f4a6759948319233e0486a6f4ed334a9edc44d835cfe42b61aa97553132acc4e"
+    },
+    {
+      "path": "material\\myocardium-render.png",
+      "sha256": "d8fc7649de2ab074a8df14e58914b33dc9be6dd3b9b873690514644dd5d38293"
+    },
+    {
+      "path": "material\\venous-comparison.json",
+      "sha256": "3fa1a68dba90bef766f5283a6a9383e73b44674fc756974825cbdd4bdab952a1"
+    },
+    {
+      "path": "material\\venous-reference.png",
+      "sha256": "e783ce762dc268d372de415b0ee0004573e06984e1a06f3aeca05377b29cb33a"
+    },
+    {
+      "path": "material\\venous-render.png",
+      "sha256": "3cb9beaa9715adc9914e7670ebf3f3a57e387398cfac2ca2d5b2439df1334f5a"
+    },
+    {
+      "path": "material\\view-plan.json",
+      "sha256": "bc1af6bec8f566e133fa80bc284f041bbb2c66949322988503d71fb82d2cd8c0"
+    },
+    {
+      "path": "multi-angle.json",
+      "sha256": "1b09b781112869479048a59db8e00cac36de67bc6efe7b4be184f3cbed633ccb"
+    },
+    {
+      "path": "tier1.json",
+      "sha256": "a7f074982adeca7d8240102d28e7d3805095ea16505186efcea6aeb4bddbea40"
+    },
+    {
+      "path": "turntable.json",
+      "sha256": "873c23795058302bbdeeeee11a3b463f6ec6d7ae5a37bcb7c2ee89ac39898ca7"
+    }
+  ]
+}

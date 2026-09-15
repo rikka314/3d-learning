@@ -1,0 +1,29 @@
+{
+  "authoredBy": "root",
+  "action": "continue",
+  "estimatedFidelity": 0.82,
+  "aiVisionScore": 0.82,
+  "summary": "Nonuniform UV flow removes the obvious rectangular tissue grid, normal detail remains visible under grazing light, and fat lobules plus attached tapered branches remain readable.",
+  "notes": "Fibers, fat lobule distribution, and auricles are stylized approximations rather than exact reference microstructure. Inferior shading remains dark and is deferred to lighting-pass. Hidden posterior anatomy remains inferred.",
+  "layerScores": {
+    "silhouetteProportion": 0.89,
+    "componentStructure": 0.85,
+    "formDetail": 0.82,
+    "materialSurface": 0.82,
+    "lightingCamera": 0.78
+  },
+  "featureReviews": [
+    {
+      "id": "atria-fat-coronaries",
+      "score": 0.82,
+      "critical": true,
+      "notes": "Fat lobules and tapered coronary branches remain readable after the surface adjustment."
+    },
+    {
+      "id": "tissue-palette",
+      "score": 0.83,
+      "critical": true,
+      "notes": "Nonuniform UV flow removes the rectangular grid while retaining controlled grazing detail."
+    }
+  ]
+}

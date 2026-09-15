@@ -1,0 +1,45 @@
+{
+  "passId": "lighting-pass",
+  "files": [
+    {
+      "name": "front.png",
+      "sha256": "d505c90c94a66f5a3ead2d6f0ae1e38ead5d9db8816c0611a82befbe44b8a6f1"
+    },
+    {
+      "name": "right.png",
+      "sha256": "78210e6f1431e10e665e124cfa4d72c94409ef23fcc5b4e17d9630b41c396da7"
+    },
+    {
+      "name": "rear.png",
+      "sha256": "ae2ca35929e4fcd977f041048e5c34bedd12dc6b7b2a75ed55ef2b9abd09fcd1"
+    },
+    {
+      "name": "left.png",
+      "sha256": "4b7b09a3b19400230a1c4b0e9c5fadbddc904ccc31951a6adc7d4f8ead66dfec"
+    },
+    {
+      "name": "threeQuarter.png",
+      "sha256": "af26daab238defef6d65d1e9855019926b465e5cb0a1669b1c7995be783abef4"
+    },
+    {
+      "name": "neutral.png",
+      "sha256": "83158126051c08e35c75084b593136dfee8ded4815cacecd7b7467b512acad67"
+    },
+    {
+      "name": "grazing.png",
+      "sha256": "e1d846d18553d1fb433b86e3c522d339574178e44f81cad9b8eac188f9301f5e"
+    },
+    {
+      "name": "runtime-report.json",
+      "sha256": "ca6b24e027b2c64caae85f0a41ff7113d97ba4364cedbf83cb98fdc8c29b79e8"
+    },
+    {
+      "name": "self-intersection.json",
+      "sha256": "a66dd872478c11525da08a47ae745c306cbb8598e1d40a88e4c0a17ee29d4489"
+    },
+    {
+      "name": "self-intersection-provenance.json",
+      "sha256": "2cf372d7f33229bc54bda61cf7e7bbd9bf064dfb2888206d5b8418a814da4efc"
+    }
+  ]
+}

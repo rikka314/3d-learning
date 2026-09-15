@@ -1,0 +1,97 @@
+{
+  "anatomyRevisionCompleted": true,
+  "revision": "anatomy-correction",
+  "externalAnatomyCheckAccepted": true,
+  "internalAnatomyValidated": false,
+  "knowledgeReview": "knowledge-review.md",
+  "viewer": "http://127.0.0.1:4175/",
+  "finalEvidence": "output/anatomy-06",
+  "resultImage": "output/anatomy-06/threeQuarter.png",
+  "verification": {
+    "build": {
+      "command": "npm run build",
+      "passed": true,
+      "checks": [
+        "tsc --noEmit",
+        "vite build"
+      ],
+      "warning": "Existing bundle >500 kB; ESLint is not configured"
+    },
+    "structure": {
+      "passed": true,
+      "checks": 36,
+      "report": "output/anatomy-06/anatomy-check.json",
+      "sha256": "7b8f8ae0160a5a2b892eaabb11465674cbf0e149c4ba96ae551067a139d350fa"
+    },
+    "separation": {
+      "passed": true,
+      "pairs": 108,
+      "groups": [
+        {
+          "id": "great-vessels",
+          "testedPairs": 72,
+          "passed": true,
+          "failedPairs": 0,
+          "minimumGap": 0.07918336725984526
+        },
+        {
+          "id": "coronary-artery-vs-vein",
+          "testedPairs": 36,
+          "passed": true,
+          "failedPairs": 0,
+          "minimumGap": 0.01937856175499967
+        }
+      ],
+      "report": "output/anatomy-06/vessel-clearance.json",
+      "sha256": "584284a94b0bc76f2504e6ab988b87fc4fbc443d5f084530adada832f02fc8f8"
+    },
+    "ui": {
+      "passed": true,
+      "checks": 12,
+      "report": "output/anatomy-06-ui/report.json"
+    },
+    "independentKnowledgeReview": {
+      "verdict": "limited-scope-pass",
+      "report": "output/anatomy-06/independent-review.json"
+    },
+    "codeReview": {
+      "general": "approved after closing two evidence-validation findings",
+      "typescript": "approved final implementation and verifier changes",
+      "coronarySourceSha256": "57964d8a706b0a60b9eca30df683127c7f2598dc9882875e0333ac2bb4d34f82"
+    }
+  },
+  "captureReportSha256": "b12706d090f32ec31c5d4a9a879885fa6726d7a76850444df7779c6875261ea9",
+  "performance": {
+    "fps": 70.70304720133298,
+    "drawCalls": 76,
+    "triangles": 90400,
+    "lines": 0,
+    "points": 0,
+    "geometries": 76,
+    "textures": 20,
+    "programs": 3
+  },
+  "legacyImageWorkflow": {
+    "accepted": false,
+    "stage": "blockout",
+    "status": "unaccepted image-fidelity candidate retained",
+    "previousReport": "output/anatomy-before/final-report.json",
+    "note": "Old silhouette metrics are historical and do not evaluate this anatomy revision."
+  },
+  "limitations": [
+    "true four cavities",
+    "internal outflow continuity",
+    "valves",
+    "septa",
+    "aortic sinus ostia",
+    "patent lumens",
+    "hemodynamics",
+    "patient scale"
+  ],
+  "samplingLimitations": [
+    "Sampled broad-phase separation, not exact triangle-intersection proof",
+    "Legitimate branch pairs excluded from separation testing; their junction quality is tested separately",
+    "Coronary same-kind pairs and coronary-to-great-vessel pairs are outside this separation scan",
+    "No claims about vessel lumens, chamber continuity, blood flow, or patient-specific dimensions"
+  ]
+}

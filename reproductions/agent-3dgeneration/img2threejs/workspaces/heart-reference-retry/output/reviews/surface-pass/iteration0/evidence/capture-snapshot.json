@@ -1,0 +1,45 @@
+{
+  "passId": "surface-pass",
+  "files": [
+    {
+      "name": "front.png",
+      "sha256": "e3f4f21941638a93bd25c792b192ea9048cca987a4ec21c4756b4b40091d94af"
+    },
+    {
+      "name": "right.png",
+      "sha256": "6029a34b188c608a34b1fe7871020fbe6e880acc6ff953a4d216191fe38991e1"
+    },
+    {
+      "name": "rear.png",
+      "sha256": "5dafb329cf683ac30868ad87c4f1ffc4ddc7eaaafe6d8f480ea5b22883f15d87"
+    },
+    {
+      "name": "left.png",
+      "sha256": "46cb6edb8eb824c518bef15410515432f490033bf7b61b06b68ed5eb1964eeb1"
+    },
+    {
+      "name": "threeQuarter.png",
+      "sha256": "fb558798abed2fca085085fc8a07896c11de35db0688591364fe5ebd6b620fb4"
+    },
+    {
+      "name": "neutral.png",
+      "sha256": "83158126051c08e35c75084b593136dfee8ded4815cacecd7b7467b512acad67"
+    },
+    {
+      "name": "grazing.png",
+      "sha256": "e1d846d18553d1fb433b86e3c522d339574178e44f81cad9b8eac188f9301f5e"
+    },
+    {
+      "name": "runtime-report.json",
+      "sha256": "1871c450f4b54d0048034f4b5b1f921ec08c58980729df32f4065c2d6a975b19"
+    },
+    {
+      "name": "self-intersection.json",
+      "sha256": "a66dd872478c11525da08a47ae745c306cbb8598e1d40a88e4c0a17ee29d4489"
+    },
+    {
+      "name": "self-intersection-provenance.json",
+      "sha256": "70fa509e5344b9a0709895c9766e818e3fec9321507d3f0785a55eb2bed610f1"
+    }
+  ]
+}

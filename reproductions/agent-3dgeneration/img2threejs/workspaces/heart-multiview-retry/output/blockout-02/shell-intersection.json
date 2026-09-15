@@ -1,0 +1,87 @@
+{
+  "selfIntersecting": true,
+  "meshCount": 1,
+  "insideVertexCount": 7,
+  "undecidedVertexCount": 49,
+  "sampledVertexCount": 2749,
+  "totalVertexCount": 8247,
+  "meshes": [
+    {
+      "name": "ventricular-body-surface",
+      "analyzed": true,
+      "error": null,
+      "selfIntersecting": true,
+      "insideVertexCount": 7,
+      "undecidedVertexCount": 49,
+      "outsideVertexCount": 2693,
+      "sampledVertexCount": 2749,
+      "totalVertexCount": 8247,
+      "samplingStride": 3,
+      "triangleCount": 16320,
+      "degenerateTriangleCount": 0,
+      "worstRegions": [
+        {
+          "vertexIndex": 222,
+          "position": [
+            0.808319091796875,
+            -2.1061904430389404,
+            0.41461876034736633
+          ]
+        },
+        {
+          "vertexIndex": 225,
+          "position": [
+            0.7584838271141052,
+            -2.1061904430389404,
+            0.401364803314209
+          ]
+        },
+        {
+          "vertexIndex": 318,
+          "position": [
+            0.7749446630477905,
+            -2.0692856311798096,
+            0.4660772979259491
+          ]
+        },
+        {
+          "vertexIndex": 321,
+          "position": [
+            0.7097416520118713,
+            -2.0692856311798096,
+            0.45213866233825684
+          ]
+        },
+        {
+          "vertexIndex": 417,
+          "position": [
+            0.6699316501617432,
+            -2.032381057739258,
+            0.4959874153137207
+          ]
+        },
+        {
+          "vertexIndex": 513,
+          "position": [
+            0.6414110660552979,
+            -1.995476245880127,
+            0.5331263542175293
+          ]
+        },
+        {
+          "vertexIndex": 609,
+          "position": [
+            0.6269980669021606,
+            -1.958571434020996,
+            0.5639896988868713
+          ]
+        }
+      ],
+      "normalSource": "centroid",
+      "normalFallbackCount": 0,
+      "epsilon": 0.004509486541718585,
+      "rayDirectionCount": 3
+    }
+  ],
+  "errors": []
+}

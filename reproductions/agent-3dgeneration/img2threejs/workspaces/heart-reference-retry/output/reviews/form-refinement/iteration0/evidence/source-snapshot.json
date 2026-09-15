@@ -1,0 +1,16 @@
+{
+  "passId": "form-refinement",
+  "files": [
+    {
+      "source": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\src\\createHeartModel.ts",
+      "snapshot": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\output\\reviews\\form-refinement\\createHeartModel.ts",
+      "sha256": "99efb0028a0d9a21b579709b91da93a56c026962dc7e15feed07fdefd499b7ff"
+    },
+    {
+      "source": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\anatomy-layout.json",
+      "snapshot": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\output\\reviews\\form-refinement\\anatomy-layout.json",
+      "sha256": "41cc33c54c96a709f9145e063a2c7d3b85a8eec1f419c20f88253ab5b8db0f60"
+    }
+  ],
+  "limitation": "No separately preserved blockout source snapshot exists; snapshots begin with structural-pass."
+}

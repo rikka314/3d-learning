@@ -1,0 +1,34 @@
+{
+  "primaryViewId": "front",
+  "viewReviews": [
+    {
+      "viewId": "front",
+      "referenceScreenshot": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\references\\front.png",
+      "renderScreenshot": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\output\\blockout-01\\front.png",
+      "comparisonImage": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\output\\blockout-01\\comparisons\\front-comparison.png"
+    },
+    {
+      "viewId": "left",
+      "referenceScreenshot": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\references\\left.png",
+      "renderScreenshot": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\output\\blockout-01\\left.png",
+      "comparisonImage": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\output\\blockout-01\\comparisons\\left-comparison.png"
+    },
+    {
+      "viewId": "rear",
+      "referenceScreenshot": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\references\\rear.png",
+      "renderScreenshot": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\output\\blockout-01\\rear.png",
+      "comparisonImage": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\output\\blockout-01\\comparisons\\rear-comparison.png"
+    },
+    {
+      "viewId": "right",
+      "referenceScreenshot": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\references\\right.png",
+      "renderScreenshot": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\output\\blockout-01\\right.png",
+      "comparisonImage": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\output\\blockout-01\\comparisons\\right-comparison.png"
+    }
+  ],
+  "referenceImage": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\references\\front.png",
+  "renderScreenshot": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\output\\blockout-01\\front.png",
+  "comparisonImage": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\output\\blockout-01\\comparisons\\front-comparison.png",
+  "layout": "one matched reference/render sheet per view",
+  "note": "Send each comparison image to AI vision and add scores before appending the review."
+}

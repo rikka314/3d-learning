@@ -17,6 +17,8 @@
 
 | 标题 | 类型 | 主题 | 状态 | 链接或本地路径 | 阅读笔记 |
 |---|---|---|---|---|---|
+| [医学三维模型：分叉、心耳与局部过渡](report/医学三维模型_分叉与心耳连接优化_论文与开源方法_2026-09-08.md) | 深度研究与实验方案 | vascularmd、VMTK、左心耳形状先验、局部 fairing | 研究完成，实验待执行 | `report/医学三维模型_分叉与心耳连接优化_论文与开源方法_2026-09-08.md` | 对照现有 Blender/Three.js 输入；区分连接拓扑、解剖形状和平滑；核查代码及许可，设计局部对照实验 |
+| [Blender / Three.js 高保真建模：开源方案与准确 3D 底模实验](report/Blender与Threejs高保真建模_开源方案与3D底模实验_2026-09-06.md) | 深度研究与实验方案 | 几何条件贴图、GLB 编辑、准确底模、局部编辑、材质保真 | 研究完成，实验待执行 | `report/Blender与Threejs高保真建模_开源方案与3D底模实验_2026-09-06.md` | 基于现有心脏源码与实际对照图；核查 MV-Adapter/TRELLIS.2 贴图的 UV、坐标与分件风险；给出输入/工具消融与底模编辑独立评测 |
 | [Coding Agent 生成 3D 的两条路径：Diffusion 控制器与“总监—总管—模块员工”](report/Coding_Agent生成3D的两条路径_深度研究_2026.md) | 研究报告 | coding agent、3D diffusion、分层多智能体、部件生成、critic loop | 已完成 | `report/Coding_Agent生成3D的两条路径_深度研究_2026.md` | 区分调用/推理调参/后训练；梳理 OpenTopos、LL3M、SAGE、PartCrafter 等成果；提出 Agentic 3D Compiler 与可验证 MVP |
 | [基于 2D 的 3D 生成与医学教育资产：论文精选与复现路线](report/基于2D的3D生成与医学教育资产_论文精选与复现路线_2026.md) | 研究与执行路线 | image-to-3D、image+text-to-3D、医学教育资产、Three.js | 已完成 | `report/基于2D的3D生成与医学教育资产_论文精选与复现路线_2026.md` | 四期阅读、3+1 复现队列、统一 benchmark、教育级准确性边界 |
 | [2026 年医学 3D 模型与 AI 生成最新进展深度报告](report/2026年医学3D模型与AI生成最新进展深度报告.md) | 研究报告 | 医学 3D、生成式 AI、解剖 shape、重建、数字孪生 | 已完成 | `report/2026年医学3D模型与AI生成最新进展深度报告.md` | 含证据分级、临床边界、复现优先级与研究机会 |

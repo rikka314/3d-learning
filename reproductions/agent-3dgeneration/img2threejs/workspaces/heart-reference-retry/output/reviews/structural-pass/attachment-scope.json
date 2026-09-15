@@ -1,0 +1,6 @@
+{
+  "passId": "structural-pass",
+  "applicability": "unmeasured",
+  "reason": "Great vessels are embedded tissue connections rather than worn or held attachments. Runtime socket roots exist, but there is no independent measured attachment-anchor payload.",
+  "claimLimit": "No attachment-anchor pass is claimed; visual root continuity and separate self-intersection evidence remain required."
+}

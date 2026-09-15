@@ -1,0 +1,88 @@
+{
+  "ok": true,
+  "verdict": "pass",
+  "confidence": 0.749,
+  "estimatedFidelity": 0.749,
+  "targetThreshold": 0.7,
+  "materialId": "arterial",
+  "sourceImage": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\material-evidence\\clean-crops\\arterial.png",
+  "outDir": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\material-evidence\\clean\\arterial",
+  "palette": [
+    "#DF4F3F",
+    "#C63225",
+    "#F17A69",
+    "#A11E14",
+    "#F9B0A4"
+  ],
+  "maps": {
+    "albedo": {
+      "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\material-evidence\\clean\\arterial\\arterial_albedo.png",
+      "url": "arterial_albedo.png",
+      "channel": "albedo",
+      "source": "reference-pixel-extraction"
+    },
+    "roughness": {
+      "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\material-evidence\\clean\\arterial\\arterial_roughness.png",
+      "url": "arterial_roughness.png",
+      "channel": "roughness",
+      "source": "reference-pixel-extraction"
+    },
+    "height": {
+      "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\material-evidence\\clean\\arterial\\arterial_height.png",
+      "url": "arterial_height.png",
+      "channel": "height",
+      "source": "reference-pixel-extraction"
+    },
+    "normal": {
+      "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\material-evidence\\clean\\arterial\\arterial_normal.png",
+      "url": "arterial_normal.png",
+      "channel": "normal",
+      "source": "reference-pixel-extraction"
+    },
+    "ao": {
+      "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\material-evidence\\clean\\arterial\\arterial_ao.png",
+      "url": "arterial_ao.png",
+      "channel": "ao",
+      "source": "reference-pixel-extraction"
+    }
+  },
+  "diagnostics": {
+    "sourceWidth": 85,
+    "sourceHeight": 102,
+    "mapSize": 2048,
+    "cropBBoxPixels": {
+      "x": 0,
+      "y": 0,
+      "width": 85,
+      "height": 102
+    },
+    "mask": {
+      "backgroundColor": "#D8493A",
+      "backgroundNoise": 75.756,
+      "transparentPixelFraction": 0.0,
+      "foregroundCoverage": 1.0
+    },
+    "mapStats": {
+      "valueRange": 0.5339,
+      "heightP90Gradient": 0.00961,
+      "roughnessBase": 0.687,
+      "roughnessVariation": 0.05,
+      "normalStrength": 0.168,
+      "blurRadius": 28
+    },
+    "palette": [
+      "#DF4F3F",
+      "#C63225",
+      "#F17A69",
+      "#A11E14",
+      "#F9B0A4"
+    ]
+  },
+  "warnings": [
+    "image is not clearly isolated from background; using most pixels as material evidence",
+    "object/background separation is weak",
+    "single-image inverse rendering cannot prove true physical PBR; confidence is capped",
+    "low high-frequency detail weakens normal/roughness inference"
+  ],
+  "limitation": "single-image PBR extraction is an estimate; 70%+ extraction confidence still needs render screenshot review"
+}

@@ -1,0 +1,20 @@
+[
+  {
+    "id": "heart-silhouette",
+    "score": 0.89,
+    "visible": true,
+    "notes": "Closed C1 loft and right-biased apex retain the reference silhouette."
+  },
+  {
+    "id": "great-vessel-topology",
+    "score": 0.87,
+    "visible": true,
+    "notes": "Great-vessel silhouette, branch mouths, and anterior pulmonary crossing remain acceptable."
+  },
+  {
+    "id": "atria-fat-coronaries",
+    "score": 0.82,
+    "visible": true,
+    "notes": "Flatter fat beds expose lobules and lowered coronary trunks follow the shell sufficiently for form acceptance."
+  }
+]

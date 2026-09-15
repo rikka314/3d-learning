@@ -1,0 +1,26 @@
+{
+  "passId": "material-pass",
+  "files": [
+    {
+      "source": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\src\\createHeartModel.ts",
+      "snapshot": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\output\\reviews\\material-pass\\iteration1\\evidence\\createHeartModel.ts",
+      "sha256": "21c1d7eea2851146c26bd8f62d129f996883424ec43885e77d48530d7dccf820"
+    },
+    {
+      "source": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\src\\heartMaterials.ts",
+      "snapshot": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\output\\reviews\\material-pass\\iteration1\\evidence\\heartMaterials.ts",
+      "sha256": "1ae267043048b08a8e1c6f3e853205f6ebc640557dc389cd4c5d8e439e016884"
+    },
+    {
+      "source": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\src\\main.ts",
+      "snapshot": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\output\\reviews\\material-pass\\iteration1\\evidence\\main.ts",
+      "sha256": "064149f239acc31056a328257cdff4368233302c0013d2f4b0831ed7ef8e2f97"
+    },
+    {
+      "source": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\anatomy-layout.json",
+      "snapshot": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\output\\reviews\\material-pass\\iteration1\\evidence\\anatomy-layout.json",
+      "sha256": "41cc33c54c96a709f9145e063a2c7d3b85a8eec1f419c20f88253ab5b8db0f60"
+    }
+  ],
+  "limitation": "No separately preserved blockout source snapshot exists; snapshots begin with structural-pass."
+}

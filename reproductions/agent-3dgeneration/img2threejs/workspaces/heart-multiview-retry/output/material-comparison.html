@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>心脏模型 · 材质优化对比</title>
+<style>
+  *{box-sizing:border-box}body{margin:0;background:#f5f3ef;color:#302c29;font:16px/1.6 system-ui,"Microsoft YaHei",sans-serif}
+  main{max-width:1120px;margin:auto;padding:30px}h1{margin:0;font-size:26px;font-weight:650}p{margin:8px 0 20px;color:#6a625b}
+  a{color:#8b3028}#comparison{background:#fff;border-radius:14px;padding:24px}.pair,.views{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+  figure{margin:0;min-width:0}figcaption{padding:8px 0;font-weight:600;border-bottom:1px solid #eee}img{display:block;width:100%;height:auto}
+  .views{grid-template-columns:repeat(4,minmax(0,1fr));margin-top:24px}.note{font-size:14px;margin:18px 0 0}
+  @media(max-width:650px){main{padding:14px}#comparison{padding:14px}.pair{gap:8px}.views{grid-template-columns:repeat(2,minmax(0,1fr))}h1{font-size:21px}}
+</style>
+<main>
+<section id="comparison">
+  <h1>心脏模型 · 材质优化对比</h1>
+  <p>同一角度、同一构图。细化表面与光照，保留已核对的外部结构。</p>
+  <div class="pair">
+    <figure><figcaption>优化前 · 重复凹凸纹理</figcaption><img src="material-baseline-02/threeQuarter.png" alt="优化前的心脏模型斜视图"></figure>
+    <figure><figcaption>优化后 · 连续微纹理与柔和反射</figcaption><img src="material-final/threeQuarter.png" alt="优化后的心脏模型斜视图"></figure>
+  </div>
+  <p class="note">本轮复查：36 项结构检查、108 组血管间距检查及 12 项交互检查通过。模型仍为外部解剖教学示意。</p>
+</section>
+<div class="views">
+  <figure><figcaption>前面</figcaption><a href="material-final/front.png"><img src="material-final/front.png" alt="最终模型前面"></a></figure>
+  <figure><figcaption>解剖左侧</figcaption><a href="material-final/left.png"><img src="material-final/left.png" alt="最终模型解剖左侧"></a></figure>
+  <figure><figcaption>后面</figcaption><a href="material-final/rear.png"><img src="material-final/rear.png" alt="最终模型后面"></a></figure>
+  <figure><figcaption>解剖右侧</figcaption><a href="material-final/right.png"><img src="material-final/right.png" alt="最终模型解剖右侧"></a></figure>
+</div>
+<p class="note"><a href="/">打开交互模型</a> · <a href="../surface-review.md">优化与复查记录</a>。房室交界、管口和脂肪带仍保留程序化形体的简化。</p>
+</main>
+</html>

@@ -1,0 +1,26 @@
+{
+  "referenceAreaFraction": 0.4381836419753086,
+  "angles": [
+    {
+      "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\output\\final-candidate\\left.png",
+      "areaFraction": 0.3848117283950617,
+      "ratio": 0.8781973846863631,
+      "degenerate": false
+    },
+    {
+      "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\output\\final-candidate\\rear.png",
+      "areaFraction": 0.43816666666666665,
+      "ratio": 0.999961259830318,
+      "degenerate": false
+    },
+    {
+      "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\output\\final-candidate\\right.png",
+      "areaFraction": 0.3848287037037037,
+      "ratio": 0.8782361248560451,
+      "degenerate": false
+    }
+  ],
+  "degenerate": false,
+  "collapseRatio": 0.15,
+  "note": "deterministic; zero token; a flat-plane-faking-a-volume collapses in silhouette area when orbited"
+}

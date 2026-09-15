@@ -1,0 +1,360 @@
+{
+  "passed": true,
+  "stage": "anatomy-02",
+  "errors": [],
+  "sourceHashes": [
+    {
+      "file": "src/createHeartModel.ts",
+      "sha256": "5a8c5ad6231a6232f75d7ccc85f2463e0577755104b7ced140311d699700fec6"
+    },
+    {
+      "file": "src/coronaryAnatomy.ts",
+      "sha256": "2dd0898330224f9b51adcbcfcab3b8374eb53505dfe552d28518639a59ad1ff3"
+    },
+    {
+      "file": "src/heartMaterials.ts",
+      "sha256": "7675e1645d6856de1543e4451686e4f40c394f6ab8e14020c60a4b8b1076878c"
+    },
+    {
+      "file": "src/main.ts",
+      "sha256": "dc00f2b0f922eabea839ee340313a3b68dcd43a0b49172a5947f87bc03b3404b"
+    },
+    {
+      "file": "src/style.css",
+      "sha256": "469181405f49ac3d9d858d469f2d0255698f93857aad4b51462c8e8c4553cd90"
+    },
+    {
+      "file": "anatomy-layout.json",
+      "sha256": "004ba9b6864c28e409c6e5872ca759411fd9a8f704591600ce3f7d8171c0cc71"
+    }
+  ],
+  "model": "heart-multiview-retry",
+  "buildPass": "anatomy-correction",
+  "checks": [
+    {
+      "id": "four-external-chamber-regions",
+      "passed": true,
+      "evidence": "Four selectable exterior regions; no internal cavities inferred."
+    },
+    {
+      "id": "left-auricle-attachment",
+      "passed": true,
+      "evidence": {
+        "parent": "left-atrium",
+        "embeddedFraction": 0.12244897959183673,
+        "samples": 147,
+        "method": "Sampled appendage surface penetrates its atrial base and also extends outside it."
+      }
+    },
+    {
+      "id": "right-auricle-attachment",
+      "passed": true,
+      "evidence": {
+        "parent": "right-atrium",
+        "embeddedFraction": 0.23129251700680273,
+        "samples": 147,
+        "method": "Sampled appendage surface penetrates its atrial base and also extends outside it."
+      }
+    },
+    {
+      "id": "superior-vena-cava-right-atrium",
+      "passed": true,
+      "evidence": {
+        "root": [
+          -1.01,
+          0.5700000000000001,
+          -0.21
+        ]
+      }
+    },
+    {
+      "id": "inferior-vena-cava-right-atrium",
+      "passed": true,
+      "evidence": {
+        "root": [
+          -1.02,
+          -0.24000000000000016,
+          -0.32
+        ]
+      }
+    },
+    {
+      "id": "four-pulmonary-veins",
+      "passed": true,
+      "evidence": [
+        "right-superior-pulmonary-vein",
+        "right-inferior-pulmonary-vein",
+        "left-superior-pulmonary-vein",
+        "left-inferior-pulmonary-vein"
+      ]
+    },
+    {
+      "id": "left-pulmonary-branch-bifurcation",
+      "passed": true,
+      "evidence": {
+        "centerlineGap": 2.4708698718685164e-16,
+        "distal": [
+          1.2800000000000002,
+          1.29,
+          -0.24999999999999992
+        ]
+      }
+    },
+    {
+      "id": "right-pulmonary-branch-bifurcation",
+      "passed": true,
+      "evidence": {
+        "centerlineGap": 2.4708698718685164e-16,
+        "distal": [
+          -1.3199999999999996,
+          1.12,
+          -0.6800000000000004
+        ]
+      }
+    },
+    {
+      "id": "three-aortic-arch-branches",
+      "passed": true,
+      "evidence": [
+        {
+          "id": "brachiocephalic-branch",
+          "root": [
+            -0.25,
+            1.63,
+            -0.11000000000000001
+          ],
+          "parentAxisDistance": 0.04008732667167728
+        },
+        {
+          "id": "left-carotid-branch",
+          "root": [
+            0,
+            1.69,
+            -0.28
+          ],
+          "parentAxisDistance": 0.043210286168714036
+        },
+        {
+          "id": "left-subclavian-branch",
+          "root": [
+            0.2799999999999999,
+            1.5799999999999998,
+            -0.55
+          ],
+          "parentAxisDistance": 0.035826528052825934
+        }
+      ]
+    },
+    {
+      "id": "aortic-branch-order",
+      "passed": true,
+      "evidence": "Brachiocephalic, left common carotid, left subclavian in arch progression."
+    },
+    {
+      "id": "outflow-root-embedding",
+      "passed": true,
+      "evidence": "Both proximal roots embedded in ventricular envelope; pulmonary root anterior. Chamber-specific internal continuity is unmodeled."
+    },
+    {
+      "id": "rv-anterior-lv-apex",
+      "passed": true,
+      "evidence": {
+        "anteriorProjectedAreas": {
+          "left-ventricle": 2.203242075225683,
+          "right-ventricle": 3.7998391524129165
+        },
+        "minimumY": {
+          "left-ventricle": -2.180000066757202,
+          "right-ventricle": -2.032381057739258
+        }
+      }
+    },
+    {
+      "id": "lv-posterior-majority",
+      "passed": true,
+      "evidence": {
+        "left-ventricle": 4.743257423209863,
+        "right-ventricle": 1.259823804428745
+      }
+    },
+    {
+      "id": "left-main-coronary-artery-aortic-origin",
+      "passed": true,
+      "evidence": {
+        "root": [
+          -0.2,
+          0.58,
+          0.06
+        ],
+        "axisDistance": 0.10707876962137523
+      }
+    },
+    {
+      "id": "right-coronary-artery-aortic-origin",
+      "passed": true,
+      "evidence": {
+        "root": [
+          -0.45,
+          0.6,
+          0.06
+        ],
+        "axisDistance": 0.0675191271788195
+      }
+    },
+    {
+      "id": "left-anterior-descending-artery-connection",
+      "passed": true,
+      "evidence": {
+        "expectedParent": "left-main-coronary-artery",
+        "declaredParent": "left-main-coronary-artery",
+        "centerlineGap": 1.6653345369377348e-16
+      }
+    },
+    {
+      "id": "left-circumflex-artery-connection",
+      "passed": true,
+      "evidence": {
+        "expectedParent": "left-main-coronary-artery",
+        "declaredParent": "left-main-coronary-artery",
+        "centerlineGap": 1.6653345369377348e-16
+      }
+    },
+    {
+      "id": "first-diagonal-branch-connection",
+      "passed": true,
+      "evidence": {
+        "expectedParent": "left-anterior-descending-artery",
+        "declaredParent": "left-anterior-descending-artery",
+        "centerlineGap": 0.0017940941630767704
+      }
+    },
+    {
+      "id": "second-diagonal-branch-connection",
+      "passed": true,
+      "evidence": {
+        "expectedParent": "left-anterior-descending-artery",
+        "declaredParent": "left-anterior-descending-artery",
+        "centerlineGap": 0.0016503134520568965
+      }
+    },
+    {
+      "id": "obtuse-marginal-branch-connection",
+      "passed": true,
+      "evidence": {
+        "expectedParent": "left-circumflex-artery",
+        "declaredParent": "left-circumflex-artery",
+        "centerlineGap": 0.0031380050563895737
+      }
+    },
+    {
+      "id": "right-marginal-branch-connection",
+      "passed": true,
+      "evidence": {
+        "expectedParent": "right-coronary-artery",
+        "declaredParent": "right-coronary-artery",
+        "centerlineGap": 0.0017912059107271457
+      }
+    },
+    {
+      "id": "posterior-descending-artery-connection",
+      "passed": true,
+      "evidence": {
+        "expectedParent": "right-coronary-artery",
+        "declaredParent": "right-coronary-artery",
+        "centerlineGap": 3.554447978966673e-16
+      }
+    },
+    {
+      "id": "great-cardiac-vein-connection",
+      "passed": true,
+      "evidence": {
+        "expectedParent": "coronary-sinus",
+        "declaredParent": "coronary-sinus",
+        "centerlineGap": 1.1102230246251565e-16
+      }
+    },
+    {
+      "id": "middle-cardiac-vein-connection",
+      "passed": true,
+      "evidence": {
+        "expectedParent": "coronary-sinus",
+        "declaredParent": "coronary-sinus",
+        "centerlineGap": 0.00043501691441760477
+      }
+    },
+    {
+      "id": "small-cardiac-vein-connection",
+      "passed": true,
+      "evidence": {
+        "expectedParent": "coronary-sinus",
+        "declaredParent": "coronary-sinus",
+        "centerlineGap": 0.00011770341254680448
+      }
+    },
+    {
+      "id": "coronary-sinus-to-ra",
+      "passed": true,
+      "evidence": {
+        "outlet": [
+          -0.9099999999999998,
+          -0.25,
+          -0.47000000000000014
+        ]
+      }
+    },
+    {
+      "id": "right-coronary-artery-basal-course",
+      "passed": true,
+      "evidence": {
+        "minimumY": -0.4000000000000002
+      }
+    },
+    {
+      "id": "left-circumflex-artery-basal-course",
+      "passed": true,
+      "evidence": {
+        "minimumY": -0.3800000000000001
+      }
+    },
+    {
+      "id": "coronary-sinus-basal-course",
+      "passed": true,
+      "evidence": {
+        "minimumY": -0.3499983780796001
+      }
+    },
+    {
+      "id": "left-anterior-descending-artery-iv-course",
+      "passed": true,
+      "evidence": {
+        "terminal": [
+          0.9173010939207576,
+          -2.03,
+          0.6948864054377031
+        ],
+        "sampledPoints": 173
+      }
+    },
+    {
+      "id": "posterior-descending-artery-iv-course",
+      "passed": true,
+      "evidence": {
+        "terminal": [
+          0.29240435515329877,
+          -1.8700000000000006,
+          0.02301528262087804
+        ],
+        "sampledPoints": 268
+      }
+    }
+  ],
+  "scope": "Geometry and topology checks of an external teaching model; not a clinical validation.",
+  "unverified": [
+    "internal chamber-specific outflow continuity",
+    "valves",
+    "septa",
+    "patent lumens",
+    "hemodynamics",
+    "patient-specific dimensions"
+  ]
+}

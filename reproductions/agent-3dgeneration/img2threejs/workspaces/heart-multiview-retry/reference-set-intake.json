@@ -1,0 +1,258 @@
+{
+  "schemaVersion": 1,
+  "kind": "img2threejs.reference-set-intake",
+  "primaryViewId": "front",
+  "referenceSet": {
+    "schemaVersion": 1,
+    "kind": "img2threejs.reference-set",
+    "mode": "vision-context",
+    "primaryViewId": "front",
+    "views": [
+      {
+        "id": "front",
+        "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\references\\front.png",
+        "role": "front",
+        "sha256": "1c783c0003007568d2b9cff6bc64d0108c7c921ab43a43d3d1bad1c3e313900a",
+        "evidence": {
+          "sheetCropXYXY": [
+            144,
+            5,
+            566,
+            626
+          ],
+          "normalization": "uniform scale to 790 px crop height; centered on 720x900 white canvas",
+          "orientation": "anatomical left is +X, anterior is +Z; nominal orthographic only"
+        }
+      },
+      {
+        "id": "left",
+        "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\references\\left.png",
+        "role": "left",
+        "sha256": "1a98a1f2015dfad5cbb36f4f9db52c599a8f94e10e3c76895846b7c3f98512a6",
+        "evidence": {
+          "sheetCropXYXY": [
+            700,
+            14,
+            1055,
+            582
+          ],
+          "normalization": "uniform scale to 790 px crop height; centered on 720x900 white canvas",
+          "orientation": "anatomical left is +X, anterior is +Z; nominal orthographic only"
+        }
+      },
+      {
+        "id": "rear",
+        "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\references\\rear.png",
+        "role": "rear",
+        "sha256": "0f2b8ebb03c0820be7df5a262c9f36938bccc112806cf7ba7a20b24bd847e9a1",
+        "evidence": {
+          "sheetCropXYXY": [
+            132,
+            642,
+            518,
+            1183
+          ],
+          "normalization": "uniform scale to 790 px crop height; centered on 720x900 white canvas",
+          "orientation": "anatomical left is +X, anterior is +Z; nominal orthographic only"
+        }
+      },
+      {
+        "id": "right",
+        "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\references\\right.png",
+        "role": "right",
+        "sha256": "65455a07fcc32a6c4f862dc72bd338151c02a6865b1e57bc7d711ae3348f1465",
+        "evidence": {
+          "sheetCropXYXY": [
+            754,
+            626,
+            1083,
+            1162
+          ],
+          "normalization": "uniform scale to 790 px crop height; centered on 720x900 white canvas",
+          "orientation": "anatomical left is +X, anterior is +Z; nominal orthographic only"
+        }
+      }
+    ]
+  },
+  "views": [
+    {
+      "viewId": "front",
+      "role": "front",
+      "sourceImage": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\references\\front.png",
+      "sha256": "1c783c0003007568d2b9cff6bc64d0108c7c921ab43a43d3d1bad1c3e313900a",
+      "camera": null,
+      "evidence": {
+        "sheetCropXYXY": [
+          144,
+          5,
+          566,
+          626
+        ],
+        "normalization": "uniform scale to 790 px crop height; centered on 720x900 white canvas",
+        "orientation": "anatomical left is +X, anterior is +Z; nominal orthographic only"
+      },
+      "technicalProbe": {
+        "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\references\\front.png",
+        "type": "png",
+        "bytes": 687150,
+        "width": 720,
+        "height": 900,
+        "aspectRatio": 0.8,
+        "technicalSuitability": "pass",
+        "warnings": [],
+        "note": "This is only technical image probing. Semantic object suitability still requires visual inspection."
+      },
+      "admission": {
+        "admitted": true,
+        "reasons": [],
+        "provenance": {
+          "viewpoint": "front",
+          "sourcePath": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\references\\front.png",
+          "width": 720,
+          "height": 900,
+          "foregroundCoverage": 0.428,
+          "largestComponentFraction": 1.0,
+          "pHash": 12456092691359506448,
+          "duplicateOfHash": null
+        }
+      }
+    },
+    {
+      "viewId": "left",
+      "role": "left",
+      "sourceImage": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\references\\left.png",
+      "sha256": "1a98a1f2015dfad5cbb36f4f9db52c599a8f94e10e3c76895846b7c3f98512a6",
+      "camera": null,
+      "evidence": {
+        "sheetCropXYXY": [
+          700,
+          14,
+          1055,
+          582
+        ],
+        "normalization": "uniform scale to 790 px crop height; centered on 720x900 white canvas",
+        "orientation": "anatomical left is +X, anterior is +Z; nominal orthographic only"
+      },
+      "technicalProbe": {
+        "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\references\\left.png",
+        "type": "png",
+        "bytes": 565831,
+        "width": 720,
+        "height": 900,
+        "aspectRatio": 0.8,
+        "technicalSuitability": "pass",
+        "warnings": [],
+        "note": "This is only technical image probing. Semantic object suitability still requires visual inspection."
+      },
+      "admission": {
+        "admitted": true,
+        "reasons": [],
+        "provenance": {
+          "viewpoint": "left",
+          "sourcePath": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\references\\left.png",
+          "width": 720,
+          "height": 900,
+          "foregroundCoverage": 0.3444,
+          "largestComponentFraction": 1.0,
+          "pHash": 17795122840800104704,
+          "duplicateOfHash": null
+        }
+      }
+    },
+    {
+      "viewId": "rear",
+      "role": "rear",
+      "sourceImage": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\references\\rear.png",
+      "sha256": "0f2b8ebb03c0820be7df5a262c9f36938bccc112806cf7ba7a20b24bd847e9a1",
+      "camera": null,
+      "evidence": {
+        "sheetCropXYXY": [
+          132,
+          642,
+          518,
+          1183
+        ],
+        "normalization": "uniform scale to 790 px crop height; centered on 720x900 white canvas",
+        "orientation": "anatomical left is +X, anterior is +Z; nominal orthographic only"
+      },
+      "technicalProbe": {
+        "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\references\\rear.png",
+        "type": "png",
+        "bytes": 667508,
+        "width": 720,
+        "height": 900,
+        "aspectRatio": 0.8,
+        "technicalSuitability": "pass",
+        "warnings": [],
+        "note": "This is only technical image probing. Semantic object suitability still requires visual inspection."
+      },
+      "admission": {
+        "admitted": true,
+        "reasons": [],
+        "provenance": {
+          "viewpoint": "rear",
+          "sourcePath": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\references\\rear.png",
+          "width": 720,
+          "height": 900,
+          "foregroundCoverage": 0.4636,
+          "largestComponentFraction": 0.9996,
+          "pHash": 12166747724545899540,
+          "duplicateOfHash": null
+        }
+      }
+    },
+    {
+      "viewId": "right",
+      "role": "right",
+      "sourceImage": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\references\\right.png",
+      "sha256": "65455a07fcc32a6c4f862dc72bd338151c02a6865b1e57bc7d711ae3348f1465",
+      "camera": null,
+      "evidence": {
+        "sheetCropXYXY": [
+          754,
+          626,
+          1083,
+          1162
+        ],
+        "normalization": "uniform scale to 790 px crop height; centered on 720x900 white canvas",
+        "orientation": "anatomical left is +X, anterior is +Z; nominal orthographic only"
+      },
+      "technicalProbe": {
+        "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\references\\right.png",
+        "type": "png",
+        "bytes": 529443,
+        "width": 720,
+        "height": 900,
+        "aspectRatio": 0.8,
+        "technicalSuitability": "pass",
+        "warnings": [],
+        "note": "This is only technical image probing. Semantic object suitability still requires visual inspection."
+      },
+      "admission": {
+        "admitted": true,
+        "reasons": [],
+        "provenance": {
+          "viewpoint": "right",
+          "sourcePath": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\references\\right.png",
+          "width": 720,
+          "height": 900,
+          "foregroundCoverage": 0.347,
+          "largestComponentFraction": 1.0,
+          "pHash": 12606039306580304512,
+          "duplicateOfHash": null
+        }
+      }
+    }
+  ],
+  "summary": {
+    "viewCount": 4,
+    "admittedViewIds": [
+      "front",
+      "left",
+      "rear",
+      "right"
+    ],
+    "rejectedViewIds": [],
+    "status": "proceed"
+  }
+}

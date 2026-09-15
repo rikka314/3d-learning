@@ -1,0 +1,44 @@
+{
+  "passId": "optimization-pass",
+  "triangles": 179560,
+  "drawCalls": 73,
+  "fpsCapture": 144.020659515296,
+  "uiRuntime": "{\"innerWidth\":390,\"scrollWidth\":390,\"canvas\":{\"left\":0,\"top\":0,\"right\":390,\"bottom\":781,\"width\":390,\"height\":781},\"viewport\":{\"left\":0,\"top\":0,\"right\":390,\"bottom\":781},\"render\":{\"fps\":117.20301946762017,\"drawCalls\":73,\"triangles\":179560,\"lines\":0,\"points\":0,\"geometries\":73,\"textures\":20,\"programs\":5}}",
+  "meshCount": 73,
+  "semanticManifestParts": 104,
+  "textureCount": 20,
+  "programCount": 5,
+  "budget": {
+    "targetTriangles": 180000,
+    "trianglesPassed": true
+  },
+  "source": "archived optimization runtime-report.json and final-ui interaction-report.json",
+  "fullUiLatest": {
+    "fps": 117.20301946762017,
+    "drawCalls": 73,
+    "triangles": 179560,
+    "lines": 0,
+    "points": 0,
+    "geometries": 73,
+    "textures": 20,
+    "programs": 5
+  },
+  "resetPixelEvidence": {
+    "stablePostReset": {
+      "maximumChannelDelta": 1,
+      "changedPixels": 1,
+      "totalPixels": 1056000
+    },
+    "frontRestore": {
+      "maximumChannelDelta": 1,
+      "changedPixels": 1,
+      "totalPixels": 1056000
+    },
+    "autorotateMotion": {
+      "maximumChannelDelta": 245,
+      "changedPixels": 349402,
+      "totalPixels": 1056000
+    },
+    "acceptance": "restoration allows max one channel level and below 0.01% changed pixels; autorotate requires over 1000 changed pixels and max RGB delta over 10"
+  }
+}

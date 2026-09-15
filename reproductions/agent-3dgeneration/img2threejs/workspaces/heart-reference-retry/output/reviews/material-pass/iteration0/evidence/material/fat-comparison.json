@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "kind": "img2threejs.material-comparison",
+  "materialId": "fat",
+  "reference": {
+    "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\output\\reviews\\material-pass\\iteration0\\evidence\\material\\fat-reference.png",
+    "meanRgb": [
+      238,
+      178,
+      130
+    ],
+    "features": {
+      "meanLuma": 0.7348840254795203,
+      "lumaVariance": 0.011734661663534216,
+      "horizontalGradient": 0.02616001182033095,
+      "verticalGradient": 0.06003944513975805,
+      "anisotropyProxy": 2.295084786356893
+    },
+    "width": 24,
+    "height": 96,
+    "foregroundCoverage": 0.9566,
+    "warnings": [
+      "image is not clearly isolated from background; using most pixels as material evidence"
+    ],
+    "readback": true,
+    "diagnostics": {
+      "backgroundColor": "#FBBA81",
+      "backgroundNoise": 62.498,
+      "transparentPixelFraction": 0.0,
+      "foregroundCoverage": 0.951
+    }
+  },
+  "render": {
+    "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\output\\reviews\\material-pass\\iteration0\\evidence\\material\\fat-render.png",
+    "meanRgb": [
+      209,
+      134,
+      101
+    ],
+    "features": {
+      "meanLuma": 0.5781944441040304,
+      "lumaVariance": 0.025022048363163425,
+      "horizontalGradient": 0.016274175358086507,
+      "verticalGradient": 0.06183155958837432,
+      "anisotropyProxy": 3.799366679286193
+    },
+    "width": 19,
+    "height": 77,
+    "foregroundCoverage": 1.0,
+    "warnings": [
+      "image is not clearly isolated from background; using most pixels as material evidence"
+    ],
+    "readback": true,
+    "diagnostics": {
+      "backgroundColor": "#CA6F5A",
+      "backgroundNoise": 43.012,
+      "transparentPixelFraction": 0.0,
+      "foregroundCoverage": 1.0
+    }
+  },
+  "metrics": {
+    "deltaE00": 13.032,
+    "scores": {
+      "baseColor": 0.7393604590676315,
+      "meanLuma": 0.6518009302766893,
+      "microstructure": 0.8892717775030899,
+      "directionalResponse": 0.24785905353534998,
+      "overall": 0.6856
+    }
+  },
+  "mismatches": [
+    "wrong-exposure-or-value"
+  ],
+  "passed": false,
+  "nextAction": "refine-code",
+  "limitation": "Deterministic crop metrics are evidence; material identity still requires vision review for ambiguous cases."
+}

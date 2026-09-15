@@ -1,0 +1,29 @@
+{
+  "authoredBy": "root",
+  "action": "continue",
+  "estimatedFidelity": 0.82,
+  "aiVisionScore": 0.82,
+  "summary": "179,560 triangles meets the 180,000 target, a 57.9% reduction from 426,634, while 73 draw calls remain under 120; five views, fresh shell analysis, and all 16 actual UI checks pass.",
+  "notes": "Atria, fat distribution, and fine branch spacing remain stylized approximations, and unseen posterior anatomy remains inferred. Self-intersection evidence covers only the 8,247-vertex ventricular shell with 917 samples, not the whole model.",
+  "layerScores": {
+    "silhouetteProportion": 0.89,
+    "componentStructure": 0.85,
+    "formDetail": 0.82,
+    "materialSurface": 0.82,
+    "lightingCamera": 0.84
+  },
+  "featureReviews": [
+    {
+      "id": "heart-silhouette",
+      "score": 0.89,
+      "critical": true,
+      "notes": "Matched view and right orbit preserve the accepted silhouette after tessellation reduction."
+    },
+    {
+      "id": "great-vessel-topology",
+      "score": 0.87,
+      "critical": true,
+      "notes": "Great-vessel contours remain smooth and stable at the reviewed resolution."
+    }
+  ]
+}

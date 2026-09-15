@@ -1,0 +1,171 @@
+{
+  "anatomyRevisionCompleted": true,
+  "revision": "reference-refinement",
+  "externalAnatomyCheckAccepted": true,
+  "internalAnatomyValidated": false,
+  "knowledgeReview": "knowledge-review.md",
+  "viewer": "http://127.0.0.1:4175/",
+  "finalEvidence": "output/reference-final-03",
+  "resultImage": "output/reference-final-03/threeQuarter.png",
+  "verification": {
+    "build": {
+      "command": "npm run build",
+      "passed": true,
+      "checks": [
+        "tsc --noEmit",
+        "vite build"
+      ],
+      "warning": "Existing bundle >500 kB; ESLint is not configured"
+    },
+    "structure": {
+      "passed": true,
+      "checks": 88,
+      "report": "output/reference-final-03/anatomy-check.json",
+      "sha256": "51c6499829da1109b8f9063d34edb5f5d14f9ff77223a261c390dbb26af019c0"
+    },
+    "separation": {
+      "passed": true,
+      "pairs": 216,
+      "groups": [
+        {
+          "id": "great-vessels",
+          "testedPairs": 72,
+          "passed": true,
+          "failedPairs": 0,
+          "minimumGap": 0.043718580136150986
+        },
+        {
+          "id": "coronary-artery-vs-vein",
+          "testedPairs": 144,
+          "passed": true,
+          "failedPairs": 0,
+          "minimumGap": 0.01921405571293943
+        }
+      ],
+      "report": "output/reference-final-03/vessel-clearance.json",
+      "sha256": "5c80b500a3313a5dab5b32b274abe630d7b723bc365e78337559025511a5ebc7"
+    },
+    "ui": {
+      "passed": true,
+      "checks": 12,
+      "report": "output/reference-final-03-ui/report.json"
+    },
+    "independentKnowledgeReview": {
+      "verdict": "limited-scope-pass",
+      "report": "output/reference-final-03/independent-review.json",
+      "sha256": "0a90b418237d98523f1c0ed8be80efec24d642a9edabc05ca38b2d65b7b7f8a3"
+    },
+    "codeReview": {
+      "general": "APPROVE final reference refinement; metadata finding closed",
+      "typescript": "APPROVE; shader and seam findings closed",
+      "coronarySourceSha256": "3f92a7ded8e9608f30fc2e092f7e4d30e2baf11f126da98beb8ae3199b950e8e"
+    },
+    "visualReview": {
+      "report": "output/reference-final-03/reference-metrics.json",
+      "allFourSilhouetteMetricsImproved": true,
+      "allFourInteriorDifferencesReduced": true,
+      "fullImageGateAccepted": false,
+      "views": [
+        {
+          "view": "front",
+          "beforeIoU": 0.8565,
+          "afterIoU": 0.8623,
+          "afterDiagnosticPassed": true,
+          "beforeInteriorDifference": 0.13988063956527283,
+          "afterInteriorDifference": 0.13395646566331734,
+          "cellsCompared": 24127,
+          "failures": []
+        },
+        {
+          "view": "left",
+          "beforeIoU": 0.7743,
+          "afterIoU": 0.8139,
+          "afterDiagnosticPassed": false,
+          "beforeInteriorDifference": 0.13882508026068224,
+          "afterInteriorDifference": 0.13108698198514826,
+          "cellsCompared": 20925,
+          "failures": [
+            "silhouette IoU 0.814 is below threshold 0.85",
+            "aspect-ratio delta 0.077 exceeds threshold 0.05",
+            "scale delta 0.122 exceeds threshold 0.08"
+          ]
+        },
+        {
+          "view": "rear",
+          "beforeIoU": 0.8598,
+          "afterIoU": 0.8715,
+          "afterDiagnosticPassed": false,
+          "beforeInteriorDifference": 0.1740715939494118,
+          "afterInteriorDifference": 0.16921881130332903,
+          "cellsCompared": 24805,
+          "failures": [
+            "aspect-ratio delta 0.057 exceeds threshold 0.05"
+          ]
+        },
+        {
+          "view": "right",
+          "beforeIoU": 0.7483,
+          "afterIoU": 0.7943,
+          "afterDiagnosticPassed": false,
+          "beforeInteriorDifference": 0.14898589267156703,
+          "afterInteriorDifference": 0.1317855088495461,
+          "cellsCompared": 20479,
+          "failures": [
+            "silhouette IoU 0.794 is below threshold 0.85",
+            "aspect-ratio delta 0.088 exceeds threshold 0.05",
+            "scale delta 0.111 exceeds threshold 0.08"
+          ]
+        }
+      ]
+    }
+  },
+  "captureReportSha256": "4633f6ba5885ff53016d842bd4ebbf4dfe2de00d2d79890e02b3541951a2ca6d",
+  "performance": {
+    "fps": 87.61449621664674,
+    "drawCalls": 89,
+    "triangles": 236392,
+    "lines": 0,
+    "points": 0,
+    "geometries": 89,
+    "textures": 2,
+    "programs": 3,
+    "scope": "Single desktop capture counters; FPS is not a device benchmark"
+  },
+  "legacyImageWorkflow": {
+    "accepted": false,
+    "stage": "blockout",
+    "status": "unaccepted image-fidelity candidate retained",
+    "previousReport": "output/anatomy-before/final-report.json",
+    "note": "Old silhouette metrics are historical and do not evaluate this anatomy revision."
+  },
+  "limitations": [
+    "true four cavities",
+    "internal outflow continuity",
+    "valves",
+    "septa",
+    "aortic sinus ostia",
+    "patent lumens",
+    "hemodynamics",
+    "patient scale"
+  ],
+  "samplingLimitations": [
+    "Sampled broad-phase separation, not exact triangle-intersection proof",
+    "Legitimate branch pairs excluded from separation testing; their junction quality is tested separately",
+    "Coronary same-kind pairs and coronary-to-great-vessel pairs are outside this separation scan",
+    "No claims about vessel lumens, chamber continuity, blood flow, or patient-specific dimensions"
+  ],
+  "surfaceRevisionCompleted": true,
+  "surfaceReview": "surface-review.md",
+  "comparison": "output/reference-final-03/comparison.html",
+  "comparisonImage": "output/reference-final-03/reference-comparison-front.png",
+  "previousAnatomyEvidence": "output/anatomy-06",
+  "surfaceLimitations": [
+    "Programmatic atrial intersections and simplified chamber proportions",
+    "Sparse secondary vessel network relative to the reference",
+    "Fat lobulation and cut ends remain simplified",
+    "Fine appearance is illustrative, not measured tissue optics"
+  ],
+  "referenceRefinementCompleted": true,
+  "referenceReview": "reference-refinement.md",
+  "previousSurfaceEvidence": "output/material-final"
+}

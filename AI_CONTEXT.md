@@ -38,6 +38,7 @@
 - 文献资料按 `papers/`、`report/`、`courses/`、`tools/` 四类存放。
 - `reproductions/` 允许按研究主题分组；当前 `多视图复现/` 下独立维护 Zero123++、Era3D 与 MV-Adapter 三条复现线。
 - 各复现项目应自行维护来源、环境、运行方式和结果说明。
+- 本地医学参考软件 3D Organon Anatomy 存放于 `reproductions/3d-organon-anatomy/software/`，入口及迁移清单见同目录上一级 `README.md`；软件二进制不纳入 Git。
 - 当前没有统一编程语言、包管理器或运行命令。
 - 最新研究进展调研优先从项目级 `research-ops` 进入，按需调用 `exa-search` 或升级到 `deep-research`。
 - 论文阅读技能安装在项目级 `.codex/skills/`，不写入用户全局技能目录。

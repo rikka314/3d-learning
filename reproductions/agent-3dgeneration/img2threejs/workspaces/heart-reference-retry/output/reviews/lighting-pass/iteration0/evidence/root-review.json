@@ -1,0 +1,23 @@
+{
+  "authoredBy": "root",
+  "action": "continue",
+  "estimatedFidelity": 0.82,
+  "aiVisionScore": 0.82,
+  "summary": "Reference fill and hemisphere lighting now illuminate the lower myocardium and apex coherently while keeping open lumens dark; macro palette and texture distinctions remain, and control lights are unchanged.",
+  "notes": "Atria remain simplified, fine coronary branches remain sparse and regular, and fat distribution is narrower than the reference. This is a stylized procedural reconstruction, not a near-reference rendering; hidden posterior anatomy remains inferred.",
+  "layerScores": {
+    "silhouetteProportion": 0.89,
+    "componentStructure": 0.85,
+    "formDetail": 0.82,
+    "materialSurface": 0.82,
+    "lightingCamera": 0.84
+  },
+  "featureReviews": [
+    {
+      "id": "tissue-palette",
+      "score": 0.83,
+      "critical": true,
+      "notes": "Palette and tissue texture distinctions remain stable while inferior myocardium becomes readable."
+    }
+  ]
+}

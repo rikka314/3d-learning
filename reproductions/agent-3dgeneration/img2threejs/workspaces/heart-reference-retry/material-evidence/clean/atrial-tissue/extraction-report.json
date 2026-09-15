@@ -1,0 +1,87 @@
+{
+  "ok": true,
+  "verdict": "pass",
+  "confidence": 0.809,
+  "estimatedFidelity": 0.809,
+  "targetThreshold": 0.7,
+  "materialId": "atrial-tissue",
+  "sourceImage": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\material-evidence\\clean-crops\\atrial-tissue.png",
+  "outDir": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\material-evidence\\clean\\atrial-tissue",
+  "palette": [
+    "#DF746C",
+    "#EC9088",
+    "#CA5A54",
+    "#A93B39",
+    "#F5B3AD"
+  ],
+  "maps": {
+    "albedo": {
+      "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\material-evidence\\clean\\atrial-tissue\\atrial-tissue_albedo.png",
+      "url": "atrial-tissue_albedo.png",
+      "channel": "albedo",
+      "source": "reference-pixel-extraction"
+    },
+    "roughness": {
+      "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\material-evidence\\clean\\atrial-tissue\\atrial-tissue_roughness.png",
+      "url": "atrial-tissue_roughness.png",
+      "channel": "roughness",
+      "source": "reference-pixel-extraction"
+    },
+    "height": {
+      "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\material-evidence\\clean\\atrial-tissue\\atrial-tissue_height.png",
+      "url": "atrial-tissue_height.png",
+      "channel": "height",
+      "source": "reference-pixel-extraction"
+    },
+    "normal": {
+      "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\material-evidence\\clean\\atrial-tissue\\atrial-tissue_normal.png",
+      "url": "atrial-tissue_normal.png",
+      "channel": "normal",
+      "source": "reference-pixel-extraction"
+    },
+    "ao": {
+      "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\material-evidence\\clean\\atrial-tissue\\atrial-tissue_ao.png",
+      "url": "atrial-tissue_ao.png",
+      "channel": "ao",
+      "source": "reference-pixel-extraction"
+    }
+  },
+  "diagnostics": {
+    "sourceWidth": 101,
+    "sourceHeight": 79,
+    "mapSize": 2048,
+    "cropBBoxPixels": {
+      "x": 0,
+      "y": 0,
+      "width": 101,
+      "height": 79
+    },
+    "mask": {
+      "backgroundColor": "#E9837E",
+      "backgroundNoise": 81.308,
+      "transparentPixelFraction": 0.0,
+      "foregroundCoverage": 0.9897
+    },
+    "mapStats": {
+      "valueRange": 0.4515,
+      "heightP90Gradient": 0.01767,
+      "roughnessBase": 0.698,
+      "roughnessVariation": 0.05,
+      "normalStrength": 0.177,
+      "blurRadius": 28
+    },
+    "palette": [
+      "#DF746C",
+      "#EC9088",
+      "#CA5A54",
+      "#A93B39",
+      "#F5B3AD"
+    ]
+  },
+  "warnings": [
+    "image is not clearly isolated from background; using most pixels as material evidence",
+    "object/background separation is weak",
+    "single-image inverse rendering cannot prove true physical PBR; confidence is capped"
+  ],
+  "limitation": "single-image PBR extraction is an estimate; 70%+ extraction confidence still needs render screenshot review"
+}

@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="data:," />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f4f1ed" />
+    <title>心脏 · 解剖修正版</title>
+  </head>
+  <body>
+    <main id="app">
+      <section class="viewport" aria-label="心脏程序化三维参考模型">
+        <canvas id="scene" tabindex="0" aria-label="可旋转、缩放和平移的心脏三维模型"></canvas>
+        <p class="status" id="status" role="status">正在生成模型…</p>
+        <p class="part-label" id="part-label" aria-live="polite">单击部件查看名称</p>
+      </section>
+
+      <aside class="panel" aria-label="模型说明与控制">
+        <div class="panel-copy">
+          <p class="eyebrow">REFERENCE STUDY · THREE.JS</p>
+          <h1>心脏 <span>· 解剖修正版</span></h1>
+          <p class="disclaimer">程序化近似模型</p>
+          <p class="intro">按成人心脏常见外部解剖修正，冠脉采用右冠优势示意。红蓝表示含氧状态的教学配色；管口表示展示截断。仅表达外部结构，瓣膜、隔膜与内部管腔未建模。</p>
+        </div>
+
+        <figure class="reference-card">
+          <img src="/reference-sheet.png" alt="本模型使用的心脏前、左、后、右四视图参考图" />
+          <figcaption>输入参考 · 用户四视图（未标定）</figcaption>
+        </figure>
+
+        <div class="controls" aria-label="视图控制">
+          <div class="view-controls" role="group" aria-label="解剖视角">
+            <button type="button" data-view="front" aria-pressed="true">前面</button>
+            <button type="button" data-view="left" aria-pressed="false">解剖左侧</button>
+            <button type="button" data-view="rear" aria-pressed="false">后面</button>
+            <button type="button" data-view="right" aria-pressed="false">解剖右侧</button>
+          </div>
+          <button id="reset" type="button">复位</button>
+          <button id="turntable" type="button" aria-pressed="false">自动旋转</button>
+          <button id="explode" type="button" aria-pressed="false">分解部件</button>
+        </div>
+        <p class="hint">拖拽旋转 · 滚轮缩放 · 右键平移 · 单击识别</p>
+      </aside>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

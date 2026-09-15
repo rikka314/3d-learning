@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "kind": "img2threejs.material-comparison",
+  "materialId": "myocardium",
+  "reference": {
+    "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\output\\reviews\\material-pass\\iteration1\\evidence\\material\\myocardium-reference.png",
+    "meanRgb": [
+      223,
+      111,
+      98
+    ],
+    "features": {
+      "meanLuma": 0.525698761574074,
+      "lumaVariance": 0.010090309746727118,
+      "horizontalGradient": 0.03187906515088314,
+      "verticalGradient": 0.055873490474203834,
+      "anisotropyProxy": 1.7526702934905851
+    },
+    "width": 50,
+    "height": 50,
+    "foregroundCoverage": 1.0,
+    "warnings": [
+      "image is not clearly isolated from background; using most pixels as material evidence"
+    ],
+    "readback": true,
+    "diagnostics": {
+      "backgroundColor": "#E27160",
+      "backgroundNoise": 45.727,
+      "transparentPixelFraction": 0.0,
+      "foregroundCoverage": 1.0
+    }
+  },
+  "render": {
+    "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\output\\reviews\\material-pass\\iteration1\\evidence\\material\\myocardium-render.png",
+    "meanRgb": [
+      200,
+      91,
+      75
+    ],
+    "features": {
+      "meanLuma": 0.44253001872276687,
+      "lumaVariance": 0.0025157433401152302,
+      "horizontalGradient": 0.013542311570018175,
+      "verticalGradient": 0.024372004936726553,
+      "anisotropyProxy": 1.7996931181737568
+    },
+    "width": 40,
+    "height": 40,
+    "foregroundCoverage": 1.0,
+    "warnings": [
+      "image is not clearly isolated from background; using most pixels as material evidence"
+    ],
+    "readback": true,
+    "diagnostics": {
+      "backgroundColor": "#CB5E4D",
+      "backgroundNoise": 21.424,
+      "transparentPixelFraction": 0.0,
+      "foregroundCoverage": 1.0
+    }
+  },
+  "metrics": {
+    "deltaE00": 7.329,
+    "scores": {
+      "baseColor": 0.8534138071475696,
+      "meanLuma": 0.8151805714415397,
+      "microstructure": 0.9368786132782343,
+      "directionalResponse": 0.9764885876584142,
+      "overall": 0.8851
+    }
+  },
+  "mismatches": [],
+  "passed": true,
+  "nextAction": "continue",
+  "limitation": "Deterministic crop metrics are evidence; material identity still requires vision review for ambiguous cases."
+}

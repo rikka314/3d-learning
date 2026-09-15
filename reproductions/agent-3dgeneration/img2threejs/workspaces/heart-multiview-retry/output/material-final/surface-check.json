@@ -1,0 +1,50 @@
+{
+  "passed": true,
+  "captureReportSha256": "59c3540c4c2238aaa24d635dbcbc471abb969b44d6a1787db2a5055dbf5abb5b",
+  "checks": [
+    {
+      "id": "unchanged anatomy-layout.json",
+      "passed": true,
+      "sha256": "004ba9b6864c28e409c6e5872ca759411fd9a8f704591600ce3f7d8171c0cc71"
+    },
+    {
+      "id": "unchanged anatomy-contract.json",
+      "passed": true,
+      "sha256": "af78aafe8e92bf8a3972a07311f19b9bf79e40ca014a431cab43ecfcc41a0dc9"
+    },
+    {
+      "id": "unchanged src/coronaryAnatomy.ts",
+      "passed": true,
+      "sha256": "57964d8a706b0a60b9eca30df683127c7f2598dc9882875e0333ac2bb4d34f82"
+    },
+    {
+      "id": "ventricular envelope positions unchanged",
+      "passed": true
+    },
+    {
+      "id": "ventricular envelope indices unchanged",
+      "passed": true
+    },
+    {
+      "id": "semantic part manifest unchanged",
+      "passed": true
+    },
+    {
+      "id": "active materials use no bitmap maps",
+      "passed": true
+    },
+    {
+      "id": "seven differentiated procedural materials",
+      "passed": true
+    },
+    {
+      "id": "finite unit envelope normals",
+      "passed": true
+    },
+    {
+      "id": "zero runtime errors and invalid vertices",
+      "passed": true
+    }
+  ],
+  "scope": "Preserved exterior landmarks, source layout, ventricular mesh positions and semantic parts. Higher tessellation changes tube/atrial sampling, not their defining curves or shape formulas. Not a full medical or triangle-intersection validation."
+}

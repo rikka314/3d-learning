@@ -1,0 +1,58 @@
+{
+  "baseline": "output/material-final",
+  "final": "output/reference-final-02",
+  "camera": "Same orthographic axes, center (0,0,0), vertical extent 5.0; no per-view warping",
+  "views": [
+    {
+      "view": "front",
+      "beforeIoU": 0.8565,
+      "afterIoU": 0.8623,
+      "afterDiagnosticPassed": true,
+      "beforeInteriorDifference": 0.13988063956527283,
+      "afterInteriorDifference": 0.13395646566331734,
+      "cellsCompared": 24127,
+      "failures": []
+    },
+    {
+      "view": "left",
+      "beforeIoU": 0.7743,
+      "afterIoU": 0.8139,
+      "afterDiagnosticPassed": false,
+      "beforeInteriorDifference": 0.13882508026068224,
+      "afterInteriorDifference": 0.13108697677929582,
+      "cellsCompared": 20925,
+      "failures": [
+        "silhouette IoU 0.814 is below threshold 0.85",
+        "aspect-ratio delta 0.077 exceeds threshold 0.05",
+        "scale delta 0.122 exceeds threshold 0.08"
+      ]
+    },
+    {
+      "view": "rear",
+      "beforeIoU": 0.8598,
+      "afterIoU": 0.8715,
+      "afterDiagnosticPassed": false,
+      "beforeInteriorDifference": 0.1740715939494118,
+      "afterInteriorDifference": 0.16921880252022387,
+      "cellsCompared": 24805,
+      "failures": [
+        "aspect-ratio delta 0.057 exceeds threshold 0.05"
+      ]
+    },
+    {
+      "view": "right",
+      "beforeIoU": 0.7483,
+      "afterIoU": 0.7943,
+      "afterDiagnosticPassed": false,
+      "beforeInteriorDifference": 0.14898589267156703,
+      "afterInteriorDifference": 0.1317855088495461,
+      "cellsCompared": 20479,
+      "failures": [
+        "silhouette IoU 0.794 is below threshold 0.85",
+        "aspect-ratio delta 0.088 exceeds threshold 0.05",
+        "scale delta 0.111 exceeds threshold 0.08"
+      ]
+    }
+  ],
+  "scope": "Diagnostic pixel/silhouette measurements, not anatomical correctness or full image-gate acceptance"
+}

@@ -1,0 +1,6 @@
+{
+  "ok": false,
+  "passId": "material-pass",
+  "action": "refine-code",
+  "reason": "Root selected refine-code after Tier 1 color failure and visual seam failure."
+}

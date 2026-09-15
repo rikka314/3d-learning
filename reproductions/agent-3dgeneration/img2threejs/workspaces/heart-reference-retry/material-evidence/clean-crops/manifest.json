@@ -1,0 +1,128 @@
+{
+  "schemaVersion": 1,
+  "sourceImage": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\reference.png",
+  "sourceSize": [
+    1122,
+    1402
+  ],
+  "supersedes": [
+    "material-evidence/myocardium generated from mixed lower-right zone",
+    "material-evidence/arterial generated from mixed upper-center zone",
+    "material-evidence/venous generated from mixed upper-left zone",
+    "material-evidence/epicardial-fat generated from mixed center zone",
+    "material-evidence/atrial-tissue generated from mixed middle-left zone"
+  ],
+  "entries": [
+    {
+      "materialId": "myocardium",
+      "boxPixels": [
+        460,
+        800,
+        510,
+        850
+      ],
+      "size": [
+        50,
+        50
+      ],
+      "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\material-evidence\\clean-crops\\myocardium.png",
+      "sha256": "f4a6759948319233e0486a6f4ed334a9edc44d835cfe42b61aa97553132acc4e",
+      "evidenceType": "small clean region crop from lit single reference",
+      "limitations": [
+        "The crop contains studio lighting and is not physical inverse rendering.",
+        "Small crops will visibly repeat if tiled too densely across the whole object.",
+        "Use low repeat density and independent procedural AO/bump where needed."
+      ]
+    },
+    {
+      "materialId": "arterial",
+      "boxPixels": [
+        391,
+        280,
+        476,
+        382
+      ],
+      "size": [
+        85,
+        102
+      ],
+      "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\material-evidence\\clean-crops\\arterial.png",
+      "sha256": "cb1e0ae9029e56721ae864268838cbf1e528f0c0e4d84439d243ece0d551bd8d",
+      "evidenceType": "small clean region crop from lit single reference",
+      "limitations": [
+        "The crop contains studio lighting and is not physical inverse rendering.",
+        "Small crops will visibly repeat if tiled too densely across the whole object.",
+        "Use low repeat density and independent procedural AO/bump where needed."
+      ]
+    },
+    {
+      "materialId": "venous",
+      "boxPixels": [
+        590,
+        270,
+        724,
+        320
+      ],
+      "size": [
+        134,
+        50
+      ],
+      "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\material-evidence\\clean-crops\\venous.png",
+      "sha256": "e783ce762dc268d372de415b0ee0004573e06984e1a06f3aeca05377b29cb33a",
+      "evidenceType": "small clean region crop from lit single reference",
+      "limitations": [
+        "The crop contains studio lighting and is not physical inverse rendering.",
+        "Small crops will visibly repeat if tiled too densely across the whole object.",
+        "Use low repeat density and independent procedural AO/bump where needed."
+      ]
+    },
+    {
+      "materialId": "epicardial-fat",
+      "boxPixels": [
+        644,
+        713,
+        668,
+        809
+      ],
+      "size": [
+        24,
+        96
+      ],
+      "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\material-evidence\\clean-crops\\epicardial-fat.png",
+      "sha256": "ce83e8738ab183be63c0f08bc45e8b8ca7af6d5e76fccd722e74cdc1d3aa30ac",
+      "evidenceType": "small clean region crop from lit single reference",
+      "limitations": [
+        "The crop contains studio lighting and is not physical inverse rendering.",
+        "Small crops will visibly repeat if tiled too densely across the whole object.",
+        "Use low repeat density and independent procedural AO/bump where needed."
+      ]
+    },
+    {
+      "materialId": "atrial-tissue",
+      "boxPixels": [
+        685,
+        424,
+        786,
+        503
+      ],
+      "size": [
+        101,
+        79
+      ],
+      "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\material-evidence\\clean-crops\\atrial-tissue.png",
+      "sha256": "03733cbee0496cc8197de562c5c0fa4791c020e2b947823bae02ccbc5810322d",
+      "evidenceType": "small clean region crop from lit single reference",
+      "limitations": [
+        "The crop contains studio lighting and is not physical inverse rendering.",
+        "Small crops will visibly repeat if tiled too densely across the whole object.",
+        "Use low repeat density and independent procedural AO/bump where needed."
+      ]
+    }
+  ],
+  "solidPaletteOnly": [
+    "coronary-artery",
+    "coronary-vein",
+    "lumen"
+  ],
+  "note": "Coronary geometry is too narrow for a clean reusable crop; use source-derived solid colors. Lumen uses solid dark value and geometric depth."
+}

@@ -1,0 +1,6 @@
+{
+  "route": "reused-reference-derived-tissue",
+  "baseline": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\public\\textures",
+  "reason": "No solved per-region cameras; avoid baking independent illustrated views onto inconsistent surfaces",
+  "limitation": "Fine texture pattern remains approximate and inherited, not extracted from new source"
+}

@@ -1,0 +1,6 @@
+{
+  "passId": "form-refinement",
+  "applicability": "unmeasured",
+  "reason": "Great vessels are embedded tissue connections rather than worn/held attachments. Runtime socket roots exist, but this helper has no independent measured attachment-anchor payload.",
+  "claimLimit": "No attachment-anchor pass is claimed; visual root continuity and separate self-intersection evidence remain required."
+}

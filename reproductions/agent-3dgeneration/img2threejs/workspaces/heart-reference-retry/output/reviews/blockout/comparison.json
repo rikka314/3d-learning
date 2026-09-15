@@ -1,0 +1,10 @@
+{
+  "comparisonImage": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\output\\reviews\\blockout\\comparison.png",
+  "referenceImage": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\reference.png",
+  "renderScreenshot": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\output\\playwright\\blockout\\front.png",
+  "layout": "left=reference,right=render",
+  "panelWidth": 720,
+  "panelHeight": 720,
+  "note": "Send this image to AI vision for global, layer, and semantic feature scores; this script does not score."
+}
+

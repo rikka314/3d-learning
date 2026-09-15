@@ -1,0 +1,30 @@
+{
+  "selfIntersecting": false,
+  "meshCount": 1,
+  "insideVertexCount": 0,
+  "undecidedVertexCount": 21,
+  "sampledVertexCount": 956,
+  "totalVertexCount": 10511,
+  "meshes": [
+    {
+      "name": "ventricular-body-surface",
+      "analyzed": true,
+      "error": null,
+      "selfIntersecting": false,
+      "insideVertexCount": 0,
+      "undecidedVertexCount": 21,
+      "outsideVertexCount": 935,
+      "sampledVertexCount": 956,
+      "totalVertexCount": 10511,
+      "samplingStride": 11,
+      "triangleCount": 20832,
+      "degenerateTriangleCount": 0,
+      "worstRegions": [],
+      "normalSource": "vertexNormals",
+      "normalFallbackCount": 0,
+      "epsilon": 0.0044146938525060206,
+      "rayDirectionCount": 3
+    }
+  ],
+  "errors": []
+}

@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "checks": [
+    "supplied reference sheet loaded",
+    "front button",
+    "left button",
+    "rear button",
+    "right button",
+    "keyboard view selection",
+    "explode moves groups and restore returns exact transforms",
+    "autorotate and reset",
+    "actual canvas click selects a named part",
+    "posterior atrium semantic selection",
+    "390x844 viewport has visible controls and no horizontal overflow",
+    "no runtime console or HTTP errors"
+  ],
+  "errors": []
+}

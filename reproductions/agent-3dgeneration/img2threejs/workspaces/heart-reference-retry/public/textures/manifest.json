@@ -1,0 +1,253 @@
+{
+  "schemaVersion": 1,
+  "entries": [
+    {
+      "materialId": "myocardium",
+      "channel": "albedo",
+      "source": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\material-evidence\\clean\\myocardium\\myocardium-delit.png",
+      "runtimePath": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\public\\textures\\myocardium-albedo.png",
+      "url": "/textures/myocardium-albedo.png",
+      "runtimeSize": [
+        1024,
+        1024
+      ],
+      "sha256": "19ea97f7b3a31a35490c34bb74c2cd83a095e0ca261949fc399412e91eed2a51"
+    },
+    {
+      "materialId": "myocardium",
+      "channel": "normal",
+      "source": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\material-evidence\\clean\\myocardium\\myocardium_normal.png",
+      "runtimePath": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\public\\textures\\myocardium-normal.png",
+      "url": "/textures/myocardium-normal.png",
+      "runtimeSize": [
+        1024,
+        1024
+      ],
+      "sha256": "1b1e5205f30bbcb44afaebadc4491adb453731fd2350be09f7aec4b5c16248d1"
+    },
+    {
+      "materialId": "myocardium",
+      "channel": "roughness",
+      "source": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\material-evidence\\clean\\myocardium\\myocardium_roughness.png",
+      "runtimePath": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\public\\textures\\myocardium-roughness.png",
+      "url": "/textures/myocardium-roughness.png",
+      "runtimeSize": [
+        1024,
+        1024
+      ],
+      "sha256": "5fe808cfaaf6ecdcf748227eb935670cf4880e4907165b0026b7552ba38107e1"
+    },
+    {
+      "materialId": "myocardium",
+      "channel": "ao",
+      "source": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\material-evidence\\clean\\myocardium\\myocardium_ao.png",
+      "runtimePath": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\public\\textures\\myocardium-ao.png",
+      "url": "/textures/myocardium-ao.png",
+      "runtimeSize": [
+        1024,
+        1024
+      ],
+      "sha256": "1d8c43d3cc492a3eced2c9ecc4d3b3203fa9aa2ae229f9633b4e3736625a5080"
+    },
+    {
+      "materialId": "arterial",
+      "channel": "albedo",
+      "source": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\material-evidence\\clean\\arterial\\arterial-delit.png",
+      "runtimePath": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\public\\textures\\arterial-albedo.png",
+      "url": "/textures/arterial-albedo.png",
+      "runtimeSize": [
+        1024,
+        1024
+      ],
+      "sha256": "89ad7751c57f55aa058ebea6bb23f4e77d52922a69d1296cf9311e3cf296b38d"
+    },
+    {
+      "materialId": "arterial",
+      "channel": "normal",
+      "source": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\material-evidence\\clean\\arterial\\arterial_normal.png",
+      "runtimePath": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\public\\textures\\arterial-normal.png",
+      "url": "/textures/arterial-normal.png",
+      "runtimeSize": [
+        1024,
+        1024
+      ],
+      "sha256": "19f23e6b26cee065b585856415eaa8713fa442680c41a811eb6f527a5d91d1ff"
+    },
+    {
+      "materialId": "arterial",
+      "channel": "roughness",
+      "source": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\material-evidence\\clean\\arterial\\arterial_roughness.png",
+      "runtimePath": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\public\\textures\\arterial-roughness.png",
+      "url": "/textures/arterial-roughness.png",
+      "runtimeSize": [
+        1024,
+        1024
+      ],
+      "sha256": "0e56e012639b5b03e8cc437e6ebbc602270e20813606a403c7e16d175e1b6011"
+    },
+    {
+      "materialId": "arterial",
+      "channel": "ao",
+      "source": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\material-evidence\\clean\\arterial\\arterial_ao.png",
+      "runtimePath": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\public\\textures\\arterial-ao.png",
+      "url": "/textures/arterial-ao.png",
+      "runtimeSize": [
+        1024,
+        1024
+      ],
+      "sha256": "3bb208119551d0ecc6b4db74c77f920feac555a7777f75bf31126c891f72e6dd"
+    },
+    {
+      "materialId": "venous",
+      "channel": "albedo",
+      "source": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\material-evidence\\clean\\venous\\venous-delit.png",
+      "runtimePath": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\public\\textures\\venous-albedo.png",
+      "url": "/textures/venous-albedo.png",
+      "runtimeSize": [
+        1024,
+        1024
+      ],
+      "sha256": "ec0a0bd8b1afbe287b87dede7fd541c9d25d5612791ec3c5cbe91bd44705c909"
+    },
+    {
+      "materialId": "venous",
+      "channel": "normal",
+      "source": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\material-evidence\\clean\\venous\\venous_normal.png",
+      "runtimePath": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\public\\textures\\venous-normal.png",
+      "url": "/textures/venous-normal.png",
+      "runtimeSize": [
+        1024,
+        1024
+      ],
+      "sha256": "409da2ca5e5c44edca9fceb31031d8358817d508d9611039df09c5e822da05ea"
+    },
+    {
+      "materialId": "venous",
+      "channel": "roughness",
+      "source": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\material-evidence\\clean\\venous\\venous_roughness.png",
+      "runtimePath": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\public\\textures\\venous-roughness.png",
+      "url": "/textures/venous-roughness.png",
+      "runtimeSize": [
+        1024,
+        1024
+      ],
+      "sha256": "7d636017b06bfbb8d3dc8c2daa40c26aec6c9ac8d91db28cbdaef9ac85183205"
+    },
+    {
+      "materialId": "venous",
+      "channel": "ao",
+      "source": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\material-evidence\\clean\\venous\\venous_ao.png",
+      "runtimePath": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\public\\textures\\venous-ao.png",
+      "url": "/textures/venous-ao.png",
+      "runtimeSize": [
+        1024,
+        1024
+      ],
+      "sha256": "7b75c380118322671f635705ef79021ddd2d5ee05bb3d8dc1d5a674ed722159c"
+    },
+    {
+      "materialId": "atrial",
+      "channel": "albedo",
+      "source": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\material-evidence\\clean\\atrial-tissue\\atrial-tissue-delit.png",
+      "runtimePath": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\public\\textures\\atrial-albedo.png",
+      "url": "/textures/atrial-albedo.png",
+      "runtimeSize": [
+        1024,
+        1024
+      ],
+      "sha256": "aa80bf81929d691222f7507b498bd573d16288ec993dc4d29f8c7b561b00f115"
+    },
+    {
+      "materialId": "atrial",
+      "channel": "normal",
+      "source": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\material-evidence\\clean\\atrial-tissue\\atrial-tissue_normal.png",
+      "runtimePath": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\public\\textures\\atrial-normal.png",
+      "url": "/textures/atrial-normal.png",
+      "runtimeSize": [
+        1024,
+        1024
+      ],
+      "sha256": "be8d979095cd4743b11afd1d50656cc1232ae38b90777b436ac386428ba8fa17"
+    },
+    {
+      "materialId": "atrial",
+      "channel": "roughness",
+      "source": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\material-evidence\\clean\\atrial-tissue\\atrial-tissue_roughness.png",
+      "runtimePath": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\public\\textures\\atrial-roughness.png",
+      "url": "/textures/atrial-roughness.png",
+      "runtimeSize": [
+        1024,
+        1024
+      ],
+      "sha256": "1f203110d0b015ef1dc15421e950c6169953ae4ce5d59b02429af4bc536f53a1"
+    },
+    {
+      "materialId": "atrial",
+      "channel": "ao",
+      "source": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\material-evidence\\clean\\atrial-tissue\\atrial-tissue_ao.png",
+      "runtimePath": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\public\\textures\\atrial-ao.png",
+      "url": "/textures/atrial-ao.png",
+      "runtimeSize": [
+        1024,
+        1024
+      ],
+      "sha256": "e33d21a510822695a1747f7f91582166d903c1b165ce818b170f60c35ea1836e"
+    },
+    {
+      "materialId": "fat",
+      "channel": "albedo",
+      "source": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\material-evidence\\clean\\epicardial-fat\\epicardial-fat-delit.png",
+      "runtimePath": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\public\\textures\\fat-albedo.png",
+      "url": "/textures/fat-albedo.png",
+      "runtimeSize": [
+        1024,
+        1024
+      ],
+      "sha256": "07cad7e490ae346bc3af15fadd00f2666939738081b635f91e56867643156e3a"
+    },
+    {
+      "materialId": "fat",
+      "channel": "normal",
+      "source": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\material-evidence\\clean\\epicardial-fat\\epicardial-fat_normal.png",
+      "runtimePath": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\public\\textures\\fat-normal.png",
+      "url": "/textures/fat-normal.png",
+      "runtimeSize": [
+        1024,
+        1024
+      ],
+      "sha256": "23a27bc258d9c15f5a4bafb69795e24d24aeea943a98c17e1bff46774b2e792c"
+    },
+    {
+      "materialId": "fat",
+      "channel": "roughness",
+      "source": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\material-evidence\\clean\\epicardial-fat\\epicardial-fat_roughness.png",
+      "runtimePath": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\public\\textures\\fat-roughness.png",
+      "url": "/textures/fat-roughness.png",
+      "runtimeSize": [
+        1024,
+        1024
+      ],
+      "sha256": "0de5e039b6cb363e26e5778afa8d407c9052c3c7895f5b95d5420afc371fec64"
+    },
+    {
+      "materialId": "fat",
+      "channel": "ao",
+      "source": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\material-evidence\\clean\\epicardial-fat\\epicardial-fat_ao.png",
+      "runtimePath": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\public\\textures\\fat-ao.png",
+      "url": "/textures/fat-ao.png",
+      "runtimeSize": [
+        1024,
+        1024
+      ],
+      "sha256": "8f49ac942892d59cdc4ae61254267e12c0bc125a4f85f7851a96c10153d4531a"
+    }
+  ],
+  "albedoRoute": "explicit de-light approximation output",
+  "normalRoughnessAoRoute": "single-reference inferred PBR extraction",
+  "limitations": [
+    "Runtime files are 1024x1024 resamples; source crops are much smaller and contain no additional 1024px spatial information.",
+    "De-lighting is approximate and may retain highlights or occlusion shading.",
+    "Repeated tiling must remain low density to avoid visible repetition.",
+    "AO is independently inferred and uses UV channel 0 at low intensity; it is not measured geometry occlusion."
+  ]
+}

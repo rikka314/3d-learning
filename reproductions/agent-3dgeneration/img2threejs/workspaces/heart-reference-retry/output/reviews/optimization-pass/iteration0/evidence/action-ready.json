@@ -1,0 +1,44 @@
+{
+  "passId": "optimization-pass",
+  "passed": true,
+  "runtimeCheckCount": 16,
+  "failedRuntimeChecks": [],
+  "runtimeEvidence": {
+    "semanticManifestParts": 104,
+    "visibleMeshes": 73,
+    "selectionAndRestore": {
+      "pass": true,
+      "detail": "0 mesh material bindings differ after clearing selection"
+    },
+    "explodeAndRestore": {
+      "pass": true,
+      "detail": "aria-pressed=false, drifted=, rootExact=true"
+    },
+    "mobile": {
+      "pass": true,
+      "detail": "scrollWidth=390, innerWidth=390"
+    }
+  },
+  "specActionProfileCoverage": {
+    "componentCount": 31,
+    "fieldPresenceCounts": {
+      "pivot": 31,
+      "sockets": 31,
+      "collider": 31,
+      "destruction": 31
+    },
+    "contract": "Spec retains stable pivots, local sockets, collider intent, and destruction metadata for later runtime targeting."
+  },
+  "claimsExcluded": [
+    "heartbeat animation",
+    "physical simulation"
+  ],
+  "limitations": [
+    "Runtime UI proves selection, rotation, reset, explode restoration, and mobile behavior. Collider/destruction profiles are metadata intent; no physics engine or fracture simulation was executed."
+  ],
+  "evidence": [
+    "final-ui/interaction-report.json",
+    "part-manifest.json",
+    "object-sculpt-spec.json"
+  ]
+}

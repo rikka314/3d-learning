@@ -1,0 +1,19 @@
+{
+  "authoredBy": "root",
+  "action": "continue",
+  "estimatedFidelity": 0.83,
+  "aiVisionScore": 0.83,
+  "summary": "Structural pass contains all large assemblies and the main coronary trunks and fat corridors with surface-following placement; form refinement remains explicitly pending.",
+  "layerScores": {
+    "silhouetteProportion": 0.89,
+    "componentStructure": 0.86,
+    "formDetail": 0.70,
+    "materialSurface": 0.66,
+    "lightingCamera": 0.81
+  },
+  "featureReviews": [
+    {"id": "great-vessel-topology", "score": 0.87, "visible": true, "notes": "Large connected assemblies and recessed bore depth read correctly from front and off-axis views."},
+    {"id": "atria-fat-coronaries", "score": 0.82, "visible": true, "notes": "Structural layout only: main coronary trunks and fat corridors are present and surface-following."}
+  ],
+  "notes": "Fat remains smooth ribbons, atria remain smooth ovals, and tertiary branches are absent. The main coronary pair is farther apart than the reference in places; form refinement must add lobulation, dense tapering branches, and closer surface routing. This is structural acceptance only, not final or clinical fidelity."
+}

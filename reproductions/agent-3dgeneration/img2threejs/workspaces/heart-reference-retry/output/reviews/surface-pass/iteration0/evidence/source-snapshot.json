@@ -1,0 +1,126 @@
+{
+  "passId": "surface-pass",
+  "files": [
+    {
+      "source": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\src\\createHeartModel.ts",
+      "snapshot": "createHeartModel.ts",
+      "sha256": "f42061572f704377c55a3d08b921dc79d8d4aa18c83ca792de7b507218ff1c09"
+    },
+    {
+      "source": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\src\\heartMaterials.ts",
+      "snapshot": "heartMaterials.ts",
+      "sha256": "f7b42ed4c94f9cbab0b189200270d768d32a63a0e41ee0404ece92bc508be63c"
+    },
+    {
+      "source": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\src\\main.ts",
+      "snapshot": "main.ts",
+      "sha256": "064149f239acc31056a328257cdff4368233302c0013d2f4b0831ed7ef8e2f97"
+    },
+    {
+      "source": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\anatomy-layout.json",
+      "snapshot": "anatomy-layout.json",
+      "sha256": "41cc33c54c96a709f9145e063a2c7d3b85a8eec1f419c20f88253ab5b8db0f60"
+    },
+    {
+      "source": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\public\\textures\\arterial-albedo.png",
+      "snapshot": "textures\\arterial-albedo.png",
+      "sha256": "89ad7751c57f55aa058ebea6bb23f4e77d52922a69d1296cf9311e3cf296b38d"
+    },
+    {
+      "source": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\public\\textures\\arterial-ao.png",
+      "snapshot": "textures\\arterial-ao.png",
+      "sha256": "3bb208119551d0ecc6b4db74c77f920feac555a7777f75bf31126c891f72e6dd"
+    },
+    {
+      "source": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\public\\textures\\arterial-normal.png",
+      "snapshot": "textures\\arterial-normal.png",
+      "sha256": "19f23e6b26cee065b585856415eaa8713fa442680c41a811eb6f527a5d91d1ff"
+    },
+    {
+      "source": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\public\\textures\\arterial-roughness.png",
+      "snapshot": "textures\\arterial-roughness.png",
+      "sha256": "0e56e012639b5b03e8cc437e6ebbc602270e20813606a403c7e16d175e1b6011"
+    },
+    {
+      "source": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\public\\textures\\atrial-albedo.png",
+      "snapshot": "textures\\atrial-albedo.png",
+      "sha256": "aa80bf81929d691222f7507b498bd573d16288ec993dc4d29f8c7b561b00f115"
+    },
+    {
+      "source": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\public\\textures\\atrial-ao.png",
+      "snapshot": "textures\\atrial-ao.png",
+      "sha256": "e33d21a510822695a1747f7f91582166d903c1b165ce818b170f60c35ea1836e"
+    },
+    {
+      "source": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\public\\textures\\atrial-normal.png",
+      "snapshot": "textures\\atrial-normal.png",
+      "sha256": "be8d979095cd4743b11afd1d50656cc1232ae38b90777b436ac386428ba8fa17"
+    },
+    {
+      "source": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\public\\textures\\atrial-roughness.png",
+      "snapshot": "textures\\atrial-roughness.png",
+      "sha256": "1f203110d0b015ef1dc15421e950c6169953ae4ce5d59b02429af4bc536f53a1"
+    },
+    {
+      "source": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\public\\textures\\fat-albedo.png",
+      "snapshot": "textures\\fat-albedo.png",
+      "sha256": "07cad7e490ae346bc3af15fadd00f2666939738081b635f91e56867643156e3a"
+    },
+    {
+      "source": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\public\\textures\\fat-ao.png",
+      "snapshot": "textures\\fat-ao.png",
+      "sha256": "8f49ac942892d59cdc4ae61254267e12c0bc125a4f85f7851a96c10153d4531a"
+    },
+    {
+      "source": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\public\\textures\\fat-normal.png",
+      "snapshot": "textures\\fat-normal.png",
+      "sha256": "23a27bc258d9c15f5a4bafb69795e24d24aeea943a98c17e1bff46774b2e792c"
+    },
+    {
+      "source": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\public\\textures\\fat-roughness.png",
+      "snapshot": "textures\\fat-roughness.png",
+      "sha256": "0de5e039b6cb363e26e5778afa8d407c9052c3c7895f5b95d5420afc371fec64"
+    },
+    {
+      "source": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\public\\textures\\myocardium-albedo.png",
+      "snapshot": "textures\\myocardium-albedo.png",
+      "sha256": "19ea97f7b3a31a35490c34bb74c2cd83a095e0ca261949fc399412e91eed2a51"
+    },
+    {
+      "source": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\public\\textures\\myocardium-ao.png",
+      "snapshot": "textures\\myocardium-ao.png",
+      "sha256": "1d8c43d3cc492a3eced2c9ecc4d3b3203fa9aa2ae229f9633b4e3736625a5080"
+    },
+    {
+      "source": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\public\\textures\\myocardium-normal.png",
+      "snapshot": "textures\\myocardium-normal.png",
+      "sha256": "1b1e5205f30bbcb44afaebadc4491adb453731fd2350be09f7aec4b5c16248d1"
+    },
+    {
+      "source": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\public\\textures\\myocardium-roughness.png",
+      "snapshot": "textures\\myocardium-roughness.png",
+      "sha256": "5fe808cfaaf6ecdcf748227eb935670cf4880e4907165b0026b7552ba38107e1"
+    },
+    {
+      "source": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\public\\textures\\venous-albedo.png",
+      "snapshot": "textures\\venous-albedo.png",
+      "sha256": "ec0a0bd8b1afbe287b87dede7fd541c9d25d5612791ec3c5cbe91bd44705c909"
+    },
+    {
+      "source": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\public\\textures\\venous-ao.png",
+      "snapshot": "textures\\venous-ao.png",
+      "sha256": "7b75c380118322671f635705ef79021ddd2d5ee05bb3d8dc1d5a674ed722159c"
+    },
+    {
+      "source": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\public\\textures\\venous-normal.png",
+      "snapshot": "textures\\venous-normal.png",
+      "sha256": "409da2ca5e5c44edca9fceb31031d8358817d508d9611039df09c5e822da05ea"
+    },
+    {
+      "source": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\public\\textures\\venous-roughness.png",
+      "snapshot": "textures\\venous-roughness.png",
+      "sha256": "7d636017b06bfbb8d3dc8c2daa40c26aec6c9ac8d91db28cbdaef9ac85183205"
+    }
+  ],
+  "limitation": "No separately preserved blockout source snapshot exists; snapshots begin with structural-pass."
+}

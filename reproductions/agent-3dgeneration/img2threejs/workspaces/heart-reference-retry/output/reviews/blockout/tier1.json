@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "checks": {
+    "silhouetteIoU": 0.9529,
+    "aspectRatioDelta": 0.005,
+    "scaleDelta": 0.005,
+    "bilateralSymmetryError": 0.1822,
+    "colorDelta": {"checked": 31, "maxDeltaE": 26.62, "gated": false}
+  },
+  "failures": [],
+  "maskWarnings": [],
+  "renderHash": "790da11a20a826b8",
+  "passId": "blockout",
+  "mapStrippedRender": "output/playwright/blockout/front.png"
+}

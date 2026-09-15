@@ -1,0 +1,10 @@
+{
+  "verdict": "conditional",
+  "allViewsAdmitted": true,
+  "evidence": "reference-set-intake.json",
+  "limitations": [
+    "Illustrations are uncalibrated observations of one intended heart.",
+    "Depth, hidden contacts and capillary correspondence are approximate.",
+    "Existing tissue texture maps are reused from the previous single-image experiment with provenance retained."
+  ]
+}

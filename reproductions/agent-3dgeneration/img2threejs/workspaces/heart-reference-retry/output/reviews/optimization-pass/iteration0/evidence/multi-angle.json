@@ -1,0 +1,32 @@
+{
+  "referenceAreaFraction": 0.45327604938271604,
+  "angles": [
+    {
+      "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\output\\reviews\\optimization-pass\\iteration0\\captures\\right.png",
+      "areaFraction": 0.29104197530864195,
+      "ratio": 0.642085492284428,
+      "degenerate": false
+    },
+    {
+      "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\output\\reviews\\optimization-pass\\iteration0\\captures\\rear.png",
+      "areaFraction": 0.4531851851851852,
+      "ratio": 0.999799538939561,
+      "degenerate": false
+    },
+    {
+      "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\output\\reviews\\optimization-pass\\iteration0\\captures\\left.png",
+      "areaFraction": 0.2912237037037037,
+      "ratio": 0.6424864144053062,
+      "degenerate": false
+    },
+    {
+      "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\output\\reviews\\optimization-pass\\iteration0\\captures\\threeQuarter.png",
+      "areaFraction": 0.38067061728395063,
+      "ratio": 0.8398207180863814,
+      "degenerate": false
+    }
+  ],
+  "degenerate": false,
+  "collapseRatio": 0.15,
+  "note": "deterministic; zero token; a flat-plane-faking-a-volume collapses in silhouette area when orbited"
+}

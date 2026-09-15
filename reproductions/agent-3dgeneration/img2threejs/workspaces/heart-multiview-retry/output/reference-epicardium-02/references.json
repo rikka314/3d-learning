@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "kind": "img2threejs.reference-set",
+  "mode": "vision-context",
+  "primaryViewId": "front",
+  "views": [
+    {
+      "id": "front",
+      "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\references\\front.png",
+      "role": "front",
+      "sha256": "1c783c0003007568d2b9cff6bc64d0108c7c921ab43a43d3d1bad1c3e313900a",
+      "evidence": {
+        "sheetCropXYXY": [
+          144,
+          5,
+          566,
+          626
+        ],
+        "normalization": "uniform scale to 790 px crop height; centered on 720x900 white canvas",
+        "orientation": "anatomical left is +X, anterior is +Z; nominal orthographic only"
+      }
+    },
+    {
+      "id": "left",
+      "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\references\\left.png",
+      "role": "left",
+      "sha256": "1a98a1f2015dfad5cbb36f4f9db52c599a8f94e10e3c76895846b7c3f98512a6",
+      "evidence": {
+        "sheetCropXYXY": [
+          700,
+          14,
+          1055,
+          582
+        ],
+        "normalization": "uniform scale to 790 px crop height; centered on 720x900 white canvas",
+        "orientation": "anatomical left is +X, anterior is +Z; nominal orthographic only"
+      }
+    },
+    {
+      "id": "rear",
+      "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\references\\rear.png",
+      "role": "rear",
+      "sha256": "0f2b8ebb03c0820be7df5a262c9f36938bccc112806cf7ba7a20b24bd847e9a1",
+      "evidence": {
+        "sheetCropXYXY": [
+          132,
+          642,
+          518,
+          1183
+        ],
+        "normalization": "uniform scale to 790 px crop height; centered on 720x900 white canvas",
+        "orientation": "anatomical left is +X, anterior is +Z; nominal orthographic only"
+      }
+    },
+    {
+      "id": "right",
+      "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\references\\right.png",
+      "role": "right",
+      "sha256": "65455a07fcc32a6c4f862dc72bd338151c02a6865b1e57bc7d711ae3348f1465",
+      "evidence": {
+        "sheetCropXYXY": [
+          754,
+          626,
+          1083,
+          1162
+        ],
+        "normalization": "uniform scale to 790 px crop height; centered on 720x900 white canvas",
+        "orientation": "anatomical left is +X, anterior is +Z; nominal orthographic only"
+      }
+    }
+  ],
+  "source": {
+    "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-multiview-retry\\reference-sheet.png",
+    "sha256": "71281d53a4052096531947aba640c344760ad7751467d32be4edeb2086d543b6"
+  },
+  "limitations": "Four illustrated views; neither calibrated nor guaranteed geometrically exact."
+}

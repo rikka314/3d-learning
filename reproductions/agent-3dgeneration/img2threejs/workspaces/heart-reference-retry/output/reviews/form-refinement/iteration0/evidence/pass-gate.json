@@ -1,0 +1,6 @@
+{
+  "ok": false,
+  "passId": "form-refinement",
+  "action": "refine-code",
+  "reason": "Root selected a non-continue correction action."
+}

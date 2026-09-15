@@ -1,0 +1,33 @@
+{
+  "ok": true,
+  "message": "pass 'interaction-pass' is already completed and can be regenerated",
+  "pipeline": {
+    "passGateMode": "locked-sequential",
+    "passOrder": [
+      "blockout",
+      "structural-pass",
+      "form-refinement",
+      "material-pass",
+      "surface-pass",
+      "lighting-pass",
+      "interaction-pass",
+      "optimization-pass"
+    ],
+    "currentPass": "optimization-pass",
+    "completedPasses": [
+      "blockout",
+      "structural-pass",
+      "form-refinement",
+      "material-pass",
+      "surface-pass",
+      "lighting-pass",
+      "interaction-pass"
+    ],
+    "lastCompletedPass": "interaction-pass",
+    "blockedReason": "",
+    "nextRequiredEvidence": [
+      "Triangle count, draw calls, instancing, LOD strategy, and FPS target are documented or verified.",
+      "Repeated detail is instanced or simplified where possible without breaking silhouette/material believability."
+    ]
+  }
+}

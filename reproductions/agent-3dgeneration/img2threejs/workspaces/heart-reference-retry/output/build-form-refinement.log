@@ -1,0 +1,14 @@
+
+> img2threejs-heart-reference-retry@1.0.0 build
+> tsc --noEmit && vite build
+
+vite v5.4.21 building for production...
+transforming...
+✓ 9 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                         1.66 kB │ gzip:   1.10 kB
+dist/assets/reference-D1T6FRog.png  2,475.78 kB
+dist/assets/index-DjBIH7PX.css          3.66 kB │ gzip:   1.45 kB
+dist/assets/index-DL1TVzir.js         534.07 kB │ gzip: 137.98 kB
+✓ built in 626ms

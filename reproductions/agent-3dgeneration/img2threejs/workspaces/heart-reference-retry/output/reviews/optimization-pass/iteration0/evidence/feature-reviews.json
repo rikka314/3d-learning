@@ -1,0 +1,14 @@
+[
+  {
+    "id": "heart-silhouette",
+    "score": 0.89,
+    "critical": true,
+    "notes": "Matched view and right orbit preserve the accepted silhouette after tessellation reduction."
+  },
+  {
+    "id": "great-vessel-topology",
+    "score": 0.87,
+    "critical": true,
+    "notes": "Great-vessel contours remain smooth and stable at the reviewed resolution."
+  }
+]

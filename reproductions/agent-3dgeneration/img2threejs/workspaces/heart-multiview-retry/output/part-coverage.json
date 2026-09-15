@@ -1,0 +1,316 @@
+{
+  "model": null,
+  "specifiedComponents": 30,
+  "builtParts": 104,
+  "errors": 30,
+  "warnings": 0,
+  "result": "fail",
+  "findings": [
+    {
+      "check": "component-missing",
+      "severity": "error",
+      "subject": "atrial-complex",
+      "detail": "specified component 'atrial-complex' has no matching part in the built model, and its parent 'ventricular-body' is missing too"
+    },
+    {
+      "check": "component-missing",
+      "severity": "error",
+      "subject": "aortic-system",
+      "detail": "specified component 'aortic-system' has no matching part in the built model, and its parent 'ventricular-body' is missing too"
+    },
+    {
+      "check": "component-missing",
+      "severity": "error",
+      "subject": "pulmonary-arterial-system",
+      "detail": "specified component 'pulmonary-arterial-system' has no matching part in the built model, and its parent 'ventricular-body' is missing too"
+    },
+    {
+      "check": "component-missing",
+      "severity": "error",
+      "subject": "vena-cava-system",
+      "detail": "specified component 'vena-cava-system' has no matching part in the built model, and its parent 'atrial-complex' is missing too"
+    },
+    {
+      "check": "component-missing",
+      "severity": "error",
+      "subject": "pulmonary-return-system",
+      "detail": "specified component 'pulmonary-return-system' has no matching part in the built model, and its parent 'atrial-complex' is missing too"
+    },
+    {
+      "check": "component-missing",
+      "severity": "error",
+      "subject": "coronary-network",
+      "detail": "specified component 'coronary-network' has no matching part in the built model, and its parent 'ventricular-body' is missing too"
+    },
+    {
+      "check": "component-missing",
+      "severity": "error",
+      "subject": "epicardial-fat",
+      "detail": "specified component 'epicardial-fat' has no matching part in the built model, and its parent 'ventricular-body' is missing too"
+    },
+    {
+      "check": "component-missing",
+      "severity": "error",
+      "subject": "right-atrium",
+      "detail": "specified component 'right-atrium' has no matching part in the built model, and its parent 'atrial-complex' is missing too"
+    },
+    {
+      "check": "component-missing",
+      "severity": "error",
+      "subject": "left-atrium",
+      "detail": "specified component 'left-atrium' has no matching part in the built model, and its parent 'atrial-complex' is missing too"
+    },
+    {
+      "check": "component-missing",
+      "severity": "error",
+      "subject": "right-auricle",
+      "detail": "specified component 'right-auricle' has no matching part in the built model, and its parent 'atrial-complex' is missing too"
+    },
+    {
+      "check": "component-missing",
+      "severity": "error",
+      "subject": "left-auricle",
+      "detail": "specified component 'left-auricle' has no matching part in the built model, and its parent 'atrial-complex' is missing too"
+    },
+    {
+      "check": "component-missing",
+      "severity": "error",
+      "subject": "aortic-arch",
+      "detail": "specified component 'aortic-arch' has no matching part in the built model, and its parent 'aortic-system' is missing too"
+    },
+    {
+      "check": "component-missing",
+      "severity": "error",
+      "subject": "brachiocephalic-branch",
+      "detail": "specified component 'brachiocephalic-branch' has no matching part in the built model, and its parent 'aortic-system' is missing too"
+    },
+    {
+      "check": "component-missing",
+      "severity": "error",
+      "subject": "left-carotid-branch",
+      "detail": "specified component 'left-carotid-branch' has no matching part in the built model, and its parent 'aortic-system' is missing too"
+    },
+    {
+      "check": "component-missing",
+      "severity": "error",
+      "subject": "left-subclavian-branch",
+      "detail": "specified component 'left-subclavian-branch' has no matching part in the built model, and its parent 'aortic-system' is missing too"
+    },
+    {
+      "check": "component-missing",
+      "severity": "error",
+      "subject": "pulmonary-trunk",
+      "detail": "specified component 'pulmonary-trunk' has no matching part in the built model, and its parent 'pulmonary-arterial-system' is missing too"
+    },
+    {
+      "check": "component-missing",
+      "severity": "error",
+      "subject": "right-pulmonary-branch",
+      "detail": "specified component 'right-pulmonary-branch' has no matching part in the built model, and its parent 'pulmonary-arterial-system' is missing too"
+    },
+    {
+      "check": "component-missing",
+      "severity": "error",
+      "subject": "superior-vena-cava",
+      "detail": "specified component 'superior-vena-cava' has no matching part in the built model, and its parent 'vena-cava-system' is missing too"
+    },
+    {
+      "check": "component-missing",
+      "severity": "error",
+      "subject": "inferior-vena-cava",
+      "detail": "specified component 'inferior-vena-cava' has no matching part in the built model, and its parent 'vena-cava-system' is missing too"
+    },
+    {
+      "check": "component-missing",
+      "severity": "error",
+      "subject": "right-superior-pulmonary-vein",
+      "detail": "specified component 'right-superior-pulmonary-vein' has no matching part in the built model, and its parent 'pulmonary-return-system' is missing too"
+    },
+    {
+      "check": "component-missing",
+      "severity": "error",
+      "subject": "right-inferior-pulmonary-vein",
+      "detail": "specified component 'right-inferior-pulmonary-vein' has no matching part in the built model, and its parent 'pulmonary-return-system' is missing too"
+    },
+    {
+      "check": "component-missing",
+      "severity": "error",
+      "subject": "left-superior-pulmonary-vein",
+      "detail": "specified component 'left-superior-pulmonary-vein' has no matching part in the built model, and its parent 'pulmonary-return-system' is missing too"
+    },
+    {
+      "check": "component-missing",
+      "severity": "error",
+      "subject": "left-inferior-pulmonary-vein",
+      "detail": "specified component 'left-inferior-pulmonary-vein' has no matching part in the built model, and its parent 'pulmonary-return-system' is missing too"
+    },
+    {
+      "check": "component-missing",
+      "severity": "error",
+      "subject": "anterior-coronary-trunk",
+      "detail": "specified component 'anterior-coronary-trunk' has no matching part in the built model, and its parent 'coronary-network' is missing too"
+    },
+    {
+      "check": "component-missing",
+      "severity": "error",
+      "subject": "right-coronary-wrap",
+      "detail": "specified component 'right-coronary-wrap' has no matching part in the built model, and its parent 'coronary-network' is missing too"
+    },
+    {
+      "check": "component-missing",
+      "severity": "error",
+      "subject": "circumflex-coronary-wrap",
+      "detail": "specified component 'circumflex-coronary-wrap' has no matching part in the built model, and its parent 'coronary-network' is missing too"
+    },
+    {
+      "check": "component-missing",
+      "severity": "error",
+      "subject": "posterior-coronary-inference",
+      "detail": "specified component 'posterior-coronary-inference' has no matching part in the built model, and its parent 'coronary-network' is missing too"
+    },
+    {
+      "check": "component-missing",
+      "severity": "error",
+      "subject": "atrioventricular-fat-band",
+      "detail": "specified component 'atrioventricular-fat-band' has no matching part in the built model, and its parent 'epicardial-fat' is missing too"
+    },
+    {
+      "check": "component-missing",
+      "severity": "error",
+      "subject": "interventricular-fat-band",
+      "detail": "specified component 'interventricular-fat-band' has no matching part in the built model, and its parent 'epicardial-fat' is missing too"
+    },
+    {
+      "check": "component-missing",
+      "severity": "error",
+      "subject": "right-coronary-fat-band",
+      "detail": "specified component 'right-coronary-fat-band' has no matching part in the built model, and its parent 'epicardial-fat' is missing too"
+    },
+    {
+      "check": "part-not-specified",
+      "severity": "info",
+      "subject": "\u5fc3\u5ba4\u808c\u6027\u4e3b\u4f53",
+      "detail": "built part has no matching component in the spec (fine for detail groups; a sign of spec drift for anything larger)"
+    },
+    {
+      "check": "part-not-specified",
+      "severity": "info",
+      "subject": "\u5fc3\u810f\u90e8\u4ef6 \u00b7 aortic-arch-wall",
+      "detail": "built part has no matching component in the spec (fine for detail groups; a sign of spec drift for anything larger)"
+    },
+    {
+      "check": "part-not-specified",
+      "severity": "info",
+      "subject": "\u5fc3\u810f\u90e8\u4ef6 \u00b7 brachiocephalic-branch-inner-wall",
+      "detail": "built part has no matching component in the spec (fine for detail groups; a sign of spec drift for anything larger)"
+    },
+    {
+      "check": "part-not-specified",
+      "severity": "info",
+      "subject": "\u5fc3\u810f\u90e8\u4ef6 \u00b7 brachiocephalic-branch-lumen",
+      "detail": "built part has no matching component in the spec (fine for detail groups; a sign of spec drift for anything larger)"
+    },
+    {
+      "check": "part-not-specified",
+      "severity": "info",
+      "subject": "\u5fc3\u810f\u90e8\u4ef6 \u00b7 brachiocephalic-branch-rim",
+      "detail": "built part has no matching component in the spec (fine for detail groups; a sign of spec drift for anything larger)"
+    },
+    {
+      "check": "part-not-specified",
+      "severity": "info",
+      "subject": "\u5fc3\u810f\u90e8\u4ef6 \u00b7 brachiocephalic-branch-wall",
+      "detail": "built part has no matching component in the spec (fine for detail groups; a sign of spec drift for anything larger)"
+    },
+    {
+      "check": "part-not-specified",
+      "severity": "info",
+      "subject": "\u5fc3\u810f\u90e8\u4ef6 \u00b7 left-auricle-surface",
+      "detail": "built part has no matching component in the spec (fine for detail groups; a sign of spec drift for anything larger)"
+    },
+    {
+      "check": "part-not-specified",
+      "severity": "info",
+      "subject": "\u5fc3\u810f\u90e8\u4ef6 \u00b7 left-carotid-branch-inner-wall",
+      "detail": "built part has no matching component in the spec (fine for detail groups; a sign of spec drift for anything larger)"
+    },
+    {
+      "check": "part-not-specified",
+      "severity": "info",
+      "subject": "\u5fc3\u810f\u90e8\u4ef6 \u00b7 left-carotid-branch-lumen",
+      "detail": "built part has no matching component in the spec (fine for detail groups; a sign of spec drift for anything larger)"
+    },
+    {
+      "check": "part-not-specified",
+      "severity": "info",
+      "subject": "\u5fc3\u810f\u90e8\u4ef6 \u00b7 left-carotid-branch-rim",
+      "detail": "built part has no matching component in the spec (fine for detail groups; a sign of spec drift for anything larger)"
+    },
+    {
+      "check": "part-not-specified",
+      "severity": "info",
+      "subject": "\u5fc3\u810f\u90e8\u4ef6 \u00b7 left-carotid-branch-wall",
+      "detail": "built part has no matching component in the spec (fine for detail groups; a sign of spec drift for anything larger)"
+    },
+    {
+      "check": "part-not-specified",
+      "severity": "info",
+      "subject": "\u5fc3\u810f\u90e8\u4ef6 \u00b7 left-subclavian-branch-inner-wall",
+      "detail": "built part has no matching component in the spec (fine for detail groups; a sign of spec drift for anything larger)"
+    },
+    {
+      "check": "part-not-specified",
+      "severity": "info",
+      "subject": "\u5fc3\u810f\u90e8\u4ef6 \u00b7 left-subclavian-branch-lumen",
+      "detail": "built part has no matching component in the spec (fine for detail groups; a sign of spec drift for anything larger)"
+    },
+    {
+      "check": "part-not-specified",
+      "severity": "info",
+      "subject": "\u5fc3\u810f\u90e8\u4ef6 \u00b7 left-subclavian-branch-rim",
+      "detail": "built part has no matching component in the spec (fine for detail groups; a sign of spec drift for anything larger)"
+    },
+    {
+      "check": "part-not-specified",
+      "severity": "info",
+      "subject": "\u5fc3\u810f\u90e8\u4ef6 \u00b7 left-subclavian-branch-wall",
+      "detail": "built part has no matching component in the spec (fine for detail groups; a sign of spec drift for anything larger)"
+    },
+    {
+      "check": "part-not-specified",
+      "severity": "info",
+      "subject": "\u5fc3\u810f\u90e8\u4ef6 \u00b7 right-auricle-surface",
+      "detail": "built part has no matching component in the spec (fine for detail groups; a sign of spec drift for anything larger)"
+    },
+    {
+      "check": "part-not-specified",
+      "severity": "info",
+      "subject": "\u5fc3\u810f\u90e8\u4ef6 \u00b7 right-pulmonary-branch-inner-wall",
+      "detail": "built part has no matching component in the spec (fine for detail groups; a sign of spec drift for anything larger)"
+    },
+    {
+      "check": "part-not-specified",
+      "severity": "info",
+      "subject": "\u5fc3\u810f\u90e8\u4ef6 \u00b7 right-pulmonary-branch-lumen",
+      "detail": "built part has no matching component in the spec (fine for detail groups; a sign of spec drift for anything larger)"
+    },
+    {
+      "check": "part-not-specified",
+      "severity": "info",
+      "subject": "\u5fc3\u810f\u90e8\u4ef6 \u00b7 right-pulmonary-branch-rim",
+      "detail": "built part has no matching component in the spec (fine for detail groups; a sign of spec drift for anything larger)"
+    },
+    {
+      "check": "part-not-specified",
+      "severity": "info",
+      "subject": "\u5fc3\u810f\u90e8\u4ef6 \u00b7 right-pulmonary-branch-wall",
+      "detail": "built part has no matching component in the spec (fine for detail groups; a sign of spec drift for anything larger)"
+    },
+    {
+      "check": "part-not-specified",
+      "severity": "info",
+      "subject": "\u5fc3\u810f\u90e8\u4ef6 \u00b7 ventricular-body-surface",
+      "detail": "built part has no matching component in the spec (fine for detail groups; a sign of spec drift for anything larger)"
+    }
+  ]
+}

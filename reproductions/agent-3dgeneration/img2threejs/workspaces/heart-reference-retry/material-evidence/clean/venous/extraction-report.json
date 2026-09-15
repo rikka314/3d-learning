@@ -1,0 +1,87 @@
+{
+  "ok": true,
+  "verdict": "pass",
+  "confidence": 0.77,
+  "estimatedFidelity": 0.77,
+  "targetThreshold": 0.7,
+  "materialId": "venous",
+  "sourceImage": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\material-evidence\\clean-crops\\venous.png",
+  "outDir": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\material-evidence\\clean\\venous",
+  "palette": [
+    "#99B4EB",
+    "#7699DD",
+    "#BECFF6",
+    "#4A75C1",
+    "#254A8A"
+  ],
+  "maps": {
+    "albedo": {
+      "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\material-evidence\\clean\\venous\\venous_albedo.png",
+      "url": "venous_albedo.png",
+      "channel": "albedo",
+      "source": "reference-pixel-extraction"
+    },
+    "roughness": {
+      "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\material-evidence\\clean\\venous\\venous_roughness.png",
+      "url": "venous_roughness.png",
+      "channel": "roughness",
+      "source": "reference-pixel-extraction"
+    },
+    "height": {
+      "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\material-evidence\\clean\\venous\\venous_height.png",
+      "url": "venous_height.png",
+      "channel": "height",
+      "source": "reference-pixel-extraction"
+    },
+    "normal": {
+      "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\material-evidence\\clean\\venous\\venous_normal.png",
+      "url": "venous_normal.png",
+      "channel": "normal",
+      "source": "reference-pixel-extraction"
+    },
+    "ao": {
+      "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\material-evidence\\clean\\venous\\venous_ao.png",
+      "url": "venous_ao.png",
+      "channel": "ao",
+      "source": "reference-pixel-extraction"
+    }
+  },
+  "diagnostics": {
+    "sourceWidth": 134,
+    "sourceHeight": 50,
+    "mapSize": 2048,
+    "cropBBoxPixels": {
+      "x": 0,
+      "y": 0,
+      "width": 134,
+      "height": 50
+    },
+    "mask": {
+      "backgroundColor": "#94B0EB",
+      "backgroundNoise": 195.849,
+      "transparentPixelFraction": 0.0,
+      "foregroundCoverage": 0.9231
+    },
+    "mapStats": {
+      "valueRange": 0.5729,
+      "heightP90Gradient": 0.01216,
+      "roughnessBase": 0.691,
+      "roughnessVariation": 0.05,
+      "normalStrength": 0.171,
+      "blurRadius": 28
+    },
+    "palette": [
+      "#99B4EB",
+      "#7699DD",
+      "#BECFF6",
+      "#4A75C1",
+      "#254A8A"
+    ]
+  },
+  "warnings": [
+    "image is not clearly isolated from background; using most pixels as material evidence",
+    "object/background separation is weak",
+    "single-image inverse rendering cannot prove true physical PBR; confidence is capped"
+  ],
+  "limitation": "single-image PBR extraction is an estimate; 70%+ extraction confidence still needs render screenshot review"
+}

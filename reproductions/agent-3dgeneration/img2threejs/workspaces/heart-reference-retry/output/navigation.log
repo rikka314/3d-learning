@@ -1,0 +1,9 @@
+### Ran Playwright code
+```js
+await page.goto('http://127.0.0.1:4174/?capture=1');
+```
+### Page
+- Page URL: http://127.0.0.1:4174/?capture=1
+- Page Title: 心脏 · 单图重建
+### Snapshot
+- [Snapshot](.playwright-cli\page-2026-09-05T05-46-46-023Z.yml)

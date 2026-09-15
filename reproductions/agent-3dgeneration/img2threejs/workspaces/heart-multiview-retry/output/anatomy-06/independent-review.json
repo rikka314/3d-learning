@@ -1,0 +1,46 @@
+{
+  "conclusion": "limited-scope-pass",
+  "reviewer": "Independent healthcare-reviewer agent; not a licensed expert certification",
+  "scope": "Normal adult external heart, right-dominant coronary teaching schematic",
+  "examined": [
+    "front.png",
+    "rear.png",
+    "left.png",
+    "right.png",
+    "threeQuarter.png",
+    "anatomy-check.json",
+    "vessel-clearance.json"
+  ],
+  "captureReportSha256": "b12706d090f32ec31c5d4a9a879885fa6726d7a76850444df7779c6875261ea9",
+  "verified": [
+    "external chamber regions and LV apex",
+    "aortic and pulmonary branch arrangement",
+    "external atrial attachments",
+    "coronary origin/course/drainage relationships",
+    "previously identified vessel overlaps and buried centerlines corrected"
+  ],
+  "unresolvedBlockingFindings": [],
+  "schematic": [
+    "chamber proportions",
+    "auricle shape",
+    "vessel caliber",
+    "small branches",
+    "vein crossover placement",
+    "fat and texture"
+  ],
+  "unmodeled": [
+    "true four cavities",
+    "internal outflow continuity",
+    "valves",
+    "septa",
+    "aortic sinus ostia",
+    "patent lumens",
+    "hemodynamics",
+    "patient scale"
+  ],
+  "sources": {
+    "OpenStax": "https://openstax.org/books/anatomy-and-physiology/pages/19-1-heart-anatomy",
+    "greatVessels": "https://www.ncbi.nlm.nih.gov/books/NBK547680/",
+    "cardiacVeins": "https://www.ncbi.nlm.nih.gov/books/NBK549786/"
+  }
+}

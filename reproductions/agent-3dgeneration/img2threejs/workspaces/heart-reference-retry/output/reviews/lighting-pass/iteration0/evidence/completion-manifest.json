@@ -1,0 +1,63 @@
+{
+  "passId": "lighting-pass",
+  "iterationId": "evidence",
+  "captureRoot": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\output\\reviews\\lighting-pass\\iteration0\\captures",
+  "reference": {
+    "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\reference.png",
+    "sha256": "6560b7e8c94bd8a46da7b1a5c3a2bc998fbd502d4f39c6816443b2595eb0f672"
+  },
+  "spec": {
+    "path": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\agent-3dgeneration\\img2threejs\\workspaces\\heart-reference-retry\\object-sculpt-spec.json",
+    "sha256": "00446c72d1112be20ed7d913f5e37f27ffe43a7b3af281e028815f58455b53c9"
+  },
+  "artifacts": [
+    {
+      "path": "anatomy-layout.json",
+      "sha256": "41cc33c54c96a709f9145e063a2c7d3b85a8eec1f419c20f88253ab5b8db0f60"
+    },
+    {
+      "path": "attachment-scope.json",
+      "sha256": "796c67e01e72132b0761116889c4b5b7e289d2965021cc1885ef5518643e1460"
+    },
+    {
+      "path": "comparison.json",
+      "sha256": "15e7feb010549a40c1ca365ddbf633ed80289c4935f2c333673bcd6499bd0513"
+    },
+    {
+      "path": "comparison.png",
+      "sha256": "f73a9a8a327a7b54c679d9a284882e25b554272bc73cd6baf858894a176e7884"
+    },
+    {
+      "path": "control-baseline-hashes.json",
+      "sha256": "24c9f2ca8bab7f2f5d66f7b6d96a63a9b851e178d2dbbfb066d226ec1b74b73f"
+    },
+    {
+      "path": "createHeartModel.ts",
+      "sha256": "876943edf355fc424c54e5a6328b891857d0479511013a34a9f0ae2e08a0f991"
+    },
+    {
+      "path": "heartMaterials.ts",
+      "sha256": "f7b42ed4c94f9cbab0b189200270d768d32a63a0e41ee0404ece92bc508be63c"
+    },
+    {
+      "path": "interior-difference.json",
+      "sha256": "7072f8962b982e6683927baa246c6316ebbdba553b23e497a4d7b4946d68c302"
+    },
+    {
+      "path": "main.ts",
+      "sha256": "2ac7a6dbfc92477ed3b92b6cad59dcfb6b6d23a0c7880f333fe02a06e32c4576"
+    },
+    {
+      "path": "multi-angle.json",
+      "sha256": "21fd21496c90b824b80c8cbcafac0082dfcddd02ef876415852aa037b56b337c"
+    },
+    {
+      "path": "tier1.json",
+      "sha256": "ad65541969a1953ef4aa12ba7c111c3713b3c471e505761df52aa01e0e00d4ec"
+    },
+    {
+      "path": "turntable.json",
+      "sha256": "69b3b23eb88fc7f6d81461781a90aa8a394a0415e98901cf9ad644804ce1cb68"
+    }
+  ]
+}

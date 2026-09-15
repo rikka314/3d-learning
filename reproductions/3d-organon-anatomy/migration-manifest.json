@@ -1,0 +1,140 @@
+{
+  "date": "2026-09-14",
+  "source": "E:\\BaiduNetdiskDownload\\3D Organon Anatomy",
+  "destination": "D:\\Learn\\20_Projects\\3dresearch\\3d-learning\\reproductions\\3d-organon-anatomy\\software",
+  "file_count": 26,
+  "total_bytes": 1758665762.0,
+  "verification": "All source and destination SHA256 hashes match; source directory moved",
+  "files": [
+    {
+      "path": "3D Organon Anatomy.exe",
+      "bytes": 1740312205,
+      "sha256": "5DF84DC2B007A3B6B16B18B02DBF89D1CBF7DC62E84544158BC22C2362816D43"
+    },
+    {
+      "path": "xsandbox.bin",
+      "bytes": 16,
+      "sha256": "EDB7BE3EF6098A1E24D0C72BBC6F968DEA773951A0DD07B63BAD6D9009AE3BF4"
+    },
+    {
+      "path": "local\\xregistry.bin",
+      "bytes": 3078,
+      "sha256": "3E5CDBBD71A3B94FE6B5E8788C21FDE8982BF0C5579EDB0686D116E47838D173"
+    },
+    {
+      "path": "local\\meta\\@PROGRAMFILESX86@\\Medis Media.__meta__",
+      "bytes": 32,
+      "sha256": "E6E210FA821463797D690682617069C89BF858451534AE49DACB2176207DA32F"
+    },
+    {
+      "path": "local\\meta\\@PROGRAMFILESX86@\\Medis Media\\3D Organon Anatomy.__meta__",
+      "bytes": 32,
+      "sha256": "E6E210FA821463797D690682617069C89BF858451534AE49DACB2176207DA32F"
+    },
+    {
+      "path": "local\\meta\\@PROGRAMFILESX86@\\Medis Media\\3D Organon Anatomy\\3D Organon Anatomy.exe.__meta__",
+      "bytes": 32,
+      "sha256": "5663AF0A53EC57DABA7C00A9A98D3A6358607E1CAF2019FE25BC1D545D485CEE"
+    },
+    {
+      "path": "local\\meta\\@PROGRAMFILESX86@\\Medis Media\\3D Organon Anatomy\\3D Organon Anatomy_Data\\RTVoiceTTSWrapper.exe.__meta__",
+      "bytes": 32,
+      "sha256": "D6BE67104035EAC16E14DD1FC3A293A962DB690FE0F40DCC328FB504889D8501"
+    },
+    {
+      "path": "local\\modified\\@PROGRAMFILESX86@\\Medis Media\\3D Organon Anatomy\\3D Organon Anatomy.exe",
+      "bytes": 18165760,
+      "sha256": "41F56533E2226FB7436DEC05D78D1F19B279983008BF3F57D87CA2FEC7833279"
+    },
+    {
+      "path": "local\\modified\\@PROGRAMFILESX86@\\Medis Media\\3D Organon Anatomy\\3D Organon Anatomy_Data\\RTVoiceTTSWrapper.exe",
+      "bytes": 10752,
+      "sha256": "C8A7E7693489EE52BBB0F9EDD0787AADA059FB864738093DA1D4DE1FC8C90C73"
+    },
+    {
+      "path": "local\\stubexe\\0xBA78601C240E1892\\3D Organon Anatomy.exe",
+      "bytes": 26712,
+      "sha256": "13ECEB637AE417AF3C70C003EFBBA14CB0669F239EA8C019D822A86477B0D936"
+    },
+    {
+      "path": "local\\stubexe\\0xBA78601C240E1892\\3D Organon Anatomy.exe.manifest",
+      "bytes": 1322,
+      "sha256": "37F4906A5EAD49AEDCB12B01C527E99D3D227E86F20F1FA5C0A40B43F8F169ED"
+    },
+    {
+      "path": "local\\stubexe\\0xCF17533BEC5FCF75\\RTVoiceTTSWrapper.exe",
+      "bytes": 29784,
+      "sha256": "6B40947B86E958CC85E56D14C964A96D6F4FAF6B415A1F64EC82247299E90988"
+    },
+    {
+      "path": "local\\stubexe\\0xCF17533BEC5FCF75\\RTVoiceTTSWrapper.exe.manifest",
+      "bytes": 432,
+      "sha256": "26F5D8CB25C19DBCF5FE7BD84701471D25F30C2B9B7ECB33997A9E417F95CC6A"
+    },
+    {
+      "path": "roaming\\xregistry.bin",
+      "bytes": 308,
+      "sha256": "E109C96B457D61853AE141A4EB9F7FCA02CD4F46FD33ECCFCE1F98D47070F2CB"
+    },
+    {
+      "path": "roaming\\meta\\@PROGRAMFILESX86@\\Medis Media\\3D Organon Anatomy\\steam_api.ini.__meta__",
+      "bytes": 32,
+      "sha256": "CFD871F45497E4DE20CDAD250EF338C89D64A12EE6380D9604948F6EB6C6330B"
+    },
+    {
+      "path": "roaming\\meta\\@PROGRAMFILESX86@\\Medis Media\\3D Organon Anatomy\\3D Organon Anatomy_Data\\Dictionary.xml.__meta__",
+      "bytes": 32,
+      "sha256": "657B454916A7C9E727488B0BD29E782B5F2728D0786876FAA4BCCFAC9C4FBB7D"
+    },
+    {
+      "path": "roaming\\meta\\@PROGRAMFILESX86@\\Medis Media\\3D Organon Anatomy\\3D Organon Anatomy_Data\\output_log.txt.__meta__",
+      "bytes": 32,
+      "sha256": "DD31EB3B5078E0C88B915077A545DBEE73DF2DAD6F52BAA6110080B90D117DC6"
+    },
+    {
+      "path": "roaming\\meta\\@PROGRAMFILESX86@\\Medis Media\\3D Organon Anatomy\\3D Organon Anatomy_Data\\Resources\\LocalScenes\\0.xml.__meta__",
+      "bytes": 32,
+      "sha256": "8A6A6AB26EE35DC3B3A17D38055A7EC81ECBA663F1E43A1283FA6B1F61DFA6EC"
+    },
+    {
+      "path": "roaming\\meta\\@PROGRAMFILESX86@\\Medis Media\\3D Organon Anatomy\\3D Organon Anatomy_Data\\Resources\\LocalScenes\\1.xml.__meta__",
+      "bytes": 32,
+      "sha256": "8A6A6AB26EE35DC3B3A17D38055A7EC81ECBA663F1E43A1283FA6B1F61DFA6EC"
+    },
+    {
+      "path": "roaming\\meta\\@PROGRAMFILESX86@\\Medis Media\\3D Organon Anatomy\\3D Organon Anatomy_Data\\Resources\\LocalScenes\\2.xml.__meta__",
+      "bytes": 32,
+      "sha256": "8A6A6AB26EE35DC3B3A17D38055A7EC81ECBA663F1E43A1283FA6B1F61DFA6EC"
+    },
+    {
+      "path": "roaming\\modified\\@PROGRAMFILESX86@\\Medis Media\\3D Organon Anatomy\\steam_api.ini",
+      "bytes": 1997,
+      "sha256": "57B15F987C9DD18E0BD23BE9860A66112A9A35B111BC5039EE85E9A9DB3EF466"
+    },
+    {
+      "path": "roaming\\modified\\@PROGRAMFILESX86@\\Medis Media\\3D Organon Anatomy\\3D Organon Anatomy_Data\\Dictionary.xml",
+      "bytes": 2242,
+      "sha256": "96E82149DB45AEAF0377654A70965EBD6F8D7152BA8C474D903476AE37E79587"
+    },
+    {
+      "path": "roaming\\modified\\@PROGRAMFILESX86@\\Medis Media\\3D Organon Anatomy\\3D Organon Anatomy_Data\\output_log.txt",
+      "bytes": 7469,
+      "sha256": "7A060C3B2FB19824887DDC98BD8CE43BF46467D14F738CD1DDFF9410467ED7B2"
+    },
+    {
+      "path": "roaming\\modified\\@PROGRAMFILESX86@\\Medis Media\\3D Organon Anatomy\\3D Organon Anatomy_Data\\Resources\\LocalScenes\\0.xml",
+      "bytes": 34455,
+      "sha256": "33388383A1CF9CCF7DE2898986C769002633B010CE95E80105A4C924F134C7D4"
+    },
+    {
+      "path": "roaming\\modified\\@PROGRAMFILESX86@\\Medis Media\\3D Organon Anatomy\\3D Organon Anatomy_Data\\Resources\\LocalScenes\\1.xml",
+      "bytes": 34455,
+      "sha256": "33388383A1CF9CCF7DE2898986C769002633B010CE95E80105A4C924F134C7D4"
+    },
+    {
+      "path": "roaming\\modified\\@PROGRAMFILESX86@\\Medis Media\\3D Organon Anatomy\\3D Organon Anatomy_Data\\Resources\\LocalScenes\\2.xml",
+      "bytes": 34455,
+      "sha256": "33388383A1CF9CCF7DE2898986C769002633B010CE95E80105A4C924F134C7D4"
+    }
+  ]
+}

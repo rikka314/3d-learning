@@ -1,0 +1,17 @@
+{
+  "passed": false,
+  "checks": {
+    "silhouetteIoU": 0.7134,
+    "aspectRatioDelta": 0.2284,
+    "scaleDelta": 0.254,
+    "bilateralSymmetryError": 0.2117
+  },
+  "failures": [
+    "silhouette IoU 0.713 is below threshold 0.85",
+    "aspect-ratio delta 0.228 exceeds threshold 0.05",
+    "scale delta 0.254 exceeds threshold 0.08"
+  ],
+  "maskWarnings": [],
+  "renderHash": "708af8365348e1d8",
+  "passId": null
+}

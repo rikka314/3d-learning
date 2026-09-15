@@ -1,0 +1,20 @@
+[
+  {
+    "id": "heart-silhouette",
+    "score": 0.89,
+    "visible": true,
+    "notes": "Closed C1 loft and right-biased apex retain the reference silhouette."
+  },
+  {
+    "id": "great-vessel-topology",
+    "score": 0.87,
+    "visible": true,
+    "notes": "Connected aortic and pulmonary systems retain the intended macro topology."
+  },
+  {
+    "id": "atria-fat-coronaries",
+    "score": 0.75,
+    "visible": true,
+    "notes": "Fails form threshold: fat bed buries central lobules, major trunks sit too proud, and auricular ripples are harsh and regular."
+  }
+]
